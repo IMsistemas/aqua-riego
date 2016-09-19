@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+/*--------------------------------------Raidel-------------------------------------------------*/
+/*===================================Solicitud=================================================*/
+
+//Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Solicitud
+Route::resource('solicitud', 'Solicitud\SolicitudController');
+
+/*--------------------------------------Yamilka-------------------------------------------------*/
