@@ -24,9 +24,48 @@ class SolicitudController extends Controller
 
     public function getSolicitudes()
     {
-        return Solicitud::with('cliente')->get();
+        //return Solicitud::with('cliente')->get();
+        return Solicitud::join('cliente', 'solicitud.codigocliente', '=', 'cliente.codigocliente')->get();
     }
 
+    public function getByFilters($filters)
+    {
+        $filter = json_decode($filters);
+
+        $solicitud = Solicitud::join('cliente', 'solicitud.codigocliente', '=', 'cliente.codigocliente');
+
+        if($filter->text != null){
+            $solicitud->where('cliente.nombre',  'LIKE',  '%' . $filter->text . '%');
+            $solicitud->orWhere('cliente.apellido',  'LIKE',  '%' . $filter->text . '%');
+        }
+
+        if($filter->estado != null){
+            $solicitud->where('estaprocesada', $filter->estado);
+        }
+
+        /*$solicitud = Solicitud::with('cliente');
+
+        if($filter->text != null){
+
+            $solicitud = Solicitud::with([
+                'cliente' => function($query) use ($filter) {
+                    $query->where('cliente.nombre',  'LIKE',  '%' . $filter->text . '%');
+                    $query->orWhere('cliente.apellido',  'LIKE',  '%' . $filter->text . '%');
+                }
+            ]);
+
+            $solicitud = Solicitud::with('cliente');
+            $solicitud->where('cliente.nombre',  'LIKE',  '%' . $filter->text . '%');
+            $solicitud->orWhere('cliente.apellido',  'LIKE',  '%' . $filter->text . '%');
+
+        }*/
+
+        /*if($filter->estado != null){
+            $solicitud->whereRaw('estaprocesada = ' . $filter->estado);
+        }*/
+
+        return $solicitud->get();
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -3,6 +3,11 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
     $scope.solicitudes = [];
 
+    $scope.estados = [
+        { id: 1, name: 'Procesado' },
+        { id: 0, name: 'En Espera' },
+    ];
+
     $scope.initLoad = function () {
         $http.get(API_URL + 'solicitud/getSolicitudes').success(function(response){
             $scope.solicitudes = response;
@@ -24,13 +29,16 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
                 $scope.t_fecha_ingreso = dd + "\/" + mm + "\/" + yyyy;
 
-                /*$http.get(API_URL + 'cargo/lastId').success(function(response){
-
-                    $scope.idcargo = response.lastId;
-                    $scope.form_title = "Ingresar nuevo Cargo";
-                    $scope.nombrecargo = '';
-                    $('#modalActionCargo').modal('show');
-                });*/
+                $scope.t_doc_id = '';
+                $scope.t_apellidos = '';
+                $scope.t_nombres = '';
+                $scope.t_telf_principal = '';
+                $scope.t_telf_secundario = '';
+                $scope.t_celular = '';
+                $scope.t_direccion = '';
+                $scope.t_telf_principal_emp = '';
+                $scope.t_telf_secundario_emp = '';
+                $scope.t_direccion_emp = '';
 
                 $('#modalIngSolicitud').modal('show');
 
@@ -79,6 +87,27 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             console.log(res);
         });
 
+    };
+
+    $scope.searchByFilter = function() {
+        var text = null;
+        var estado = null;
+
+        if($scope.search != undefined && $scope.search != ''){
+            text = $scope.search;
+        }
+
+        if ($scope.t_estado != undefined && $scope.t_estado != ''){
+            estado = $scope.t_estado;
+        }
+
+        var filters = {
+            text: text, estado: estado
+        };
+
+        $http.get(API_URL + 'solicitud/getByFilter/' + JSON.stringify(filters)).success(function(response){
+            $scope.solicitudes = response;
+        });
     };
 
     $scope.initLoad();

@@ -21,6 +21,9 @@ Route::get('/', function () {
 
 
 Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicitudes');
+
+Route::get('solicitud/getByFilter/{filters}', 'Solicitud\SolicitudController@getByFilters');
+
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Solicitud
 Route::resource('solicitud', 'Solicitud\SolicitudController');
 

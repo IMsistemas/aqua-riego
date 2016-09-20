@@ -22,7 +22,7 @@
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group has-feedback">
                         <input type="text" class="form-control" id="search" placeholder="BUSCAR..."
-                               ng-model="search" ng-change="">
+                               ng-model="search" ng-change="searchByFilter()">
                         <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                     </div>
                 </div>
@@ -30,12 +30,14 @@
                     <div class="form-group">
                         <label for="t_estado" class="col-sm-4 control-label">Estado:</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="t_estado" id="t_estado" ng-model="t_estado"> </select>
+                            <select class="form-control" name="t_estado" id="t_estado"
+                                    ng-model="t_estado" ng-options="value.id as value.name for value in estados"
+                                    ng-change="searchByFilter()"> </select>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2 col-xs-12">
-                    <button type="button" class="btn btn-primary" ng-click="toggle('add', 0)">
+                <div class="col-sm-2 col-xs-12" style="padding: 0;">
+                    <button type="button" class="btn btn-primary" style="float: right;" ng-click="toggle('add', 0)">
                         Nuevo <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -58,9 +60,9 @@
                         <tr ng-repeat="solicitud in solicitudes" ng-cloak>
                             <td>{{solicitud.idsolicitud}}</td>
                             <td>{{solicitud.fechasolicitud}}</td>
-                            <td>{{solicitud.cliente.apellido + ' ' + solicitud.cliente.nombre}}</td>
-                            <td>{{solicitud.cliente.direcciondomicilio}}</td>
-                            <td>{{solicitud.cliente.telefonoprincipaldomicilio}}</td>
+                            <td>{{solicitud.apellido + ' ' + solicitud.nombre}}</td>
+                            <td>{{solicitud.direcciondomicilio}}</td>
+                            <td>{{solicitud.telefonoprincipaldomicilio}}</td>
                             <td ng-if="solicitud.estaprocesada == true"><span class="label label-primary" style="font-size: 14px !important;">Procesada</span></td>
                             <td ng-if="solicitud.estaprocesada == false"><span class="label label-warning" style="font-size: 14px !important;">En Espera</span></td>
                             <td ng-if="solicitud.estaprocesada == true">
@@ -98,7 +100,7 @@
                             <h4 class="modal-title">Ingresar Solicitud</h4>
                         </div>
                         <div class="modal-body">
-                            <form class="form-horizontal" name="formCargo" novalidate="">
+                            <form class="form-horizontal" name="formSolicitud" novalidate="">
 
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12 form-group">
@@ -120,46 +122,68 @@
                                         <legend>Datos de Cliente</legend>
 
                                         <div class="col-xs-12" style="padding: 0;">
-                                            <div class="col-sm-6 col-xs-12">
+                                            <div class="col-sm-6 col-xs-12 form-group error">
                                                 <label for="t_doc_id" class="col-sm-4 col-xs-12 control-label">Documento ID:</label>
                                                 <div class="col-sm-8 col-xs-12">
-                                                    <input type="text" class="form-control" name="t_doc_id" id="t_fecha_ingreso" ng-model="t_doc_id">
+                                                    <input type="text" class="form-control" name="t_doc_id" id="t_doc_id"
+                                                           ng-model="t_doc_id" ng-required="true" ng-minlength="10" ng-pattern="/[0-9a-zA-Z]+/">
+                                                    <span class="help-block error"
+                                                          ng-show="formSolicitud.t_doc_id.$invalid && formSolicitud.t_doc_id.$touched">El Identificación es requerida</span>
+                                                    <span class="help-block error"
+                                                          ng-show="formSolicitud.t_doc_id.$invalid && formSolicitud.t_doc_id.$error.minlength">La longitud minima es de 10 caracteres</span>
+                                                    <span class="help-block error"
+                                                          ng-show="formSolicitud.t_doc_id.$invalid && formSolicitud.t_doc_id.$error.pattern">La Identificación debe ser solo números y letras</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-xs-12"></div>
                                         </div>
 
-                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_apellidos" class="col-sm-4 col-xs-12 control-label">Apellidos:</label>
                                             <div class="col-sm-8 col-xs-12">
-                                                <input type="text" class="form-control" name="t_apellidos" id="t_apellidos" ng-model="t_apellidos">
+                                                <input type="text" class="form-control" name="t_apellidos" id="t_apellidos"
+                                                       ng-model="t_apellidos" ng-required="true">
+                                                <span class="help-block error"
+                                                      ng-show="formSolicitud.t_apellidos.$invalid && formSolicitud.t_apellidos.$touched">El Apellido es requerido</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_nombres" class="col-sm-4 col-xs-12 control-label">Nombre(s):</label>
                                             <div class="col-sm-8 col-xs-12">
-                                                <input type="text" class="form-control" name="t_nombres" id="t_nombres" ng-model="t_nombres">
+                                                <input type="text" class="form-control" name="t_nombres" id="t_nombres"
+                                                       ng-model="t_nombres" ng-required="true">
+                                                <span class="help-block error"
+                                                      ng-show="formSolicitud.t_nombres.$invalid && formSolicitud.t_nombres.$touched">El Nombre(s) es requerido</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_telf_principal" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Teléf. Principal:</label>
                                             <div class="col-sm-8 col-xs-12">
-                                                <input type="text" class="form-control" name="t_telf_principal" id="t_telf_principal" ng-model="t_telf_principal">
+                                                <input type="text" class="form-control" name="t_telf_principal" id="t_telf_principal"
+                                                       ng-model="t_telf_principal" ng-pattern="/^([0-9-\(\)]+)$/">
+                                                <span class="help-block error"
+                                                      ng-show="formSolicitud.t_telf_principal.$invalid && formSolicitud.t_telf_principal.$error.pattern">Solo números, guion y parentesis</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_telf_secundario" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Teléf. Secundario:</label>
                                             <div class="col-sm-8 col-xs-12">
-                                                <input type="text" class="form-control" name="t_telf_secundario" id="t_telf_secundario" ng-model="t_telf_secundario">
+                                                <input type="text" class="form-control" name="t_telf_secundario" id="t_telf_secundario"
+                                                       ng-model="t_telf_secundario" ng-pattern="/^([0-9-\(\)]+)$/">
+                                                <span class="help-block error"
+                                                      ng-show="formSolicitud.t_telf_secundario.$invalid && formSolicitud.t_telf_secundario.$error.pattern">Solo números, guion y parentesis</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_celular" class="col-sm-4 col-xs-12 control-label">Celular:</label>
                                             <div class="col-sm-8 col-xs-12">
-                                                <input type="text" class="form-control" name="t_celular" id="t_celular" ng-model="t_celular">
+                                                <input type="text" class="form-control" name="t_celular" id="t_celular"
+                                                       ng-model="t_celular" ng-pattern="/^([0-9-\(\)]+)$/">
+                                                <span class="help-block error"
+                                                      ng-show="formSolicitud.t_celular.$invalid && formSolicitud.t_celular.$error.pattern">Solo números, guion y parentesis</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_direccion" class="col-sm-4 col-xs-12 control-label">Dirección:</label>
                                             <div class="col-sm-8 col-xs-12">
                                                 <input type="text" class="form-control" name="t_direccion" id="t_direccion" ng-model="t_direccion">
@@ -171,19 +195,25 @@
                                 <div class="row" style="padding: 2%;">
                                     <fieldset>
                                         <legend>Datos del Trabajo</legend>
-                                        <div class="col-sm-6 col-xs-12">
+                                        <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_telf_principal_emp" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Teléf. Principal:</label>
                                             <div class="col-sm-8 col-xs-12">
-                                                <input type="text" class="form-control" name="t_telf_principal_emp" id="t_telf_principal_emp" ng-model="t_telf_principal_emp">
+                                                <input type="text" class="form-control" name="t_telf_principal_emp" id="t_telf_principal_emp"
+                                                       ng-model="t_telf_principal_emp" ng-pattern="/^([0-9-\(\)]+)$/">
+                                                <span class="help-block error"
+                                                      ng-show="formSolicitud.t_telf_principal_emp.$invalid && formSolicitud.t_telf_principal_emp.$error.pattern">Solo números, guion y parentesis</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-xs-12">
+                                        <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_telf_secundario_emp" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Teléf. Secundario:</label>
                                             <div class="col-sm-8 col-xs-12">
-                                                <input type="text" class="form-control" name="t_telf_secundario_emp" id="t_telf_secundario_emp" ng-model="t_telf_secundario_emp">
+                                                <input type="text" class="form-control" name="t_telf_secundario_emp" id="t_telf_secundario_emp"
+                                                       ng-model="t_telf_secundario_emp" ng-pattern="/^([0-9-\(\)]+)$/">
+                                                <span class="help-block error"
+                                                      ng-show="formSolicitud.t_telf_secundario_emp.$invalid && formSolicitud.t_telf_secundario_emp.$error.pattern">Solo números, guion y parentesis</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_direccion_emp" class="col-sm-4 col-xs-12 control-label">Dirección:</label>
                                             <div class="col-sm-8 col-xs-12">
                                                 <input type="text" class="form-control" name="t_direccion_emp" id="t_direccion_emp" ng-model="t_direccion_emp">
@@ -192,30 +222,13 @@
                                     </fieldset>
                                 </div>
 
-                                <!--<div class="form-group">
-                                    <label for="t_codigo_cargo" class="col-sm-4 control-label">Código Cargo:</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="idcargo" id="idcargo" ng-model="idcargo" placeholder="" disabled>
-                                    </div>
-                                </div>
-                                <div class="form-group error">
-                                    <label for="t_name_cargo" class="col-sm-4 control-label">Nombre del Cargo:</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" name="nombrecargo" id="nombrecargo" ng-model="nombrecargo" placeholder=""
-                                               ng-required="true" ng-maxlength="16">
-                                        <span class="help-block error"
-                                              ng-show="formCargo.nombrecargo.$invalid && formCargo.nombrecargo.$touched">El nombre del Cargo es requerido</span>
-                                        <span class="help-block error"
-                                              ng-show="formCargo.nombrecargo.$invalid && formCargo.nombrecargo.$error.maxlength">La longitud máxima es de 16 caracteres</span>
-                                    </div>
-                                </div>-->
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-success" id="btn-save" ng-click="save()" >
+                            <button type="button" class="btn btn-success" id="btn-save" ng-click="save()" ng-disabled="formSolicitud.$invalid">
                                 Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                             </button>
                         </div>
