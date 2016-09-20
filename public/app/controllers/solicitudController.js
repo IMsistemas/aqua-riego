@@ -1,4 +1,10 @@
 
+app.filter('formatDate', function(){
+    return function(texto){
+        return convertDatetoDB(texto, true);
+    }
+});
+
 app.controller('solicitudController', function($scope, $http, API_URL) {
 
     $scope.solicitudes = [];
@@ -131,23 +137,5 @@ function convertDatetoDB(now, revert){
     } else {
         var t = now.split('-');
         return t[2] + '/' + t[1] + '/' + t[0];
-    }
-}
-
-function isOnlyNumberPto(field, e, length) {
-    var valor = document.getElementById(field.id);
-    if (length != undefined) {
-        if (valor.length == length) return false;
-    }
-    if (valor != undefined) {
-        var k = (document.all) ? e.keyCode : e.which;
-        if (k == 8 || k == 0) return true;
-        var patron = /\d/;
-        var n = String.fromCharCode(k);
-        if (n == ".") {
-            if (valor.indexOf('.') != -1 || valor.length < 0) {
-                return false;
-            } else return true;
-        } else return patron.test(n);
     }
 }

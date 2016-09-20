@@ -13,6 +13,12 @@
         <link href="<?= asset('css/bootstrap-datetimepicker.min.css') ?>" rel="stylesheet">
         <link href="<?= asset('css/style_generic_app.css') ?>" rel="stylesheet">
 
+        <style>
+            td{
+                vertical-align: middle !important;
+            }
+        </style>
+
     </head>
     <body>
 
@@ -59,7 +65,7 @@
                     <tbody>
                         <tr ng-repeat="solicitud in solicitudes" ng-cloak>
                             <td>{{solicitud.idsolicitud}}</td>
-                            <td>{{solicitud.fechasolicitud}}</td>
+                            <td>{{solicitud.fechasolicitud | formatDate}}</td>
                             <td>{{solicitud.apellido + ' ' + solicitud.nombre}}</td>
                             <td>{{solicitud.direcciondomicilio}}</td>
                             <td>{{solicitud.telefonoprincipaldomicilio}}</td>
@@ -118,7 +124,7 @@
                                 </div>
 
                                 <div class="row" style="padding: 2%; margin-top: -15px !important;">
-                                    <filedset>
+                                    <fieldset>
                                         <legend>Datos de Cliente</legend>
 
                                         <div class="col-xs-12" style="padding: 0;">
@@ -189,7 +195,7 @@
                                                 <input type="text" class="form-control" name="t_direccion" id="t_direccion" ng-model="t_direccion">
                                             </div>
                                         </div>
-                                    </filedset>
+                                    </fieldset>
                                 </div>
 
                                 <div class="row" style="padding: 2%;">
