@@ -45,24 +45,46 @@
                 <table class="table table-responsive table-striped table-hover table-condensed">
                     <thead class="bg-primary">
                         <tr>
-                            <th>Nro. Solicitud</th>
-                            <th>Fecha</th>
+                            <th style="width: 10%;">Nro. Solicitud</th>
+                            <th style="width: 10%;">Fecha</th>
                             <th>Cliente</th>
                             <th>Dirección</th>
-                            <th>Teléfono</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
+                            <th style="width: 10%;">Teléfono</th>
+                            <th style="width: 10%;">Estado</th>
+                            <th style="width: 14%;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="solicitud in solicitudes" ng-cloak>
                             <td>{{solicitud.idsolicitud}}</td>
                             <td>{{solicitud.fechasolicitud}}</td>
-                            <td>{{solicitud.apellido + ' ' + solicitud.nombre}}</td>
-                            <td>{{solicitud.direcciondomicilio}}</td>
-                            <td>{{solicitud.telefonoprincipaldomicilio}}</td>
-                            <td>{{solicitud.estaprocesada}}</td>
-                            <td></td>
+                            <td>{{solicitud.cliente.apellido + ' ' + solicitud.cliente.nombre}}</td>
+                            <td>{{solicitud.cliente.direcciondomicilio}}</td>
+                            <td>{{solicitud.cliente.telefonoprincipaldomicilio}}</td>
+                            <td ng-if="solicitud.estaprocesada == true"><span class="label label-primary" style="font-size: 14px !important;">Procesada</span></td>
+                            <td ng-if="solicitud.estaprocesada == false"><span class="label label-warning" style="font-size: 14px !important;">En Espera</span></td>
+                            <td ng-if="solicitud.estaprocesada == true">
+                                <button type="button" class="btn btn-info" id="btn_inform" ng-click="" >
+                                    <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary" id="btn_process" ng-click="" >
+                                    <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btn btn-default" id="btn_pdf" ng-click="" >
+                                    <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                            <td ng-if="solicitud.estaprocesada == false">
+                                <button type="button" class="btn btn-info" id="btn_inform" ng-click="" disabled>
+                                    <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary" id="btn_process" ng-click="" >
+                                    <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btn btn-default" id="btn_pdf" ng-click="" disabled>
+                                    <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -82,13 +104,13 @@
                                     <div class="col-sm-6 col-xs-12 form-group">
                                         <label for="t_no_solicitud" class="col-sm-4 col-xs-12 control-label">Nro. Solicitud:</label>
                                         <div class="col-sm-8 col-xs-12">
-                                            <input type="text" class="form-control" name="t_no_solicitud" id="t_no_solicitud" ng-model="t_no_solicitud" disabled>
+                                            <input type="text" class="form-control" name="t_no_solicitud" id="t_no_solicitud" ng-model="t_no_solicitud" >
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-xs-12 form-group">
                                         <label for="t_fecha_ingreso" class="col-sm-4 col-xs-12 control-label">Fecha Ingreso:</label>
                                         <div class="col-sm-8 col-xs-12">
-                                            <input type="text" class="form-control" name="t_fecha_ingreso" id="t_fecha_ingreso" ng-model="t_fecha_ingreso">
+                                            <input type="text" class="form-control datepicker" name="t_fecha_ingreso" id="t_fecha_ingreso" ng-model="t_fecha_ingreso">
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +215,7 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-success" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="formCargo.$invalid">
+                            <button type="button" class="btn btn-success" id="btn-save" ng-click="save()" >
                                 Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                             </button>
                         </div>

@@ -12,7 +12,7 @@ class Cliente extends Model
     public $timestamps = false;
 
     public function solicitud(){
-    	return $this->hasMany('App\Modelos\Solicitud','idsolicitud');
+    	return $this->hasMany('App\Modelos\Solicitud\Solicitud','idsolicitud');
     }
 
 }

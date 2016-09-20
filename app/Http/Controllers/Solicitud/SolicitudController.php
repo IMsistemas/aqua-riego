@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Solicitud;
 
+use App\Modelos\Clientes\Cliente;
 use App\Modelos\Solicitud\Solicitud;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,32 @@ class SolicitudController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $cliente = new Cliente();
+
+        $cliente->documentoidentidad = $request->input('codigocliente');
+        $cliente->fechaingreso = $request->input('fechaingreso');
+        $cliente->apellido = $request->input('apellido');
+        $cliente->nombre = $request->input('nombre');
+        $cliente->celular = $request->input('celular');
+        $cliente->direcciondomicilio = $request->input('direccion');
+        $cliente->telefonoprincipaldomicilio = $request->input('telefonoprincipal');
+        $cliente->telefonosecundariodomicilio = $request->input('telefonosecundario');
+        $cliente->direcciontrabajo = $request->input('direccionemp');
+        $cliente->telefonoprincipaltrabajo = $request->input('telfprincipalemp');
+        $cliente->telefonosecundariotrabajo = $request->input('telfsecundarioemp');
+        $cliente->estaactivo = true;
+
+        $cliente->save();
+
+        $solicitud = new Solicitud();
+        $solicitud->codigocliente = $cliente->codigocliente;
+        $solicitud->fechasolicitud = $request->input('fechaingreso');
+        $solicitud->estaprocesada = false;
+        $solicitud->save();
+
+        return response()->json(['success' => true]);
+
     }
 
     /**
