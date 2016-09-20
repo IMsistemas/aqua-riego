@@ -82,7 +82,8 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             direccion: $scope.t_direccion,
             telfprincipalemp: $scope.t_telf_principal_emp,
             telfsecundarioemp: $scope.t_telf_secundario_emp,
-            direccionemp: $scope.t_direccion_emp
+            direccionemp: $scope.t_direccion_emp,
+            email: $scope.t_email
         };
 
         $http.post(url, data ).success(function (response) {

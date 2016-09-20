@@ -93,6 +93,7 @@ class SolicitudController extends Controller
         $cliente->apellido = $request->input('apellido');
         $cliente->nombre = $request->input('nombre');
         $cliente->celular = $request->input('celular');
+        $cliente->correo = $request->input('email');
         $cliente->direcciondomicilio = $request->input('direccion');
         $cliente->telefonoprincipaldomicilio = $request->input('telefonoprincipal');
         $cliente->telefonosecundariodomicilio = $request->input('telefonosecundario');

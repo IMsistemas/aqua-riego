@@ -66,7 +66,7 @@
                         <tr ng-repeat="solicitud in solicitudes" ng-cloak>
                             <td>{{solicitud.idsolicitud}}</td>
                             <td>{{solicitud.fechasolicitud | formatDate}}</td>
-                            <td>{{solicitud.apellido + ' ' + solicitud.nombre}}</td>
+                            <td><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{solicitud.apellido + ' ' + solicitud.nombre}}</td>
                             <td>{{solicitud.direcciondomicilio}}</td>
                             <td>{{solicitud.telefonoprincipaldomicilio}}</td>
                             <td ng-if="solicitud.estaprocesada == true"><span class="label label-primary" style="font-size: 14px !important;">Procesada</span></td>
@@ -132,16 +132,22 @@
                                                 <label for="t_doc_id" class="col-sm-4 col-xs-12 control-label">Documento ID:</label>
                                                 <div class="col-sm-8 col-xs-12">
                                                     <input type="text" class="form-control" name="t_doc_id" id="t_doc_id"
-                                                           ng-model="t_doc_id" ng-required="true" ng-minlength="10" ng-pattern="/[0-9a-zA-Z]+/">
+                                                           ng-model="t_doc_id" ng-required="true" ng-pattern="/^([0-9a-zA-Z]+)$/">
                                                     <span class="help-block error"
                                                           ng-show="formSolicitud.t_doc_id.$invalid && formSolicitud.t_doc_id.$touched">El Identificación es requerida</span>
-                                                    <span class="help-block error"
-                                                          ng-show="formSolicitud.t_doc_id.$invalid && formSolicitud.t_doc_id.$error.minlength">La longitud minima es de 10 caracteres</span>
                                                     <span class="help-block error"
                                                           ng-show="formSolicitud.t_doc_id.$invalid && formSolicitud.t_doc_id.$error.pattern">La Identificación debe ser solo números y letras</span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6 col-xs-12"></div>
+                                            <div class="col-sm-6 col-xs-12 form-group error">
+                                                <label for="t_doc_id" class="col-sm-4 col-xs-12 control-label">Email:</label>
+                                                <div class="col-sm-8 col-xs-12">
+                                                    <input type="text" class="form-control" name="t_email" id="t_email"
+                                                           ng-model="t_email" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/">
+                                                    <span class="help-block error"
+                                                          ng-show="formSolicitud.t_email.$invalid && formSolicitud.t_email.$error.pattern">Formato de email no es correcto</span>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="col-sm-6 col-xs-12 form-group error">
