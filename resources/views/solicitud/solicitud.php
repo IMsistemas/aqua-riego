@@ -75,7 +75,7 @@
                                 <button type="button" class="btn btn-info" id="btn_inform" ng-click="" >
                                     <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn btn-primary" id="btn_process" ng-click="" >
+                                <button type="button" class="btn btn-primary" id="btn_process" ng-click="" disabled>
                                     <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" class="btn btn-default" id="btn_pdf" ng-click="" >
@@ -86,7 +86,7 @@
                                 <button type="button" class="btn btn-info" id="btn_inform" ng-click="" disabled>
                                     <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn btn-primary" id="btn_process" ng-click="" >
+                                <button type="button" class="btn btn-primary" id="btn_process" ng-click="toggle('process', 0)" >
                                     <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" class="btn btn-default" id="btn_pdf" ng-click="" disabled>
@@ -242,6 +242,148 @@
                             </button>
                             <button type="button" class="btn btn-success" id="btn-save" ng-click="save()" ng-disabled="formSolicitud.$invalid">
                                 Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalProcSolicitud">
+                <div class="modal-dialog" role="document" style="width: 60%;">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-primary">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Procesar Solicitud</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" name="formProcess" novalidate="">
+
+                                <div class="row" style="padding: 2%; margin-top: -15px !important;">
+                                    <fieldset>
+                                        <legend style="font-size: 16px; font-weight: bold;">Datos de Solicitud</legend>
+
+                                        <div class="col-xs-12" style="padding: 0;">
+                                            <div class="col-sm-6 col-xs-12">
+                                                <span class="label label-default" style="font-size: 12px !important;">Cliente:</span>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12">
+                                                <span class="label label-default" style="font-size: 12px !important;">Teléfono:</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                            <div class="col-xs-12">
+                                                <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div class="row" style="padding: 2%; margin-top: -15px !important;">
+                                    <fieldset>
+                                        <legend style="font-size: 16px; font-weight: bold;">Datos de Terreno</legend>
+
+                                        <div class="col-xs-12" style="padding: 0;">
+                                            <div class="col-sm-6 col-xs-12 form-group error">
+                                                <label for="t_terreno" class="col-sm-4 col-xs-12 control-label">Nro Terreno:</label>
+                                                <div class="col-sm-8 col-xs-12">
+                                                    <input type="text" class="form-control" name="t_terreno" id="t_terreno"
+                                                           ng-model="t_terreno" ng-required="true" ng-pattern="/^([0-9]+)$/">
+                                                    <span class="help-block error"
+                                                          ng-show="formProcess.t_doc_id.$invalid && formProcess.t_doc_id.$touched">El Nro. Terreno es requerido</span>
+                                                    <span class="help-block error"
+                                                          ng-show="formProcess.t_terreno.$invalid && formProcess.t_terreno.$error.pattern">El Nro. Terreno debe ser solo números</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12" style="padding: 0;">
+                                            <div class="col-sm-6 col-xs-12 form-group error">
+                                                <label for="t_junta" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Junta Modular:</label>
+                                                <div class="col-sm-8 col-xs-12">
+                                                    <select class="form-control" name="t_junta" id="t_junta"
+                                                           ng-model="t_junta" ></select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12 form-group error">
+                                                <label for="t_cultivo" class="col-sm-4 col-xs-12 control-label">Cultivo:</label>
+                                                <div class="col-sm-8 col-xs-12">
+                                                    <select class="form-control" name="t_cultivo" id="t_cultivo"
+                                                            ng-model="t_cultivo" ></select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12" style="padding: 0;">
+                                            <div class="col-sm-6 col-xs-12 form-group error">
+                                                <label for="t_area" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Area (m2):</label>
+                                                <div class="col-sm-8 col-xs-12">
+                                                    <input type="text" class="form-control" name="t_area" id="t_area"
+                                                           ng-model="t_area" ng-required="true" ng-pattern="/^([0-9]+)$/">
+                                                    <span class="help-block error"
+                                                          ng-show="formProcess.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
+                                                    <span class="help-block error"
+                                                          ng-show="formProcess.t_area.$invalid && formProcess.t_area.$error.pattern">El Area debe ser solo números</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12 form-group error" style="margin-top: 8px;">
+                                                <div class="col-xs-12">
+                                                    <span class="label label-default" style="font-size: 16px !important;">Causal:</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                                <div class="row" style="padding: 2%; margin-top: -25px !important;">
+                                    <fieldset>
+                                        <legend style="font-size: 16px; font-weight: bold;">Datos de Ubicación</legend>
+
+                                        <div class="col-sm-6 col-xs-12 form-group error">
+                                            <label for="t_tarifa" class="col-sm-4 col-xs-12 control-label">Tarifa:</label>
+                                            <div class="col-sm-8 col-xs-12">
+                                                <select class="form-control" name="t_tarifa" id="t_tarifa"
+                                                        ng-model="t_tarifa" ></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 form-group error">
+                                            <label for="t_canal" class="col-sm-4 col-xs-12 control-label">Canal:</label>
+                                            <div class="col-sm-8 col-xs-12">
+                                                <select class="form-control" name="t_canal" id="t_canal"
+                                                        ng-model="t_canal" ></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 form-group error">
+                                            <label for="t_toma" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Toma:</label>
+                                            <div class="col-sm-8 col-xs-12">
+                                                <select class="form-control" name="t_toma" id="t_toma"
+                                                        ng-model="t_toma" ></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-xs-12 form-group error">
+                                            <label for="t_derivacion" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Derivación:</label>
+                                            <div class="col-sm-8 col-xs-12">
+                                                <select class="form-control" name="t_derivacion" id="t_derivacion"
+                                                        ng-model="t_derivacion" ></select>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                                <div class="row" style="padding: 2%; margin-top: -25px !important;">
+                                    Valor Anual:
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary" id="btn-process" ng-click="" ng-disabled="formProcess.$invalid">
+                                Procesar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>

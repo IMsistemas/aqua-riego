@@ -49,16 +49,16 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                 $('#modalIngSolicitud').modal('show');
 
                 break;
-            case 'edit':
-                $scope.form_title = "Editar Cargo";
+            case 'process':
+                /*$scope.form_title = "Editar Cargo";
                 $scope.id = id;
 
                 $http.get(API_URL + 'cargo/' + id).success(function(response) {
                     $scope.idcargo = (response.idcargo).trim();
                     $scope.nombrecargo = (response.nombrecargo).trim();
                     $('#modalActionCargo').modal('show');
-                });
-
+                });*/
+                $('#modalProcSolicitud').modal('show');
                 break;
             default:
                 break;
