@@ -19,6 +19,8 @@ Route::get('/', function () {
 /*--------------------------------------Raidel-------------------------------------------------*/
 /*===================================Solicitud=================================================*/
 
+
+Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicitudes');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Solicitud
 Route::resource('solicitud', 'Solicitud\SolicitudController');
 

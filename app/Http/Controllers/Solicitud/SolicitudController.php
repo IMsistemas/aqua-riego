@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Solicitud;
 
+use App\Modelos\Solicitud\Solicitud;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,6 +19,13 @@ class SolicitudController extends Controller
     {
         return view('Solicitud.solicitud');
     }
+
+
+    public function getSolicitudes()
+    {
+        return Solicitud::with('cliente')->get();
+    }
+
 
     /**
      * Show the form for creating a new resource.

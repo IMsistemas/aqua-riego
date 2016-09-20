@@ -54,13 +54,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="solicitud in solicitudes">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr ng-repeat="solicitud in solicitudes" ng-cloak>
+                            <td>{{solicitud.idsolicitud}}</td>
+                            <td>{{solicitud.fechasolicitud}}</td>
+                            <td>{{solicitud.apellido + ' ' + solicitud.nombre}}</td>
+                            <td>{{solicitud.direcciondomicilio}}</td>
+                            <td>{{solicitud.telefonoprincipaldomicilio}}</td>
+                            <td>{{solicitud.estaprocesada}}</td>
                             <td></td>
                         </tr>
                     </tbody>
