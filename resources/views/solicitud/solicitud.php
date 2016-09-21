@@ -327,7 +327,8 @@
                                                 <label for="t_cultivo" class="col-sm-4 col-xs-12 control-label">Cultivo:</label>
                                                 <div class="col-sm-8 col-xs-12">
                                                     <select class="form-control" name="t_cultivo" id="t_cultivo"
-                                                            ng-model="t_cultivo" ng-options="value.id as value.label for value in cultivos"></select>
+                                                            ng-model="t_cultivo" ng-change="showAddCultivo()"
+                                                            ng-options="value.id as value.label for value in cultivos"></select>
                                                 </div>
                                             </div>
                                         </div>
@@ -404,6 +405,38 @@
                             </button>
                             <button type="button" class="btn btn-primary" id="btn-process" ng-click="" ng-disabled="formProcess.$invalid">
                                 Procesar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalAddCultivo">
+                <div class="modal-dialog" role="document" style="width: 350px; margin-top: 10%;">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-primary">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Agregar nuevo Cultivo</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" name="formCultivo" novalidate="">
+                                <div class="form-group error">
+                                    <label for="t_name_cargo" class="col-sm-4 control-label">Cultivo:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" name="t_n_cultivo" id="t_n_cultivo" ng-model="t_n_cultivo" placeholder="Ingrese nuevo Cultivo"
+                                               ng-required="true">
+                                        <span class="help-block error"
+                                              ng-show="formCultivo.t_n_cultivo.$invalid && formCultivo.t_n_cultivo.$touched">El nombre del Cultivo es requerido</span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-success" id="btn-save" ng-click="saveCultivo()" ng-disabled="formCultivo.$invalid">
+                                Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>

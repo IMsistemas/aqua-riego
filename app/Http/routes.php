@@ -36,6 +36,8 @@ Route::get('solicitud/getDerivaciones/{idtoma}', 'Solicitud\SolicitudController@
 
 Route::get('solicitud/getClienteByID/{idcliente}', 'Solicitud\SolicitudController@getClienteByID');
 
+Route::post('solicitud/saveCultivo', 'Solicitud\SolicitudController@saveCultivo');
+
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Solicitud
 Route::resource('solicitud', 'Solicitud\SolicitudController');
 

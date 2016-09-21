@@ -103,6 +103,14 @@ class SolicitudController extends Controller
         return Derivacion::where('idtoma', $idtoma)->orderBy('descripcionderivacion', 'asc')->get();
     }
 
+    public function saveCultivo(Request $request)
+    {
+        $cultivo = new Cultivo();
+        $cultivo->nombrecultivo = $request->input('name');
+        $cultivo->save();
+
+        return response()->json(['success' => true, 'idcultivo' => $cultivo->idcultivo]);
+    }
 
     /**
      * Show the form for creating a new resource.

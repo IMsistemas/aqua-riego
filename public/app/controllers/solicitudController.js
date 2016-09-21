@@ -130,7 +130,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         });
     };
 
-    $scope.loadCultivos = function(){
+    $scope.loadCultivos = function(idcultivo){
         $http.get(API_URL + 'solicitud/getCultivos').success(function(response){
             var longitud = response.length;
             var array_temp = [{label: 'Adicionar Nuevo', id: 0}];
@@ -138,6 +138,10 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                 array_temp.push({label: response[i].nombrecultivo, id: response[i].idcultivo})
             }
             $scope.cultivos = array_temp;
+
+            if (idcultivo != undefined){
+                $scope.t_cultivo = idcultivo;
+            }
         });
     };
 
@@ -177,6 +181,22 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.derivaciones = array_temp;
         });
     };
+
+    $scope.showAddCultivo = function(){
+        if($scope.t_cultivo == 0) {
+            $scope.t_n_cultivo = '';
+            $('#modalAddCultivo').modal('show');
+        }
+    };
+
+    $scope.saveCultivo = function () {
+        var cultivo = { name: $scope.t_n_cultivo };
+
+        $http.post(API_URL + 'solicitud/saveCultivo', cultivo).success(function(response){
+            $scope.loadCultivos(response.idcultivo);
+            $('#modalAddCultivo').modal('hide');
+        });
+    }
 
     $scope.initLoad();
 });
