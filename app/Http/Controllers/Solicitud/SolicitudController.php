@@ -6,6 +6,9 @@ use App\Modelos\Clientes\Cliente;
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Solicitud\Solicitud;
 use App\Modelos\Terreno\Cultivo;
+use App\Modelos\Ubicacion\Canal;
+use App\Modelos\Ubicacion\Derivacion;
+use App\Modelos\Ubicacion\Toma;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -77,6 +80,21 @@ class SolicitudController extends Controller
     public function getCultivos()
     {
         return Cultivo::orderBy('nombrecultivo', 'asc')->get();
+    }
+
+    public function getCanales()
+    {
+        return Canal::orderBy('descripcioncanal', 'asc')->get();
+    }
+
+    public function getTomas($idcanal)
+    {
+        return Toma::where('idcanal', $idcanal)->orderBy('descripciontoma', 'asc')->get();
+    }
+
+    public function getDerivaciones($idtoma)
+    {
+        return Derivacion::where('idtoma', $idtoma)->orderBy('descripcionderivacion', 'asc')->get();
     }
 
 

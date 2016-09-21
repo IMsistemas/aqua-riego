@@ -328,7 +328,7 @@
                                             </div>
                                             <div class="col-sm-6 col-xs-12 form-group error" style="margin-top: 8px;">
                                                 <div class="col-xs-12">
-                                                    <span class="label label-default" style="font-size: 16px !important;">Causal:</span>
+                                                    <span class="label label-default" style="font-size: 16px !important;">Caudal:</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -351,21 +351,23 @@
                                             <label for="t_canal" class="col-sm-4 col-xs-12 control-label">Canal:</label>
                                             <div class="col-sm-8 col-xs-12">
                                                 <select class="form-control" name="t_canal" id="t_canal"
-                                                        ng-model="t_canal" ></select>
+                                                        ng-model="t_canal" ng-options="value.id as value.label for value in canales"
+                                                        ng-change="loadTomas()"></select>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_toma" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Toma:</label>
                                             <div class="col-sm-8 col-xs-12">
                                                 <select class="form-control" name="t_toma" id="t_toma"
-                                                        ng-model="t_toma" ></select>
+                                                        ng-model="t_toma" ng-options="value.id as value.label for value in tomas"
+                                                        ng-change="loadDerivaciones()"></select>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_derivacion" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Derivación:</label>
                                             <div class="col-sm-8 col-xs-12">
                                                 <select class="form-control" name="t_derivacion" id="t_derivacion"
-                                                        ng-model="t_derivacion" ></select>
+                                                        ng-model="t_derivacion" ng-options="value.id as value.label for value in derivaciones"></select>
                                             </div>
                                         </div>
 

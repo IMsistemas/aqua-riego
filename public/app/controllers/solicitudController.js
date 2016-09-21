@@ -61,6 +61,8 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
                 $scope.loadBarrios();
                 $scope.loadCultivos();
+                $scope.loadCanales();
+
                 $('#modalProcSolicitud').modal('show');
                 break;
             default:
@@ -139,6 +141,43 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                 array_temp.push({label: response[i].nombrecultivo, id: response[i].idcultivo})
             }
             $scope.cultivos = array_temp;
+        });
+    };
+
+    $scope.loadCanales = function(){
+        $http.get(API_URL + 'solicitud/getCanales').success(function(response){
+            var longitud = response.length;
+            var array_temp = [];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].descripcioncanal, id: response[i].idcanal})
+            }
+            $scope.canales = array_temp;
+        });
+    };
+
+    $scope.loadTomas = function(){
+        var idcanal = $scope.t_canal;
+
+        $http.get(API_URL + 'solicitud/getTomas/' + idcanal).success(function(response){
+            var longitud = response.length;
+            var array_temp = [];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].descripciontoma, id: response[i].idtoma})
+            }
+            $scope.tomas = array_temp;
+        });
+    };
+
+    $scope.loadDerivaciones = function(){
+        var idtoma = $scope.t_toma;
+
+        $http.get(API_URL + 'solicitud/getDerivaciones/' + idtoma).success(function(response){
+            var longitud = response.length;
+            var array_temp = [];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].descripcionderivacion, id: response[i].idderivacion})
+            }
+            $scope.derivaciones = array_temp;
         });
     };
 
