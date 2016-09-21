@@ -14,4 +14,14 @@ class Terreno extends Model
     {
         return $this->belongsTo('App\Modelos\Terreno\Cultivo', 'idcultivo');
     }
+
+    public function tarifa()
+    {
+        return $this->belongsTo('App\Modelos\Tarifas\Tarifa', 'idtarifa');
+    }
+
+    public function derivacion()
+    {
+        return $this->belongsTo('App\Modelos\Ubicacion\Derivacion', 'idderivacion');
+    }
 }
