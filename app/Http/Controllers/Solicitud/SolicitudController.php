@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Solicitud;
 
 use App\Modelos\Clientes\Cliente;
+use App\Modelos\Sectores\Barrio;
 use App\Modelos\Solicitud\Solicitud;
+use App\Modelos\Terreno\Cultivo;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -66,6 +68,17 @@ class SolicitudController extends Controller
 
         return $solicitud->get();
     }
+
+    public function getBarrios()
+    {
+        return Barrio::orderBy('nombrebarrio', 'asc')->get();
+    }
+
+    public function getCultivos()
+    {
+        return Cultivo::orderBy('nombrecultivo', 'asc')->get();
+    }
+
 
     /**
      * Show the form for creating a new resource.

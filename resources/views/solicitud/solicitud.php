@@ -302,14 +302,14 @@
                                                 <label for="t_junta" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Junta Modular:</label>
                                                 <div class="col-sm-8 col-xs-12">
                                                     <select class="form-control" name="t_junta" id="t_junta"
-                                                           ng-model="t_junta" ></select>
+                                                           ng-model="t_junta" ng-options="value.id as value.label for value in barrios"></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-xs-12 form-group error">
                                                 <label for="t_cultivo" class="col-sm-4 col-xs-12 control-label">Cultivo:</label>
                                                 <div class="col-sm-8 col-xs-12">
                                                     <select class="form-control" name="t_cultivo" id="t_cultivo"
-                                                            ng-model="t_cultivo" ></select>
+                                                            ng-model="t_cultivo" ng-options="value.id as value.label for value in cultivos"></select>
                                                 </div>
                                             </div>
                                         </div>

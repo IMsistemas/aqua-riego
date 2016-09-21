@@ -58,6 +58,9 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                     $scope.nombrecargo = (response.nombrecargo).trim();
                     $('#modalActionCargo').modal('show');
                 });*/
+
+                $scope.loadBarrios();
+                $scope.loadCultivos();
                 $('#modalProcSolicitud').modal('show');
                 break;
             default:
@@ -114,6 +117,28 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
         $http.get(API_URL + 'solicitud/getByFilter/' + JSON.stringify(filters)).success(function(response){
             $scope.solicitudes = response;
+        });
+    };
+
+    $scope.loadBarrios = function(){
+        $http.get(API_URL + 'solicitud/getBarrios').success(function(response){
+            var longitud = response.length;
+            var array_temp = [];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+            }
+            $scope.barrios = array_temp;
+        });
+    };
+
+    $scope.loadCultivos = function(){
+        $http.get(API_URL + 'solicitud/getCultivos').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: 'Adicionar Nuevo', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrecultivo, id: response[i].idcultivo})
+            }
+            $scope.cultivos = array_temp;
         });
     };
 
