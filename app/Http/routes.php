@@ -34,6 +34,8 @@ Route::get('solicitud/getTomas/{idcanal}', 'Solicitud\SolicitudController@getTom
 
 Route::get('solicitud/getDerivaciones/{idtoma}', 'Solicitud\SolicitudController@getDerivaciones');
 
+Route::get('solicitud/getClienteByID/{idcliente}', 'Solicitud\SolicitudController@getClienteByID');
+
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Solicitud
 Route::resource('solicitud', 'Solicitud\SolicitudController');
 

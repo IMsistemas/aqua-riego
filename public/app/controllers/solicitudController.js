@@ -20,20 +20,13 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         });
     };
 
-    $scope.toggle = function(modalstate, id) {
+    $scope.toggle = function(modalstate, id, numSolicitud) {
         $scope.modalstate = modalstate;
 
         switch (modalstate) {
             case 'add':
 
-                var now = new Date();
-                var dd = now.getDate();
-                if (dd < 10) dd = '0' + dd;
-                var mm = now.getMonth() + 1;
-                if (mm < 10) mm = '0' + mm;
-                var yyyy = now.getFullYear();
-
-                $scope.t_fecha_ingreso = dd + "\/" + mm + "\/" + yyyy;
+                $scope.t_fecha_ingreso = now();
 
                 $scope.t_doc_id = '';
                 $scope.t_apellidos = '';
@@ -50,20 +43,24 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
                 break;
             case 'process':
-                /*$scope.form_title = "Editar Cargo";
                 $scope.id = id;
-
-                $http.get(API_URL + 'cargo/' + id).success(function(response) {
-                    $scope.idcargo = (response.idcargo).trim();
-                    $scope.nombrecargo = (response.nombrecargo).trim();
-                    $('#modalActionCargo').modal('show');
-                });*/
 
                 $scope.loadBarrios();
                 $scope.loadCultivos();
                 $scope.loadCanales();
 
-                $('#modalProcSolicitud').modal('show');
+                $http.get(API_URL + 'solicitud/getClienteByID/' + id).success(function(response) {
+                    $scope.nom_cliente = response.apellido + ' ' + response.nombre;
+                    $scope.telf_cliente = response.telefonoprincipaldomicilio;
+                    $scope.direcc_cliente = response.direcciondomicilio;
+
+                    $scope.num_solicitud = numSolicitud;
+
+                    $scope.t_fecha_process = now();
+
+                    $('#modalProcSolicitud').modal('show');
+                });
+
                 break;
             default:
                 break;
@@ -203,4 +200,14 @@ function convertDatetoDB(now, revert){
         var t = now.split('-');
         return t[2] + '/' + t[1] + '/' + t[0];
     }
+}
+
+function now(){
+    var now = new Date();
+    var dd = now.getDate();
+    if (dd < 10) dd = '0' + dd;
+    var mm = now.getMonth() + 1;
+    if (mm < 10) mm = '0' + mm;
+    var yyyy = now.getFullYear();
+    return dd + "\/" + mm + "\/" + yyyy;
 }

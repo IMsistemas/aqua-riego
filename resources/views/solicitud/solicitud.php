@@ -17,6 +17,10 @@
             td{
                 vertical-align: middle !important;
             }
+
+            .datepicker{
+                color: #000 !important;
+            }
         </style>
 
     </head>
@@ -43,7 +47,7 @@
                     </div>
                 </div>
                 <div class="col-sm-2 col-xs-12" style="padding: 0;">
-                    <button type="button" class="btn btn-primary" style="float: right;" ng-click="toggle('add', 0)">
+                    <button type="button" class="btn btn-primary" style="float: right;" ng-click="toggle('add', 0, 0)">
                         Nuevo <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -86,7 +90,7 @@
                                 <button type="button" class="btn btn-info" id="btn_inform" ng-click="" disabled>
                                     <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn btn-primary" id="btn_process" ng-click="toggle('process', 0)" >
+                                <button type="button" class="btn btn-primary" id="btn_process" ng-click="toggle('process', solicitud.codigocliente, solicitud.idsolicitud)" >
                                     <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" class="btn btn-default" id="btn_pdf" ng-click="" disabled>
@@ -252,28 +256,42 @@
                 <div class="modal-dialog" role="document" style="width: 60%;">
                     <div class="modal-content">
                         <div class="modal-header modal-header-primary">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Procesar Solicitud</h4>
+
+                            <div class="col-md-6 col-xs-12">
+                                <h4 class="modal-title">Procesar Solicitud Nro: {{num_solicitud}}</h4>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="form-group">
+                                    <h4 class="modal-title"><label for="fechaingreso" class="col-sm-6" style="font-weight: normal !important;">Fecha Procesada:</label></h4>
+                                    <div class="col-sm-5" style="padding: 0;">
+                                        <input type="text" class="form-control input-sm datepicker" name="t_fecha_process"
+                                               id="t_fecha_process" ng-model="t_fecha_process" style="color: black !important;">
+                                    </div>
+                                    <div class="col-sm-1 col-xs-12 text-right" style="padding: 0;">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-body">
                             <form class="form-horizontal" name="formProcess" novalidate="">
 
                                 <div class="row" style="padding: 2%; margin-top: -15px !important;">
-                                    <fieldset>
+                                    <fieldset ng-cloak>
                                         <legend style="font-size: 16px; font-weight: bold;">Datos de Solicitud</legend>
 
                                         <div class="col-xs-12" style="padding: 0;">
                                             <div class="col-sm-6 col-xs-12">
-                                                <span class="label label-default" style="font-size: 12px !important;">Cliente:</span>
+                                                <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_cliente}}
                                             </div>
                                             <div class="col-sm-6 col-xs-12">
-                                                <span class="label label-default" style="font-size: 12px !important;">Teléfono:</span>
+                                                <span class="label label-default" style="font-size: 12px !important;">Teléfono:</span> {{telf_cliente}}
                                             </div>
                                         </div>
 
                                         <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
                                             <div class="col-xs-12">
-                                                <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span>
+                                                <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_cliente}}
                                             </div>
                                         </div>
                                     </fieldset>

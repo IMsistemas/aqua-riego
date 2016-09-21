@@ -72,6 +72,12 @@ class SolicitudController extends Controller
         return $solicitud->get();
     }
 
+
+    public function getClienteByID($idcliente)
+    {
+        return Cliente::find($idcliente);
+    }
+
     public function getBarrios()
     {
         return Barrio::orderBy('nombrebarrio', 'asc')->get();
