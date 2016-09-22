@@ -53,6 +53,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                     $scope.nom_cliente = response.apellido + ' ' + response.nombre;
                     $scope.telf_cliente = response.telefonoprincipaldomicilio;
                     $scope.direcc_cliente = response.direcciondomicilio;
+                    $scope.h_codigocliente = id;
 
                     $scope.num_solicitud = numSolicitud;
 
@@ -207,7 +208,53 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.loadCultivos(response.idcultivo);
             $('#modalAddCultivo').modal('hide');
         });
+    };
+
+    $scope.calculateCaudal = function () {
+        $http.get(API_URL + 'solicitud/getConstante').success(function(response){
+            var area = parseInt($scope.t_area);
+            var constante = parseFloat(response[0].constante);
+
+            var caudal_result = (area / 10000) * constante;
+
+            $scope.calculate_caudal = caudal_result.toFixed(2);
+        });
+    };
+
+    $scope.calculateValor = function () {
+        var area = $scope.t_area;
+
+        $http.get(API_URL + 'solicitud/calculateValor/' + area).success(function(response){
+            $scope.valor_total = response.costo;
+        });
     }
+
+    $scope.processSolicitud = function () {
+
+        var solicitud = {
+            fechacreacion: convertDatetoDB($scope.t_fecha_process),
+            codigocliente: $scope.h_codigocliente,
+            idbarrio: $scope.t_junta,
+            idcultivo: $scope.t_cultivo,
+            area: $scope.t_area,
+            caudal: $scope.calculate_caudal,
+            valoranual: $scope.valor_total,
+            idtarifa: $scope.t_tarifa,
+            idderivacion : $scope.t_derivacion,
+
+            idsolicitud: $scope.num_solicitud
+        };
+
+        $http.post(API_URL + 'solicitud/processSolicitud', solicitud).success(function(response){
+
+            $scope.initLoad();
+
+            $('#modalProcSolicitud').modal('hide');
+
+        });
+
+    };
+
 
     $scope.initLoad();
 });

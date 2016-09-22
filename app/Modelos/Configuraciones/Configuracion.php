@@ -8,6 +8,7 @@ class Configuracion extends Model
 {
     protected $table = "configuracion";
     protected $primaryKey = "";
+    public $incrementing = false;
     public $timestamps = false;
 
     

@@ -16,4 +16,9 @@ class Tarifa extends Model
         return $this->hasMany('App\Modelos\Terreno\Terreno', 'idtarifa');
     }
 
+    public function area()
+    {
+        return $this->hasMany('App\Modelos\Tarifas\Area', 'idtarifa');
+    }
+
 }

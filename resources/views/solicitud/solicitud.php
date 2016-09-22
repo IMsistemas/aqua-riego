@@ -283,12 +283,12 @@
                                         <div class="col-xs-12" style="padding: 0;">
                                             <div class="col-sm-6 col-xs-12">
                                                 <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_cliente}}
+                                                <input type="hidden" ng-model="h_codigocliente">
                                             </div>
                                             <div class="col-sm-6 col-xs-12">
                                                 <span class="label label-default" style="font-size: 12px !important;">Teléfono:</span> {{telf_cliente}}
                                             </div>
                                         </div>
-
                                         <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
                                             <div class="col-xs-12">
                                                 <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_cliente}}
@@ -338,7 +338,7 @@
                                                 <label for="t_area" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Area (m2):</label>
                                                 <div class="col-sm-8 col-xs-12">
                                                     <input type="text" class="form-control" name="t_area" id="t_area"
-                                                           ng-model="t_area" ng-required="true" ng-pattern="/^([0-9]+)$/">
+                                                           ng-model="t_area" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculateCaudal()">
                                                     <span class="help-block error"
                                                           ng-show="formProcess.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
                                                     <span class="help-block error"
@@ -346,8 +346,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-xs-12 form-group error" style="margin-top: 8px;">
-                                                <div class="col-xs-12">
-                                                    <span class="label label-default" style="font-size: 16px !important;">Caudal:</span>
+                                                <div class="col-xs-12" ng-cloak="">
+                                                    <span class="label label-default" style="font-size: 16px !important;">Caudal:</span>{{calculate_caudal}}
                                                 </div>
                                             </div>
                                         </div>
@@ -363,7 +363,8 @@
                                             <label for="t_tarifa" class="col-sm-4 col-xs-12 control-label">Tarifa:</label>
                                             <div class="col-sm-8 col-xs-12">
                                                 <select class="form-control" name="t_tarifa" id="t_tarifa"
-                                                        ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"></select>
+                                                        ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
+                                                        ng-change="calculateValor()"></select>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-xs-12 form-group error">
@@ -394,7 +395,7 @@
                                 </div>
 
                                 <div class="row" style="padding: 2%; margin-top: -25px !important;">
-                                    Valor Anual:
+                                    Valor Anual: {{valor_total}}
                                 </div>
 
                             </form>
@@ -403,7 +404,7 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-primary" id="btn-process" ng-click="" ng-disabled="formProcess.$invalid">
+                            <button type="button" class="btn btn-primary" id="btn-process" ng-click="processSolicitud()" ng-disabled="formProcess.$invalid">
                                 Procesar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
                         </div>

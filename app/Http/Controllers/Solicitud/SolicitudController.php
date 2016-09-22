@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Solicitud;
 
 use App\Modelos\Clientes\Cliente;
+use App\Modelos\Configuraciones\Configuracion;
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Solicitud\Solicitud;
+use App\Modelos\Tarifas\Area;
 use App\Modelos\Tarifas\Tarifa;
 use App\Modelos\Terreno\Cultivo;
+use App\Modelos\Terreno\Terreno;
 use App\Modelos\Ubicacion\Canal;
 use App\Modelos\Ubicacion\Derivacion;
 use App\Modelos\Ubicacion\Toma;
@@ -77,6 +80,11 @@ class SolicitudController extends Controller
         return Cliente::find($idcliente);
     }
 
+    public function getConstante()
+    {
+        return Configuracion::all();
+    }
+
     public function getTarifas()
     {
         return Tarifa::orderBy('nombretarifa', 'asc')->get();
@@ -114,6 +122,26 @@ class SolicitudController extends Controller
         $cultivo->save();
 
         return response()->json(['success' => true, 'idcultivo' => $cultivo->idcultivo]);
+    }
+
+    public function calculateValor($area)
+    {
+        $area_h = $area / 10000;
+        $configuracion = Configuracion::all();
+
+        $costo_area = Area::where('desde', '<', $area_h)
+                            ->where('hasta', '>=', $area_h)
+                            ->get();
+
+        $costo = 0;
+
+        if ($costo_area[0]->esfija == true){
+            $costo = $costo_area[0]->costo;
+        } else {
+            $costo = $area_h * $configuracion[0]->constante * $costo_area[0]->costo;
+        }
+
+        return response()->json(['costo' => $costo]);
     }
 
     /**
@@ -162,6 +190,32 @@ class SolicitudController extends Controller
         return response()->json(['success' => true]);
 
     }
+
+
+    public function processSolicitud(Request $request)
+    {
+        $terreno = new Terreno();
+        $terreno->idcultivo = $request->input('idcultivo');
+        $terreno->idtarifa = $request->input('idtarifa');
+        $terreno->codigocliente = $request->input('codigocliente');
+        $terreno->idderivacion = $request->input('idderivacion');
+        $terreno->fechacreacion = $request->input('fechacreacion');
+        $terreno->caudal = $request->input('caudal');
+        $terreno->area = $request->input('area');
+        $terreno->valoranual = $request->input('valoranual');
+        $terreno->idbarrio = $request->input('idbarrio');
+
+        $result = $terreno->save();
+
+        $solicitud = Solicitud::find($request->input('idsolicitud'));
+        $solicitud->fechaprocesada = $request->input('fechacreacion');
+        $solicitud->estaprocesada = true;
+
+        $solicitud->save();
+
+        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
+    }
+
 
     /**
      * Display the specified resource.
