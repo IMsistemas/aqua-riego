@@ -33,7 +33,9 @@ class SolicitudController extends Controller
     public function getSolicitudes()
     {
         //return Solicitud::with('cliente')->get();
-        return Solicitud::join('cliente', 'solicitud.codigocliente', '=', 'cliente.codigocliente')->get();
+        return Solicitud::join('cliente', 'solicitud.codigocliente', '=', 'cliente.codigocliente')
+                            ->orderBy('estaprocesada', 'asc')
+                                ->get();
     }
 
     public function getByFilters($filters)

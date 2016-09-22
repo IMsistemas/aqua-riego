@@ -246,9 +246,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         };
 
         $http.post(API_URL + 'solicitud/processSolicitud', solicitud).success(function(response){
-
             $scope.initLoad();
-
             $('#modalProcSolicitud').modal('hide');
 
         });
