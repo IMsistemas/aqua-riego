@@ -32,7 +32,6 @@ class SolicitudController extends Controller
 
     public function getSolicitudes()
     {
-        //return Solicitud::with('cliente')->get();
         return Solicitud::join('cliente', 'solicitud.codigocliente', '=', 'cliente.codigocliente')
                             ->orderBy('estaprocesada', 'asc')
                                 ->get();
@@ -52,27 +51,6 @@ class SolicitudController extends Controller
         if($filter->estado != null){
             $solicitud->where('estaprocesada', $filter->estado);
         }
-
-        /*$solicitud = Solicitud::with('cliente');
-
-        if($filter->text != null){
-
-            $solicitud = Solicitud::with([
-                'cliente' => function($query) use ($filter) {
-                    $query->where('cliente.nombre',  'LIKE',  '%' . $filter->text . '%');
-                    $query->orWhere('cliente.apellido',  'LIKE',  '%' . $filter->text . '%');
-                }
-            ]);
-
-            $solicitud = Solicitud::with('cliente');
-            $solicitud->where('cliente.nombre',  'LIKE',  '%' . $filter->text . '%');
-            $solicitud->orWhere('cliente.apellido',  'LIKE',  '%' . $filter->text . '%');
-
-        }*/
-
-        /*if($filter->estado != null){
-            $solicitud->whereRaw('estaprocesada = ' . $filter->estado);
-        }*/
 
         return $solicitud->get();
     }
@@ -147,16 +125,6 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -193,7 +161,6 @@ class SolicitudController extends Controller
 
     }
 
-
     public function processSolicitud(Request $request)
     {
         $terreno = new Terreno();
@@ -218,7 +185,6 @@ class SolicitudController extends Controller
         return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -230,37 +196,5 @@ class SolicitudController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

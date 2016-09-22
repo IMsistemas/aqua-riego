@@ -70,7 +70,7 @@
                         <tr ng-repeat="solicitud in solicitudes" ng-cloak>
                             <td>{{solicitud.idsolicitud}}</td>
                             <td>{{solicitud.fechasolicitud | formatDate}}</td>
-                            <td><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{solicitud.apellido + ' ' + solicitud.nombre}}</td>
+                            <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{solicitud.apellido + ' ' + solicitud.nombre}}</td>
                             <td>{{solicitud.direcciondomicilio}}</td>
                             <td>{{solicitud.telefonoprincipaldomicilio}}</td>
                             <td ng-if="solicitud.estaprocesada == true"><span class="label label-primary" style="font-size: 14px !important;">Procesada</span></td>
@@ -347,7 +347,8 @@
                                             </div>
                                             <div class="col-sm-6 col-xs-12 form-group error" style="margin-top: 8px;">
                                                 <div class="col-xs-12" ng-cloak="">
-                                                    <span class="label label-default" style="font-size: 16px !important;">Caudal:</span>{{calculate_caudal}}
+                                                    <span class="label label-info" style="font-size: 20px !important;">Caudal:</span>
+                                                    <span style="font-size: 20px !important; font-weight: bold;">{{calculate_caudal}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -395,7 +396,8 @@
                                 </div>
 
                                 <div class="row" style="padding: 2%; margin-top: -25px !important;">
-                                    Valor Anual: {{valor_total}}
+                                    <span class="label label-info" style="font-size: 20px !important;">Valor Anual:</span>
+                                    <span style="font-size: 20px !important; font-weight: bold;">{{valor_total}}</span>
                                 </div>
 
                             </form>
