@@ -44,7 +44,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                 break;
             case 'process':
                 $scope.id = id;
-
+                $scope.loadTarifas();
                 $scope.loadBarrios();
                 $scope.loadCultivos();
                 $scope.loadCanales();
@@ -127,6 +127,17 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                 array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
             }
             $scope.barrios = array_temp;
+        });
+    };
+
+    $scope.loadTarifas = function(){
+        $http.get(API_URL + 'solicitud/getTarifas').success(function(response){
+            var longitud = response.length;
+            var array_temp = [];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
+            }
+            $scope.tarifas = array_temp;
         });
     };
 

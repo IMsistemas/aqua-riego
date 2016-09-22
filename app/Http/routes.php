@@ -24,6 +24,8 @@ Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicit
 
 Route::get('solicitud/getByFilter/{filters}', 'Solicitud\SolicitudController@getByFilters');
 
+Route::get('solicitud/getTarifas', 'Solicitud\SolicitudController@getTarifas');
+
 Route::get('solicitud/getBarrios', 'Solicitud\SolicitudController@getBarrios');
 
 Route::get('solicitud/getCultivos', 'Solicitud\SolicitudController@getCultivos');

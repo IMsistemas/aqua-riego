@@ -363,7 +363,7 @@
                                             <label for="t_tarifa" class="col-sm-4 col-xs-12 control-label">Tarifa:</label>
                                             <div class="col-sm-8 col-xs-12">
                                                 <select class="form-control" name="t_tarifa" id="t_tarifa"
-                                                        ng-model="t_tarifa" ></select>
+                                                        ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"></select>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-xs-12 form-group error">

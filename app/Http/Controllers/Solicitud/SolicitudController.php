@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Solicitud;
 use App\Modelos\Clientes\Cliente;
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Solicitud\Solicitud;
+use App\Modelos\Tarifas\Tarifa;
 use App\Modelos\Terreno\Cultivo;
 use App\Modelos\Ubicacion\Canal;
 use App\Modelos\Ubicacion\Derivacion;
@@ -25,7 +26,6 @@ class SolicitudController extends Controller
     {
         return view('Solicitud.solicitud');
     }
-
 
     public function getSolicitudes()
     {
@@ -75,6 +75,11 @@ class SolicitudController extends Controller
     public function getClienteByID($idcliente)
     {
         return Cliente::find($idcliente);
+    }
+
+    public function getTarifas()
+    {
+        return Tarifa::orderBy('nombretarifa', 'asc')->get();
     }
 
     public function getBarrios()
