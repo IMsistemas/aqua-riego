@@ -40,7 +40,10 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                 $scope.t_telf_secundario_emp = '';
                 $scope.t_direccion_emp = '';
 
-                $('#modalIngSolicitud').modal('show');
+                $http.get(API_URL + 'solicitud/getLastID').success(function(response){
+                    $scope.t_no_solicitud = response.lastId;
+                    $('#modalIngSolicitud').modal('show');
+                });
 
                 break;
             case 'process':

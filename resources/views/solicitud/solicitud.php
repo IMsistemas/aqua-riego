@@ -117,7 +117,7 @@
                                         <div class="col-sm-6 col-xs-12 form-group">
                                             <label for="t_no_solicitud" class="col-sm-4 col-xs-12 control-label">Nro. Solicitud:</label>
                                             <div class="col-sm-8 col-xs-12">
-                                                <input type="text" class="form-control" name="t_no_solicitud" id="t_no_solicitud" ng-model="t_no_solicitud" >
+                                                <input type="text" class="form-control" name="t_no_solicitud" id="t_no_solicitud" ng-model="t_no_solicitud" disabled>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-xs-12 form-group">

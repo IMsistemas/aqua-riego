@@ -23,6 +23,8 @@ Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicit
 //Peticion para obtener el listado de solicitudes por filtros
 Route::get('solicitud/getByFilter/{filters}', 'Solicitud\SolicitudController@getByFilters');
 //Peticion para obtener la constante para calculo
+Route::get('solicitud/getLastID', 'Solicitud\SolicitudController@getLastID');
+//Peticion para obtener la constante para calculo
 Route::get('solicitud/getConstante', 'Solicitud\SolicitudController@getConstante');
 //Peticion para obtener el listado de tarifas
 Route::get('solicitud/getTarifas', 'Solicitud\SolicitudController@getTarifas');

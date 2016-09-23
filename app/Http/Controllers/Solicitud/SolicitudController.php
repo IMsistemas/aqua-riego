@@ -32,6 +32,20 @@ class SolicitudController extends Controller
     }
 
     /**
+     * Obtener el ultimo id insertado y sumar 1
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getLastID()
+    {
+        $solicitud = Solicitud::max('idsolicitud');
+
+        $lastId = ($solicitud == null || $solicitud == '' || $solicitud == 0) ? 1 : $solicitud + 1;
+
+        return response()->json(['lastId' => $lastId]);
+    }
+
+    /**
      * Obtener el listado de Solicitudes ordenadas por estado
      *
      * @return mixed
