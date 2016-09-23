@@ -20,8 +20,9 @@ use App\Http\Controllers\Controller;
 
 class SolicitudController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Mostrar la vista de Solicitud.
      *
      * @return \Illuminate\Http\Response
      */
@@ -30,6 +31,11 @@ class SolicitudController extends Controller
         return view('Solicitud.solicitud');
     }
 
+    /**
+     * Obtener el listado de Solicitudes ordenadas por estado
+     *
+     * @return mixed
+     */
     public function getSolicitudes()
     {
         return Solicitud::join('cliente', 'solicitud.codigocliente', '=', 'cliente.codigocliente')
@@ -37,6 +43,12 @@ class SolicitudController extends Controller
                                 ->get();
     }
 
+    /**
+     * Obtener el listado de Solicitudes ordenadas por estado en base a busqueda por filtros
+     *
+     * @param $filters
+     * @return mixed
+     */
     public function getByFilters($filters)
     {
         $filter = json_decode($filters);
@@ -53,49 +65,98 @@ class SolicitudController extends Controller
             $solicitud->where('estaprocesada', $estado);
         }
 
-        return $solicitud->get();
+        return $solicitud->orderBy('estaprocesada', 'asc')->get();
     }
 
+    /**
+     * Obtener un cliente en base a su id
+     *
+     * @param $idcliente
+     * @return mixed
+     */
     public function getClienteByID($idcliente)
     {
         return Cliente::find($idcliente);
     }
 
+    /**
+     * Obtener la constante en los datos de configuracion
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function getConstante()
     {
         return Configuracion::all();
     }
 
+    /**
+     * Obtener las tarifas ordenadas ascendentemente
+     *
+     * @return mixed
+     */
     public function getTarifas()
     {
         return Tarifa::orderBy('nombretarifa', 'asc')->get();
     }
 
+    /**
+     * Obtener los barrios ordenados ascendentemente
+     *
+     * @return mixed
+     */
     public function getBarrios()
     {
         return Barrio::orderBy('nombrebarrio', 'asc')->get();
     }
 
+    /**
+     * Obtener los cultivos ordenados ascendentemente
+     *
+     * @return mixed
+     */
     public function getCultivos()
     {
         return Cultivo::orderBy('nombrecultivo', 'asc')->get();
     }
 
+    /**
+     * Obtener los canales ordenados ascendentemente
+     *
+     * @return mixed
+     */
     public function getCanales()
     {
         return Canal::orderBy('descripcioncanal', 'asc')->get();
     }
 
+    /**
+     * Obtener las tomas de un canal ordenadas ascendentemente
+     *
+     * @param $idcanal
+     * @return mixed
+     */
     public function getTomas($idcanal)
     {
         return Toma::where('idcanal', $idcanal)->orderBy('descripciontoma', 'asc')->get();
     }
 
+    /**
+     * Obtener las derivaciones de una toma ordenadas ascendentemente
+     *
+     * @param $idtoma
+     * @return mixed
+     */
     public function getDerivaciones($idtoma)
     {
         return Derivacion::where('idtoma', $idtoma)->orderBy('descripcionderivacion', 'asc')->get();
     }
 
+    /**
+     * Almacenar un cultivo nuevo y obtener su id de insercion
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function saveCultivo(Request $request)
     {
         $cultivo = new Cultivo();
@@ -105,6 +166,12 @@ class SolicitudController extends Controller
         return response()->json(['success' => true, 'idcultivo' => $cultivo->idcultivo]);
     }
 
+    /**
+     * Obtener el resultado de calculo del costo en base al area
+     *
+     * @param $area
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function calculateValor($area)
     {
         $area_h = $area / 10000;
@@ -126,14 +193,13 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Almacenar los datos correspondientes a cliente, asi como su solicitud.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-
         $cliente = new Cliente();
 
         $cliente->documentoidentidad = $request->input('codigocliente');
@@ -185,17 +251,5 @@ class SolicitudController extends Controller
 
         return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
 
 }
