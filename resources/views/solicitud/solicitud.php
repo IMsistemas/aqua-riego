@@ -76,7 +76,7 @@
                             <td ng-if="solicitud.estaprocesada == true"><span class="label label-primary" style="font-size: 14px !important;">Procesada</span></td>
                             <td ng-if="solicitud.estaprocesada == false"><span class="label label-warning" style="font-size: 14px !important;">En Espera</span></td>
                             <td ng-if="solicitud.estaprocesada == true">
-                                <button type="button" class="btn btn-info" id="btn_inform" ng-click="" >
+                                <button type="button" class="btn btn-info" id="btn_inform" ng-click="info(solicitud)" >
                                     <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" class="btn btn-primary" id="btn_process" ng-click="" disabled>
@@ -87,13 +87,13 @@
                                 </button>
                             </td>
                             <td ng-if="solicitud.estaprocesada == false">
-                                <button type="button" class="btn btn-info" id="btn_inform" ng-click="" disabled>
+                                <button type="button" class="btn btn-info" id="btn_inform" disabled>
                                     <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" class="btn btn-primary" id="btn_process" ng-click="toggle('process', solicitud.codigocliente, solicitud.idsolicitud)" >
                                     <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn btn-default" id="btn_pdf" ng-click="" disabled>
+                                <button type="button" class="btn btn-default" id="btn_pdf" disabled>
                                     <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true"></i>
                                 </button>
                             </td>
@@ -441,6 +441,51 @@
                             <button type="button" class="btn btn-success" id="btn-save" ng-click="saveCultivo()" ng-disabled="formCultivo.$invalid">
                                 Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalInfo">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-info">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Solicitud Nro. {{num_solicitud_info}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-xs-12 text-center">
+                                <img class="img-thumbnail" src="<?= asset('img/solicitud.png') ?>" alt="">
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-xs-12 text-center" style="font-size: 18px;">{{name_cliente}}</div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Fecha Solicitud: </span>{{fecha_solicitud}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Dirección: </span>{{address_cliente}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Teléfono: </span>{{telf_cliente}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Estado: </span>{{estado_solicitud}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-success">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Confirmación</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span>{{message}}</span>
                         </div>
                     </div>
                 </div>

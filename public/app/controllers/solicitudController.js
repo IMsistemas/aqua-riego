@@ -246,13 +246,28 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         };
 
         $http.post(API_URL + 'solicitud/processSolicitud', solicitud).success(function(response){
-            $scope.initLoad();
-            $('#modalProcSolicitud').modal('hide');
+
+            if(response.success == true){
+                $scope.initLoad();
+                $('#modalProcSolicitud').modal('hide');
+                $scope.message = 'Se ha procesado la solicitud correctamente...'
+                $('#modalMessage').modal('show');
+            }
 
         });
 
     };
 
+    $scope.info = function (solicitud) {
+        $scope.num_solicitud_info = solicitud.idsolicitud;
+        $scope.name_cliente = solicitud.apellido + ' ' + solicitud.nombre;
+        $scope.fecha_solicitud = convertDatetoDB(solicitud.fechasolicitud, true);
+        $scope.address_cliente = solicitud.direcciondomicilio;
+        $scope.telf_cliente = solicitud.telefonoprincipaldomicilio;
+        $scope.estado_solicitud = 'Procesada';
+
+        $('#modalInfo').modal('show');
+    };
 
     $scope.initLoad();
 });
