@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicitudes');
 //Peticion para obtener el listado de solicitudes por filtros
 Route::get('solicitud/getByFilter/{filters}', 'Solicitud\SolicitudController@getByFilters');
-//Peticion para obtener la constante para calculo
+//Peticion para obtener el ultimo id insertado + 1 para el numero de solicitud
 Route::get('solicitud/getLastID', 'Solicitud\SolicitudController@getLastID');
 //Peticion para obtener la constante para calculo
 Route::get('solicitud/getConstante', 'Solicitud\SolicitudController@getConstante');

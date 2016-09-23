@@ -195,8 +195,6 @@ class SolicitudController extends Controller
                             ->where('hasta', '>=', $area_h)
                             ->get();
 
-        $costo = 0;
-
         if ($costo_area[0]->esfija == true){
             $costo = $costo_area[0]->costo;
         } else {
@@ -242,6 +240,12 @@ class SolicitudController extends Controller
 
     }
 
+    /**
+     * Procesar la solicitud, almacenando los datos del cliente y su solicitud
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function processSolicitud(Request $request)
     {
         $terreno = new Terreno();
