@@ -10,8 +10,9 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
     $scope.solicitudes = [];
 
     $scope.estados = [
+        { id: 3, name: 'Todos' },
+        { id: 2, name: 'En Espera' },
         { id: 1, name: 'Procesado' },
-        { id: 0, name: 'En Espera' },
     ];
 
     $scope.initLoad = function () {
@@ -48,6 +49,8 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                 $scope.loadBarrios();
                 $scope.loadCultivos();
                 $scope.loadCanales();
+
+
 
                 $http.get(API_URL + 'solicitud/getClienteByID/' + id).success(function(response) {
                     $scope.nom_cliente = response.apellido + ' ' + response.nombre;
@@ -225,7 +228,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         var area = $scope.t_area;
 
         $http.get(API_URL + 'solicitud/calculateValor/' + area).success(function(response){
-            $scope.valor_total = response.costo;
+            $scope.valor_total = parseFloat(response.costo).toFixed(2);
         });
     }
 

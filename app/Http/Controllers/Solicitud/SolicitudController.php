@@ -48,8 +48,9 @@ class SolicitudController extends Controller
             $solicitud->orWhere('cliente.apellido',  'LIKE',  '%' . $filter->text . '%');
         }
 
-        if($filter->estado != null){
-            $solicitud->where('estaprocesada', $filter->estado);
+        if($filter->estado != null && $filter->estado != '3'){
+            $estado = ($filter->estado == '1') ? true : false;
+            $solicitud->where('estaprocesada', $estado);
         }
 
         return $solicitud->get();
