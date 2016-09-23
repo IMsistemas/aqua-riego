@@ -15,7 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 /*--------------------------------------Raidel-------------------------------------------------*/
 /*===================================Solicitud=================================================*/
 
@@ -49,3 +48,15 @@ Route::post('solicitud/processSolicitud', 'Solicitud\SolicitudController@process
 Route::resource('solicitud', 'Solicitud\SolicitudController');
 
 /*--------------------------------------Yamilka-------------------------------------------------*/
+/*===================================Recaudacion=================================================*/
+
+//Peticion para obtener el listado de cobros
+Route::get('recaudacion/getCobros', 'Cuentas\CobroAguaController@getCobros');
+//Peticion para obtener el listado de cobros por filtros
+Route::get('recaudacion/getByFilter/{filters}', 'Cuentas\CobroAguaController@getByFilters');
+//Peticion para obtener si se genera factura del periodo
+Route::get('recaudacion/verifyPeriodo', 'Cuentas\CobroAguaController@verifyPeriodo');
+//Peticion para generar los cobros del periodo
+Route::get('recaudacion/generate', 'Cuentas\CobroAguaController@generate');
+//Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia CobroAgua
+Route::resource('recaudacion', 'Cuentas\CobroAguaController');
