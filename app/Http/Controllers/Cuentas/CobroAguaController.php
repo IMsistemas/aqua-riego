@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 
 class CobroAguaController extends Controller
 {
+
     /**
      * Mostrar vista de cobro de agua
      *
@@ -93,16 +94,27 @@ class CobroAguaController extends Controller
     {
         $terreno = Terreno::all();
 
-        $result = 0;
-
         if (count($terreno) > 0){
 
             foreach ($terreno as $item){
                 $cobro = new CobroAgua();
 
+                $atraso = $this->searchAtraso($item->idterreno);
+
                 $cobro->idterreno = $item->idterreno;
                 $cobro->fechaperiodo = date('Y');
-                $cobro->total = $item->valoranual;
+
+                if ($atraso == 0){
+                    $cobro->valoratrasados = 0;
+                    $cobro->aniosatrasados = 0;
+                } else {
+                    $cobro->valoratrasados = $atraso['valoratrasados'];
+                    $cobro->aniosatrasados = $atraso['aniosatrasados'];
+                }
+
+                $cobro->valorconsumo = $item->valoranual;
+
+                $cobro->total = $item->valoranual + $cobro->valoratrasados;
                 $cobro->estapagada = false;
 
                 $cobro->save();
@@ -116,7 +128,6 @@ class CobroAguaController extends Controller
 
         return response()->json(['result' => $result]);
     }
-
 
     /**
      * Actualizar estado de pago en el cobro.
@@ -133,5 +144,27 @@ class CobroAguaController extends Controller
         return response()->json(['success' => true]);
     }
 
+    /**
+     * Obtener de existir los valores de atraso, en caso de no existir, 0
+     *
+     * @param $idterreno
+     * @return array|int
+     */
+    private function searchAtraso($idterreno)
+    {
+        $cobro = CobroAgua::where('fechaperiodo', (date('Y') - 1))
+                            ->where('idterreno', $idterreno)
+                            ->get();
+
+        if (count($cobro) == 0){
+            return 0;
+        } else {
+            if ($cobro[0]->estapagada == false) {
+                return ['valoratrasados' => $cobro[0]->total, 'aniosatrasados' => $cobro[0]->aniosatrasados + 1];
+            } else {
+                return 0;
+            }
+        }
+    }
 
 }

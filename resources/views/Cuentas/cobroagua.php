@@ -151,14 +151,14 @@
                                                 <th>Valor</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody ng-cloak>
                                             <tr>
-                                                <td>Consumo Ciclo Corto</td>
-                                                <td></td>
+                                                <td>{{tipo_tarifa}}</td>
+                                                <td>{{valor_base_tarifa}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Valores Atrasados</td>
-                                                <td></td>
+                                                <td>{{valor_atrasado}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
