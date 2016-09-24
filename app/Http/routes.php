@@ -24,6 +24,8 @@ Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicit
 Route::get('solicitud/getByFilter/{filters}', 'Solicitud\SolicitudController@getByFilters');
 //Peticion para obtener el ultimo id insertado + 1 para el numero de solicitud
 Route::get('solicitud/getLastID', 'Solicitud\SolicitudController@getLastID');
+//Peticion para obtener el ultimo id insertado + 1 para el numero de solicitud
+Route::get('solicitud/getLastIDTerreno', 'Solicitud\SolicitudController@getLastIDTerreno');
 //Peticion para obtener la constante para calculo
 Route::get('solicitud/getConstante', 'Solicitud\SolicitudController@getConstante');
 //Peticion para obtener el listado de tarifas
@@ -47,7 +49,7 @@ Route::post('solicitud/saveCultivo', 'Solicitud\SolicitudController@saveCultivo'
 //Peticion para procesar la solicitud
 Route::post('solicitud/processSolicitud', 'Solicitud\SolicitudController@processSolicitud');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Solicitud
-Route::resource('solicitud', 'Solicitud\SolicitudController');
+Route::resource('/solicitud', 'Solicitud\SolicitudController');
 
 /*--------------------------------------Yamilka-------------------------------------------------*/
 /*===================================Recaudacion=================================================*/
@@ -61,4 +63,4 @@ Route::get('recaudacion/verifyPeriodo', 'Cuentas\CobroAguaController@verifyPerio
 //Peticion para generar los cobros del periodo
 Route::get('recaudacion/generate', 'Cuentas\CobroAguaController@generate');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia CobroAgua
-Route::resource('recaudacion', 'Cuentas\CobroAguaController');
+Route::resource('/recaudacion', 'Cuentas\CobroAguaController');

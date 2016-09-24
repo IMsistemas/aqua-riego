@@ -18,6 +18,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+/**
+ * Class SolicitudController
+ * @package App\Http\Controllers\Solicitud
+ */
 class SolicitudController extends Controller
 {
 
@@ -41,6 +45,20 @@ class SolicitudController extends Controller
         $solicitud = Solicitud::max('idsolicitud');
 
         $lastId = ($solicitud == null || $solicitud == '' || $solicitud == 0) ? 1 : $solicitud + 1;
+
+        return response()->json(['lastId' => $lastId]);
+    }
+
+    /**
+     * Obtener el ultimo id insertado y sumar 1 en Nro de Terreno
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getLastIDTerreno()
+    {
+        $terreno = Terreno::max('idterreno');
+
+        $lastId = ($terreno == null || $terreno == '' || $terreno == 0) ? 1 : $terreno + 1;
 
         return response()->json(['lastId' => $lastId]);
     }

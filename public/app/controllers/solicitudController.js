@@ -53,7 +53,9 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                 $scope.loadCultivos();
                 $scope.loadCanales();
 
-
+                $http.get(API_URL + 'solicitud/getLastIDTerreno').success(function(response){
+                    $scope.t_terreno = response.lastId;
+                });
 
                 $http.get(API_URL + 'solicitud/getClienteByID/' + id).success(function(response) {
                     $scope.nom_cliente = response.apellido + ' ' + response.nombre;
