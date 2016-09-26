@@ -18,9 +18,6 @@
                 <thead class="bg-primary">
                     <tr>
                         <th> 
-                            <a href="#" style="text-decoration:none; color:white;" ng-click="ordenarColumna='documentoidentidad'; reversa=!reversa;">Código Cliente</a>
-                        </th>
-                        <th> 
                             <a href="#" style="text-decoration:none; color:white;" ng-click="ordenarColumna='documentoidentidad'; reversa=!reversa;">Profesión</a>
                         </th>
                         <th> 
@@ -66,7 +63,6 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="cliente in clientes|filter:busqueda| orderBy:ordenarColumna:reversa">
-                        <td>{{cliente.codigocliente}}</td>
                         <td>{{cliente.idprofesion}}</td>
                         <td>{{cliente.idactividad}}</td>
                         <td>{{cliente.documentoidentidad}}</td>

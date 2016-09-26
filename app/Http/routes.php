@@ -90,3 +90,44 @@ Route::get('recaudacion/verifyPeriodo', 'Cuentas\CobroAguaController@verifyPerio
 Route::get('recaudacion/generate', 'Cuentas\CobroAguaController@generate');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia CobroAgua
 Route::resource('/recaudacion', 'Cuentas\CobroAguaController');
+
+/*===================================Módulo Barrio===========================================*/
+
+Route::get('/barrios', function (){
+	return view('Sectores/barrio');
+});
+
+//----Kevin Tambien :-(---------
+Route::get('/barrios/gestion/concalles','Sectores\BarrioController@getBarriosCalles');
+
+
+//Ruta devuelve un arreglo de todos los provincias a AngularJS 
+Route::get('/barrios/gestion/{idparroquia?}','Sectores\BarrioController@index');
+//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
+Route::get('/barrios/gestion/{idbarrio?}','Sectores\BarrioController@show');
+//Ruta página de inicio de gestión de barrios
+Route::get('/barrios/maxid','Sectores\BarrioController@maxId');
+//Ruta página de inicio de gestión de barrios
+Route::post('/barrios/gestion/guardarbarrio/{idparroquia}','Sectores\BarrioController@postCrearBarrio');
+//Ruta página de inicio de gestión de barrios
+Route::post('/barrios/gestion/actualizarbarrio/{idbarrio}','Sectores\BarrioController@postActualizarBarrio');
+//Ruta página de inicio de gestión de barrios
+Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');
+
+/*===================================Módulo Canal===========================================*/
+
+Route::get('/canales', function (){
+	return view('Tomas/canal');
+});
+//Ruta devuelve un arreglo de todos los provincias a AngularJS 
+Route::get('/canales/gestion','Tomas\CanalController@index');
+//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
+Route::get('/canales/gestion/{idcanal?}','Tomas\CanalController@show');
+//Ruta página de inicio de gestión de barrios
+Route::get('/canales/maxid','Tomas\CanalController@maxId');
+//Ruta página de inicio de gestión de barrios
+Route::post('/canales/gestion/guardarcanal','Tomas\CanalController@postCrearCanal');
+//Ruta página de inicio de gestión de barrios
+Route::post('/canales/gestion/actualizarcanal/{idcanal}','Tomas\CanalController@postActualizarCanal');
+//Ruta página de inicio de gestión de barrios
+Route::Delete('/canales/gestion/eliminarcanal/{idcanal}','Tomas\CanalController@destroy');

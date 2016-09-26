@@ -9,7 +9,7 @@ use App\Modelos\Sectores\Canton;
 use App\Modelos\Sectores\Parroquia;
 use App\Modelos\Sectores\Barrio;
 
-class BarrioController extends Controller
+class DerivacionController extends Controller
 {
 	public function index($idparroquia)
 	{
@@ -28,15 +28,41 @@ class BarrioController extends Controller
 
 	public function maxId(Request $request)
 	{
-		$barrio=Barrio::max('idbarrio');				
-		$barrio=$barrio+1;
+		$barrio=Barrio::max('idbarrio');		
+		if($barrio==NULL){
+			$barrio='JM00001';
+		}else{
+			$identificadorLetras=substr($barrio, 0,-5);//obtiene las tetras del barrio de Provincia
+			$identificadorNumero=substr($barrio, 3); //obtiene las tetras del barrio de Provincia
+			$identificadorNumero=$identificadorNumero+1;
+			$longitudNumero =strlen($identificadorNumero);//obtiene el número de caracteres existentes
+			//asigna el identificador numerico del siguiente registro
+			switch ($longitudNumero) {
+    	     	case 1:
+        		$identificadorNumero='0000'.$identificadorNumero;
+             	break;
+    	    	case 2:
+        		$identificadorNumero='000'.$identificadorNumero;
+             	break;
+             	case 3:
+        		$identificadorNumero='00'.$identificadorNumero;
+             	break;
+             	case 4:
+        		$identificadorNumero='0'.$identificadorNumero;
+             	break;
+			}
+			
+			$barrio=$identificadorLetras.$identificadorNumero;
+			
+			
+		}
 		return $barrio;
 	}
 
 	public function postCrearBarrio(Request $request,$idparroquia)
 	{
 		$barrio= new Barrio;
-		//$barrio->idbarrio = $request->input('idbarrio');
+		$barrio->idbarrio = $request->input('idbarrio');
 		$barrio->idparroquia = $idparroquia;
 		$barrio->nombrebarrio = $request->input('nombrebarrio');
 		$barrio->save();

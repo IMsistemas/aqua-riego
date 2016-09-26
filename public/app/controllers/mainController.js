@@ -52,10 +52,26 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 
 	$scope.toModuloBarrio = function(idparroquia){		
 		$scope.idparroquia = idparroquia;	
-		$scope.titulo = "Zonas";
+		$scope.titulo = "Juntas Modulares";
 		$scope.toModulo = "barrios";
 
 	}
+
+	$scope.toModuloCanal = function(){			
+		$scope.titulo = "Canales";
+		$scope.toModulo = "canales";
+	}
+
+	$scope.toModuloToma = function(){			
+		$scope.titulo = "Toma";
+		$scope.toModulo = "tomas";
+	}
+
+	$scope.toModuloDerivacion = function(){			
+		$scope.titulo = "Derivación";
+		$scope.toModulo = "derivaciones";
+	}
+
 	$scope.toModuloCalle = function(idbarrio,nombrebarrio){		
 		$scope.idbarrio = idbarrio;	
 		$scope.titulo = "Tranversales Barrio: ".concat(nombrebarrio);

@@ -150,7 +150,7 @@ IDTARIFA
 /* Table: BARRIO                                                */
 /*==============================================================*/
 create table BARRIO (
-   IDBARRIO             CHAR(8)              not null,
+   IDBARRIO             SERIAL              not null,
    IDPARROQUIA          CHAR(8)              not null,
    NOMBREBARRIO         CHAR(16)             null,
    constraint PK_BARRIO primary key (IDBARRIO)
@@ -174,7 +174,7 @@ IDPARROQUIA
 /* Table: CALLE                                                 */
 /*==============================================================*/
 create table CALLE (
-   IDCALLE              CHAR(8)              not null,
+   IDCALLE              SERIAL              not null,
    IDBARRIO             CHAR(8)              not null,
    NOMBRECALLE          CHAR(32)             null,
    constraint PK_CALLE primary key (IDCALLE)
@@ -214,7 +214,7 @@ IDCANAL
 /* Table: CANTON                                                */
 /*==============================================================*/
 create table CANTON (
-   IDCANTON             CHAR(8)              not null,
+   IDCANTON             SERIAL              not null,
    IDPROVINCIA          CHAR(8)              not null,
    NOMBRECANTON         CHAR(32)             null,
    constraint PK_CANTON primary key (IDCANTON)
@@ -426,7 +426,7 @@ IDCARGO
 /* Table: PARROQUIA                                             */
 /*==============================================================*/
 create table PARROQUIA (
-   IDPARROQUIA          CHAR(8)              not null,
+   IDPARROQUIA          SERIAL              not null,
    IDCANTON             CHAR(8)              not null,
    NOMBREPARROQUIA      CHAR(32)             null,
    constraint PK_PARROQUIA primary key (IDPARROQUIA)
@@ -466,7 +466,7 @@ IDPROFESION
 /* Table: PROVINCIA                                             */
 /*==============================================================*/
 create table PROVINCIA (
-   IDPROVINCIA          CHAR(8)              not null,
+   IDPROVINCIA          SERIAL              not null,
    NOMBREPROVINCIA      CHAR(32)             null,
    constraint PK_PROVINCIA primary key (IDPROVINCIA)
 );

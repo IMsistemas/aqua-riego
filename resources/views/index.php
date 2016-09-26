@@ -53,6 +53,7 @@
                         <ul class="sub-menu collapse" id="suministro">
                             <li><a href="#" ng-click="toModuloSuministro();">Suministros</a></li>
                             <li><a href="#" ng-click="toModuloBarrio();">Sectores</a></li>
+                            <li><a href="#" ng-click="toModuloCanal();">Canales</a></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#solicitud" class="collapsed">
                             <a href="#"><i class="fa fa-pencil-square-o fa-lg"></i> Solicitudes <span class="arrow"></span></a>
