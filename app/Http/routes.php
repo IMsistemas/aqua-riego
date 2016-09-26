@@ -68,7 +68,7 @@ Route::resource('/recaudacion', 'Cuentas\CobroAguaController');
 /*===================================Cliente=================================================*/
 
 Route::get('/clientes', function (){
-	return view('clientes/index');
+	return view('Clientes/index');
 });
 //Ruta devuelve un arreglo de todos los clientes a AngularJS 
 Route::get('/clientes/gestion/','Clientes\ClienteController@index');
