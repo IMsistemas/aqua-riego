@@ -64,3 +64,30 @@ Route::get('recaudacion/verifyPeriodo', 'Cuentas\CobroAguaController@verifyPerio
 Route::get('recaudacion/generate', 'Cuentas\CobroAguaController@generate');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia CobroAgua
 Route::resource('/recaudacion', 'Cuentas\CobroAguaController');
+
+/*--------------------------------------Christian-------------------------------------------------*/
+/*===================================Cliente=================================================*/
+
+Route::get('/clientes', function (){
+	return view('clientes/index');
+});
+//Ruta devuelve un arreglo de todos los clientes a AngularJS 
+Route::get('/clientes/gestion/','Clientes\ClienteController@index');
+//Ruta devuelve un arreglo de todos los clientes a AngularJS 
+Route::get('/clientes/gestion/{codigocliente}','Clientes\ClienteController@show');
+//Ruta página de inicio de gestión de clientes
+Route::post('/clientes/gestion/guardarcliente','Clientes\ClienteController@store');
+//Ruta página de inicio de gestión de clientes
+Route::post('/clientes/gestion/actualizarcliente/{codigocliente}','Clientes\ClienteController@update');
+//Ruta página de inicio de gestión de clientes
+Route::post('/clientes/gestion/eliminarcliente/{codigocliente}','Clientes\ClienteController@destroy');
+//Peticion para obtener el listado de cobros
+Route::get('recaudacion/getCobros', 'Cuentas\CobroAguaController@getCobros');
+//Peticion para obtener el listado de cobros por filtros
+Route::get('recaudacion/getByFilter/{filters}', 'Cuentas\CobroAguaController@getByFilters');
+//Peticion para obtener si se genera factura del periodo
+Route::get('recaudacion/verifyPeriodo', 'Cuentas\CobroAguaController@verifyPeriodo');
+//Peticion para generar los cobros del periodo
+Route::get('recaudacion/generate', 'Cuentas\CobroAguaController@generate');
+//Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia CobroAgua
+Route::resource('/recaudacion', 'Cuentas\CobroAguaController');

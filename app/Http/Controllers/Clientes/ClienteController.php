@@ -12,49 +12,62 @@ class ClienteController extends Controller
     public function index()
 	{		 
 		return $clientes=Cliente::all();
+		//$clientes=Cliente::with('profesion','actividad')->get();
 	}
 	public function store(Request $request)
 	{
 		$cliente= new Cliente;
+		$cliente->idprofecion = $request->input('idprofecion');
+		$cliente->idactividad = $request->input('idactividad');
 		$cliente->documentoidentidad = $request->input('documentoidentidad');
 		$cliente->fechaingreso = date("Y-m-d H:i:s");
 		$cliente->nombre = $request->input('nombre');
 		$cliente->apellido = $request->input('apellido');
-		$cliente->telefonoprincipal = $request->input('telefonoprincipal');
-		$cliente->telefonosecundario = $request->input('telefonosecundario');
 		$cliente->celular = $request->input('celular');
-		$cliente->direccion = $request->input('direccion');
 		$cliente->correo = $request->input('correo');
+		$cliente->direcciondomicilio = $request->input('direccion');
+		$cliente->telefonoprincipaldomicilio = $request->input('telefonoprincipal');
+		$cliente->telefonosecundariodomicilio = $request->input('telefonosecundario');
+		$cliente->direcciontrabajo = $request->input('direcciontrabajo');
+		$cliente->telefonoprincipaltrabajo = $request->input('telefonoprincipaltrabajo');
+		$cliente->telefonosecundariotrabajo = $request->input('telefonosecundariotrabajo');
+		$cliente->estaactivo = $request->input('estaactivo');
 		$cliente->save();
 		return 'El Cliente fue creado exitosamente';
 	}
 
-	public function show($documentoidentidad)
+	public function show($codigocliente)
 	{
-		return Cliente::find($documentoidentidad);
+		return Cliente::find($codigocliente);
 	}
 
-	public function update(Request $request,$documentoidentidad)
+	public function update(Request $request,$codigocliente)
 	{
-		$cliente = Cliente::find($documentoidentidad);
+		$cliente = Cliente::find($codigocliente);
+		$cliente->idprofesion = $request->input('idprofesion');
+		$cliente->idactividad = $request->input('idactividad');
 		$cliente->documentoidentidad = $request->input('documentoidentidad');
 		$cliente->fechaingreso = $request->input('fechaingreso');
 		$cliente->nombre = $request->input('nombre');
 		$cliente->apellido = $request->input('apellido');
-		$cliente->telefonoprincipal = $request->input('telefonoprincipal');
-		$cliente->telefonosecundario = $request->input('telefonosecundario');
 		$cliente->celular = $request->input('celular');
-		$cliente->direccion = $request->input('direccion');
 		$cliente->correo = $request->input('correo');
-
+		$cliente->direcciondomicilio = $request->input('direcciondomicilio');
+		$cliente->telefonoprincipaldomicilio = $request->input('telefonoprincipaldomicilio');
+		$cliente->telefonosecundariodomicilio = $request->input('telefonosecundariodomicilio');
+		$cliente->direcciontrabajo = $request->input('direcciontrabajo');
+		$cliente->telefonoprincipaltrabajo = $request->input('telefonoprincipaltrabajo');
+		$cliente->telefonosecundariotrabajo = $request->input('telefonosecundariotrabajo');
+		$cliente->estaactivo = $request->input('estaactivo');
 		$cliente->save();
-		return "Se actualizo correctamente el cliente con CI || RUC ".$cliente->documentoidentidad;
+		return $cliente;
+		return "Se actualizado correctamente el cliente";
 	}
 	public function destroy(Request $request)
 	{
-		$cliente = Cliente::find($request->input('documentoidentidad'));
+		$cliente = Cliente::find($request->input('codigocliente'));
 		$cliente->delete();
-		return "Cliente borrado correctamente".$request->input('documentoidentidad');
+		return "Cliente borrado exitosamente";
 	}
 
 	public function missingMethod($parameters = array())

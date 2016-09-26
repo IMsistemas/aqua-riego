@@ -18,6 +18,15 @@
                 <thead class="bg-primary">
                     <tr>
                         <th> 
+                            <a href="#" style="text-decoration:none; color:white;" ng-click="ordenarColumna='documentoidentidad'; reversa=!reversa;">Código Cliente</a>
+                        </th>
+                        <th> 
+                            <a href="#" style="text-decoration:none; color:white;" ng-click="ordenarColumna='documentoidentidad'; reversa=!reversa;">Profesión</a>
+                        </th>
+                        <th> 
+                            <a href="#" style="text-decoration:none; color:white;" ng-click="ordenarColumna='documentoidentidad'; reversa=!reversa;">Actividad</a>
+                        </th>
+                        <th> 
                             <a href="#" style="text-decoration:none; color:white;" ng-click="ordenarColumna='documentoidentidad'; reversa=!reversa;">CI |RUC</a>
                         </th>
                         <th> 
@@ -25,19 +34,31 @@
                         </th>
                         <th style="text-decoration:none; color:white;" >Razón Social</th>
                         <th> 
-                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='telefonoprincipal'; reversa=!reversa;">Telf. Principal</a>
-                        </th>
-                        <th> 
-                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='telefonosecundario'; reversa=!reversa;">Telf. Secundario
-                        </th>
-                        <th> 
                             <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='celular'; reversa=!reversa;">Celular</a>
                         </th>
                         <th> 
-                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='direccion'; reversa=!reversa;">Dirección</a>
+                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='correo'; reversa=!reversa;">Correo</a>
                         </th>
                         <th> 
-                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='correo'; reversa=!reversa;">Correo</a>
+                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='direccion'; reversa=!reversa;">Dirección Domicilio</a>
+                        </th>
+                        <th> 
+                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='telefonoprincipal'; reversa=!reversa;">Telef.Pral. Domicilio</a>
+                        </th>
+                        <th> 
+                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='telefonosecundario'; reversa=!reversa;">Telef.Sec. Domicilio</a>
+                        </th>
+                        <th> 
+                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='direccion'; reversa=!reversa;">Dirección Trabajo</a>
+                        </th>
+                        <th> 
+                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='telefonoprincipal'; reversa=!reversa;">Telef.Pral. Trabajo</a>
+                        </th>
+                        <th> 
+                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='telefonosecundario'; reversa=!reversa;">Telef.Sec. Trabajo</a>
+                        </th>
+                        <th> 
+                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='telefonosecundario'; reversa=!reversa;">Estado</a>
                         </th>
                         <th style="text-decoration:none; color:white;"  class="text-center">Acciones</th>
                         
@@ -45,16 +66,23 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="cliente in clientes|filter:busqueda| orderBy:ordenarColumna:reversa">
-                        <td class="text-center">{{cliente.documentoidentidad}}</td>
+                        <td>{{cliente.codigocliente}}</td>
+                        <td>{{cliente.idprofesion}}</td>
+                        <td>{{cliente.idactividad}}</td>
+                        <td>{{cliente.documentoidentidad}}</td>
                         <td>{{cliente.fechaingreso|date}}</td>
-                        <td>{{cliente.apellido+' '+cliente.nombre}}</td>                    
-                        <td>{{cliente.telefonoprincipal}}</td>   
-                        <td>{{cliente.telefonosecundario}}</td>
-                        <td>{{cliente.celular}}</td>
-                        <td>{{cliente.direccion}}</td>
+                        <td>{{cliente.apellido+' '+cliente.nombre}}</td>      
+                        <td>{{cliente.celular}}</td>  
                         <td>{{cliente.correo}}</td>
+                        <td>{{cliente.direcciondomicilio}}</td>   
+                        <td>{{cliente.telefonoprincipaldomicilio}}</td>   
+                        <td>{{cliente.telefonosecundariodomicilio}}</td>
+                        <td>{{cliente.direcciontrabajo}}</td>   
+                        <td>{{cliente.telefonoprincipaltrabajo}}</td>   
+                        <td>{{cliente.telefonosecundariotrabajo}}</td>
+                        <td>{{cliente.estaactivo}}</td>
                         <td >
-                            <a href="#" class="btn btn-warning" ng-click="toggle('edit', cliente.documentoidentidad)">Editar</a>                          
+                            <a href="#" class="btn btn-warning" ng-click="toggle('edit', cliente.codigocliente)">Editar</a>                          
                         </td>
                         <!--<td >
                             <a href="#" class="btn btn-danger" ng-click="confirmDelete(cliente.documentoidentidad)">Borrar</a>
@@ -172,7 +200,7 @@
                                             <label class="col-sm-4 control-label">Telf. Principal:</label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="telefonoprincipal" id="telefonoprincipal"
-                                                       ng-model="telprincipal" ng-required="true" ng-maxlength ="16" ng-pattern="/^[0-9]+$/">
+                                                       ng-model="telprincipaldomicilio" ng-required="true" ng-maxlength ="16" ng-pattern="/^[0-9]+$/">
                                                        <span class="help-inline" ng-show="frmClientes.telefonoprincipal.$invalid">El teléfono principal del cliente es requerido <br></span>
                                                        <span class="help-inline" 
                                                         ng-show="frmClientes.telefonoprincipal.$error.pattern">Sólo se permiten números <br></span>
@@ -186,7 +214,7 @@
                                             <label class="col-sm-4 control-label">Telf. Secundario:</label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="telefonosecundario" id="telefonosecundario"
-                                                       ng-model="telsecundario" ng-required="true" ng-maxlength ="16"  ng-pattern="/^[0-9]+$/">
+                                                       ng-model="telsecundariodomicilio" ng-required="true" ng-maxlength ="16"  ng-pattern="/^[0-9]+$/">
                                                        <span class="help-inline" ng-show="frmClientes.telefonosecundario.$invalid">El teléfono secundario del cliente es requerido <br></span>
                                                        <span class="help-inline" 
                                                         ng-show="frmClientes.telefonosecundario.$error.pattern">Sólo se permiten números <br></span>
@@ -217,7 +245,7 @@
                                             <label class="col-sm-4 control-label">Dirección:</label>
                                             <div class="col-sm-8">
                                                 <input type="text" class="form-control" name="direccion" id="direccion"
-                                                       ng-model="cliente.direccion" ng-required="true" ng-maxlength ="32">
+                                                       ng-model="cliente.direcciondomicilio" ng-required="true" ng-maxlength ="32">
                                                        <span class="help-inline" ng-show="frmClientes.direccion.$invalid">El dirección del cliente es requerido <br></span>                         
                                                         <span class="help-inline" 
                                                         ng-show="frmClientes.direccion.$error.maxlength">La longitud máxima es de 32 caracteres <br></span>
@@ -226,15 +254,60 @@
                                         </div>
                                     </div>
                                 </div>
-                                </fieldset>           
-                                
+                                </fieldset> 
+                                <fieldset>
+                                    <legend style="padding-bottom: 5px; padding-left: 20px">Datos del Trabajo</legend>
 
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="form-group error">
+                                            <label class="col-sm-4 control-label">Dirección:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="direccion" id="direccion"
+                                                       ng-model="cliente.direcciontrabajo" ng-required="true" ng-maxlength ="32">
+                                                       <span class="help-inline" ng-show="frmClientes.direccion.$invalid">El dirección del cliente es requerido <br></span>                         
+                                                        <span class="help-inline" 
+                                                        ng-show="frmClientes.direccion.$error.maxlength">La longitud máxima es de 32 caracteres <br></span>
 
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12">
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="form-group error">
+                                            <label class="col-sm-4 control-label">Telef.Principal:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="telefonoprincipal" id="telefonoprincipal"
+                                                       ng-model="telprincipaltrabajo" ng-required="true" ng-maxlength ="16" ng-pattern="/^[0-9]+$/">
+                                                       <span class="help-inline" ng-show="frmClientes.telefonoprincipal.$invalid">El teléfono principal del cliente es requerido <br></span>
+                                                       <span class="help-inline" 
+                                                        ng-show="frmClientes.telefonoprincipal.$error.pattern">Sólo se permiten números <br></span>
+                                                        <span class="help-inline" 
+                                                        ng-show="frmClientes.telefonoprincipal.$error.maxlength">La longitud máxima es de 16 caracteres <br></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="form-group error">
+                                            <label class="col-sm-4 control-label">Telef. Secundario:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" name="telefonosecundario" id="telefonosecundario"
+                                                       ng-model="telsecundariotrabajo" ng-required="true" ng-maxlength ="16"  ng-pattern="/^[0-9]+$/">
+                                                       <span class="help-inline" ng-show="frmClientes.telefonosecundario.$invalid">El teléfono secundario del cliente es requerido <br></span>
+                                                       <span class="help-inline" 
+                                                        ng-show="frmClientes.telefonosecundario.$error.pattern">Sólo se permiten números <br></span>
+                                                        <span class="help-inline" 
+                                                        ng-show="frmClientes.telefonosecundario.$error.maxlength">La longitud máxima es de 16 caracteres <br></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </fieldset>          
                             </form>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, documentoidentidad)" ng-disabled="frmClientes.$invalid">Guardar</button>
+                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, codigocliente)" ng-disabled="frmClientes.$invalid">Guardar</button>
                         </div>
                     </div>
                 </div>
