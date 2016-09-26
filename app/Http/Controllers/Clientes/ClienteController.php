@@ -44,8 +44,8 @@ class ClienteController extends Controller
 	public function update(Request $request,$codigocliente)
 	{
 		$cliente = Cliente::find($codigocliente);
-		$cliente->idprofesion = $request->input('idprofesion');
-		$cliente->idactividad = $request->input('idactividad');
+		//$cliente->idprofesion = "";//$request->input('idprofesion');
+		//$cliente->idactividad = "";//$request->input('idactividad');
 		$cliente->documentoidentidad = $request->input('documentoidentidad');
 		$cliente->fechaingreso = $request->input('fechaingreso');
 		$cliente->nombre = $request->input('nombre');
@@ -60,8 +60,13 @@ class ClienteController extends Controller
 		$cliente->telefonosecundariotrabajo = $request->input('telefonosecundariotrabajo');
 		$cliente->estaactivo = $request->input('estaactivo');
 		$cliente->save();
-		return $cliente;
 		return "Se actualizado correctamente el cliente";
+
+		/*$parroquia=DB::table('parroquia')->where('idparroquia',$idparroquia)->get();
+		$nombreparroquiaupdate=$parroquia[0]->nombreparroquia =$request->input('nombreparroquia');
+		$result = DB::table('parroquia')->where('idparroquia', $idparroquia)->update(array('nombreparroquia' => $nombreparroquiaupdate));
+		//return $result;
+		return "Se actualizo correctamente".$parroquia[0]->idparroquia;*/
 	}
 	public function destroy(Request $request)
 	{

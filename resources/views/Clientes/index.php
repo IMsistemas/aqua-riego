@@ -146,6 +146,42 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="form-group error">
+                                            <label class="col-sm-4 control-label">Profesión:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control has-error" name="documentoidentidad" id="documentoidentidad"
+                                                       ng-model="cliente.documentoidentidad" ng-required="true" ng-minlength ="10" ng-maxlength ="32" ng-pattern="/^[0-9]+$/">
+                                                        <span class="help-inline" ng-show="frmClientes.documentoidentidad.$invalid">El documento del cliente es requerido <br></span>
+                                                        <span class="help-inline" 
+                                                        ng-show="frmClientes.documentoidentidad.$error.pattern">Sólo se permiten números <br></span>
+                                                        <span class="help-inline" 
+                                                        ng-show=" frmClientes.documentoidentidad.$error.minlength">La longitud mínima es de 10 caracteres <br></span>
+                                                        <span class="help-inline" 
+                                                        ng-show=" frmClientes.documentoidentidad.$error.maxlength">La longitud máxima es de 32 caracteres</span>
+                                                       
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="form-group error">
+                                            <label class="col-sm-4 control-label">Actividad:</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control has-error" name="documentoidentidad" id="documentoidentidad"
+                                                       ng-model="cliente.documentoidentidad" ng-required="true" ng-minlength ="10" ng-maxlength ="32" ng-pattern="/^[0-9]+$/">
+                                                        <span class="help-inline" ng-show="frmClientes.documentoidentidad.$invalid">El documento del cliente es requerido <br></span>
+                                                        <span class="help-inline" 
+                                                        ng-show="frmClientes.documentoidentidad.$error.pattern">Sólo se permiten números <br></span>
+                                                        <span class="help-inline" 
+                                                        ng-show=" frmClientes.documentoidentidad.$error.minlength">La longitud mínima es de 10 caracteres <br></span>
+                                                        <span class="help-inline" 
+                                                        ng-show=" frmClientes.documentoidentidad.$error.maxlength">La longitud máxima es de 32 caracteres</span>
+                                                       
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                     <div class="col-md-6 col-xs-12">
                                         <div class="form-group error">
