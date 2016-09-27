@@ -15,6 +15,10 @@ class Toma extends Model
     	return $this->belongsTo('App\Modelos\Tomas\Canal','idcanal');
     }
 
+    public function barrio(){
+        return $this->belongsTo('App\Modelos\Sectores\Barrio','idbarrio');
+    }
+
     public function derivacion(){
     	return $this->hasMany('App\Modelos\Tomas\Derivacion','idtoma');
     }

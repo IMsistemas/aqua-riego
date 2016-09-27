@@ -33,7 +33,7 @@
                         <td >
                             <a href="#" class="btn btn-warning " ng-click="toggle('edit', toma.idtoma, toma.descripciontoma)">Editar Toma</a>
                             <a href="#" class="btn btn-danger " ng-click="showModalConfirm(toma.idtoma, toma.descripciontoma)">Borrar Toma</a>
-                            <a href="#" class="btn btn-info" ng-click="toModuloDerivacion(toma.idtoma, toma.descripciontoma );">Ver Derivaciones</a>
+                            <a href="#" class="btn btn-info" ng-click="toModuloDerivacion(toma.idtoma, toma.descripciontoma);">Ver Derivaciones</a>
                         </td>
                         </td>
                     </tr>
@@ -71,10 +71,19 @@
                                         ng-show="frmToma.descripciontoma.$error.maxlength">La longitud máxima es de 32 caracteres<br></span>
                                     </div>
                                 </div>
+
+                                 <div class="form-group">
+                                    <label for="t_nombre_calle" class="col-sm-4 control-label">Nombre del barrio</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" ng-model="idbarrio" ng-options="barrio as barrio.nombrebarrio for barrio in barrios track by barrio.idbarrio">
+                                        <option value="">Elige Barrio</option>
+`                                       </select>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, idtoma,'idcanal')" ng-disabled="frmToma.$invalid">Guardar</button>
+                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, idtoma,idbarrio)" ng-disabled="frmToma.$invalid">Guardar</button>
                         </div>
                     </div>
                 </div>

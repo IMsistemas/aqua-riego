@@ -147,7 +147,7 @@
     <script src="<?= asset('app/controllers/barriosController.js') ?>"></script>
     <script src="<?= asset('app/controllers/canalesController.js') ?>"></script>
     <script src="<?= asset('app/controllers/tomasController.js') ?>"></script>
-    <script src="<?= asset('app/controllers/derivacionController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/derivacionesController.js') ?>"></script>
 
     <script type="text/javascript">
         /* $(function() {

@@ -178,3 +178,68 @@ Route::post('/barrios/gestion/guardarbarrio/{idparroquia}','Sectores\BarrioContr
 Route::post('/barrios/gestion/actualizarbarrio/{idbarrio}','Sectores\BarrioController@postActualizarBarrio');
 //Ruta página de inicio de gestión de barrios
 Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');
+/*===================================Módulo Canal===========================================*/
+
+Route::get('/canales', function (){
+	return view('Tomas/canal');
+});
+//Ruta devuelve un arreglo de todos los provincias a AngularJS 
+Route::get('/canales/gestion','Tomas\CanalController@index');
+//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
+Route::get('/canales/gestion/{idcanal?}','Tomas\CanalController@show');
+//Ruta página de inicio de gestión de barrios
+Route::get('/canales/maxid','Tomas\CanalController@maxId');
+//Ruta página de inicio de gestión de barrios
+Route::post('/canales/gestion/guardarcanal','Tomas\CanalController@postCrearCanal');
+//Ruta página de inicio de gestión de barrios
+Route::post('/canales/gestion/actualizarcanal/{idcanal}','Tomas\CanalController@postActualizarCanal');
+//Ruta página de inicio de gestión de barrios
+Route::Delete('/canales/gestion/eliminarcanal/{idcanal}','Tomas\CanalController@destroy');
+
+/*===================================Módulo Toma===========================================*/
+
+Route::get('/tomas', function (){
+	return view('Tomas/toma');
+});
+
+//----Kevin Tambien :-(---------
+Route::get('/tomas/gestion/concalles','Tomas\TomaController@getBarriosCalles');
+
+
+//Ruta devuelve un arreglo de todos los provincias a AngularJS 
+Route::get('/tomas/{idcanal?}','Tomas\TomaController@index');
+//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
+Route::get('/tomas/gestion/{idtoma?}','Tomas\TomaController@show');
+//Ruta página de inicio de gestión de barrios
+Route::get('/tomas/maxid','Tomas\TomaController@maxId');
+//Ruta página de inicio de gestión de barrios
+Route::post('/tomas/gestion/guardartoma/{idcanal}','Tomas\TomaController@postCrearToma');
+//Ruta página de inicio de gestión de barrios
+Route::post('/tomas/gestion/actualizartoma/{idtoma}','Tomas\TomaController@postActualizarToma');
+//Ruta página de inicio de gestión de tomas
+Route::Delete('/tomas/gestion/eliminartoma/{idtoma}','Tomas\TomaController@destroy');
+
+
+/*===================================Módulo Derivación===========================================*/
+
+Route::get('/derivaciones', function (){
+	return view('Tomas/derivacion');
+});
+
+//----Kevin Tambien :-(---------
+////Route::get('/derivaciones/gestion/concalles','Tomas\DerivacionController@getBarriosCalles');
+
+
+//Ruta devuelve un arreglo de todos los provincias a AngularJS 
+Route::get('/derivaciones/{idtoma?}','Tomas\DerivacionController@index');
+//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
+Route::get('/derivaciones/gestion/{idderivacion?}','Tomas\DerivacionController@show');
+//Ruta página de inicio de gestión de barrios
+Route::get('/derivaciones/maxid','Tomas\DerivacionController@maxId');
+//Ruta página de inicio de gestión de barrios
+Route::post('/derivaciones/gestion/guardarderivacion/{idtoma}','Tomas\DerivacionController@postCrearDerivacion');
+
+//Ruta página de inicio de gestión de derivacions
+Route::post('/derivaciones/gestion/actualizarderivacion/{idderivacion}','Tomas\DerivacionController@postActualizarDerivacion');
+//Ruta página de inicio de gestión de derivacions
+Route::Delete('/derivaciones/gestion/eliminarderivacion/{idderivacion}','Tomas\DerivacionController@destroy');

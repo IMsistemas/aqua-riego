@@ -28,6 +28,12 @@ app.controller('tomasController', function($scope, $http, API_URL) {
                             $scope.idtoma = response;
                             $scope.descripciontoma = "";
                         });
+                $http.get(API_URL + 'barrios/gestion/'+"PAR00001")
+                        .success(function(response) {
+                            console.log(response);
+                            $scope.barrios = response;
+                            $scope.idbarrio="";
+                        });
                 
                 break;
             case 'edit':
@@ -45,17 +51,18 @@ app.controller('tomasController', function($scope, $http, API_URL) {
     //al mo mento que le den click al ng-click getInfo() ejecutamos la funcion
 
     //save new record / update existing record
-    $scope.save = function(modalstate, idtoma,idcanal) {
-        var url = API_URL + "tomas/gestion";    
-        $scope.idcanal=idcanal; 
+    $scope.save = function(modalstate, idtoma,idbarrio) {
+        var url = API_URL + "tomas/gestion"; 
+        $scope.idbarrio=idbarrio;   
         
         //append toma id to the URL if the form is in edit mode
         if (modalstate === 'edit'){
             url += "/actualizartoma/" + idtoma;
         }else{
-            url += "/guardartoma/"+$scope.idcanal ;
+            url += "/guardartoma/"+$scope.idcanal;
         }
          $scope.toma={
+            idbarrio:$scope.idbarrio.idbarrio,
             idtoma: $scope.idtoma,
             descripciontoma: $scope.descripciontoma
         };

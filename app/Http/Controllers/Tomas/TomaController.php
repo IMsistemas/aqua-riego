@@ -18,8 +18,7 @@ class TomaController extends Controller
 		return $toma=Toma::find($idtoma);
 	}
 
-	public function maxId()
-	{
+	public function id(){
 		$toma=Toma::max('idtoma');
 		return $toma=$toma+1;
 	}
@@ -28,6 +27,7 @@ class TomaController extends Controller
 	{
 		$toma= new Toma;
 		$toma->idcanal = $idcanal;
+		$toma->idbarrio = $request->input('idbarrio');
 		$toma->descripciontoma = $request->input('descripciontoma');
 		$toma->save();
 		return 'La Toma fue creada exitosamente';
