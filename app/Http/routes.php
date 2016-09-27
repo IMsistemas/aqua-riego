@@ -201,7 +201,6 @@ Route::post('/barrios/gestion/guardarbarrio/{idparroquia}','Sectores\BarrioContr
 //Ruta página de inicio de gestión de barrios
 Route::post('/barrios/gestion/actualizarbarrio/{idbarrio}','Sectores\BarrioController@postActualizarBarrio');
 //Ruta página de inicio de gestión de barrios
-<<<<<<< HEAD
 Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');
 /*===================================Módulo Canal===========================================*/
 
@@ -268,6 +267,4 @@ Route::post('/derivaciones/gestion/guardarderivacion/{idtoma}','Tomas\Derivacion
 Route::post('/derivaciones/gestion/actualizarderivacion/{idderivacion}','Tomas\DerivacionController@postActualizarDerivacion');
 //Ruta página de inicio de gestión de derivacions
 Route::Delete('/derivaciones/gestion/eliminarderivacion/{idderivacion}','Tomas\DerivacionController@destroy');
-=======
 Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');
->>>>>>> origin/master
