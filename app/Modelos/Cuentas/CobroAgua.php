@@ -14,4 +14,9 @@ class CobroAgua extends Model
     {
         return $this->belongsTo('App\Modelos\Terreno\Terreno', 'idterreno');
     }
+
+    public function descuento()
+    {
+        return $this->belongsTo('App\Modelos\Cuentas\Descuento', 'iddescuento');
+    }
 }

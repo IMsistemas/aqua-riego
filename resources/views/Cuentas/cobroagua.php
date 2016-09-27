@@ -67,7 +67,7 @@
             </thead>
             <tbody style="font-size: 13px;">
             <tr ng-repeat="cobro in cobros" ng-cloak>
-                <td>{{cobro.fechaperiodo}}</td>
+                <td>{{cobro.aniocobro}}</td>
                 <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{cobro.apellido + ' ' + cobro.nombre}}</td>
                 <td>{{cobro.nombretarifa}}</td>
                 <td>{{cobro.nombrebarrio}}</td>

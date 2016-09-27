@@ -39,7 +39,7 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
 
     $scope.infoAction = function (cobro) {
 
-        $scope.periodo = cobro.fechaperiodo;
+        $scope.periodo = cobro.aniocobro;
         $scope.cliente_info = cobro.apellido + ' ' + cobro.nombre;
         $scope.junta_info = cobro.nombrebarrio;
         $scope.area_info = cobro.area + ' m2';
@@ -76,6 +76,9 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
         }
 
         $http.put(API_URL + 'recaudacion/' + id, param).success(function(response){
+
+            console.log(response);
+
             $('#modalInfoAction').modal('hide');
             $scope.initLoad();
             $scope.message = 'Se ha realizado el pago correspondiente...';

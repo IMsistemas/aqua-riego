@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cuentas;
 
 use App\Modelos\Cuentas\CobroAgua;
+use App\Modelos\Cuentas\Descuento;
 use App\Modelos\Terreno\Terreno;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,7 @@ class CobroAguaController extends Controller
      */
     public function verifyPeriodo()
     {
-        $count = CobroAgua::where('fechaperiodo', date('Y'))
+        $count = CobroAgua::where('aniocobro', date('Y'))
                                 ->count();
 
         return response()->json(['count' => $count]);
@@ -49,7 +50,7 @@ class CobroAguaController extends Controller
                             ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
                             ->join('toma', 'derivacion.idtoma', '=', 'toma.idtoma')
                             ->join('canal', 'toma.idcanal', '=', 'canal.idcanal')
-                            ->orderBy('fechaperiodo', 'desc')
+                            ->orderBy('aniocobro', 'desc')
                             ->get();
     }
 
@@ -81,7 +82,7 @@ class CobroAguaController extends Controller
             $cobro->where('estapagada', $estado);
         }
 
-        return $cobro->orderBy('fechaperiodo', 'desc')
+        return $cobro->orderBy('aniocobro', 'desc')
                             ->get();
     }
 
@@ -102,7 +103,7 @@ class CobroAguaController extends Controller
                 $atraso = $this->searchAtraso($item->idterreno);
 
                 $cobro->idterreno = $item->idterreno;
-                $cobro->fechaperiodo = date('Y');
+                $cobro->aniocobro = date('Y');
 
                 if ($atraso == 0){
                     $cobro->valoratrasados = 0;
@@ -139,6 +140,21 @@ class CobroAguaController extends Controller
     public function update(Request $request, $id)
     {
         $cobro = CobroAgua::find($id);
+
+        $descuento = Descuento::where('year', date('Y'))
+                                ->where('mes', date('n'))
+                                ->get();
+
+        if(count($descuento) > 0) {
+            $valorconsumo = $cobro->valorconsumo;
+            $total = ($valorconsumo * $descuento[0]->porcentaje) / 100;
+
+            $cobro->iddescuento = $descuento[0]->iddescuento;
+            $cobro->valorconsumo = round($total, 2);
+            $cobro->total = round($total + $cobro->valoratrasados, 2);
+        }
+
+        $cobro->fechapago = date('Y-m-d');
         $cobro->estapagada = $request->input('estapagada');
         $cobro->save();
         return response()->json(['success' => true]);
@@ -152,7 +168,7 @@ class CobroAguaController extends Controller
      */
     private function searchAtraso($idterreno)
     {
-        $cobro = CobroAgua::where('fechaperiodo', (date('Y') - 1))
+        $cobro = CobroAgua::where('aniocobro', (date('Y') - 1))
                             ->where('idterreno', $idterreno)
                             ->get();
 
