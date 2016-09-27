@@ -45,15 +45,14 @@
                         </li>
                         <ul class="sub-menu collapse" id="recaudacion">
                             <li><a href="#" ng-click="toModuloRecaudacion();">Cobro Agua</a></li>
-                            <li><a href="#" ng-click="toModuloLectura();">Lecturas</a></li>
+                            
                         </ul>
                         <li data-toggle="collapse" data-target="#suministro" class="collapsed">
-                            <a href="#"><i class="fa fa-tachometer fa-lg"></i> Suministros <span class="arrow"></span></a>
+                            <a href="#"><i class="fa fa-globe fa-lg"></i> Terrenos <span class="arrow"></span></a>
                         </li>
                         <ul class="sub-menu collapse" id="suministro">
-                            <li><a href="#" ng-click="toModuloSuministro();">Suministros</a></li>
-                            <li><a href="#" ng-click="toModuloBarrio();">Sectores</a></li>
-                            <li><a href="#" ng-click="toModuloCanal();">Canales</a></li>
+                            <li><a href="#" ng-click="toModuloSuministro();">Terrenos</a></li>
+                            <li><a href="#" ng-click="toModuloBarrio();">Juntas Modulares</a></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#solicitud" class="collapsed">
                             <a href="#"><i class="fa fa-pencil-square-o fa-lg"></i> Solicitudes <span class="arrow"></span></a>
@@ -67,8 +66,6 @@
                         </li>
                         <ul class="sub-menu collapse" id="cliente">
                             <li><a href="#" ng-click="toModuloCliente();">Clientes</a></li>
-                            <li ng-show='false'><a href="#" ng-click="">Cuentas por cobrar clientes</a></li>
-                            <li ng-show='false'><a href="#" ng-click="">Cuentas por pagar clientes</a></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#personal" class="collapsed">
                             <a href="#"><i class="fa fa-male fa-lg"></i> Personal <span class="arrow"></span></a>
@@ -90,11 +87,12 @@
                             <li><a href="#" ng-click="">Usuarios</a></li>
                             <li><a href="#" ng-click="">Roles</a></li>
                         </ul>
-                        <li data-toggle="collapse" data-target="#configuracion" class="collapsed" ng-show='false'>
+                        <li data-toggle="collapse" data-target="#configuracion" class="collapsed" ng-show='true'>
                             <a href="#"><i class="fa fa-cog fa-spin fa-lg"></i> Configuración <span class="arrow"></span></a>
                         </li>
                         <ul class="sub-menu collapse" id="configuracion">
-                            <li><a href="#">Configuración del sistema</a></li>
+                            <li><a href="#">Tarifas</a></li>
+                            <li><a href="#" ng-click="toModuloCanal();">Tomas</a></li>
                         </ul>
 
                     </ul>
@@ -149,7 +147,7 @@
     <script src="<?= asset('app/controllers/barriosController.js') ?>"></script>
     <script src="<?= asset('app/controllers/canalesController.js') ?>"></script>
     <script src="<?= asset('app/controllers/tomasController.js') ?>"></script>
-    <script src="<?= asset('app/controllers/distribucionesController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/derivacionController.js') ?>"></script>
 
     <script type="text/javascript">
         /* $(function() {
