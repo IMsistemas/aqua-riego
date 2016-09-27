@@ -96,10 +96,10 @@ insert into caudal (idtarifa,desde,hasta) values(3,0.00,9999);
 /* DESCUENTOS                                                   */
 /*==============================================================*/
 
-insert into descuento (anio, mes,porcentaje) values (2015,01,0.6);
-insert into descuento (anio, mes,porcentaje) values (2015,02,0.5);
-insert into descuento (anio, mes,porcentaje) values (2015,03,0.4);
-insert into descuento (anio, mes,porcentaje) values (2015,04,0.3);
-insert into descuento (anio, mes,porcentaje) values (2015,05,0.2);
-insert into descuento (anio, mes,porcentaje) values (2015,06,0.1);
+insert into descuento (year, mes,porcentaje) values (2015,01,0.6);
+insert into descuento (year, mes,porcentaje) values (2015,02,0.5);
+insert into descuento (year, mes,porcentaje) values (2015,03,0.4);
+insert into descuento (year, mes,porcentaje) values (2015,04,0.3);
+insert into descuento (year, mes,porcentaje) values (2015,05,0.2);
+insert into descuento (year, mes,porcentaje) values (2015,06,0.1);
 
