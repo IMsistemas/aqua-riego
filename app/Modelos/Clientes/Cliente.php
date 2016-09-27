@@ -15,5 +15,10 @@ class Cliente extends Model
     	return $this->hasMany('App\Modelos\Solicitud\Solicitud','idsolicitud');
     }
 
+    public function terreno()
+    {
+        return $this->hasMany('App\Modelos\Terreno\Terreno', 'codigocliente');
+    }
+
 }
  

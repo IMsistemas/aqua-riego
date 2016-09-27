@@ -235,7 +235,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         $http.get(API_URL + 'solicitud/calculateValor/' + area).success(function(response){
             $scope.valor_total = parseFloat(response.costo).toFixed(2);
         });
-    }
+    };
 
     $scope.processSolicitud = function () {
 

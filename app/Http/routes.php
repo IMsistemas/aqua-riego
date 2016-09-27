@@ -64,7 +64,27 @@ Route::get('recaudacion/generate', 'Cuentas\CobroAguaController@generate');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia CobroAgua
 Route::resource('/recaudacion', 'Cuentas\CobroAguaController');
 
-/*------------------------------------Yamilka------------------------------------------------*/
+/*===================================Edicion Terreno==============================================*/
+//Peticion para obtener el listado de tarifas
+Route::get('editTerreno/getTarifas', 'Terreno\TerrenoController@getTarifas');
+//Peticion para obtener el listado de barrios
+Route::get('editTerreno/getBarrios', 'Terreno\TerrenoController@getBarrios');
+//Peticion para obtener el listado de cultivos
+Route::get('editTerreno/getCultivos', 'Terreno\TerrenoController@getCultivos');
+//Peticion para obtener el listado de canales
+Route::get('editTerreno/getCanales', 'Terreno\TerrenoController@getCanales');
+//Peticion para obtener el listado de tomas en base a un canal
+Route::get('editTerreno/getTomas/{idcanal}', 'Terreno\TerrenoController@getTomas');
+//Peticion para obtener el listado de derivaciones en base a una toma
+Route::get('editTerreno/getDerivaciones/{idtoma}', 'Terreno\TerrenoController@getDerivaciones');
+//Peticion para obtener el listado de terrenos
+Route::get('editTerreno/getTerrenos', 'Terreno\TerrenoController@getTerrenos');
+//Peticion para obtener la constante para calculo
+Route::get('editTerreno/getConstante', 'Terreno\TerrenoController@getConstante');
+//Peticion para calcular el valor por area
+Route::get('editTerreno/calculateValor/{area}', 'Terreno\TerrenoController@calculateValor');
+//Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Terreno
+Route::resource('/editTerreno', 'Terreno\TerrenoController');
 
 /*===================================Módulo Nomina===========================================*/
 //Ruta devuelve el ultimo ID + 1 de cargos

@@ -24,4 +24,14 @@ class Terreno extends Model
     {
         return $this->belongsTo('App\Modelos\Ubicacion\Derivacion', 'idderivacion');
     }
+
+    public function cliente()
+    {
+        return $this->belongsTo('App\Modelos\Clientes\Cliente', 'codigocliente');
+    }
+
+    public function barrio()
+    {
+        return $this->belongsTo('App\Modelos\Sectores\Barrio', 'idbarrio');
+    }
 }
