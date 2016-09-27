@@ -59,7 +59,6 @@
                         </li>
                         <ul class="sub-menu collapse" id="solicitud">
                             <li><a href="#" ng-click="toModuloSolicitud();">Solicitudes</a></li>
-                            <li><a href="#" ng-click="toModuloSolicitudEspera();">Solicitudes en espera</a></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#cliente" class="collapsed">
                             <a href="#"><i class="fa fa-user fa-lg"></i> Clientes <span class="arrow"></span></a>
@@ -93,6 +92,7 @@
                         <ul class="sub-menu collapse" id="configuracion">
                             <li><a href="#">Tarifas</a></li>
                             <li><a href="#" ng-click="toModuloCanal();">Tomas</a></li>
+                            <li><a href="#" ng-click="toModuloCanal();">Descuentos</a></li>
                         </ul>
 
                     </ul>
@@ -143,6 +143,8 @@
     <script src="<?= asset('app/app.js') ?>"></script>
 
     <script src="<?= asset('app/controllers/mainController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/cargosController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/empleadosController.js') ?>"></script>
     <script src="<?= asset('app/controllers/clientesController.js') ?>"></script>
     <script src="<?= asset('app/controllers/barriosController.js') ?>"></script>
     <script src="<?= asset('app/controllers/canalesController.js') ?>"></script>

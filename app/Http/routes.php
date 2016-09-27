@@ -16,7 +16,7 @@ Route::get('/inicio', function () {
 });
 /*--------------------------------------Raidel-------------------------------------------------*/
 /*===================================Solicitud=================================================*/
-
+ 
 //Peticion para obtener el listado de solicitudes
 Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicitudes');
 //Peticion para obtener el listado de solicitudes por filtros
@@ -64,8 +64,32 @@ Route::get('recaudacion/generate', 'Cuentas\CobroAguaController@generate');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia CobroAgua
 Route::resource('/recaudacion', 'Cuentas\CobroAguaController');
 
+/*------------------------------------Yamilka------------------------------------------------*/
+
+/*===================================Módulo Nomina===========================================*/
+//Ruta devuelve el ultimo ID + 1 de cargos
+Route::get('cargo/lastId', 'Nomina\CargoController@getLastID');
+//Ruta devuelve todos los cargos
+Route::get('cargo/getCargos', 'Nomina\CargoController@getCargos');
+//Ruta devuelve la informacion del cargo solicitado
+Route::get('cargo/{id}', 'Nomina\CargoController@show');
+//Ruta devuelve los cargos por filtro
+Route::get('cargo/getByFilter/{filters}', 'Nomina\CargoController@getByFilter');
+//Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia cargo
+Route::resource('cargo', 'Nomina\CargoController');
+
+//Ruta devuelve todos los empleados
+Route::get('empleado/getEmployees', 'Nomina\EmpleadoController@getEmployees');
+//Ruta devuelve todos los cargos
+Route::get('empleado/getAllPositions', 'Nomina\EmpleadoController@getAllPositions');
+//Ruta devuelve los cargos por filtro
+Route::get('empleado/getByFilter/{filters}', 'Nomina\EmpleadoController@getByFilter');
+//Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia empleado
+Route::resource('empleado', 'Nomina\EmpleadoController');
+
+
 /*--------------------------------------Christian-------------------------------------------------*/
-/*===================================Cliente=================================================*/
+/*===================================Cliente======================================================*/
 
 Route::get('/clientes', function (){
 	return view('Clientes/index');
@@ -177,6 +201,7 @@ Route::post('/barrios/gestion/guardarbarrio/{idparroquia}','Sectores\BarrioContr
 //Ruta página de inicio de gestión de barrios
 Route::post('/barrios/gestion/actualizarbarrio/{idbarrio}','Sectores\BarrioController@postActualizarBarrio');
 //Ruta página de inicio de gestión de barrios
+<<<<<<< HEAD
 Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');
 /*===================================Módulo Canal===========================================*/
 
@@ -243,3 +268,6 @@ Route::post('/derivaciones/gestion/guardarderivacion/{idtoma}','Tomas\Derivacion
 Route::post('/derivaciones/gestion/actualizarderivacion/{idderivacion}','Tomas\DerivacionController@postActualizarDerivacion');
 //Ruta página de inicio de gestión de derivacions
 Route::Delete('/derivaciones/gestion/eliminarderivacion/{idderivacion}','Tomas\DerivacionController@destroy');
+=======
+Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');
+>>>>>>> origin/master
