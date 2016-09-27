@@ -57,18 +57,20 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 
 	}
 
-	$scope.toModuloCanal = function(){			
+	$scope.toModuloCanal = function(){
 		$scope.titulo = "Canales";
 		$scope.toModulo = "canales";
 	}
 
-	$scope.toModuloToma = function(){			
-		$scope.titulo = "Toma";
+	$scope.toModuloToma = function(idcanal,descripcioncanal){
+		$scope.idcanal = idcanal;						
+		$scope.titulo = "Toma :".concat(descripcioncanal);
 		$scope.toModulo = "tomas";
 	}
 
-	$scope.toModuloDerivacion = function(){			
-		$scope.titulo = "Derivación";
+	$scope.toModuloDerivacion = function(idtoma,descripciontoma){
+		$scope.idtoma = idtoma;				
+		$scope.titulo = "Derivación :".concat(descripciontoma);
 		$scope.toModulo = "derivaciones";
 	}
 

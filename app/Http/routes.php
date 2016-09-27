@@ -131,3 +131,50 @@ Route::post('/canales/gestion/guardarcanal','Tomas\CanalController@postCrearCana
 Route::post('/canales/gestion/actualizarcanal/{idcanal}','Tomas\CanalController@postActualizarCanal');
 //Ruta página de inicio de gestión de barrios
 Route::Delete('/canales/gestion/eliminarcanal/{idcanal}','Tomas\CanalController@destroy');
+
+/*===================================Módulo Toma===========================================*/
+
+Route::get('/tomas', function (){
+	return view('Tomas/toma');
+});
+
+//----Kevin Tambien :-(---------
+Route::get('/tomas/gestion/concalles','Tomas\TomaController@getBarriosCalles');
+
+
+//Ruta devuelve un arreglo de todos los provincias a AngularJS 
+Route::get('/tomas/{idcanal?}','Tomas\TomaController@index');
+//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
+Route::get('/tomas/gestion/{idtoma?}','Tomas\TomaController@show');
+//Ruta página de inicio de gestión de barrios
+Route::get('/tomas/maxid','Tomas\TomaController@maxId');
+//Ruta página de inicio de gestión de barrios
+Route::post('/tomas/gestion/guardartoma/{idcanal}','Tomas\TomaController@postCrearToma');
+//Ruta página de inicio de gestión de barrios
+Route::post('/tomas/gestion/actualizartoma/{idtoma}','Tomas\TomaController@postActualizarToma');
+//Ruta página de inicio de gestión de tomas
+Route::Delete('/tomas/gestion/eliminartoma/{idtoma}','Tomas\TomaController@destroy');
+
+
+/*===================================Módulo Derivación===========================================*/
+
+Route::get('/barrios', function (){
+	return view('Sectores/barrio');
+});
+
+//----Kevin Tambien :-(---------
+Route::get('/barrios/gestion/concalles','Sectores\BarrioController@getBarriosCalles');
+
+
+//Ruta devuelve un arreglo de todos los provincias a AngularJS 
+Route::get('/barrios/gestion/{idparroquia?}','Sectores\BarrioController@index');
+//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
+Route::get('/barrios/gestion/{idbarrio?}','Sectores\BarrioController@show');
+//Ruta página de inicio de gestión de barrios
+Route::get('/barrios/maxid','Sectores\BarrioController@maxId');
+//Ruta página de inicio de gestión de barrios
+Route::post('/barrios/gestion/guardarbarrio/{idparroquia}','Sectores\BarrioController@postCrearBarrio');
+//Ruta página de inicio de gestión de barrios
+Route::post('/barrios/gestion/actualizarbarrio/{idbarrio}','Sectores\BarrioController@postActualizarBarrio');
+//Ruta página de inicio de gestión de barrios
+Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');

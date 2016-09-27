@@ -1,85 +1,50 @@
 <?php 
-namespace App\Http\Controllers\Sectores;
+namespace App\Http\Controllers\Tomas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Modelos\Sectores\Canal;
-use App\Modelos\Sectores\Toma;
+use App\Modelos\Tomas\Canal;
+use App\Modelos\Tomas\Toma;
 
 class TomaController extends Controller
 {
-	public function index($idparroquia)
+	public function index($idcanal)
 	{
-		if($idparroquia==0)
-		{
-			return $barrios=DB::table('barrio')->orderby('idbarrio')->get();
-		}else
-		{
-			return $barrios=DB::table('barrio')->where('idparroquia',$idparroquia)->get();
-		}
+		return$tomas=DB::table('toma')->where('idcanal',$idcanal)->get();
 	}
-	public function show($idbarrio)
+	public function show($idtoma)
 	{
-		return $barrio=DB::table('barrio')->where('idbarrio',$idbarrio)->get();
+		return $toma=Toma::find($idtoma);
 	}
 
-	public function maxId(Request $request)
+	public function maxId()
 	{
-		$barrio=Barrio::max('idbarrio');		
-		if($barrio==NULL){
-			$barrio='JM00001';
-		}else{
-			$identificadorLetras=substr($barrio, 0,-5);//obtiene las tetras del barrio de Provincia
-			$identificadorNumero=substr($barrio, 3); //obtiene las tetras del barrio de Provincia
-			$identificadorNumero=$identificadorNumero+1;
-			$longitudNumero =strlen($identificadorNumero);//obtiene el número de caracteres existentes
-			//asigna el identificador numerico del siguiente registro
-			switch ($longitudNumero) {
-    	     	case 1:
-        		$identificadorNumero='0000'.$identificadorNumero;
-             	break;
-    	    	case 2:
-        		$identificadorNumero='000'.$identificadorNumero;
-             	break;
-             	case 3:
-        		$identificadorNumero='00'.$identificadorNumero;
-             	break;
-             	case 4:
-        		$identificadorNumero='0'.$identificadorNumero;
-             	break;
-			}
-			
-			$barrio=$identificadorLetras.$identificadorNumero;
-			
-			
-		}
-		return $barrio;
+		$toma=Toma::max('idtoma');
+		return $toma=$toma+1;
 	}
 
-	public function postCrearBarrio(Request $request,$idparroquia)
+	public function postCrearToma(Request $request,$idcanal)
 	{
-		$barrio= new Barrio;
-		$barrio->idbarrio = $request->input('idbarrio');
-		$barrio->idparroquia = $idparroquia;
-		$barrio->nombrebarrio = $request->input('nombrebarrio');
-		$barrio->save();
-		return 'El barrio fue creado exitosamente';
+		$toma= new Toma;
+		$toma->idcanal = $idcanal;
+		$toma->descripciontoma = $request->input('descripciontoma');
+		$toma->save();
+		return 'La Toma fue creada exitosamente';
 	}
-	public function postActualizarBarrio(Request $request,$idbarrio)
+	public function postActualizarToma(Request $request,$idtoma)
 	{
-		$barrio = Barrio::find($idbarrio);
-		$barrio->nombrebarrio = $request->input('nombrebarrio');
-		$barrio->save();
-		return 'El barrio fue actualizado exitosamente';
+		$toma = Toma::find($idtoma);
+		$toma->descripciontoma = $request->input('descripciontoma');
+		$toma->save();
+		return 'El toma fue actualizada exitosamente';
 
 	}
 
-	public function destroy($idbarrio)
+	public function destroy($idtoma)
 	{
-		$barrio = Barrio::find($idbarrio);
-		$barrio->calle()->delete();
-		$barrio->delete();
+		$toma = Toma::find($idtoma);
+		$toma->delete();
 		return "Se elimino exitosamente";
 	}
 

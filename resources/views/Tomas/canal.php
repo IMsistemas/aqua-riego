@@ -33,7 +33,7 @@
                         <td >
                             <a href="#" class="btn btn-warning " ng-click="toggle('edit', canal.idcanal, canal.descripcioncanal)">Editar Canal</a>
                             <a href="#" class="btn btn-danger " ng-click="showModalConfirm(canal.idcanal, canal.descripcioncanal)">Borrar Canal</a>
-                             <a href="#" class="btn btn-info" ng-click="toModuloToma(barrio.idbarrio, barrio.nombrebarrio );">Ver Tomas</a>
+                             <a href="#" class="btn btn-info" ng-click="toModuloToma(canal.idcanal, canal.descripcioncanal);">Ver Tomas</a>
                         </td>
                         </td>
                     </tr>

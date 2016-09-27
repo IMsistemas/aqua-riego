@@ -1,4 +1,4 @@
-<div ng-controller="barriosController">
+<div ng-controller="tomasController">
         <div   class="container">
 
              <div class="container" style="margin-top: 2%;">
@@ -18,21 +18,22 @@
                 <thead class="bg-primary">
                     <tr>
                          <th> 
-                            <a href="" style="text-decoration:none; color:white; width: 10%; " ng-click="ordenarColumna='idbarrio'; reversa=!reversa;" >Código </a>
+                            <a href="" style="text-decoration:none; color:white; width: 10%; " ng-click="ordenarColumna='idtoma'; reversa=!reversa;" >Código </a>
                         </th>
                         <th >
-                             <a href="" style="text-decoration:none; color:white; width: 10%; " ng-click="ordenarColumna='nombrebarrio'; reversa=!reversa;" >Nombre</a>
+                             <a href="" style="text-decoration:none; color:white; width: 10%; " ng-click="ordenarColumna='descripciontoma'; reversa=!reversa;" >Nombre</a>
                         </th>
                         <th style="text-decoration:none; color:white; width: 40%; "  >Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="barrio in barrios|filter:busqueda|orderBy:ordenarColumna:reversa">
-                        <td>{{barrio.idbarrio}}</td>
-                        <td>{{barrio.nombrebarrio}}</td>
+                    <tr ng-repeat="toma in tomas|filter:busqueda|orderBy:ordenarColumna:reversa">
+                        <td>{{toma.idtoma}}</td>
+                        <td>{{toma.descripciontoma}}</td>
                         <td >
-                            <a href="#" class="btn btn-warning " ng-click="toggle('edit', barrio.idbarrio, barrio.nombrebarrio)">Editar Barrio</a>
-                            <a href="#" class="btn btn-danger " ng-click="showModalConfirm(barrio.idbarrio, barrio.nombrebarrio)">Borrar Barrio</a>
+                            <a href="#" class="btn btn-warning " ng-click="toggle('edit', toma.idtoma, toma.descripciontoma)">Editar Toma</a>
+                            <a href="#" class="btn btn-danger " ng-click="showModalConfirm(toma.idtoma, toma.descripciontoma)">Borrar Toma</a>
+                            <a href="#" class="btn btn-info" ng-click="toModuloDerivacion(toma.idtoma, toma.descripciontoma );">Ver Derivaciones</a>
                         </td>
                         </td>
                     </tr>
@@ -51,29 +52,29 @@
                             <h4 class="modal-title" id="myModalLabel">{{form_title}}</h4>
                         </div>
                         <div class="modal-body">
-                            <form name="frmBarrio" class="form-horizontal" novalidate="">
+                            <form name="frmToma" class="form-horizontal" novalidate="">
 
                                 <div class="form-group">
-                                    <label for="t_codigo_calle" class="col-sm-4 control-label">Codigo de la Junta Modular</label>
+                                    <label for="t_codigo_calle" class="col-sm-4 control-label">Codigo la Toma</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="idbarrio" name="idbarrio" placeholder="" ng-model="idbarrio" disable>
+                                        <input type="text" class="form-control" id="idtoma" name="idtoma" placeholder="" ng-model="idtoma" disable>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="t_nombre_calle" class="col-sm-4 control-label">Nombre de la Junta Modular</label>
+                                    <label for="t_nombre_calle" class="col-sm-4 control-label">Nombre de la Toma</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="nombrebarrio" name="nombrebarrio" placeholder=""  ng-model="nombrebarrio" ng-required="true" ng-maxlength="32" >
+                                        <input type="text" class="form-control" id="descripciontoma" name="descripciontoma" placeholder=""  ng-model="descripciontoma" ng-required="true" ng-maxlength="32" >
                                         <span class="help-inline" 
-                                        ng-show="frmBarrio.nombrebarrio.$invalid ">El nombre de la Junta Modular es requerido<br></span>
+                                        ng-show="frmToma.descripciontoma.$invalid ">El nombre de la Toma es requerido<br></span>
                                         <span class="help-inline" 
-                                        ng-show="frmBarrio.nombrebarrio.$error.maxlength">La longitud máxima es de 32 caracteres<br></span>
+                                        ng-show="frmToma.descripciontoma.$error.maxlength">La longitud máxima es de 32 caracteres<br></span>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, idbarrio,'PAR00001')" ng-disabled="frmBarrio.$invalid">Guardar</button>
+                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, idtoma,'idcanal')" ng-disabled="frmToma.$invalid">Guardar</button>
                         </div>
                     </div>
                 </div>
@@ -101,11 +102,11 @@
                         <h4 class="modal-title">Confirmación</h4>
                     </div>
                     <div class="modal-body">
-                        <span>Realmente desea eliminar el Barrio: <span style="font-weight: bold;">{{barrio_seleccionado}}</span></span>
+                        <span>Realmente desea eliminar el Toma: <span style="font-weight: bold;">{{toma_seleccionado}}</span></span>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="btn-save" ng-click="destroyBarrio()">Eliminar</button>
+                        <button type="button" class="btn btn-danger" id="btn-save" ng-click="destroyToma()">Eliminar</button>
                     </div>
                 </div>
             </div>

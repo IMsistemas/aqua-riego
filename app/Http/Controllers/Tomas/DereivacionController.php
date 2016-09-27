@@ -1,25 +1,17 @@
 <?php 
-namespace App\Http\Controllers\Sectores;
+namespace App\Http\Controllers\Tomas;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Modelos\Sectores\Provincia;
-use App\Modelos\Sectores\Canton;
-use App\Modelos\Sectores\Parroquia;
-use App\Modelos\Sectores\Barrio;
+use App\Modelos\Tomas\Toma;
+use App\Modelos\Tomas\Canal;
 
 class DerivacionController extends Controller
 {
 	public function index($idparroquia)
 	{
-		if($idparroquia==0)
-		{
-			return $barrios=DB::table('barrio')->orderby('idbarrio')->get();
-		}else
-		{
-			return $barrios=DB::table('barrio')->where('idparroquia',$idparroquia)->get();
-		}
+		return $canales=Canal::all();
 	}
 	public function show($idbarrio)
 	{
