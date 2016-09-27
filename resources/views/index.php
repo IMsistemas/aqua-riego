@@ -48,7 +48,7 @@
                             
                         </ul>
                         <li data-toggle="collapse" data-target="#suministro" class="collapsed">
-                            <a href="#"><i class="fa fa-globe fa-lg"></i> Terrenos <span class="arrow"></span></a>
+                            <a href="#"><i class="fa fa-globe fa-spin fa-lg"></i> Terrenos <span class="arrow"></span></a>
                         </li>
                         <ul class="sub-menu collapse" id="suministro">
                             <li><a href="#" ng-click="toModuloSuministro();">Terrenos</a></li>
@@ -73,6 +73,12 @@
                             <li><a href="#" ng-click="toModuloCargo();">Cargos</a></li>
                             <li><a href="#" ng-click="toModuloEmpleado();">Colaboradores</a></li>
                         </ul>
+                        <li data-toggle="collapse" data-target="#reportes" class="collapsed">
+                            <a href="#"><i class="fa fa-bookmark fa-lg"></i>Reportes <span class="arrow"></span></a>
+                        </li>
+                        <ul class="sub-menu collapse" id="reportes">
+                            <li><a href="#">Reportes</a></li>
+                        </ul>
                         <li data-toggle="collapse" data-target="#perfil" class="collapsed" ng-show='false'>
                             <a href="#"><i class="fa fa-user-plus fa-lg"></i> Perfil <span class="arrow"></span></a>
                         </li>
@@ -87,7 +93,7 @@
                             <li><a href="#" ng-click="">Roles</a></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#configuracion" class="collapsed" ng-show='true'>
-                            <a href="#"><i class="fa fa-cog fa-spin fa-lg"></i> Configuración <span class="arrow"></span></a>
+                            <a href="#"><i class="fa fa-cog fa-lg fa-spin"></i> Configuración <span class="arrow"></span></a>
                         </li>
                         <ul class="sub-menu collapse" id="configuracion">
                             <li><a href="#">Tarifas</a></li>
