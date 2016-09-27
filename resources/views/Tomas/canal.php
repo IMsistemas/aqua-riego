@@ -33,6 +33,7 @@
                         <td >
                             <a href="#" class="btn btn-warning " ng-click="toggle('edit', canal.idcanal, canal.descripcioncanal)">Editar Canal</a>
                             <a href="#" class="btn btn-danger " ng-click="showModalConfirm(canal.idcanal, canal.descripcioncanal)">Borrar Canal</a>
+                             <a href="#" class="btn btn-info" ng-click="toModuloToma(barrio.idbarrio, barrio.nombrebarrio );">Ver Tomas</a>
                         </td>
                         </td>
                     </tr>
@@ -54,18 +55,18 @@
                             <form name="frmCanal" class="form-horizontal" novalidate="">
 
                                 <div class="form-group">
-                                    <label for="t_codigo_calle" class="col-sm-4 control-label">Codigo del Canal</label>
+                                    <label for="t_codigo_calle" class="col-sm-4 control-label">Codigo de la Junta Modular</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="idcanal" name="idcanal" placeholder="" ng-model="idcanal" disable>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="t_nombre_calle" class="col-sm-4 control-label">Nombre del Canal</label>
+                                    <label for="t_nombre_calle" class="col-sm-4 control-label">Nombre de la Junta Modular</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="descripcioncanal" name="descripcioncanal" placeholder=""  ng-model="descripcioncanal" ng-required="true" ng-maxlength="32" >
                                         <span class="help-inline" 
-                                        ng-show="frmCanal.descripcioncanal.$invalid ">El nombre del Canal es requerido<br></span>
+                                        ng-show="frmCanal.descripcioncanal.$invalid ">El nombre de la Junta Modular es requerido<br></span>
                                         <span class="help-inline" 
                                         ng-show="frmCanal.descripcioncanal.$error.maxlength">La longitud máxima es de 32 caracteres<br></span>
                                     </div>
@@ -73,7 +74,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, idcanal)" ng-disabled="frmCanal.$invalid">Guardar</button>
+                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="save(modalstate, idcanal,'PAR00001')" ng-disabled="frmCanal.$invalid">Guardar</button>
                         </div>
                     </div>
                 </div>

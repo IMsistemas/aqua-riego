@@ -1,14 +1,14 @@
 app.controller('canalesController', function($scope, $http, API_URL) {
-    //retrieve canals listing from API
+    //retrieve canales listing from API
     $scope.canales=[];
-    document.getElementById("idcanal").disabled = true;
+    //document.getElementById("idcanal").disabled = true;
     $scope.idcanal="";
+    $scope.idparroquia=0;
     $scope.descripcioncanal="";
     $scope.idcanal_del=0;
     $scope.initLoad = function(){
-    $http.get(API_URL + "canales/gestion/")
+    $http.get(API_URL + "canales/gestion")
         .success(function(response) {
-                console.log(response);
                 $scope.canales = response;        
 
             });
@@ -46,12 +46,13 @@ app.controller('canalesController', function($scope, $http, API_URL) {
 
     //save new record / update existing record
     $scope.save = function(modalstate, idcanal) {
-        var url = API_URL + "canales/gestion";            
+        var url = API_URL + "canales/gestion";    
+        
         //append canal id to the URL if the form is in edit mode
         if (modalstate === 'edit'){
             url += "/actualizarcanal/" + idcanal;
         }else{
-            url += "/guardarcanal/"+$scope.idparroquia ;
+            url += "/guardarcanal" ;
         }
          $scope.canal={
             idcanal: $scope.idcanal,

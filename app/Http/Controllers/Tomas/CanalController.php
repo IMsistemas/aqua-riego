@@ -41,10 +41,9 @@ class CanalController extends Controller
 
 	}
 
-	public function destroy($idbarrio)
+	public function destroy($idcanal)
 	{
 		$canal = Canal::find($idcanal);
-		$canal->calle()->delete();
 		$canal->delete();
 		return "Se elimino exitosamente";
 	}
