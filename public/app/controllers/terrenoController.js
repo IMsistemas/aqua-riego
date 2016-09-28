@@ -184,8 +184,6 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
 
         $http.put(API_URL + 'editTerreno/' + $scope.num_terreno_edit, solicitud).success(function(response){
 
-            console.log(response);
-
             if(response.success == true){
                 $scope.initLoad();
                 $('#modalEdit').modal('hide');

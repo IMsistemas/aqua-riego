@@ -121,9 +121,10 @@ class TerrenoController extends Controller
      * Obtener el resultado de calculo del costo en base al area
      *
      * @param $area
+     * @param $action_interno
      * @return \Illuminate\Http\JsonResponse
      */
-    public function calculateValor($area)
+    public function calculateValor($area, $action_interno = false)
     {
         $area_h = $area / 10000;
         $configuracion = Configuracion::all();
@@ -138,10 +139,13 @@ class TerrenoController extends Controller
             $costo = $area_h * $configuracion[0]->constante * $costo_area[0]->costo;
         }
 
-        return response()->json(['costo' => $costo]);
+        if ($action_interno == true) {
+            return $costo;
+        } else {
+            return response()->json(['costo' => $costo]);
+        }
+
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -204,12 +208,14 @@ class TerrenoController extends Controller
 
         $terreno->area = $request->input('area');
         $terreno->caudal = $request->input('caudal');
-        $terreno->valoranual = $request->input('valoranual');
+
+        $costo = $this->calculateValor($request->input('area'), true);
+
+        $terreno->valoranual = $costo;
 
         $terreno->save();
 
         return response()->json(['success' => true]);
-
     }
 
     /**
