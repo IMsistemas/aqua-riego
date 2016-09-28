@@ -21,6 +21,7 @@
         switch (modalstate) {
             case 'add':
                 $scope.form_title = "Nuevo Cliente";
+                $('#myModal').modal('show');
                 break;
             case 'edit':
                 $scope.form_title = "Editar Cliente";
@@ -33,13 +34,22 @@
                             $scope.celular=$scope.cliente.celular.trim();
                             $scope.telprincipaltrabajo=$scope.cliente.telefonoprincipaltrabajo.trim();
                             $scope.telsecundariotrabajo=$scope.cliente.telefonosecundariotrabajo.trim();
+                            $('#myModal').modal('show');
                         });
                 break;
+            case 'info':
+
+                $http.get(API_URL + 'clientes/gestion/' + codigocliente)
+                    .success(function(response) {
+                            $scope.cliente = response;
+                           $('#modalInfoCliente').modal('show');
+                    });
+                    
             default:
                 break;
         }
-          $('#myModal').modal('show');
-     
+          
+      
     } 
 
     //al mo mento que le den click al ng-click getInfo() ejecutamos la funcion

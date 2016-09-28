@@ -294,3 +294,21 @@ Route::post('/derivaciones/gestion/actualizarderivacion/{idderivacion}','Tomas\D
 //Ruta página de inicio de gestión de derivacions
 Route::Delete('/derivaciones/gestion/eliminarderivacion/{idderivacion}','Tomas\DerivacionController@destroy');
 Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');
+
+
+/*===================================Descuentos======================================================*/
+
+Route::get('/descuentos', function (){
+	return view('Descuentos/index');
+});
+//Ruta devuelve un arreglo de todos los clientes a AngularJS 
+Route::get('/descuentos/gestion/','Descuentos\DescuentosController@index');
+//Ruta devuelve un arreglo de todos los clientes a AngularJS 
+Route::get('/descuentos/gestion/{iddescuento}','Descuentos\DescuentosController@show');
+//Ruta página de inicio de gestión de clientes
+Route::post('/descuentos/gestion/guardardescuento','Descuentos\DescuentosController@store');
+//Ruta página de inicio de gestión de clientes
+Route::post('/descuentos/gestion/actualizardescuento/{iddescuento}','Descuentos\DescuentosController@update');
+//Ruta página de inicio de gestión de clientes
+Route::post('/descuentos/gestion/eliminardescuento/{iddescuento}','Descuentos\DescuentosController@destroy');
+

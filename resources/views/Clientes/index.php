@@ -14,20 +14,20 @@
 
             </div>
             <div class="col-xs-12">
-            <table class="table table-responsive table-striped table-hover table-condensed" >
+            <table class="table table-responsive table-striped table-hover table-condensed"  width="100%" overflow-y="auto" _overflow="auto" margin="0 0 1em" >
                 <thead class="bg-primary">
                     <tr>
-                        <th> 
+                        <!--<th> 
                             <a href="#" style="text-decoration:none; color:white;" ng-click="ordenarColumna='documentoidentidad'; reversa=!reversa;">Profesión</a>
                         </th>
                         <th> 
                             <a href="#" style="text-decoration:none; color:white;" ng-click="ordenarColumna='documentoidentidad'; reversa=!reversa;">Actividad</a>
-                        </th>
+                        </th>-->
                         <th> 
                             <a href="#" style="text-decoration:none; color:white;" ng-click="ordenarColumna='documentoidentidad'; reversa=!reversa;">CI |RUC</a>
                         </th>
                         <th> 
-                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='fechaingreso'; reversa=!reversa;">Fecha</a>
+                            <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='fechaingreso'; reversa=!reversa;">Fecha Ingreso</a>
                         </th>
                         <th style="text-decoration:none; color:white;" >Razón Social</th>
                         <th> 
@@ -39,13 +39,13 @@
                         <th> 
                             <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='direccion'; reversa=!reversa;">Dirección Domicilio</a>
                         </th>
-                        <th> 
+                        <!--<th> 
                             <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='telefonoprincipal'; reversa=!reversa;">Telef.Pral. Domicilio</a>
                         </th>
-                        <th> 
+                        <!--<th> 
                             <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='telefonosecundario'; reversa=!reversa;">Telef.Sec. Domicilio</a>
-                        </th>
-                        <th> 
+                        </th>-->
+                        <!--<th> 
                             <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='direccion'; reversa=!reversa;">Dirección Trabajo</a>
                         </th>
                         <th> 
@@ -53,7 +53,7 @@
                         </th>
                         <th> 
                             <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='telefonosecundario'; reversa=!reversa;">Telef.Sec. Trabajo</a>
-                        </th>
+                        </th>-->
                         <th> 
                             <a href="" style="text-decoration:none; color:white;" ng-click="ordenarColumna='telefonosecundario'; reversa=!reversa;">Estado</a>
                         </th>
@@ -63,22 +63,23 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="cliente in clientes|filter:busqueda| orderBy:ordenarColumna:reversa">
-                        <td>{{cliente.idprofesion}}</td>
-                        <td>{{cliente.idactividad}}</td>
+                        <!--<td>{{cliente.idprofesion}}</td>
+                        <td>{{cliente.idactividad}}</td>-->
                         <td>{{cliente.documentoidentidad}}</td>
-                        <td>{{cliente.fechaingreso|date}}</td>
+>                        <td>{{cliente.fechaingreso|date}}</td>
                         <td>{{cliente.apellido+' '+cliente.nombre}}</td>      
                         <td>{{cliente.celular}}</td>  
                         <td>{{cliente.correo}}</td>
                         <td>{{cliente.direcciondomicilio}}</td>   
-                        <td>{{cliente.telefonoprincipaldomicilio}}</td>   
+                        <!--<td>{{cliente.telefonoprincipaldomicilio}}</td>   
                         <td>{{cliente.telefonosecundariodomicilio}}</td>
                         <td>{{cliente.direcciontrabajo}}</td>   
                         <td>{{cliente.telefonoprincipaltrabajo}}</td>   
-                        <td>{{cliente.telefonosecundariotrabajo}}</td>
-                        <td>{{cliente.estaactivo}}</td>
+                        <td>{{cliente.telefonosecundariotrabajo}}</td>-->
+                        <td><?php echo  ("{{cliente.estaactivo}}" =="true")? 'Activo' : 'Inactivo' ; ?></td>
                         <td >
-                            <a href="#" class="btn btn-warning" ng-click="toggle('edit', cliente.codigocliente)">Editar</a>                          
+                            <a href="#" class="btn btn-warning" ng-click="toggle('info', cliente.codigocliente)">Ver</a>    
+                            <a href="#" class="btn btn-info" ng-click="toggle('edit', cliente.codigocliente)">Editar</a>                       
                         </td>
                         <!--<td >
                             <a href="#" class="btn btn-danger" ng-click="confirmDelete(cliente.documentoidentidad)">Borrar</a>
@@ -95,7 +96,54 @@
 
 
 
-
+<div class="modal fade" tabindex="-1" role="dialog" id="modalInfoCliente">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header modal-header-info">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Información del Cliente</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-xs-12 text-center">
+                                            <img class="img-thumbnail" src="<?= asset('img/cliente.png') ?>" alt="">
+                                        </div>
+                                        <div class="row text-center">
+                                            <div class="col-xs-12 text-center" style="font-size: 18px;">{{cliente.nombre+' '+cliente.apellido}}</div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">CI/RUC: </span>{{cliente.documentoidentidad}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Fecha Ingreso: </span>{{cliente.fechaingreso|date}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Dirección del domicilio: </span>{{cliente.direcciondomicilio}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Telef Principal del domicilio: </span>{{cliente.telefonoprincipaldomicilio}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Telef Secundario del domicilio: </span>{{cliente.telefonosecundariodomicilio}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Correo: </span>{{cliente.correo}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Celular: </span>{{cliente.celular}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Dirección del trabajo: </span>{{cliente.direcciontrabajo}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Telef Principal del trabajo: </span>{{cliente.telefonoprincipaltrabajo}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Telef Secundario del trabajo: </span>{{cliente.telefonosecundariotrabajo}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
  
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-lg" role="document">
@@ -117,6 +165,9 @@
                             </div>
                         </div>
                         </div>
+
+                        
+
 
                         <div class="modal-body">
                             <form name="frmClientes" class="form-horizontal" novalidate="">
