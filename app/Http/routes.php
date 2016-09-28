@@ -299,16 +299,18 @@ Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioContr
 /*===================================Descuentos======================================================*/
 
 Route::get('/descuentos', function (){
-	return view('Descuentos/index');
+	return view('Descuentos/descuento');
 });
 //Ruta devuelve un arreglo de todos los clientes a AngularJS 
-Route::get('/descuentos/gestion/','Descuentos\DescuentosController@index');
+Route::get('/descuentos/gestion/{anio?}','Descuentos\DescuentoController@index');
+//Ruta devuelve el ultimo año
+Route::get('/descuentos/anio','Descuentos\DescuentoController@anio');
 //Ruta devuelve un arreglo de todos los clientes a AngularJS 
-Route::get('/descuentos/gestion/{iddescuento}','Descuentos\DescuentosController@show');
+Route::get('/descuentos/gestion/{iddescuento?}','Descuentos\DescuentoController@show');
 //Ruta página de inicio de gestión de clientes
-Route::post('/descuentos/gestion/guardardescuento','Descuentos\DescuentosController@store');
+Route::post('/descuentos/gestion/guardardescuento','Descuentos\DescuentoController@store');
 //Ruta página de inicio de gestión de clientes
-Route::post('/descuentos/gestion/actualizardescuento/{iddescuento}','Descuentos\DescuentosController@update');
+Route::post('/descuentos/gestion/actualizardescuento/{anio}','Descuentos\DescuentoController@update');
 //Ruta página de inicio de gestión de clientes
-Route::post('/descuentos/gestion/eliminardescuento/{iddescuento}','Descuentos\DescuentosController@destroy');
+Route::post('/descuentos/gestion/eliminardescuento/{iddescuento}','Descuentos\DescuentoController@destroy');
 

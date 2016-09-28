@@ -9,10 +9,15 @@ use App\Modelos\Descuentos\Descuento;
 
 class DescuentoController extends Controller
 {
-    public function index()
+    public function index($anio)
 	{		 
-		return $descuento=Descuento::all();
-		//$clientes=Cliente::with('profesion','actividad')->get();
+		return $descuento=DB::table('descuento')->where('anio',$anio)->get();
+	}
+	public function anio()
+	{		 
+		$descuento=DB::table('descuento')->orderBy('anio')->get();
+		$length = count($descuento);
+		return $anio=$descuento[$length-1]->anio;
 	}
 	public function store(Request $request)
 	{
@@ -31,7 +36,7 @@ class DescuentoController extends Controller
 
 	public function update(Request $request,$iddescuento)
 	{
-		$cliente = Descuento::find($iddescuento);
+		$descuento = Descuento::find($iddescuento);
 		$descuento->anio = $request->input('anio');
 		$descuento->mes = $request->input('mes');
 		$descuento->porcentaje = $request->input('porcentaje');
@@ -41,9 +46,9 @@ class DescuentoController extends Controller
 	}
 	public function destroy(Request $request)
 	{
-		$cliente = Cliente::find($request->input('codigocliente'));
-		$cliente->delete();
-		return "Cliente borrado exitosamente";
+		$descuento = Descuento::find($request->input('iddescuento'));
+		$descuento->delete();
+		return "Descuento borrado exitosamente";
 	}
 
 	public function missingMethod($parameters = array())

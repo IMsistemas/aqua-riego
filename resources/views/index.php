@@ -98,7 +98,7 @@
                         <ul class="sub-menu collapse" id="configuracion">
                             <li><a href="#">Tarifas</a></li>
                             <li><a href="#" ng-click="toModuloCanal();">Tomas</a></li>
-                            <li><a href="#" ng-click="toModuloCanal();">Descuentos</a></li>
+                            <li><a href="#" ng-click="toModuloDescuento();">Descuentos</a></li>
                         </ul>
 
                     </ul>
@@ -156,6 +156,7 @@
     <script src="<?= asset('app/controllers/canalesController.js') ?>"></script>
     <script src="<?= asset('app/controllers/tomasController.js') ?>"></script>
     <script src="<?= asset('app/controllers/derivacionesController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/descuentosController.js') ?>"></script>
 
     <script type="text/javascript">
         /* $(function() {

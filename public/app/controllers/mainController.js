@@ -38,6 +38,11 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$scope.toModulo = "provincias";
 	}
 
+	$scope.toModuloDescuento = function(){		
+		$scope.titulo = "Descuentos";
+		$scope.toModulo = "descuentos";
+	}
+
 	$scope.toModuloCanton = function(idprovincia){		
 		$scope.idprovincia = idprovincia;	
 		$scope.titulo = "Cantones";
