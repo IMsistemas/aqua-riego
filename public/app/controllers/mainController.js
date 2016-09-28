@@ -91,7 +91,7 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 
 		$scope.prepareListBreadcrumb(list);
 	}
-
+ 
 
 	$scope.toModuloLectura = function(){		
 		$scope.titulo = "Lecturas";
@@ -105,7 +105,7 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 
 	$scope.toModuloSolicitud = function(){	
 		$scope.titulo = "Solicitudes";
-		$scope.toModulo = "suministros/solicitudes";
+		$scope.toModulo = "solicitud";
 	}
 	$scope.toModuloSolicitudEspera = function(){	
 		$scope.titulo = "Solicitudes";
@@ -113,8 +113,8 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 	}
 
 	$scope.toModuloSuministro = function(){		
-		$scope.titulo = "suministros";
-		$scope.toModulo = "suministros";
+		$scope.titulo = "Terrenos";
+		$scope.toModulo = "editTerreno";
 	}
 
 

@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="es-ES" ng-app="softver-aqua">
     <head>
         <meta charset="UTF-8">
@@ -24,7 +24,7 @@
         </style>
 
     </head>
-    <body>
+    <body> -->
 
     <div class="col-xs-12" ng-controller="terrenoController" style="margin-top: 2%;">
 
@@ -344,7 +344,7 @@
 
     </div>
 
-    </body>
+    <!-- </body>
 
     <script src="<?= asset('app/lib/angular/angular.min.js') ?>"></script>
     <script src="<?= asset('app/lib/angular/angular-route.min.js') ?>"></script>
@@ -358,4 +358,4 @@
     <script src="<?= asset('app/app.js') ?>"></script>
     <script src="<?= asset('app/controllers/terrenoController.js') ?>"></script>
 
-</html>
+</html> -->

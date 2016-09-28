@@ -18,6 +18,14 @@
             .dataclient{
                 font-weight: bold;
             }
+
+            td{
+                vertical-align: middle !important;
+            }
+
+            .datepicker{
+                color: #000 !important;
+            }
         </style>
 
     </head>
@@ -73,11 +81,12 @@
                             <li><a href="#" ng-click="toModuloCargo();">Cargos</a></li>
                             <li><a href="#" ng-click="toModuloEmpleado();">Colaboradores</a></li>
                         </ul>
-                        <li data-toggle="collapse" data-target="#reportes" class="collapsed">
+                        <li ng-show='false' data-toggle="collapse" data-target="#reportes" class="collapsed">
                             <a href="#"><i class="fa fa-bookmark fa-lg"></i>Reportes <span class="arrow"></span></a>
                         </li>
                         <ul class="sub-menu collapse" id="reportes">
-                            <li><a href="#">Reportes</a></li>
+                            <li><a href="#">Facturación</a></li>
+                            <li><a href="#">Caudales</a></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#perfil" class="collapsed" ng-show='false'>
                             <a href="#"><i class="fa fa-user-plus fa-lg"></i> Perfil <span class="arrow"></span></a>
@@ -96,9 +105,9 @@
                             <a href="#"><i class="fa fa-cog fa-lg fa-spin"></i> Configuración <span class="arrow"></span></a>
                         </li>
                         <ul class="sub-menu collapse" id="configuracion">
-                            <li><a href="#">Tarifas</a></li>
+                            <li ng-show="false"><a href="#">Tarifas</a></li>
                             <li><a href="#" ng-click="toModuloCanal();">Tomas</a></li>
-                            <li><a href="#" ng-click="toModuloCanal();">Descuentos</a></li>
+                            <li ng-show="false"><a href="#" ng-click="toModuloCanal();">Descuentos</a></li>
                         </ul>
 
                     </ul>
@@ -156,6 +165,9 @@
     <script src="<?= asset('app/controllers/canalesController.js') ?>"></script>
     <script src="<?= asset('app/controllers/tomasController.js') ?>"></script>
     <script src="<?= asset('app/controllers/derivacionesController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/solicitudController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/recaudacionController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/terrenoController.js') ?>"></script>
 
     <script type="text/javascript">
         /* $(function() {
