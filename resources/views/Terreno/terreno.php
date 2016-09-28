@@ -92,11 +92,10 @@
         </div>
 
         <div class="col-xs-12" style="margin-top: 10px;">
-            <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
+            <table class="table table-responsive table-striped table-hover table-condensed">
                 <thead class="bg-primary">
                 <tr>
                     <th>Cliente</th>
-
                     <th style="width: 15%;">Tarifa</th>
                     <th style="width: 10%;">Cultivo</th>
                     <th style="width: 10%;">Derivación</th>
