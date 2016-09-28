@@ -50,6 +50,12 @@ Route::post('solicitud/processSolicitud', 'Solicitud\SolicitudController@process
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Solicitud
 Route::resource('/solicitud', 'Solicitud\SolicitudController');
 
+
+/*===================================Tarifas===================================================*/
+
+//Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Tarifa
+Route::resource('/tarifa', 'Tarifas\TarifaController');
+
 /*--------------------------------------Yamilka-------------------------------------------------*/
 /*===================================Recaudacion=================================================*/
 
