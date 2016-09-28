@@ -54,15 +54,15 @@
                         <div class="modal-body">
                             <form name="frmCanal" class="form-horizontal" novalidate="">
 
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label for="t_codigo_calle" class="col-sm-4 control-label">Codigo de la Junta Modular</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="idcanal" name="idcanal" placeholder="" ng-model="idcanal" disable>
-                                    </div>
+                                    </div>-->
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="t_nombre_calle" class="col-sm-4 control-label">Nombre de la Junta Modular</label>
+                                    <label for="t_nombre_calle" class="col-sm-4 control-label">Nombre del Canal</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="descripcioncanal" name="descripcioncanal" placeholder=""  ng-model="descripcioncanal" ng-required="true" ng-maxlength="32" >
                                         <span class="help-inline" 

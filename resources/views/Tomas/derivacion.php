@@ -53,15 +53,15 @@
                         <div class="modal-body">
                             <form name="frmBarrio" class="form-horizontal" novalidate="">
 
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label for="t_codigo_calle" class="col-sm-4 control-label">Codigo de la Junta Modular</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="idderivacion" name="idderivacion" placeholder="" ng-model="idderivacion" disable>
                                     </div>
-                                </div>
+                                </div>-->
 
                                 <div class="form-group">
-                                    <label for="t_nombre_calle" class="col-sm-4 control-label">Nombre de la Junta Modular</label>
+                                    <label for="t_nombre_calle" class="col-sm-4 control-label">Nombre la derivación</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control" id="descripcionderivacion" name="descripcionderivacion" placeholder=""  ng-model="descripcionderivacion" ng-required="true" ng-maxlength="32" >
                                         <span class="help-inline" 
