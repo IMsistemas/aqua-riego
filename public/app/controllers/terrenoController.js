@@ -166,6 +166,36 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
 
     };
 
+    $scope.save = function () {
+
+        var solicitud = {
+            //fechacreacion: convertDatetoDB($scope.t_fecha_process),
+            codigocliente: $scope.h_codigocliente,
+            idbarrio: $scope.t_junta,
+            idcultivo: $scope.t_cultivo,
+            area: $scope.t_area,
+            caudal: $scope.calculate_caudal,
+            valoranual: $scope.valor_total,
+            idtarifa: $scope.t_tarifa,
+            idderivacion : $scope.t_derivacion,
+
+            //idsolicitud: $scope.num_solicitud
+        };
+
+        $http.put(API_URL + 'editTerreno/' + $scope.num_terreno_edit, solicitud).success(function(response){
+
+            console.log(response);
+
+            if(response.success == true){
+                $scope.initLoad();
+                $('#modalEdit').modal('hide');
+                $scope.message = 'Se ha editado correctamente la informacion del Terreno...';
+                $('#modalMessage').modal('show');
+            }
+
+        });
+
+    };
 
     $scope.initLoad();
 });

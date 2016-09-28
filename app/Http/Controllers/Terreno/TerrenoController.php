@@ -195,7 +195,21 @@ class TerrenoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $terreno = Terreno::find($id);
+
+        $terreno->idbarrio = $request->input('idbarrio');
+        $terreno->idcultivo = $request->input('idcultivo');
+        $terreno->idtarifa = $request->input('idtarifa');
+        $terreno->idderivacion = $request->input('idderivacion');
+
+        $terreno->area = $request->input('area');
+        $terreno->caudal = $request->input('caudal');
+        $terreno->valoranual = $request->input('valoranual');
+
+        $terreno->save();
+
+        return response()->json(['success' => true]);
+
     }
 
     /**
