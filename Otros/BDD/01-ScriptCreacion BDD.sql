@@ -475,7 +475,7 @@ IDTOMA
 /*==============================================================*/
 create table DESCUENTO (
    IDDESCUENTO          SERIAL                 not null,
-   ANIO                 INT4                 null,
+   YEAR                 INT4                 null,
    MES                  INT4                 not null,
    PORCENTAJE           DECIMAL(9,2)         null,
    constraint PK_DESCUENTO primary key (IDDESCUENTO)

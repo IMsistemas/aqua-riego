@@ -63,6 +63,10 @@
                                         <input type="text" class="form-control" id="mes" name="mes" placeholder="" ng-model="mes" disable>
                                     </div>
                                 </div>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="mes" name="mes" placeholder="" ng-model="descuento.iddescuento" ng-show="false">
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <label for="t_nombre_calle" class="col-sm-4 control-label">Porcentaje</label>
