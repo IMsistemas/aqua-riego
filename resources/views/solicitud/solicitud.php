@@ -1,4 +1,4 @@
-<!-- <!doctype html> 
+<!doctype html>
 <html lang="es-ES" ng-app="softver-aqua">
     <head>
         <meta charset="UTF-8">
@@ -13,7 +13,7 @@
         <link href="<?= asset('css/bootstrap-datetimepicker.min.css') ?>" rel="stylesheet">
         <link href="<?= asset('css/style_generic_app.css') ?>" rel="stylesheet">
 
-         <style>
+        <style>
             td{
                 vertical-align: middle !important;
             }
@@ -21,10 +21,10 @@
             .datepicker{
                 color: #000 !important;
             }
-        </style> 
+        </style>
 
     </head>
-    <body> -->
+    <body>
 
         <div class="col-xs-12" ng-controller="solicitudController" style="margin-top: 2%;">
 
@@ -499,7 +499,7 @@
 
         </div>
 
-    <!-- </body>
+    </body>
 
     <script src="<?= asset('app/lib/angular/angular.min.js') ?>"></script>
     <script src="<?= asset('app/lib/angular/angular-route.min.js') ?>"></script>
@@ -513,4 +513,4 @@
     <script src="<?= asset('app/app.js') ?>"></script>
     <script src="<?= asset('app/controllers/solicitudController.js') ?>"></script>
 
-</html> -->
+</html>

@@ -40,9 +40,8 @@
                 <div class="form-group">
                     <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Año:</span></label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="t_estado" id="t_estado"
-                                ng-model="t_estado" ng-options="value.id as value.name for value in estados"
-                                ng-change="searchByFilter()"> </select>
+                        <input type="text" class="form-control datepicker" name="s_anno" id="s_anno"
+                               ng-model="s_anno" >
                     </div>
                 </div>
             </div>
@@ -144,16 +143,19 @@
 
                                         <div class="col-xs-12" style="padding: 0;">
                                             <div class="col-sm-6 col-xs-12">
+                                                <span class="label label-default" style="font-size: 12px !important;">Documento ID:</span> {{codigo_cliente}}
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12">
                                                 <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_cliente}}
                                                 <input type="hidden" ng-model="h_codigocliente">
                                             </div>
-                                            <div class="col-sm-6 col-xs-12">
-                                                <span class="label label-default" style="font-size: 12px !important;">Teléfono:</span> {{telf_cliente}}
-                                            </div>
                                         </div>
                                         <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                            <div class="col-xs-12">
+                                            <div class="col-sm-6 col-xs-12">
                                                 <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_cliente}}
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12">
+                                                <span class="label label-default" style="font-size: 12px !important;">Teléfono:</span> {{telf_cliente}}
                                             </div>
                                         </div>
                                     </fieldset>
@@ -269,7 +271,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
-                        <button type="button" class="btn btn-success" id="btn-process" ng-click="save()" ng-disabled="formProcess.$invalid">
+                        <button type="button" class="btn btn-success" id="btn-process" ng-click="save()">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
                     </div>
