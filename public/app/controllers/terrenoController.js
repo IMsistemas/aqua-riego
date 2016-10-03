@@ -15,6 +15,12 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
             console.log(response);
 
             $scope.terrenos = response;
+
+            $('.datepicker').datetimepicker({
+                locale: 'es',
+                viewMode: 'years',
+                format: 'YYYY'
+            });
         });
     };
 
@@ -88,7 +94,7 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
             for(var i = 0; i < longitud; i++){
                 array_temp.push({label: response[i].descripciontoma, id: response[i].idtoma})
             }
-            $scope.tomas = array_temp;
+            $scope.tomas_edit = array_temp;
         });
     };
 
@@ -101,7 +107,7 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
             for(var i = 0; i < longitud; i++){
                 array_temp.push({label: response[i].descripcionderivacion, id: response[i].idderivacion})
             }
-            $scope.derivaciones = array_temp;
+            $scope.derivaciones_edit = array_temp;
         });
     };
 
@@ -125,6 +131,12 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
     }
 
     $scope.edit = function (terreno) {
+
+        $scope.codigo_cliente = terreno.cliente.documentoidentidad;
+        $scope.nom_cliente = terreno.cliente.apellido + ' ' + terreno.cliente.nombre;
+        $scope.direcc_cliente = terreno.cliente.direcciondomicilio;
+        $scope.telf_cliente = terreno.cliente.telefonoprincipaldomicilio;
+
         $scope.t_terreno = terreno.idterreno;
         $scope.num_terreno_edit = terreno.idterreno;
         $scope.t_junta = terreno.barrio.idbarrio;
@@ -204,7 +216,8 @@ $(function(){
 
     $('.datepicker').datetimepicker({
         locale: 'es',
-        format: 'DD/MM/YYYY'
+        viewMode: 'years',
+        format: 'YYYY'
     });
 
 });
