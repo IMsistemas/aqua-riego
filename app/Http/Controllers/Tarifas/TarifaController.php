@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tarifas;
 
+use App\Modelos\Configuraciones\Configuracion;
 use App\Modelos\Tarifas\Tarifa;
 use Illuminate\Http\Request;
 
@@ -40,6 +41,15 @@ class TarifaController extends Controller
         return Tarifa::orderBy('nombretarifa', 'asc')->get();
     }
 
+    /**
+     * Obtener la constante en los datos de configuracion
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getConstante()
+    {
+        return Configuracion::all();
+    }
 
     public function getAreaCaudal($idtarifa)
     {

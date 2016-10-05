@@ -80,8 +80,8 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in area_caudal">
-                            <td><input type="text" class="form-control" ng-model="item.area.desde"></td>
-                            <td><input type="text" class="form-control" ng-model="item.area.hasta"></td>
+                            <td><input type="text" class="form-control" ng-model="item.area.desde" ng-blur="calculateCaudalDesde(item);"></td>
+                            <td><input type="text" class="form-control" ng-model="item.area.hasta" ng-blur="calculateCaudalHasta(item);"></td>
                             <td>{{item.caudal.desde}}</td>
                             <td>{{item.caudal.hasta}}</td>
                             <td><input type="text" class="form-control" ng-model="item.area.costo"></td>

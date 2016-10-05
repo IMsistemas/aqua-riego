@@ -2,9 +2,17 @@
 app.controller('tarifaController', function($scope, $http, API_URL) {
 
     $scope.area_caudal = [];
+    $scope.constante = 0;
 
     $scope.initData = function () {
         $scope.getTarifas();
+        $scope.searchConstante();
+    };
+
+    $scope.searchConstante = function() {
+        $http.get(API_URL + 'tarifa/getConstante').success(function(response){
+            $scope.constante = parseFloat(response[0].constante);
+        });
     };
 
     $scope.getTarifas = function () {
@@ -22,8 +30,6 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
         var idtarifa = $scope.t_tarifa;
 
         $http.get(API_URL + 'tarifa/getAreaCaudal/' + idtarifa).success(function(response){
-            //console.log(response);
-
             var longitud = (response[0].area).length;
 
             var list = [];
@@ -36,8 +42,6 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
 
                 list.push(object);
             }
-
-            console.log(list);
 
             $scope.area_caudal = list;
         });
@@ -52,7 +56,7 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
                 esfija: false,
                 hasta: '0.00',
                 idarea: 0,
-                idtarifa: 0,
+                idtarifa: $scope.t_tarifa,
                 observacion: ''
             },
             caudal: {
@@ -60,7 +64,7 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
                 desde: '0.00',
                 hasta: '0.00',
                 idcaudal: 0,
-                idtarifa: 0
+                idtarifa: $scope.t_tarifa
             }
         };
 
@@ -95,6 +99,14 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
         }).error(function (res) {
 
         });
+    };
+
+    $scope.calculateCaudalDesde = function (item) {
+        item.caudal.desde = (item.area.desde * $scope.constante).toFixed(2);
+    };
+
+    $scope.calculateCaudalHasta = function (item) {
+        item.caudal.hasta = (item.area.hasta * $scope.constante).toFixed(2);
     };
 
     $scope.initData();
