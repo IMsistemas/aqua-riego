@@ -86,7 +86,6 @@
                             <td>{{item.caudal.hasta}}</td>
                             <td><input type="text" class="form-control" ng-model="item.area.costo"></td>
                             <td><textarea rows="2" class="form-control" ng-model="item.area.observacion"></textarea></td>
-
                             <td>
                                 <input type="checkbox" class="form-control" ng-model="item.area.esfija" >
                             </td>

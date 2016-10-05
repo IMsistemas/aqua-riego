@@ -110,7 +110,16 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
     };
 
     $scope.saveSubTarifas = function () {
-        console.log($scope.area_caudal);
+
+        var subtarifas = { subtarifas: $scope.area_caudal };
+
+        $http.post(API_URL + 'tarifa/saveSubTarifas', subtarifas).success(function(response){
+            console.log(response);
+            $scope.getAreaCaudal();
+            $scope.message = 'Se insertó correctamente las SubTarifa';
+            $('#modalMessage').modal('show');
+        });
+
     };
 
     $scope.initData();

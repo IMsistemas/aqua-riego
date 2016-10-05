@@ -60,6 +60,8 @@ Route::get('tarifa/getAreaCaudal/{idtarifa}', 'Tarifas\TarifaController@getAreaC
 Route::get('tarifa/getConstante', 'Tarifas\TarifaController@getConstante');
 
 Route::get('tarifa/getLastID', 'Tarifas\TarifaController@getLastID');
+
+Route::post('tarifa/saveSubTarifas', 'Tarifas\TarifaController@saveSubTarifas');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Tarifa
 Route::resource('/tarifa', 'Tarifas\TarifaController');
 

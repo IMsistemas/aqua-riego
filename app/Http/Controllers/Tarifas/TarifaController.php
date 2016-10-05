@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Tarifas;
 
 use App\Modelos\Configuraciones\Configuracion;
+use App\Modelos\Tarifas\Area;
+use App\Modelos\Tarifas\Caudal;
 use App\Modelos\Tarifas\Tarifa;
 use Illuminate\Http\Request;
 
@@ -51,6 +53,7 @@ class TarifaController extends Controller
         return Configuracion::all();
     }
 
+
     public function getAreaCaudal($idtarifa)
     {
         /*return Tarifa::join('area', 'area.idtarifa', '=', 'tarifa.idtarifa')
@@ -72,15 +75,38 @@ class TarifaController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function saveSubTarifas(Request $request)
     {
-        //
+        $subtarifas = $request->input('subtarifas');
+
+        foreach ($subtarifas as $item) {
+            if($item['area']['idarea'] == 0) {
+                $area = new Area();
+                $caudal = new Caudal();
+            } else {
+                $area = Area::find($item['area']['idarea']);
+                $caudal = Caudal::find($item['caudal']['idcaudal']);
+            }
+
+            $area->idtarifa = $item['area']['idtarifa'];
+            $area->desde = $item['area']['desde'];
+            $area->hasta = $item['area']['hasta'];
+            $area->costo = $item['area']['costo'];
+            $area->esfija = $item['area']['esfija'];
+            $area->aniotarifa = date('Y');
+            $area->observacion = $item['area']['observacion'];
+            $area->save();
+
+            $caudal->idtarifa = $item['caudal']['idtarifa'];
+            $caudal->desde = $item['caudal']['desde'];
+            $caudal->hasta = $item['caudal']['hasta'];
+            $caudal->aniotarifa = date('Y');
+            $caudal->save();
+        }
+
+        return response()->json(['success' => true]);
     }
+
 
     /**
      * Store a newly created resource in storage.
