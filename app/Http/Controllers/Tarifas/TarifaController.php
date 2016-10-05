@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tarifas;
 
+use App\Modelos\Tarifas\Tarifa;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,6 +19,21 @@ class TarifaController extends Controller
     {
         return view('Tarifas.index');
     }
+
+
+    public function getLastID()
+    {
+        $max_tarifa = Tarifa::max('idtarifa');
+
+        if ($max_tarifa != null){
+            $max_tarifa += 1;
+        } else {
+            $max_tarifa = 1;
+        }
+
+        return response()->json(['id' => $max_tarifa]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +53,15 @@ class TarifaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tarifa = new Tarifa();
+
+        $tarifa->nombretarifa = $request->input('nombretarifa');
+
+        $year = date('Y');
+        $tarifa->aniotarifa = $year;
+        $tarifa->save();
+
+        return response()->json(['success' => true]);
     }
 
     /**
