@@ -21,4 +21,9 @@ class Tarifa extends Model
         return $this->hasMany('App\Modelos\Tarifas\Area', 'idtarifa');
     }
 
+    public function caudal()
+    {
+        return $this->hasMany('App\Modelos\Tarifas\Caudal', 'idtarifa');
+    }
+
 }

@@ -20,9 +20,24 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
         var idtarifa = $scope.t_tarifa;
 
         $http.get(API_URL + 'tarifa/getAreaCaudal/' + idtarifa).success(function(response){
-            console.log(response);
+            //console.log(response);
 
-            $scope.area_caudal = response[0].area;
+            var longitud = (response[0].area).length;
+
+            var list = [];
+
+            for (var i = 0; i < longitud; i++) {
+                var object = {
+                    area: response[0].area[i],
+                    caudal: response[0].caudal[i]
+                };
+
+                list.push(object);
+            }
+
+            //console.log(list);
+
+            $scope.area_caudal = list;
         });
     };
 

@@ -77,16 +77,16 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in area_caudal">
-                            <td><input type="text" class="form-control" value="{{item.desde}}"></td>
-                            <td><input type="text" class="form-control" value="{{item.hasta}}"></td>
-                            <td></td>
-                            <td></td>
-                            <td><input type="text" class="form-control" value="{{item.costo}}"></td>
-                            <td><textarea rows="2" class="form-control">{{item.observacion}}</textarea></td>
-                            <td ng-if="item.esfija == true">
+                            <td><input type="text" class="form-control" value="{{item.area.desde}}"></td>
+                            <td><input type="text" class="form-control" value="{{item.area.hasta}}"></td>
+                            <td>{{item.caudal.desde}}</td>
+                            <td>{{item.caudal.hasta}}</td>
+                            <td><input type="text" class="form-control" value="{{item.area.costo}}"></td>
+                            <td><textarea rows="2" class="form-control">{{item.area.observacion}}</textarea></td>
+                            <td ng-if="item.area.esfija == true">
                                 <input type="checkbox" class="form-control" checked>
                             </td>
-                            <td ng-if="item.esfija == false">
+                            <td ng-if="item.area.esfija == false">
                                 <input type="checkbox" class="form-control" >
                             </td>
                         </tr>
