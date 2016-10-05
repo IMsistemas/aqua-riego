@@ -29,8 +29,20 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
 
     $scope.getAreaCaudal = function() {
         var idtarifa = $scope.t_tarifa;
+        var year = $scope.t_year;
 
-        $http.get(API_URL + 'tarifa/getAreaCaudal/' + idtarifa).success(function(response){
+        if ($scope.t_year == undefined || $scope.t_year == '0'){
+            year = '';
+        }
+
+        console.log($scope.t_year);
+
+        var data = {
+            idtarifa: idtarifa,
+            year: year
+        }
+
+        $http.get(API_URL + 'tarifa/getAreaCaudal/' + JSON.stringify(data)).success(function(response){
             var longitud = (response[0].area).length;
 
             var list = [];
@@ -156,5 +168,14 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
     };
 
     $scope.initData();
+
+});
+
+$(function(){
+
+    $('.datepicker').datetimepicker({
+        locale: 'es',
+        format: 'YYYY'
+    });
 
 });

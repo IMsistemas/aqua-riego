@@ -55,7 +55,7 @@ Route::resource('/solicitud', 'Solicitud\SolicitudController');
 
 Route::get('tarifa/getTarifas', 'Tarifas\TarifaController@getTarifas');
 
-Route::get('tarifa/getAreaCaudal/{idtarifa}', 'Tarifas\TarifaController@getAreaCaudal');
+Route::get('tarifa/getAreaCaudal/{data}', 'Tarifas\TarifaController@getAreaCaudal');
 //Peticion para obtener la constante para calculo
 Route::get('tarifa/getConstante', 'Tarifas\TarifaController@getConstante');
 

@@ -54,23 +54,41 @@ class TarifaController extends Controller
     }
 
 
-    public function getAreaCaudal($idtarifa)
+    public function getAreaCaudal($data)
     {
-        /*return Tarifa::join('area', 'area.idtarifa', '=', 'tarifa.idtarifa')
-                        ->join('caudal', 'caudal.idtarifa', '=', 'tarifa.idtarifa')
-                        ->where('tarifa.aniotarifa', date('Y'))
-                        ->where('tarifa.idtarifa', $idtarifa)
-                        ->get();*/
 
-        /*$tarifa = Tarifa::with(['area' => function($query) use ($idtarifa) {
-            $query->where('aniotarifa', 2016)
-                ->where('idtarifa', $idtarifa);
-        }]);*/
+        $data = json_decode($data);
 
-        return Tarifa::with('area', 'caudal')
-                            ->where('idtarifa', $idtarifa)
-                            ->where('aniotarifa', date('Y'))
-                            ->get();
+        if($data->year != '' && $data->year != 0 && $data->year != '0' ){
+            $year = $data->year;
+        } else {
+            $year = date('Y');
+        }
+
+        return Tarifa::with(
+            [
+                'area' => function ($query) use ($year){
+                    $query->where('aniotarifa', $year);
+                }
+            ,
+                'caudal' => function ($query0) use ($year){
+                    $query0->where('aniotarifa', $year);
+                }
+            ]
+        )
+        ->where('idtarifa', $data->idtarifa)
+            //->orderBy('idarea', 'asc')
+            ->get();
+
+
+
+
+
+
+        /*return Tarifa::with('area', 'caudal')
+            ->where('idtarifa', $data->idtarifa)
+            ->where('aniotarifa', $year)
+            ->get();*/
 
     }
 

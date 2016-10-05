@@ -31,9 +31,9 @@
             <div class="col-xs-12">
                 <div class="col-sm-2 col-xs-12">
                     <div class="form-group">
-                        <label class="col-sm-4 control-label">Año:</label>
+                        <label for="t_year" class="col-sm-4 control-label">Año:</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control datepicker" name="s_anno" id="s_anno" ng-model="s_anno" >
+                            <input type="text" class="form-control datepicker" name="t_year" id="t_year" ng-model="t_year" />
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in area_caudal">
+                        <tr ng-repeat="item in area_caudal" ng-cloak>
                             <td><input type="text" class="form-control" ng-model="item.area.desde" ng-blur="calculateCaudalDesde(item);"></td>
                             <td><input type="text" class="form-control" ng-model="item.area.hasta" ng-blur="calculateCaudalHasta(item);"></td>
                             <td>{{item.caudal.desde}}</td>
