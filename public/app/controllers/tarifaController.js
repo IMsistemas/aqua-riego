@@ -1,6 +1,8 @@
 
 app.controller('tarifaController', function($scope, $http, API_URL) {
 
+    $scope.area_caudal = [];
+
     $scope.initData = function () {
         $scope.getTarifas();
     };
@@ -35,10 +37,35 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
                 list.push(object);
             }
 
-            //console.log(list);
+            console.log(list);
 
             $scope.area_caudal = list;
         });
+    };
+
+    $scope.createRow = function () {
+        var object_row = {
+            area: {
+                aniotarifa: '',
+                costo: '0.00',
+                desde: '0.00',
+                esfija: false,
+                hasta: '0.00',
+                idarea: 0,
+                idtarifa: 0,
+                observacion: ''
+            },
+            caudal: {
+                aniotarifa: '',
+                desde: '0.00',
+                hasta: '0.00',
+                idcaudal: 0,
+                idtarifa: 0
+            }
+        };
+
+        ($scope.area_caudal).push(object_row);
+
     };
 
     $scope.showModal = function () {

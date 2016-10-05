@@ -63,6 +63,9 @@
                                 <button type="button" class="btn btn-info" id="btn_edit" ng-click="showModal();" >
                                     Nueva <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
                                 </button>
+                                <button type="button" class="btn btn-default" id="btn_edit" ng-click="createRow();" >
+                                    <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+                                </button>
                             </th>
                         </tr>
                         <tr>
@@ -77,28 +80,17 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in area_caudal">
-                            <td><input type="text" class="form-control" value="{{item.area.desde}}"></td>
-                            <td><input type="text" class="form-control" value="{{item.area.hasta}}"></td>
+                            <td><input type="text" class="form-control" ng-model="item.area.desde"></td>
+                            <td><input type="text" class="form-control" ng-model="item.area.hasta"></td>
                             <td>{{item.caudal.desde}}</td>
                             <td>{{item.caudal.hasta}}</td>
-                            <td><input type="text" class="form-control" value="{{item.area.costo}}"></td>
-                            <td><textarea rows="2" class="form-control">{{item.area.observacion}}</textarea></td>
-                            <td ng-if="item.area.esfija == true">
-                                <input type="checkbox" class="form-control" checked>
-                            </td>
-                            <td ng-if="item.area.esfija == false">
-                                <input type="checkbox" class="form-control" >
+                            <td><input type="text" class="form-control" ng-model="item.area.costo"></td>
+                            <td><textarea rows="2" class="form-control" ng-model="item.area.observacion"></textarea></td>
+
+                            <td>
+                                <input type="checkbox" class="form-control" ng-model="item.area.esfija" >
                             </td>
                         </tr>
-                        <!--<tr>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td></td>
-                            <td></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><textarea rows="2" class="form-control"></textarea></td>
-                            <td><input type="checkbox" class="form-control"></td>
-                        </tr>-->
                     </tbody>
                 </table>
             </div>
