@@ -28,6 +28,13 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
     };
 
     $scope.getAreaCaudal = function() {
+
+        $('.datepicker').datetimepicker({
+            locale: 'es',
+            format: 'YYYY'
+        });
+
+
         var idtarifa = $scope.t_tarifa;
         var year = $scope.t_year;
 
@@ -165,6 +172,24 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
         $http.get(API_URL + 'tarifa/generate').success(function(response){
             console.log(response);
         });
+    };
+
+    $scope.onlyDecimal = function ($event) {
+
+        var k = $event.keyCode;
+        if (k == 8 || k == 0) return true;
+        var patron = /\d/;
+        var n = String.fromCharCode(k);
+
+        if (n == ".") {
+            return true;
+        } else {
+
+            if(patron.test(n) == false){
+                $event.preventDefault();
+            }
+            else return true;
+        }
     };
 
     $scope.initData();

@@ -33,7 +33,7 @@
                     <div class="form-group">
                         <label for="t_year" class="col-sm-4 control-label">Año:</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control datepicker" name="t_year" id="t_year" ng-model="t_year" />
+                            <input type="text" class="form-control" name="t_year" id="t_year" ng-model="t_year" />
                         </div>
                     </div>
                 </div>
@@ -81,11 +81,11 @@
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in area_caudal" ng-cloak>
-                            <td><input type="text" class="form-control" ng-model="item.area.desde" ng-blur="calculateCaudalDesde(item);"></td>
-                            <td><input type="text" class="form-control" ng-model="item.area.hasta" ng-blur="calculateCaudalHasta(item);"></td>
+                            <td><input type="text" class="form-control" ng-model="item.area.desde" ng-blur="calculateCaudalDesde(item);" ng-keypress="onlyDecimal($event)"></td>
+                            <td><input type="text" class="form-control" ng-model="item.area.hasta" ng-blur="calculateCaudalHasta(item);" ng-keypress="onlyDecimal($event)"></td>
                             <td>{{item.caudal.desde}}</td>
                             <td>{{item.caudal.hasta}}</td>
-                            <td><input type="text" class="form-control" ng-model="item.area.costo"></td>
+                            <td><input type="text" class="form-control" ng-model="item.area.costo" ng-keypress="onlyDecimal($event)"></td>
                             <td><textarea rows="2" class="form-control" ng-model="item.area.observacion"></textarea></td>
                             <td>
                                 <input type="checkbox" class="form-control" ng-model="item.area.esfija" >
