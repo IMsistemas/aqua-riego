@@ -55,6 +55,8 @@ Route::resource('/solicitud', 'Solicitud\SolicitudController');
 
 Route::get('tarifa/getTarifas', 'Tarifas\TarifaController@getTarifas');
 
+Route::get('tarifa/getAreaCaudal/{idtarifa}', 'Tarifas\TarifaController@getAreaCaudal');
+
 Route::get('tarifa/getLastID', 'Tarifas\TarifaController@getLastID');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Tarifa
 Route::resource('/tarifa', 'Tarifas\TarifaController');

@@ -41,6 +41,26 @@ class TarifaController extends Controller
     }
 
 
+    public function getAreaCaudal($idtarifa)
+    {
+        /*return Tarifa::join('area', 'area.idtarifa', '=', 'tarifa.idtarifa')
+                        ->where('area.aniotarifa', date('Y'))
+                        ->where('area.idtarifa', $idtarifa)
+                        ->get();*/
+
+        /*$tarifa = Tarifa::with(['area' => function($query) use ($idtarifa) {
+            $query->where('aniotarifa', 2016)
+                ->where('idtarifa', $idtarifa);
+        }]);*/
+
+        return Tarifa::with('area')
+                            ->where('idtarifa', $idtarifa)
+                            ->where('aniotarifa', date('Y'))
+                            ->get();
+
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

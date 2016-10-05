@@ -16,6 +16,16 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.getAreaCaudal = function() {
+        var idtarifa = $scope.t_tarifa;
+
+        $http.get(API_URL + 'tarifa/getAreaCaudal/' + idtarifa).success(function(response){
+            console.log(response);
+
+            $scope.area_caudal = response[0].area;
+        });
+    };
+
     $scope.showModal = function () {
         var now = new Date();
         $scope.year_ingreso = now.getFullYear();

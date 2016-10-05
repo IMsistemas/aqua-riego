@@ -43,7 +43,7 @@
                         <div class="col-sm-8">
                             <select class="form-control" name="t_tarifa" id="t_tarifa"
                                     ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
-                                    ng-change=""> </select>
+                                    ng-change="getAreaCaudal();"> </select>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr ng-repeat="item in area_caudal">
+                            <td><input type="text" class="form-control" value="{{item.desde}}"></td>
+                            <td><input type="text" class="form-control" value="{{item.hasta}}"></td>
+                            <td></td>
+                            <td></td>
+                            <td><input type="text" class="form-control" value="{{item.costo}}"></td>
+                            <td><textarea rows="2" class="form-control">{{item.observacion}}</textarea></td>
+                            <td ng-if="item.esfija == true">
+                                <input type="checkbox" class="form-control" checked>
+                            </td>
+                            <td ng-if="item.esfija == false">
+                                <input type="checkbox" class="form-control" >
+                            </td>
+                        </tr>
+                        <!--<tr>
                             <td><input type="text" class="form-control"></td>
                             <td><input type="text" class="form-control"></td>
                             <td></td>
@@ -84,16 +98,7 @@
                             <td><input type="text" class="form-control"></td>
                             <td><textarea rows="2" class="form-control"></textarea></td>
                             <td><input type="checkbox" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" class="form-control"></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td></td>
-                            <td></td>
-                            <td><input type="text" class="form-control"></td>
-                            <td><textarea rows="2" class="form-control"></textarea></td>
-                            <td><input type="checkbox" class="form-control"></td>
-                        </tr>
+                        </tr>-->
                     </tbody>
                 </table>
             </div>
