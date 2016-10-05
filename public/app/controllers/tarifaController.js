@@ -109,6 +109,10 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
         item.caudal.hasta = (item.area.hasta * $scope.constante).toFixed(2);
     };
 
+    $scope.saveSubTarifas = function () {
+        console.log($scope.area_caudal);
+    };
+
     $scope.initData();
 
 });

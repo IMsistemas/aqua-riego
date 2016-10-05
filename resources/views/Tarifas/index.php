@@ -96,7 +96,7 @@
             </div>
 
             <div class="col-xs-12 text-right" style="margin-top: 10px">
-                <button type="button" class="btn btn-success" id="btn-save" ng-click="">
+                <button type="button" class="btn btn-success" id="btn-save" ng-click="saveSubTarifas();">
                     Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                 </button>
             </div>
