@@ -35,6 +35,12 @@ class TarifaController extends Controller
     }
 
 
+    public function getTarifas()
+    {
+        return Tarifa::orderBy('nombretarifa', 'asc')->get();
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
