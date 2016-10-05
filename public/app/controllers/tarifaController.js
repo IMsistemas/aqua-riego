@@ -147,7 +147,12 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
             $scope.item_delete = 0;
         });
 
+    };
 
+    $scope.generate = function () {
+        $http.get(API_URL + 'tarifa/generate').success(function(response){
+            console.log(response);
+        });
     };
 
     $scope.initData();

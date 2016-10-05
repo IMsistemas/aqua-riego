@@ -61,6 +61,8 @@ Route::get('tarifa/getConstante', 'Tarifas\TarifaController@getConstante');
 
 Route::get('tarifa/getLastID', 'Tarifas\TarifaController@getLastID');
 
+Route::get('tarifa/generate', 'Tarifas\TarifaController@generate');
+
 Route::post('tarifa/saveSubTarifas', 'Tarifas\TarifaController@saveSubTarifas');
 
 Route::post('tarifa/deleteSubTarifas', 'Tarifas\TarifaController@deleteSubTarifas');

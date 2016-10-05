@@ -57,7 +57,7 @@
                             <th colspan="2" class="text-center">LITROS X SEGUNDO</th>
                             <th>USD</th>
                             <th colspan="3" class="text-center">
-                                <button type="button" class="btn btn-info" id="btn_inform" ng-click="">
+                                <button type="button" class="btn btn-info" id="btn_inform" ng-click="generate();">
                                     Generar Tarifa <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" class="btn btn-info" id="btn_edit" ng-click="showModal();" >

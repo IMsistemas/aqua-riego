@@ -118,6 +118,62 @@ class TarifaController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function generate()
+    {
+        $tarifas = Tarifa::orderBy('idtarifa', 'asc')->get();
+
+        if (count($tarifas) > 0){
+
+            foreach ($tarifas as $item) {
+
+                $area_search = Area::where('idtarifa', $item['idtarifa'])
+                                ->where('aniotarifa', date('Y'))
+                                ->get();
+
+                if (count($area_search) == 0){
+                    $area = Area::where('idtarifa', $item['idtarifa'])
+                                    ->where('aniotarifa', date('Y') - 1)
+                                    ->get();
+
+                    if (count($area) > 0){
+                        foreach ($area as $item_area) {
+                            $newArea = new Area();
+                            $newArea->idtarifa = $item_area['idtarifa'];
+                            $newArea->desde = $item_area['desde'];
+                            $newArea->hasta = $item_area['hasta'];
+                            $newArea->costo = $item_area['costo'];
+                            $newArea->esfija = $item_area['esfija'];
+                            $newArea->observacion = $item_area['observacion'];
+                            $newArea->aniotarifa = date('Y');
+                            $newArea->save();
+                        }
+                    }
+
+                    $caudal = Caudal::where('idtarifa', $item['idtarifa'])
+                                        ->where('aniotarifa', date('Y') - 1)
+                                        ->get();
+
+                    if (count($caudal) > 0){
+                        foreach ($caudal as $item_caudal) {
+                            $newCaudal = new Caudal();
+                            $newCaudal->idtarifa = $item_caudal['idtarifa'];
+                            $newCaudal->desde = $item_caudal['desde'];
+                            $newCaudal->hasta = $item_caudal['hasta'];
+                            $newCaudal->aniotarifa = date('Y');
+                            $newCaudal->save();
+                        }
+                    }
+                }
+
+            }
+
+            return response()->json(['success' => true]);
+
+        } else {
+            return response()->json(['success' => false, 'msg' => 'no_exists_tarifa']);
+        }
+    }
+
 
     /**
      * Store a newly created resource in storage.
