@@ -56,7 +56,7 @@
                             <th colspan="2" class="text-center">AREA</th>
                             <th colspan="2" class="text-center">LITROS X SEGUNDO</th>
                             <th>USD</th>
-                            <th colspan="2" class="text-center">
+                            <th colspan="3" class="text-center">
                                 <button type="button" class="btn btn-info" id="btn_inform" ng-click="">
                                     Generar Tarifa <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                                 </button>
@@ -75,7 +75,8 @@
                             <th style="width: 15%;">Hasta</th>
                             <th style="width: 15%;">x Litro</th>
                             <th>Observaciones</th>
-                            <th style="width: 5%;">Fija</th>
+                            <th style="width: 4%;">Fija</th>
+                            <th style="width: 4%;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,6 +89,11 @@
                             <td><textarea rows="2" class="form-control" ng-model="item.area.observacion"></textarea></td>
                             <td>
                                 <input type="checkbox" class="form-control" ng-model="item.area.esfija" >
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-danger" ng-click="showDeleteRow(item);" >
+                                    <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -152,6 +158,29 @@
                         </div>
                         <div class="modal-body">
                             <span>{{message}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalConfirmDelete">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-danger">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Confirmación</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span>Realmente desea eliminar la SubTarifa seleccionada...</span>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-danger" id="btn-save" ng-click="deleteRow()">
+                                Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -107,6 +107,17 @@ class TarifaController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function deleteSubTarifas(Request $request)
+    {
+        $area = Area::find($request->input('idarea'));
+        $area->delete();
+
+        $caudal = Caudal::find($request->input('idcaudal'));
+        $caudal->delete();
+
+        return response()->json(['success' => true]);
+    }
+
 
     /**
      * Store a newly created resource in storage.

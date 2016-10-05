@@ -3,6 +3,7 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
 
     $scope.area_caudal = [];
     $scope.constante = 0;
+    $scope.item_delete = 0;
 
     $scope.initData = function () {
         $scope.getTarifas();
@@ -119,6 +120,33 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
             $scope.message = 'Se insertó correctamente las SubTarifa';
             $('#modalMessage').modal('show');
         });
+
+    };
+
+    $scope.showDeleteRow = function (item) {
+
+        $scope.item_delete = item;
+
+        $('#modalConfirmDelete').modal('show');
+    };
+
+    $scope.deleteRow = function () {
+
+        var data = {
+            idarea: $scope.item_delete.area.idarea,
+            idcaudal: $scope.item_delete.caudal.idcaudal
+        };
+
+        $http.post(API_URL + 'tarifa/deleteSubTarifas', data).success(function(response){
+            console.log(response);
+            $scope.getAreaCaudal();
+
+            $('#modalConfirmDelete').modal('hide');
+            $scope.message = 'Se eliminó correctamente la SubTarifa...';
+            $('#modalMessage').modal('show');
+            $scope.item_delete = 0;
+        });
+
 
     };
 
