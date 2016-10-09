@@ -41,10 +41,12 @@
                 <tbody>
                     <tr ng-repeat="item in barrios|filter:busqueda" ng-cloak>
                         <td>{{item.fechaingreso}}</td>
-                        <td>{{item.nombrebarrio}}</td>
+
+                        <td><input type="text" class="form-control" ng-model="item.nombrebarrio"></td>
+
                         <td>
                             <span ng-repeat="calle in item.calle">{{calle.nombrecalle}}; </span>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="">
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="show_toma(item.idbarrio)">
                                 <i class="fa fa-lg fa-plus" aria-hidden="true"></i>
                             </button>
                         </td>
@@ -66,6 +68,11 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="col-xs-12" style="float: right;">
+            <button type="button" class="btn btn-success" style="float: right;" ng-click="editar()">Guardar</button>
+        </div>
+
 
         <div class="modal fade" tabindex="-1" role="dialog" id="modalNueva">
             <div class="modal-dialog" role="document">
@@ -120,6 +127,67 @@
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
                         <button type="button" class="btn btn-success" id="btn-save" ng-click="saveBarrio();" ng-disabled="formBarrio.$invalid">
+                            Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalNuevaToma">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <div class="col-sm-5 col-xs-12">
+                            <h4 class="modal-title">Nueva Toma</h4>
+                        </div>
+                        <div class="col-sm-7 col-xs-12 text-right">
+                            <div class="col-xs-10"><h4 class="modal-title">Fecha Ingreso: {{date_ingreso_toma}}</h4></div>
+                            <div class="col-xs-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+                        </div>
+                    </div>
+
+                    <div class="modal-body">
+                        <form class="form-horizontal" name="formCalle" novalidate="">
+                            <div class="form-group">
+                                <label for="t_codigo" class="col-sm-4 control-label">Código: </label>
+                                <div class="col-sm-8" style="padding-top: 7px;">
+                                    {{codigo_toma}}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="id_barrio" class="col-sm-4 control-label">Barrio:</label>
+                                <div class="col-sm-8">
+                                    <select id="id_barrio" class="form-control" ng-model="id_barrio"
+                                            ng-options="value.id as value.label for value in barrios2"></select>
+                                </div>
+                            </div>
+
+                            <div class="form-group error">
+                                <label for="nombrecalle" class="col-sm-4 control-label">Nombre de la Toma:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="nombrecalle" ng-model="nombrecalle" placeholder=""
+                                           ng-required="true" ng-maxlength="64">
+                                    <span class="help-block error"
+                                          ng-show="formCalle.nombrecalle.$invalid && formCalle.nombrecalle.$touched">El nombre de la Toma es requerido</span>
+                                    <span class="help-block error"
+                                          ng-show="formCalle.nombrecalle.$invalid && formCalle.nombrecalle.$error.maxlength">La longitud máxima es de 64 caracteres</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="observacionCalle" class="col-sm-4 control-label">Observaciones:</label>
+                                <div class="col-sm-8">
+                                    <textarea id="observacionCalle" class="form-control" rows="3" ng-model="observacionCalle"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="saveCalle();" ng-disabled="formCalle.$invalid">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
                     </div>

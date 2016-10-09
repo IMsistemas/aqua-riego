@@ -77,6 +77,21 @@ class BarrioController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function editar_barrio(Request $request)
+    {
+        $subtarifas = $request->input('arr_barrio');
+
+        foreach ($subtarifas as $item) {
+            $barri = Barrio::find($item['idbarrio']);
+
+            $barri->nombrebarrio = $item['nombrebarrio'];
+
+            $barri->save();
+        }
+        return response()->json(['success' => true]);
+    }
+
+
     /**
      * Display the specified resource.
      *

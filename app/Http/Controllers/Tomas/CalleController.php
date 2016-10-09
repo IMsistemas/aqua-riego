@@ -26,6 +26,7 @@ class CalleController extends Controller
         return Calle::orderBy('nombrecalle', 'asc')->get();
     }
 
+
     public function getBarrios()
     {
         return Barrio::orderBy('nombrebarrio', 'asc')->get();
@@ -41,7 +42,6 @@ class CalleController extends Controller
         } else {
             $max_calle = 1;
         }
-
         return response()->json(['id' => $max_calle]);
     }
 

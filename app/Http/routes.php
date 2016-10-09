@@ -88,7 +88,16 @@ Route::get('barrio/getParroquias', 'Sectores\BarrioController@getParroquias');
 
 Route::get('barrio/getLastID', 'Sectores\BarrioController@getLastID');
 
+Route::get('barrio/saveBarrio', 'Sectores\BarrioController@getLastID');
+
+
+Route::post('barrio/editar_Barrio', 'Sectores\BarrioController@editar_barrio');
+
+
+
 Route::resource('/barrio', 'Sectores\BarrioController');
+
+
 
 
 /*===================================Calle===========================================*/
@@ -99,6 +108,8 @@ Route::get('calle/getCalles', 'Tomas\CalleController@getCalles');
 Route::get('calle/getBarrio', 'Sectores\BarrioController@getBarrios');
 
 Route::get('calle/getLastID', 'Tomas\CalleController@getLastID');
+
+
 
 Route::resource('/calle', 'Tomas\CalleController');
 
