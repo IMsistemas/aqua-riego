@@ -70,6 +70,18 @@ Route::post('tarifa/deleteSubTarifas', 'Tarifas\TarifaController@deleteSubTarifa
 Route::resource('/tarifa', 'Tarifas\TarifaController');
 
 /*--------------------------------------Yamilka-------------------------------------------------*/
+/*===================================Módulo Sectores===========================================*/
+
+Route::get('barrio/getBarrios', 'Sectores\BarrioController@getBarrios');
+
+Route::get('barrio/getParroquias', 'Sectores\BarrioController@getParroquias');
+
+Route::get('barrio/getLastID', 'Sectores\BarrioController@getLastID');
+
+Route::resource('/barrio', 'Sectores\BarrioController');
+
+
+
 /*===================================Recaudacion=================================================*/
 
 //Peticion para obtener el listado de cobros
@@ -156,7 +168,7 @@ Route::resource('/recaudacion', 'Cuentas\CobroAguaController');
 
 /*===================================Módulo Barrio===========================================*/
 
-Route::get('/barrios', function (){
+/*Route::get('/barrios', function (){
 	return view('Sectores/barrio');
 });
 
@@ -175,7 +187,7 @@ Route::post('/barrios/gestion/guardarbarrio/{idparroquia}','Sectores\BarrioContr
 //Ruta página de inicio de gestión de barrios
 Route::post('/barrios/gestion/actualizarbarrio/{idbarrio}','Sectores\BarrioController@postActualizarBarrio');
 //Ruta página de inicio de gestión de barrios
-Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');
+Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');*/
 
 /*===================================Módulo Canal===========================================*/
 
@@ -221,12 +233,12 @@ Route::Delete('/tomas/gestion/eliminartoma/{idtoma}','Tomas\TomaController@destr
 
 /*===================================Módulo Derivación===========================================*/
 
-Route::get('/barrios', function (){
+/*Route::get('/barrios', function (){
 	return view('Sectores/barrio');
-});
+});*/
 
 //----Kevin Tambien :-(---------
-Route::get('/barrios/gestion/concalles','Sectores\BarrioController@getBarriosCalles');
+/*Route::get('/barrios/gestion/concalles','Sectores\BarrioController@getBarriosCalles');
 
 
 //Ruta devuelve un arreglo de todos los provincias a AngularJS 
@@ -240,7 +252,7 @@ Route::post('/barrios/gestion/guardarbarrio/{idparroquia}','Sectores\BarrioContr
 //Ruta página de inicio de gestión de barrios
 Route::post('/barrios/gestion/actualizarbarrio/{idbarrio}','Sectores\BarrioController@postActualizarBarrio');
 //Ruta página de inicio de gestión de barrios
-Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');
+Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');*/
 /*===================================Módulo Canal===========================================*/
 
 Route::get('/canales', function (){
