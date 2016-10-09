@@ -24,7 +24,8 @@ class BarrioController extends Controller
 
     public function getBarrios()
     {
-        return Barrio::orderBy('nombrebarrio', 'asc')->get();
+        //return Barrio::orderBy('nombrebarrio', 'asc')->get();
+        return Barrio::with('calle')->orderBy('nombrebarrio', 'asc')->get();
     }
 
     public function getLastID()
@@ -118,6 +119,8 @@ class BarrioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $barrio = Barrio::find($id);
+        $barrio->delete();
+        return response()->json(['success' => true]);
     }
 }

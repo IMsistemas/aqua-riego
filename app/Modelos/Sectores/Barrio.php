@@ -15,7 +15,7 @@ class Barrio extends Model
     }
 
     public function calle(){
-        return $this->hasMany('App\Modelos\Sectores\Calle','idbarrio');
+        return $this->hasMany('App\Modelos\Tomas\Calle','idbarrio');
     }
 }
  

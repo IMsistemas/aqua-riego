@@ -2,6 +2,7 @@
 app.controller('barrioController', function($scope, $http, API_URL) {
 
     $scope.barrios = [];
+    $scope.idbarrio_del = 0;
 
     $scope.initLoad = function () {
         $http.get(API_URL + 'barrio/getBarrios').success(function(response){
@@ -61,6 +62,29 @@ app.controller('barrioController', function($scope, $http, API_URL) {
 
     };
 
+    $scope.showModalInfo = function (item) {
+        $scope.name_junta = item.nombrebarrio;
+        $scope.fecha_ingreso = item.fechaingreso;
+
+        $('#modalInfo').modal('show');
+
+    };
+
+    $scope.showModalDelete = function (item) {
+        $scope.idbarrio_del = item.idbarrio;
+        $scope.nom_junta_modular = item.nombrebarrio;
+        $('#modalDelete').modal('show');
+    };
+
+    $scope.delete = function(){
+        $http.delete(API_URL + 'barrio/' + $scope.idbarrio_del).success(function(response) {
+            $scope.initLoad();
+            $('#modalDelete').modal('hide');
+            $scope.idbarrio_del = 0;
+            $scope.message = 'Se elimino correctamente la Junta Modular seleccionada...';
+            $('#modalMessage').modal('show');
+        });
+    };
 
     $scope.initLoad();
 

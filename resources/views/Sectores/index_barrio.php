@@ -16,7 +16,7 @@
 <body>
     <div ng-controller="barrioController">
 
-        <div class="col-xs-12">
+        <div class="col-xs-12" style="margin-top: 15px;">
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda">
@@ -39,11 +39,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="item in barrios" ng-cloak>
+                    <tr ng-repeat="item in barrios|filter:busqueda" ng-cloak>
                         <td>{{item.fechaingreso}}</td>
                         <td>{{item.nombrebarrio}}</td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            <span ng-repeat="calle in item.calle">{{calle.nombrecalle}}; </span>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="">
+                                <i class="fa fa-lg fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfo(item)">
+                                <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
+                            </button>
+                            <!--<button type="button" class="btn btn-warning btn-sm" ng-click="edit(item)">
+                                <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
+                            </button>-->
+                            <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDelete(item)">
+                                <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="showModalAction(item)">
+                                <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -53,16 +71,21 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">
-                            Nueva Junta Modular <br>
-                            Fecha Ingreso: {{date_ingreso}}
-                        </h4>
+                        <div class="col-sm-5 col-xs-12">
+                            <h4 class="modal-title">Nueva Junta Modular</h4>
+                        </div>
+                        <div class="col-sm-7 col-xs-12 text-right">
+                            <div class="col-xs-10"><h4 class="modal-title">Fecha Ingreso: {{date_ingreso}}</h4></div>
+                            <div class="col-xs-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+                        </div>
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" name="formBarrio" novalidate="">
                             <div class="form-group">
-                                <label for="t_codigo" class="col-sm-4 control-label">Código: {{codigo}}</label>
+                                <label for="t_codigo" class="col-sm-4 control-label">Código: </label>
+                                <div class="col-sm-8" style="padding-top: 7px;">
+                                    {{codigo}}
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -87,7 +110,7 @@
                             <div class="form-group">
                                 <label for="t_codigo" class="col-sm-4 control-label">Observaciones:</label>
                                 <div class="col-sm-8">
-                                    <textarea id="observacionBarrio" class="form-control" rows="5" ng-model="observacionBarrio"></textarea>
+                                    <textarea id="observacionBarrio" class="form-control" rows="3" ng-model="observacionBarrio"></textarea>
                                 </div>
                             </div>
                         </form>
@@ -98,6 +121,58 @@
                         </button>
                         <button type="button" class="btn btn-success" id="btn-save" ng-click="saveBarrio();" ng-disabled="formBarrio.$invalid">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalInfo">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-info">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Junta Modular: {{name_junta}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-xs-12 text-center">
+                            <img class="img-thumbnail" src="<?= asset('img/solicitud.png') ?>" alt="">
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-xs-12">
+                                <span style="font-weight: bold">Ingresada el: </span>{{fecha_ingreso}}
+                            </div>
+                            <div class="col-xs-12">
+                                <span style="font-weight: bold">Tomas en la Junta: </span>{{junta_tomas}}
+                            </div>
+                            <div class="col-xs-12">
+                                <span style="font-weight: bold">Canales en la Junta: </span>{{junta_canales}}
+                            </div>
+                            <div class="col-xs-12">
+                                <span style="font-weight: bold">Derivaciones de la Junta: </span>{{junta_derivacion}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalDelete">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-danger">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Confirmación</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span>Realmente desea eliminar la Junta Modular: <strong>"{{nom_junta_modular}}"</strong>...</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger" id="btn-save" ng-click="delete()">
+                            Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </button>
                     </div>
                 </div>
