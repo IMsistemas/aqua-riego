@@ -78,7 +78,7 @@ Route::resource('/cliente', 'Clientes\ClienteController');
 
 
 /*--------------------------------------Yamilka-------------------------------------------------*/
-/*===================================Módulo Sectores===========================================*/
+/*===================================Sectores===========================================*/
 
 Route::get('barrio/getBarrios', 'Sectores\BarrioController@getBarrios');
 
@@ -89,6 +89,16 @@ Route::get('barrio/getLastID', 'Sectores\BarrioController@getLastID');
 Route::resource('/barrio', 'Sectores\BarrioController');
 
 
+/*===================================Calle===========================================*/
+
+
+Route::get('calle/getCalles', 'Tomas\CalleController@getCalles');
+
+Route::get('calle/getBarrio', 'Sectores\BarrioController@getBarrios');
+
+Route::get('calle/getLastID', 'Tomas\CalleController@getLastID');
+
+Route::resource('/calle', 'Tomas\CalleController');
 
 /*===================================Recaudacion=================================================*/
 
