@@ -19,7 +19,7 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
     $scope.getTarifas = function () {
         $http.get(API_URL + 'tarifa/getTarifas').success(function(response){
             var longitud = response.length;
-            var array_temp = [];
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
                 array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
             }
@@ -35,36 +35,36 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
         });
 
 
-        var idtarifa = $scope.t_tarifa;
-        var year = $scope.t_year;
+        if ($scope.t_tarifa != 0 && $scope.t_tarifa != undefined){
+            var idtarifa = $scope.t_tarifa;
+            var year = $scope.t_year;
 
-        if ($scope.t_year == undefined || $scope.t_year == '0'){
-            year = '';
-        }
-
-        console.log($scope.t_year);
-
-        var data = {
-            idtarifa: idtarifa,
-            year: year
-        }
-
-        $http.get(API_URL + 'tarifa/getAreaCaudal/' + JSON.stringify(data)).success(function(response){
-            var longitud = (response[0].area).length;
-
-            var list = [];
-
-            for (var i = 0; i < longitud; i++) {
-                var object = {
-                    area: response[0].area[i],
-                    caudal: response[0].caudal[i]
-                };
-
-                list.push(object);
+            if ($scope.t_year == undefined || $scope.t_year == '0'){
+                year = '';
             }
 
-            $scope.area_caudal = list;
-        });
+            var data = {
+                idtarifa: idtarifa,
+                year: year
+            }
+
+            $http.get(API_URL + 'tarifa/getAreaCaudal/' + JSON.stringify(data)).success(function(response){
+                var longitud = (response[0].area).length;
+
+                var list = [];
+
+                for (var i = 0; i < longitud; i++) {
+                    var object = {
+                        area: response[0].area[i],
+                        caudal: response[0].caudal[i]
+                    };
+
+                    list.push(object);
+                }
+
+                $scope.area_caudal = list;
+            });
+        }
     };
 
     $scope.createRow = function () {
@@ -111,7 +111,7 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
         };
 
         $http.post(API_URL + 'tarifa', data ).success(function (response) {
-
+            $scope.getTarifas();
             $('#modalTarifa').modal('hide');
             $scope.message = 'Se insertó correctamente la Tarifa';
             $('#modalMessage').modal('show');

@@ -72,6 +72,8 @@ Route::resource('/tarifa', 'Tarifas\TarifaController');
 
 /*===================================Cliente======================================================*/
 
+Route::get('cliente/getTarifas', 'Clientes\ClienteController@getTarifas');
+
 Route::get('cliente/getClientes', 'Clientes\ClienteController@getClientes');
 
 Route::resource('/cliente', 'Clientes\ClienteController');

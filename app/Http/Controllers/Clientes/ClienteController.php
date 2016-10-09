@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Clientes;
 
 use App\Modelos\Clientes\Cliente;
+use App\Modelos\Sectores\Barrio;
+use App\Modelos\Tarifas\Tarifa;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,6 +26,23 @@ class ClienteController extends Controller
     public function getClientes()
     {
         return Cliente::orderBy('fechaingreso', 'asc')->get();
+    }
+
+
+    /**
+     * Obtener los barrios ordenados ascendentemente
+     *
+     * @return mixed
+     */
+    public function getBarrios()
+    {
+        return Barrio::orderBy('nombrebarrio', 'asc')->get();
+    }
+
+
+    public function getTarifas()
+    {
+        return Tarifa::orderBy('nombretarifa', 'asc')->get();
     }
 
     /**

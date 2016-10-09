@@ -53,7 +53,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in clientes" ng-cloak>
+                        <tr ng-repeat="item in clientes | filter:busqueda" ng-cloak>
                             <td>{{item.documentoidentidad}}</td>
                             <td>{{item.fechaingreso}}</td>
                             <td>{{item.apellido + ' ' + item.nombre}}</td>

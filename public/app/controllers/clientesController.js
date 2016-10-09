@@ -141,8 +141,9 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
     $scope.actionRiego = function () {
 
-        $scope.documentoidentidad_cliente = $scope.objectAction.documentoidentidad;
+        $scope.getBarrios();
 
+        $scope.documentoidentidad_cliente = $scope.objectAction.documentoidentidad;
         $scope.nom_cliente = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
         $scope.direcc_cliente = $scope.objectAction.direcciondomicilio;
         $scope.telf_cliente = $scope.objectAction.telefonoprincipaldomicilio;
@@ -152,6 +153,16 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $('#modalActionRiego').modal('show');
     };
 
+    $scope.getBarrios = function(){
+        $http.get(API_URL + 'cliente/getTarifas').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
+            }
+            $scope.tarifas = array_temp;
+        });
+    };
 
     $scope.initLoad();
 

@@ -82,9 +82,6 @@ class TarifaController extends Controller
 
 
 
-
-
-
         /*return Tarifa::with('area', 'caudal')
             ->where('idtarifa', $data->idtarifa)
             ->where('aniotarifa', $year)
