@@ -4,6 +4,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
     $scope.clientes = [];
     $scope.codigocliente_del = 0;
+    $scope.objectAction = null;
 
     $scope.initLoad = function () {
         $http.get(API_URL + 'cliente/getClientes').success(function(response){
@@ -132,6 +133,24 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
     };
 
+    $scope.showModalAction = function (item) {
+        $scope.objectAction = item;
+        $('#modalAction').modal('show');
+    };
+
+
+    $scope.actionRiego = function () {
+
+        $scope.documentoidentidad_cliente = $scope.objectAction.documentoidentidad;
+
+        $scope.nom_cliente = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
+        $scope.direcc_cliente = $scope.objectAction.direcciondomicilio;
+        $scope.telf_cliente = $scope.objectAction.telefonoprincipaldomicilio;
+        $scope.celular_cliente = $scope.objectAction.celular;
+        $scope.telf_trab_cliente = $scope.objectAction.telefonoprincipaltrabajo;
+
+        $('#modalActionRiego').modal('show');
+    };
 
 
     $scope.initLoad();
