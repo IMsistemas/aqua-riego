@@ -69,6 +69,14 @@ Route::post('tarifa/deleteSubTarifas', 'Tarifas\TarifaController@deleteSubTarifa
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Tarifa
 Route::resource('/tarifa', 'Tarifas\TarifaController');
 
+
+/*===================================Cliente======================================================*/
+
+Route::get('cliente/getClientes', 'Clientes\ClienteController@getClientes');
+
+Route::resource('/cliente', 'Clientes\ClienteController');
+
+
 /*--------------------------------------Yamilka-------------------------------------------------*/
 /*===================================Módulo Sectores===========================================*/
 
@@ -142,7 +150,7 @@ Route::resource('empleado', 'Nomina\EmpleadoController');
 /*--------------------------------------Christian-------------------------------------------------*/
 /*===================================Cliente======================================================*/
 
-Route::get('/clientes', function (){
+/*Route::get('/clientes', function (){
 	return view('Clientes/index');
 });
 //Ruta devuelve un arreglo de todos los clientes a AngularJS 
@@ -164,7 +172,7 @@ Route::get('recaudacion/verifyPeriodo', 'Cuentas\CobroAguaController@verifyPerio
 //Peticion para generar los cobros del periodo
 Route::get('recaudacion/generate', 'Cuentas\CobroAguaController@generate');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia CobroAgua
-Route::resource('/recaudacion', 'Cuentas\CobroAguaController');
+Route::resource('/recaudacion', 'Cuentas\CobroAguaController');*/
 
 /*===================================Módulo Barrio===========================================*/
 
