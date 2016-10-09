@@ -1,72 +1,123 @@
-<?php 
+<?php
+
 namespace App\Http\Controllers\Sectores;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Modelos\Sectores\Provincia;
-use App\Modelos\Sectores\Canton;
-use App\Modelos\Sectores\Parroquia;
+
 use App\Modelos\Sectores\Barrio;
+use App\Modelos\Sectores\Parroquia;
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class BarrioController extends Controller
 {
-	public function index($idparroquia)
-	{
-		if($idparroquia==0)
-		{
-			return $barrios=DB::table('barrio')->orderby('idbarrio')->get();
-		}else
-		{
-			return $barrios=DB::table('barrio')->where('idparroquia',$idparroquia)->get();
-		}
-	}
-	public function show($idbarrio)
-	{
-		return $barrio=DB::table('barrio')->where('idbarrio',$idbarrio)->get();
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('Sectores/index_barrio');
+    }
 
-	public function maxId(Request $request)
-	{
-		$barrio=Barrio::max('idbarrio');				
-		$barrio=$barrio+1;
-		return $barrio;
-	}
 
-	public function postCrearBarrio(Request $request,$idparroquia)
-	{
-		$barrio= new Barrio;
-		//$barrio->idbarrio = $request->input('idbarrio');
-		$barrio->idparroquia = $idparroquia;
-		$barrio->nombrebarrio = $request->input('nombrebarrio');
-		$barrio->save();
-		return 'El barrio fue creado exitosamente';
-	}
-	public function postActualizarBarrio(Request $request,$idbarrio)
-	{
-		$barrio = Barrio::find($idbarrio);
-		$barrio->nombrebarrio = $request->input('nombrebarrio');
-		$barrio->save();
-		return 'El barrio fue actualizado exitosamente';
+    public function getBarrios()
+    {
+        return Barrio::orderBy('nombrebarrio', 'asc')->get();
+    }
 
-	}
+    public function getLastID()
+    {
+        $max_barrio = Barrio::max('idbarrio');
 
-	public function destroy($idbarrio)
-	{
-		$barrio = Barrio::find($idbarrio);
-		$barrio->calle()->delete();
-		$barrio->delete();
-		return "Se elimino exitosamente";
-	}
+        if ($max_barrio != null){
+            $max_barrio += 1;
+        } else {
+            $max_barrio = 1;
+        }
 
-	public function missingMethod($parameters = array())
-	{
-		abort(404);
-	}
+        return response()->json(['id' => $max_barrio]);
+    }
 
-	/*=============================Kevin Tambien :-( =========================*/
-	public function getBarriosCalles(){
-		return Barrio::with('calle')->get();
-	}
 
+    public function getParroquias()
+    {
+        return Parroquia::orderBy('nombreparroquia', 'asc')->get();
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $barrio = new Barrio();
+
+        $barrio->idparroquia = $request->input('idparroquia');
+        $barrio->nombrebarrio = $request->input('nombrebarrio');
+        $barrio->observacion = $request->input('observacion');
+        $barrio->fechaingreso = date('Y-m-d');
+
+        $barrio->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }
