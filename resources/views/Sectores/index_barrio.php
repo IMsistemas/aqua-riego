@@ -13,6 +13,8 @@
     <link href="<?= asset('css/style_generic_app.css') ?>" rel="stylesheet">
 
 </head>
+
+
 <body>
     <div ng-controller="barrioController">
 
@@ -24,7 +26,7 @@
                 </div>
             </div>
             <div class="col-sm-6 col-xs-12">
-                <button type="button" class="btn btn-primary" style="float: right;" ng-click="viewModalAdd()">Nuevo</button>
+                <button type="button" class="btn btn-primary" style="float: right;" ng-click="viewModalAdd()">Nuevo <span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
             </div>
         </div>
 
@@ -70,9 +72,8 @@
         </div>
 
         <div class="col-xs-12" style="float: right;">
-            <button type="button" class="btn btn-success" style="float: right;" ng-click="editar()">Guardar</button>
+            <button type="button" class="btn btn-success" style="float: right;" ng-click="editar()">Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></button>
         </div>
-
 
         <div class="modal fade" tabindex="-1" role="dialog" id="modalNueva">
             <div class="modal-dialog" role="document">

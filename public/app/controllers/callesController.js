@@ -1,6 +1,7 @@
 app.controller('callesController', function($scope, $http, API_URL) {
 
     $scope.calles = [];
+    $scope.idcalle_del = 0;
 
     $scope.initLoad = function () {
         $http.get(API_URL + 'calle/getCalles').success(function (response) {
@@ -31,14 +32,13 @@ app.controller('callesController', function($scope, $http, API_URL) {
             $scope.codigo = response.id;
             $scope.date_ingreso = now();
 
-            $scope.nombrebarrio = '';
-            $scope.observacionBarrio = '';
+            $scope.nombrecalle = '';
+            $scope.observacionCalle = '';
 
             $('#modalNueva').modal('show');
         });
 
     }
-
 
     $scope.saveCalle = function () {
         var data = {
@@ -61,6 +61,37 @@ app.controller('callesController', function($scope, $http, API_URL) {
 
     };
 
+    $scope.showModalDelete = function (item) {
+        $scope.idcalle_del = item.idcalle;
+        $scope.nom_calle = item.nombrecalle;
+        $('#modalDelete').modal('show');
+    };
+
+    $scope.delete = function(){
+        $http.delete(API_URL + 'calle/' + $scope.idcalle_del).success(function(response) {
+            $scope.initLoad();
+            $('#modalDelete').modal('hide');
+            $scope.idcalle_del = 0;
+            $scope.message = 'Se elimino correctamente la Toma seleccionada...';
+            $('#modalMessage').modal('show');
+        });
+    };
+
+    $scope.showModalInfo = function (item) {
+        $scope.name_calle = item.nombrecalle;
+        $scope.fecha_ingreso = item.fechaingreso;
+
+        var array_calle = item.calle;
+        var text = '';
+        for(var i  = 0; i < array_tomas.length; i++){
+            text += array_tomas[i].nombrecalle + ',';
+        }
+        $scope.junta_tomas = text;
+
+        $('#modalInfo').modal('show');
+
+
+    };
 
 
 

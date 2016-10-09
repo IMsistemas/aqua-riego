@@ -66,7 +66,15 @@ app.controller('barrioController', function($scope, $http, API_URL) {
         $scope.name_junta = item.nombrebarrio;
         $scope.fecha_ingreso = item.fechaingreso;
 
+        var array_tomas = item.calle;
+        var text = '';
+        for(var i  = 0; i < array_tomas.length; i++){
+            text += array_tomas[i].nombrecalle + ',';
+        }
+        $scope.junta_tomas = text;
+
         $('#modalInfo').modal('show');
+
 
     };
 
@@ -152,8 +160,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
 
     };
 
-    $scope.editar = function ()
-    {
+    $scope.editar = function ()  {
         var arr_barrio = { arr_barrio: $scope.barrios };
         console.log(arr_barrio);
         $http.post(API_URL + 'barrio/editar_Barrio', arr_barrio).success(function(response){
@@ -163,6 +170,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $('#modalMessage').modal('show');
         });
     };
+
     $scope.initLoad();
 
 });

@@ -120,6 +120,8 @@ class CalleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $calle = Calle::find($id);
+        $calle->delete();
+        return response()->json(['success' => true]);
     }
 }
