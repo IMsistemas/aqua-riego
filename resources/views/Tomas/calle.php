@@ -43,7 +43,9 @@
             <tr ng-repeat="item in calles|filter:busqueda" ng-cloak>
                 <td>{{item.fechaingreso}}</td>
                 <td>{{item.nombrecalle}}</td>
-                <td></td>
+                <td>
+                    <span ng-repeat="canal in item.canal">{{canal.nombrecanal}}; </span>
+                </td>
                 <td>
                     <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfo(item)">
                         <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
@@ -138,9 +140,6 @@
                     <div class="row text-center">
                         <div class="col-xs-12">
                             <span style="font-weight: bold">Ingresada el: </span>{{fecha_ingreso}}
-                        </div>
-                        <div class="col-xs-12">
-                            <span style="font-weight: bold">Tomas en la Junta: </span>{{junta_tomas}}
                         </div>
                         <div class="col-xs-12">
                             <span style="font-weight: bold">Canales en la Junta: </span>{{junta_canales}}

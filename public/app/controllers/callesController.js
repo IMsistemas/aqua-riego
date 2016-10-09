@@ -81,12 +81,12 @@ app.controller('callesController', function($scope, $http, API_URL) {
         $scope.name_calle = item.nombrecalle;
         $scope.fecha_ingreso = item.fechaingreso;
 
-        var array_calle = item.calle;
+        var array_canal = item.canal;
         var text = '';
-        for(var i  = 0; i < array_tomas.length; i++){
-            text += array_tomas[i].nombrecalle + ',';
+        for(var i  = 0; i < array_canal.length; i++){
+            text += array_canal[i].nombrecanal + ',';
         }
-        $scope.junta_tomas = text;
+        $scope.junta_canales = text;
 
         $('#modalInfo').modal('show');
 

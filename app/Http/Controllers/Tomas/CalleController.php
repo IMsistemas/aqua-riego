@@ -23,7 +23,7 @@ class CalleController extends Controller
 
     public function getCalles()
     {
-        return Calle::orderBy('nombrecalle', 'asc')->get();
+        return Calle::with('canal')->orderBy('nombrecalle', 'asc')->get();
     }
 
 

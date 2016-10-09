@@ -15,5 +15,8 @@ class Calle extends Model
         return $this->belongsTo('App\Modelos\Sectores\Barrio','idbarrio');
     }
 
+    public function canal(){
+        return $this->hasMany('App\Modelos\Tomas\Canal','idcalle');
+    }
 
 }
