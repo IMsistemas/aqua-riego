@@ -79,9 +79,9 @@ class BarrioController extends Controller
 
     public function editar_barrio(Request $request)
     {
-        $subtarifas = $request->input('arr_barrio');
+        $barrioa = $request->input('arr_barrio');
 
-        foreach ($subtarifas as $item) {
+        foreach (barrioa as $item) {
             $barri = Barrio::find($item['idbarrio']);
 
             $barri->nombrebarrio = $item['nombrebarrio'];

@@ -93,6 +93,17 @@ app.controller('callesController', function($scope, $http, API_URL) {
 
     };
 
+    $scope.editar = function ()  {
+        var arr_calle = { arr_calle: $scope.calles };
+
+        $http.post(API_URL + 'calle/editar_calle', arr_calle).success(function(response){
+            console.log(response);
+            $scope.initLoad();
+            $scope.message = 'Se editaron correctamente las Tomas';
+            $('#modalMessage').modal('show');
+        });
+    };
+
 
 
     $scope.initLoad();

@@ -35,14 +35,15 @@
             <tr>
                 <th style="width: 15%;">Fecha de Ingreso</th>
                 <th style="width: 15%;">Nombre de la Toma</th>
-                <th style="">Derivaciones</th>
+                <th style="">Canales</th>
                 <th style="width: 15%;">Acciones</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="item in calles|filter:busqueda" ng-cloak>
                 <td>{{item.fechaingreso}}</td>
-                <td>{{item.nombrecalle}}</td>
+                <td><input type="text" class="form-control" ng-model="item.nombrecalle"></td>
+
                 <td>
                     <span ng-repeat="canal in item.canal">{{canal.nombrecanal}}; </span>
                 </td>

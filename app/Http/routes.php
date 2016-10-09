@@ -93,8 +93,6 @@ Route::get('barrio/saveBarrio', 'Sectores\BarrioController@getLastID');
 
 Route::post('barrio/editar_Barrio', 'Sectores\BarrioController@editar_barrio');
 
-
-
 Route::resource('/barrio', 'Sectores\BarrioController');
 
 
@@ -109,6 +107,7 @@ Route::get('calle/getBarrio', 'Sectores\BarrioController@getBarrios');
 
 Route::get('calle/getLastID', 'Tomas\CalleController@getLastID');
 
+Route::post('calle/editar_calle', 'Tomas\CalleController@editar_calle');
 
 
 Route::resource('/calle', 'Tomas\CalleController');

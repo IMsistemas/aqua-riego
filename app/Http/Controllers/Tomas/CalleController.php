@@ -78,6 +78,22 @@ class CalleController extends Controller
 
     }
 
+
+    public function editar_calle(Request $request)
+    {
+        $callea = $request->input('arr_calle');
+
+        foreach ($callea as $item) {
+            $calle1 = Calle::find($item['idcalle']);
+
+            $calle1->nombrecalle = $item['nombrecalle'];
+
+            $calle1->save();
+        }
+        return response()->json(['success' => true]);
+    }
+
+
     /**
      * Display the specified resource.
      *
