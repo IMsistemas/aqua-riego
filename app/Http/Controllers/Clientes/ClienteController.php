@@ -108,7 +108,7 @@ class ClienteController extends Controller
      */
     public function calculateValor($area)
     {
-        $area_h = $area / 10000;
+        $area_h = $area / 1000;
         $configuracion = Configuracion::all();
 
         $costo_area = Area::where('desde', '<', $area_h)

@@ -241,7 +241,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             var area = parseInt($scope.t_area);
             var constante = parseFloat(response[0].constante);
 
-            var caudal_result = (area / 10000) * constante;
+            var caudal_result = (area / 1000) * constante;
 
             $scope.calculate_caudal = caudal_result.toFixed(2);
         });
