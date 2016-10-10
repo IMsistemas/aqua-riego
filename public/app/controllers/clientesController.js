@@ -143,6 +143,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $scope.getBarrios();
         $scope.getTarifas();
 
+        $scope.h_codigocliente = $scope.objectAction.codigocliente;
         $scope.documentoidentidad_cliente = $scope.objectAction.documentoidentidad;
         $scope.nom_cliente = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
         $scope.direcc_cliente = $scope.objectAction.direcciondomicilio;
@@ -254,6 +255,34 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.saveSolicitudRiego = function () {
+
+        var solicitud = {
+            //fechacreacion: convertDatetoDB($scope.t_fecha_process),
+            codigocliente: $scope.h_codigocliente,
+            idbarrio: $scope.t_junta,
+            idcultivo: $scope.t_cultivo,
+            area: $scope.t_area,
+            caudal: $scope.calculate_caudal,
+            valoranual: $scope.valor_total,
+            idtarifa: $scope.t_tarifa,
+            idderivacion : $scope.t_derivacion,
+            observacion: $scope.t_observacion_riego
+            //idsolicitud: $scope.num_solicitud
+        };
+
+        $http.post(API_URL + 'cliente/storeSolicitudRiego', solicitud).success(function(response){
+
+            if(response.success == true){
+                $scope.initLoad();
+                $('#modalProcSolicitud').modal('hide');
+                $scope.message = 'Se ha procesado la solicitud correctamente...'
+                $('#modalMessage').modal('show');
+            }
+
+        });
+
+    };
 
     $scope.initLoad();
 

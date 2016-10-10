@@ -72,6 +72,8 @@ Route::resource('/tarifa', 'Tarifas\TarifaController');
 
 /*===================================Cliente======================================================*/
 
+
+
 //Peticion para obtener la constante para calculo
 Route::get('cliente/getConstante', 'Clientes\ClienteController@getConstante');
 //Peticion para calcular el valor por area
@@ -90,6 +92,8 @@ Route::get('cliente/getBarrios', 'Clientes\ClienteController@getBarrios');
 Route::get('cliente/getTarifas', 'Clientes\ClienteController@getTarifas');
 
 Route::get('cliente/getClientes', 'Clientes\ClienteController@getClientes');
+
+Route::post('cliente/storeSolicitudRiego', 'Clientes\ClienteController@storeSolicitudRiego');
 
 Route::resource('/cliente', 'Clientes\ClienteController');
 

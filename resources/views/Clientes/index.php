@@ -477,7 +477,7 @@
                                     <div class="col-xs-12 form-group" style="margin-top: -15px;">
                                         <label for="t_derivacion" class="col-sm-2 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Observación:</label>
                                         <div class="col-sm-10 col-xs-12">
-                                            <textarea class="form-control" id="t_observacion_riego" rows="2"></textarea>
+                                            <textarea class="form-control" id="t_observacion_riego" ng-model="t_observacion_riego" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -490,7 +490,7 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-success" ng-click="" ng-disabled="formProcess.$invalid">
+                            <button type="button" class="btn btn-success" ng-click="saveSolicitudRiego()" ng-disabled="formProcess.$invalid">
                                 Guardar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="btn btn-primary" ng-click="processSolicitud()" ng-disabled="formProcess.$invalid">

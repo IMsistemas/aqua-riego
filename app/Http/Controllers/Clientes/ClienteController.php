@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Clientes;
 use App\Modelos\Clientes\Cliente;
 use App\Modelos\Configuraciones\Configuracion;
 use App\Modelos\Sectores\Barrio;
+use App\Modelos\Solicitud\Solicitud;
+use App\Modelos\Solicitud\SolicitudRiego;
 use App\Modelos\Tarifas\Area;
 use App\Modelos\Tarifas\Tarifa;
 use App\Modelos\Terreno\Cultivo;
+use App\Modelos\Terreno\Terreno;
 use App\Modelos\Tomas\Calle;
 use App\Modelos\Tomas\Canal;
 use App\Modelos\Tomas\Derivacion;
@@ -148,6 +151,42 @@ class ClienteController extends Controller
         $cliente->save();
 
         return response()->json(['success' => true]);
+    }
+
+    public function storeSolicitudRiego(Request $request)
+    {
+        $terreno = new Terreno();
+        $terreno->idcultivo = $request->input('idcultivo');
+        $terreno->idtarifa = $request->input('idtarifa');
+        $terreno->codigocliente = $request->input('codigocliente');
+        $terreno->idderivacion = $request->input('idderivacion');
+        $terreno->fechacreacion = date('Y-m-d');
+        $terreno->caudal = $request->input('caudal');
+        $terreno->area = $request->input('area');
+        $terreno->valoranual = $request->input('valoranual');
+        $terreno->observacion = $request->input('observacion');
+
+        $terreno->save();
+
+        $solicitud = new Solicitud();
+        $solicitud->codigocliente = $request->input('codigocliente');
+        $solicitud->fechasolicitud = date('Y-m-d');
+        $solicitud->estaprocesada = false;
+
+        $result = $solicitud->save();
+
+
+        $solicitudriego = new SolicitudRiego();
+        $solicitudriego->codigocliente = $request->input('codigocliente');
+        $solicitudriego->idsolicitud = $solicitud->idsolicitud;
+        $solicitudriego->fechasolicitud = date('Y-m-d');
+        $solicitudriego->estaprocesada = false;
+
+        $solicitudriego->observacion = $request->input('observacion');
+
+        $result = $solicitudriego->save();
+
+        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
     }
 
     /**
