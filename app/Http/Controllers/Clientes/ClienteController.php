@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Clientes;
 use App\Modelos\Clientes\Cliente;
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Tarifas\Tarifa;
+use App\Modelos\Terreno\Cultivo;
+use App\Modelos\Tomas\Calle;
+use App\Modelos\Tomas\Canal;
+use App\Modelos\Tomas\Derivacion;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -39,10 +43,46 @@ class ClienteController extends Controller
         return Barrio::orderBy('nombrebarrio', 'asc')->get();
     }
 
-
     public function getTarifas()
     {
         return Tarifa::orderBy('nombretarifa', 'asc')->get();
+    }
+
+    public function getCultivos($idtarifa)
+    {
+        return Cultivo::where('idtarifa', $idtarifa)->orderBy('nombrecultivo', 'asc')->get();
+    }
+
+    /**
+     * Obtener las tomas de un canal ordenadas ascendentemente
+     *
+     * @param $idcanal
+     * @return mixed
+     */
+    public function getTomas($idbarrio)
+    {
+        return Calle::where('idbarrio', $idbarrio)->orderBy('nombrecalle', 'asc')->get();
+    }
+
+    /**
+     * Obtener los canales ordenados ascendentemente
+     *
+     * @return mixed
+     */
+    public function getCanales($idcalle)
+    {
+        return Canal::where('idcalle', $idcalle)->orderBy('nombrecanal', 'asc')->get();
+    }
+
+    /**
+     * Obtener las derivaciones de una toma ordenadas ascendentemente
+     *
+     * @param $idcanal
+     * @return mixed
+     */
+    public function getDerivaciones($idcanal)
+    {
+        return Derivacion::where('idcanal', $idcanal)->orderBy('nombrederivacion', 'asc')->get();
     }
 
     /**

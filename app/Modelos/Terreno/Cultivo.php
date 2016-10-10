@@ -14,4 +14,9 @@ class Cultivo extends Model
     {
         return $this->hasMany('App\Modelos\Terreno\Terreno', 'idcultivo');
     }
+
+    public function tarifa()
+    {
+        return $this->hasMany('App\Modelos\Tarifas\Tarifa', 'idtarifa');
+    }
 }

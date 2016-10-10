@@ -72,6 +72,16 @@ Route::resource('/tarifa', 'Tarifas\TarifaController');
 
 /*===================================Cliente======================================================*/
 
+Route::get('cliente/getDerivaciones/{idcanal}', 'Clientes\ClienteController@getDerivaciones');
+
+Route::get('cliente/getCanales/{idcalle}', 'Clientes\ClienteController@getCanales');
+
+Route::get('cliente/getTomas/{idbarrio}', 'Clientes\ClienteController@getTomas');
+
+Route::get('cliente/getCultivos/{idtarifa}', 'Clientes\ClienteController@getCultivos');
+
+Route::get('cliente/getBarrios', 'Clientes\ClienteController@getBarrios');
+
 Route::get('cliente/getTarifas', 'Clientes\ClienteController@getTarifas');
 
 Route::get('cliente/getClientes', 'Clientes\ClienteController@getClientes');

@@ -394,7 +394,7 @@
                                                     <div class="col-sm-8 col-xs-12">
                                                         <select class="form-control" name="t_tarifa" id="t_tarifa"
                                                                 ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
-                                                                ng-change="calculateValor()"></select>
+                                                                ng-change="getCultivos()"></select><!--ng-change="showAddCultivo()"-->
                                                     </div>
                                                 </div>
 
@@ -402,8 +402,8 @@
                                                     <label for="t_cultivo" class="col-sm-4 col-xs-12 control-label">Cultivo:</label>
                                                     <div class="col-sm-8 col-xs-12">
                                                         <select class="form-control" name="t_cultivo" id="t_cultivo"
-                                                                ng-model="t_cultivo" ng-change="showAddCultivo()"
-                                                                ng-options="value.id as value.label for value in cultivos"></select>
+                                                                ng-model="t_cultivo" ng-options="value.id as value.label for value in cultivos">
+                                                        </select><!--ng-change="showAddCultivo()"-->
                                                     </div>
                                                 </div>
                                             </div>
@@ -421,9 +421,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6 col-xs-12 form-group error" style="margin-top: 5px;">
-                                                    <div class="col-xs-12" ng-cloak="">
-                                                        <span class="label label-info" style="font-size: 16px !important;">Caudal:</span>
-                                                        <span style="font-size: 16px !important; font-weight: bold;">{{calculate_caudal}}</span>
+                                                    <div class="col-sm-6 col-xs-12" ng-cloak>
+                                                        <span class="label label-info" style="font-size: 12px !important;">Caudal:</span>
+                                                        <span style="font-size: 14px !important; font-weight: bold;">{{calculate_caudal}}</span>
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-12" ng-cloak>
+                                                        <span class="label label-info" style="font-size: 12px !important;">Valor Anual:</span>
+                                                        <span style="font-size: 14px !important; font-weight: bold;">{{valor_total}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -438,7 +442,8 @@
                                                 <label for="t_junta" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Junta Modular:</label>
                                                 <div class="col-sm-8 col-xs-12">
                                                     <select class="form-control" name="t_junta" id="t_junta"
-                                                            ng-model="t_junta" ng-options="value.id as value.label for value in barrios"></select>
+                                                            ng-model="t_junta" ng-options="value.id as value.label for value in barrios"
+                                                            ng-change="getTomas()" ></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-xs-12 form-group error">
@@ -446,7 +451,7 @@
                                                 <div class="col-sm-8 col-xs-12">
                                                     <select class="form-control" name="t_toma" id="t_toma"
                                                             ng-model="t_toma" ng-options="value.id as value.label for value in tomas"
-                                                            ng-change="loadDerivaciones()"></select>
+                                                            ng-change="getCanales()"></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-xs-12 form-group error">
@@ -454,7 +459,7 @@
                                                 <div class="col-sm-8 col-xs-12">
                                                     <select class="form-control" name="t_canal" id="t_canal"
                                                             ng-model="t_canal" ng-options="value.id as value.label for value in canales"
-                                                            ng-change="loadTomas()"></select>
+                                                            ng-change="getDerivaciones()"></select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-xs-12 form-group error">
@@ -468,11 +473,8 @@
                                         </fieldset>
                                     </div>
 
-                                    <div class="col-xs-12" style="padding: 2%; margin-top: -35px !important;">
-                                        <span class="label label-info" style="font-size: 16px !important;">Valor Anual:</span>
-                                        <span style="font-size: 16px !important; font-weight: bold;">{{valor_total}}</span>
-                                    </div>
-                                    <div class="col-xs-12 form-group">
+
+                                    <div class="col-xs-12 form-group" style="margin-top: -15px;">
                                         <label for="t_derivacion" class="col-sm-2 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Observación:</label>
                                         <div class="col-sm-10 col-xs-12">
                                             <textarea class="form-control" id="t_observacion_riego" rows="2"></textarea>
