@@ -61,7 +61,12 @@
                             <td>{{item.telefonoprincipaldomicilio}}</td>
                             <td>{{item.telefonoprincipaltrabajo}}</td>
                             <td>{{item.direcciondomicilio}}</td>
-                            <td>{{item.estaactivo}}</td>
+                            <td ng-if="item.estaactivo == true">
+                                <span class="label label-primary" style="font-size: 14px !important;">Activo</span>
+                            </td>
+                            <td ng-if="item.estaactivo == false">
+                                <span class="label label-warning" style="font-size: 14px !important;">Inactivo</span>
+                            </td>
                             <td>
                                 <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfoCliente(item)">
                                     <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
