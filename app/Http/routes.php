@@ -72,6 +72,11 @@ Route::resource('/tarifa', 'Tarifas\TarifaController');
 
 /*===================================Cliente======================================================*/
 
+//Peticion para obtener la constante para calculo
+Route::get('cliente/getConstante', 'Clientes\ClienteController@getConstante');
+//Peticion para calcular el valor por area
+Route::get('cliente/calculateValor/{area}', 'Clientes\ClienteController@calculateValor');
+
 Route::get('cliente/getDerivaciones/{idcanal}', 'Clientes\ClienteController@getDerivaciones');
 
 Route::get('cliente/getCanales/{idcalle}', 'Clientes\ClienteController@getCanales');

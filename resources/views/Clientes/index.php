@@ -413,7 +413,7 @@
                                                     <label for="t_area" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Area (m2):</label>
                                                     <div class="col-sm-8 col-xs-12">
                                                         <input type="text" class="form-control" name="t_area" id="t_area"
-                                                               ng-model="t_area" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculateCaudal()">
+                                                               ng-model="t_area" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculate()">
                                                         <span class="help-block error"
                                                               ng-show="formProcess.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
                                                         <span class="help-block error"

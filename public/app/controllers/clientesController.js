@@ -229,6 +229,32 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         });
     };
 
+
+    $scope.calculate = function () {
+        $scope.calculateCaudal();
+        $scope.calculateValor();
+    };
+
+    $scope.calculateCaudal = function () {
+        $http.get(API_URL + 'cliente/getConstante').success(function(response){
+            var area = parseInt($scope.t_area);
+            var constante = parseFloat(response[0].constante);
+
+            var caudal_result = (area / 10000) * constante;
+
+            $scope.calculate_caudal = caudal_result.toFixed(2);
+        });
+    };
+
+    $scope.calculateValor = function () {
+        var area = $scope.t_area;
+
+        $http.get(API_URL + 'cliente/calculateValor/' + area).success(function(response){
+            $scope.valor_total = parseFloat(response.costo).toFixed(2);
+        });
+    };
+
+
     $scope.initLoad();
 
 });

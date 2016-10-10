@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Clientes;
 
 use App\Modelos\Clientes\Cliente;
+use App\Modelos\Configuraciones\Configuracion;
 use App\Modelos\Sectores\Barrio;
+use App\Modelos\Tarifas\Area;
 use App\Modelos\Tarifas\Tarifa;
 use App\Modelos\Terreno\Cultivo;
 use App\Modelos\Tomas\Calle;
@@ -83,6 +85,40 @@ class ClienteController extends Controller
     public function getDerivaciones($idcanal)
     {
         return Derivacion::where('idcanal', $idcanal)->orderBy('nombrederivacion', 'asc')->get();
+    }
+
+    /**
+     * Obtener la constante en los datos de configuracion
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getConstante()
+    {
+        return Configuracion::all();
+    }
+
+    /**
+     * Obtener el resultado de calculo del costo en base al area
+     *
+     * @param $area
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function calculateValor($area)
+    {
+        $area_h = $area / 10000;
+        $configuracion = Configuracion::all();
+
+        $costo_area = Area::where('desde', '<', $area_h)
+            ->where('hasta', '>=', $area_h)
+            ->get();
+
+        if ($costo_area[0]->esfija == true){
+            $costo = $costo_area[0]->costo;
+        } else {
+            $costo = $area_h * $configuracion[0]->constante * $costo_area[0]->costo;
+        }
+
+        return response()->json(['costo' => $costo]);
     }
 
     /**
