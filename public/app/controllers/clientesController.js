@@ -310,7 +310,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
             if(response.success == true){
                 $scope.initLoad();
-                $('#modalProcSolicitud').modal('hide');
+                $('#modalActionRiego').modal('hide');
                 $scope.message = 'Se ha procesado la solicitud correctamente...'
                 $('#modalMessage').modal('show');
             }
