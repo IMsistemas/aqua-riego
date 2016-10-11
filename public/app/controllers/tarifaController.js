@@ -172,9 +172,15 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
 
     $scope.generate = function () {
         $http.get(API_URL + 'tarifa/generate').success(function(response){
-            console.log(response);
-            $scope.message = 'Se generó correctamente las tarifas para el actual año...';
-            $('#modalMessage').modal('show');
+
+            if (response.success == true){
+                $scope.message = 'Se generó correctamente las tarifas para el actual año...';
+                $('#modalMessage').modal('show');
+            } else if (response.success == false && response.msg == 'no_exists_tarifa') {
+                $scope.message_info = 'Debe crear tarifas a generar...';
+                $('#modalMessageInfo').modal('show');
+            }
+
         });
     };
 
