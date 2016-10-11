@@ -29,18 +29,18 @@
         <div class="col-xs-12" ng-controller="tarifaController" style="margin-top: 2%;">
 
             <div class="col-xs-12">
-                <div class="col-sm-2 col-xs-12">
+                <div class="col-sm-3 col-xs-12">
                     <div class="form-group">
-                        <label for="t_year" class="col-sm-4 control-label">Año:</label>
+                        <label for="t_year" class="col-sm-2 control-label">Año:</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="t_year" id="t_year" ng-model="t_year" />
+                            <input type="text" class="datepicker form-control" name="t_year" id="t_year" ng-model="t_year" />
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-4 col-xs-12">
                     <div class="form-group">
-                        <label for="t_tarifa" class="col-sm-4 control-label"><span style="float: right;">Tipo:</span></label>
-                        <div class="col-sm-8">
+                        <label for="t_tarifa" class="col-sm-2 control-label"><span style="float: right;">Tipo:</span></label>
+                        <div class="col-sm-10">
                             <select class="form-control" name="t_tarifa" id="t_tarifa"
                                     ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
                                     ng-change="getAreaCaudal();"> </select>
@@ -69,13 +69,13 @@
                             </th>
                         </tr>
                         <tr>
-                            <th style="width: 12%;" class="text-center">Desde</th>
-                            <th style="width: 12%;" class="text-center">Hasta</th>
-                            <th style="width: 12%;" class="text-center">Desde</th>
-                            <th style="width: 12%;" class="text-center">Hasta</th>
-                            <th style="width: 12%;" class="text-center">x Litro</th>
-                            <th class="text-center">Observaciones</th>
-                            <th style="width: 4%;" class="text-center">Fija</th>
+                            <th style="width: 12%;" class="text-center">DESDE</th>
+                            <th style="width: 12%;" class="text-center">HASTA</th>
+                            <th style="width: 12%;" class="text-center">DESDE</th>
+                            <th style="width: 12%;" class="text-center">HASTA</th>
+                            <th style="width: 12%;" class="text-center">x LITRO</th>
+                            <th class="text-center">OBSERVACIONES</th>
+                            <th style="width: 4%;" class="text-center">FIJA</th>
                             <th style="width: 4%;"></th>
                         </tr>
                     </thead>
@@ -101,7 +101,7 @@
             </div>
 
             <div class="col-xs-12 text-right" style="margin: 5px 0 20px 0;">
-                <button type="button" class="btn btn-success" id="btn-save" ng-click="saveSubTarifas();">
+                <button type="button" class="btn btn-success" id="btn-save-tarifas" ng-click="saveSubTarifas();" disabled>
                     Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                 </button>
             </div>

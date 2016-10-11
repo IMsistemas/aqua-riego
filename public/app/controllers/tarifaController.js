@@ -29,11 +29,7 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
 
     $scope.getAreaCaudal = function() {
 
-        $('.datepicker').datetimepicker({
-            locale: 'es',
-            format: 'YYYY'
-        });
-
+        $scope.t_year = $('#t_year').val();
 
         if ($scope.t_tarifa != 0 && $scope.t_tarifa != undefined){
             var idtarifa = $scope.t_tarifa;
@@ -64,10 +60,12 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
 
                 $scope.area_caudal = list;
                 $('#btn_create_row').prop('disabled', false);
+                $('#btn-save-tarifas').prop('disabled', false);
             });
         } else {
             $scope.area_caudal = [];
             $('#btn_create_row').prop('disabled', true);
+            $('#btn-save-tarifas').prop('disabled', true);
         }
     };
 
@@ -140,7 +138,7 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
         $http.post(API_URL + 'tarifa/saveSubTarifas', subtarifas).success(function(response){
             console.log(response);
             $scope.getAreaCaudal();
-            $scope.message = 'Se insertó correctamente las SubTarifa';
+            $scope.message = 'Se actualizó correctamente las SubTarifa del Tipo seleccionado....';
             $('#modalMessage').modal('show');
         });
 
@@ -202,11 +200,14 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
 
 });
 
-$(function(){
+$(document).ready(function () {
 
     $('.datepicker').datetimepicker({
+        viewMode: 'years',
         locale: 'es',
         format: 'YYYY'
     });
 
 });
+
+
