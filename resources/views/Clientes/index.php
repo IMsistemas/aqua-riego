@@ -329,14 +329,14 @@
                         <div class="modal-header modal-header-primary">
 
                             <div class="col-md-6 col-xs-12">
-                                <h4 class="modal-title">Procesar Solicitud de Riego Nro: {{num_solicitud}}</h4>
+                                <h4 class="modal-title">Procesar Solicitud de Riego Nro: {{num_solicitud_riego}}</h4>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
-                                    <h4 class="modal-title"><label for="t_fecha_process" class="col-sm-6" style="font-weight: normal !important;">Fecha Procesada:</label></h4>
+                                    <h4 class="modal-title"><label for="t_fecha_process" class="col-sm-6" style="font-weight: normal !important;">Fecha Ingreso:</label></h4>
                                     <div class="col-sm-5" style="padding: 0;">
                                         <input type="text" class="form-control input-sm datepicker" name="t_fecha_process"
-                                               id="t_fecha_process" ng-model="t_fecha_process" style="color: black !important;">
+                                               id="t_fecha_process" ng-model="t_fecha_process" style="color: black !important;" disabled>
                                     </div>
                                     <div class="col-sm-1 col-xs-12 text-right" style="padding: 0;">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -387,7 +387,7 @@
                                             <div class="col-xs-12" style="padding: 0; margin-top: -15px;">
                                                 <div class="col-sm-6 col-xs-12 form-group error">
                                                     <label for="t_terreno" class="col-sm-4 col-xs-12 control-label">Nro. Terreno:</label>
-                                                    <div class="col-sm-8 col-xs-12">
+                                                    <div class="col-sm-8 col-xs-12" style="padding-top: 10px;">
                                                         {{nro_terreno}}
                                                     </div>
                                                 </div>

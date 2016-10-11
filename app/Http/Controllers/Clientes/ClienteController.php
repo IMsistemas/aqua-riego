@@ -37,6 +37,19 @@ class ClienteController extends Controller
         return Cliente::orderBy('fechaingreso', 'asc')->get();
     }
 
+    public function getLastID()
+    {
+        $max = Terreno::max('idterreno');
+
+        if ($max!= null){
+            $max += 1;
+        } else {
+            $max = 1;
+        }
+
+        return response()->json(['id' => $max]);
+    }
+
 
     /**
      * Obtener los barrios ordenados ascendentemente
@@ -113,6 +126,7 @@ class ClienteController extends Controller
 
         $costo_area = Area::where('desde', '<', $area_h)
             ->where('hasta', '>=', $area_h)
+            ->where('aniotarifa', date('Y'))
             ->get();
 
         if ($costo_area[0]->esfija == true){
@@ -168,20 +182,20 @@ class ClienteController extends Controller
 
         $terreno->save();
 
-        $solicitud = new Solicitud();
+        /*$solicitud = new Solicitud();
         $solicitud->codigocliente = $request->input('codigocliente');
         $solicitud->fechasolicitud = date('Y-m-d');
         $solicitud->estaprocesada = false;
 
-        $result = $solicitud->save();
+        $result = $solicitud->save();*/
 
 
         $solicitudriego = new SolicitudRiego();
         $solicitudriego->codigocliente = $request->input('codigocliente');
-        $solicitudriego->idsolicitud = $solicitud->idsolicitud;
+        //$solicitudriego->idsolicitud = $solicitud->idsolicitud;
         $solicitudriego->fechasolicitud = date('Y-m-d');
-        $solicitudriego->estaprocesada = false;
-
+        $solicitudriego->fechaprocesada = date('Y-m-d');
+        $solicitudriego->estaprocesada = true;
         $solicitudriego->observacion = $request->input('observacion');
 
         $result = $solicitudriego->save();

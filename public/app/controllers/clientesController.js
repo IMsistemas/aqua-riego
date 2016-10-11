@@ -166,10 +166,12 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $('#modalAction').modal('show');
     };
 
-
     $scope.actionRiego = function () {
+        $scope.getLastID();
         $scope.getBarrios();
         $scope.getTarifas();
+
+        $scope.t_fecha_process = $scope.nowDate();
 
         $scope.h_codigocliente = $scope.objectAction.codigocliente;
         $scope.documentoidentidad_cliente = $scope.objectAction.documentoidentidad;
@@ -180,6 +182,12 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $scope.telf_trab_cliente = $scope.objectAction.telefonoprincipaltrabajo;
 
         $('#modalActionRiego').modal('show');
+    };
+
+    $scope.getLastID = function () {
+        $http.get(API_URL + 'cliente/getLastID').success(function(response){
+            $scope.nro_terreno = response.id;
+        });
     };
 
     $scope.getBarrios = function(){
