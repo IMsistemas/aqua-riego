@@ -89,16 +89,18 @@ class TarifaController extends Controller
 
     }
 
-
     public function saveSubTarifas(Request $request)
     {
         $subtarifas = $request->input('subtarifas');
+
+        $action_edit = false;
 
         foreach ($subtarifas as $item) {
             if($item['area']['idarea'] == 0) {
                 $area = new Area();
                 $caudal = new Caudal();
             } else {
+                $action_edit = true;
                 $area = Area::find($item['area']['idarea']);
                 $caudal = Caudal::find($item['caudal']['idcaudal']);
             }
@@ -108,14 +110,18 @@ class TarifaController extends Controller
             $area->hasta = $item['area']['hasta'];
             $area->costo = $item['area']['costo'];
             $area->esfija = $item['area']['esfija'];
-            $area->aniotarifa = date('Y');
             $area->observacion = $item['area']['observacion'];
-            $area->save();
 
             $caudal->idtarifa = $item['caudal']['idtarifa'];
             $caudal->desde = $item['caudal']['desde'];
             $caudal->hasta = $item['caudal']['hasta'];
-            $caudal->aniotarifa = date('Y');
+
+            if ($action_edit == false) {
+                $area->aniotarifa = date('Y');
+                $caudal->aniotarifa = date('Y');
+            }
+
+            $area->save();
             $caudal->save();
         }
 
