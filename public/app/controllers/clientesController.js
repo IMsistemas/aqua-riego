@@ -1,4 +1,9 @@
 
+app.filter('formatDate', function(){
+    return function(texto){
+        return convertDatetoDB(texto, true);
+    }
+});
 
 app.controller('clientesController', function($scope, $http, API_URL) {
 
@@ -46,6 +51,8 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $scope.t_telf_principal_emp = item.telefonoprincipaltrabajo;
         $scope.t_telf_secundario_emp = item.telefonosecundariotrabajo;
         $scope.t_direccion_emp = item.direcciontrabajo;
+
+        $scope.title_modal_cliente = 'Editar Cliente';
 
         $('#modalAddCliente').modal('show');
     };
@@ -109,6 +116,20 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $scope.t_codigocliente = 0;
         $scope.t_fecha_ingreso = $scope.nowDate();
 
+        $scope.t_doc_id = '';
+        $scope.t_apellidos = '';
+        $scope.t_nombres = '';
+        $scope.t_telf_principal = '';
+        $scope.t_telf_secundario = '';
+        $scope.t_celular = '';
+        $scope.t_direccion = '';
+        $scope.t_telf_principal_emp = '';
+        $scope.t_telf_secundario_emp = '';
+        $scope.t_direccion_emp = '';
+        $scope.t_email = '';
+
+        $scope.title_modal_cliente = 'Nuevo Cliente';
+
         $('#modalAddCliente').modal('show');
     };
 
@@ -127,7 +148,14 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $scope.celular_cliente = item.celular;
         $scope.telf_cliente = item.telefonoprincipaldomicilio + ' / ' + item.telefonosecundariodomicilio;
         $scope.telf_cliente_emp = item.telefonoprincipaltrabajo + ' / ' + item.telefonosecundariotrabajo;
-        $scope.estado_solicitud = item.estaactivo;
+
+        if (item.estaactivo == true){
+            $scope.estado_solicitud = 'Activo';
+        } else {
+            $scope.estado_solicitud = 'Inactivo';
+        }
+
+
 
         $('#modalInfoCliente').modal('show');
 
@@ -230,7 +258,6 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         });
     };
 
-
     $scope.calculate = function () {
         $scope.calculateCaudal();
         $scope.calculateValor();
@@ -287,3 +314,14 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     $scope.initLoad();
 
 });
+
+
+function convertDatetoDB(now, revert){
+    if (revert == undefined){
+        var t = now.split('/');
+        return t[2] + '-' + t[1] + '-' + t[0];
+    } else {
+        var t = now.split('-');
+        return t[2] + '/' + t[1] + '/' + t[0];
+    }
+}

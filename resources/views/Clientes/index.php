@@ -41,7 +41,7 @@
                 <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                     <thead class="bg-primary">
                     <tr>
-                        <th style="width: 10%;">CI/RUC</th>
+                        <th style="width: 10%;">CI / RUC</th>
                         <th style="width: 10%;">Fecha Ingreso</th>
                         <th style="">Razón Social</th>
                         <th style="width: 10%;">Celular</th>
@@ -53,10 +53,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in clientes | filter:busqueda" ng-cloak>
+                        <tr ng-repeat="item in clientes | filter : t_busqueda" ng-cloak>
                             <td>{{item.documentoidentidad}}</td>
-                            <td>{{item.fechaingreso}}</td>
-                            <td>{{item.apellido + ' ' + item.nombre}}</td>
+                            <td>{{item.fechaingreso | formatDate}}</td>
+                            <td style="font-weight: bold;"><i class="fa fa-user" aria-hidden="true"></i> {{item.apellido + ' ' + item.nombre}}</td>
                             <td>{{item.celular}}</td>
                             <td>{{item.telefonoprincipaldomicilio}}</td>
                             <td>{{item.telefonoprincipaltrabajo}}</td>
@@ -92,7 +92,7 @@
                     <div class="modal-content">
                         <div class="modal-header modal-header-primary">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Ingresar Solicitud</h4>
+                            <h4 class="modal-title">{{title_modal_cliente}}</h4>
                         </div>
                         <div class="modal-body">
                             <form class="form-horizontal" name="formCliente" novalidate="">
@@ -102,7 +102,7 @@
                                         <div class="col-sm-6 col-xs-12 form-group">
                                             <label for="t_fecha_ingreso" class="col-sm-4 col-xs-12 control-label">Fecha Ingreso:</label>
                                             <div class="col-sm-8 col-xs-12">
-                                                <input type="text" class="form-control datepicker" name="t_fecha_ingreso" id="t_fecha_ingreso" ng-model="t_fecha_ingreso">
+                                                <input type="text" class="form-control datepicker" name="t_fecha_ingreso" id="t_fecha_ingreso" ng-model="t_fecha_ingreso" disabled>
                                             </div>
                                         </div>
                                     </div>
