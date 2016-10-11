@@ -107,7 +107,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             $scope.initLoad();
             $('#modalDeleteCliente').modal('hide');
             $scope.codigocliente_del = 0;
-            $scope.message = 'Se elimino correctamente el Cliente seleccionado...';
+            $scope.message = 'Se eliminó correctamente el Cliente seleccionado...';
             $('#modalMessage').modal('show');
         });
     };

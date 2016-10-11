@@ -56,7 +56,7 @@
                         <tr ng-repeat="item in clientes | filter : t_busqueda" ng-cloak>
                             <td>{{item.documentoidentidad}}</td>
                             <td>{{item.fechaingreso | formatDate}}</td>
-                            <td style="font-weight: bold;"><i class="fa fa-user" aria-hidden="true"></i> {{item.apellido + ' ' + item.nombre}}</td>
+                            <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{item.apellido + ' ' + item.nombre}}</td>
                             <td>{{item.celular}}</td>
                             <td>{{item.telefonoprincipaldomicilio}}</td>
                             <td>{{item.telefonoprincipaltrabajo}}</td>

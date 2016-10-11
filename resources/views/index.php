@@ -107,11 +107,11 @@
                         <ul class="sub-menu collapse" id="configuracion">
                             <li ng-show="false"><a href="#">Tarifas</a></li>
                             <li><a href="#" ng-click="toModuloCanal();">Tomas</a></li>
-<<<<<<< HEAD
+
                             <li><a href="#" ng-click="toModuloDescuento();">Descuentos</a></li>
-=======
+
                             <li ng-show="false"><a href="#" ng-click="toModuloCanal();">Descuentos</a></li>
->>>>>>> origin/master
+
                         </ul>
 
                     </ul>
@@ -169,13 +169,13 @@
     <script src="<?= asset('app/controllers/canalesController.js') ?>"></script>
     <script src="<?= asset('app/controllers/tomasController.js') ?>"></script>
     <script src="<?= asset('app/controllers/derivacionesController.js') ?>"></script>
-<<<<<<< HEAD
+
     <script src="<?= asset('app/controllers/descuentosController.js') ?>"></script>
-=======
+
     <script src="<?= asset('app/controllers/solicitudController.js') ?>"></script>
     <script src="<?= asset('app/controllers/recaudacionController.js') ?>"></script>
     <script src="<?= asset('app/controllers/terrenoController.js') ?>"></script>
->>>>>>> origin/master
+
 
     <script type="text/javascript">
         /* $(function() {
