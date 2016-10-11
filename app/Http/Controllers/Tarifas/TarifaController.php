@@ -37,7 +37,6 @@ class TarifaController extends Controller
         return response()->json(['id' => $max_tarifa]);
     }
 
-
     public function getTarifas()
     {
         return Tarifa::orderBy('nombretarifa', 'asc')->get();
@@ -53,10 +52,8 @@ class TarifaController extends Controller
         return Configuracion::all();
     }
 
-
     public function getAreaCaudal($data)
     {
-
         $data = json_decode($data);
 
         if($data->year != '' && $data->year != 0 && $data->year != '0' ){
@@ -68,7 +65,7 @@ class TarifaController extends Controller
         return Tarifa::with(
             [
                 'area' => function ($query) use ($year){
-                    $query->where('aniotarifa', $year);
+                    $query->where('aniotarifa', $year)->orderBy('idarea', 'asc');
                 }
             ,
                 'caudal' => function ($query0) use ($year){
@@ -77,16 +74,7 @@ class TarifaController extends Controller
             ]
         )
         ->where('idtarifa', $data->idtarifa)
-            //->orderBy('idarea', 'asc')
-            ->get();
-
-
-
-        /*return Tarifa::with('area', 'caudal')
-            ->where('idtarifa', $data->idtarifa)
-            ->where('aniotarifa', $year)
-            ->get();*/
-
+        ->get();
     }
 
     public function saveSubTarifas(Request $request)

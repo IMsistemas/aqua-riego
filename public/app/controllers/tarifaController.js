@@ -63,7 +63,11 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
                 }
 
                 $scope.area_caudal = list;
+                $('#btn_create_row').prop('disabled', false);
             });
+        } else {
+            $scope.area_caudal = [];
+            $('#btn_create_row').prop('disabled', true);
         }
     };
 
@@ -171,6 +175,8 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
     $scope.generate = function () {
         $http.get(API_URL + 'tarifa/generate').success(function(response){
             console.log(response);
+            $scope.message = 'Se generó correctamente las tarifas para el actual año...';
+            $('#modalMessage').modal('show');
         });
     };
 

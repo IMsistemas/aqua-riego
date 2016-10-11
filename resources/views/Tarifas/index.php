@@ -55,7 +55,7 @@
                         <tr>
                             <th colspan="2" class="text-center">AREA</th>
                             <th colspan="2" class="text-center">LITROS X SEGUNDO</th>
-                            <th>USD</th>
+                            <th class="text-center">USD</th>
                             <th colspan="3" class="text-center">
                                 <button type="button" class="btn btn-info" id="btn_inform" ng-click="generate();">
                                     Generar Tarifa <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
@@ -63,19 +63,19 @@
                                 <button type="button" class="btn btn-info" id="btn_edit" ng-click="showModal();" >
                                     Nueva <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn btn-default" id="btn_edit" ng-click="createRow();" >
-                                    <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+                                <button type="button" class="btn btn-default" id="btn_create_row" ng-click="createRow();" disabled>
+                                    <i class="fa fa-plus" aria-hidden="true"></i><i class="fa fa-tasks fa-lg" aria-hidden="true"></i>
                                 </button>
                             </th>
                         </tr>
                         <tr>
-                            <th style="width: 15%;">Desde</th>
-                            <th style="width: 15%;">Hasta</th>
-                            <th style="width: 15%;">Desde</th>
-                            <th style="width: 15%;">Hasta</th>
-                            <th style="width: 15%;">x Litro</th>
-                            <th>Observaciones</th>
-                            <th style="width: 4%;">Fija</th>
+                            <th style="width: 12%;" class="text-center">Desde</th>
+                            <th style="width: 12%;" class="text-center">Hasta</th>
+                            <th style="width: 12%;" class="text-center">Desde</th>
+                            <th style="width: 12%;" class="text-center">Hasta</th>
+                            <th style="width: 12%;" class="text-center">x Litro</th>
+                            <th class="text-center">Observaciones</th>
+                            <th style="width: 4%;" class="text-center">Fija</th>
                             <th style="width: 4%;"></th>
                         </tr>
                     </thead>
@@ -100,7 +100,7 @@
                 </table>
             </div>
 
-            <div class="col-xs-12 text-right" style="margin-top: 10px">
+            <div class="col-xs-12 text-right" style="margin: 5px 0 20px 0;">
                 <button type="button" class="btn btn-success" id="btn-save" ng-click="saveSubTarifas();">
                     Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                 </button>
