@@ -103,6 +103,11 @@ Route::resource('/cliente', 'Clientes\ClienteController');
 
 Route::get('barrio/getBarrios', 'Sectores\BarrioController@getBarrios');
 
+Route::get('barrio/dame_canal/{data}', 'Sectores\BarrioController@dame_canal');
+
+Route::get('barrio/getCanals', 'Sectores\BarrioController@getCanals');
+
+
 Route::get('barrio/getParroquias', 'Sectores\BarrioController@getParroquias');
 
 Route::get('barrio/getLastID', 'Sectores\BarrioController@getLastID');
@@ -114,11 +119,7 @@ Route::post('barrio/editar_Barrio', 'Sectores\BarrioController@editar_barrio');
 
 Route::resource('/barrio', 'Sectores\BarrioController');
 
-
-
-
 /*===================================Calle===========================================*/
-
 
 Route::get('calle/getCalles', 'Tomas\CalleController@getCalles');
 
@@ -130,6 +131,42 @@ Route::post('calle/editar_calle', 'Tomas\CalleController@editar_calle');
 
 
 Route::resource('/calle', 'Tomas\CalleController');
+
+/*===================================Canal===========================================*/
+
+Route::get('canal/getLastID', 'Tomas\CanallController@getLastID');
+
+Route::get('canal/getCalle', 'Tomas\CanallController@getCalle');
+
+Route::get('canal/getCanall', 'Tomas\CanallController@getCanall');
+
+Route::get('canal/getCalles', 'Tomas\CanallController@getCalles');
+
+Route::get('canal/getBarrios', 'Tomas\CanallController@getBarrios');
+
+Route::post('canal/editar_canal', 'Tomas\CanallController@editar_canal');
+
+
+Route::resource('/canal', 'Tomas\CanallController');
+
+/*===================================Derivaciones===========================================*/
+
+Route::get('derivaciones/getDerivaciones', 'Tomas\DerivacionesController@getDerivaciones');
+
+Route::get('derivaciones/getLastID', 'Tomas\DerivacionesController@getLastID');
+
+Route::get('derivaciones/getCanales', 'Tomas\DerivacionesController@getCanales');
+
+Route::get('derivaciones/getCanaless', 'Tomas\DerivacionesController@getCanaless');
+
+Route::get('derivaciones/getCalles', 'Tomas\DerivacionesController@getCalles');
+
+Route::get('derivaciones/getBarrios', 'Tomas\DerivacionesController@getBarrios');
+
+Route::post('derivaciones/editar_derivaciones', 'Tomas\DerivacionesController@editar_derivaciones');
+
+
+Route::resource('/derivaciones', 'Tomas\DerivacionesController');
 
 /*===================================Recaudacion=================================================*/
 
@@ -239,7 +276,7 @@ Route::post('/barrios/gestion/actualizarbarrio/{idbarrio}','Sectores\BarrioContr
 Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');*/
 
 /*===================================Módulo Canal===========================================*/
-
+/*
 Route::get('/canales', function (){
 	return view('Tomas/canal');
 });
@@ -254,10 +291,10 @@ Route::post('/canales/gestion/guardarcanal','Tomas\CanalController@postCrearCana
 //Ruta página de inicio de gestión de barrios
 Route::post('/canales/gestion/actualizarcanal/{idcanal}','Tomas\CanalController@postActualizarCanal');
 //Ruta página de inicio de gestión de barrios
-Route::Delete('/canales/gestion/eliminarcanal/{idcanal}','Tomas\CanalController@destroy');
+Route::Delete('/canales/gestion/eliminarcanal/{idcanal}','Tomas\CanalController@destroy');*/
 
 /*===================================Módulo Toma===========================================*/
-
+/*
 Route::get('/tomas', function (){
 	return view('Tomas/toma');
 });
@@ -277,7 +314,7 @@ Route::post('/tomas/gestion/guardartoma/{idcanal}','Tomas\TomaController@postCre
 //Ruta página de inicio de gestión de barrios
 Route::post('/tomas/gestion/actualizartoma/{idtoma}','Tomas\TomaController@postActualizarToma');
 //Ruta página de inicio de gestión de tomas
-Route::Delete('/tomas/gestion/eliminartoma/{idtoma}','Tomas\TomaController@destroy');
+Route::Delete('/tomas/gestion/eliminartoma/{idtoma}','Tomas\TomaController@destroy');*/
 
 
 /*===================================Módulo Derivación===========================================*/
@@ -303,7 +340,7 @@ Route::post('/barrios/gestion/actualizarbarrio/{idbarrio}','Sectores\BarrioContr
 //Ruta página de inicio de gestión de barrios
 Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');*/
 /*===================================Módulo Canal===========================================*/
-
+/*
 Route::get('/canales', function (){
 	return view('Tomas/canal');
 });
@@ -318,10 +355,10 @@ Route::post('/canales/gestion/guardarcanal','Tomas\CanalController@postCrearCana
 //Ruta página de inicio de gestión de barrios
 Route::post('/canales/gestion/actualizarcanal/{idcanal}','Tomas\CanalController@postActualizarCanal');
 //Ruta página de inicio de gestión de barrios
-Route::Delete('/canales/gestion/eliminarcanal/{idcanal}','Tomas\CanalController@destroy');
+Route::Delete('/canales/gestion/eliminarcanal/{idcanal}','Tomas\CanalController@destroy');*/
 
 /*===================================Módulo Toma===========================================*/
-
+/*
 Route::get('/tomas', function (){
 	return view('Tomas/toma');
 });
@@ -343,8 +380,8 @@ Route::post('/tomas/gestion/actualizartoma/{idtoma}','Tomas\TomaController@postA
 //Ruta página de inicio de gestión de tomas
 Route::Delete('/tomas/gestion/eliminartoma/{idtoma}','Tomas\TomaController@destroy');
 
-
-/*===================================Módulo Derivación===========================================*/
+*/
+/*===================================Módulo Derivación===========================================
 
 Route::get('/derivaciones', function (){
 	return view('Tomas/derivacion');
@@ -368,7 +405,7 @@ Route::post('/derivaciones/gestion/actualizarderivacion/{idderivacion}','Tomas\D
 //Ruta página de inicio de gestión de derivacions
 Route::Delete('/derivaciones/gestion/eliminarderivacion/{idderivacion}','Tomas\DerivacionController@destroy');
 Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');
-
+*/
 
 /*===================================Descuentos======================================================*/
 

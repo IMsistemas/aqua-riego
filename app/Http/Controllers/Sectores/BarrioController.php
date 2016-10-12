@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Sectores;
 
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Sectores\Parroquia;
+use App\Modelos\Tomas\Calle;
+use App\Modelos\Tomas\Canal;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -81,7 +83,7 @@ class BarrioController extends Controller
     {
         $barrioa = $request->input('arr_barrio');
 
-        foreach (barrioa as $item) {
+        foreach ($barrioa as $item) {
             $barri = Barrio::find($item['idbarrio']);
 
             $barri->nombrebarrio = $item['nombrebarrio'];
@@ -91,6 +93,29 @@ class BarrioController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function getCanals(Request $request)
+    {
+        $calle1 = $request->input('calless');
+        return  $name =  Canal::where ('idcalle',$calle1['idcalle'])->get();
+    }
+
+    public function dame_canal($data)
+    {
+        $calle1 = json_decode($data);
+
+        $array = explode(',', $calle1->array_tomas);
+
+        print_r($array);
+
+        exit();
+
+        foreach ($calle1->array_tomas as $item)
+        {
+            $name +=  Canal::where ('idcalle',$item['idcalle'])->get();
+        }
+
+        return $name;
+    }
 
     /**
      * Display the specified resource.
@@ -134,8 +159,20 @@ class BarrioController extends Controller
      */
     public function destroy($id)
     {
-        $barrio = Barrio::find($id);
-        $barrio->delete();
-        return response()->json(['success' => true]);
+
+        $aux =  Calle::where ('idbarrio',$id)->count('idcalle');
+
+        if ($aux > 0){
+            return response()->json(['success' => false, 'msg' => 'exist_calle']);
+        } else {
+            $barrio = Barrio::find($id);
+            $barrio->delete();
+            return response()->json(['success' => true]);
+        }
+
+
+
+
+
     }
 }

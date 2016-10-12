@@ -62,7 +62,7 @@
                             <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDelete(item)">
                                 <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
                             </button>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="showModalAction(item)">
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="">
                                 <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
                             </button>
                         </td>
@@ -160,7 +160,7 @@
                             <div class="form-group">
                                 <label for="id_barrio" class="col-sm-4 control-label">Barrio:</label>
                                 <div class="col-sm-8">
-                                    <select id="id_barrio" class="form-control" ng-model="id_barrio"
+                                    <select disabled id="id_barrio" class="form-control" ng-model="id_barrio"
                                             ng-options="value.id as value.label for value in barrios2"></select>
                                 </div>
                             </div>
@@ -262,6 +262,89 @@
             </div>
         </div>
 
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalMessageError">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-danger">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Información</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span>{{message_error}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalTomas">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <div class="col-sm-12 col-xs-12">
+                            <h4 class="modal-title">Tomas de la Junta Modular: {{junta_n}} </h4>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" name="formBarrio" novalidate="">
+
+
+                                <div class="col-xs-12"  style="margin-top: 15px;">
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="form-group has-feedback">
+                                            <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda">
+                                            <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12">
+                                        <button type="button" class="btn btn-primary" style="float: right;" ng-click="viewModalAdd()">Nuevo  <span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
+                                        <thead class="bg-primary">
+                                        <tr>
+                                            <th style="width: 15%;">Nombre de la Toma</th>
+                                            <th style="">Canales</th>
+                                            <th style="width: 15%;">Acciones</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="items in calless|filter:busqueda" ng-cloak>
+                                            <td><input type="text" class="form-control" ng-model="items.nombrecalle"></td>
+                                            <td>
+                                                <span>{{canales_calle}}; </span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfoToma(item)">
+                                                    <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDeleteToma(item)">
+                                                    <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
+                                                </button>
+
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                        </form>
+
+                    <div class="modal-footer">
+
+                            <button type="button" class="btn btn-success" style="float: right; " ng-click="editar()">Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span></button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </body>
 
@@ -271,6 +354,7 @@
 <script src="<?= asset('js/bootstrap.min.js') ?>"></script>
 
 <script src="<?= asset('app/app.js') ?>"></script>
+<script src="<?= asset('app/controllers/callesController.js') ?>"></script>
 <script src="<?= asset('app/controllers/barrioController.js') ?>"></script>
 
 </html>

@@ -11,6 +11,10 @@ class Canal extends Model
     public $timestamps = false;
 
     public function calle(){
-    	return $this->belongsTo('App\Modelos\Tomas\Calle','idcalle');
+        return $this->belongsTo('App\Modelos\Tomas\Calle','idcalle');
+    }
+
+    public function derivacion(){
+        return $this->hasMany('App\Modelos\Tomas\Derivacion','idcanal');
     }
 }

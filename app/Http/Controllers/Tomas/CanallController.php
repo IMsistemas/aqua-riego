@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Tomas;
 
-use App\Modelos\Sectores\Barrio;
 use App\Modelos\Tomas\Calle;
+use App\Modelos\Sectores\Barrio;
+use App\Modelos\Tomas\Derivacion;
+use App\Modelos\Tomas\Tomas;
 use App\Modelos\Tomas\Canal;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class CalleController extends Controller
+class CanallController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,14 +21,21 @@ class CalleController extends Controller
      */
     public function index()
     {
-        return view('Tomas/calle');
+        return view('Tomas/canall');
     }
+
+
+    public function getCanall()
+    {
+        return Canal::with('derivacion')->orderBy('nombrecanal', 'asc')->get();
+
+    }
+
 
     public function getCalles()
     {
-        return Calle::with('canal')->orderBy('nombrecalle', 'asc')->get();
+        return Calle::orderBy('nombrecalle', 'asc')->get();
     }
-
 
     public function getBarrios()
     {
@@ -34,16 +43,41 @@ class CalleController extends Controller
     }
 
 
+
+
+    public function getCalle()
+    {
+        return Calle::orderBy('nombrecalle', 'asc')->get();
+    }
+
+
+
     public function getLastID()
     {
-        $max_calle = Calle::max('idcalle');
+        $max_canal = Canal::max('idcanal');
 
-        if ($max_calle != null){
-            $max_calle += 1;
+        if ($max_canal != null){
+            $max_canal += 1;
         } else {
-            $max_calle = 1;
+            $max_canal = 1;
         }
-        return response()->json(['id' => $max_calle]);
+        return response()->json(['id' => $max_canal]);
+    }
+
+
+
+    public function editar_canal(Request $request)
+    {
+        $canala = $request->input('arr_canales');
+
+        foreach ($canala as $item) {
+            $canal1 = Canal::find($item['idcanal']);
+
+            $canal1->nombrecanal = $item['nombrecanal'];
+
+            $canal1->save();
+        }
+        return response()->json(['success' => true]);
     }
 
 
@@ -66,34 +100,17 @@ class CalleController extends Controller
      */
     public function store(Request $request)
     {
-        $calle = new Calle();
+        $canal = new Canal();
 
-        $calle->idbarrio = $request->input('idbarrio');
-        $calle->nombrecalle = $request->input('nombrecalle');
-        $calle->observacion = $request->input('observacion');
-        $calle->fechaingreso = date('Y-m-d');
+        $canal->idcalle = $request->input('idcalle');
+        $canal->nombrecanal = $request->input('nombrecanal');
+        $canal->observacion = $request->input('observacion');
+        $canal->fechaingreso = date('Y-m-d');
 
-        $calle->save();
+        $canal->save();
 
         return response()->json(['success' => true]);
-
     }
-
-
-    public function editar_calle(Request $request)
-    {
-        $callea = $request->input('arr_calle');
-
-        foreach ($callea as $item) {
-            $calle1 = Calle::find($item['idcalle']);
-
-            $calle1->nombrecalle = $item['nombrecalle'];
-
-            $calle1->save();
-        }
-        return response()->json(['success' => true]);
-    }
-
 
     /**
      * Display the specified resource.
@@ -137,19 +154,15 @@ class CalleController extends Controller
      */
     public function destroy($id)
     {
-       /* $calle = Calle::find($id);
-        $calle->delete();
-        return response()->json(['success' => true]);*/
 
-        $aux =  Canal::where ('idcalle',$id)->count('idcanal');
+        $aux =  Derivacion::where ('idcanal',$id)->count('idderivacion');
 
         if ($aux > 0){
-            return response()->json(['success' => false, 'msg' => 'exist_canales']);
+            return response()->json(['success' => false, 'msg' => 'exist_derivacion']);
         } else {
-            $calle = Calle::find($id);
-            $calle->delete();
+            $canal = Canal::find($id);
+            $canal->delete();
             return response()->json(['success' => true]);
         }
     }
-
 }

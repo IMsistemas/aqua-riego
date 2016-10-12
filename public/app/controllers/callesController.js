@@ -68,13 +68,28 @@ app.controller('callesController', function($scope, $http, API_URL) {
     };
 
     $scope.delete = function(){
-        $http.delete(API_URL + 'calle/' + $scope.idcalle_del).success(function(response) {
+       /* $http.delete(API_URL + 'calle/' + $scope.idcalle_del).success(function(response) {
             $scope.initLoad();
             $('#modalDelete').modal('hide');
             $scope.idcalle_del = 0;
             $scope.message = 'Se elimino correctamente la Toma seleccionada...';
             $('#modalMessage').modal('show');
+        });*/
+
+        $http.delete(API_URL + 'calle/' + $scope.idcalle_del).success(function(response) {
+            $('#modalDelete').modal('hide');
+            if(response.success == true){
+                console.log(response);
+                $scope.initLoad();
+                $scope.idcalle_del = 0;
+                $scope.message = 'Se elimino correctamente la Toma seleccionada...';
+                $('#modalMessage').modal('show');
+            } else if(response.success == false && response.msg == 'exist_canales') {
+                $scope.message_error = 'La Toma no puede ser eliminado porque contiene Canales...';
+                $('#modalMessageError').modal('show');
+            }
         });
+
     };
 
     $scope.showModalInfo = function (item) {
@@ -86,7 +101,7 @@ app.controller('callesController', function($scope, $http, API_URL) {
         for(var i  = 0; i < array_canal.length; i++){
             text += array_canal[i].nombrecanal + ',';
         }
-        $scope.junta_canales = text;
+        $scope.calle_canales = text;
 
         $('#modalInfo').modal('show');
 

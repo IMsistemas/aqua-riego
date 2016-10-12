@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Derivacion extends Model
 {
     protected $table = "derivacion";
-    protected $primarykey = "idderivacion";
+    protected $primaryKey = "idderivacion";
     public $timestamps = false;
-    public $incrementing = false;
 
-    public function toma(){
-    	return $this->belongsTo('App\Modelos\Tomas\Toma','idtoma');
+    public function canal(){
+        return $this->belongsTo('App\Modelos\Tomas\Canal','idcanal');
     }
 
 }

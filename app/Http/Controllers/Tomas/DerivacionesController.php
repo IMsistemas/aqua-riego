@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Tomas;
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Tomas\Calle;
 use App\Modelos\Tomas\Canal;
+use App\Modelos\Tomas\Derivacion;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class CalleController extends Controller
+class DerivacionesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,14 +20,29 @@ class CalleController extends Controller
      */
     public function index()
     {
-        return view('Tomas/calle');
+        return view('Tomas/derivaciones');
+    }
+
+    public function getDerivaciones()
+    {
+        return Derivacion::orderBy('nombrederivacion', 'asc')->get();
+    }
+
+
+    public function getCanales()
+    {
+        return Canal::orderBy('nombrecanal', 'asc')->get();
+    }
+
+    public function getCanaless()
+    {
+        return Canal::orderBy('nombrecanal', 'asc')->get();
     }
 
     public function getCalles()
     {
-        return Calle::with('canal')->orderBy('nombrecalle', 'asc')->get();
+        return Calle::orderBy('nombrecalle', 'asc')->get();
     }
-
 
     public function getBarrios()
     {
@@ -36,16 +52,15 @@ class CalleController extends Controller
 
     public function getLastID()
     {
-        $max_calle = Calle::max('idcalle');
+        $max_derivacion = Derivacion::max('idderivacion');
 
-        if ($max_calle != null){
-            $max_calle += 1;
+        if ($max_derivacion != null){
+            $max_derivacion += 1;
         } else {
-            $max_calle = 1;
+            $max_derivacion = 1;
         }
-        return response()->json(['id' => $max_calle]);
+        return response()->json(['id' => $max_derivacion]);
     }
-
 
 
     /**
@@ -66,33 +81,33 @@ class CalleController extends Controller
      */
     public function store(Request $request)
     {
-        $calle = new Calle();
+        $deri = new Derivacion();
 
-        $calle->idbarrio = $request->input('idbarrio');
-        $calle->nombrecalle = $request->input('nombrecalle');
-        $calle->observacion = $request->input('observacion');
-        $calle->fechaingreso = date('Y-m-d');
+        $deri->nombrederivacion = $request->input('nombrederivacion');
+        $deri->observacion = $request->input('observacion');
+        $deri->idcanal = $request->input('idcanal');
+        $deri->fechaingreso = date('Y-m-d');
 
-        $calle->save();
+        $deri->save();
 
         return response()->json(['success' => true]);
-
     }
 
-
-    public function editar_calle(Request $request)
+    public function editar_derivaciones(Request $request)
     {
-        $callea = $request->input('arr_calle');
+        $deriv = $request->input('arr_deriva');
 
-        foreach ($callea as $item) {
-            $calle1 = Calle::find($item['idcalle']);
+        foreach ($deriv as $item) {
+            $deriv1 = Derivacion::find($item['idderivacion']);
 
-            $calle1->nombrecalle = $item['nombrecalle'];
+            $deriv1->nombrederivacion = $item['nombrederivacion'];
 
-            $calle1->save();
+            $deriv1->save();
         }
         return response()->json(['success' => true]);
     }
+
+
 
 
     /**
@@ -137,19 +152,8 @@ class CalleController extends Controller
      */
     public function destroy($id)
     {
-       /* $calle = Calle::find($id);
-        $calle->delete();
-        return response()->json(['success' => true]);*/
-
-        $aux =  Canal::where ('idcalle',$id)->count('idcanal');
-
-        if ($aux > 0){
-            return response()->json(['success' => false, 'msg' => 'exist_canales']);
-        } else {
-            $calle = Calle::find($id);
-            $calle->delete();
-            return response()->json(['success' => true]);
-        }
+        $deriva = Derivacion::find($id);
+        $deriva->delete();
+        return response()->json(['success' => true]);
     }
-
 }
