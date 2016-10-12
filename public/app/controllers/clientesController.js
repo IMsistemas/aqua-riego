@@ -181,6 +181,9 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $scope.celular_cliente = $scope.objectAction.celular;
         $scope.telf_trab_cliente = $scope.objectAction.telefonoprincipaltrabajo;
 
+        $scope.t_area = '';
+        $scope.t_observacion_riego = '';
+
         $('#modalActionRiego').modal('show');
     };
 
