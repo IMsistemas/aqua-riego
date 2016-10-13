@@ -170,8 +170,24 @@ app.controller('clientesController', function($scope, $http, API_URL) {
      *  GET DATA FOR SOLICITUD RIEGO-------------------------------------------------------------------
      */
 
+    $scope.getLastIDRiego = function () {
+
+        var table = {
+            name: 'solicitudriego'
+        };
+
+        $http.get(API_URL + 'cliente/getLastID/' + JSON.stringify(table)).success(function(response){
+            $scope.num_solicitud_riego = response.id;
+        });
+    };
+
     $scope.getLastID = function () {
-        $http.get(API_URL + 'cliente/getLastID').success(function(response){
+
+        var table = {
+            name: 'terreno'
+        };
+
+        $http.get(API_URL + 'cliente/getLastID/' + JSON.stringify(table)).success(function(response){
             $scope.nro_terreno = response.id;
         });
     };
@@ -286,6 +302,22 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         });
     };
 
+
+    /*
+     *  GET DATA FOR SOLICITUD OTROS-------------------------------------------------------------------
+     */
+
+    $scope.getLastIDOtros = function () {
+
+        var table = {
+            name: 'solicitudotro'
+        };
+
+        $http.get(API_URL + 'cliente/getLastID/' + JSON.stringify(table)).success(function(response){
+            $scope.num_solicitud_otro = response.id;
+        });
+    };
+
     /*
      *  SHOW MODAL ACTION-------------------------------------------------------------------
      */
@@ -296,6 +328,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     };
 
     $scope.actionRiego = function () {
+        $scope.getLastIDRiego();
         $scope.getLastID();
         $scope.getBarrios();
         $scope.getTarifas();
@@ -317,9 +350,9 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     };
 
     $scope.actionOtro = function () {
+        $scope.getLastIDOtros();
 
         $scope.t_fecha_otro = $scope.nowDate();
-
         $scope.h_codigocliente_otro = $scope.objectAction.codigocliente;
         $scope.documentoidentidad_cliente_otro = $scope.objectAction.documentoidentidad;
         $scope.nom_cliente_otro = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;

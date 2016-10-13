@@ -329,7 +329,7 @@
                         <div class="modal-header modal-header-primary">
 
                             <div class="col-md-6 col-xs-12">
-                                <h4 class="modal-title">Procesar Solicitud de Riego Nro: {{num_solicitud_riego}}</h4>
+                                <h4 class="modal-title">Solicitud de Riego Nro: {{num_solicitud_riego}}</h4>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">

@@ -37,11 +37,21 @@ class ClienteController extends Controller
         return Cliente::orderBy('fechaingreso', 'asc')->get();
     }
 
-    public function getLastID()
+    public function getLastID($table)
     {
-        $max = Terreno::max('idterreno');
+        $max = null;
 
-        if ($max!= null){
+        $table = json_decode($table);
+
+        if ($table->name == 'solicitudriego') {
+            $max = SolicitudRiego::max('idsolicitudriego');
+        } else if ($table->name == 'terreno') {
+            $max = Terreno::max('idterreno');
+        } else if ($table->name == 'solicitudotro') {
+            $max = SolicitudOtro::max('idsolicitudotro');
+        }
+
+        if ($max != null){
             $max += 1;
         } else {
             $max = 1;

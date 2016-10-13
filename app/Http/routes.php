@@ -73,7 +73,7 @@ Route::resource('/tarifa', 'Tarifas\TarifaController');
 /*===================================Cliente======================================================*/
 
 
-Route::get('cliente/getLastID', 'Clientes\ClienteController@getLastID');
+Route::get('cliente/getLastID/{table}', 'Clientes\ClienteController@getLastID');
 //Peticion para obtener la constante para calculo
 Route::get('cliente/getConstante', 'Clientes\ClienteController@getConstante');
 //Peticion para calcular el valor por area
