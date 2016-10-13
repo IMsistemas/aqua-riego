@@ -196,11 +196,12 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     $scope.getBarrios = function(){
         $http.get(API_URL + 'cliente/getBarrios').success(function(response){
             var longitud = response.length;
-            var array_temp = [];
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
                 array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
             }
             $scope.barrios = array_temp;
+            $scope.t_junta = 0;
         });
     };
 
@@ -209,12 +210,14 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
         $http.get(API_URL + 'cliente/getTomas/' + idbarrio).success(function(response){
             var longitud = response.length;
-            var array_temp = [];
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
                 array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
             }
             $scope.tomas = array_temp;
+            $scope.t_toma = 0;
         });
+
     };
 
     $scope.getCanales = function(){
@@ -223,12 +226,14 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
         $http.get(API_URL + 'cliente/getCanales/' + idcalle).success(function(response){
             var longitud = response.length;
-            var array_temp = [];
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
                 array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
             }
             $scope.canales = array_temp;
+            $scope.t_canal = 0;
         });
+
     };
 
     $scope.getDerivaciones = function(){
@@ -236,12 +241,14 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
         $http.get(API_URL + 'cliente/getDerivaciones/' + idcanal).success(function(response){
             var longitud = response.length;
-            var array_temp = [];
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
                 array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
             }
             $scope.derivaciones = array_temp;
+            $scope.t_derivacion = 0;
         });
+
     };
 
     $scope.getTarifas = function(){
@@ -252,6 +259,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
                 array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
             }
             $scope.tarifas = array_temp;
+            $scope.t_tarifa = 0;
         });
     };
 
@@ -266,7 +274,9 @@ app.controller('clientesController', function($scope, $http, API_URL) {
                 array_temp.push({label: response[i].nombrecultivo, id: response[i].idcultivo})
             }
             $scope.cultivos = array_temp;
+            $scope.t_cultivo = 0;
         });
+
     };
 
     $scope.calculate = function () {
