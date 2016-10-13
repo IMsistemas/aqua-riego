@@ -315,7 +315,7 @@
                             <button type="button" class="btn btn-danger btn-block" ng-click="">
                                 Fraccionamiento
                             </button>
-                            <button type="button" class="btn btn-primary btn-block" ng-click="">
+                            <button type="button" class="btn btn-primary btn-block" ng-click="actionOtro()">
                                 Otro tipo de Solicitud
                             </button>
                         </div>
@@ -505,6 +505,96 @@
                     </div>
                 </div>
             </div>
+
+
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalActionOtro">
+                <div class="modal-dialog" role="document" style="width: 60%;">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-primary">
+
+                            <div class="col-md-6 col-xs-12">
+                                <h4 class="modal-title">Otra Solicitud Nro: {{num_solicitud_otro}}</h4>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="form-group">
+                                    <h4 class="modal-title"><label for="t_fecha_process" class="col-sm-6" style="font-weight: normal !important;">Fecha Ingreso:</label></h4>
+                                    <div class="col-sm-5" style="padding: 0;">
+                                        <input type="text" class="form-control input-sm datepicker" name="t_fecha_otro"
+                                               id="t_fecha_otro" ng-model="t_fecha_otro" style="color: black !important;" disabled>
+                                    </div>
+                                    <div class="col-sm-1 col-xs-12 text-right" style="padding: 0;">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" name="formProcessOtros" novalidate="">
+
+                                <div class="row">
+                                    <div class="col-xs-12" style="padding: 2%; margin-top: -20px !important;">
+                                        <fieldset ng-cloak>
+                                            <legend style="font-size: 16px; font-weight: bold;">Datos del Cliente</legend>
+
+                                            <div class="col-xs-12" style="padding: 0;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">RUC/CI:</span> {{documentoidentidad_cliente_otro}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_cliente_otro}}
+                                                    <input type="hidden" ng-model="h_codigocliente_otro">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_cliente_otro}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Domicilio:</span> {{telf_cliente_otro}}
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Celular:</span> {{celular_cliente_otro}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Trabajo:</span> {{telf_trab_cliente_otro}}
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xs-12 form-group" style="">
+                                        <label for="t_derivacion" class="col-sm-2 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Descripción:</label>
+                                        <div class="col-sm-10 col-xs-12">
+                                            <textarea class="form-control" id="t_observacion_otro" ng-model="t_observacion_otro" rows="2" ng-required="true"></textarea>
+                                            <span class="help-block error"
+                                                  ng-show="formProcessOtros.t_observacion_otro.$invalid && formProcessOtros.t_observacion_otro.$touched">La Descripción es requerida</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-success" ng-click="saveSolicitudOtro();" ng-disabled="formProcessOtros.$invalid">
+                                Guardar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary" ng-click="" ng-disabled="formProcessOtros.$invalid">
+                                Procesar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
             <div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
                 <div class="modal-dialog" role="document">

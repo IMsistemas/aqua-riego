@@ -95,6 +95,8 @@ Route::get('cliente/getClientes', 'Clientes\ClienteController@getClientes');
 
 Route::post('cliente/storeSolicitudRiego', 'Clientes\ClienteController@storeSolicitudRiego');
 
+Route::post('cliente/storeSolicitudOtro', 'Clientes\ClienteController@storeSolicitudOtro');
+
 Route::resource('/cliente', 'Clientes\ClienteController');
 
 

@@ -6,6 +6,7 @@ use App\Modelos\Clientes\Cliente;
 use App\Modelos\Configuraciones\Configuracion;
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Solicitud\Solicitud;
+use App\Modelos\Solicitud\SolicitudOtro;
 use App\Modelos\Solicitud\SolicitudRiego;
 use App\Modelos\Tarifas\Area;
 use App\Modelos\Tarifas\Tarifa;
@@ -31,7 +32,6 @@ class ClienteController extends Controller
         return view('Clientes/index');
     }
 
-
     public function getClientes()
     {
         return Cliente::orderBy('fechaingreso', 'asc')->get();
@@ -49,7 +49,6 @@ class ClienteController extends Controller
 
         return response()->json(['id' => $max]);
     }
-
 
     /**
      * Obtener los barrios ordenados ascendentemente
@@ -182,21 +181,26 @@ class ClienteController extends Controller
 
         $terreno->save();
 
-        /*$solicitud = new Solicitud();
-        $solicitud->codigocliente = $request->input('codigocliente');
-        $solicitud->fechasolicitud = date('Y-m-d');
-        $solicitud->estaprocesada = false;
-
-        $result = $solicitud->save();*/
-
-
         $solicitudriego = new SolicitudRiego();
         $solicitudriego->codigocliente = $request->input('codigocliente');
-        //$solicitudriego->idsolicitud = $solicitud->idsolicitud;
         $solicitudriego->fechasolicitud = date('Y-m-d');
         $solicitudriego->fechaprocesada = date('Y-m-d');
         $solicitudriego->estaprocesada = true;
         $solicitudriego->observacion = $request->input('observacion');
+
+        $result = $solicitudriego->save();
+
+        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
+    }
+
+    public function storeSolicitudOtro(Request $request)
+    {
+        $solicitudriego = new SolicitudOtro();
+        $solicitudriego->codigocliente = $request->input('codigocliente');
+        $solicitudriego->fechasolicitud = date('Y-m-d');
+        $solicitudriego->fechaprocesada = date('Y-m-d');
+        $solicitudriego->estaprocesada = true;
+        $solicitudriego->descripcion = $request->input('observacion');
 
         $result = $solicitudriego->save();
 

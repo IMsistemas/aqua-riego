@@ -37,6 +37,10 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         }
     };
 
+    /*
+     *  ACTION FOR CLIENT-------------------------------------------------------------------
+     */
+
     $scope.edit = function (item) {
         $scope.t_codigocliente = item.codigocliente;
         $scope.t_fecha_ingreso = $scope.convertDatetoDB(item.fechaingreso, true);
@@ -161,31 +165,10 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
     };
 
-    $scope.showModalAction = function (item) {
-        $scope.objectAction = item;
-        $('#modalAction').modal('show');
-    };
 
-    $scope.actionRiego = function () {
-        $scope.getLastID();
-        $scope.getBarrios();
-        $scope.getTarifas();
-
-        $scope.t_fecha_process = $scope.nowDate();
-
-        $scope.h_codigocliente = $scope.objectAction.codigocliente;
-        $scope.documentoidentidad_cliente = $scope.objectAction.documentoidentidad;
-        $scope.nom_cliente = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
-        $scope.direcc_cliente = $scope.objectAction.direcciondomicilio;
-        $scope.telf_cliente = $scope.objectAction.telefonoprincipaldomicilio;
-        $scope.celular_cliente = $scope.objectAction.celular;
-        $scope.telf_trab_cliente = $scope.objectAction.telefonoprincipaltrabajo;
-
-        $scope.t_area = '';
-        $scope.t_observacion_riego = '';
-
-        $('#modalActionRiego').modal('show');
-    };
+    /*
+     *  GET DATA FOR SOLICITUD RIEGO-------------------------------------------------------------------
+     */
 
     $scope.getLastID = function () {
         $http.get(API_URL + 'cliente/getLastID').success(function(response){
@@ -303,6 +286,55 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         });
     };
 
+    /*
+     *  SHOW MODAL ACTION-------------------------------------------------------------------
+     */
+
+    $scope.showModalAction = function (item) {
+        $scope.objectAction = item;
+        $('#modalAction').modal('show');
+    };
+
+    $scope.actionRiego = function () {
+        $scope.getLastID();
+        $scope.getBarrios();
+        $scope.getTarifas();
+
+        $scope.t_fecha_process = $scope.nowDate();
+
+        $scope.h_codigocliente = $scope.objectAction.codigocliente;
+        $scope.documentoidentidad_cliente = $scope.objectAction.documentoidentidad;
+        $scope.nom_cliente = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
+        $scope.direcc_cliente = $scope.objectAction.direcciondomicilio;
+        $scope.telf_cliente = $scope.objectAction.telefonoprincipaldomicilio;
+        $scope.celular_cliente = $scope.objectAction.celular;
+        $scope.telf_trab_cliente = $scope.objectAction.telefonoprincipaltrabajo;
+
+        $scope.t_area = '';
+        $scope.t_observacion_riego = '';
+
+        $('#modalActionRiego').modal('show');
+    };
+
+    $scope.actionOtro = function () {
+
+        $scope.t_fecha_otro = $scope.nowDate();
+
+        $scope.h_codigocliente_otro = $scope.objectAction.codigocliente;
+        $scope.documentoidentidad_cliente_otro = $scope.objectAction.documentoidentidad;
+        $scope.nom_cliente_otro = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
+        $scope.direcc_cliente_otro = $scope.objectAction.direcciondomicilio;
+        $scope.telf_cliente_otro = $scope.objectAction.telefonoprincipaldomicilio;
+        $scope.celular_cliente_otro = $scope.objectAction.celular;
+        $scope.telf_trab_cliente_otro = $scope.objectAction.telefonoprincipaltrabajo;
+
+        $scope.t_observacion_otro = '';
+
+        $('#modalActionOtro').modal('show');
+    };
+
+
+
     $scope.saveSolicitudRiego = function () {
 
         var solicitud = {
@@ -324,6 +356,26 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             if(response.success == true){
                 $scope.initLoad();
                 $('#modalActionRiego').modal('hide');
+                $scope.message = 'Se ha procesado la solicitud correctamente...'
+                $('#modalMessage').modal('show');
+            }
+
+        });
+
+    };
+
+    $scope.saveSolicitudOtro = function () {
+
+        var solicitud = {
+            codigocliente: $scope.h_codigocliente_otro,
+            observacion: $scope.t_observacion_otro
+        };
+
+        $http.post(API_URL + 'cliente/storeSolicitudOtro', solicitud).success(function(response){
+
+            if(response.success == true){
+                $scope.initLoad();
+                $('#modalActionOtro').modal('hide');
                 $scope.message = 'Se ha procesado la solicitud correctamente...'
                 $('#modalMessage').modal('show');
             }
