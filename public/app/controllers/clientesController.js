@@ -324,6 +324,22 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
     $scope.initLoad();
 
+
+    $scope.onlyCharasterAndSpace = function ($event) {
+
+        var k = $event.keyCode;
+        if (k == 8 || k == 0) return true;
+        var patron = /^([a-zA-Záéíóúñ\s]+)$/;
+        var n = String.fromCharCode(k);
+
+        if(patron.test(n) == false){
+            $event.preventDefault();
+            return false;
+        }
+        else return true;
+
+    };
+
 });
 
 
