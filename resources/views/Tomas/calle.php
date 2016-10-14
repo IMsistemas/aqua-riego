@@ -46,7 +46,7 @@
                 <td><input type="text" class="form-control" ng-model="item.nombrecalle"></td>
 
                 <td>
-                    <span ng-repeat="canal in item.canal">{{canal.nombrecanal}}; </span>
+                    <span ng-repeat="canal in item.canales">{{canal.nombrecanal}}; </span>
                 </td>
                 <td>
                     <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfo(item)">
@@ -147,7 +147,7 @@
                             <span style="font-weight: bold">Canales en la Toma: </span>{{calle_canales}}
                         </div>
                         <div class="col-xs-12">
-                            <span style="font-weight: bold">Derivaciones en la Toma: </span>{{junta_derivacion}}
+                            <span style="font-weight: bold">Derivaciones en la Toma: </span>{{calle_derivacion}}
                         </div>
                     </div>
                 </div>

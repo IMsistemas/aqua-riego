@@ -13,7 +13,6 @@ app.controller('callesController', function($scope, $http, API_URL) {
     };
 
     $scope.viewModalAdd = function () {
-
         $http.get(API_URL + 'calle/getBarrio').success(function (response) {
             var longitud = response.length;
             //var array_temp = [{label: '--Seleccione--', id: 0}];
@@ -22,8 +21,6 @@ app.controller('callesController', function($scope, $http, API_URL) {
                 array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
             }
             $scope.barrios = array_temp;
-
-
         });
 
         $http.get(API_URL + 'calle/getLastID').success(function(response){
@@ -68,14 +65,6 @@ app.controller('callesController', function($scope, $http, API_URL) {
     };
 
     $scope.delete = function(){
-       /* $http.delete(API_URL + 'calle/' + $scope.idcalle_del).success(function(response) {
-            $scope.initLoad();
-            $('#modalDelete').modal('hide');
-            $scope.idcalle_del = 0;
-            $scope.message = 'Se elimino correctamente la Toma seleccionada...';
-            $('#modalMessage').modal('show');
-        });*/
-
         $http.delete(API_URL + 'calle/' + $scope.idcalle_del).success(function(response) {
             $('#modalDelete').modal('hide');
             if(response.success == true){
@@ -96,12 +85,28 @@ app.controller('callesController', function($scope, $http, API_URL) {
         $scope.name_calle = item.nombrecalle;
         $scope.fecha_ingreso = item.fechaingreso;
 
-        var array_canal = item.canal;
+        var array_canal = item.canales;
         var text = '';
-        for(var i  = 0; i < array_canal.length; i++){
-            text += array_canal[i].nombrecanal + ',';
+        var canales =[];
+        for(var e  = 0; e < array_canal.length; e++){
+            canales.push(array_canal[e].idcanal);
+            text += array_canal[e].nombrecanal + ',';
         }
-        $scope.calle_canales = text;
+        var data = {
+            idcanales: canales
+        };
+        // console.log(data);
+        $http.get(API_URL + 'calle/getderivaciones/' + JSON.stringify(data)).success(function(response) {
+            var aux='';
+            console.log(response);
+            for(var i  = 0; i < response.length; i++) {
+                for(var a  = 0; a < response[i].length; a++){
+                    aux += response[i][a].nombrederivacion + ',';
+                }
+            }
+            $scope.calle_derivacion = aux;
+            $scope.calle_canales = text;
+        });
 
         $('#modalInfo').modal('show');
 

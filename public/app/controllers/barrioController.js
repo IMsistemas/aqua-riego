@@ -3,16 +3,17 @@ app.controller('barrioController', function($scope, $http, API_URL) {
 
     $scope.barrios = [];
     $scope.idbarrio_del = 0;
+    $scope.idcalle_del=0;
     $scope.canales_calle = 0;
-
+    $scope.aux_calles = [];
+    $scope.barrio_actual = 0 ;
+    $scope.aux1 = 0 ;
     $scope.calless = [];
 
     $scope.initLoad = function () {
         $http.get(API_URL + 'barrio/getBarrios').success(function(response){
            // console.log(response);
-
             $scope.barrios = response;
-
         });
     };
 
@@ -66,41 +67,58 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.showModalInfo = function (item) {
-
         $scope.name_junta = item.nombrebarrio;
         $scope.fecha_ingreso = item.fechaingreso;
 
         var array_tomas = item.calle;
         var text = '';
+        var calles = [];
 
-        var idcalles = '';
-
-        for(var i  = 0; i < array_tomas.length; i++){
-            text += array_tomas[i].nombrecalle + ',';
-            idcalles += array_tomas[i].idcalle + ',';
+        for (var e = 0; e < array_tomas.length; e++){
+            calles.push(array_tomas[e].idcalle);
+            text += array_tomas[e].nombrecalle + ','
         }
-        $scope.junta_tomas = text;
-
-
-
-/*
         var data = {
-            array_tomas: idcalles
+            idcalles: calles
         };
 
-        $http.get(API_URL + 'barrio/dame_canal/' + JSON.stringify(data)).success(function(response){
-           console.log(response);
-            /*var array_canales = response;
-            console.log(array_canales);
-            var text1 = '';
-            for(var a  = 0; a < array_canales.length; a++){
-                text1 += array_canales[i].nombrecanal + ',';
+        $http.get(API_URL + 'barrio/getCanals/' + JSON.stringify(data)).success(function(response) {
+            var aux='';
+            var arr_canales = [];
+
+            //console.log(response);
+            for(var i  = 0; i < response.length; i++) {
+                for(var a  = 0; a < response[i].length; a++){
+                    arr_canales.push(response[i][a].idcanal);
+                    aux += response[i][a].nombrecanal + ',';
+                }
             }
-            $scope.junta_canales = text1;*/
+            $scope.getderivaciones(arr_canales);
+           // console.log(aux);
+            $scope.junta_canales = aux;
+            $scope.junta_tomas = text;
+        });
 
-
-        $scope.initLoad();
         $('#modalInfo').modal('show');
+    };
+
+    $scope.getderivaciones = function (arr_canales) {
+        //console.log(arr_canales);
+        var data = {
+            idcanales: arr_canales
+        };
+       // console.log(data);
+        $http.get(API_URL + 'barrio/getderivaciones/' + JSON.stringify(data)).success(function(response) {
+            var aux='';
+           // console.log(response);
+            for(var i  = 0; i < response.length; i++) {
+                for(var a  = 0; a < response[i].length; a++){
+                    aux += response[i][a].nombrederivacion + ',';
+                }
+            }
+            $scope.junta_derivacion = aux;
+        });
+
     };
 
     $scope.showModalDelete = function (item) {
@@ -132,22 +150,24 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             idbarrio: $scope.id_barrio,
             observacion: $scope.observacionCalle
         };
-
         $http.post(API_URL + 'calle', data ).success(function (response) {
-
             $scope.initLoad();
-
+           // $('#modalNuevaToma2').modal('hide');
             $('#modalNuevaToma').modal('hide');
             $scope.message = 'Se insertó correctamente la Toma';
             $('#modalMessage').modal('show');
+            setTimeout(function(){
+                $('#modalMessage').modal('hide');
+            }, 500);
+            $scope.showModalAction($scope.barrio);
 
         }).error(function (res) {
-
         });
-
     };
 
-    $scope.show_toma = function (idbarrio)   {
+    $scope.show_toma = function (idbarrio,aux0, barrio)   {
+        if(barrio !== undefined && barrio !== null)
+            $scope.barrio = barrio;
         $http.get(API_URL + 'calle/getBarrio').success(function (response) {
             var longitud = response.length;
             //var array_temp = [{label: '--Seleccione--', id: 0}];
@@ -166,30 +186,10 @@ app.controller('barrioController', function($scope, $http, API_URL) {
 
             $scope.nombrecalle = '';
             $scope.observacionCalle = '';
-
+            $scope.aux1 = aux0 ;
+            $('#modalTomas').modal('hide');
             $('#modalNuevaToma').modal('show');
         });
-    };
-
-    $scope.saveCalle = function () {
-        var data = {
-            nombrecalle: $scope.nombrecalle,
-            idbarrio: $scope.id_barrio,
-            observacion: $scope.observacionCalle
-        };
-
-        $http.post(API_URL + 'calle', data ).success(function (response) {
-
-            $scope.initLoad();
-
-            $('#modalNuevaToma').modal('hide');
-            $scope.message = 'Se insertó correctamente la Toma';
-            $('#modalMessage').modal('show');
-
-        }).error(function (res) {
-
-        });
-
     };
 
     $scope.editar = function ()  {
@@ -203,36 +203,57 @@ app.controller('barrioController', function($scope, $http, API_URL) {
         });
     };
 
-
     $scope.showModalAction = function (item) {
-        //console.log(item);
+        console.log(item);
         $scope.junta_n = item.nombrebarrio;
         $scope.calless = item.calle ;
-        $http.get(API_URL + 'barrio/getCanals',calless).success(function(response)
-        {
+        $scope.barrio_actual = item.idbarrio;
+        $scope.barrio = item;
 
+        var data = {
+            calles: item.calle
+        };
+        console.log(data);
 
+       $http.get(API_URL + 'barrio/calles/' + item.idbarrio).success(function(response) {
 
-        });
-
-
+           $scope.aux_calles = response;
+           console.log($scope.aux_calles);
+       });
+        $scope.initLoad();
         $('#modalTomas').modal('show');
 
     };
 
+    $scope.showModalDeleteCalle = function (item) {
+        console.log(item);
+        $scope.idcalle_delete = item.idcalle;
+        $scope.nom_calle_delete = item.nombrecalle;
+        $('#modalDeleteCalle').modal('show');
+    };
 
+    $scope.deleteCalleEnBarrio = function(){
+        $http.delete(API_URL + 'calle/' + $scope.idcalle_delete).success(function(response) {
+            $('#modalDeleteCalle').modal('hide');
+            if(response.success == true){
+                $scope.initLoad();
+                $scope.idcalle_delete = 0;
+                $scope.message = 'Se elimino correctamente la Toma seleccionada...';
+                $('#modalMessage').modal('show');
+                setTimeout(function(){
+                    $('#modalMessage').modal('hide');
+                }, 500);
+                $scope.showModalAction($scope.barrio);
 
-
-
-
-
+            } else if(response.success == false && response.msg == 'exist_canales') {
+                $scope.message_error = 'La Toma no puede ser eliminada porque contiene Canales...';
+                $('#modalMessageError').modal('show');
+            }
+        });
+    };
 
 
     $scope.initLoad();
-
-
-
-
 
 });
 

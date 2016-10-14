@@ -6,6 +6,7 @@ use App\Modelos\Sectores\Barrio;
 use App\Modelos\Sectores\Parroquia;
 use App\Modelos\Tomas\Calle;
 use App\Modelos\Tomas\Canal;
+use App\Modelos\Tomas\Derivacion;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -23,12 +24,64 @@ class BarrioController extends Controller
         return view('Sectores/index_barrio');
     }
 
+    public function llenar_tabla($data)
+    {
+        $calles = json_decode($data);
+
+        $array_aux = [];
+
+        foreach ($calles->calles as $idcalle) {
+            $result = Canal::where('idcalle', $idcalle->idcalle)->orderBy('nombrecanal', 'asc')->get();
+            //$t = ['idcalle' => $idcalle->idcalle, 'canales' => $result];
+            $t = ['idcalle' => $idcalle->nombrecalle, 'canales' => $result];
+            $array_aux[] = $t;
+        }
+        return $array_aux;
+    }
 
     public function getBarrios()
     {
         //return Barrio::orderBy('nombrebarrio', 'asc')->get();
         return Barrio::with('calle')->orderBy('nombrebarrio', 'asc')->get();
     }
+
+    public function getBarrio_ID($id)
+    {
+        return Barrio::where('idbarrio', $id)->orderBy('nombrebarrio', 'asc')->get();
+    }
+
+
+    public function getCanals($data)
+    {
+        $calles = json_decode($data);
+
+        $array_calles = [];
+
+        foreach ($calles->idcalles as $idcalle){
+            $result = Canal::where('idcalle', $idcalle)->orderBy('nombrecanal', 'asc')->get();
+            if (is_array($result)){
+                $array_calles = array_merge($array_calles, $result);
+            } else if (is_object($result)) {
+                $array_calles[] = $result;
+            }
+        }
+        return $array_calles;
+    }
+
+    public function getderivaciones($data)
+    {
+        $id_canales = json_decode($data);
+
+        $array_derivaciones = [];
+
+        foreach ($id_canales->idcanales as $idcanal){
+            $result = Derivacion::where('idcanal', $idcanal)->orderBy('nombrederivacion', 'asc')->get();
+            $array_derivaciones[] = $result;
+        }
+        return $array_derivaciones;
+
+    }
+
 
     public function getLastID()
     {
@@ -93,29 +146,7 @@ class BarrioController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function getCanals(Request $request)
-    {
-        $calle1 = $request->input('calless');
-        return  $name =  Canal::where ('idcalle',$calle1['idcalle'])->get();
-    }
 
-    public function dame_canal($data)
-    {
-        $calle1 = json_decode($data);
-
-        $array = explode(',', $calle1->array_tomas);
-
-        print_r($array);
-
-        exit();
-
-        foreach ($calle1->array_tomas as $item)
-        {
-            $name +=  Canal::where ('idcalle',$item['idcalle'])->get();
-        }
-
-        return $name;
-    }
 
     /**
      * Display the specified resource.

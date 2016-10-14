@@ -103,12 +103,17 @@ Route::resource('/cliente', 'Clientes\ClienteController');
 /*--------------------------------------Yamilka-------------------------------------------------*/
 /*===================================Sectores===========================================*/
 
+Route::get('barrio/llenar_tabla/{data}', 'Sectores\BarrioController@llenar_tabla');
+
+Route::get('barrio/calles/{id}', 'Tomas\CalleController@getCallesById');
+
 Route::get('barrio/getBarrios', 'Sectores\BarrioController@getBarrios');
 
-Route::get('barrio/dame_canal/{data}', 'Sectores\BarrioController@dame_canal');
+Route::get('barrio/getBarrio_ID/{data}', 'Sectores\BarrioController@getBarrio_ID');
 
-Route::get('barrio/getCanals', 'Sectores\BarrioController@getCanals');
+Route::get('barrio/getCanals/{data}', 'Sectores\BarrioController@getCanals');
 
+Route::get('barrio/getderivaciones/{data}', 'Sectores\BarrioController@getderivaciones');
 
 Route::get('barrio/getParroquias', 'Sectores\BarrioController@getParroquias');
 
@@ -124,6 +129,8 @@ Route::resource('/barrio', 'Sectores\BarrioController');
 /*===================================Calle===========================================*/
 
 Route::get('calle/getCalles', 'Tomas\CalleController@getCalles');
+
+Route::get('calle/getderivaciones/{data}', 'Sectores\BarrioController@getderivaciones');
 
 Route::get('calle/getBarrio', 'Sectores\BarrioController@getBarrios');
 

@@ -48,7 +48,7 @@
 
                         <td>
                             <span ng-repeat="calle in item.calle">{{calle.nombrecalle}}; </span>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="show_toma(item.idbarrio)">
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="show_toma(item.idbarrio,2, item)">
                                 <i class="fa fa-lg fa-plus" aria-hidden="true"></i>
                             </button>
                         </td>
@@ -59,10 +59,10 @@
                             <!--<button type="button" class="btn btn-warning btn-sm" ng-click="edit(item)">
                                 <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
                             </button>-->
-                            <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDelete(item)">
+                            <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDeleteCalle(item)">
                                 <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
                             </button>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="">
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="showModalAction(item)">
                                 <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
                             </button>
                         </td>
@@ -135,7 +135,7 @@
             </div>
         </div>
 
-        <div class="modal fade" tabindex="-1" role="dialog" id="modalNuevaToma">
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalNuevaToma" >
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
@@ -197,7 +197,7 @@
         </div>
 
         <div class="modal fade" tabindex="-1" role="dialog" id="modalInfo">
-            <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header modal-header-info">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -276,11 +276,8 @@
             </div>
         </div>
 
-
-
-
         <div class="modal fade" tabindex="-1" role="dialog" id="modalTomas">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
                         <div class="col-sm-12 col-xs-12">
@@ -289,17 +286,15 @@
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" name="formBarrio" novalidate="">
-
-
                                 <div class="col-xs-12"  style="margin-top: 15px;">
                                     <div class="col-sm-6 col-xs-12">
                                         <div class="form-group has-feedback">
-                                            <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda">
+                                            <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busquedaa">
                                             <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-xs-12">
-                                        <button type="button" class="btn btn-primary" style="float: right;" ng-click="viewModalAdd()">Nuevo  <span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+                                        <button type="button" class="btn btn-primary" style="float: right;" ng-click="show_toma(barrio_actual,1)">Nuevo  <span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
                                     </div>
                                 </div>
 
@@ -313,19 +308,19 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr ng-repeat="items in calless|filter:busqueda" ng-cloak>
-                                            <td><input type="text" class="form-control" ng-model="items.nombrecalle"></td>
+                                        <tr ng-repeat="item in aux_calles|filter:busquedaa" ng-cloak>
+                                            <td><input type="text" class="form-control" ng-model="item.nombrecalle"></td>
+
                                             <td>
-                                                <span>{{canales_calle}}; </span>
+                                                <span ng-repeat="canal in item.canales">{{canal.nombrecanal}}; </span>
                                             </td>
                                             <td>
-                                                <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfoToma(item)">
-                                                    <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
-                                                </button>
-                                                <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDeleteToma(item)">
+                                                <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDeleteCalle(item)">
                                                     <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
                                                 </button>
-
+                                                <button type="button" class="btn btn-primary btn-sm" ng-click="showModalActionCanal(item)">
+                                                    <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -337,15 +332,37 @@
 
                     <div class="modal-footer">
 
-                            <button type="button" class="btn btn-success" style="float: right; " ng-click="editar()">Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span></button>
+                            <button type="button" class="btn btn-success" style="float: right; " ng-click="editarTomas()">Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span></button>
 
                     </div>
                 </div>
             </div>
         </div>
 
-
     </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalDeleteCalle">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-danger">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Confirmación</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span>Realmente desea eliminar la Toma: <strong>"{{nom_calle_delete}}"</strong>?</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger" id="btn-save" ng-click="deleteCalleEnBarrio()">
+                            Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </body>
 
 <script src="<?= asset('app/lib/angular/angular.min.js') ?>"></script>
