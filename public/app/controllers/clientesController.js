@@ -11,6 +11,8 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     $scope.codigocliente_del = 0;
     $scope.objectAction = null;
 
+    $scope.list_terrenos = [];
+
     $scope.initLoad = function () {
         $http.get(API_URL + 'cliente/getClientes').success(function(response){
             $scope.clientes = response;
@@ -332,6 +334,47 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.getTerrenosByCliente = function () {
+        var idcliente = {
+            codigocliente: $scope.objectAction.codigocliente
+        };
+
+        $http.get(API_URL + 'cliente/getTerrenosByCliente/' + JSON.stringify(idcliente)).success(function(response){
+            console.log(response);
+
+            $scope.list_terrenos = response;
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].area, id: response[i].idterreno})
+            }
+
+            $scope.terrenos_setN = array_temp;
+            $scope.t_terrenos_setnombre = 0;
+        });
+    };
+
+    $scope.searchInfoTerreno = function () {
+
+        var longitud = ($scope.list_terrenos).length;
+
+        for (var i = 0; i < longitud; i++){
+            if ($scope.list_terrenos[i].idterreno == $scope.t_terrenos_setnombre){
+                $scope.junta_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.barrio.nombrebarrio;
+                $scope.toma_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.nombrecalle;
+                $scope.canal_setnombre = $scope.list_terrenos[i].derivacion.canal.nombrecanal;
+                $scope.derivacion_setnombre = $scope.list_terrenos[i].derivacion.nombrederivacion;
+                $scope.cultivo_setnombre = $scope.list_terrenos[i].cultivo.nombrecultivo;
+                $scope.area_setnombre = $scope.list_terrenos[i].area;
+                $scope.caudal_setnombre = $scope.list_terrenos[i].caudal;
+
+                break;
+            }
+        }
+
+    };
+
     /*
      *  SHOW MODAL ACTION-------------------------------------------------------------------
      */
@@ -381,7 +424,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     };
 
     $scope.actionSetName = function () {
-
+        $scope.getTerrenosByCliente();
         $scope.getLastIDSetNombre();
 
         $scope.t_fecha_setnombre = $scope.nowDate();

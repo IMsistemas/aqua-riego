@@ -63,6 +63,14 @@ class ClienteController extends Controller
         return response()->json(['id' => $max]);
     }
 
+    public function getTerrenosByCliente($idcliente)
+    {
+        $cliente = json_decode($idcliente);
+
+        return Terreno::with('derivacion.canal.calle.barrio', 'cultivo')
+                        ->where('codigocliente', $cliente->codigocliente)->get();
+    }
+
     /**
      * Obtener los barrios ordenados ascendentemente
      *

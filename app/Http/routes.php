@@ -74,6 +74,7 @@ Route::resource('/tarifa', 'Tarifas\TarifaController');
 
 /*===================================Cliente======================================================*/
 
+Route::get('cliente/getTerrenosByCliente/{idcliente}', 'Clientes\ClienteController@getTerrenosByCliente');
 
 Route::get('cliente/getLastID/{table}', 'Clientes\ClienteController@getLastID');
 //Peticion para obtener la constante para calculo

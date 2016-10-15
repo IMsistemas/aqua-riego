@@ -659,8 +659,8 @@
                                                     <label for="t_terreno" class="col-sm-4 col-xs-12 control-label">Terrenos:</label>
                                                     <div class="col-sm-8 col-xs-12" style="padding-top: 10px;">
                                                         <select class="form-control" name="t_terrenos_setnombre" id="t_terrenos_setnombre"
-                                                                ng-model="t_terrenos_setnombre" ng-options="value.id as value.label for value in terrenos"
-                                                                ng-change=""></select>
+                                                                ng-model="t_terrenos_setnombre" ng-options="value.id as value.label for value in terrenos_setN"
+                                                                ng-change="searchInfoTerreno()"></select>
                                                     </div>
                                                 </div>
 
@@ -689,7 +689,7 @@
 
                                             <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
                                                 <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Area:</span> {{area_setnombre}}
+                                                    <span class="label label-default" style="font-size: 12px !important;">Area:</span> {{area_setnombre}} m2
                                                 </div>
 
                                                 <div class="col-sm-6 col-xs-12">
@@ -700,7 +700,7 @@
                                         </fieldset>
                                     </div>
 
-                                    <div class="col-xs-12" style="padding: 2%; margin-top: -35px !important;">
+                                    <div class="col-xs-12" style="padding: 2%; margin-top: -15px !important;">
                                         <fieldset>
                                             <legend style="font-size: 16px; font-weight: bold;">Datos del nuevo Cliente</legend>
 
