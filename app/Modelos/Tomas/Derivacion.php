@@ -10,8 +10,9 @@ class Derivacion extends Model
     protected $primaryKey = "idderivacion";
     public $timestamps = false;
 
-    public function canal(){
-        return $this->belongsTo('App\Modelos\Tomas\Canal','idcanal');
+    public function canal()
+    {
+        return $this->belongsTo('App\Modelos\Tomas\Canal', 'idcanal');
     }
 
 }

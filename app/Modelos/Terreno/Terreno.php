@@ -22,7 +22,7 @@ class Terreno extends Model
 
     public function derivacion()
     {
-        return $this->belongsTo('App\Modelos\Ubicacion\Derivacion', 'idderivacion');
+        return $this->belongsTo('App\Modelos\Tomas\Derivacion', 'idderivacion');
     }
 
     public function cliente()

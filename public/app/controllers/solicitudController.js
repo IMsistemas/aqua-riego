@@ -38,7 +38,9 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                         direccion: riego[i].cliente.direcciondomicilio,
                         telefono: riego[i].cliente.telefonoprincipaldomicilio,
                         tipo: 'Riego',
-                        estado: riego[i].estaprocesada
+                        estado: riego[i].estaprocesada,
+                        fechaprocesada: riego[i].fechaprocesada,
+                        terreno: riego[i].terreno
                     };
 
                     list.push(object_riego);
@@ -60,7 +62,10 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                         direccion: otro[i].cliente.direcciondomicilio,
                         telefono: otro[i].cliente.telefonoprincipaldomicilio,
                         tipo: 'Otra Solicitud',
-                        estado: otro[i].estaprocesada
+                        estado: otro[i].estaprocesada,
+
+                        descripcion: otro[i].descripcion,
+                        fechaprocesada: otro[i].fechaprocesada
                     };
 
                     list.push(object_otro);
@@ -102,6 +107,34 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         }).error(function (res) {
 
         });
+    };
+
+    $scope.info = function (solicitud) {
+        if(solicitud.tipo == 'Otra Solicitud') {
+            $scope.no_info_otro = solicitud.no_solicitud;
+            $scope.ingresada_info_otro = convertDatetoDB(solicitud.fecha, true);
+            $scope.procesada_info_otro = convertDatetoDB(solicitud.fechaprocesada, true);
+            $scope.cliente_info_otro = solicitud.cliente;
+            $scope.descripcion_info_otro = solicitud.descripcion;
+            $('#modalInfoSolOtros').modal('show');
+        }
+
+        if(solicitud.tipo == 'Riego') {
+            $scope.no_info_riego = solicitud.no_solicitud;
+            $scope.ingresada_info_riego = convertDatetoDB(solicitud.fecha, true);
+            $scope.procesada_info_riego = convertDatetoDB(solicitud.fechaprocesada, true);
+            $scope.cliente_info_riego = solicitud.cliente;
+
+            $scope.noterreno_info_riego = solicitud.terreno.idterreno;
+            $scope.area_info_riego = solicitud.terreno.area;
+
+            $scope.junta_info_riego = solicitud.terreno.derivacion.canal.calle.barrio.nombrebarrio;
+            $scope.toma_info_riego = solicitud.terreno.derivacion.canal.calle.nombrecalle;
+            $scope.canal_info_riego = solicitud.terreno.derivacion.canal.nombrecanal;
+            $scope.derivacion_info_riego = solicitud.terreno.derivacion.nombrederivacion;
+
+            $('#modalInfoSolRiego').modal('show');
+        }
     };
 
     $scope.initLoad();

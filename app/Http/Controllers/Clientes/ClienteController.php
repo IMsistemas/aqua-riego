@@ -193,6 +193,9 @@ class ClienteController extends Controller
 
         $solicitudriego = new SolicitudRiego();
         $solicitudriego->codigocliente = $request->input('codigocliente');
+
+        $solicitudriego->idterreno = $terreno->idterreno;
+
         $solicitudriego->fechasolicitud = date('Y-m-d');
         $solicitudriego->estaprocesada = false;
         $solicitudriego->observacion = $request->input('observacion');

@@ -15,4 +15,9 @@ class SolicitudRiego extends Model
         return $this->belongsTo('App\Modelos\Clientes\Cliente', 'codigocliente');
     }
 
+    public function terreno()
+    {
+        return $this->belongsTo('App\Modelos\Terreno\Terreno', 'idterreno');
+    }
+
 }

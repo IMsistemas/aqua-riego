@@ -25,7 +25,7 @@ class SolicitudController extends Controller
 
     public function getSolicitudes()
     {
-        $solicitudriego = SolicitudRiego::with('cliente')->orderBy('fechasolicitud', 'desc')->get();
+        $solicitudriego = SolicitudRiego::with('cliente', 'terreno.derivacion.canal.calle.barrio')->orderBy('fechasolicitud', 'desc')->get();
 
         $solicitudotro = SolicitudOtro::with('cliente')->orderBy('fechasolicitud', 'desc')->get();
 

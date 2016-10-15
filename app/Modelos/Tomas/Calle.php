@@ -11,11 +11,13 @@ class Calle extends Model
     public $timestamps = false;
 
 
-    public function barrio(){
+    public function barrio()
+    {
         return $this->belongsTo('App\Modelos\Sectores\Barrio','idbarrio');
     }
 
-    public function canales(){
+    public function canal()
+    {
         return $this->hasMany('App\Modelos\Tomas\Canal','idcalle');
     }
 
