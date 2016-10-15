@@ -19,8 +19,10 @@ Route::get('/inicio', function () {
  
 //Peticion para obtener el listado de solicitudes
 Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicitudes');
+
+
 //Peticion para obtener el listado de solicitudes por filtros
-Route::get('solicitud/getByFilter/{filters}', 'Solicitud\SolicitudController@getByFilters');
+/*Route::get('solicitud/getByFilter/{filters}', 'Solicitud\SolicitudController@getByFilters');
 //Peticion para obtener el ultimo id insertado + 1 para el numero de solicitud
 Route::get('solicitud/getLastID', 'Solicitud\SolicitudController@getLastID');
 //Peticion para obtener el ultimo id insertado + 1 para el numero de solicitud
@@ -46,7 +48,7 @@ Route::get('solicitud/calculateValor/{area}', 'Solicitud\SolicitudController@cal
 //Peticion para almacenar un cultivo nuevo
 Route::post('solicitud/saveCultivo', 'Solicitud\SolicitudController@saveCultivo');
 //Peticion para procesar la solicitud
-Route::post('solicitud/processSolicitud', 'Solicitud\SolicitudController@processSolicitud');
+Route::post('solicitud/processSolicitud', 'Solicitud\SolicitudController@processSolicitud');*/
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Solicitud
 Route::resource('/solicitud', 'Solicitud\SolicitudController');
 

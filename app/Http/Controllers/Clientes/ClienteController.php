@@ -194,8 +194,7 @@ class ClienteController extends Controller
         $solicitudriego = new SolicitudRiego();
         $solicitudriego->codigocliente = $request->input('codigocliente');
         $solicitudriego->fechasolicitud = date('Y-m-d');
-        $solicitudriego->fechaprocesada = date('Y-m-d');
-        $solicitudriego->estaprocesada = true;
+        $solicitudriego->estaprocesada = false;
         $solicitudriego->observacion = $request->input('observacion');
 
         $result = $solicitudriego->save();
@@ -208,8 +207,7 @@ class ClienteController extends Controller
         $solicitudriego = new SolicitudOtro();
         $solicitudriego->codigocliente = $request->input('codigocliente');
         $solicitudriego->fechasolicitud = date('Y-m-d');
-        $solicitudriego->fechaprocesada = date('Y-m-d');
-        $solicitudriego->estaprocesada = true;
+        $solicitudriego->estaprocesada = false;
         $solicitudriego->descripcion = $request->input('observacion');
 
         $result = $solicitudriego->save();

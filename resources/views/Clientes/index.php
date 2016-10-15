@@ -499,14 +499,12 @@
                                 Guardar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="btn btn-primary" ng-click="processSolicitud()" ng-disabled="formProcess.$invalid">
-                                Procesar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-
-
 
             <div class="modal fade" tabindex="-1" role="dialog" id="modalActionOtro">
                 <div class="modal-dialog" role="document" style="width: 60%;">
@@ -587,7 +585,7 @@
                                 Guardar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="btn btn-primary" ng-click="" ng-disabled="formProcessOtros.$invalid">
-                                Procesar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
