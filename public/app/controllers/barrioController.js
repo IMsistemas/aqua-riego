@@ -3,12 +3,19 @@ app.controller('barrioController', function($scope, $http, API_URL) {
 
     $scope.barrios = [];
     $scope.idbarrio_del = 0;
-    $scope.idcalle_del=0;
+    $scope.idcalle_delete=0;
     $scope.canales_calle = 0;
     $scope.aux_calles = [];
     $scope.barrio_actual = 0 ;
     $scope.aux1 = 0 ;
+    $scope.calle_actual = 0;
     $scope.calless = [];
+    $scope.barrio = [];
+    $scope.aux_canales = [];
+    $scope.canal_actual = 0;
+    $scope.aux_derivaciones = [];
+    $scope.idcanal_delete=0;
+
 
     $scope.initLoad = function () {
         $http.get(API_URL + 'barrio/getBarrios').success(function(response){
@@ -156,19 +163,22 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $('#modalNuevaToma').modal('hide');
             $scope.message = 'Se insertó correctamente la Toma';
             $('#modalMessage').modal('show');
-            setTimeout(function(){
-                $('#modalMessage').modal('hide');
-            }, 500);
-            $scope.showModalAction($scope.barrio);
+            if( $scope.aux1==1) {
+                setTimeout(function () {
+                    $('#modalMessage').modal('hide');
+                }, 500);
+                $scope.showModalAction($scope.barrio);
+            }
 
         }).error(function (res) {
         });
     };
 
     $scope.show_toma = function (idbarrio,aux0, barrio)   {
-        if(barrio !== undefined && barrio !== null)
-            $scope.barrio = barrio;
-        $http.get(API_URL + 'calle/getBarrio').success(function (response) {
+        if(barrio !== undefined && barrio !== null){
+            $scope.barrio = barrio;}
+
+        $http.get(API_URL + 'barrio/getBarrio').success(function (response) {
             var longitud = response.length;
             //var array_temp = [{label: '--Seleccione--', id: 0}];
             var array_temp = [];
@@ -204,7 +214,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.showModalAction = function (item) {
-        console.log(item);
+        //console.log(item);
         $scope.junta_n = item.nombrebarrio;
         $scope.calless = item.calle ;
         $scope.barrio_actual = item.idbarrio;
@@ -213,12 +223,11 @@ app.controller('barrioController', function($scope, $http, API_URL) {
         var data = {
             calles: item.calle
         };
-        console.log(data);
+       // console.log(data);
 
        $http.get(API_URL + 'barrio/calles/' + item.idbarrio).success(function(response) {
-
            $scope.aux_calles = response;
-           console.log($scope.aux_calles);
+
        });
         $scope.initLoad();
         $('#modalTomas').modal('show');
@@ -252,9 +261,199 @@ app.controller('barrioController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.editarCalles = function() {
+        var arr_calle = { arr_calle: $scope.aux_calles };
+        console.log(arr_calle);
+        $http.post(API_URL + 'barrio/editar_calle', arr_calle).success(function(response){
+            console.log(response);
+            $scope.initLoad();
+            $scope.message = 'Se editaron correctamente las Tomas';
+            $('#modalMessage').modal('show');
+
+            setTimeout(function(){
+                $('#modalMessage').modal('hide');
+            }, 500);
+            $scope.showModalAction($scope.barrio);
+        });
+    }
+
+    $scope.showModalActionCanal = function (item){
+        console.log(item);
+        $('#modalTomas').modal('hide');
+       // console.log(item);
+        $scope.toma_n = item.nombrecalle;
+        $scope.aux_canales = item.canales ;
+        $scope.calle_actual = item.idcalle;
+        $scope.canales = item;
+
+        var data = {
+            canales: item.canales
+        };
+        //console.log(data);
+
+        $http.get(API_URL + 'barrio/canales/' + item.idcalle).success(function(response) {
+            $scope.aux_canales = response;
+        });
+        $scope.initLoad();
+        $('#modalCanales').modal('show');
+    }
+
+    $scope.show_canal = function () {
+        $http.get(API_URL + 'barrio/getCalle').success(function (response) {
+           //console.log(response);
+            var longitud = response.length;
+            //var array_temp = [{label: '--Seleccione--', id: 0}];
+            var array_temp = [];
+            for (var i = 0; i < longitud; i++) {
+                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
+            }
+            $scope.calles2 = array_temp;
+            $scope.id_toma =  $scope.calle_actual;
+        });
+        $http.get(API_URL + 'barrio/getLastIDCanal').success(function(response){
+            // console.log(response);
+
+            $scope.codigo_canal = response.id;
+            $scope.date_ingreso_canal = now();
+
+            $scope.nombrecanal = '';
+            $scope.observacionCanal = '';
+
+            $('#modalTomas').modal('hide');
+            $('#modalNuevoCanal').modal('show');
+        });
+    };
+
+    $scope.saveCanal = function () {
+        var data = {
+            nombrecanal: $scope.nombrecanal,
+            idcalle: $scope.id_toma,
+            observacion: $scope.observacionCanal
+        };
+        $http.post(API_URL + 'canal', data ).success(function (response) {
+            $scope.initLoad();
+            // $('#modalNuevaToma2').modal('hide');
+            $('#modalNuevoCanal').modal('hide');
+            $scope.message = 'Se insertó correctamente el Canal';
+            $('#modalMessage').modal('show');
+                setTimeout(function () {
+                    $('#modalMessage').modal('hide');
+                }, 500);
+            console.log($scope.aux_calles);
+                $scope.showModalActionCanal($scope.canales);
+
+
+        }).error(function (res) {
+        });
+    };
+
+    $scope.editarCanal = function() {
+        var arr_canales = {
+            arr_canales: $scope.aux_canales };
+            console.log(arr_canales);
+
+        $http.post(API_URL + 'barrio/editar_canales', arr_canales).success(function(response){
+            console.log(response);
+            $scope.initLoad();
+            $scope.message = 'Se editaron correctamente los Canales';
+            $('#modalMessage').modal('show');
+
+            setTimeout(function(){
+                $('#modalMessage').modal('hide');
+            }, 500);
+            $scope.showModalActionCanal($scope.canales);
+        });
+    }
+
+    $scope.showModalDeleteCanal = function (item) {
+        console.log(item);
+        $scope.idcanal_delete = item.idcanal;
+        $scope.nom_canal_delete = item.nombrecanal;
+        $('#modalDeleteCanal').modal('show');
+    };
+
+    $scope.deleteCanal = function(){
+        $http.delete(API_URL + 'canal/' + $scope.idcanal_delete).success(function(response) {
+            $('#modalDeleteCanal').modal('hide');
+            if(response.success == true){
+                $scope.initLoad();
+                $scope.idcanal_delete = 0;
+                $scope.message = 'Se elimino correctamente el Canal seleccionado...';
+                $('#modalMessage').modal('show');
+                setTimeout(function(){
+                    $('#modalMessage').modal('hide');
+                }, 500);
+                $scope.showModalActionCanal($scope.canales);
+
+            } else if(response.success == false && response.msg == 'exist_derivacion') {
+                $scope.message_error = 'El Canal no puede ser eliminado porque contiene derivaciones...';
+                $('#modalMessageError').modal('show');
+            }
+        });
+    };
+
+    $scope.showModalActionDerivaciones = function (item){
+        console.log(item);
+        $('#modalCanales').modal('hide');
+        $scope.canal_n = item.nombrecanal;
+        $scope.aux_derivaciones = item.derivacion ;
+        $scope.canal_actual = item.idcanal;
+        $scope.derivaciones = item;
+        $scope.initLoad();
+        $('#modalDerivaciones').modal('show');
+    }
+
+    $scope.show_derivacion = function ()   {
+        $http.get(API_URL + 'barrio/getCanal').success(function (response) {
+            //console.log(response);
+            var longitud = response.length;
+            //var array_temp = [{label: '--Seleccione--', id: 0}];
+            var array_temp = [];
+            for (var i = 0; i < longitud; i++) {
+                array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
+            }
+            $scope.canal2 = array_temp;
+            $scope.id_canal =  $scope.canal_actual;
+        });
+        $http.get(API_URL + 'barrio/getLastIDDerivaciones').success(function(response){
+            // console.log(response);
+
+            $scope.codigo_deri = response.id;
+            $scope.date_ingreso_deri = now();
+
+            $scope.nombrederi = '';
+            $scope.observacionDeri = '';
+
+            $('#modalCanal').modal('hide');
+            $('#modalNuevaDerivacion').modal('show');
+        });
+    };
+
+    $scope.saveDeri = function () {
+        var data = {
+            nombrederivacion: $scope.nombrederi,
+            idcanal: $scope.id_canal,
+            observacion: $scope.observacionDeri
+        };
+        $http.post(API_URL + 'derivaciones', data ).success(function (response) {
+            $scope.initLoad();
+            // $('#modalNuevaToma2').modal('hide');
+            $('#modalNuevaDerivacion').modal('hide');
+            $scope.message = 'Se insertó correctamente la Derivacion';
+            $('#modalMessage').modal('show');
+            setTimeout(function () {
+                $('#modalMessage').modal('hide');
+            }, 500);
+            console.log($scope.aux_calles);
+            $scope.showModalActionDerivaciones($scope.derivaciones);
+
+
+        }).error(function (res) {
+        });
+    };
+
 
     $scope.initLoad();
-
 });
 
 

@@ -31,6 +31,15 @@ class CanallController extends Controller
 
     }
 
+    public function getCanal()
+    {
+        return Canal::orderBy('nombrecanal', 'asc')->get();
+
+    }
+
+    public function getCanalesById($id){
+        return Canal::with('derivacion')->where('idcalle', $id)->orderBy('nombrecanal')->get();
+    }
 
     public function getCalles()
     {

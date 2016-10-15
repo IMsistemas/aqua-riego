@@ -45,6 +45,11 @@ class BarrioController extends Controller
         return Barrio::with('calle')->orderBy('nombrebarrio', 'asc')->get();
     }
 
+    public function getBarrio()
+    {
+        return Barrio::orderBy('nombrebarrio', 'asc')->get();
+    }
+
     public function getBarrio_ID($id)
     {
         return Barrio::where('idbarrio', $id)->orderBy('nombrebarrio', 'asc')->get();

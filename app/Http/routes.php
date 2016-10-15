@@ -116,7 +116,23 @@ Route::get('barrio/llenar_tabla/{data}', 'Sectores\BarrioController@llenar_tabla
 
 Route::get('barrio/calles/{id}', 'Tomas\CalleController@getCallesById');
 
+Route::get('barrio/canales/{id}', 'Tomas\CanallController@getCanalesById');
+
+Route::get('barrio/derivaciones/{id}', 'Tomas\DerivacionesController@getDerivacionesById');
+
 Route::get('barrio/getBarrios', 'Sectores\BarrioController@getBarrios');
+
+Route::get('barrio/getBarrio', 'Sectores\BarrioController@getBarrio');
+
+Route::get('barrio/getCalle', 'Tomas\CalleController@getCalle');
+
+Route::get('barrio/getLastIDCanal', 'Tomas\CanallController@getLastID');
+
+Route::get('barrio/getCanal', 'Tomas\CanallController@getCanal');
+
+Route::get('barrio/getLastIDDerivaciones', 'Tomas\DerivacionesController@getLastID');
+
+
 
 Route::get('barrio/getBarrio_ID/{data}', 'Sectores\BarrioController@getBarrio_ID');
 
@@ -130,6 +146,9 @@ Route::get('barrio/getLastID', 'Sectores\BarrioController@getLastID');
 
 Route::get('barrio/saveBarrio', 'Sectores\BarrioController@getLastID');
 
+Route::post('barrio/editar_canales', 'Tomas\CanallController@editar_canal');
+
+Route::post('barrio/editar_calle', 'Tomas\CalleController@editar_calle');
 
 Route::post('barrio/editar_Barrio', 'Sectores\BarrioController@editar_barrio');
 

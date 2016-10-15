@@ -27,6 +27,11 @@ class CalleController extends Controller
         return Calle::with('canales')->orderBy('nombrecalle', 'asc')->get();
     }
 
+    public function getCalle()
+    {
+        return Calle::orderBy('nombrecalle', 'asc')->get();
+    }
+
     public function getCallesById($id){
         return Calle::with('canales')->where('idbarrio', $id)->orderBy('nombrecalle')->get();
     }

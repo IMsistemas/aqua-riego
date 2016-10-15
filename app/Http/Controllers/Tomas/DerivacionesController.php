@@ -28,6 +28,10 @@ class DerivacionesController extends Controller
         return Derivacion::orderBy('nombrederivacion', 'asc')->get();
     }
 
+    public function getDerivacionesById($id){
+        return Derivaciones::where('idcanal', $id)->orderBy('nombrederivacion')->get();
+    }
+
 
     public function getCanales()
     {
