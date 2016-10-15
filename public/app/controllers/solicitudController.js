@@ -97,8 +97,6 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
             }
 
-
-
             $scope.solicitudes = list;
 
 

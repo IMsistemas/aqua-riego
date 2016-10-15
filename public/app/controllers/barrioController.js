@@ -164,9 +164,9 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $scope.message = 'Se insertó correctamente la Toma';
             $('#modalMessage').modal('show');
             if( $scope.aux1==1) {
-                setTimeout(function () {
+                /*setTimeout(function () {
                     $('#modalMessage').modal('hide');
-                }, 500);
+                }, 500);*/
                 $scope.showModalAction($scope.barrio);
             }
 
@@ -249,9 +249,9 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 $scope.idcalle_delete = 0;
                 $scope.message = 'Se elimino correctamente la Toma seleccionada...';
                 $('#modalMessage').modal('show');
-                setTimeout(function(){
+                /*setTimeout(function(){
                     $('#modalMessage').modal('hide');
-                }, 500);
+                }, 500);*/
                 $scope.showModalAction($scope.barrio);
 
             } else if(response.success == false && response.msg == 'exist_canales') {
@@ -270,9 +270,9 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $scope.message = 'Se editaron correctamente las Tomas';
             $('#modalMessage').modal('show');
 
-            setTimeout(function(){
+            /*setTimeout(function(){
                 $('#modalMessage').modal('hide');
-            }, 500);
+            }, 500);*/
             $scope.showModalAction($scope.barrio);
         });
     }
@@ -336,9 +336,9 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $('#modalNuevoCanal').modal('hide');
             $scope.message = 'Se insertó correctamente el Canal';
             $('#modalMessage').modal('show');
-                setTimeout(function () {
+                /*setTimeout(function () {
                     $('#modalMessage').modal('hide');
-                }, 500);
+                }, 500);*/
             console.log($scope.aux_calles);
                 $scope.showModalActionCanal($scope.canales);
 
@@ -358,9 +358,9 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $scope.message = 'Se editaron correctamente los Canales';
             $('#modalMessage').modal('show');
 
-            setTimeout(function(){
+            /*setTimeout(function(){
                 $('#modalMessage').modal('hide');
-            }, 500);
+            }, 500);*/
             $scope.showModalActionCanal($scope.canales);
         });
     }
@@ -380,9 +380,9 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 $scope.idcanal_delete = 0;
                 $scope.message = 'Se elimino correctamente el Canal seleccionado...';
                 $('#modalMessage').modal('show');
-                setTimeout(function(){
+                /*setTimeout(function(){
                     $('#modalMessage').modal('hide');
-                }, 500);
+                }, 500);*/
                 $scope.showModalActionCanal($scope.canales);
 
             } else if(response.success == false && response.msg == 'exist_derivacion') {
@@ -441,9 +441,9 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $('#modalNuevaDerivacion').modal('hide');
             $scope.message = 'Se insertó correctamente la Derivacion';
             $('#modalMessage').modal('show');
-            setTimeout(function () {
+            /*setTimeout(function () {
                 $('#modalMessage').modal('hide');
-            }, 500);
+            }, 500);*/
             console.log($scope.aux_calles);
             $scope.showModalActionDerivaciones($scope.derivaciones);
 

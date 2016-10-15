@@ -21,6 +21,7 @@ app.controller('canallController', function($scope, $http, API_URL) {
                 array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
             }
             $scope.calless = array_temp;
+            $scope.t_calle = 0;
         });
     };
 

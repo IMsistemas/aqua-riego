@@ -248,7 +248,7 @@
             </div>
         </div>
 
-        <div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalMessage" style="z-index: 99999;">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header modal-header-success">
@@ -262,7 +262,7 @@
             </div>
         </div>
 
-        <div class="modal fade" tabindex="-1" role="dialog" id="modalMessageError">
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalMessageError" style="z-index: 99999;">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header modal-header-danger">
