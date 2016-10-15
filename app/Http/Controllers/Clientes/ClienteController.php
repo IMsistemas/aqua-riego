@@ -6,6 +6,7 @@ use App\Modelos\Clientes\Cliente;
 use App\Modelos\Configuraciones\Configuracion;
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Solicitud\Solicitud;
+use App\Modelos\Solicitud\SolicitudCambioNombre;
 use App\Modelos\Solicitud\SolicitudOtro;
 use App\Modelos\Solicitud\SolicitudRiego;
 use App\Modelos\Tarifas\Area;
@@ -49,6 +50,8 @@ class ClienteController extends Controller
             $max = Terreno::max('idterreno');
         } else if ($table->name == 'solicitudotro') {
             $max = SolicitudOtro::max('idsolicitudotro');
+        } else if ($table->name == 'solicitudcambionombre') {
+            $max = SolicitudCambioNombre::max('idsolicitudcambionombre');
         }
 
         if ($max != null){

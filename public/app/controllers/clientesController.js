@@ -319,6 +319,20 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     };
 
     /*
+     *  GET DATA FOR SOLICITUD CAMBIO DE NOMBRE--------------------------------------------------------
+     */
+
+    $scope.getLastIDSetNombre = function () {
+        var table = {
+            name: 'solicitudcambionombre'
+        };
+
+        $http.get(API_URL + 'cliente/getLastID/' + JSON.stringify(table)).success(function(response){
+            $scope.num_solicitud_setnombre = response.id;
+        });
+    };
+
+    /*
      *  SHOW MODAL ACTION-------------------------------------------------------------------
      */
 
@@ -366,7 +380,24 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $('#modalActionOtro').modal('show');
     };
 
+    $scope.actionSetName = function () {
 
+        $scope.getLastIDSetNombre();
+
+        $scope.t_fecha_setnombre = $scope.nowDate();
+
+        $scope.h_codigocliente_setnombre = $scope.objectAction.codigocliente;
+        $scope.documentoidentidad_cliente_setnombre = $scope.objectAction.documentoidentidad;
+        $scope.nom_cliente_setnombre = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
+        $scope.direcc_cliente_setnombre = $scope.objectAction.direcciondomicilio;
+        $scope.telf_cliente_setnombre = $scope.objectAction.telefonoprincipaldomicilio;
+        $scope.celular_cliente_setnombre = $scope.objectAction.celular;
+        $scope.telf_trab_cliente_setnombre = $scope.objectAction.telefonoprincipaltrabajo;
+
+        $scope.t_observacion_riego = '';
+
+        $('#modalActionSetNombre').modal('show');
+    };
 
     $scope.saveSolicitudRiego = function () {
 
