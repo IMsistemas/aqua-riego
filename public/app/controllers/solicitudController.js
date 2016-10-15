@@ -9,6 +9,7 @@ app.filter('formatDate', function(){
 app.controller('solicitudController', function($scope, $http, API_URL) {
 
     $scope.solicitudes = [];
+    $scope.idsolicitud = 0;
 
     $scope.estados = [
         { id: 3, name: 'Todos' },
@@ -73,7 +74,35 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.showModalProcesar = function(solicitud) {
+        $scope.num_solicitud_process = solicitud.no_solicitud;
+        $scope.cliente_process = solicitud.cliente;
+        $scope.tipo_process = solicitud.tipo;
 
+        $scope.idsolicitud = solicitud.no_solicitud;
+
+        $('#modalProcesar').modal('show');
+    };
+
+    $scope.procesarSolicitud = function () {
+        var url = API_URL + 'solicitud/' + $scope.idsolicitud;
+
+        var data = {
+            idsolicitud: $scope.idsolicitud
+        }
+
+        $http.put(url, data ).success(function (response) {
+            $scope.initLoad();
+
+            $scope.idsolicitud = 0;
+            $('#modalProcesar').modal('hide');
+            $scope.message = 'Se proceso correctamente la solicitud seleccionada...';
+            $('#modalMessage').modal('show');
+
+        }).error(function (res) {
+
+        });
+    };
 
     $scope.initLoad();
 });

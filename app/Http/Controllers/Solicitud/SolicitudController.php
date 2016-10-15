@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Solicitud;
 
+use App\Modelos\Solicitud\Solicitud;
 use App\Modelos\Solicitud\SolicitudOtro;
 use App\Modelos\Solicitud\SolicitudRiego;
 use Illuminate\Http\Request;
@@ -83,7 +84,14 @@ class SolicitudController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $solicitud = Solicitud::find($id);
+
+        $solicitud->estaprocesada = true;
+        $solicitud->fechaprocesada = date('Y-m-d');
+
+        $solicitud->save();
+
+        return response()->json(['success' => true]);
     }
 
     /**
