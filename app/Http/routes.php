@@ -74,6 +74,8 @@ Route::resource('/tarifa', 'Tarifas\TarifaController');
 
 /*===================================Cliente======================================================*/
 
+Route::get('cliente/getClienteByIdentify/{idcliente}', 'Clientes\ClienteController@getClienteByIdentify');
+
 Route::get('cliente/getIdentifyClientes/{idcliente}', 'Clientes\ClienteController@getIdentifyClientes');
 
 Route::get('cliente/getTerrenosByCliente/{idcliente}', 'Clientes\ClienteController@getTerrenosByCliente');
@@ -101,6 +103,8 @@ Route::get('cliente/getClientes', 'Clientes\ClienteController@getClientes');
 Route::post('cliente/storeSolicitudRiego', 'Clientes\ClienteController@storeSolicitudRiego');
 
 Route::post('cliente/storeSolicitudOtro', 'Clientes\ClienteController@storeSolicitudOtro');
+
+Route::post('cliente/storeSolicitudSetName', 'Clientes\ClienteController@storeSolicitudSetName');
 
 Route::resource('/cliente', 'Clientes\ClienteController');
 

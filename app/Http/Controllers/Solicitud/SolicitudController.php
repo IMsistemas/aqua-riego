@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Solicitud;
 
 use App\Modelos\Solicitud\Solicitud;
+use App\Modelos\Solicitud\SolicitudCambioNombre;
 use App\Modelos\Solicitud\SolicitudOtro;
 use App\Modelos\Solicitud\SolicitudRiego;
 use Illuminate\Http\Request;
@@ -29,7 +30,9 @@ class SolicitudController extends Controller
 
         $solicitudotro = SolicitudOtro::with('cliente')->orderBy('fechasolicitud', 'desc')->get();
 
-        return response()->json(['riego' => $solicitudriego, 'otro' => $solicitudotro]);
+        $solicitudsetname = SolicitudCambioNombre::with('cliente')->orderBy('fechasolicitud', 'desc')->get();
+
+        return response()->json(['riego' => $solicitudriego, 'otro' => $solicitudotro, 'setname' => $solicitudsetname]);
     }
 
     /**

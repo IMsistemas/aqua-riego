@@ -715,7 +715,7 @@
                                                         <select class="form-control"
                                                                 name="t_ident_new_client_setnombre" id="t_ident_new_client_setnombre"
                                                                 ng-model="t_ident_new_client_setnombre" ng-options="value.id as value.label for value in clientes_setN"
-                                                                ng-change=""></select>
+                                                                ng-change="getClienteByIdentify()"></select>
                                                     </div>
 
                                                 </div>
@@ -748,7 +748,7 @@
                                     <div class="col-xs-12 form-group" style="margin-top: -15px;">
                                         <label for="t_derivacion" class="col-sm-2 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Observación:</label>
                                         <div class="col-sm-10 col-xs-12">
-                                            <textarea class="form-control" id="t_observacion_riego" ng-model="t_observacion_riego" rows="2"></textarea>
+                                            <textarea class="form-control" id="t_observacion_setnombre" ng-model="t_observacion_setnombre" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -761,10 +761,10 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-success" ng-click="saveSolicitudRiego()" ng-disabled="formSetNombre.$invalid">
+                            <button type="button" class="btn btn-success" ng-click="saveSolicitudSetName()" ng-disabled="formSetNombre.$invalid">
                                 Guardar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-primary" ng-click="processSolicitud()" ng-disabled="formSetNombre.$invalid">
+                            <button type="button" class="btn btn-primary" ng-click="" ng-disabled="formSetNombre.$invalid">
                                 Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                             </button>
                         </div>

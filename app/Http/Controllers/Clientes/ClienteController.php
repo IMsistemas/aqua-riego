@@ -79,6 +79,13 @@ class ClienteController extends Controller
                         ->orderBy('documentoidentidad', 'asc')->get();
     }
 
+    public function getClienteByIdentify($idcliente)
+    {
+        $cliente = json_decode($idcliente);
+
+        return Cliente::where('codigocliente', $cliente->codigocliente)->get();
+    }
+
     /**
      * Obtener los barrios ordenados ascendentemente
      *
@@ -233,6 +240,21 @@ class ClienteController extends Controller
         $solicitudriego->descripcion = $request->input('observacion');
 
         $result = $solicitudriego->save();
+
+        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
+    }
+
+    public function storeSolicitudSetName(Request $request)
+    {
+        $solicitudsetname = new SolicitudCambioNombre();
+        $solicitudsetname->codigocliente = $request->input('codigocliente_old');
+        $solicitudsetname->codigonuevocliente = $request->input('codigocliente_new');
+        $solicitudsetname->idterreno = $request->input('idterreno');
+        $solicitudsetname->fechasolicitud = date('Y-m-d');
+        $solicitudsetname->estaprocesada = false;
+        $solicitudsetname->observacion = $request->input('observacion');
+
+        $result = $solicitudsetname->save();
 
         return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
     }

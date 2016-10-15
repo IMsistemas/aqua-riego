@@ -357,6 +357,8 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
     $scope.searchInfoTerreno = function () {
 
+        console.log($scope.list_terrenos);
+
         var longitud = ($scope.list_terrenos).length;
 
         for (var i = 0; i < longitud; i++){
@@ -383,8 +385,6 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $http.get(API_URL + 'cliente/getIdentifyClientes/' + JSON.stringify(idcliente)).success(function(response){
             console.log(response);
 
-            $scope.list_terrenos = response;
-
             var longitud = response.length;
             var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
@@ -397,6 +397,24 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             $scope.clientes_setN = array_temp;
             //$('.selectpicker').selectpicker('refresh');
             $scope.t_ident_new_client_setnombre = 0;
+        });
+    };
+
+    $scope.getClienteByIdentify = function () {
+        var idcliente = {
+            codigocliente: $scope.t_ident_new_client_setnombre
+        };
+
+        $http.get(API_URL + 'cliente/getClienteByIdentify/' + JSON.stringify(idcliente)).success(function(response){
+            console.log(response);
+
+            $scope.h_new_codigocliente_setnombre = response[0].codigocliente;
+            $scope.nom_new_cliente_setnombre = response[0].apellido + ' ' + response[0].nombre;
+            $scope.direcc_new_cliente_setnombre = response[0].direcciondomicilio;
+            $scope.telf_new_cliente_setnombre = response[0].telefonoprincipaldomicilio;
+            $scope.celular_new_cliente_setnombre = response[0].celular;
+            $scope.telf_trab_new_cliente_setnombre = response[0].telefonoprincipaltrabajo;
+
         });
     };
 
@@ -510,7 +528,31 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             if(response.success == true){
                 $scope.initLoad();
                 $('#modalActionOtro').modal('hide');
-                $scope.message = 'Se ha procesado la solicitud correctamente...'
+                $scope.message = 'Se ha ingresado la solicitud correctamente...'
+                $('#modalMessage').modal('show');
+            }
+
+        });
+
+    };
+
+    $scope.saveSolicitudSetName = function () {
+
+        var solicitud = {
+            //fechacreacion: convertDatetoDB($scope.t_fecha_process),
+            codigocliente_new: $scope.h_new_codigocliente_setnombre,
+            codigocliente_old: $scope.h_codigocliente_setnombre,
+            idterreno: $scope.t_terrenos_setnombre,
+            observacion: $scope.t_observacion_setnombre
+            //idsolicitud: $scope.num_solicitud
+        };
+
+        $http.post(API_URL + 'cliente/storeSolicitudSetName', solicitud).success(function(response){
+
+            if(response.success == true){
+                $scope.initLoad();
+                $('#modalActionSetNombre').modal('hide');
+                $scope.message = 'Se ha ingresado la solicitud correctamente...'
                 $('#modalMessage').modal('show');
             }
 

@@ -73,6 +73,32 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
             }
 
+            var setnombre = response.setname;
+
+            if (setnombre.length > 0) {
+
+                var length_setnombre = setnombre.length;
+
+                for (var i = 0; i < length_setnombre; i++) {
+                    var object_setnombre = {
+                        no_solicitud : setnombre[i].idsolicitud,
+                        fecha: setnombre[i].fechasolicitud,
+                        cliente: setnombre[i].cliente.apellido + ' ' + setnombre[i].cliente.nombre,
+                        direccion: setnombre[i].cliente.direcciondomicilio,
+                        telefono: setnombre[i].cliente.telefonoprincipaldomicilio,
+                        tipo: 'Cambio de Nombre',
+                        estado: setnombre[i].estaprocesada,
+
+                        fechaprocesada: setnombre[i].fechaprocesada
+                    };
+
+                    list.push(object_setnombre);
+                }
+
+            }
+
+
+
             $scope.solicitudes = list;
 
 
