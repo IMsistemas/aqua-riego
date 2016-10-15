@@ -74,6 +74,8 @@ Route::resource('/tarifa', 'Tarifas\TarifaController');
 
 /*===================================Cliente======================================================*/
 
+Route::get('cliente/getIdentifyClientes/{idcliente}', 'Clientes\ClienteController@getIdentifyClientes');
+
 Route::get('cliente/getTerrenosByCliente/{idcliente}', 'Clientes\ClienteController@getTerrenosByCliente');
 
 Route::get('cliente/getLastID/{table}', 'Clientes\ClienteController@getLastID');

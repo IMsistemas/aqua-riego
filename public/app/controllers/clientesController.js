@@ -375,6 +375,31 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
     };
 
+    $scope.getIdentifyClientes = function () {
+        var idcliente = {
+            codigocliente: $scope.objectAction.codigocliente
+        };
+
+        $http.get(API_URL + 'cliente/getIdentifyClientes/' + JSON.stringify(idcliente)).success(function(response){
+            console.log(response);
+
+            $scope.list_terrenos = response;
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].documentoidentidad, id: response[i].codigocliente})
+            }
+
+            //$('.selectpicker').selectpicker('refresh');
+            //$('.selectpicker').selectpicker();
+
+            $scope.clientes_setN = array_temp;
+            //$('.selectpicker').selectpicker('refresh');
+            $scope.t_ident_new_client_setnombre = 0;
+        });
+    };
+
     /*
      *  SHOW MODAL ACTION-------------------------------------------------------------------
      */
@@ -425,6 +450,8 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
     $scope.actionSetName = function () {
         $scope.getTerrenosByCliente();
+
+        $scope.getIdentifyClientes();
         $scope.getLastIDSetNombre();
 
         $scope.t_fecha_setnombre = $scope.nowDate();
@@ -511,6 +538,14 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
 });
 
+$(function(){
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    /*$('.selectpicker').selectpicker('refresh');
+    $('.selectpicker').selectpicker();*/
+
+});
 
 function convertDatetoDB(now, revert){
     if (revert == undefined){

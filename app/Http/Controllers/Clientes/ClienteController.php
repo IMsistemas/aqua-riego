@@ -71,6 +71,14 @@ class ClienteController extends Controller
                         ->where('codigocliente', $cliente->codigocliente)->get();
     }
 
+    public function getIdentifyClientes($idcliente)
+    {
+        $cliente = json_decode($idcliente);
+
+        return Cliente::where('codigocliente', '!=', $cliente->codigocliente)
+                        ->orderBy('documentoidentidad', 'asc')->get();
+    }
+
     /**
      * Obtener los barrios ordenados ascendentemente
      *
@@ -227,17 +235,6 @@ class ClienteController extends Controller
         $result = $solicitudriego->save();
 
         return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

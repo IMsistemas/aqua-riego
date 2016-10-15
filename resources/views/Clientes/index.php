@@ -9,6 +9,9 @@
 
         <link href="<?= asset('css/bootstrap.min.css') ?>" rel="stylesheet">
         <link href="<?= asset('css/font-awesome.min.css') ?>" rel="stylesheet">
+
+        <link href="<?= asset('css/bootstrap-select.min.css') ?>" rel="stylesheet">
+
         <link href="<?= asset('css/index.css') ?>" rel="stylesheet">
         <link href="<?= asset('css/style_generic_app.css') ?>" rel="stylesheet">
 
@@ -705,8 +708,16 @@
                                             <legend style="font-size: 16px; font-weight: bold;">Datos del nuevo Cliente</legend>
 
                                             <div class="col-xs-12" style="padding: 0;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">RUC/CI:</span> {{documentoidentidad_new_cliente_setnombre}}
+                                                <div class="col-sm-6 col-xs-12 form-group">
+
+                                                    <label for="t_terreno" class="col-sm-4 col-xs-12 control-label">RUC/CI:</label>
+                                                    <div class="col-sm-8 col-xs-12" style="padding-top: 10px;">
+                                                        <select class="form-control"
+                                                                name="t_ident_new_client_setnombre" id="t_ident_new_client_setnombre"
+                                                                ng-model="t_ident_new_client_setnombre" ng-options="value.id as value.label for value in clientes_setN"
+                                                                ng-change=""></select>
+                                                    </div>
+
                                                 </div>
                                                 <div class="col-sm-6 col-xs-12">
                                                     <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_new_cliente_setnombre}}
@@ -784,6 +795,8 @@
     <script src="<?= asset('app/lib/angular/angular-route.min.js') ?>"></script>
     <script src="<?= asset('js/jquery.min.js') ?>"></script>
     <script src="<?= asset('js/bootstrap.min.js') ?>"></script>
+
+    <script src="<?= asset('js/bootstrap-select.min.js') ?>"></script>
 
     <script src="<?= asset('app/app.js') ?>"></script>
     <script src="<?= asset('app/controllers/clientesController.js') ?>"></script>
