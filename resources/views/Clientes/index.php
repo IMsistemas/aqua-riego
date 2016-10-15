@@ -38,18 +38,18 @@
             </div>
 
             <div class="col-xs-12">
-                <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
+                <table class="table table-responsive table-striped table-hover table-condensed">
                     <thead class="bg-primary">
                     <tr>
-                        <th style="width: 10%;">CI / RUC</th>
-                        <th style="width: 10%;">Fecha Ingreso</th>
-                        <th style="">Razón Social</th>
-                        <th style="width: 10%;">Celular</th>
-                        <th style="width: 10%;">Telf. Domicilio</th>
-                        <th style="width: 10%;">Telf. Trabajo</th>
-                        <th style="width: 10%;">Dirección</th>
-                        <th style="width: 6%;">Estado</th>
-                        <th style="width: 10%;">Acciones</th>
+                        <th class="text-center" style="width: 10%;">CI / RUC</th>
+                        <th class="text-center" style="width: 10%;">Fecha Ingreso</th>
+                        <th class="text-center" style="">Razón Social</th>
+                        <th class="text-center" style="width: 8%;">Celular</th>
+                        <th class="text-center" style="width: 10%;">Telf. Domicilio</th>
+                        <th class="text-center" style="width: 9%;">Telf. Trabajo</th>
+                        <th class="text-center" style="width: 10%;">Dirección</th>
+                        <th class="text-center" style="width: 7%;">Estado</th>
+                        <th class="text-center" style="width: 16%;">Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -67,7 +67,7 @@
                             <td ng-if="item.estaactivo == false">
                                 <span class="label label-warning" style="font-size: 14px !important;">Inactivo</span>
                             </td>
-                            <td>
+                            <td  class="text-center">
                                 <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfoCliente(item)">
                                     <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
                                 </button>
