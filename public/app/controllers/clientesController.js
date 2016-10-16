@@ -534,8 +534,14 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
             if(response.success == true){
                 $scope.initLoad();
-                $('#modalActionOtro').modal('hide');
-                $scope.message = 'Se ha ingresado la solicitud correctamente...'
+                //$('#modalActionOtro').modal('hide');
+
+                $scope.idsolicitud_to_process = response.idsolicitud;
+
+                $('#btn-save-otro').prop('disabled', true);
+                $('#btn-process-otro').prop('disabled', false);
+
+                $scope.message = 'Se ha ingresado la solicitud correctamente...';
                 $('#modalMessage').modal('show');
             }
 
@@ -558,8 +564,14 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
             if(response.success == true){
                 $scope.initLoad();
-                $('#modalActionSetNombre').modal('hide');
-                $scope.message = 'Se ha ingresado la solicitud correctamente...'
+                //$('#modalActionSetNombre').modal('hide');
+
+                $scope.idsolicitud_to_process = response.idsolicitud;
+
+                $('#btn-save-setnombre').prop('disabled', true);
+                $('#btn-process-setnombre').prop('disabled', false);
+
+                $scope.message = 'Se ha ingresado la solicitud correctamente...';
                 $('#modalMessage').modal('show');
             }
 

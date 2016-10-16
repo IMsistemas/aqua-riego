@@ -244,7 +244,10 @@ class ClienteController extends Controller
 
         $result = $solicitudriego->save();
 
-        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
+        $max_idsolicitud = SolicitudOtro::where('idsolicitudotro', $solicitudriego->idsolicitudotro)->get();
+
+        return ($result) ? response()->json(['success' => true, 'idsolicitud' => $max_idsolicitud[0]->idsolicitud]) :
+                                                                                response()->json(['success' => false]);
     }
 
     public function storeSolicitudSetName(Request $request)
@@ -259,7 +262,11 @@ class ClienteController extends Controller
 
         $result = $solicitudsetname->save();
 
-        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
+        $max_idsolicitud = SolicitudCambioNombre::where('idsolicitudcambionombre', $solicitudsetname->idsolicitudcambionombre)
+                                                    ->get();
+
+        return ($result) ? response()->json(['success' => true, 'idsolicitud' => $max_idsolicitud[0]->idsolicitud]) :
+                                                                                    response()->json(['success' => false]);
     }
 
     /**
