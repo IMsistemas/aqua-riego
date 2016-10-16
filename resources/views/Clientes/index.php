@@ -490,18 +490,18 @@
                                     </div>
                                 </div>
 
-
-
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-success" ng-click="saveSolicitudRiego()" ng-disabled="formProcess.$invalid">
+                            <button type="button" class="btn btn-success" id="btn-save-riego"
+                                    ng-click="saveSolicitudRiego()" ng-disabled="formProcess.$invalid">
                                 Guardar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-primary" ng-click="processSolicitud()" ng-disabled="formProcess.$invalid">
+                            <button type="button" class="btn btn-primary" id="btn-process-riego"
+                                    ng-click="procesarSolicitud()" disabled>
                                 Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -594,7 +594,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="modal fade" tabindex="-1" role="dialog" id="modalActionSetNombre">
                 <div class="modal-dialog" role="document" style="width: 60%;">

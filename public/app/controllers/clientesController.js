@@ -9,6 +9,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
     $scope.clientes = [];
     $scope.codigocliente_del = 0;
+    $scope.idsolicitud_to_process = 0;
     $scope.objectAction = null;
 
     $scope.list_terrenos = [];
@@ -507,8 +508,14 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
             if(response.success == true){
                 $scope.initLoad();
-                $('#modalActionRiego').modal('hide');
-                $scope.message = 'Se ha procesado la solicitud correctamente...'
+                //$('#modalActionRiego').modal('hide');
+
+                $scope.idsolicitud_to_process = response.idsolicitud;
+
+                $('#btn-save-riego').prop('disabled', true);
+                $('#btn-process-riego').prop('disabled', false);
+
+                $scope.message = 'Se ha ingresado la solicitud correctamente...';
                 $('#modalMessage').modal('show');
             }
 
@@ -558,6 +565,26 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
         });
 
+    };
+
+    $scope.procesarSolicitud = function (id_btn) {
+        var url = API_URL + 'cliente/processSolicitud/' + $scope.idsolicitud_to_process;
+
+        var data = {
+            idsolicitud: $scope.idsolicitud_to_process
+        };
+
+        $http.put(url, data ).success(function (response) {
+            $scope.idsolicitud_to_process = 0;
+
+            $('#' + id_btn).prop('disabled', true);
+
+            $scope.message = 'Se procesó correctamente la solicitud...';
+            $('#modalMessage').modal('show');
+
+        }).error(function (res) {
+
+        });
     };
 
     $scope.initLoad();

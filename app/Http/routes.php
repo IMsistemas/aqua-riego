@@ -106,6 +106,8 @@ Route::post('cliente/storeSolicitudOtro', 'Clientes\ClienteController@storeSolic
 
 Route::post('cliente/storeSolicitudSetName', 'Clientes\ClienteController@storeSolicitudSetName');
 
+Route::put('cliente/processSolicitud/{idsolicitud}', 'Clientes\ClienteController@processSolicitud');
+
 Route::resource('/cliente', 'Clientes\ClienteController');
 
 

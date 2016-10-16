@@ -109,7 +109,7 @@ class ClienteController extends Controller
     /**
      * Obtener las tomas de un canal ordenadas ascendentemente
      *
-     * @param $idcanal
+     * @param $idbarrio
      * @return mixed
      */
     public function getTomas($idbarrio)
@@ -228,7 +228,10 @@ class ClienteController extends Controller
 
         $result = $solicitudriego->save();
 
-        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
+        $max_idsolicitud = SolicitudRiego::where('idsolicitudriego', $solicitudriego->idsolicitudriego)->get();
+
+        return ($result) ? response()->json(['success' => true, 'idsolicitud' => $max_idsolicitud[0]->idsolicitud]) :
+                                                                                response()->json(['success' => false]);
     }
 
     public function storeSolicitudOtro(Request $request)
@@ -284,6 +287,18 @@ class ClienteController extends Controller
         $cliente->telefonosecundariotrabajo = $request->input('telfsecundarioemp');
 
         $cliente->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function processSolicitud(Request $request, $id)
+    {
+        $solicitud = Solicitud::find($id);
+
+        $solicitud->estaprocesada = true;
+        $solicitud->fechaprocesada = date('Y-m-d');
+
+        $solicitud->save();
 
         return response()->json(['success' => true]);
     }
