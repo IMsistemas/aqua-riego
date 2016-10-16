@@ -262,11 +262,12 @@ class ClienteController extends Controller
 
         $result = $solicitudsetname->save();
 
-        $max_idsolicitud = SolicitudCambioNombre::where('idsolicitudcambionombre', $solicitudsetname->idsolicitudcambionombre)
-                                                    ->get();
+        /*$max_idsolicitud = SolicitudCambioNombre::where('idsolicitudcambionombre', $solicitudsetname->idsolicitudcambionombre)
+                                                    ->get();*/
 
-        return ($result) ? response()->json(['success' => true, 'idsolicitud' => $max_idsolicitud[0]->idsolicitud]) :
-                                                                                    response()->json(['success' => false]);
+        return ($result) ? response()->json(['success' => true,
+                                            'idsolicitud' => $solicitudsetname->idsolicitudcambionombre]) :
+                            response()->json(['success' => false]);
     }
 
     /**
@@ -305,6 +306,21 @@ class ClienteController extends Controller
         $solicitud->estaprocesada = true;
         $solicitud->fechaprocesada = date('Y-m-d');
 
+        $solicitud->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function processSolicitudSetName(Request $request, $id)
+    {
+        $solicitud = SolicitudCambioNombre::find($id);
+
+        $terreno = Terreno::find($solicitud->idterreno);
+        $terreno->codigocliente = $solicitud->codigonuevocliente;
+        $terreno->save();
+
+        $solicitud->estaprocesada = true;
+        $solicitud->fechaprocesada = date('Y-m-d');
         $solicitud->save();
 
         return response()->json(['success' => true]);

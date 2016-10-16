@@ -580,7 +580,13 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     };
 
     $scope.procesarSolicitud = function (id_btn) {
-        var url = API_URL + 'cliente/processSolicitud/' + $scope.idsolicitud_to_process;
+        var url = '';
+
+        if (id_btn == 'btn-process-setnombre'){
+            url = API_URL + 'cliente/processSolicitudSetName/' + $scope.idsolicitud_to_process;
+        } else {
+            url = API_URL + 'cliente/processSolicitud/' + $scope.idsolicitud_to_process;
+        }
 
         var data = {
             idsolicitud: $scope.idsolicitud_to_process

@@ -118,7 +118,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
         var data = {
             idsolicitud: $scope.idsolicitud
-        }
+        };
 
         $http.put(url, data ).success(function (response) {
             $scope.initLoad();

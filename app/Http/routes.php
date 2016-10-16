@@ -108,6 +108,8 @@ Route::post('cliente/storeSolicitudSetName', 'Clientes\ClienteController@storeSo
 
 Route::put('cliente/processSolicitud/{idsolicitud}', 'Clientes\ClienteController@processSolicitud');
 
+Route::put('cliente/processSolicitudSetName/{idsolicitud}', 'Clientes\ClienteController@processSolicitudSetName');
+
 Route::resource('/cliente', 'Clientes\ClienteController');
 
 
