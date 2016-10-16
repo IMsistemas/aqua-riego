@@ -97,6 +97,30 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
             }
 
+            var reparticion = response.reparticion;
+
+            if (reparticion.length > 0) {
+
+                var length_reparticion = reparticion.length;
+
+                for (var i = 0; i < length_reparticion; i++) {
+                    var object_reparticion = {
+                        no_solicitud : reparticion[i].idsolicitud,
+                        fecha: reparticion[i].fechasolicitud,
+                        cliente: reparticion[i].cliente.apellido + ' ' + reparticion[i].cliente.nombre,
+                        direccion: reparticion[i].cliente.direcciondomicilio,
+                        telefono: reparticion[i].cliente.telefonoprincipaldomicilio,
+                        tipo: 'Repartición',
+                        estado: reparticion[i].estaprocesada,
+
+                        fechaprocesada: reparticion[i].fechaprocesada
+                    };
+
+                    list.push(object_reparticion);
+                }
+
+            }
+
             $scope.solicitudes = list;
 
 
