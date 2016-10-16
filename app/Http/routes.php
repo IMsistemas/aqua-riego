@@ -112,6 +112,8 @@ Route::put('cliente/processSolicitud/{idsolicitud}', 'Clientes\ClienteController
 
 Route::put('cliente/processSolicitudSetName/{idsolicitud}', 'Clientes\ClienteController@processSolicitudSetName');
 
+Route::put('cliente/processSolicitudFraccion/{idsolicitud}', 'Clientes\ClienteController@processSolicitudFraccion');
+
 Route::resource('/cliente', 'Clientes\ClienteController');
 
 

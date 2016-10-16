@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clientes;
 
 use App\Modelos\Clientes\Cliente;
+use App\Modelos\Clientes\ClienteArriendo;
 use App\Modelos\Configuraciones\Configuracion;
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Solicitud\Solicitud;
@@ -263,9 +264,6 @@ class ClienteController extends Controller
 
         $result = $solicitudsetname->save();
 
-        /*$max_idsolicitud = SolicitudCambioNombre::where('idsolicitudcambionombre', $solicitudsetname->idsolicitudcambionombre)
-                                                    ->get();*/
-
         return ($result) ? response()->json(['success' => true,
                                             'idsolicitud' => $solicitudsetname->idsolicitudcambionombre]) :
                             response()->json(['success' => false]);
@@ -274,22 +272,19 @@ class ClienteController extends Controller
 
     public function storeSolicitudFraccion(Request $request)
     {
-        $solicitudsetname = new SolicitudReparticion();
-        $solicitudsetname->codigocliente = $request->input('codigocliente_old');
-        $solicitudsetname->codigonuevocliente = $request->input('codigocliente_new');
-        $solicitudsetname->idterreno = $request->input('idterreno');
-        $solicitudsetname->fechasolicitud = date('Y-m-d');
-        $solicitudsetname->estaprocesada = false;
-        $solicitudsetname->observacion = $request->input('observacion');
+        $solicitud = new SolicitudReparticion();
+        $solicitud->codigocliente = $request->input('codigocliente_old');
+        $solicitud->codigonuevocliente = $request->input('codigocliente_new');
+        $solicitud->idterreno = $request->input('idterreno');
+        $solicitud->fechasolicitud = date('Y-m-d');
+        $solicitud->estaprocesada = false;
+        $solicitud->observacion = $request->input('observacion');
+        $solicitud->nuevaarea = $request->input('area');
 
-        $result = $solicitudsetname->save();
-
-        /*$max_idsolicitud = SolicitudCambioNombre::where('idsolicitudcambionombre', $solicitudsetname->idsolicitudcambionombre)
-                                                    ->get();*/
+        $result = $solicitud->save();
 
         return ($result) ? response()->json(['success' => true,
-            'idsolicitud' => $solicitudsetname->idsolicitudcambionombre]) :
-            response()->json(['success' => false]);
+            'idsolicitud' => $solicitud->idsolicitudreparticion]) : response()->json(['success' => false]);
     }
 
 
@@ -346,6 +341,23 @@ class ClienteController extends Controller
         $solicitud->fechaprocesada = date('Y-m-d');
         $solicitud->save();
 
+        return response()->json(['success' => true]);
+    }
+
+    public function processSolicitudFraccion(Request $request, $id)
+    {
+        $solicitud = SolicitudReparticion::find($id);
+
+        $arriendo = new ClienteArriendo();
+        $arriendo->codigoclientearrendador = $solicitud->codigonuevocliente;
+        $arriendo->codigoclientearrendatario = $solicitud->codigocliente;
+        $arriendo->idterreno = $solicitud->idterreno;
+        $arriendo->areaarriendo = $solicitud->nuevaarea;
+        $arriendo->save();
+
+        $solicitud->estaprocesada = true;
+        $solicitud->fechaprocesada = date('Y-m-d');
+        $solicitud->save();
         return response()->json(['success' => true]);
     }
 

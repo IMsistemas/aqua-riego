@@ -653,8 +653,6 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     $scope.saveSolicitudFraccion = function () {
 
         var solicitud = {
-            //fechacreacion: convertDatetoDB($scope.t_fecha_process),
-
             codigocliente_new: $scope.h_new_codigocliente_fraccion,
             codigocliente_old: $scope.h_codigocliente_fraccion,
             idterreno: $scope.t_terrenos_fraccion,
@@ -664,14 +662,11 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             area: $scope.t_area_fraccion,
             caudal: $scope.caudal_new_fraccion,
             valoranual: $scope.valor_new_fraccion,
-
-
-            //idsolicitud: $scope.num_solicitud
         };
 
         console.log(solicitud);
 
-        /*$http.post(API_URL + 'cliente/storeSolicitudFraccion', solicitud).success(function(response){
+        $http.post(API_URL + 'cliente/storeSolicitudFraccion', solicitud).success(function(response){
 
             if(response.success == true){
                 $scope.initLoad();
@@ -679,14 +674,14 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
                 $scope.idsolicitud_to_process = response.idsolicitud;
 
-                $('#btn-save-riego').prop('disabled', true);
-                $('#btn-process-riego').prop('disabled', false);
+                $('#btn-save-fraccion').prop('disabled', true);
+                $('#btn-process-fraccion').prop('disabled', false);
 
                 $scope.message = 'Se ha ingresado la solicitud correctamente...';
                 $('#modalMessage').modal('show');
             }
 
-        });*/
+        });
 
     };
 
@@ -751,6 +746,8 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
         if (id_btn == 'btn-process-setnombre'){
             url = API_URL + 'cliente/processSolicitudSetName/' + $scope.idsolicitud_to_process;
+        } else if (id_btn == 'btn-process-fraccion') {
+            url = API_URL + 'cliente/processSolicitudFraccion/' + $scope.idsolicitud_to_process;
         } else {
             url = API_URL + 'cliente/processSolicitud/' + $scope.idsolicitud_to_process;
         }
@@ -773,7 +770,6 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     };
 
     $scope.initLoad();
-
 
     $scope.onlyCharasterAndSpace = function ($event) {
 
