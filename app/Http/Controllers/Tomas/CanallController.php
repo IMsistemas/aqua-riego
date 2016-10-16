@@ -25,20 +25,36 @@ class CanallController extends Controller
     }
 
 
+    public function getDerivacionesByCalle($id)
+    {
+        return Canal::with('derivacion')->where('idcalle', $id)->orderBy('nombrecanal')->get();
+    }
+
+    public function getCanalesByCalle($id)
+    {
+        return Canal::with('derivacion')->where('idcalle', $id)->orderBy('nombrecanal', 'asc')->get();
+    }
     public function getCanall()
     {
         return Canal::with('derivacion')->orderBy('nombrecanal', 'asc')->get();
-
     }
 
     public function getCanal()
     {
         return Canal::orderBy('nombrecanal', 'asc')->get();
-
     }
 
     public function getCanalesById($id){
-        return Canal::with('derivacion')->where('idcalle', $id)->orderBy('nombrecanal')->get();
+        return Canal::with('derivacion')->where('idcalle', $id)->orderBy('nombrecanal','asc')->get();
+    }
+
+    public function getCanalesByCalle1($id){
+        return Canal::where('idcalle', $id)->orderBy('nombrecanal', 'asc')->get();
+    }
+
+    public function getCanalesByBarrio($id)
+    {
+        return Calle::with('canal.derivacion')->where('idbarrio', $id)->orderBy('nombrecalle' , 'asc')->get();
     }
 
     public function getCalles()
@@ -51,15 +67,10 @@ class CanallController extends Controller
         return Barrio::orderBy('nombrebarrio', 'asc')->get();
     }
 
-
-
-
     public function getCalle()
     {
         return Calle::orderBy('nombrecalle', 'asc')->get();
     }
-
-
 
     public function getLastID()
     {
@@ -72,7 +83,6 @@ class CanallController extends Controller
         }
         return response()->json(['id' => $max_canal]);
     }
-
 
 
     public function editar_canal(Request $request)

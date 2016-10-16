@@ -24,14 +24,15 @@
             </div>
         </div>
 
+        <div class="col-sm-3">
+            <select id="s_barrio" class="form-control" ng-model="s_barrio" ng-change="FiltrarPorBarrio()"
+                    ng-options="value.id as value.label for value in barrioss"></select>
+        </div>
+
 
         <div class="col-sm-3">
-            <select id="t_calle" class="form-control" ng-model="t_calle"
+            <select id="s_calle" class="form-control" ng-model="s_calle" ng-change="FiltrarPorCalle()"
                     ng-options="value.id as value.label for value in calless"></select>
-        </div>
-        <div class="col-sm-3">
-            <select id="t_barrio" class="form-control" ng-model="t_barrio"
-                    ng-options="value.id as value.label for value in barrioss"></select>
         </div>
 
 

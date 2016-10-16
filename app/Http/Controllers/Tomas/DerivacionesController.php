@@ -28,8 +28,20 @@ class DerivacionesController extends Controller
         return Derivacion::orderBy('nombrederivacion', 'asc')->get();
     }
 
+    public function getDerivacionesByBarrio1($id)
+    {
+        return Calle::with('canal.derivacion')->where('idbarrio', $id)->orderBy('nombrecalle')->get();
+    }
+
     public function getDerivacionesById($id){
-        return Derivaciones::where('idcanal', $id)->orderBy('nombrederivacion')->get();
+        return Derivacion::where('idcanal', $id)->orderBy('nombrederivacion')->get();
+    }
+
+
+
+    public function getDerivacionesByBarrio($id){
+
+       return $calle = Calle::with('canal') ->where('idbarrio', $id)->orderBy('nombrecalle')->get();
     }
 
 

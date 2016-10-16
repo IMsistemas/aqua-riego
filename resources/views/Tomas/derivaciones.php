@@ -26,20 +26,22 @@
             </div>
         </div>
 
-
-
         <div class="col-sm-2">
-            <select id="t_canaless"  class="form-control" ng-model="t_canaless"
-                    ng-options="value.id as value.label for value in canaless"></select>
-        </div>
-        <div class="col-sm-2">
-            <select id="t_calle" class="form-control" ng-model="t_calle"
-                    ng-options="value.id as value.label for value in calless"></select>
-        </div>
-        <div class="col-sm-2">
-            <select id="t_barrio" class="form-control" ng-model="t_barrio"
+            <select id="s_barrio" class="form-control" ng-model="s_barrio" ng-change="FiltrarPorBarrio()"
                     ng-options="value.id as value.label for value in barrioss"></select>
         </div>
+
+        <div class="col-sm-2">
+            <select id="s_calle" class="form-control" ng-model="s_calle" ng-change="FiltrarPorCalle()"
+                    ng-options="value.id as value.label for value in calless"></select>
+        </div>
+
+        <div class="col-sm-2">
+            <select id="s_canaless"  class="form-control" ng-model="s_canaless" ng-change="FiltrarPorCanales()"
+                    ng-options="value.id as value.label for value in canaless"></select>
+        </div>
+
+
 
         <div class="col-sm-3 col-xs-12">
             <button type="button" class="btn btn-primary" style="float: right;" ng-click="viewModalAdd()">Nuevo  <span class="glyphicon glyphicon-plus" aria-hidden="true"></button>

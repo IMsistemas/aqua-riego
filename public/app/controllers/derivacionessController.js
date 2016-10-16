@@ -11,40 +11,50 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
     };
 
     $scope.FiltroCanal = function () {
-        $http.get(API_URL + 'derivaciones/getCanaless').success(function (response) {
+        /*$http.get(API_URL + 'derivaciones/getCanaless').success(function (response) {
             console.log(response);
             var longitud = response.length;
-            var array_temp = [{label: '--Canales--', id: 0}];
+            var array_temp = [{label: '--CANALES--', id: 0}];
             //var array_temp = [];
             for (var i = 0; i < longitud; i++) {
                 array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
             }
             $scope.canaless = array_temp;
-        });
+            $scope.s_canaless = 0;
+
+        });*/
+
+        $scope.canaless = [{label: '--CANALES--', id: 0}];
+        $scope.s_canaless = 0;
     };
 
     $scope.FiltroCalle = function () {
-        $http.get(API_URL + 'derivaciones/getCalles').success(function (response) {
+      /*  $http.get(API_URL + 'derivaciones/getCalles').success(function (response) {
             console.log(response);
             var longitud = response.length;
-            var array_temp = [{label: '--Tomas--', id: 0}];
+            var array_temp = [{label: '--TOMAS--', id: 0}];
             for (var i = 0; i < longitud; i++) {
                 array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
             }
             $scope.calless = array_temp;
-        });
+            $scope.s_calle = 0;
+        });*/
+        $scope.calless = [{label: '--TOMAS--', id: 0}];
+        $scope.s_calle = 0;
+
     };
 
     $scope.FiltroBarrio = function () {
         $http.get(API_URL + 'derivaciones/getBarrios').success(function (response) {
             console.log(response);
             var longitud = response.length;
-            var array_temp = [{label: '--Juntas Modulares--', id: 0}];
+            var array_temp = [{label: '--JUNTAS MODULARES--', id: 0}];
 
             for (var i = 0; i < longitud; i++) {
                 array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
             }
             $scope.barrioss = array_temp;
+            $scope.s_barrio = 0;
         });
     };
 
@@ -130,6 +140,85 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
             $('#modalMessage').modal('show');
         });
     };
+
+    $scope.FiltrarPorBarrio = function (){
+        $scope.FiltroCanal();
+        $http.get(API_URL + 'derivaciones/getCalleByBarrio/'+ $scope.s_barrio).success(function (response) {
+            var longitud = response.length;
+            var array_temp = [{label: '--TOMAS--', id: 0}];
+            for (var i = 0; i < longitud; i++) {
+                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
+            }
+            $scope.calless = array_temp;
+            $scope.s_calle = 0;
+        });
+        $scope.aux = $scope.s_barrio;
+        if($scope.aux > 0)
+        {
+            $http.get(API_URL + 'derivaciones/getDerivacionesByBarrio1/'+ $scope.aux).success(function(response) {
+                console.log(response);
+                //$scope.canals = response;
+                var array_temp = [];
+                for(var i = 0; i < response.length; i++){
+
+                    for(var j = 0; j < (response[i].canal).length; j++) {
+
+                        for (var k = 0; k < (response[i].canal[j].derivacion).length; k++)
+                        {
+                            array_temp.push(response[i].canal[j].derivacion[k]);
+                        }
+                    }
+                }
+                $scope.derivacions = array_temp;
+            });
+        }
+        else {  $scope.initLoad();
+        }
+    }
+
+    $scope.FiltrarPorCalle = function (){
+        $http.get(API_URL + 'derivaciones/getCanalesByCalle/'+ $scope.s_calle).success(function (response) {
+            var longitud = response.length;
+            var array_temp = [{label: '--CANALES--', id: 0}];
+            for (var i = 0; i < longitud; i++) {
+                array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
+            }
+            $scope.canaless = array_temp;
+            $scope.s_canaless = 0;
+        });
+
+        $scope.aux2 = $scope.s_calle;
+
+        if($scope.aux2 > 0)
+        {
+            $http.get(API_URL + 'derivaciones/getDerivacionesByCalle/'+ $scope.s_calle).success(function(response) {
+                console.log(response);
+                var array_temp = [];
+                for(var i = 0; i < response.length; i++){
+                    for(var j = 0; j < (response[i].derivacion).length; j++){
+                        array_temp.push((response[i].derivacion)[j]);
+                    }
+                }
+                $scope.derivacions = array_temp;
+            });
+        }
+        else {  $scope.FiltrarPorBarrio();
+        }
+    }
+
+    $scope.FiltrarPorCanales = function (){
+        $scope.aux2 = $scope.s_canaless;
+
+        if($scope.aux2 > 0)
+        {
+            $http.get(API_URL + 'derivaciones/getDerivacionesByCanal/'+ $scope.s_canaless).success(function(response) {
+                console.log(response);
+                $scope.derivacions = response;
+            });
+        }
+        else {  $scope.FiltrarPorCalle();
+        }
+    }
 
 
     $scope.initLoad();

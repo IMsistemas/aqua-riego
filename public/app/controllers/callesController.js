@@ -6,7 +6,6 @@ app.controller('callesController', function($scope, $http, API_URL) {
     $scope.initLoad = function () {
         $http.get(API_URL + 'calle/getCalles').success(function (response) {
             console.log(response);
-
             $scope.calles = response;
 
         });
@@ -85,7 +84,7 @@ app.controller('callesController', function($scope, $http, API_URL) {
         $scope.name_calle = item.nombrecalle;
         $scope.fecha_ingreso = item.fechaingreso;
 
-        var array_canal = item.canales;
+        var array_canal = item.canal;
         var text = '';
         var canales =[];
         for(var e  = 0; e < array_canal.length; e++){
@@ -124,9 +123,38 @@ app.controller('callesController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.FiltroCalle = function () {
+        $http.get(API_URL + 'calle/getBarrio').success(function (response) {
+            console.log(response);
+            var longitud = response.length;
+            var array_temp = [{label: '--JUNTAS MODULARES--', id: 0}];
+            for (var i = 0; i < longitud; i++) {
+                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+            }
+            $scope.barrioss = array_temp;
+            $scope.s_barrio = 0;
+        });
+    };
+
+    $scope.FiltrarPorBarrio = function (){
+        $scope.aux = 0;
+        $scope.aux = $scope.s_barrio;
+        if($scope.aux > 0)
+        {
+            $http.get(API_URL + 'calle/getCallesByBarrio/'+ $scope.aux).success(function(response) {
+            console.log(response);
+            $scope.calles = response;
+            });
+        }
+        else {  $scope.initLoad();
+        }
+    }
+
+
 
 
     $scope.initLoad();
+    $scope.FiltroCalle();
 
 
 

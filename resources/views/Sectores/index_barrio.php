@@ -312,7 +312,7 @@
                                             <td><input type="text" class="form-control" ng-model="item.nombrecalle"></td>
 
                                             <td>
-                                                <span ng-repeat="canal in item.canales">{{canal.nombrecanal}}; </span>
+                                                <span ng-repeat="canal in item.canal">{{canal.nombrecanal}}; </span>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDeleteCalle(item)">
@@ -478,7 +478,7 @@
 
                         <div class="modal-footer">
 
-                            <button type="button" class="btn btn-success" style="float: right; " ng-click="editarCalles()">Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span></button>
+                            <button type="button" class="btn btn-success" style="float: right; " ng-click="editarDeri()">Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span></button>
 
                         </div>
                     </div>
@@ -625,6 +625,28 @@
                         </button>
                         <button type="button" class="btn btn-success" id="btn-save" ng-click="saveDeri();" ng-disabled="formDeri.$invalid">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalDeleteDerivaciones">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-danger">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Confirmación</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span>Realmente desea eliminar la Derivacion: <strong>"{{nom_deri_delete}}"</strong>?</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger" id="btn-save" ng-click="deleteDeri()">
+                            Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </button>
                     </div>
                 </div>

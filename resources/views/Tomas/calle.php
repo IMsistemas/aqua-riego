@@ -18,15 +18,20 @@
 <div ng-controller="callesController">
 
     <div class="col-xs-12"  style="margin-top: 15px;">
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-4 col-xs-12">
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda">
                 <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-4">
+            <select id="s_barrio" class="form-control" ng-model="s_barrio" ng-change="FiltrarPorBarrio()"
+                    ng-options="value.id as value.label for value in barrioss"></select>
+        </div>
+        <div class="col-sm-4 col-xs-12">
             <button type="button" class="btn btn-primary" style="float: right;" ng-click="viewModalAdd()">Nuevo  <span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
         </div>
+
     </div>
 
     <div class="col-xs-12">
@@ -45,7 +50,7 @@
                 <td><input type="text" class="form-control" ng-model="item.nombrecalle"></td>
 
                 <td>
-                    <span ng-repeat="canal in item.canales">{{canal.nombrecanal}}; </span>
+                    <span ng-repeat="canal in item.canal">{{canal.nombrecanal}}; </span>
                 </td>
                 <td>
                     <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfo(item)">

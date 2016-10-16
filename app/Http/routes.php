@@ -136,8 +136,6 @@ Route::get('barrio/getCanal', 'Tomas\CanallController@getCanal');
 
 Route::get('barrio/getLastIDDerivaciones', 'Tomas\DerivacionesController@getLastID');
 
-
-
 Route::get('barrio/getBarrio_ID/{data}', 'Sectores\BarrioController@getBarrio_ID');
 
 Route::get('barrio/getCanals/{data}', 'Sectores\BarrioController@getCanals');
@@ -154,11 +152,15 @@ Route::post('barrio/editar_canales', 'Tomas\CanallController@editar_canal');
 
 Route::post('barrio/editar_calle', 'Tomas\CalleController@editar_calle');
 
+Route::post('barrio/editar_derivaciones', 'Tomas\DerivacionesController@editar_derivaciones');
+
 Route::post('barrio/editar_Barrio', 'Sectores\BarrioController@editar_barrio');
 
 Route::resource('/barrio', 'Sectores\BarrioController');
 
 /*===================================Calle===========================================*/
+
+Route::get('calle/getCallesByBarrio/{id}','Tomas\CalleController@getCallesById');
 
 Route::get('calle/getCalles', 'Tomas\CalleController@getCalles');
 
@@ -174,6 +176,12 @@ Route::post('calle/editar_calle', 'Tomas\CalleController@editar_calle');
 Route::resource('/calle', 'Tomas\CalleController');
 
 /*===================================Canal===========================================*/
+
+Route::get('canal/getCanalesByCalle/{id}', 'Tomas\CanallController@getCanalesByCalle');
+
+Route::get('canal/getCalleByBarrio/{id}', 'Tomas\CalleController@getCalleByBarrio');
+
+Route::get('canal/getCanalesByBarrio/{id}', 'Tomas\CanallController@getCanalesByBarrio');
 
 Route::get('canal/getLastID', 'Tomas\CanallController@getLastID');
 
@@ -192,6 +200,17 @@ Route::resource('/canal', 'Tomas\CanallController');
 
 /*===================================Derivaciones===========================================*/
 
+
+Route::get('derivaciones/getDerivacionesByCanal/{id}', 'Tomas\DerivacionesController@getDerivacionesById');
+
+Route::get('derivaciones/getDerivacionesByCalle/{id}', 'Tomas\CanallController@getDerivacionesByCalle');
+
+Route::get('derivaciones/getCanalesByCalle/{id}', 'Tomas\CanallController@getCanalesByCalle1');
+
+Route::get('derivaciones/getDerivacionesByBarrio1/{id}', 'Tomas\DerivacionesController@getDerivacionesByBarrio1');
+
+Route::get('derivaciones/getCalleByBarrio/{id}', 'Tomas\CalleController@getCalleByBarrio');
+
 Route::get('derivaciones/getDerivaciones', 'Tomas\DerivacionesController@getDerivaciones');
 
 Route::get('derivaciones/getLastID', 'Tomas\DerivacionesController@getLastID');
@@ -203,6 +222,8 @@ Route::get('derivaciones/getCanaless', 'Tomas\DerivacionesController@getCanaless
 Route::get('derivaciones/getCalles', 'Tomas\DerivacionesController@getCalles');
 
 Route::get('derivaciones/getBarrios', 'Tomas\DerivacionesController@getBarrios');
+
+Route::get('derivaciones/getDerivacionesByBarrio/{id}', 'Tomas\DerivacionesController@getDerivacionesByBarrio');
 
 Route::post('derivaciones/editar_derivaciones', 'Tomas\DerivacionesController@editar_derivaciones');
 

@@ -14,7 +14,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     $scope.aux_canales = [];
     $scope.canal_actual = 0;
     $scope.aux_derivaciones = [];
-    $scope.idcanal_delete=0;
+    $scope.idcanal_delete = 0;
+    $scope.idderivacion_delete = 0;
 
 
     $scope.initLoad = function () {
@@ -289,7 +290,6 @@ app.controller('barrioController', function($scope, $http, API_URL) {
         var data = {
             canales: item.canales
         };
-        //console.log(data);
 
         $http.get(API_URL + 'barrio/canales/' + item.idcalle).success(function(response) {
             $scope.aux_canales = response;
@@ -336,13 +336,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $('#modalNuevoCanal').modal('hide');
             $scope.message = 'Se insertó correctamente el Canal';
             $('#modalMessage').modal('show');
-                /*setTimeout(function () {
-                    $('#modalMessage').modal('hide');
-                }, 500);*/
             console.log($scope.aux_calles);
                 $scope.showModalActionCanal($scope.canales);
-
-
         }).error(function (res) {
         });
     };
@@ -400,6 +395,11 @@ app.controller('barrioController', function($scope, $http, API_URL) {
         $scope.canal_actual = item.idcanal;
         $scope.derivaciones = item;
         $scope.initLoad();
+
+        $http.get(API_URL + 'barrio/derivaciones/' + item.idcanal).success(function(response) {
+            $scope.aux_derivaciones = response;
+        });
+        $scope.initLoad();
         $('#modalDerivaciones').modal('show');
     }
 
@@ -441,17 +441,43 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $('#modalNuevaDerivacion').modal('hide');
             $scope.message = 'Se insertó correctamente la Derivacion';
             $('#modalMessage').modal('show');
-            /*setTimeout(function () {
-                $('#modalMessage').modal('hide');
-            }, 500);*/
-            console.log($scope.aux_calles);
+            console.log($scope.derivaciones);
+
             $scope.showModalActionDerivaciones($scope.derivaciones);
-
-
         }).error(function (res) {
         });
     };
 
+    $scope.showModalDeleteDerivaciones = function (item) {
+        console.log(item);
+        $scope.idderivacion_delete = item.idderivacion;
+        $scope.nom_deri_delete = item.nombrederivacion;
+        $('#modalDeleteDerivaciones').modal('show');
+    };
+
+    $scope.deleteDeri = function(){
+        $http.delete(API_URL + 'derivaciones/' + $scope.idderivacion_delete).success(function(response) {
+            $('#modalDeleteDerivaciones').modal('hide');
+                $scope.initLoad();
+                $scope.idderivacion_delete = 0;
+                $scope.message = 'Se elimino correctamente la Derivacion seleccionada...';
+                $('#modalMessage').modal('show');
+                $scope.showModalActionDerivaciones($scope.derivaciones);
+        });
+    };
+
+    $scope.editarDeri = function() {
+        var arr_deriva = {
+            arr_deriva: $scope.aux_derivaciones };
+            console.log($scope.aux_derivaciones);
+        $http.post(API_URL + 'barrio/editar_derivaciones', arr_deriva).success(function(response){
+            $scope.initLoad();
+            $scope.message = 'Se editaron correctamente las Derivaciones';
+            $('#modalMessage').modal('show');
+
+            $scope.showModalActionDerivaciones($scope.derivaciones);
+        });
+    }
 
     $scope.initLoad();
 });
