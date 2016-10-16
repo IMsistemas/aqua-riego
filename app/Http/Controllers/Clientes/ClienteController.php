@@ -8,6 +8,7 @@ use App\Modelos\Sectores\Barrio;
 use App\Modelos\Solicitud\Solicitud;
 use App\Modelos\Solicitud\SolicitudCambioNombre;
 use App\Modelos\Solicitud\SolicitudOtro;
+use App\Modelos\Solicitud\SolicitudReparticion;
 use App\Modelos\Solicitud\SolicitudRiego;
 use App\Modelos\Tarifas\Area;
 use App\Modelos\Tarifas\Tarifa;
@@ -269,6 +270,28 @@ class ClienteController extends Controller
                                             'idsolicitud' => $solicitudsetname->idsolicitudcambionombre]) :
                             response()->json(['success' => false]);
     }
+
+
+    public function storeSolicitudFraccion(Request $request)
+    {
+        $solicitudsetname = new SolicitudReparticion();
+        $solicitudsetname->codigocliente = $request->input('codigocliente_old');
+        $solicitudsetname->codigonuevocliente = $request->input('codigocliente_new');
+        $solicitudsetname->idterreno = $request->input('idterreno');
+        $solicitudsetname->fechasolicitud = date('Y-m-d');
+        $solicitudsetname->estaprocesada = false;
+        $solicitudsetname->observacion = $request->input('observacion');
+
+        $result = $solicitudsetname->save();
+
+        /*$max_idsolicitud = SolicitudCambioNombre::where('idsolicitudcambionombre', $solicitudsetname->idsolicitudcambionombre)
+                                                    ->get();*/
+
+        return ($result) ? response()->json(['success' => true,
+            'idsolicitud' => $solicitudsetname->idsolicitudcambionombre]) :
+            response()->json(['success' => false]);
+    }
+
 
     /**
      * Update the specified resource in storage.

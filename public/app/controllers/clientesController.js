@@ -305,6 +305,29 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.calculateFraccion = function () {
+        $scope.calculateCaudalFraccion();
+        $scope.calculateValorFraccion();
+    };
+
+    $scope.calculateCaudalFraccion = function () {
+        $http.get(API_URL + 'cliente/getConstante').success(function(response){
+            var area = parseInt($scope.t_area_fraccion);
+            var constante = parseFloat(response[0].constante);
+
+            var caudal_result = (area / 1000) * constante;
+
+            $scope.caudal_new_fraccion = caudal_result.toFixed(2);
+        });
+    };
+
+    $scope.calculateValorFraccion = function () {
+        var area = $scope.t_area_fraccion;
+
+        $http.get(API_URL + 'cliente/calculateValor/' + area).success(function(response){
+            $scope.valor_new_fraccion = parseFloat(response.costo).toFixed(2);
+        });
+    };
 
     /*
      *  GET DATA FOR SOLICITUD OTROS-------------------------------------------------------------------
@@ -356,6 +379,27 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.getTerrenosFraccionByCliente = function () {
+        var idcliente = {
+            codigocliente: $scope.objectAction.codigocliente
+        };
+
+        $http.get(API_URL + 'cliente/getTerrenosByCliente/' + JSON.stringify(idcliente)).success(function(response){
+            console.log(response);
+
+            $scope.list_terrenos = response;
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].area, id: response[i].idterreno})
+            }
+
+            $scope.terrenos_fraccion = array_temp;
+            $scope.t_terrenos_fraccion = 0;
+        });
+    };
+
     $scope.searchInfoTerreno = function () {
 
         console.log($scope.list_terrenos);
@@ -372,6 +416,28 @@ app.controller('clientesController', function($scope, $http, API_URL) {
                 $scope.area_setnombre = $scope.list_terrenos[i].area;
                 $scope.caudal_setnombre = $scope.list_terrenos[i].caudal;
 
+                break;
+            }
+        }
+
+    };
+
+    $scope.searchInfoTerrenoFraccion = function () {
+
+        console.log($scope.list_terrenos);
+
+        var longitud = ($scope.list_terrenos).length;
+
+        for (var i = 0; i < longitud; i++){
+            if ($scope.list_terrenos[i].idterreno == $scope.t_terrenos_fraccion){
+                $scope.junta_fraccion = $scope.list_terrenos[i].derivacion.canal.calle.barrio.nombrebarrio;
+                $scope.toma_fraccion = $scope.list_terrenos[i].derivacion.canal.calle.nombrecalle;
+                $scope.canal_fraccion = $scope.list_terrenos[i].derivacion.canal.nombrecanal;
+                $scope.derivacion_fraccion = $scope.list_terrenos[i].derivacion.nombrederivacion;
+                $scope.cultivo_fraccion = $scope.list_terrenos[i].cultivo.nombrecultivo;
+                $scope.area_fraccion = $scope.list_terrenos[i].area;
+                $scope.caudal_fraccion = $scope.list_terrenos[i].caudal;
+                $scope.valor_fraccion = $scope.list_terrenos[i].valoranual;
                 break;
             }
         }
@@ -401,6 +467,29 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.getIdentifyClientesFraccion = function () {
+        var idcliente = {
+            codigocliente: $scope.objectAction.codigocliente
+        };
+
+        $http.get(API_URL + 'cliente/getIdentifyClientes/' + JSON.stringify(idcliente)).success(function(response){
+            console.log(response);
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].documentoidentidad, id: response[i].codigocliente})
+            }
+
+            //$('.selectpicker').selectpicker('refresh');
+            //$('.selectpicker').selectpicker();
+
+            $scope.clientes_fraccion = array_temp;
+            //$('.selectpicker').selectpicker('refresh');
+            $scope.t_ident_new_client_fraccion = 0;
+        });
+    };
+
     $scope.getClienteByIdentify = function () {
         var idcliente = {
             codigocliente: $scope.t_ident_new_client_setnombre
@@ -415,6 +504,24 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             $scope.telf_new_cliente_setnombre = response[0].telefonoprincipaldomicilio;
             $scope.celular_new_cliente_setnombre = response[0].celular;
             $scope.telf_trab_new_cliente_setnombre = response[0].telefonoprincipaltrabajo;
+
+        });
+    };
+
+    $scope.getClienteByIdentifyFraccion = function () {
+        var idcliente = {
+            codigocliente: $scope.t_ident_new_client_fraccion
+        };
+
+        $http.get(API_URL + 'cliente/getClienteByIdentify/' + JSON.stringify(idcliente)).success(function(response){
+            console.log(response);
+
+            $scope.h_new_codigocliente_fraccion = response[0].codigocliente;
+            $scope.nom_new_cliente_fraccion = response[0].apellido + ' ' + response[0].nombre;
+            $scope.direcc_new_cliente_fraccion = response[0].direcciondomicilio;
+            $scope.telf_new_cliente_fraccion = response[0].telefonoprincipaldomicilio;
+            $scope.celular_new_cliente_fraccion = response[0].celular;
+            $scope.telf_trab_new_cliente_fraccion = response[0].telefonoprincipaltrabajo;
 
         });
     };
@@ -465,6 +572,26 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $scope.t_observacion_otro = '';
 
         $('#modalActionOtro').modal('show');
+    };
+
+    $scope.actionFraccion = function () {
+        //$scope.getLastIDOtros();
+
+        $scope.getTerrenosFraccionByCliente();
+        $scope.getIdentifyClientesFraccion();
+
+        $scope.t_fecha_fraccion = $scope.nowDate();
+        $scope.h_codigocliente_fraccion = $scope.objectAction.codigocliente;
+        $scope.documentoidentidad_cliente_fraccion = $scope.objectAction.documentoidentidad;
+        $scope.nom_cliente_fraccion = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
+        $scope.direcc_cliente_fraccion = $scope.objectAction.direcciondomicilio;
+        $scope.telf_cliente_fraccion = $scope.objectAction.telefonoprincipaldomicilio;
+        $scope.celular_cliente_fraccion = $scope.objectAction.celular;
+        $scope.telf_trab_cliente_fraccion = $scope.objectAction.telefonoprincipaltrabajo;
+
+        $scope.t_observacion_fraccion = '';
+
+        $('#modalActionFraccion').modal('show');
     };
 
     $scope.actionSetName = function () {
@@ -520,6 +647,46 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             }
 
         });
+
+    };
+
+    $scope.saveSolicitudFraccion = function () {
+
+        var solicitud = {
+            //fechacreacion: convertDatetoDB($scope.t_fecha_process),
+
+            codigocliente_new: $scope.h_new_codigocliente_fraccion,
+            codigocliente_old: $scope.h_codigocliente_fraccion,
+            idterreno: $scope.t_terrenos_fraccion,
+            observacion: $scope.t_observacion_fraccion,
+
+
+            area: $scope.t_area_fraccion,
+            caudal: $scope.caudal_new_fraccion,
+            valoranual: $scope.valor_new_fraccion,
+
+
+            //idsolicitud: $scope.num_solicitud
+        };
+
+        console.log(solicitud);
+
+        /*$http.post(API_URL + 'cliente/storeSolicitudFraccion', solicitud).success(function(response){
+
+            if(response.success == true){
+                $scope.initLoad();
+                //$('#modalActionRiego').modal('hide');
+
+                $scope.idsolicitud_to_process = response.idsolicitud;
+
+                $('#btn-save-riego').prop('disabled', true);
+                $('#btn-process-riego').prop('disabled', false);
+
+                $scope.message = 'Se ha ingresado la solicitud correctamente...';
+                $('#modalMessage').modal('show');
+            }
+
+        });*/
 
     };
 

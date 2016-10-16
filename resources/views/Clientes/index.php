@@ -315,7 +315,7 @@
                             <button type="button" class="btn btn-warning btn-block" ng-click="actionSetName()">
                                 Cambio de Nombre
                             </button>
-                            <button type="button" class="btn btn-danger btn-block" ng-click="">
+                            <button type="button" class="btn btn-danger btn-block" ng-click="actionFraccion()">
                                 Fraccionamiento
                             </button>
                             <button type="button" class="btn btn-primary btn-block" ng-click="actionOtro()">
@@ -679,6 +679,192 @@
                             </button>
                             <button type="button" class="btn btn-primary" id="btn-process-setnombre"
                                     ng-click="procesarSolicitud('btn-process-setnombre')" disabled>
+                                Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalActionFraccion">
+                <div class="modal-dialog" role="document" style="width: 60%;">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-primary">
+
+                            <div class="col-md-6 col-xs-12">
+                                <h4 class="modal-title">Solicitud de Fraccionamiento Nro: {{num_solicitud_riego}}</h4>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="form-group">
+                                    <h4 class="modal-title"><label for="t_fecha_fraccion" class="col-sm-6" style="font-weight: normal !important;">Fecha Ingreso:</label></h4>
+                                    <div class="col-sm-5" style="padding: 0;">
+                                        <input type="text" class="form-control input-sm datepicker" name="t_fecha_fraccion"
+                                               id="t_fecha_fraccion" ng-model="t_fecha_fraccion" style="color: black !important;" disabled>
+                                    </div>
+                                    <div class="col-sm-1 col-xs-12 text-right" style="padding: 0;">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" name="formFraccion" novalidate="">
+
+                                <div class="row">
+                                    <div class="col-xs-12" style="padding: 2%; margin-top: -20px !important;">
+                                        <fieldset ng-cloak>
+                                            <legend style="font-size: 16px; font-weight: bold;">Datos del Cliente</legend>
+
+                                            <div class="col-xs-12" style="padding: 0;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">RUC/CI:</span> {{documentoidentidad_cliente_fraccion}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_cliente_fraccion}}
+                                                    <input type="hidden" ng-model="h_codigocliente_fraccion">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_cliente_fraccion}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Domicilio:</span> {{telf_cliente_fraccion}}
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Celular:</span> {{celular_cliente_fraccion}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Trabajo:</span> {{telf_trab_cliente_fraccion}}
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xs-12" style="padding: 2%; margin-top: -25px !important;">
+                                        <fieldset>
+                                            <legend style="font-size: 16px; font-weight: bold;">Datos de Terreno</legend>
+
+                                            <div class="col-xs-12" style="padding: 0;">
+                                                <div class="col-sm-6 col-xs-12 form-group">
+                                                    <label for="t_terreno_fraccion" class="col-sm-4 col-xs-12 control-label">Terrenos:</label>
+                                                    <div class="col-sm-8 col-xs-12" style="padding-top: 10px;">
+                                                        <select class="form-control" name="t_terrenos_fraccion" id="t_terrenos_fraccion"
+                                                                ng-model="t_terrenos_fraccion" ng-options="value.id as value.label for value in terrenos_fraccion"
+                                                                ng-change="searchInfoTerrenoFraccion()"></select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Junta Modular:</span> {{junta_fraccion}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Toma:</span> {{toma_fraccion}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Canal:</span> {{canal_fraccion}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Derivación:</span> {{derivacion_fraccion}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Tipo Cultivo:</span> {{cultivo_fraccion}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-4 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Area Actual:</span> {{area_fraccion}} m2
+                                                </div>
+
+                                                <div class="col-sm-4 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Caudal:</span> {{caudal_fraccion}}
+                                                </div>
+
+                                                <div class="col-sm-4 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Valor:</span> {{valor_fraccion}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-4 col-xs-12">
+                                                    <label for="t_area_fraccion" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Area Fracc. (m2):</label>
+                                                    <div class="col-sm-8 col-xs-12">
+                                                        <input type="text" class="form-control" name="t_area_fraccion" id="t_area_fraccion"
+                                                               ng-model="t_area_fraccion" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculateFraccion()">
+                                                        <span class="help-block error"
+                                                              ng-show="formFraccion.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
+                                                        <span class="help-block error"
+                                                              ng-show="formFraccion.t_area.$invalid && formProcess.t_area.$error.pattern">El Area debe ser solo números</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Caudal:</span> {{caudal_new_fraccion}}
+                                                </div>
+
+                                                <div class="col-sm-4 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Valor:</span> {{valor_new_fraccion}}
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xs-12" style="padding: 2%; margin-top: -35px !important;">
+                                        <fieldset>
+                                            <legend style="font-size: 16px; font-weight: bold;">Datos del Nuevo Cliente</legend>
+
+                                            <div class="col-xs-12" style="padding: 0;">
+                                                <div class="col-sm-5 col-xs-12 form-group">
+                                                    <label for="t_ident_new_client_fraccion" class="col-sm-4 col-xs-12 control-label">RUC/CI:</label>
+                                                    <div class="col-sm-8 col-xs-12" style="padding-top: 10px;">
+                                                        <select class="form-control"
+                                                                name="t_ident_new_client_fraccion" id="t_ident_new_client_fraccion"
+                                                                ng-model="t_ident_new_client_fraccion" ng-options="value.id as value.label for value in clientes_fraccion"
+                                                                ng-change="getClienteByIdentifyFraccion()"></select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-5 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_new_cliente_fraccion}}
+                                                    <input type="hidden" ng-model="h_new_codigocliente_fraccion">
+                                                </div>
+                                                <div class="col-sm-2 col-xs-12">
+                                                    <input type="checkbox" class="" ng-model="ch_arriend_fraccion"> Arriendo
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xs-12 form-group" style="margin-top: -15px;">
+                                        <label for="t_derivacion" class="col-sm-2 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Observación:</label>
+                                        <div class="col-sm-10 col-xs-12">
+                                            <textarea class="form-control" id="t_observacion_fraccion" ng-model="t_observacion_fraccion" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-success" id="btn-save-fraccion"
+                                    ng-click="saveSolicitudFraccion()" ng-disabled="formFraccion.$invalid">
+                                Guardar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary" id="btn-process-fraccion"
+                                    ng-click="procesarSolicitud('btn-process-fraccion')" disabled>
                                 Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                             </button>
                         </div>
