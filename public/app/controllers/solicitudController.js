@@ -112,8 +112,9 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                         telefono: reparticion[i].cliente.telefonoprincipaldomicilio,
                         tipo: 'Repartición',
                         estado: reparticion[i].estaprocesada,
-
+                        areanueva: reparticion[i].nuevaarea,
                         fechaprocesada: reparticion[i].fechaprocesada
+
                     };
 
                     list.push(object_reparticion);
@@ -182,6 +183,15 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.derivacion_info_riego = solicitud.terreno.derivacion.nombrederivacion;
 
             $('#modalInfoSolRiego').modal('show');
+        }
+
+        if(solicitud.tipo == 'Repartición') {
+            $scope.no_info_fraccion = solicitud.no_solicitud;
+            $scope.ingresada_info_fraccion = convertDatetoDB(solicitud.fecha, true);
+            $scope.procesada_info_fraccion = convertDatetoDB(solicitud.fechaprocesada, true);
+            $scope.cliente_info_fraccion = solicitud.cliente;
+            $scope.area_info_fraccion = solicitud.areanueva;
+            $('#modalInfoSolFraccion').modal('show');
         }
     };
 
