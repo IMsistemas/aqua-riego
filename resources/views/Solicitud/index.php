@@ -75,7 +75,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="solicitud in solicitudes" ng-cloak>
+                    <tr ng-repeat="solicitud in solicitudes | filter : search" ng-cloak>
                         <td>{{solicitud.no_solicitud}}</td>
                         <td>{{solicitud.fecha | formatDate}}</td>
                         <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{solicitud.cliente}}</td>
@@ -91,9 +91,14 @@
                             <button type="button" class="btn btn-primary" id="btn_process" ng-click="" disabled>
                                 <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                             </button>
-                            <button type="button" class="btn btn-default" id="btn_pdf" ng-click="" >
-                                <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
-                            </button>
+
+                            <span ng-if="solicitud.tipo == 'Riego'">
+                                <button type="button" class="btn btn-default" id="btn_pdf" ng-click="" >
+                                    <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
+                                </button>
+                            </span>
+
+
                         </td>
                         <td ng-if="solicitud.estado == false">
                             <button type="button" class="btn btn-info" id="btn_inform" disabled>
@@ -102,9 +107,12 @@
                             <button type="button" class="btn btn-primary" id="btn_process" ng-click="showModalProcesar(solicitud)" >
                                 <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                             </button>
-                            <button type="button" class="btn btn-default" id="btn_pdf" disabled>
-                                <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
-                            </button>
+                            <span ng-if="solicitud.tipo == 'Riego'">
+                                <button type="button" class="btn btn-default" id="btn_pdf" disabled>
+                                    <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
+                                </button>
+                            </span>
+
                         </td>
                     </tr>
                     </tbody>

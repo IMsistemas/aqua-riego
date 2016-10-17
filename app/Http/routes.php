@@ -20,35 +20,8 @@ Route::get('/inicio', function () {
 //Peticion para obtener el listado de solicitudes
 Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicitudes');
 
+Route::get('solicitud/getByFilter/{filter}', 'Solicitud\SolicitudController@getByFilter');
 
-//Peticion para obtener el listado de solicitudes por filtros
-/*Route::get('solicitud/getByFilter/{filters}', 'Solicitud\SolicitudController@getByFilters');
-//Peticion para obtener el ultimo id insertado + 1 para el numero de solicitud
-Route::get('solicitud/getLastID', 'Solicitud\SolicitudController@getLastID');
-//Peticion para obtener el ultimo id insertado + 1 para el numero de solicitud
-Route::get('solicitud/getLastIDTerreno', 'Solicitud\SolicitudController@getLastIDTerreno');
-//Peticion para obtener la constante para calculo
-Route::get('solicitud/getConstante', 'Solicitud\SolicitudController@getConstante');
-//Peticion para obtener el listado de tarifas
-Route::get('solicitud/getTarifas', 'Solicitud\SolicitudController@getTarifas');
-//Peticion para obtener el listado de barrios
-Route::get('solicitud/getBarrios', 'Solicitud\SolicitudController@getBarrios');
-//Peticion para obtener el listado de cultivos
-Route::get('solicitud/getCultivos', 'Solicitud\SolicitudController@getCultivos');
-//Peticion para obtener el listado de canales
-Route::get('solicitud/getCanales', 'Solicitud\SolicitudController@getCanales');
-//Peticion para obtener el listado de tomas en base a un canal
-Route::get('solicitud/getTomas/{idcanal}', 'Solicitud\SolicitudController@getTomas');
-//Peticion para obtener el listado de derivaciones en base a una toma
-Route::get('solicitud/getDerivaciones/{idtoma}', 'Solicitud\SolicitudController@getDerivaciones');
-//Peticion para obtener un cliente mediante su id
-Route::get('solicitud/getClienteByID/{idcliente}', 'Solicitud\SolicitudController@getClienteByID');
-//Peticion para calcular el valor por area
-Route::get('solicitud/calculateValor/{area}', 'Solicitud\SolicitudController@calculateValor');
-//Peticion para almacenar un cultivo nuevo
-Route::post('solicitud/saveCultivo', 'Solicitud\SolicitudController@saveCultivo');
-//Peticion para procesar la solicitud
-Route::post('solicitud/processSolicitud', 'Solicitud\SolicitudController@processSolicitud');*/
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Solicitud
 Route::resource('/solicitud', 'Solicitud\SolicitudController');
 
