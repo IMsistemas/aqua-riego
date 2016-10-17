@@ -292,7 +292,10 @@
                                     <span style="font-weight: bold">Procesada el: </span>{{procesada_info_setN}}
                                 </div>
                                 <div class="col-xs-12">
-                                    <span style="font-weight: bold">Cliente: </span>{{cliente_info_setN}}
+                                    <span style="font-weight: bold">Cliente Anterior: </span>{{cliente_info_setN}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Cliente Actual: </span>{{cliente_a_info_setN}}
                                 </div>
                                 <div class="col-xs-12">
                                     <span style="font-weight: bold">Terreno Nro: </span>{{noterreno_info_setN}}
@@ -338,9 +341,11 @@
                                     <span style="font-weight: bold">Procesada el: </span>{{procesada_info_fraccion}}
                                 </div>
                                 <div class="col-xs-12">
-                                    <span style="font-weight: bold">Cliente: </span>{{cliente_info_fraccion}}
+                                    <span style="font-weight: bold">Cliente Arrendador: </span>{{cliente_info_fraccion}}
                                 </div>
-
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Cliente Arrendatario: </span>{{cliente_a_info_fraccion}}
+                                </div>
                                 <div class="col-xs-12">
                                     <span style="font-weight: bold">Area Arrendada: </span>{{area_info_fraccion}} (m2)
                                 </div>

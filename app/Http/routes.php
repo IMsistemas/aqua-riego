@@ -20,6 +20,8 @@ Route::get('/inicio', function () {
 //Peticion para obtener el listado de solicitudes
 Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicitudes');
 
+Route::get('solicitud/getIdentifyCliente/{idcliente}', 'Solicitud\SolicitudController@getIdentifyCliente');
+
 Route::get('solicitud/getByFilter/{filter}', 'Solicitud\SolicitudController@getByFilter');
 
 Route::put('solicitud/processSolicitudSetName/{idsolicitud}', 'Solicitud\SolicitudController@processSolicitudSetName');

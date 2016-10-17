@@ -96,6 +96,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                         no_solicitud : setnombre[i].idsolicitud,
                         fecha: setnombre[i].fechasolicitud,
                         cliente: setnombre[i].cliente.apellido + ' ' + setnombre[i].cliente.nombre,
+                        othercliente: setnombre[i].codigonuevocliente,
                         direccion: setnombre[i].cliente.direcciondomicilio,
                         telefono: setnombre[i].cliente.telefonoprincipaldomicilio,
                         tipo: 'Cambio de Nombre',
@@ -122,6 +123,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                         no_solicitud : reparticion[i].idsolicitud,
                         fecha: reparticion[i].fechasolicitud,
                         cliente: reparticion[i].cliente.apellido + ' ' + reparticion[i].cliente.nombre,
+                        othercliente: reparticion[i].codigonuevocliente,
                         direccion: reparticion[i].cliente.direcciondomicilio,
                         telefono: reparticion[i].cliente.telefonoprincipaldomicilio,
                         tipo: 'Repartición',
@@ -277,6 +279,8 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         }
     };
 
+
+
     $scope.procesarSolicitud = function () {
         var url = API_URL + 'solicitud/' + $scope.idsolicitud;
 
@@ -370,7 +374,9 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.procesada_info_fraccion = convertDatetoDB(solicitud.fechaprocesada, true);
             $scope.cliente_info_fraccion = solicitud.cliente;
             $scope.area_info_fraccion = solicitud.areanueva;
-            $('#modalInfoSolFraccion').modal('show');
+
+            $scope.searchOtherClient('reparticion', solicitud.othercliente);
+
         }
 
         if(solicitud.tipo == 'Cambio de Nombre') {
@@ -387,8 +393,23 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.canal_info_setN = solicitud.terreno.derivacion.canal.nombrecanal;
             $scope.derivacion_info_setN = solicitud.terreno.derivacion.nombrederivacion;
 
-            $('#modalInfoSolSetName').modal('show');
+            $scope.searchOtherClient('setname', solicitud.othercliente);
+
+
         }
+    };
+
+    $scope.searchOtherClient = function (type, idcliente) {
+        $http.get(API_URL + 'solicitud/getIdentifyCliente/' + idcliente).success(function(response){
+            console.log(response);
+            if (type == 'setname'){
+                $scope.cliente_a_info_setN = response[0].apellido + ' ' + response[0].nombre;
+                $('#modalInfoSolSetName').modal('show');
+            } else {
+                $scope.cliente_a_info_fraccion = response[0].apellido + ' ' + response[0].nombre;
+                $('#modalInfoSolFraccion').modal('show');
+            }
+        });
     };
 
     $scope.initLoad();

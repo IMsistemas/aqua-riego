@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Solicitud;
 
+use App\Modelos\Clientes\Cliente;
 use App\Modelos\Clientes\ClienteArriendo;
 use App\Modelos\Solicitud\Solicitud;
 use App\Modelos\Solicitud\SolicitudCambioNombre;
@@ -111,6 +112,11 @@ class SolicitudController extends Controller
             'riego' => $solicitudriego, 'otro' => $solicitudotro,
             'setname' => $solicitudsetname, 'reparticion' => $solicitudreparticion
         ]);
+    }
+
+    public function getIdentifyCliente($idcliente)
+    {
+        return Cliente::where('codigocliente', $idcliente)->get();
     }
 
     /**
