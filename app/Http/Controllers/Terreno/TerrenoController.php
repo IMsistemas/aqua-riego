@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Terreno;
 
 use App\Modelos\Configuraciones\Configuracion;
 use App\Modelos\Sectores\Barrio;
+use App\Modelos\Tomas\Calle;
 use App\Modelos\Tomas\Derivacion;
 use App\Modelos\Tomas\Toma;
 use App\Modelos\Tarifas\Area;
@@ -38,7 +39,7 @@ class TerrenoController extends Controller
                         ->join('barrio', 'terreno.idbarrio', '=', 'barrio.idbarrio')
                         ->get();*/
 
-        return Terreno::with('cultivo', 'tarifa', 'cliente', 'derivacion.toma.canal', 'barrio')
+        return Terreno::with('cultivo', 'tarifa', 'cliente', 'derivacion.canal.calle.barrio')
                             ->get();
 
     }
@@ -78,31 +79,31 @@ class TerrenoController extends Controller
      *
      * @return mixed
      */
-    public function getCanales()
+    public function getCanales($idcalle)
     {
-        return Canal::orderBy('descripcioncanal', 'asc')->get();
+        return Canal::where('idcalle', $idcalle)->orderBy('nombrecanal', 'asc')->get();
     }
 
     /**
      * Obtener las tomas de un canal ordenadas ascendentemente
      *
-     * @param $idcanal
+     * @param $idbarrio
      * @return mixed
      */
-    public function getTomas($idcanal)
+    public function getTomas($idbarrio)
     {
-        return Toma::where('idcanal', $idcanal)->orderBy('descripciontoma', 'asc')->get();
+        return Calle::where('idbarrio', $idbarrio)->orderBy('nombrecalle', 'asc')->get();
     }
 
     /**
      * Obtener las derivaciones de una toma ordenadas ascendentemente
      *
-     * @param $idtoma
+     * @param $idcanal
      * @return mixed
      */
-    public function getDerivaciones($idtoma)
+    public function getDerivaciones($idcanal)
     {
-        return Derivacion::where('idtoma', $idtoma)->orderBy('descripcionderivacion', 'asc')->get();
+        return Derivacion::where('idcanal', $idcanal)->orderBy('nombrederivacion', 'asc')->get();
     }
 
 

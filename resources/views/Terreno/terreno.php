@@ -109,8 +109,8 @@
                     <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{terreno.cliente.apellido + ' ' + terreno.cliente.nombre}}</td>
                     <td>{{terreno.tarifa.nombretarifa}}</td>
                     <td>{{terreno.cultivo.nombrecultivo}}</td>
-                    <td>{{terreno.derivacion.descripcionderivacion}}</td>
-                    <td>{{terreno.barrio.nombrebarrio}}</td>
+                    <td>{{terreno.derivacion.nombrederivacion}}</td>
+                    <td>{{terreno.derivacion.canal.calle.barrio.nombrebarrio}}</td>
                     <td>{{terreno.caudal}}</td>
                     <td>{{terreno.area}}</td>
                     <td>
@@ -180,13 +180,16 @@
                                         </div>
 
                                         <div class="col-xs-12" style="padding: 0;">
+
                                             <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_junta" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Junta Modular:</label>
+                                                <label for="t_tarifa" class="col-sm-4 col-xs-12 control-label">Tarifa:</label>
                                                 <div class="col-sm-8 col-xs-12">
-                                                    <select class="form-control" name="t_junta" id="t_junta"
-                                                            ng-model="t_junta" ng-options="value.id as value.label for value in barrios"></select>
+                                                    <select class="form-control" name="t_tarifa" id="t_tarifa"
+                                                            ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
+                                                            ng-change="calculateValor()"></select>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-6 col-xs-12 form-group error">
                                                 <label for="t_cultivo" class="col-sm-4 col-xs-12 control-label">Cultivo:</label>
                                                 <div class="col-sm-8 col-xs-12">
@@ -225,13 +228,14 @@
                                         <legend style="font-size: 16px; font-weight: bold;">Datos de Ubicación</legend>
 
                                         <div class="col-sm-6 col-xs-12 form-group error">
-                                            <label for="t_tarifa" class="col-sm-4 col-xs-12 control-label">Tarifa:</label>
+                                            <label for="t_junta" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Junta Modular:</label>
                                             <div class="col-sm-8 col-xs-12">
-                                                <select class="form-control" name="t_tarifa" id="t_tarifa"
-                                                        ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
-                                                        ng-change="calculateValor()"></select>
+                                                <select class="form-control" name="t_junta" id="t_junta"
+                                                        ng-model="t_junta" ng-options="value.id as value.label for value in barrios"></select>
                                             </div>
                                         </div>
+
+
                                         <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_canal" class="col-sm-4 col-xs-12 control-label">Canal:</label>
                                             <div class="col-sm-8 col-xs-12">
