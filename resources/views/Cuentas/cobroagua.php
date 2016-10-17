@@ -28,7 +28,7 @@
         <div class="col-sm-6 col-xs-12">
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" id="search" placeholder="BUSCAR..."
-                       ng-model="search" ng-change="searchByFilter()">
+                       ng-model="search" >
                 <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
@@ -57,8 +57,8 @@
                 <th>Cliente</th>
                 <th style="width: 10%;">Tarifa</th>
                 <th style="width: 10%;">Junta</th>
-                <th style="width: 10%;">Canal</th>
                 <th style="width: 10%;">Toma</th>
+                <th style="width: 10%;">Canal</th>
                 <th style="width: 10%;">Derivación</th>
                 <th style="width: 10%;">Estado</th>
                 <th style="width: 6%;">Total</th>
@@ -66,14 +66,14 @@
             </tr>
             </thead>
             <tbody style="font-size: 13px;">
-            <tr ng-repeat="cobro in cobros" ng-cloak>
+            <tr ng-repeat="cobro in cobros  | filter : search" ng-cloak>
                 <td>{{cobro.aniocobro}}</td>
                 <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{cobro.apellido + ' ' + cobro.nombre}}</td>
                 <td>{{cobro.nombretarifa}}</td>
                 <td>{{cobro.nombrebarrio}}</td>
-                <td>{{cobro.descripcioncanal}}</td>
-                <td>{{cobro.descripciontoma}}</td>
-                <td>{{cobro.descripcionderivacion}}</td>
+                <td>{{cobro.nombrecalle}}</td>
+                <td>{{cobro.nombrecanal}}</td>
+                <td>{{cobro.nombrederivacion}}</td>
                 <td ng-if="cobro.estapagada == true"><span class="label label-primary" style="font-size: 14px !important;">Pagada</span></td>
                 <td ng-if="cobro.estapagada == false"><span class="label label-warning" style="font-size: 14px !important;">No Pagada</span></td>
                 <td>{{cobro.total}}</td>

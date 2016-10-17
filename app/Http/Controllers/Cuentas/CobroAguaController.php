@@ -46,10 +46,10 @@ class CobroAguaController extends Controller
         return CobroAgua::join('terreno', 'terreno.idterreno', '=', 'cobroagua.idterreno')
                             ->join('cliente', 'terreno.codigocliente', '=', 'cliente.codigocliente')
                             ->join('tarifa', 'terreno.idtarifa', '=', 'tarifa.idtarifa')
-                            //->join('barrio', 'terreno.idbarrio', '=', 'barrio.idbarrio')
                             ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
-                            //->join('toma', 'derivacion.idtoma', '=', 'toma.idtoma')
-                            //->join('canal', 'toma.idcanal', '=', 'canal.idcanal')
+                            ->join('canal', 'derivacion.idcanal', '=', 'canal.idcanal')
+                            ->join('calle', 'canal.idcalle', '=', 'calle.idcalle')
+                            ->join('barrio', 'calle.idbarrio', '=', 'barrio.idbarrio')
                             ->orderBy('aniocobro', 'desc')
                             ->get();
     }
@@ -65,25 +65,19 @@ class CobroAguaController extends Controller
         $filter = json_decode($filters);
 
         $cobro = CobroAgua::join('terreno', 'terreno.idterreno', '=', 'cobroagua.idterreno')
-                                ->join('cliente', 'terreno.codigocliente', '=', 'cliente.codigocliente')
-                                ->join('tarifa', 'terreno.idtarifa', '=', 'tarifa.idtarifa')
-                                ->join('barrio', 'terreno.idbarrio', '=', 'barrio.idbarrio')
-                                ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
-                                ->join('toma', 'derivacion.idtoma', '=', 'toma.idtoma')
-                                ->join('canal', 'toma.idcanal', '=', 'canal.idcanal');
-
-        if($filter->text != null){
-            $cobro->where('cliente.nombre',  'LIKE',  '%' . $filter->text . '%');
-            $cobro->orWhere('cliente.apellido',  'LIKE',  '%' . $filter->text . '%');
-        }
+                            ->join('cliente', 'terreno.codigocliente', '=', 'cliente.codigocliente')
+                            ->join('tarifa', 'terreno.idtarifa', '=', 'tarifa.idtarifa')
+                            ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
+                            ->join('canal', 'derivacion.idcanal', '=', 'canal.idcanal')
+                            ->join('calle', 'canal.idcalle', '=', 'calle.idcalle')
+                            ->join('barrio', 'calle.idbarrio', '=', 'barrio.idbarrio');
 
         if($filter->estado != null && $filter->estado != '3'){
             $estado = ($filter->estado == '1') ? true : false;
             $cobro->where('estapagada', $estado);
         }
 
-        return $cobro->orderBy('aniocobro', 'desc')
-                            ->get();
+        return $cobro->orderBy('aniocobro', 'desc')->get();
     }
 
     /**

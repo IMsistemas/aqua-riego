@@ -10,6 +10,8 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
         { id: 1, name: 'Pagada' },
     ];
 
+    $scope.t_estado = 3;
+
     $scope.initLoad = function () {
 
         $http.get(API_URL + 'recaudacion/verifyPeriodo').success(function(response){
@@ -100,7 +102,7 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
         }
 
         var filters = {
-            text: text, estado: estado
+            estado: estado
         };
 
         $http.get(API_URL + 'recaudacion/getByFilter/' + JSON.stringify(filters)).success(function(response){
