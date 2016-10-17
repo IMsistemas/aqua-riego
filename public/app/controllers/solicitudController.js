@@ -89,7 +89,8 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                         tipo: 'Cambio de Nombre',
                         estado: setnombre[i].estaprocesada,
 
-                        fechaprocesada: setnombre[i].fechaprocesada
+                        fechaprocesada: setnombre[i].fechaprocesada,
+                        terreno: setnombre[i].terreno
                     };
 
                     list.push(object_setnombre);
@@ -192,6 +193,23 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.cliente_info_fraccion = solicitud.cliente;
             $scope.area_info_fraccion = solicitud.areanueva;
             $('#modalInfoSolFraccion').modal('show');
+        }
+
+        if(solicitud.tipo == 'Cambio de Nombre') {
+            $scope.no_info_setN = solicitud.no_solicitud;
+            $scope.ingresada_info_setN = convertDatetoDB(solicitud.fecha, true);
+            $scope.procesada_info_setN = convertDatetoDB(solicitud.fechaprocesada, true);
+            $scope.cliente_info_setN = solicitud.cliente;
+
+            $scope.noterreno_info_setN = solicitud.terreno.idterreno;
+            $scope.area_info_setN = solicitud.terreno.area;
+
+            $scope.junta_info_setN = solicitud.terreno.derivacion.canal.calle.barrio.nombrebarrio;
+            $scope.toma_info_setN = solicitud.terreno.derivacion.canal.calle.nombrecalle;
+            $scope.canal_info_setN = solicitud.terreno.derivacion.canal.nombrecanal;
+            $scope.derivacion_info_setN = solicitud.terreno.derivacion.nombrederivacion;
+
+            $('#modalInfoSolSetName').modal('show');
         }
     };
 

@@ -418,7 +418,7 @@
 
                                             <div class="col-xs-12" style="padding: 0;">
                                                 <div class="col-sm-6 col-xs-12 form-group error">
-                                                    <label for="t_area" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Area (m2):</label>
+                                                    <label for="t_area" class="col-sm-4 col-xs-12 control-label" >Area (m2):</label>
                                                     <div class="col-sm-8 col-xs-12">
                                                         <input type="text" class="form-control" name="t_area" id="t_area"
                                                                ng-model="t_area" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculate()">
@@ -430,11 +430,11 @@
                                                 </div>
                                                 <div class="col-sm-6 col-xs-12 form-group error" style="margin-top: 5px;">
                                                     <div class="col-sm-6 col-xs-12" ng-cloak>
-                                                        <span class="label label-info" style="font-size: 12px !important;">Caudal:</span>
+                                                        <span class="label label-primary" style="font-size: 12px !important;">Caudal:</span>
                                                         <span style="font-size: 14px !important; font-weight: bold;">{{calculate_caudal}}</span>
                                                     </div>
                                                     <div class="col-sm-6 col-xs-12" ng-cloak>
-                                                        <span class="label label-info" style="font-size: 12px !important;">Valor Anual:</span>
+                                                        <span class="label label-primary" style="font-size: 12px !important;">Valor Anual:</span>
                                                         <span style="font-size: 14px !important; font-weight: bold;">{{valor_total}}</span>
                                                     </div>
                                                 </div>
@@ -497,7 +497,7 @@
                             </button>
                             <button type="button" class="btn btn-success" id="btn-save-riego"
                                     ng-click="saveSolicitudRiego()" ng-disabled="formProcess.$invalid">
-                                Guardar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="btn btn-primary" id="btn-process-riego"
                                     ng-click="procesarSolicitud('btn-process-riego')" disabled>
@@ -569,22 +569,22 @@
                                         <fieldset>
                                             <legend style="font-size: 16px; font-weight: bold;">Datos de Terreno</legend>
 
-                                            <div class="col-xs-12" style="padding: 0;">
+                                            <div class="col-xs-12" style="">
                                                 <div class="col-sm-6 col-xs-12 form-group">
                                                     <label for="t_terreno" class="col-sm-4 col-xs-12 control-label">Terrenos:</label>
-                                                    <div class="col-sm-8 col-xs-12" style="padding-top: 10px;">
+                                                    <div class="col-sm-8 col-xs-12" style="">
                                                         <select class="form-control" name="t_terrenos_setnombre" id="t_terrenos_setnombre"
                                                                 ng-model="t_terrenos_setnombre" ng-options="value.id as value.label for value in terrenos_setN"
                                                                 ng-change="searchInfoTerreno()"></select>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Junta Modular:</span> {{junta_setnombre}}
+                                                <div class="col-sm-6 col-xs-12" style="padding-left: 45px;">
+                                                    <span class="label label-default" style="!important; font-size: 12px !important;">Junta Modular:</span> {{junta_setnombre}}
                                                 </div>
                                             </div>
 
-                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                            <div class="col-xs-12" style="padding: 0;">
                                                 <div class="col-sm-6 col-xs-12">
                                                     <span class="label label-default" style="font-size: 12px !important;">Toma:</span> {{toma_setnombre}}
                                                 </div>
@@ -615,7 +615,7 @@
                                         </fieldset>
                                     </div>
 
-                                    <div class="col-xs-12" style="padding: 2%; margin-top: -15px !important;">
+                                    <div class="col-xs-12" style="padding: 2%; margin-top: -20px !important;">
                                         <fieldset>
                                             <legend style="font-size: 16px; font-weight: bold;">Datos del nuevo Cliente</legend>
 
@@ -623,7 +623,7 @@
                                                 <div class="col-sm-6 col-xs-12 form-group">
 
                                                     <label for="t_terreno" class="col-sm-4 col-xs-12 control-label">RUC/CI:</label>
-                                                    <div class="col-sm-8 col-xs-12" style="padding-top: 10px;">
+                                                    <div class="col-sm-8 col-xs-12" style="">
                                                         <select class="form-control"
                                                                 name="t_ident_new_client_setnombre" id="t_ident_new_client_setnombre"
                                                                 ng-model="t_ident_new_client_setnombre" ng-options="value.id as value.label for value in clientes_setN"
@@ -631,12 +631,12 @@
                                                     </div>
 
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
+                                                <div class="col-sm-6 col-xs-12" style="padding-left: 45px;">
                                                     <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_new_cliente_setnombre}}
                                                     <input type="hidden" ng-model="h_new_codigocliente_setnombre">
                                                 </div>
                                             </div>
-                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                            <div class="col-xs-12" style="padding: 0;">
                                                 <div class="col-sm-6 col-xs-12">
                                                     <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_new_cliente_setnombre}}
                                                 </div>
@@ -655,18 +655,13 @@
 
                                         </fieldset>
                                     </div>
-
-
-                                    <div class="col-xs-12 form-group" style="margin-top: -15px;">
+                                    <div class="col-xs-12 form-group" style="">
                                         <label for="t_derivacion" class="col-sm-2 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Observación:</label>
                                         <div class="col-sm-10 col-xs-12">
                                             <textarea class="form-control" id="t_observacion_setnombre" ng-model="t_observacion_setnombre" rows="2"></textarea>
                                         </div>
                                     </div>
                                 </div>
-
-
-
                             </form>
                         </div>
                         <div class="modal-footer">
@@ -675,7 +670,7 @@
                             </button>
                             <button type="button" class="btn btn-success" id="btn-save-setnombre"
                                     ng-click="saveSolicitudSetName()" ng-disabled="formSetNombre.$invalid">
-                                Guardar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="btn btn-primary" id="btn-process-setnombre"
                                     ng-click="procesarSolicitud('btn-process-setnombre')" disabled>
@@ -750,14 +745,14 @@
                                             <div class="col-xs-12" style="padding: 0;">
                                                 <div class="col-sm-6 col-xs-12 form-group">
                                                     <label for="t_terreno_fraccion" class="col-sm-4 col-xs-12 control-label">Terrenos:</label>
-                                                    <div class="col-sm-8 col-xs-12" style="padding-top: 10px;">
+                                                    <div class="col-sm-8 col-xs-12" style="">
                                                         <select class="form-control" name="t_terrenos_fraccion" id="t_terrenos_fraccion"
                                                                 ng-model="t_terrenos_fraccion" ng-options="value.id as value.label for value in terrenos_fraccion"
                                                                 ng-change="searchInfoTerrenoFraccion()"></select>
                                                     </div>
                                                 </div>
 
-                                                <div class="col-sm-6 col-xs-12">
+                                                <div class="col-sm-6 col-xs-12" style="padding-left: 45px;">
                                                     <span class="label label-default" style="font-size: 12px !important;">Junta Modular:</span> {{junta_fraccion}}
                                                 </div>
                                             </div>
@@ -796,8 +791,8 @@
 
                                             <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
                                                 <div class="col-sm-4 col-xs-12">
-                                                    <label for="t_area_fraccion" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Area Fracc. (m2):</label>
-                                                    <div class="col-sm-8 col-xs-12">
+                                                    <label for="t_area_fraccion" class="col-sm-5 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Area Fracc.:</label>
+                                                    <div class="col-sm-7 col-xs-12">
                                                         <input type="text" class="form-control" name="t_area_fraccion" id="t_area_fraccion"
                                                                ng-model="t_area_fraccion" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculateFraccion()">
                                                         <span class="help-block error"
@@ -819,21 +814,21 @@
                                         </fieldset>
                                     </div>
 
-                                    <div class="col-xs-12" style="padding: 2%; margin-top: -35px !important;">
+                                    <div class="col-xs-12" style="padding: 2%; margin-top: -25px !important;">
                                         <fieldset>
                                             <legend style="font-size: 16px; font-weight: bold;">Datos del Nuevo Cliente</legend>
 
                                             <div class="col-xs-12" style="padding: 0;">
                                                 <div class="col-sm-5 col-xs-12 form-group">
                                                     <label for="t_ident_new_client_fraccion" class="col-sm-4 col-xs-12 control-label">RUC/CI:</label>
-                                                    <div class="col-sm-8 col-xs-12" style="padding-top: 10px;">
+                                                    <div class="col-sm-8 col-xs-12" style="">
                                                         <select class="form-control"
                                                                 name="t_ident_new_client_fraccion" id="t_ident_new_client_fraccion"
                                                                 ng-model="t_ident_new_client_fraccion" ng-options="value.id as value.label for value in clientes_fraccion"
                                                                 ng-change="getClienteByIdentifyFraccion()"></select>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-5 col-xs-12">
+                                                <div class="col-sm-5 col-xs-12" style="padding-left: 45px;">
                                                     <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_new_cliente_fraccion}}
                                                     <input type="hidden" ng-model="h_new_codigocliente_fraccion">
                                                 </div>
@@ -861,7 +856,7 @@
                             </button>
                             <button type="button" class="btn btn-success" id="btn-save-fraccion"
                                     ng-click="saveSolicitudFraccion()" ng-disabled="formFraccion.$invalid">
-                                Guardar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="btn btn-primary" id="btn-process-fraccion"
                                     ng-click="procesarSolicitud('btn-process-fraccion')" disabled>
@@ -949,7 +944,7 @@
                             </button>
                             <button type="button" class="btn btn-success" id="btn-save-otro"
                                     ng-click="saveSolicitudOtro();" ng-disabled="formProcessOtros.$invalid">
-                                Guardar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="btn btn-primary" id="btn-process-otro"
                                     ng-click="procesarSolicitud('btn-process-otro')" disabled>

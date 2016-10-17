@@ -215,6 +215,52 @@
                 </div>
             </div>
 
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalInfoSolSetName">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-info">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Solicitud de Cambio de Nombre Nro.: {{no_info_setN}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-xs-12 text-center">
+                                <img class="img-thumbnail" src="<?= asset('img/solicitud.png') ?>" alt="">
+                            </div>
+                            <div class="row text-center">
+
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Ingresada el: </span>{{ingresada_info_setN}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Procesada el: </span>{{procesada_info_setN}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Cliente: </span>{{cliente_info_setN}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Terreno Nro: </span>{{noterreno_info_setN}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Junta Modular: </span>{{junta_info_setN}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Ubicado en la Toma: </span>{{toma_info_setN}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Canal: </span>{{canal_info_setN}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Derivación: </span>{{derivacion_info_setN}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Area: </span>{{area_info_setN}} (m2)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="modal fade" tabindex="-1" role="dialog" id="modalInfoSolFraccion">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">

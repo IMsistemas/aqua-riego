@@ -32,7 +32,8 @@ class SolicitudController extends Controller
                                             ->get();
         $solicitudotro = SolicitudOtro::with('cliente')->orderBy('fechasolicitud', 'desc')
                                             ->get();
-        $solicitudsetname = SolicitudCambioNombre::with('cliente')->orderBy('fechasolicitud', 'desc')
+        $solicitudsetname = SolicitudCambioNombre::with('cliente', 'terreno.derivacion.canal.calle.barrio')
+                                            ->orderBy('fechasolicitud', 'desc')
                                             ->get();
         $solicitudreparticion = SolicitudReparticion::with('cliente')->orderBy('fechasolicitud', 'desc')
                                             ->get();

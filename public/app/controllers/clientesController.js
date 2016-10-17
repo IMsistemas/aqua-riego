@@ -306,8 +306,12 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     };
 
     $scope.calculateFraccion = function () {
-        $scope.calculateCaudalFraccion();
-        $scope.calculateValorFraccion();
+
+        if ($scope.t_area_fraccion != '' && $scope.t_area_fraccion != undefined){
+            $scope.calculateCaudalFraccion();
+            $scope.calculateValorFraccion();
+        }
+
     };
 
     $scope.calculateCaudalFraccion = function () {
@@ -551,8 +555,22 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $scope.celular_cliente = $scope.objectAction.celular;
         $scope.telf_trab_cliente = $scope.objectAction.telefonoprincipaltrabajo;
 
+        $scope.cultivos = [{label: '-- Seleccione --', id: 0}];
+        $scope.t_cultivo = 0;
+        $scope.tomas = [{label: '-- Seleccione --', id: 0}];
+        $scope.t_toma = 0;
+        $scope.canales = [{label: '-- Seleccione --', id: 0}];
+        $scope.t_canal = 0;
+        $scope.derivaciones = [{label: '-- Seleccione --', id: 0}];
+        $scope.t_derivacion = 0;
+
+        $scope.calculate_caudal = '0.00';
+        $scope.valor_total = '$ 0.00';
+
         $scope.t_area = '';
         $scope.t_observacion_riego = '';
+
+        $('#btn-process-riego').prop('disabled', true);
 
         $('#modalActionRiego').modal('show');
     };
@@ -570,6 +588,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $scope.telf_trab_cliente_otro = $scope.objectAction.telefonoprincipaltrabajo;
 
         $scope.t_observacion_otro = '';
+        $('#btn-process-otro').prop('disabled', true);
 
         $('#modalActionOtro').modal('show');
     };
@@ -589,19 +608,31 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $scope.celular_cliente_fraccion = $scope.objectAction.celular;
         $scope.telf_trab_cliente_fraccion = $scope.objectAction.telefonoprincipaltrabajo;
 
+        $scope.junta_fraccion = '';
+        $scope.toma_fraccion = '';
+        $scope.canal_fraccion = '';
+        $scope.derivacion_fraccion = '';
+        $scope.cultivo_fraccion = '';
+        $scope.area_fraccion = '';
+        $scope.caudal_fraccion = '';
+        $scope.valor_fraccion = '';
+        $scope.caudal_new_fraccion = '';
+        $scope.valor_new_fraccion = '';
+        $scope.nom_new_cliente_fraccion = '';
+
+        $scope.t_area_fraccion = '';
         $scope.t_observacion_fraccion = '';
 
+        $('#btn-process-fraccion').prop('disabled', true);
         $('#modalActionFraccion').modal('show');
     };
 
     $scope.actionSetName = function () {
         $scope.getTerrenosByCliente();
-
         $scope.getIdentifyClientes();
         $scope.getLastIDSetNombre();
 
         $scope.t_fecha_setnombre = $scope.nowDate();
-
         $scope.h_codigocliente_setnombre = $scope.objectAction.codigocliente;
         $scope.documentoidentidad_cliente_setnombre = $scope.objectAction.documentoidentidad;
         $scope.nom_cliente_setnombre = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
@@ -610,8 +641,23 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         $scope.celular_cliente_setnombre = $scope.objectAction.celular;
         $scope.telf_trab_cliente_setnombre = $scope.objectAction.telefonoprincipaltrabajo;
 
-        $scope.t_observacion_riego = '';
+        $scope.junta_setnombre = '';
+        $scope.toma_setnombre = '';
+        $scope.canal_setnombre = '';
+        $scope.derivacion_setnombre = '';
+        $scope.cultivo_setnombre = '';
+        $scope.area_setnombre = '';
+        $scope.caudal_setnombre = '';
+        $scope.nom_new_cliente_setnombre = '';
+        $scope.direcc_new_cliente_setnombre = '';
+        $scope.telf_new_cliente_setnombre = '';
+        $scope.celular_new_cliente_setnombre = '';
+        $scope.telf_trab_new_cliente_setnombre = '';
 
+        $scope.t_observacion_setnombre = '';
+
+
+        $('#btn-process-setnombre').prop('disabled', false);
         $('#modalActionSetNombre').modal('show');
     };
 
