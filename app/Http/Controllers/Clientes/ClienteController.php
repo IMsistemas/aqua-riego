@@ -54,6 +54,8 @@ class ClienteController extends Controller
             $max = SolicitudOtro::max('idsolicitudotro');
         } else if ($table->name == 'solicitudcambionombre') {
             $max = SolicitudCambioNombre::max('idsolicitudcambionombre');
+        } else if ($table->name == 'solicitudreparticion') {
+            $max = SolicitudReparticion::max('idsolicitudreparticion');
         }
 
         if ($max != null){

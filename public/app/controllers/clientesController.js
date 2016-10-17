@@ -512,6 +512,16 @@ app.controller('clientesController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.getLastIDFraccion = function () {
+        var table = {
+            name: 'solicitudreparticion'
+        };
+
+        $http.get(API_URL + 'cliente/getLastID/' + JSON.stringify(table)).success(function(response){
+            $scope.num_solicitud_fraccion = response.id;
+        });
+    };
+
     $scope.getClienteByIdentifyFraccion = function () {
         var idcliente = {
             codigocliente: $scope.t_ident_new_client_fraccion
@@ -594,8 +604,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     };
 
     $scope.actionFraccion = function () {
-        //$scope.getLastIDOtros();
-
+        $scope.getLastIDFraccion();
         $scope.getTerrenosFraccionByCliente();
         $scope.getIdentifyClientesFraccion();
 
@@ -832,6 +841,23 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
     };
 
+    $scope.onlyNumber = function ($event) {
+
+        var k = $event.keyCode;
+        if (k == 8 || k == 0) return true;
+        var patron = /\d/;
+        var n = String.fromCharCode(k);
+
+        if (n == ".") {
+            return true;
+        } else {
+
+            if(patron.test(n) == false){
+                $event.preventDefault();
+            }
+            else return true;
+        }
+    };
 });
 
 $(function(){

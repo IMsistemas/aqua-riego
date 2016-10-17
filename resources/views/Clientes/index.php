@@ -420,7 +420,7 @@
                                                 <div class="col-sm-6 col-xs-12 form-group error">
                                                     <label for="t_area" class="col-sm-4 col-xs-12 control-label" >Area (m2):</label>
                                                     <div class="col-sm-8 col-xs-12">
-                                                        <input type="text" class="form-control" name="t_area" id="t_area"
+                                                        <input type="text" class="form-control" name="t_area" id="t_area" ng-keypress="onlyNumber($event)"
                                                                ng-model="t_area" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculate()">
                                                         <span class="help-block error"
                                                               ng-show="formProcess.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
@@ -687,7 +687,7 @@
                         <div class="modal-header modal-header-primary">
 
                             <div class="col-md-6 col-xs-12">
-                                <h4 class="modal-title">Solicitud de Fraccionamiento Nro: {{num_solicitud_riego}}</h4>
+                                <h4 class="modal-title">Solicitud de Fraccionamiento Nro: {{num_solicitud_fraccion}}</h4>
                             </div>
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
@@ -793,7 +793,7 @@
                                                 <div class="col-sm-4 col-xs-12">
                                                     <label for="t_area_fraccion" class="col-sm-5 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Area Fracc.:</label>
                                                     <div class="col-sm-7 col-xs-12">
-                                                        <input type="text" class="form-control" name="t_area_fraccion" id="t_area_fraccion"
+                                                        <input type="text" class="form-control" name="t_area_fraccion" id="t_area_fraccion" ng-keypress="onlyNumber($event)"
                                                                ng-model="t_area_fraccion" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculateFraccion()">
                                                         <span class="help-block error"
                                                               ng-show="formFraccion.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
