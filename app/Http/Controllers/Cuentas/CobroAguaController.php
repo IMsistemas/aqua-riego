@@ -46,10 +46,10 @@ class CobroAguaController extends Controller
         return CobroAgua::join('terreno', 'terreno.idterreno', '=', 'cobroagua.idterreno')
                             ->join('cliente', 'terreno.codigocliente', '=', 'cliente.codigocliente')
                             ->join('tarifa', 'terreno.idtarifa', '=', 'tarifa.idtarifa')
-                            ->join('barrio', 'terreno.idbarrio', '=', 'barrio.idbarrio')
+                            //->join('barrio', 'terreno.idbarrio', '=', 'barrio.idbarrio')
                             ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
-                            ->join('toma', 'derivacion.idtoma', '=', 'toma.idtoma')
-                            ->join('canal', 'toma.idcanal', '=', 'canal.idcanal')
+                            //->join('toma', 'derivacion.idtoma', '=', 'toma.idtoma')
+                            //->join('canal', 'toma.idcanal', '=', 'canal.idcanal')
                             ->orderBy('aniocobro', 'desc')
                             ->get();
     }
