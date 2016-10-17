@@ -62,7 +62,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
             var otro = response.otro;
 
-            if (riego.length > 0) {
+            if (otro.length > 0) {
 
                 var length_otro = otro.length;
 
@@ -102,7 +102,8 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                         estado: setnombre[i].estaprocesada,
 
                         fechaprocesada: setnombre[i].fechaprocesada,
-                        terreno: setnombre[i].terreno
+                        terreno: setnombre[i].terreno,
+                        no_solicitudsetnombre: setnombre[i].idsolicitudcambionombre
                     };
 
                     list.push(object_setnombre);
@@ -126,8 +127,8 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                         tipo: 'Repartición',
                         estado: reparticion[i].estaprocesada,
                         areanueva: reparticion[i].nuevaarea,
-                        fechaprocesada: reparticion[i].fechaprocesada
-
+                        fechaprocesada: reparticion[i].fechaprocesada,
+                        no_solicitudreparticion: reparticion[i].idsolicitudreparticion
                     };
 
                     list.push(object_reparticion);
@@ -140,7 +141,6 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
         });
     };
-
 
     $scope.searchByFilter = function () {
         var filter = {
@@ -265,9 +265,16 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         $scope.cliente_process = solicitud.cliente;
         $scope.tipo_process = solicitud.tipo;
 
-        $scope.idsolicitud = solicitud.no_solicitud;
-
-        $('#modalProcesar').modal('show');
+        if (solicitud.tipo == 'Cambio de Nombre'){
+            $scope.idsolicitud = solicitud.no_solicitudsetnombre;
+            $('#modalProcesarSetNombre').modal('show');
+        } else if (solicitud.tipo == 'Repartición'){
+            $scope.idsolicitud = solicitud.no_solicitudreparticion;
+            $('#modalProcesarFraccion').modal('show');
+        } else {
+            $scope.idsolicitud = solicitud.no_solicitud;
+            $('#modalProcesar').modal('show');
+        }
     };
 
     $scope.procesarSolicitud = function () {
@@ -282,7 +289,47 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
             $scope.idsolicitud = 0;
             $('#modalProcesar').modal('hide');
-            $scope.message = 'Se proceso correctamente la solicitud seleccionada...';
+            $scope.message = 'Se procesó correctamente la solicitud seleccionada...';
+            $('#modalMessage').modal('show');
+
+        }).error(function (res) {
+
+        });
+    };
+
+    $scope.procesarSolicitudSetN = function () {
+        var url = API_URL + 'solicitud/processSolicitudSetName/' + $scope.idsolicitud;
+
+        var data = {
+            idsolicitud: $scope.idsolicitud
+        };
+
+        $http.put(url, data ).success(function (response) {
+            $scope.initLoad();
+
+            $scope.idsolicitud = 0;
+            $('#modalProcesarSetNombre').modal('hide');
+            $scope.message = 'Se procesó correctamente la solicitud seleccionada...';
+            $('#modalMessage').modal('show');
+
+        }).error(function (res) {
+
+        });
+    };
+
+    $scope.procesarSolicitudFraccion = function () {
+        var url = API_URL + 'solicitud/processSolicitudFraccion/' + $scope.idsolicitud;
+
+        var data = {
+            idsolicitud: $scope.idsolicitud
+        };
+
+        $http.put(url, data ).success(function (response) {
+            $scope.initLoad();
+
+            $scope.idsolicitud = 0;
+            $('#modalProcesarFraccion').modal('hide');
+            $scope.message = 'Se procesó correctamente la solicitud seleccionada...';
             $('#modalMessage').modal('show');
 
         }).error(function (res) {

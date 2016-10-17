@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Solicitud;
 
+use App\Modelos\Clientes\ClienteArriendo;
 use App\Modelos\Solicitud\Solicitud;
 use App\Modelos\Solicitud\SolicitudCambioNombre;
 use App\Modelos\Solicitud\SolicitudOtro;
 use App\Modelos\Solicitud\SolicitudReparticion;
 use App\Modelos\Solicitud\SolicitudRiego;
+use App\Modelos\Terreno\Terreno;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -172,6 +174,39 @@ class SolicitudController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    public function processSolicitudSetName(Request $request, $id)
+    {
+        $solicitud = SolicitudCambioNombre::find($id);
+
+        $terreno = Terreno::find($solicitud->idterreno);
+        $terreno->codigocliente = $solicitud->codigonuevocliente;
+        $terreno->save();
+
+        $solicitud->estaprocesada = true;
+        $solicitud->fechaprocesada = date('Y-m-d');
+        $solicitud->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function processSolicitudFraccion(Request $request, $id)
+    {
+        $solicitud = SolicitudReparticion::find($id);
+
+        $arriendo = new ClienteArriendo();
+        $arriendo->codigoclientearrendador = $solicitud->codigonuevocliente;
+        $arriendo->codigoclientearrendatario = $solicitud->codigocliente;
+        $arriendo->idterreno = $solicitud->idterreno;
+        $arriendo->areaarriendo = $solicitud->nuevaarea;
+        $arriendo->save();
+
+        $solicitud->estaprocesada = true;
+        $solicitud->fechaprocesada = date('Y-m-d');
+        $solicitud->save();
+        return response()->json(['success' => true]);
+    }
+
 
     /**
      * Remove the specified resource from storage.

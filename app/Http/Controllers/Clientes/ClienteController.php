@@ -271,7 +271,6 @@ class ClienteController extends Controller
                             response()->json(['success' => false]);
     }
 
-
     public function storeSolicitudFraccion(Request $request)
     {
         $solicitud = new SolicitudReparticion();

@@ -144,6 +144,55 @@
                 </div>
             </div>
 
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalProcesarSetNombre">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-info">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Confirmación</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span>
+                                Desea procesar la Solicitud Nro: <strong>"{{num_solicitud_process}}"</strong>
+                                del Cliente: <strong>"{{cliente_process}}"</strong> de Tipo: <strong>"{{tipo_process}}"</strong>...
+                            </span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="procesarSolicitudSetN()">
+                                Procesar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalProcesarFraccion">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-info">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Confirmación</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span>
+                                Desea procesar la Solicitud Nro: <strong>"{{num_solicitud_process}}"</strong>
+                                del Cliente: <strong>"{{cliente_process}}"</strong> de Tipo: <strong>"{{tipo_process}}"</strong>...
+                            </span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="procesarSolicitudFraccion()">
+                                Procesar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="modal fade" tabindex="-1" role="dialog" id="modalInfoSolOtros">
                 <div class="modal-dialog modal-sm" role="document">

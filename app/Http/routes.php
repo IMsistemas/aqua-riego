@@ -22,6 +22,10 @@ Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicit
 
 Route::get('solicitud/getByFilter/{filter}', 'Solicitud\SolicitudController@getByFilter');
 
+Route::put('solicitud/processSolicitudSetName/{idsolicitud}', 'Solicitud\SolicitudController@processSolicitudSetName');
+
+Route::put('solicitud/processSolicitudFraccion/{idsolicitud}', 'Solicitud\SolicitudController@processSolicitudFraccion');
+
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Solicitud
 Route::resource('/solicitud', 'Solicitud\SolicitudController');
 
