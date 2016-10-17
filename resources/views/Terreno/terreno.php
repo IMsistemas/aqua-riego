@@ -32,7 +32,7 @@
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" id="search" placeholder="BUSCAR..."
-                           ng-model="search" ng-change="searchByFilter()">
+                           ng-model="search" >
                     <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
@@ -60,20 +60,20 @@
         <div class="col-xs-12">
             <div class="col-sm-4 col-xs-12">
                 <div class="form-group">
-                    <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Canal:</span></label>
+                    <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Toma:</span></label>
                     <div class="col-sm-8">
                         <select class="form-control" name="t_estado" id="t_estado"
-                                ng-model="t_estado" ng-options="value.id as value.label for value in canales"
+                                ng-model="t_estado" ng-options="value.id as value.name for value in estados"
                                 ng-change="searchByFilter()"> </select>
                     </div>
                 </div>
             </div>
             <div class="col-sm-4 col-xs-12">
                 <div class="form-group">
-                    <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Toma:</span></label>
+                    <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Canal:</span></label>
                     <div class="col-sm-8">
                         <select class="form-control" name="t_estado" id="t_estado"
-                                ng-model="t_estado" ng-options="value.id as value.name for value in estados"
+                                ng-model="t_estado" ng-options="value.id as value.label for value in canales"
                                 ng-change="searchByFilter()"> </select>
                     </div>
                 </div>

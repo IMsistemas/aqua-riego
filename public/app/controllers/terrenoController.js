@@ -6,7 +6,7 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
     $scope.initLoad = function () {
 
         $scope.loadTarifas();
-        $scope.loadCanales();
+        //$scope.loadCanales();
         $scope.loadBarrios();
         $scope.loadCultivos();
 

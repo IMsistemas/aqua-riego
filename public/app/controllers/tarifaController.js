@@ -24,6 +24,7 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
                 array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
             }
             $scope.tarifas = array_temp;
+            $scope.t_tarifa = 0;
         });
     };
 
