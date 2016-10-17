@@ -160,7 +160,7 @@ class TerrenoController extends Controller
     {
         $terreno = Terreno::find($id);
 
-        $terreno->idbarrio = $request->input('idbarrio');
+        //$terreno->idbarrio = $request->input('idbarrio');
         $terreno->idcultivo = $request->input('idcultivo');
         $terreno->idtarifa = $request->input('idtarifa');
         $terreno->idderivacion = $request->input('idderivacion');

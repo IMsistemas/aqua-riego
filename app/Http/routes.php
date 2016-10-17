@@ -234,11 +234,11 @@ Route::get('editTerreno/getBarrios', 'Terreno\TerrenoController@getBarrios');
 //Peticion para obtener el listado de cultivos
 Route::get('editTerreno/getCultivos', 'Terreno\TerrenoController@getCultivos');
 //Peticion para obtener el listado de canales
-Route::get('editTerreno/getCanales', 'Terreno\TerrenoController@getCanales');
+Route::get('editTerreno/getCanales/{idcalle}', 'Terreno\TerrenoController@getCanales');
 //Peticion para obtener el listado de tomas en base a un canal
-Route::get('editTerreno/getTomas/{idcanal}', 'Terreno\TerrenoController@getTomas');
+Route::get('editTerreno/getTomas/{idbarrio}', 'Terreno\TerrenoController@getTomas');
 //Peticion para obtener el listado de derivaciones en base a una toma
-Route::get('editTerreno/getDerivaciones/{idtoma}', 'Terreno\TerrenoController@getDerivaciones');
+Route::get('editTerreno/getDerivaciones/{idcanal}', 'Terreno\TerrenoController@getDerivaciones');
 //Peticion para obtener el listado de terrenos
 Route::get('editTerreno/getTerrenos', 'Terreno\TerrenoController@getTerrenos');
 //Peticion para obtener la constante para calculo

@@ -160,33 +160,29 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
             $scope.t_toma = terreno.derivacion.canal.calle.idcalle;
 
 
-            $http.get(API_URL + 'editTerreno/getDerivaciones/' + terreno.derivacion.canal.idcanal).success(function(response){
+            $http.get(API_URL + 'editTerreno/getCanales/' + terreno.derivacion.canal.calle.idcalle).success(function(response){
                 var longitud = response.length;
                 var array_temp = [];
                 for(var i = 0; i < longitud; i++){
-                    array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
+                    array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
                 }
-                $scope.derivaciones_edit = array_temp;
+                $scope.canales_edit = array_temp;
 
-                $scope.t_derivacion = terreno.derivacion.idderivacion;
+                $scope.t_canal = terreno.derivacion.canal.idcanal;
 
-                $('#modalEdit').modal('show');
+                $http.get(API_URL + 'editTerreno/getDerivaciones/' + terreno.derivacion.canal.idcanal).success(function(response){
+                    var longitud = response.length;
+                    var array_temp = [];
+                    for(var i = 0; i < longitud; i++){
+                        array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
+                    }
+                    $scope.derivaciones_edit = array_temp;
 
-            });
+                    $scope.t_derivacion = terreno.derivacion.idderivacion;
 
+                    $('#modalEdit').modal('show');
 
-
-            $http.get(API_URL + 'editTerreno/getDerivaciones/' + terreno.derivacion.canal.idcanal).success(function(response){
-                var longitud = response.length;
-                var array_temp = [];
-                for(var i = 0; i < longitud; i++){
-                    array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
-                }
-                $scope.derivaciones_edit = array_temp;
-
-                $scope.t_derivacion = terreno.derivacion.idderivacion;
-
-                $('#modalEdit').modal('show');
+                });
 
             });
 
