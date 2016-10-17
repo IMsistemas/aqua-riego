@@ -23,7 +23,7 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 
 	$scope.toModuloCliente = function(){		
 		$scope.titulo = "Clientes";
-		$scope.toModulo = "clientes";
+		$scope.toModulo = "cliente";
 
 		var list = [
 			'<li>Clientes</li>',
@@ -55,16 +55,15 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$scope.toModulo = "parroquias";
 	}
 
-	$scope.toModuloBarrio = function(idparroquia){		
-		$scope.idparroquia = idparroquia;	
+	$scope.toModuloBarrio = function(){			
 		$scope.titulo = "Juntas Modulares";
-		$scope.toModulo = "barrios";
+		$scope.toModulo = "barrio";
 
 	}
 
 	$scope.toModuloCanal = function(){
 		$scope.titulo = "Canales";
-		$scope.toModulo = "canales";
+		$scope.toModulo = "canal";
 	}
 
 	$scope.toModuloToma = function(idcanal,descripcioncanal){
@@ -79,10 +78,9 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$scope.toModulo = "derivaciones";
 	}
 
-	$scope.toModuloCalle = function(idbarrio,nombrebarrio){		
-		$scope.idbarrio = idbarrio;	
-		$scope.titulo = "Tranversales Barrio: ".concat(nombrebarrio);
-		$scope.toModulo = "calles";
+	$scope.toModuloCalle = function(){			
+		$scope.titulo = "Tomas";
+		$scope.toModulo = "calle";
 	}
 
 	$scope.toModuloCargo = function(){
@@ -121,7 +119,11 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$scope.titulo = "Terrenos";
 		$scope.toModulo = "editTerreno";
 	}
-
+	
+	$scope.toModuloTarifa = function(){		
+		$scope.titulo = "Tarifas";
+		$scope.toModulo = "tarifa";
+	}
 
 	$scope.prepareListBreadcrumb = function (list_module) {
 		$scope.list_breadcrumb = [

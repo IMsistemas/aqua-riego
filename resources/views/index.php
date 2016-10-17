@@ -52,15 +52,23 @@
                             <a href="#"><i class="fa fa-tint fa-lg"></i> Recaudación <span class="arrow"></span></a>
                         </li>
                         <ul class="sub-menu collapse" id="recaudacion">
-                            <li><a href="#" ng-click="toModuloRecaudacion();">Cobro Agua</a></li>
+                            <li><a href="#" ng-click="toModuloRecaudacion();">Cobro</a></li>
                             
                         </ul>
+                        <li  data-toggle="collapse" data-target="#sector" class="collapsed">
+                            <a href="#"><i class="fa fa-tint fa-lg"></i> Juntas Modulares <span class="arrow"></span></a> </li>
+                        <ul class="sub-menu collapse" id="sector">
+                            <li><a href="#" ng-click="toModuloBarrio();">Juntas Modulares</a></li>
+                            <li><a href="#" ng-click="toModuloCalle();">Tomas</a></li>
+                            <li><a href="#" ng-click="toModuloCanal();">Canales</a></li>
+                            <li><a href="#" ng-click="toModuloDerivacion();">Derivaciones</a></li>
+                        </ul>
+
                         <li data-toggle="collapse" data-target="#suministro" class="collapsed">
                             <a href="#"><i class="fa fa-globe fa-spin fa-lg"></i> Terrenos <span class="arrow"></span></a>
                         </li>
                         <ul class="sub-menu collapse" id="suministro">
                             <li><a href="#" ng-click="toModuloSuministro();">Terrenos</a></li>
-                            <li><a href="#" ng-click="toModuloBarrio();">Juntas Modulares</a></li>
                         </ul>
                         <li data-toggle="collapse" data-target="#solicitud" class="collapsed">
                             <a href="#"><i class="fa fa-pencil-square-o fa-lg"></i> Solicitudes <span class="arrow"></span></a>
@@ -105,11 +113,8 @@
                             <a href="#"><i class="fa fa-cog fa-lg fa-spin"></i> Configuración <span class="arrow"></span></a>
                         </li>
                         <ul class="sub-menu collapse" id="configuracion">
-                            <li ng-show="false"><a href="#">Tarifas</a></li>
-                            <li><a href="#" ng-click="toModuloCanal();">Tomas</a></li>
-
+                            <li><a href="#" ng-click="toModuloTarifa();">Tarifas</a></li>
                             <li><a href="#" ng-click="toModuloDescuento();">Descuentos</a></li>
-
                             <li ng-show="false"><a href="#" ng-click="toModuloCanal();">Descuentos</a></li>
 
                         </ul>
@@ -166,10 +171,12 @@
     <script src="<?= asset('app/controllers/empleadosController.js') ?>"></script>
     <script src="<?= asset('app/controllers/clientesController.js') ?>"></script>
     <script src="<?= asset('app/controllers/barriosController.js') ?>"></script>
-    <script src="<?= asset('app/controllers/canalesController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/barrioController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/callesController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/canallController.js') ?>"></script>
     <script src="<?= asset('app/controllers/tomasController.js') ?>"></script>
     <script src="<?= asset('app/controllers/derivacionesController.js') ?>"></script>
-
+    <script src="<?= asset('app/controllers/derivacionessController.js') ?>"></script>
     <script src="<?= asset('app/controllers/descuentosController.js') ?>"></script>
 
     <script src="<?= asset('app/controllers/solicitudController.js') ?>"></script>

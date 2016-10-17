@@ -1,4 +1,4 @@
-drop index ACTIVIDAD_PK;
+﻿drop index ACTIVIDAD_PK;
 
 drop table ACTIVIDAD;
 
@@ -179,10 +179,12 @@ IDBARRIO
 create table AREA (
    IDAREA               SERIAL                 not null,
    IDTARIFA             INT8                 not null,
+   ANIOTARIFA           INT8                 not null,
    DESDE                DECIMAL(9,2)         null,
    HASTA                DECIMAL(9,2)         null,
    COSTO                DECIMAL(9,2)         null,
    ESFIJA               BOOL                 null,
+   observacion 		text		     null,
    constraint PK_AREA primary key (IDAREA)
 );
 
@@ -310,6 +312,7 @@ IDCARGO
 create table CAUDAL (
    IDCAUDAL             SERIAL                 not null,
    IDTARIFA             INT8                 not null,
+   ANIOTARIFA             INT8                 not null,
    DESDE                DECIMAL(9,2)         null,
    HASTA                DECIMAL(9,2)         null,
    constraint PK_CAUDAL primary key (IDCAUDAL)
@@ -608,7 +611,7 @@ CODIGOCLIENTE
 /*==============================================================*/
 create table TARIFA (
    IDTARIFA             SERIAL                 not null,
-   ANIOTARIFA            DATE                 null,
+   ANIOTARIFA            integer                 null,
    NOMBRETARIFA         VARCHAR(64)          null,
    constraint PK_TARIFA primary key (IDTARIFA)
 );
