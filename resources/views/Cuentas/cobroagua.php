@@ -102,14 +102,15 @@
                         <div class="col-xs-12">
                             <fieldset>
                                 <legend>Datos de Terreno</legend>
-                                <div class="col-xs-12 col-sm-6" style="padding: 0;">
+                                <div class="col-xs-12 col-sm-6" style="padding: 0;  margin-top: 5px;">
                                     <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">Cliente:</span></div>
                                     <div class="col-xs-12 col-sm-9">{{cliente_info}}</div>
                                 </div>
-                                <div class="col-xs-12 col-sm-6" style="padding: 0;">
-                                    <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">Junta Modular:</span></div>
-                                    <div class="col-xs-12 col-sm-8">{{junta_info}}</div>
+                                <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
+                                    <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">Tarifa:</span></div>
+                                    <div class="col-xs-12 col-sm-9">{{tarifa_info}}</div>
                                 </div>
+
                                 <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
                                     <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">Area:</span></div>
                                     <div class="col-xs-12 col-sm-9">{{area_info}}</div>
@@ -118,17 +119,17 @@
                                     <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">Caudal:</span></div>
                                     <div class="col-xs-12 col-sm-8">{{caudal_info}}</div>
                                 </div>
-                                <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
-                                    <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">Tarifa:</span></div>
-                                    <div class="col-xs-12 col-sm-9">{{tarifa_info}}</div>
-                                </div>
-                                <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
-                                    <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">Canal:</span></div>
-                                    <div class="col-xs-12 col-sm-8">{{canal_info}}</div>
+                                <div class="col-xs-12 col-sm-6" style="padding: 0;  margin-top: 5px;">
+                                    <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">Junta Modular:</span></div>
+                                    <div class="col-xs-12 col-sm-8">{{junta_info}}</div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
                                     <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">Toma:</span></div>
                                     <div class="col-xs-12 col-sm-9">{{toma_info}}</div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
+                                    <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">Canal:</span></div>
+                                    <div class="col-xs-12 col-sm-8">{{canal_info}}</div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
                                     <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">Derivación:</span></div>

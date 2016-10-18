@@ -47,9 +47,9 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
         $scope.area_info = cobro.area + ' m2';
         $scope.caudal_info = cobro.caudal;
         $scope.tarifa_info = cobro.nombretarifa;
-        $scope.canal_info = cobro.descripcioncanal;
-        $scope.toma_info = cobro.descripciontoma;
-        $scope.derivacion_info = cobro.descripcionderivacion;
+        $scope.canal_info = cobro.nombrecanal;
+        $scope.toma_info = cobro.nombrecalle;
+        $scope.derivacion_info = cobro.nombrederivacion;
 
         $scope.idcuenta = cobro.idcuenta;
 
