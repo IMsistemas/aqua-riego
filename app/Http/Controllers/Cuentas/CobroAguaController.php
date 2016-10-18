@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cuentas;
 
 use App\Modelos\Cuentas\CobroAgua;
 use App\Modelos\Cuentas\Descuento;
+use App\Modelos\Cuentas\Recargo;
 use App\Modelos\Terreno\Terreno;
 use Illuminate\Http\Request;
 
@@ -146,6 +147,22 @@ class CobroAguaController extends Controller
             $cobro->iddescuento = $descuento[0]->iddescuento;
             $cobro->valorconsumo = round($total, 2);
             $cobro->total = round($total + $cobro->valoratrasados, 2);
+
+            $cobro->iddescuento = $descuento[0]->iddescuento;
+
+        } else {
+            $recargo = Recargo::where('year', date('Y'))
+                                    ->where('mes', date('n'))
+                                    ->get();
+
+            $valorconsumo = $cobro->valorconsumo;
+            $total = ($valorconsumo * $recargo[0]->porcentaje) / 100;
+
+            $cobro->iddescuento = $recargo[0]->iddescuento;
+            $cobro->valorconsumo = round($total, 2);
+            $cobro->total = round($total + $cobro->valoratrasados, 2);
+
+            $cobro->idrecargo = $recargo[0]->idrecargo;
         }
 
         $cobro->fechapago = date('Y-m-d');

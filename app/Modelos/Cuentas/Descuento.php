@@ -10,5 +10,8 @@ class Descuento extends Model
     protected $primaryKey = 'iddescuento';
     public $timestamps = false;
 
+    public function cobroagua(){
+        return $this->hasMany('App\Modelos\Cuentas\CobroAgua','iddescuento');
+    }
 
 }

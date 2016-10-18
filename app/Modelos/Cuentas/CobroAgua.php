@@ -19,4 +19,9 @@ class CobroAgua extends Model
     {
         return $this->belongsTo('App\Modelos\Cuentas\Descuento', 'iddescuento');
     }
+
+    public function recargo()
+    {
+        return $this->belongsTo('App\Modelos\Cuentas\Recargo', 'idrecargo');
+    }
 }
