@@ -49,8 +49,8 @@
                 <div class="form-group">
                     <label for="t_estado" class="col-sm-4 control-label" ><span style="float: right;">Tarifa:</span></label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="t_estado" id="t_estado"
-                                ng-model="t_estado" ng-options="value.id as value.label for value in tarifas"
+                        <select class="form-control" name="t_tarifa" id="t_tarifa"
+                                ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
                                 ng-change="searchByFilter()"> </select>
                     </div>
                 </div>
@@ -58,32 +58,42 @@
         </div>
 
         <div class="col-xs-12">
-            <div class="col-sm-4 col-xs-12">
+            <div class="col-sm-3 col-xs-12">
+                <div class="form-group">
+                    <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Junta:</span></label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="t_barrio_s" id="t_barrio_s"
+                                ng-model="t_barrio_s" ng-options="value.id as value.label for value in barrios_s"
+                                ng-change="searchByFilter()"> </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-12">
                 <div class="form-group">
                     <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Toma:</span></label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="t_estado" id="t_estado"
-                                ng-model="t_estado" ng-options="value.id as value.name for value in estados"
+                        <select class="form-control" name="t_toma" id="t_toma"
+                                ng-model="t_toma" ng-options="value.id as value.label for value in tomas_s"
                                 ng-change="searchByFilter()"> </select>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 col-xs-12">
+            <div class="col-sm-3 col-xs-12">
                 <div class="form-group">
                     <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Canal:</span></label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="t_estado" id="t_estado"
-                                ng-model="t_estado" ng-options="value.id as value.label for value in canales"
+                        <select class="form-control" name="t_canales" id="t_canales"
+                                ng-model="t_canales" ng-options="value.id as value.label for value in canales"
                                 ng-change="searchByFilter()"> </select>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 col-xs-12">
+            <div class="col-sm-3 col-xs-12">
                 <div class="form-group">
                     <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Derivación:</span></label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="t_estado" id="t_estado"
-                                ng-model="t_estado" ng-options="value.id as value.name for value in estados"
+                        <select class="form-control" name="t_derivacion" id="t_derivacion"
+                                ng-model="t_derivacion" ng-options="value.id as value.label for value in derivaciones"
                                 ng-change="searchByFilter()"> </select>
                     </div>
                 </div>

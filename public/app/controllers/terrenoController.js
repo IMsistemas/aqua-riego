@@ -7,8 +7,18 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
 
         $scope.loadTarifas();
         //$scope.loadCanales();
+        //$scope.loadBarriosSearch();
         $scope.loadBarrios();
         $scope.loadCultivos();
+
+        $scope.tomas_s = [{label: '-- Seleccione --', id: 0}];
+        $scope.t_toma = 0;
+
+        $scope.canales = [{label: '-- Seleccione --', id: 0}];
+        $scope.t_canales = 0;
+
+        $scope.derivaciones = [{label: '-- Seleccione --', id: 0}];
+        $scope.t_derivacion = 0;
 
         $http.get(API_URL + 'editTerreno/getTerrenos').success(function(response){
 
@@ -41,25 +51,44 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
         $('#modalInfo').modal('show');
     };
 
+    /*$scope.loadBarriosSearch = function(){
+        $http.get(API_URL + 'editTerreno/getBarrios').success(function(response){
+
+            console.log(response);
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+            }
+            $scope.barrios_s = array_temp;
+            $scope.t_barrio_s = 0;
+        });
+    };*/
+
     $scope.loadBarrios = function(){
         $http.get(API_URL + 'editTerreno/getBarrios').success(function(response){
             var longitud = response.length;
-            var array_temp = [];
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
                 array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
             }
             $scope.barrios = array_temp;
+
+            $scope.barrios_s = array_temp;
+            $scope.t_barrio_s = 0;
         });
     };
 
     $scope.loadTarifas = function(){
         $http.get(API_URL + 'editTerreno/getTarifas').success(function(response){
             var longitud = response.length;
-            var array_temp = [];
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
                 array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
             }
             $scope.tarifas = array_temp;
+            $scope.t_tarifa = 0;
         });
     };
 
