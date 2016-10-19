@@ -143,19 +143,10 @@ class CobroAguaController extends Controller
                                 ->get();
 
         if(count($descuento) > 0) {
-            /*$valorconsumo = $cobro->valorconsumo;
-            $total = ($valorconsumo * $descuento[0]->porcentaje) / 100;
-
-            $cobro->iddescuento = $descuento[0]->iddescuento;
-            $cobro->valorconsumo = round($total, 2);
-            $cobro->total = round($total + $cobro->valoratrasados, 2);*/
 
             $total = ($cobro->total * $descuento[0]->porcentage) / 100;
-
-            $cobro->total = round($total, 2);
-
+            $cobro->total = round($cobro->total - $total, 2);
             $cobro->iddescuento = $descuento[0]->iddescuento;
-
             $descuento_recargo_exists = true;
 
         } else {
@@ -163,27 +154,12 @@ class CobroAguaController extends Controller
                                     ->where('mes', date('n'))
                                     ->get();
 
-            /*$valorconsumo = $cobro->valorconsumo;
-            $total = ($valorconsumo * $recargo[0]->porcentaje) / 100;
-
-            $cobro->iddescuento = $recargo[0]->iddescuento;
-            $cobro->valorconsumo = round($total, 2);
-            $cobro->total = round($total + $cobro->valoratrasados, 2);
-
-            $cobro->idrecargo = $recargo[0]->idrecargo;*/
-
-
             if (count($recargo) > 0) {
                 $total = ($cobro->total * $recargo[0]->porcentage) / 100;
-
-                $cobro->total = round($total, 2);
-
+                $cobro->total = round($cobro->total + $total, 2);
                 $cobro->idrecargo = $recargo[0]->idrecargo;
-
                 $descuento_recargo_exists = true;
             }
-
-
         }
 
         $cobro->fechapago = date('Y-m-d');
