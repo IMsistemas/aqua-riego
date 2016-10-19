@@ -113,15 +113,38 @@ app.controller('callesController', function($scope, $http, API_URL) {
     };
 
     $scope.editar = function ()  {
-        var arr_calle = { arr_calle: $scope.calles };
 
-        $http.post(API_URL + 'calle/editar_calle', arr_calle).success(function(response){
-            console.log(response);
-            $scope.initLoad();
-            $scope.message = 'Se editaron correctamente las Tomas';
-            $('#modalMessage').modal('show');
-        });
-    };
+        var c = 0;
+        for (var i = 0; i <  $scope.calles.length; i++)
+        {
+            if( $scope.calles[i].nombrecalle == ""){
+                c ++ ;
+            }
+        }
+
+        if(c > 0 )
+        {
+            $scope.message_error  = 'Existen Calles con nombres en blanco, por favor llene ese campo... ';
+            $('#modalMessageError').modal('show');
+        } else
+        {
+            var arr_calle = { arr_calle: $scope.calles };
+
+            $http.post(API_URL + 'calle/editar_calle', arr_calle).success(function(response){
+                console.log(response);
+                $scope.initLoad();
+                $scope.message = 'Se editaron correctamente las Tomas';
+                $('#modalMessage').modal('show');
+            });
+        }
+
+
+
+
+
+
+
+           };
 
     $scope.FiltroCalle = function () {
         $http.get(API_URL + 'calle/getBarrio').success(function (response) {

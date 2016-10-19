@@ -103,8 +103,30 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
 
     };
 
-    $scope.editar = function ()  {
-        var arr_deri = { arr_deri: $scope.derivacions };
+    /*$scope.editar = function ()  {
+        var c = 0;
+        for (var i = 0; i <  $scope.derivacions.length; i++)
+        {
+            if( $scope.derivacions[i].nombrederivacion == ""){
+                c ++ ;
+            }
+        }
+        console.log(c);
+        if(c > 0 )
+        {
+            $scope.message_error  = 'Existen Derivaciones con nombres en blanco, por favor llene ese campo... ';
+            $('#modalMessageError').modal('show');
+        } else {
+            var arr_deri = {arr_deri: $scope.derivacions};
+
+            $http.post(API_URL + 'derivaciones/editar_derivaciones', arr_deri).success(function (response) {
+                console.log(response);
+                $scope.initLoad();
+                $scope.message = 'Se editaron correctamente las Derivaciones';
+                $('#modalMessage').modal('show');
+            });
+        }
+           /* var arr_deri = { arr_deri: $scope.derivacions };
 
         $http.post(API_URL + 'derivaciones/editar_derivaciones', arr_deri).success(function(response){
             console.log(response);
@@ -112,7 +134,7 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
             $scope.message = 'Se editaron correctamente las Derivaciones';
             $('#modalMessage').modal('show');
         });
-    };
+    };*/
 
     $scope.showModalDelete = function (item) {
         $scope.idderiv_del = item.idderivacion;
@@ -131,14 +153,29 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
     };
 
     $scope.editar = function ()  {
-        var arr_deriva = { arr_deriva: $scope.derivacions };
+        var c = 0;
+        for (var i = 0; i <  $scope.derivacions.length; i++)
+        {
+            if( $scope.derivacions[i].nombrederivacion == ""){
+                c ++ ;
+            }
+        }
+        console.log(c);
+        if(c > 0 )
+        {
+            $scope.message_error  = 'Existen Derivaciones con nombres en blanco, por favor llene ese campo... ';
+            $('#modalMessageError').modal('show');
+        } else {
 
-        $http.post(API_URL + 'derivaciones/editar_derivaciones', arr_deriva).success(function(response){
-            console.log(response);
-            $scope.initLoad();
-            $scope.message = 'Se editaron correctamente las Derivaciones';
-            $('#modalMessage').modal('show');
-        });
+            var arr_deriva = {arr_deriva: $scope.derivacions};
+
+            $http.post(API_URL + 'derivaciones/editar_derivaciones', arr_deriva).success(function (response) {
+                console.log(response);
+                $scope.initLoad();
+                $scope.message = 'Se editaron correctamente las Derivaciones';
+                $('#modalMessage').modal('show');
+            });
+        }
     };
 
     $scope.FiltrarPorBarrio = function (){

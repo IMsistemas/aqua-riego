@@ -35,7 +35,10 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 array_temp.push({label: response[i].nombreparroquia, id: response[i].idparroquia})
             }
             $scope.parroquias = array_temp;
+            $scope.t_parroquias = 1;
         });
+
+
 
 
         $http.get(API_URL + 'barrio/getLastID').success(function(response){
@@ -204,14 +207,29 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.editar = function ()  {
-        var arr_barrio = { arr_barrio: $scope.barrios };
-        console.log(arr_barrio);
-        $http.post(API_URL + 'barrio/editar_Barrio', arr_barrio).success(function(response){
-          //  console.log(response);
-            $scope.initLoad();
-            $scope.message = 'Se editaron correctamente las Juntas Modulares';
-            $('#modalMessage').modal('show');
-        });
+        var c = 0;
+        for (var i = 0; i <  $scope.barrios.length; i++)
+        {
+            if( $scope.barrios[i].nombrebarrio == ""){
+               c ++ ;
+            }
+        }
+
+        if(c > 0 )
+        {
+            $scope.message_error  = 'Existen Juntas Modulares con nombres en blanco, por favor llene ese campo... ';
+            $('#modalMessageError').modal('show');
+        } else
+        {
+            var arr_barrio = { arr_barrio: $scope.barrios };
+            $http.post(API_URL + 'barrio/editar_Barrio', arr_barrio).success(function(response){
+                //  console.log(response);
+                $scope.initLoad();
+                $scope.message= 'Se editaron correctamente las Juntas Modulares';
+                $('#modalMessage').modal('show');
+            });
+        }
+
     };
 
     $scope.showModalAction = function (item) {
@@ -263,19 +281,32 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.editarCalles = function() {
-        var arr_calle = { arr_calle: $scope.aux_calles };
-        console.log(arr_calle);
-        $http.post(API_URL + 'barrio/editar_calle', arr_calle).success(function(response){
-            console.log(response);
-            $scope.initLoad();
-            $scope.message = 'Se editaron correctamente las Tomas';
-            $('#modalMessage').modal('show');
+        var c = 0;
+        for (var i = 0; i <  $scope.aux_calles.length; i++)
+        {
+            if( $scope.aux_calles[i].nombrecalle == ""){
+                c ++ ;
+            }
+        }
+        if(c > 0 )
+        {
+            $scope.message_error  = 'Existen Calles con nombres en blanco, por favor llene ese campo... ';
+            $('#modalMessageError').modal('show');
+        } else {
 
-            /*setTimeout(function(){
-                $('#modalMessage').modal('hide');
-            }, 500);*/
-            $scope.showModalAction($scope.barrio);
-        });
+            var arr_calle = {arr_calle: $scope.aux_calles};
+            $http.post(API_URL + 'barrio/editar_calle', arr_calle).success(function (response) {
+                console.log(response);
+                $scope.initLoad();
+                $scope.message = 'Se editaron correctamente las Tomas';
+                $('#modalMessage').modal('show');
+
+                /*setTimeout(function(){
+                 $('#modalMessage').modal('hide');
+                 }, 500);*/
+                $scope.showModalAction($scope.barrio);
+            });
+        }
     }
 
     $scope.showModalActionCanal = function (item){
@@ -343,21 +374,35 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.editarCanal = function() {
-        var arr_canales = {
-            arr_canales: $scope.aux_canales };
+        var c = 0;
+        for (var i = 0; i <  $scope.aux_canales.length; i++)
+        {
+            if( $scope.aux_canales[i].nombrecanal == ""){
+                c ++ ;
+            }
+        }
+        if(c > 0 )
+        {
+            $scope.message_error  = 'Existen Canales con nombres en blanco, por favor llene ese campo... ';
+            $('#modalMessageError').modal('show');
+        } else {
+            var arr_canales = {
+                arr_canales: $scope.aux_canales
+            };
             console.log(arr_canales);
 
-        $http.post(API_URL + 'barrio/editar_canales', arr_canales).success(function(response){
-            console.log(response);
-            $scope.initLoad();
-            $scope.message = 'Se editaron correctamente los Canales';
-            $('#modalMessage').modal('show');
+            $http.post(API_URL + 'barrio/editar_canales', arr_canales).success(function (response) {
+                console.log(response);
+                $scope.initLoad();
+                $scope.message = 'Se editaron correctamente los Canales';
+                $('#modalMessage').modal('show');
 
-            /*setTimeout(function(){
-                $('#modalMessage').modal('hide');
-            }, 500);*/
-            $scope.showModalActionCanal($scope.canales);
-        });
+                /*setTimeout(function(){
+                 $('#modalMessage').modal('hide');
+                 }, 500);*/
+                $scope.showModalActionCanal($scope.canales);
+            });
+        }
     }
 
     $scope.showModalDeleteCanal = function (item) {
@@ -467,16 +512,31 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.editarDeri = function() {
-        var arr_deriva = {
-            arr_deriva: $scope.aux_derivaciones };
-            console.log($scope.aux_derivaciones);
-        $http.post(API_URL + 'barrio/editar_derivaciones', arr_deriva).success(function(response){
-            $scope.initLoad();
-            $scope.message = 'Se editaron correctamente las Derivaciones';
-            $('#modalMessage').modal('show');
+        var c = 0;
+        for (var i = 0; i <  $scope.aux_derivaciones.length; i++)
+        {
+            if( $scope.aux_derivaciones[i].nombrederivacion == ""){
+                c ++ ;
+            }
+        }
+        if(c > 0 )
+        {
+            $scope.message_error  = 'Existen Derivaciones con nombres en blanco, por favor llene ese campo... ';
+            $('#modalMessageError').modal('show');
+        } else {
 
-            $scope.showModalActionDerivaciones($scope.derivaciones);
-        });
+            var arr_deriva = {
+                arr_deriva: $scope.aux_derivaciones
+            };
+            console.log($scope.aux_derivaciones);
+            $http.post(API_URL + 'barrio/editar_derivaciones', arr_deriva).success(function (response) {
+                $scope.initLoad();
+                $scope.message = 'Se editaron correctamente las Derivaciones';
+                $('#modalMessage').modal('show');
+
+                $scope.showModalActionDerivaciones($scope.derivaciones);
+            });
+        }
     }
 
     $scope.initLoad();

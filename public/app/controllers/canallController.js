@@ -126,14 +126,28 @@ app.controller('canallController', function($scope, $http, API_URL) {
     };
 
     $scope.editar = function ()  {
-        var arr_canales = { arr_canales: $scope.canals };
+        var c = 0;
+        for (var i = 0; i <  $scope.canals .length; i++)
+        {
+            if( $scope.canals [i].nombrecanal == ""){
+                c ++ ;
+            }
+        }
 
-        $http.post(API_URL + 'canal/editar_canal', arr_canales).success(function(response){
-            console.log(response);
-            $scope.initLoad();
-            $scope.message = 'Se editaron correctamente los Canales';
-            $('#modalMessage').modal('show');
-        });
+        if(c > 0 )
+        {
+            $scope.message_error  = 'Existen Canales con nombres en blanco, por favor llene ese campo... ';
+            $('#modalMessageError').modal('show');
+        } else {
+            var arr_canales = {arr_canales: $scope.canals};
+
+            $http.post(API_URL + 'canal/editar_canal', arr_canales).success(function (response) {
+                console.log(response);
+                $scope.initLoad();
+                $scope.message = 'Se editaron correctamente los Canales';
+                $('#modalMessage').modal('show');
+            });
+        }
     };
 
     $scope.FiltrarPorBarrio = function (){

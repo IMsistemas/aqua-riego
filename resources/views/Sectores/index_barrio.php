@@ -99,7 +99,7 @@
                             <div class="form-group">
                                 <label for="t_codigo" class="col-sm-4 control-label">Parroquia:</label>
                                 <div class="col-sm-8">
-                                    <select id="t_parroquias" class="form-control" ng-model="t_parroquias"
+                                    <select disabled id="t_parroquias" class="form-control" ng-model="t_parroquias"
                                             ng-options="value.id as value.label for value in parroquias"></select>
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="id_barrio" class="col-sm-4 control-label">Barrio:</label>
+                                <label for="id_barrio" class="col-sm-4 control-label">Junta Modular:</label>
                                 <div class="col-sm-8">
                                     <select disabled id="id_barrio" class="form-control" ng-model="id_barrio"
                                             ng-options="value.id as value.label for value in barrios2"></select>
