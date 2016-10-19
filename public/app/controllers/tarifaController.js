@@ -43,7 +43,7 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
             var data = {
                 idtarifa: idtarifa,
                 year: year
-            }
+            };
 
             $http.get(API_URL + 'tarifa/getAreaCaudal/' + JSON.stringify(data)).success(function(response){
                 var longitud = (response[0].area).length;
@@ -205,16 +205,20 @@ app.controller('tarifaController', function($scope, $http, API_URL) {
 
     $scope.initData();
 
-});
-
-$(document).ready(function () {
-
     $('.datepicker').datetimepicker({
         viewMode: 'years',
         locale: 'es',
         format: 'YYYY'
+    }).on('dp.change', function (e) {
+        $scope.getAreaCaudal();
     });
 
 });
+
+/*$(document).ready(function () {
+
+
+
+});*/
 
 

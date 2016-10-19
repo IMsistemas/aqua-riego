@@ -136,39 +136,66 @@ class CobroAguaController extends Controller
     {
         $cobro = CobroAgua::find($id);
 
+        $descuento_recargo_exists = false;
+
         $descuento = Descuento::where('year', date('Y'))
                                 ->where('mes', date('n'))
                                 ->get();
 
         if(count($descuento) > 0) {
-            $valorconsumo = $cobro->valorconsumo;
+            /*$valorconsumo = $cobro->valorconsumo;
             $total = ($valorconsumo * $descuento[0]->porcentaje) / 100;
 
             $cobro->iddescuento = $descuento[0]->iddescuento;
             $cobro->valorconsumo = round($total, 2);
-            $cobro->total = round($total + $cobro->valoratrasados, 2);
+            $cobro->total = round($total + $cobro->valoratrasados, 2);*/
+
+            $total = ($cobro->total * $descuento[0]->porcentage) / 100;
+
+            $cobro->total = round($total, 2);
 
             $cobro->iddescuento = $descuento[0]->iddescuento;
+
+            $descuento_recargo_exists = true;
 
         } else {
             $recargo = Recargo::where('year', date('Y'))
                                     ->where('mes', date('n'))
                                     ->get();
 
-            $valorconsumo = $cobro->valorconsumo;
+            /*$valorconsumo = $cobro->valorconsumo;
             $total = ($valorconsumo * $recargo[0]->porcentaje) / 100;
 
             $cobro->iddescuento = $recargo[0]->iddescuento;
             $cobro->valorconsumo = round($total, 2);
             $cobro->total = round($total + $cobro->valoratrasados, 2);
 
-            $cobro->idrecargo = $recargo[0]->idrecargo;
+            $cobro->idrecargo = $recargo[0]->idrecargo;*/
+
+
+            if (count($recargo) > 0) {
+                $total = ($cobro->total * $recargo[0]->porcentage) / 100;
+
+                $cobro->total = round($total, 2);
+
+                $cobro->idrecargo = $recargo[0]->idrecargo;
+
+                $descuento_recargo_exists = true;
+            }
+
+
         }
 
         $cobro->fechapago = date('Y-m-d');
         $cobro->estapagada = $request->input('estapagada');
-        $cobro->save();
-        return response()->json(['success' => true]);
+
+        if ($descuento_recargo_exists == true){
+            $cobro->save();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'descuento_recargo_exists' => false]);
+        }
+
     }
 
     /**

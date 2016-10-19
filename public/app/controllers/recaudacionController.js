@@ -80,11 +80,17 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
         $http.put(API_URL + 'recaudacion/' + id, param).success(function(response){
 
             console.log(response);
-
             $('#modalInfoAction').modal('hide');
-            $scope.initLoad();
-            $scope.message = 'Se ha realizado el pago correspondiente...';
-            $('#modalMessage').modal('show');
+
+            if (response.success == true) {
+                $scope.initLoad();
+                $scope.message = 'Se ha realizado el pago correspondiente...';
+                $('#modalMessage').modal('show');
+            } else {
+                $scope.message_error = 'Se ha realizado el pago correspondiente...';
+                $('#modalMessage').modal('show');
+            }
+
         });
 
     };

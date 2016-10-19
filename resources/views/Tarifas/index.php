@@ -33,7 +33,7 @@
                     <div class="form-group">
                         <label for="t_year" class="col-sm-2 control-label">Año:</label>
                         <div class="col-sm-8">
-                            <input type="text" class="datepicker form-control" name="t_year" id="t_year" ng-model="t_year" />
+                            <input type="text" class="datepicker form-control" name="t_year" id="t_year" ng-model="t_year" ng-change=""/>
                         </div>
                     </div>
                 </div>
