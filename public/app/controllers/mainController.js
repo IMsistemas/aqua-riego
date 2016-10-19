@@ -72,9 +72,9 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$scope.toModulo = "tomas";
 	}
 
-	$scope.toModuloDerivacion = function(idtoma,descripciontoma){
+	$scope.toModuloDerivacion = function(){
 		$scope.idtoma = idtoma;				
-		$scope.titulo = "Derivación :".concat(descripciontoma);
+		$scope.titulo = "Derivación";
 		$scope.toModulo = "derivaciones";
 	}
 
