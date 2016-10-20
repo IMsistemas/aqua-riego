@@ -182,6 +182,7 @@
     <script src="<?= asset('app/controllers/solicitudController.js') ?>"></script>
     <script src="<?= asset('app/controllers/recaudacionController.js') ?>"></script>
     <script src="<?= asset('app/controllers/terrenoController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/tarifaController.js') ?>"></script>
 
 
     <script type="text/javascript">
