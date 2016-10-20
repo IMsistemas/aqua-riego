@@ -87,8 +87,8 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
                 $scope.message = 'Se ha realizado el pago correspondiente...';
                 $('#modalMessage').modal('show');
             } else {
-                $scope.message_error = 'Se ha realizado el pago correspondiente...';
-                $('#modalMessage').modal('show');
+                $scope.message_error = 'Ha ocurrido un error, verifique que existan los valores de Descuento y/o Recargo...';
+                $('#modalMessageError').modal('show');
             }
 
         });
