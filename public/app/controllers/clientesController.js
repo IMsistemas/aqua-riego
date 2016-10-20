@@ -690,7 +690,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
             if(response.success == true){
                 $scope.initLoad();
-                //$('#modalActionRiego').modal('hide');
+
 
                 $scope.idsolicitud_to_process = response.idsolicitud;
 
@@ -725,7 +725,6 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
             if(response.success == true){
                 $scope.initLoad();
-                //$('#modalActionRiego').modal('hide');
 
                 $scope.idsolicitud_to_process = response.idsolicitud;
 
@@ -781,7 +780,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
             if(response.success == true){
                 $scope.initLoad();
-                //$('#modalActionSetNombre').modal('hide');
+
 
                 $scope.idsolicitud_to_process = response.idsolicitud;
 
@@ -815,6 +814,13 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             $scope.idsolicitud_to_process = 0;
 
             $('#' + id_btn).prop('disabled', true);
+
+
+            $('#modalActionRiego').modal('hide');
+            $('#modalActionOtro').modal('hide');
+            $('#modalActionSetNombre').modal('hide');
+            $('#modalActionFraccion').modal('hide');
+
 
             $scope.message = 'Se procesó correctamente la solicitud...';
             $('#modalMessage').modal('show');
