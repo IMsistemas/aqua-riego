@@ -44,6 +44,14 @@ class TerrenoController extends Controller
 
     }
 
+
+    public function getByFilter()
+    {
+
+    }
+
+
+
     /**
      * Obtener las tarifas ordenadas ascendentemente
      *

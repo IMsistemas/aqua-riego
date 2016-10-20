@@ -27,7 +27,6 @@ class SolicitudController extends Controller
         return view('Solicitud/index');
     }
 
-
     public function getSolicitudes()
     {
         $solicitudriego = SolicitudRiego::with('cliente', 'terreno.derivacion.canal.calle.barrio')
@@ -119,6 +118,16 @@ class SolicitudController extends Controller
         return Cliente::where('codigocliente', $idcliente)->get();
     }
 
+    public function getSolicitudOtro($idsolicitud)
+    {
+        return SolicitudOtro::with('cliente')->where('idsolicitud', $idsolicitud)->get();
+    }
+
+    public function getSolicitudRiego($idsolicitud)
+    {
+        return SolicitudRiego::with('cliente', 'terreno.derivacion.canal.calle')->where('idsolicitud', $idsolicitud)->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -179,6 +188,41 @@ class SolicitudController extends Controller
         $solicitud->save();
 
         return response()->json(['success' => true]);
+    }
+
+    public function updateSolicitudOtro(Request $request, $id)
+    {
+
+        $solicitud = SolicitudOtro::find($id);
+
+        $solicitud->fechasolicitud = $request->input('fecha_solicitud');
+        $solicitud->descripcion = $request->input('observacion');
+        $result = $solicitud->save();
+
+        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
+    }
+
+    public function updateSolicitudRiego(Request $request, $id)
+    {
+
+        $solicitudriego = SolicitudRiego::find($id);
+        $solicitudriego->fechasolicitud = $request->input('fecha_solicitud');
+        $solicitudriego->observacion = $request->input('observacion');
+        $result = $solicitudriego->save();
+
+        $terreno = Terreno::find($solicitudriego->idterreno);
+        $terreno->idcultivo = $request->input('idcultivo');
+        $terreno->idtarifa = $request->input('idtarifa');
+        $terreno->idderivacion = $request->input('idderivacion');
+        $terreno->fechacreacion = $request->input('fecha_solicitud');
+        $terreno->caudal = $request->input('caudal');
+        $terreno->area = $request->input('area');
+        $terreno->valoranual = $request->input('valoranual');
+        $terreno->observacion = $request->input('observacion');
+
+        $terreno->save();
+
+        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
     }
 
     public function processSolicitudSetName(Request $request, $id)

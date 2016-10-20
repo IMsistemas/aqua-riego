@@ -52,7 +52,8 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                         tipo: 'Riego',
                         estado: riego[i].estaprocesada,
                         fechaprocesada: riego[i].fechaprocesada,
-                        terreno: riego[i].terreno
+                        terreno: riego[i].terreno,
+                        no_solicitudriego: riego[i].idsolicitudriego
                     };
 
                     list.push(object_riego);
@@ -262,6 +263,179 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
     };
 
+    //---------------------------------------------------------------------------------------------
+
+
+    $scope.getBarrios = function(idbarrio){
+        $http.get(API_URL + 'cliente/getBarrios').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+            }
+            $scope.barrios = array_temp;
+
+            if (idbarrio == undefined) {
+                $scope.t_junta = 0;
+            } else {
+                $scope.t_junta = idbarrio;
+            }
+        });
+    };
+
+    $scope.getTomas = function(idbarrio, idcalle){
+
+        var idbarrio_search = 0;
+
+        if (idbarrio == undefined){
+            idbarrio_search = $scope.t_junta;
+        } else {
+            idbarrio_search = idbarrio;
+        }
+
+        $http.get(API_URL + 'cliente/getTomas/' + idbarrio_search).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
+            }
+            $scope.tomas = array_temp;
+
+            if (idcalle == undefined){
+                $scope.t_toma = 0;
+            } else {
+                $scope.t_toma = idcalle;
+            }
+
+        });
+
+    };
+
+    $scope.getCanales = function(idcalle, idcanal){
+
+        var idcalle_search = 0;
+
+        if (idcalle == undefined){
+            idcalle_search = $scope.t_toma;
+        } else {
+            idcalle_search = idcalle;
+        }
+
+        $http.get(API_URL + 'cliente/getCanales/' + idcalle_search).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
+            }
+            $scope.canales = array_temp;
+
+            if (idcanal == undefined) {
+                $scope.t_canal = 0;
+            } else {
+                $scope.t_canal = idcanal;
+            }
+        });
+
+    };
+
+    $scope.getDerivaciones = function(idcanal, idderivacion){
+
+        var idcanal_search = 0;
+
+        if (idcanal == undefined) {
+            idcanal_search = $scope.t_canal;
+        } else {
+            idcanal_search = idcanal;
+        }
+
+        $http.get(API_URL + 'cliente/getDerivaciones/' + idcanal_search).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
+            }
+            $scope.derivaciones = array_temp;
+
+            if (idderivacion == undefined) {
+                $scope.t_derivacion = 0;
+            } else {
+                $scope.t_derivacion = idderivacion;
+            }
+        });
+
+    };
+
+    $scope.getTarifas = function(idtarifa){
+        $http.get(API_URL + 'cliente/getTarifas').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
+            }
+            $scope.tarifas = array_temp;
+
+            if (idtarifa == undefined) {
+                $scope.t_tarifa = 0;
+            } else {
+                $scope.t_tarifa = idtarifa;
+            }
+        });
+    };
+
+    $scope.getCultivos = function(idtarifa, idcultivo){
+
+        var idtarifa_search = 0;
+
+        if (idtarifa == undefined) {
+            idtarifa_search = $scope.t_tarifa;
+        } else {
+            idtarifa_search = idtarifa;
+        }
+
+        $http.get(API_URL + 'cliente/getCultivos/' + idtarifa_search).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrecultivo, id: response[i].idcultivo})
+            }
+            $scope.cultivos = array_temp;
+
+            if (idcultivo == undefined) {
+                $scope.t_cultivo = 0;
+            } else {
+                $scope.t_cultivo = idcultivo;
+            }
+        });
+
+    };
+
+    $scope.calculate = function () {
+        $scope.calculateCaudal();
+        $scope.calculateValor();
+    };
+
+    $scope.calculateCaudal = function () {
+        $http.get(API_URL + 'cliente/getConstante').success(function(response){
+            var area = parseInt($scope.t_area);
+            var constante = parseFloat(response[0].constante);
+
+            var caudal_result = (area / 1000) * constante;
+
+            $scope.calculate_caudal = caudal_result.toFixed(2);
+        });
+    };
+
+    $scope.calculateValor = function () {
+        var area = $scope.t_area;
+
+        $http.get(API_URL + 'cliente/calculateValor/' + area).success(function(response){
+            $scope.valor_total = parseFloat(response.costo).toFixed(2);
+        });
+    };
+
+
+    //--------------------------------------------------------------------------------------------
+
     $scope.showModalProcesar = function(solicitud) {
         $scope.num_solicitud_process = solicitud.no_solicitud;
         $scope.cliente_process = solicitud.cliente;
@@ -273,15 +447,59 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         } else if (solicitud.tipo == 'Repartición'){
             $scope.idsolicitud = solicitud.no_solicitudreparticion;
             $('#modalProcesarFraccion').modal('show');
+        } else if (solicitud.tipo == 'Riego'){
+            $scope.idsolicitud = solicitud.no_solicitud;
+            $('#modalProcesarRiego').modal('show');
         } else {
             $scope.idsolicitud = solicitud.no_solicitud;
             $('#modalProcesar').modal('show');
         }
     };
 
-
-
     $scope.procesarSolicitud = function () {
+        var url = API_URL + 'solicitud/getSolicitudOtro/' + $scope.idsolicitud;
+
+        $http.get(url).success(function(response){
+
+            console.log(response);
+
+            $scope.num_solicitud_otro = response[0].idsolicitudotro;
+            $scope.t_fecha_otro = response[0].fechasolicitud;
+            $scope.documentoidentidad_cliente_otro = response[0].cliente.documentoidentidad;
+            $scope.nom_cliente_otro = response[0].cliente.apellido + ' ' + response[0].cliente.nombre;
+            $scope.direcc_cliente_otro = response[0].cliente.direcciondomicilio;
+            $scope.telf_cliente_otro = response[0].cliente.telefonoprincipaldomicilio;
+            $scope.celular_cliente_otro = response[0].cliente.celular;
+            $scope.telf_trab_cliente_otro = response[0].cliente.telefonoprincipaltrabajo;
+            $scope.t_observacion_otro = response[0].descripcion;
+
+            $('#modalProcesar').modal('hide');
+
+            $('#modalActionOtro').modal('show');
+        });
+
+    };
+
+    $scope.saveSolicitudOtro = function () {
+
+        var solicitud = {
+            codigocliente: $scope.h_codigocliente_otro,
+            observacion: $scope.t_observacion_otro,
+            fecha_solicitud: $scope.t_fecha_otro
+        };
+
+        $http.put(API_URL + 'solicitud/updateSolicitudOtro/' + $scope.num_solicitud_otro, solicitud).success(function(response){
+            if(response.success == true){
+                $scope.initLoad();
+                //$('#modalActionOtro').modal('hide');
+                $scope.message = 'Se ha actualizado la solicitud correctamente...';
+                $('#modalMessage').modal('show');
+            }
+        });
+
+    };
+
+    $scope.procesarSolicitudOtro = function() {
         var url = API_URL + 'solicitud/' + $scope.idsolicitud;
 
         var data = {
@@ -292,7 +510,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.initLoad();
 
             $scope.idsolicitud = 0;
-            $('#modalProcesar').modal('hide');
+            $('#modalActionOtro').modal('hide');
             $scope.message = 'Se procesó correctamente la solicitud seleccionada...';
             $('#modalMessage').modal('show');
 
@@ -300,6 +518,100 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
         });
     };
+
+
+    $scope.showSolicitudRiego = function () {
+        var url = API_URL + 'solicitud/getSolicitudRiego/' + $scope.idsolicitud;
+
+        $http.get(url).success(function(response){
+
+            console.log(response);
+
+            $scope.num_solicitud_riego = response[0].idsolicitudriego;
+            $scope.t_fecha_process = response[0].fechasolicitud;
+            $scope.documentoidentidad_cliente = response[0].cliente.documentoidentidad;
+            $scope.nom_cliente = response[0].cliente.apellido + ' ' + response[0].cliente.nombre;
+            $scope.direcc_cliente = response[0].cliente.direcciondomicilio;
+            $scope.telf_cliente = response[0].cliente.telefonoprincipaldomicilio;
+            $scope.celular_cliente = response[0].cliente.celular;
+            $scope.telf_trab_cliente = response[0].cliente.telefonoprincipaltrabajo;
+
+            $scope.nro_terreno = response[0].idterreno;
+
+            $scope.getTarifas(response[0].terreno.idtarifa);
+            $scope.getCultivos(response[0].terreno.idtarifa, response[0].terreno.idcultivo);
+
+            var idbarrio = response[0].terreno.derivacion.canal.calle.idbarrio;
+            var idcalle = response[0].terreno.derivacion.canal.idcalle;
+            var idcanal = response[0].terreno.derivacion.idcanal;
+            var idderivacion = response[0].terreno.idderivacion;
+
+            $scope.getBarrios(idbarrio);
+            $scope.getTomas(idbarrio, idcalle);
+            $scope.getCanales(idcalle, idcanal);
+            $scope.getDerivaciones(idcanal, idderivacion);
+
+            $scope.t_area = response[0].terreno.area;
+            $scope.calculate_caudal = response[0].terreno.caudal;
+            $scope.valor_total = response[0].terreno.valoranual;
+
+            $scope.t_observacion_riego = response[0].observacion;
+
+            $('#modalProcesarRiego').modal('hide');
+
+            $('#modalActionRiego').modal('show');
+        });
+
+    };
+
+    $scope.saveSolicitudRiego = function () {
+
+        var solicitud = {
+            fecha_solicitud: $scope.t_fecha_process,
+            codigocliente: $scope.h_codigocliente,
+            idbarrio: $scope.t_junta,
+            idcultivo: $scope.t_cultivo,
+            area: $scope.t_area,
+            caudal: $scope.calculate_caudal,
+            valoranual: $scope.valor_total,
+            idtarifa: $scope.t_tarifa,
+            idderivacion : $scope.t_derivacion,
+            observacion: $scope.t_observacion_riego
+        };
+
+        $http.put(API_URL + 'solicitud/updateSolicitudRiego/' + $scope.num_solicitud_riego, solicitud).success(function(response){
+            if(response.success == true){
+                $scope.initLoad();
+                //$('#modalActionRiego').modal('hide');
+                $scope.message = 'Se ha actualizado la solicitud correctamente...';
+                $('#modalMessage').modal('show');
+            }
+        });
+
+    };
+
+    $scope.procesarSolicitudRiego = function() {
+        var url = API_URL + 'solicitud/' + $scope.idsolicitud;
+
+        var data = {
+            idsolicitud: $scope.idsolicitud
+        };
+
+        $http.put(url, data ).success(function (response) {
+            $scope.initLoad();
+
+            $scope.idsolicitud = 0;
+            $('#modalActionRiego').modal('hide');
+            $scope.message = 'Se procesó correctamente la solicitud seleccionada...';
+            $('#modalMessage').modal('show');
+
+        }).error(function (res) {
+
+        });
+    };
+
+
+
 
     $scope.procesarSolicitudSetN = function () {
         var url = API_URL + 'solicitud/processSolicitudSetName/' + $scope.idsolicitud;
