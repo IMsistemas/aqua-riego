@@ -134,6 +134,12 @@ class SolicitudController extends Controller
                                     ->where('idsolicitudcambionombre', $idsolicitud)->get();
     }
 
+    public function getSolicitudFraccion($idsolicitud)
+    {
+        return SolicitudReparticion::with('cliente', 'terreno.derivacion.canal.calle.barrio', 'terreno.cultivo')
+                                    ->where('idsolicitudreparticion', $idsolicitud)->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -240,6 +246,21 @@ class SolicitudController extends Controller
         $solicitudsetname->observacion = $request->input('observacion');
 
         $result = $solicitudsetname->save();
+
+        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
+    }
+
+    public function updateSolicitudFraccion(Request $request, $id)
+    {
+        $solicitud = SolicitudReparticion::find($id);
+        $solicitud->codigocliente = $request->input('codigocliente_old');
+        $solicitud->codigonuevocliente = $request->input('codigocliente_new');
+        $solicitud->idterreno = $request->input('idterreno');
+        $solicitud->fechasolicitud = $request->input('fecha_solicitud');
+        $solicitud->observacion = $request->input('observacion');
+        $solicitud->nuevaarea = $request->input('area');
+
+        $result = $solicitud->save();
 
         return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
     }

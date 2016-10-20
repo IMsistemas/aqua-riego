@@ -265,7 +265,6 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
     //---------------------------------------------------------------------------------------------
 
-
     $scope.getBarrios = function(idbarrio){
         $http.get(API_URL + 'cliente/getBarrios').success(function(response){
             var longitud = response.length;
@@ -433,12 +432,41 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.calculateFraccion = function () {
+
+        if ($scope.t_area_fraccion != '' && $scope.t_area_fraccion != undefined){
+            $scope.calculateCaudalFraccion();
+            $scope.calculateValorFraccion();
+        }
+
+    };
+
+    $scope.calculateCaudalFraccion = function () {
+        $http.get(API_URL + 'cliente/getConstante').success(function(response){
+            var area = parseInt($scope.t_area_fraccion);
+            var constante = parseFloat(response[0].constante);
+
+            var caudal_result = (area / 1000) * constante;
+
+            $scope.caudal_new_fraccion = caudal_result.toFixed(2);
+        });
+    };
+
+    $scope.calculateValorFraccion = function () {
+        var area = $scope.t_area_fraccion;
+
+        $http.get(API_URL + 'cliente/calculateValor/' + area).success(function(response){
+            $scope.valor_new_fraccion = parseFloat(response.costo).toFixed(2);
+        });
+    };
+
+
     $scope.getTerrenosByCliente = function (idcliente, idterreno) {
 
         var codigocliente = 0;
 
         if (idcliente == undefined) {
-            codigocliente = $scope.t_terrenos_setnombre;
+            codigocliente = $scope.terrenos_fraccion;
         } else {
             codigocliente = idcliente;
         }
@@ -467,6 +495,40 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             }
 
 
+        });
+    };
+
+    $scope.getTerrenosFraccionByCliente = function (idcliente, idterreno) {
+
+        var codigocliente = 0;
+
+        if (idcliente == undefined) {
+            codigocliente = $scope.t_terrenos_fraccion;
+        } else {
+            codigocliente = idcliente;
+        }
+
+        var idcliente_search = {
+            codigocliente: codigocliente
+        };
+
+        $http.get(API_URL + 'cliente/getTerrenosByCliente/' + JSON.stringify(idcliente_search)).success(function(response){
+            console.log(response);
+
+            $scope.list_terrenos = response;
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].area, id: response[i].idterreno})
+            }
+
+            $scope.terrenos_fraccion = array_temp;
+            if (idterreno == undefined){
+                $scope.t_terrenos_fraccion = 0;
+            } else {
+                $scope.t_terrenos_fraccion = idterreno;
+            }
         });
     };
 
@@ -519,6 +581,50 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.getIdentifyClientesFraccion = function (idcliente, idcliente_selected) {
+        var codigocliente = 0;
+
+        if (idcliente == undefined) {
+            codigocliente = $scope.t_ident_new_client_fraccion;
+        } else {
+            codigocliente = idcliente;
+        }
+
+        var idcliente_search = {
+            codigocliente: codigocliente
+        };
+
+        $http.get(API_URL + 'cliente/getIdentifyClientes/' + JSON.stringify(idcliente_search)).success(function(response){
+            console.log(response);
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            var selected = 0;
+
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].documentoidentidad, id: response[i].codigocliente});
+
+                if (idcliente_selected != undefined && idcliente_selected == response[i].codigocliente) {
+                    selected = i;
+                }
+            }
+
+            //$('.selectpicker').selectpicker('refresh');
+            //$('.selectpicker').selectpicker();
+
+            $scope.clientes_fraccion = array_temp;
+            //$('.selectpicker').selectpicker('refresh');
+
+            if(idcliente_selected == undefined) {
+                $scope.t_ident_new_client_fraccion = 0;
+            } else {
+                $scope.t_ident_new_client_fraccion = response[selected].codigocliente;
+
+                $scope.nom_new_cliente_fraccion = response[selected].apellido + ' ' + response[selected].nombre;
+            }
+        });
+    };
+
     $scope.searchInfoTerreno = function () {
 
         console.log($scope.list_terrenos);
@@ -535,6 +641,28 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                 $scope.area_setnombre = $scope.list_terrenos[i].area;
                 $scope.caudal_setnombre = $scope.list_terrenos[i].caudal;
 
+                break;
+            }
+        }
+
+    };
+
+    $scope.searchInfoTerrenoFraccion = function () {
+
+        console.log($scope.list_terrenos);
+
+        var longitud = ($scope.list_terrenos).length;
+
+        for (var i = 0; i < longitud; i++){
+            if ($scope.list_terrenos[i].idterreno == $scope.t_terrenos_fraccion){
+                $scope.junta_fraccion = $scope.list_terrenos[i].derivacion.canal.calle.barrio.nombrebarrio;
+                $scope.toma_fraccion = $scope.list_terrenos[i].derivacion.canal.calle.nombrecalle;
+                $scope.canal_fraccion = $scope.list_terrenos[i].derivacion.canal.nombrecanal;
+                $scope.derivacion_fraccion = $scope.list_terrenos[i].derivacion.nombrederivacion;
+                $scope.cultivo_fraccion = $scope.list_terrenos[i].cultivo.nombrecultivo;
+                $scope.area_fraccion = $scope.list_terrenos[i].area;
+                $scope.caudal_fraccion = $scope.list_terrenos[i].caudal;
+                $scope.valor_fraccion = $scope.list_terrenos[i].valoranual;
                 break;
             }
         }
@@ -559,6 +687,24 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.getClienteByIdentifyFraccion = function () {
+        var idcliente = {
+            codigocliente: $scope.t_ident_new_client_fraccion
+        };
+
+        $http.get(API_URL + 'cliente/getClienteByIdentify/' + JSON.stringify(idcliente)).success(function(response){
+            console.log(response);
+
+            $scope.h_new_codigocliente_fraccion = response[0].codigocliente;
+            $scope.nom_new_cliente_fraccion = response[0].apellido + ' ' + response[0].nombre;
+            $scope.direcc_new_cliente_fraccion = response[0].direcciondomicilio;
+            $scope.telf_new_cliente_fraccion = response[0].telefonoprincipaldomicilio;
+            $scope.celular_new_cliente_fraccion = response[0].celular;
+            $scope.telf_trab_new_cliente_fraccion = response[0].telefonoprincipaltrabajo;
+
+        });
+    };
+
     //--------------------------------------------------------------------------------------------
 
     $scope.showModalProcesar = function(solicitud) {
@@ -572,6 +718,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.idsolicitud = solicitud.no_solicitudsetnombre;
             $('#modalProcesarSetNombre').modal('show');
         } else if (solicitud.tipo == 'Repartición'){
+            $scope.idsolicitud = solicitud.no_solicitudreparticion
             $('#modalProcesarFraccion').modal('show');
         } else if (solicitud.tipo == 'Riego'){
             $('#modalProcesarRiego').modal('show');
@@ -821,6 +968,80 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
     };
 
 
+    $scope.showSolicitudFraccion = function () {
+        var url = API_URL + 'solicitud/getSolicitudFraccion/' + $scope.idsolicitud;
+
+        $http.get(url).success(function(response){
+
+            console.log(response);
+
+            $scope.getTerrenosFraccionByCliente(response[0].codigocliente, response[0].idterreno);
+
+            $scope.getIdentifyClientesFraccion(response[0].codigocliente, response[0].codigonuevocliente);
+
+            $scope.h_codigocliente_fraccion = response[0].codigocliente;
+            $scope.h_new_codigocliente_fraccion = response[0].codigonuevocliente;
+
+            $scope.num_solicitud_fraccion = response[0].idsolicitudreparticion;
+            $scope.t_fecha_fraccion = response[0].fechasolicitud;
+            $scope.documentoidentidad_cliente_fraccion = response[0].cliente.documentoidentidad;
+            $scope.nom_cliente_fraccion = response[0].cliente.apellido + ' ' + response[0].cliente.nombre;
+            $scope.direcc_cliente_fraccion = response[0].cliente.direcciondomicilio;
+            $scope.telf_cliente_fraccion = response[0].cliente.telefonoprincipaldomicilio;
+            $scope.celular_cliente_fraccion = response[0].cliente.celular;
+            $scope.telf_trab_cliente_fraccion = response[0].cliente.telefonoprincipaltrabajo;
+
+            $scope.junta_fraccion = response[0].terreno.derivacion.canal.calle.barrio.nombrebarrio;
+            $scope.toma_fraccion = response[0].terreno.derivacion.canal.calle.nombrecalle;
+            $scope.canal_fraccion = response[0].terreno.derivacion.canal.nombrecanal;
+            $scope.derivacion_fraccion = response[0].terreno.derivacion.nombrederivacion;
+            $scope.cultivo_fraccion = response[0].terreno.cultivo.nombrecultivo;
+            $scope.area_fraccion = response[0].terreno.area;
+            $scope.caudal_fraccion = response[0].terreno.caudal;
+
+            $scope.valor_fraccion = response[0].terreno.valoranual;
+
+            $scope.t_area_fraccion = response[0].nuevaarea;
+
+            $scope.calculateFraccion();
+
+            $scope.t_observacion_fraccion = response[0].observacion;
+
+            $('#modalProcesarFraccion').modal('hide');
+
+            $('#modalActionFraccion').modal('show');
+        });
+
+    };
+
+    $scope.saveSolicitudFraccion = function () {
+
+        var solicitud = {
+            codigocliente_new: $scope.h_new_codigocliente_fraccion,
+            codigocliente_old: $scope.h_codigocliente_fraccion,
+            idterreno: $scope.t_terrenos_fraccion,
+            observacion: $scope.t_observacion_fraccion,
+            fecha_solicitud: $scope.t_fecha_fraccion,
+            area: $scope.t_area_fraccion,
+            caudal: $scope.caudal_new_fraccion,
+            valoranual: $scope.valor_new_fraccion,
+        };
+
+        console.log(solicitud);
+
+        $http.put(API_URL + 'solicitud/updateSolicitudFraccion/' + $scope.num_solicitud_fraccion, solicitud).success(function(response){
+
+            if(response.success == true){
+                $scope.initLoad();
+                //$('#modalActionRiego').modal('hide');
+
+                $scope.message = 'Se ha actualizado la solicitud correctamente...';
+                $('#modalMessage').modal('show');
+            }
+
+        });
+
+    };
 
     $scope.procesarSolicitudFraccion = function () {
         var url = API_URL + 'solicitud/processSolicitudFraccion/' + $scope.idsolicitud;
@@ -833,7 +1054,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.initLoad();
 
             $scope.idsolicitud = 0;
-            $('#modalProcesarFraccion').modal('hide');
+            $('#modalActionFraccion').modal('hide');
             $scope.message = 'Se procesó correctamente la solicitud seleccionada...';
             $('#modalMessage').modal('show');
 
