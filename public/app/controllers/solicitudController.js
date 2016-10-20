@@ -433,6 +433,131 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         });
     };
 
+    $scope.getTerrenosByCliente = function (idcliente, idterreno) {
+
+        var codigocliente = 0;
+
+        if (idcliente == undefined) {
+            codigocliente = $scope.t_terrenos_setnombre;
+        } else {
+            codigocliente = idcliente;
+        }
+
+        var idcliente_search = {
+            codigocliente: codigocliente
+        };
+
+        $http.get(API_URL + 'cliente/getTerrenosByCliente/' + JSON.stringify(idcliente_search)).success(function(response){
+            console.log(response);
+
+            $scope.list_terrenos = response;
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].area, id: response[i].idterreno})
+            }
+
+            $scope.terrenos_setN = array_temp;
+
+            if (idterreno == undefined){
+                $scope.t_terrenos_setnombre = 0;
+            } else {
+                $scope.t_terrenos_setnombre = idterreno;
+            }
+
+
+        });
+    };
+
+    $scope.getIdentifyClientes = function (idcliente, idcliente_selected) {
+        var codigocliente = 0;
+
+        if (idcliente == undefined) {
+            codigocliente = $scope.t_terrenos_setnombre;
+        } else {
+            codigocliente = idcliente;
+        }
+
+        var idcliente_search = {
+            codigocliente: codigocliente
+        };
+
+        $http.get(API_URL + 'cliente/getIdentifyClientes/' + JSON.stringify(idcliente_search)).success(function(response){
+            console.log(response);
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            var selected = 0;
+
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].documentoidentidad, id: response[i].codigocliente});
+
+                if (idcliente_selected != undefined && idcliente_selected == response[i].codigocliente) {
+                    selected = i;
+                }
+            }
+
+            //$('.selectpicker').selectpicker('refresh');
+            //$('.selectpicker').selectpicker();
+
+            $scope.clientes_setN = array_temp;
+            //$('.selectpicker').selectpicker('refresh');
+
+            if(idcliente_selected == undefined) {
+                $scope.t_ident_new_client_setnombre = 0;
+            } else {
+                $scope.t_ident_new_client_setnombre = response[selected].codigocliente;
+
+                $scope.nom_new_cliente_setnombre = response[selected].apellido + ' ' + response[selected].nombre;
+                $scope.direcc_new_cliente_setnombre = response[selected].direcciondomicilio;
+                $scope.telf_new_cliente_setnombre = response[selected].telefonoprincipaldomicilio;
+                $scope.celular_new_cliente_setnombre = response[selected].celular;
+                $scope.telf_trab_new_cliente_setnombre = response[selected].telefonoprincipaltrabajo;
+            }
+
+        });
+    };
+
+    $scope.searchInfoTerreno = function () {
+
+        console.log($scope.list_terrenos);
+
+        var longitud = ($scope.list_terrenos).length;
+
+        for (var i = 0; i < longitud; i++){
+            if ($scope.list_terrenos[i].idterreno == $scope.t_terrenos_setnombre){
+                $scope.junta_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.barrio.nombrebarrio;
+                $scope.toma_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.nombrecalle;
+                $scope.canal_setnombre = $scope.list_terrenos[i].derivacion.canal.nombrecanal;
+                $scope.derivacion_setnombre = $scope.list_terrenos[i].derivacion.nombrederivacion;
+                $scope.cultivo_setnombre = $scope.list_terrenos[i].cultivo.nombrecultivo;
+                $scope.area_setnombre = $scope.list_terrenos[i].area;
+                $scope.caudal_setnombre = $scope.list_terrenos[i].caudal;
+
+                break;
+            }
+        }
+
+    };
+
+    $scope.getClienteByIdentify = function () {
+        var idcliente = {
+            codigocliente: $scope.t_ident_new_client_setnombre
+        };
+
+        $http.get(API_URL + 'cliente/getClienteByIdentify/' + JSON.stringify(idcliente)).success(function(response){
+            console.log(response);
+
+            $scope.h_new_codigocliente_setnombre = response[0].codigocliente;
+            $scope.nom_new_cliente_setnombre = response[0].apellido + ' ' + response[0].nombre;
+            $scope.direcc_new_cliente_setnombre = response[0].direcciondomicilio;
+            $scope.telf_new_cliente_setnombre = response[0].telefonoprincipaldomicilio;
+            $scope.celular_new_cliente_setnombre = response[0].celular;
+            $scope.telf_trab_new_cliente_setnombre = response[0].telefonoprincipaltrabajo;
+
+        });
+    };
 
     //--------------------------------------------------------------------------------------------
 
@@ -441,17 +566,16 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         $scope.cliente_process = solicitud.cliente;
         $scope.tipo_process = solicitud.tipo;
 
+        $scope.idsolicitud = solicitud.no_solicitud;
+
         if (solicitud.tipo == 'Cambio de Nombre'){
             $scope.idsolicitud = solicitud.no_solicitudsetnombre;
             $('#modalProcesarSetNombre').modal('show');
         } else if (solicitud.tipo == 'Repartición'){
-            $scope.idsolicitud = solicitud.no_solicitudreparticion;
             $('#modalProcesarFraccion').modal('show');
         } else if (solicitud.tipo == 'Riego'){
-            $scope.idsolicitud = solicitud.no_solicitud;
             $('#modalProcesarRiego').modal('show');
         } else {
-            $scope.idsolicitud = solicitud.no_solicitud;
             $('#modalProcesar').modal('show');
         }
     };
@@ -612,6 +736,69 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
 
 
+    $scope.showSolicitudSetN = function () {
+        var url = API_URL + 'solicitud/getSolicitudSetN/' + $scope.idsolicitud;
+
+        $http.get(url).success(function(response){
+
+            console.log(response);
+
+            $scope.getTerrenosByCliente(response[0].codigocliente, response[0].idterreno);
+
+            $scope.getIdentifyClientes(response[0].codigocliente, response[0].codigonuevocliente);
+
+            $scope.h_codigocliente_setnombre = response[0].codigocliente;
+            $scope.h_new_codigocliente_setnombre = response[0].codigonuevocliente;
+
+            $scope.num_solicitud_setnombre = response[0].idsolicitudcambionombre;
+            $scope.t_fecha_setnombre = response[0].fechasolicitud;
+            $scope.documentoidentidad_cliente_setnombre = response[0].cliente.documentoidentidad;
+            $scope.nom_cliente_setnombre = response[0].cliente.apellido + ' ' + response[0].cliente.nombre;
+            $scope.direcc_cliente_setnombre = response[0].cliente.direcciondomicilio;
+            $scope.telf_cliente_setnombre = response[0].cliente.telefonoprincipaldomicilio;
+            $scope.celular_cliente_setnombre = response[0].cliente.celular;
+            $scope.telf_trab_cliente_setnombre = response[0].cliente.telefonoprincipaltrabajo;
+
+            $scope.junta_setnombre = response[0].terreno.derivacion.canal.calle.barrio.nombrebarrio;
+            $scope.toma_setnombre = response[0].terreno.derivacion.canal.calle.nombrecalle;
+            $scope.canal_setnombre = response[0].terreno.derivacion.canal.nombrecanal;
+            $scope.derivacion_setnombre = response[0].terreno.derivacion.nombrederivacion;
+            $scope.cultivo_setnombre = response[0].terreno.cultivo.nombrecultivo;
+            $scope.area_setnombre = response[0].terreno.area;
+            $scope.caudal_setnombre = response[0].terreno.caudal;
+
+            $scope.t_observacion_setnombre = response[0].observacion;
+
+            $('#modalProcesarSetNombre').modal('hide');
+
+            $('#modalActionSetNombre').modal('show');
+        });
+
+    };
+
+    $scope.saveSolicitudSetName = function () {
+
+        var solicitud = {
+            fecha_solicitud: $scope.t_fecha_setnombre,
+            codigocliente_new: $scope.h_new_codigocliente_setnombre,
+            codigocliente_old: $scope.h_codigocliente_setnombre,
+            idterreno: $scope.t_terrenos_setnombre,
+            observacion: $scope.t_observacion_setnombre
+        };
+
+        $http.put(API_URL + 'solicitud/updateSolicitudSetName/' + $scope.num_solicitud_setnombre, solicitud).success(function(response){
+
+            if(response.success == true){
+                $scope.initLoad();
+                //$('#modalActionSetNombre').modal('hide');
+
+                $scope.message = 'Se ha actualizado la solicitud correctamente...';
+                $('#modalMessage').modal('show');
+            }
+
+        });
+
+    };
 
     $scope.procesarSolicitudSetN = function () {
         var url = API_URL + 'solicitud/processSolicitudSetName/' + $scope.idsolicitud;
@@ -624,7 +811,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.initLoad();
 
             $scope.idsolicitud = 0;
-            $('#modalProcesarSetNombre').modal('hide');
+            $('#modalActionSetNombre').modal('hide');
             $scope.message = 'Se procesó correctamente la solicitud seleccionada...';
             $('#modalMessage').modal('show');
 
@@ -632,6 +819,8 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
         });
     };
+
+
 
     $scope.procesarSolicitudFraccion = function () {
         var url = API_URL + 'solicitud/processSolicitudFraccion/' + $scope.idsolicitud;

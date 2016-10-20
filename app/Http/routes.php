@@ -24,6 +24,8 @@ Route::get('solicitud/getSolicitudOtro/{idsolicitud}', 'Solicitud\SolicitudContr
 
 Route::get('solicitud/getSolicitudRiego/{idsolicitud}', 'Solicitud\SolicitudController@getSolicitudRiego');
 
+Route::get('solicitud/getSolicitudSetN/{idsolicitud}', 'Solicitud\SolicitudController@getSolicitudSetN');
+
 Route::get('solicitud/getIdentifyCliente/{idcliente}', 'Solicitud\SolicitudController@getIdentifyCliente');
 
 Route::get('solicitud/getByFilter/{filter}', 'Solicitud\SolicitudController@getByFilter');
@@ -35,6 +37,8 @@ Route::put('solicitud/processSolicitudFraccion/{idsolicitud}', 'Solicitud\Solici
 Route::put('solicitud/updateSolicitudOtro/{idsolicitud}', 'Solicitud\SolicitudController@updateSolicitudOtro');
 
 Route::put('solicitud/updateSolicitudRiego/{idsolicitud}', 'Solicitud\SolicitudController@updateSolicitudRiego');
+
+Route::put('solicitud/updateSolicitudSetName/{idsolicitud}', 'Solicitud\SolicitudController@updateSolicitudSetName');
 
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Solicitud
 Route::resource('/solicitud', 'Solicitud\SolicitudController');

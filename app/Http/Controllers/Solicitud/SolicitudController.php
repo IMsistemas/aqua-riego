@@ -128,6 +128,12 @@ class SolicitudController extends Controller
         return SolicitudRiego::with('cliente', 'terreno.derivacion.canal.calle')->where('idsolicitud', $idsolicitud)->get();
     }
 
+    public function getSolicitudSetN($idsolicitud)
+    {
+        return SolicitudCambioNombre::with('cliente', 'terreno.derivacion.canal.calle.barrio', 'terreno.cultivo')
+                                    ->where('idsolicitudcambionombre', $idsolicitud)->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -204,7 +210,6 @@ class SolicitudController extends Controller
 
     public function updateSolicitudRiego(Request $request, $id)
     {
-
         $solicitudriego = SolicitudRiego::find($id);
         $solicitudriego->fechasolicitud = $request->input('fecha_solicitud');
         $solicitudriego->observacion = $request->input('observacion');
@@ -221,6 +226,20 @@ class SolicitudController extends Controller
         $terreno->observacion = $request->input('observacion');
 
         $terreno->save();
+
+        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
+    }
+
+    public function updateSolicitudSetName(Request $request, $id)
+    {
+        $solicitudsetname = SolicitudCambioNombre::find($id);
+        $solicitudsetname->codigocliente = $request->input('codigocliente_old');
+        $solicitudsetname->codigonuevocliente = $request->input('codigocliente_new');
+        $solicitudsetname->idterreno = $request->input('idterreno');
+        $solicitudsetname->fechasolicitud = $request->input('fecha_solicitud');
+        $solicitudsetname->observacion = $request->input('observacion');
+
+        $result = $solicitudsetname->save();
 
         return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
     }

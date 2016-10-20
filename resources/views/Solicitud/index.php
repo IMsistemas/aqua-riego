@@ -186,7 +186,7 @@
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="procesarSolicitudSetN()">
+                            <button type="button" class="btn btn-primary" id="btn-save" ng-click="showSolicitudSetN()">
                                 Procesar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -653,6 +653,178 @@
                 </div>
             </div>
 
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalActionSetNombre">
+                <div class="modal-dialog" role="document" style="width: 60%;">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-primary">
+
+                            <div class="col-md-6 col-xs-12">
+                                <h4 class="modal-title">Solicitud de Cambio de Nombre Nro: {{num_solicitud_setnombre}}</h4>
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <div class="form-group">
+                                    <h4 class="modal-title"><label for="t_fecha_process" class="col-sm-6" style="font-weight: normal !important;">Fecha Ingreso:</label></h4>
+                                    <div class="col-sm-5" style="padding: 0;">
+                                        <input type="text" class="form-control input-sm datepicker" name="t_fecha_setnombre"
+                                               id="t_fecha_setnombre" ng-model="t_fecha_setnombre" style="color: black !important;" disabled>
+                                    </div>
+                                    <div class="col-sm-1 col-xs-12 text-right" style="padding: 0;">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" name="formSetNombre" novalidate="">
+
+                                <div class="row">
+                                    <div class="col-xs-12" style="padding: 2%; margin-top: -20px !important;">
+                                        <fieldset ng-cloak>
+                                            <legend style="font-size: 16px; font-weight: bold;">Datos del Cliente actual</legend>
+
+                                            <div class="col-xs-12" style="padding: 0;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">RUC/CI:</span> {{documentoidentidad_cliente_setnombre}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_cliente_setnombre}}
+                                                    <input type="hidden" ng-model="h_codigocliente_setnombre">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_cliente_setnombre}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Domicilio:</span> {{telf_cliente_setnombre}}
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Celular:</span> {{celular_cliente_setnombre}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Trabajo:</span> {{telf_trab_cliente_setnombre}}
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xs-12" style="padding: 2%; margin-top: -25px !important;">
+                                        <fieldset>
+                                            <legend style="font-size: 16px; font-weight: bold;">Datos de Terreno</legend>
+
+                                            <div class="col-xs-12" style="">
+                                                <div class="col-sm-6 col-xs-12 form-group">
+                                                    <label for="t_terreno" class="col-sm-4 col-xs-12 control-label">Terrenos:</label>
+                                                    <div class="col-sm-8 col-xs-12" style="">
+                                                        <select class="form-control" name="t_terrenos_setnombre" id="t_terrenos_setnombre"
+                                                                ng-model="t_terrenos_setnombre" ng-options="value.id as value.label for value in terrenos_setN"
+                                                                ng-change="searchInfoTerreno()"></select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-6 col-xs-12" style="padding-left: 45px;">
+                                                    <span class="label label-default" style="!important; font-size: 12px !important;">Junta Modular:</span> {{junta_setnombre}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12" style="padding: 0;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Toma:</span> {{toma_setnombre}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Canal:</span> {{canal_setnombre}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Derivación:</span> {{derivacion_setnombre}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Tipo Cultivo:</span> {{cultivo_setnombre}}
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Area:</span> {{area_setnombre}} m2
+                                                </div>
+
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Caudal:</span> {{caudal_setnombre}}
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="col-xs-12" style="padding: 2%; margin-top: -20px !important;">
+                                        <fieldset>
+                                            <legend style="font-size: 16px; font-weight: bold;">Datos del nuevo Cliente</legend>
+
+                                            <div class="col-xs-12" style="padding: 0;">
+                                                <div class="col-sm-6 col-xs-12 form-group">
+
+                                                    <label for="t_terreno" class="col-sm-4 col-xs-12 control-label">RUC/CI:</label>
+                                                    <div class="col-sm-8 col-xs-12" style="">
+                                                        <select class="form-control"
+                                                                name="t_ident_new_client_setnombre" id="t_ident_new_client_setnombre"
+                                                                ng-model="t_ident_new_client_setnombre" ng-options="value.id as value.label for value in clientes_setN"
+                                                                ng-change="getClienteByIdentify()"></select>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12" style="padding-left: 45px;">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_new_cliente_setnombre}}
+                                                    <input type="hidden" ng-model="h_new_codigocliente_setnombre">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12" style="padding: 0;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_new_cliente_setnombre}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Domicilio:</span> {{telf_new_cliente_setnombre}}
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Celular:</span> {{celular_new_cliente_setnombre}}
+                                                </div>
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Trabajo:</span> {{telf_trab_new_cliente_setnombre}}
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-xs-12 form-group" style="">
+                                        <label for="t_derivacion" class="col-sm-2 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Observación:</label>
+                                        <div class="col-sm-10 col-xs-12">
+                                            <textarea class="form-control" id="t_observacion_setnombre" ng-model="t_observacion_setnombre" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-success" id="btn-save-setnombre"
+                                    ng-click="saveSolicitudSetName()" ng-disabled="formSetNombre.$invalid">
+                                Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-primary" id="btn-process-setnombre"
+                                    ng-click="procesarSolicitudSetN()" >
+                                Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
                 <div class="modal-dialog" role="document">
