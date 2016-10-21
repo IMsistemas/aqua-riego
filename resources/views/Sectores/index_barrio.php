@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal" name="formBarrio" novalidate="">
+                        <form class="form-horizontal" name="formBarriow" novalidate="">
                             <div class="form-group">
                                 <label for="t_codigo" class="col-sm-4 control-label">Código: </label>
                                 <div class="col-sm-8" style="padding-top: 7px;">
@@ -105,14 +105,13 @@
                             </div>
 
                             <div class="form-group error">
-                                <label for="t_name" class="col-sm-4 control-label">Nombre de la Junta:</label>
+                                <label for="nombrebarrio" class="col-sm-4 control-label">Nombre de la Junta:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="nombrebarrio" ng-model="nombrebarrio" placeholder=""
-                                           ng-required="true" ng-maxlength="64">
+                                    <input type="text" class="form-control" name="nombrebarrio" id="nombrebarrio" ng-model="nombrebarrio" ng-required="true" ng-maxlength="64">
                                     <span class="help-block error"
-                                          ng-show="formBarrio.nombrebarrio.$invalid && formBarrio.nombrebarrio.$touched">El nombre de la Junta es requerido</span>
+                                          ng-show="formBarriow.nombrebarrio.$invalid && formBarriow.nombrebarrio.$touched">El nombre de la Junta es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formBarrio.nombrebarrio.$invalid && formBarrio.nombrebarrio.$error.maxlength">La longitud máxima es de 64 caracteres</span>
+                                          ng-show="formBarriow.nombrebarrio.$invalid && formBarriow.nombrebarrio.$error.maxlength">La longitud máxima es de 64 caracteres</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -127,7 +126,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
-                        <button type="button" class="btn btn-success" id="btn-save" ng-click="saveBarrio();" ng-disabled="formBarrio.$invalid">
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="saveBarrio();" ng-disabled="formBarriow.$invalid">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
                     </div>
