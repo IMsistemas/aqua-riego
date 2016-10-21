@@ -119,11 +119,13 @@
                                                     <label for="t_doc_id" class="col-sm-4 col-xs-12 control-label">CI/RUC:</label>
                                                     <div class="col-sm-8 col-xs-12">
                                                         <input type="text" class="form-control" name="t_doc_id" id="t_doc_id" ng-keypress="onlyNumber($event)"
-                                                               ng-model="t_doc_id" ng-required="true" ng-pattern="/^([0-9]+)$/">
+                                                               ng-model="t_doc_id" ng-required="true" ng-minlength="10" ng-pattern="/^([0-9]+)$/">
                                                         <span class="help-block error"
                                                               ng-show="formCliente.t_doc_id.$invalid && formCliente.t_doc_id.$touched">El Identificación es requerida</span>
                                                         <span class="help-block error"
                                                               ng-show="formCliente.t_doc_id.$invalid && formCliente.t_doc_id.$error.pattern">La Identificación debe ser solo números</span>
+                                                        <span class="help-block error"
+                                                              ng-show="formCliente.t_doc_id.$invalid && formCliente.t_doc_id.$error.minlength">La Identificación debe ser mayor a 10 digitos</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6 col-xs-12 form-group error">
