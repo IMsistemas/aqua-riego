@@ -823,6 +823,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
             $('#modalAction').modal('hide');
 
+
             $scope.message = 'Se procesó correctamente la solicitud...';
             $('#modalMessage').modal('show');
 
