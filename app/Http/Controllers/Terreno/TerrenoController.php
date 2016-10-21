@@ -49,18 +49,39 @@ class TerrenoController extends Controller
     {
         $object_filter = json_decode($filter);
 
-        $terreno = Terreno::with('cultivo', 'tarifa', 'cliente', [
+        $terreno = Terreno::with(['cultivo', 'tarifa', 'cliente',
             'derivacion.canal.calle.barrio' => function ($query) use ($object_filter){
 
-                if ($object_filter->barrio != 0){
-                    $query->where('idbarrio', $object_filter->barrio);
+                if ($object_filter->derivacion != 0) {
+                    $query->where('derivacion.idderivacion', $object_filter->idderivacion);
+                }
+
+                if ($object_filter->canal != 0) {
+                    $query->where('canal.idcanal', $object_filter->canal);
+                }
+
+                if ($object_filter->calle != 0) {
+                    $query->where('calle.idcalle', $object_filter->calle);
+                }
+
+                if ($object_filter->barrio != 0) {
+                    $query->where('barrio.idbarrio', $object_filter->barrio);
                 }
 
             }
-        ])
-        ->get();
+        ]);
 
-        return $terreno;
+        //$terreno = Terreno::with('cultivo', 'tarifa', 'cliente', 'derivacion.canal.calle.barrio');
+
+        if ($object_filter->tarifa != 0){
+            $terreno = $terreno->where('idtarifa', $object_filter->tarifa);
+        }
+
+        if ($object_filter->year != '' && $object_filter->year != null) {
+            $terreno = $terreno->whereRaw('EXTRACT( YEAR FROM fechacreacion) = ' . $object_filter->year);
+        }
+
+        return $terreno->get();
     }
 
 

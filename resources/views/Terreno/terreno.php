@@ -40,8 +40,8 @@
                 <div class="form-group">
                     <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Año:</span></label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control datepicker" name="s_anno" id="s_anno"
-                               ng-model="s_anno" >
+                        <input type="text" class="form-control datepicker" name="s_year" id="s_year"
+                               ng-model="s_year" >
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                     <div class="col-sm-8">
                         <select class="form-control" name="t_tarifa" id="t_tarifa"
                                 ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
-                                ng-change="searchByFilter()"> </select>
+                                ng-change="getByFilter()"> </select>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                     <div class="col-sm-8">
                         <select class="form-control" name="t_toma" id="t_toma"
                                 ng-model="t_toma" ng-options="value.id as value.label for value in tomas_s"
-                                ng-change="loadCanales()"> </select>
+                                ng-change="loadCanales(); getByFilter();"> </select>
                     </div>
                 </div>
             </div>
@@ -84,7 +84,7 @@
                     <div class="col-sm-8">
                         <select class="form-control" name="t_canales" id="t_canales"
                                 ng-model="t_canales" ng-options="value.id as value.label for value in canales_s"
-                                ng-change="loadDerivaciones()"> </select>
+                                ng-change="loadDerivaciones(); getByFilter();"> </select>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                     <div class="col-sm-8">
                         <select class="form-control" name="t_derivacion" id="t_derivacion"
                                 ng-model="t_derivacion" ng-options="value.id as value.label for value in derivaciones_s"
-                                ng-change="searchByFilter()"> </select>
+                                ng-change="getByFilter()"> </select>
                     </div>
                 </div>
             </div>

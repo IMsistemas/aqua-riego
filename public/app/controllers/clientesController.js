@@ -821,6 +821,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             $('#modalActionSetNombre').modal('hide');
             $('#modalActionFraccion').modal('hide');
 
+            $('#modalAction').modal('hide');
 
             $scope.message = 'Se procesó correctamente la solicitud...';
             $('#modalMessage').modal('show');

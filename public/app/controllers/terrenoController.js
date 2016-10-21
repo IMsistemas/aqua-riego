@@ -32,8 +32,11 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
     };
 
     $scope.getByFilter = function () {
+
+        $scope.s_year = $('#s_year').val();
+
         var filter = {
-            year: $scope.s_anno,
+            year: $scope.s_year,
             tarifa: $scope.t_tarifa,
             barrio: $scope.t_barrio_s,
             calle: $scope.t_toma,
@@ -253,17 +256,21 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
     };
 
     $scope.initLoad();
+
+    $('.datepicker').datetimepicker({
+        locale: 'es',
+        viewMode: 'years',
+        format: 'YYYY'
+    }).on('dp.change', function (e) {
+        $scope.getByFilter();
+    });
 });
 
 $(function(){
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    $('.datepicker').datetimepicker({
-        locale: 'es',
-        viewMode: 'years',
-        format: 'YYYY'
-    });
+
 
 });
 
