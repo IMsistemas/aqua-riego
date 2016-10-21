@@ -110,7 +110,7 @@
                         <div class="form-group error">
                             <label for="nombrederi" class="col-sm-4 control-label">Nombre Derivacion:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nombrederi" ng-model="nombrederi" placeholder=""
+                                <input type="text" class="form-control" name="nombrederi" id="nombrederi" ng-model="nombrederi" placeholder=""
                                        ng-required="true" ng-maxlength="64">
                                 <span class="help-block error"
                                       ng-show="formDeri.nombrederi.$invalid && formDeri.nombrederi.$touched">El nombre de la Derivacion es requerido</span>

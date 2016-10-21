@@ -104,7 +104,7 @@
                         <div class="form-group error">
                             <label for="nombrecalle" class="col-sm-4 control-label">Nombre de la Toma:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nombrecalle" ng-model="nombrecalle" placeholder=""
+                                <input type="text" class="form-control" name="nombrecalle" id="nombrecalle" ng-model="nombrecalle" placeholder=""
                                        ng-required="true" ng-maxlength="64">
                                 <span class="help-block error"
                                       ng-show="formCalle.nombrecalle.$invalid && formCalle.nombrecalle.$touched">El nombre de la Toma es requerido</span>

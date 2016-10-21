@@ -112,7 +112,7 @@
                         <div class="form-group error">
                             <label for="nombrecanal" class="col-sm-4 control-label">Nombre del Canal:</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nombrecanal" ng-model="nombrecanal" placeholder=""
+                                <input type="text" class="form-control"  name="nombrecanal" id="nombrecanal" ng-model="nombrecanal" placeholder=""
                                        ng-required="true" ng-maxlength="64">
                                 <span class="help-block error"
                                       ng-show="formCanal.nombrecanal.$invalid && formCanal.nombrecanal.$touched">El nombre del Canal es requerido</span>

@@ -88,7 +88,7 @@
                         </div>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal" name="formBarriow" novalidate="">
+                        <form class="form-horizontal" name="formBarrio" novalidate="">
                             <div class="form-group">
                                 <label for="t_codigo" class="col-sm-4 control-label">Código: </label>
                                 <div class="col-sm-8" style="padding-top: 7px;">
@@ -105,13 +105,14 @@
                             </div>
 
                             <div class="form-group error">
-                                <label for="nombrebarrio" class="col-sm-4 control-label">Nombre de la Junta:</label>
+                                <label for="t_name" class="col-sm-4 control-label">Nombre de la Junta:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="nombrebarrio" id="nombrebarrio" ng-model="nombrebarrio" ng-required="true" ng-maxlength="64">
+                                    <input type="text" class="form-control"  name ="nombrebarrio" id="nombrebarrio" ng-model="nombrebarrio" placeholder=""
+                                           ng-required="true" ng-maxlength="64">
                                     <span class="help-block error"
-                                          ng-show="formBarriow.nombrebarrio.$invalid && formBarriow.nombrebarrio.$touched">El nombre de la Junta es requerido</span>
+                                          ng-show="formBarrio.nombrebarrio.$invalid && formBarrio.nombrebarrio.$touched">El nombre de la Junta es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formBarriow.nombrebarrio.$invalid && formBarriow.nombrebarrio.$error.maxlength">La longitud máxima es de 64 caracteres</span>
+                                          ng-show="formBarrio.nombrebarrio.$invalid && formBarrio.nombrebarrio.$error.maxlength">La longitud máxima es de 64 caracteres</span>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -126,7 +127,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
-                        <button type="button" class="btn btn-success" id="btn-save" ng-click="saveBarrio();" ng-disabled="formBarriow.$invalid">
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="saveBarrio();" ng-disabled="formBarrio.$invalid">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
                     </div>
@@ -167,7 +168,7 @@
                             <div class="form-group error">
                                 <label for="nombrecalle" class="col-sm-4 control-label">Nombre de la Toma:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="nombrecalle" ng-model="nombrecalle" placeholder=""
+                                    <input type="text" class="form-control" name="nombrecalle" id="nombrecalle" ng-model="nombrecalle" placeholder=""
                                            ng-required="true" ng-maxlength="64">
                                     <span class="help-block error"
                                           ng-show="formCalle.nombrecalle.$invalid && formCalle.nombrecalle.$touched">El nombre de la Toma es requerido</span>
@@ -279,12 +280,15 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <div class="col-sm-12 col-xs-12">
+                        <div class="col-sm-11 col-xs-12">
                             <h4 class="modal-title">Tomas de la Junta Modular: {{junta_n}} </h4>
+                        </div>
+                        <div class="col-sm-1 col-xs-12 text-right">
+                                <div class="col-xs-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                         </div>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal" name="formBarrio" novalidate="">
+                        <form class="form-horizontal" name="formTomas" novalidate="">
                                 <div class="col-xs-12"  style="margin-top: 15px;">
                                     <div class="col-sm-6 col-xs-12">
                                         <div class="form-group has-feedback">
@@ -366,12 +370,15 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <div class="col-sm-12 col-xs-12">
+                        <div class="col-sm-11 col-xs-12">
                             <h4 class="modal-title">Canales de la Toma: {{toma_n}} </h4>
+                        </div>
+                        <div class="col-sm-1 col-xs-12 text-right">
+                            <div class="col-xs-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                         </div>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal" name="formBarrio" novalidate="">
+                        <form class="form-horizontal" name="formCanales" novalidate="">
                             <div class="col-xs-12"  style="margin-top: 15px;">
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group has-feedback">
@@ -431,12 +438,15 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
-                        <div class="col-sm-12 col-xs-12">
+                        <div class="col-sm-11 col-xs-12">
                             <h4 class="modal-title">Derivaciones del Canal: {{canal_n}} </h4>
+                        </div>
+                        <div class="col-sm-1 col-xs-12 text-right">
+                            <div class="col-xs-2"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                         </div>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal" name="formBarrio" novalidate="">
+                        <form class="form-horizontal" name="formDerivaciones" novalidate="">
                             <div class="col-xs-12"  style="margin-top: 15px;">
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="form-group has-feedback">
@@ -519,7 +529,7 @@
                             <div class="form-group error">
                                 <label for="nombrecanal" class="col-sm-4 control-label">Nombre del Canal:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="nombrecanal" ng-model="nombrecanal" placeholder=""
+                                    <input type="text" class="form-control" name="nombrecanal" id="nombrecanal" ng-model="nombrecanal" placeholder=""
                                            ng-required="true" ng-maxlength="64">
                                     <span class="help-block error"
                                           ng-show="formCanal.nombrecanal.$invalid && formCanal.nombrecanal.$touched">El nombre del Canal es requerido</span>
@@ -602,7 +612,7 @@
                             <div class="form-group error">
                                 <label for="nombrederi" class="col-sm-4 control-label">Nombre Derivacion:</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="nombrederi" ng-model="nombrederi" placeholder=""
+                                    <input type="text" class="form-control" name="nombrederi" id="nombrederi" ng-model="nombrederi" placeholder=""
                                            ng-required="true" ng-maxlength="64">
                                     <span class="help-block error"
                                           ng-show="formDeri.nombrederi.$invalid && formDeri.nombrederi.$touched">El nombre de la Derivacion es requerido</span>
