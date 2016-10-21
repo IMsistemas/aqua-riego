@@ -64,7 +64,7 @@
                     <div class="col-sm-8">
                         <select class="form-control" name="t_barrio_s" id="t_barrio_s"
                                 ng-model="t_barrio_s" ng-options="value.id as value.label for value in barrios_s"
-                                ng-change="searchByFilter()"> </select>
+                                ng-change="loadTomas(); getByFilter();"> </select>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                     <div class="col-sm-8">
                         <select class="form-control" name="t_toma" id="t_toma"
                                 ng-model="t_toma" ng-options="value.id as value.label for value in tomas_s"
-                                ng-change="searchByFilter()"> </select>
+                                ng-change="loadCanales()"> </select>
                     </div>
                 </div>
             </div>
@@ -83,8 +83,8 @@
                     <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Canal:</span></label>
                     <div class="col-sm-8">
                         <select class="form-control" name="t_canales" id="t_canales"
-                                ng-model="t_canales" ng-options="value.id as value.label for value in canales"
-                                ng-change="searchByFilter()"> </select>
+                                ng-model="t_canales" ng-options="value.id as value.label for value in canales_s"
+                                ng-change="loadDerivaciones()"> </select>
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                     <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Derivación:</span></label>
                     <div class="col-sm-8">
                         <select class="form-control" name="t_derivacion" id="t_derivacion"
-                                ng-model="t_derivacion" ng-options="value.id as value.label for value in derivaciones"
+                                ng-model="t_derivacion" ng-options="value.id as value.label for value in derivaciones_s"
                                 ng-change="searchByFilter()"> </select>
                     </div>
                 </div>

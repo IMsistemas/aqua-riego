@@ -261,6 +261,8 @@ Route::get('editTerreno/getTerrenos', 'Terreno\TerrenoController@getTerrenos');
 Route::get('editTerreno/getConstante', 'Terreno\TerrenoController@getConstante');
 //Peticion para calcular el valor por area
 Route::get('editTerreno/calculateValor/{area}', 'Terreno\TerrenoController@calculateValor');
+//Peticion para buscar terrenos por filtros
+Route::get('editTerreno/getByFilter/{filter}', 'Terreno\TerrenoController@getByFilter');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Terreno
 Route::resource('/editTerreno', 'Terreno\TerrenoController');
 

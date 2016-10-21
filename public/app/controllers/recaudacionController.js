@@ -75,7 +75,7 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
 
         var param = {
             estapagada: true
-        }
+        };
 
         $http.put(API_URL + 'recaudacion/' + id, param).success(function(response){
 

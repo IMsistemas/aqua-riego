@@ -45,9 +45,22 @@ class TerrenoController extends Controller
     }
 
 
-    public function getByFilter()
+    public function getByFilter($filter)
     {
+        $object_filter = json_decode($filter);
 
+        $terreno = Terreno::with('cultivo', 'tarifa', 'cliente', [
+            'derivacion.canal.calle.barrio' => function ($query) use ($object_filter){
+
+                if ($object_filter->barrio != 0){
+                    $query->where('idbarrio', $object_filter->barrio);
+                }
+
+            }
+        ])
+        ->get();
+
+        return $terreno;
     }
 
 

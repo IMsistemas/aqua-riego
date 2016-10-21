@@ -14,16 +14,13 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
         $scope.tomas_s = [{label: '-- Seleccione --', id: 0}];
         $scope.t_toma = 0;
 
-        $scope.canales = [{label: '-- Seleccione --', id: 0}];
+        $scope.canales_s = [{label: '-- Seleccione --', id: 0}];
         $scope.t_canales = 0;
 
-        $scope.derivaciones = [{label: '-- Seleccione --', id: 0}];
+        $scope.derivaciones_s = [{label: '-- Seleccione --', id: 0}];
         $scope.t_derivacion = 0;
 
         $http.get(API_URL + 'editTerreno/getTerrenos').success(function(response){
-
-            console.log(response);
-
             $scope.terrenos = response;
 
             $('.datepicker').datetimepicker({
@@ -33,6 +30,23 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
             });
         });
     };
+
+    $scope.getByFilter = function () {
+        var filter = {
+            year: $scope.s_anno,
+            tarifa: $scope.t_tarifa,
+            barrio: $scope.t_barrio_s,
+            calle: $scope.t_toma,
+            canal: $scope.t_canales,
+            derivacion: $scope.t_derivacion
+        };
+
+        $http.get(API_URL + 'editTerreno/getByFilter/' + JSON.stringify(filter)).success(function(response){
+            console.log(response);
+            $scope.terrenos = response;
+        });
+    };
+
 
     $scope.loadInformation = function (terreno) {
         $scope.num_terreno = terreno.idterreno;
@@ -50,21 +64,6 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
 
         $('#modalInfo').modal('show');
     };
-
-    /*$scope.loadBarriosSearch = function(){
-        $http.get(API_URL + 'editTerreno/getBarrios').success(function(response){
-
-            console.log(response);
-
-            var longitud = response.length;
-            var array_temp = [{label: '-- Seleccione --', id: 0}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
-            }
-            $scope.barrios_s = array_temp;
-            $scope.t_barrio_s = 0;
-        });
-    };*/
 
     $scope.loadBarrios = function(){
         $http.get(API_URL + 'editTerreno/getBarrios').success(function(response){
@@ -104,39 +103,42 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
     };
 
     $scope.loadCanales = function(){
-        $http.get(API_URL + 'editTerreno/getCanales').success(function(response){
+
+        var idcalle = $scope.t_toma;
+
+        $http.get(API_URL + 'editTerreno/getCanales/' + idcalle).success(function(response){
             var longitud = response.length;
-            var array_temp = [];
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].descripcioncanal, id: response[i].idcanal})
+                array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
             }
-            $scope.canales = array_temp;
+            $scope.canales_s = array_temp;
         });
     };
 
     $scope.loadTomas = function(){
-        var idcanal = $scope.t_canal;
+        var idbarrio = $scope.t_barrio_s;
 
-        $http.get(API_URL + 'editTerreno/getTomas/' + idcanal).success(function(response){
+        $http.get(API_URL + 'editTerreno/getTomas/' + idbarrio).success(function(response){
             var longitud = response.length;
-            var array_temp = [];
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].descripciontoma, id: response[i].idtoma})
+                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
             }
-            $scope.tomas_edit = array_temp;
+            $scope.tomas_s = array_temp;
         });
     };
 
     $scope.loadDerivaciones = function(){
-        var idtoma = $scope.t_toma;
+        var idcanal = $scope.t_canales;
 
-        $http.get(API_URL + 'editTerreno/getDerivaciones/' + idtoma).success(function(response){
+        $http.get(API_URL + 'editTerreno/getDerivaciones/' + idcanal).success(function(response){
             var longitud = response.length;
-            var array_temp = [];
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].descripcionderivacion, id: response[i].idderivacion})
+                array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
             }
-            $scope.derivaciones_edit = array_temp;
+            $scope.derivaciones_s = array_temp;
         });
     };
 
