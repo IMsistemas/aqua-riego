@@ -206,10 +206,13 @@
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="col-md-6 col-xs-12">
-                                        <div class="form-group">
+                                        <div class="form-group error">
                                             <label for="correo" class="col-sm-4 control-label">E-mail:</label>
                                             <div class="col-sm-8">
-                                                <input type="text" class="form-control" name="correo" id="correopersona" ng-model="correo" placeholder="" >
+                                                <input type="text" class="form-control" name="correo" id="correo" ng-model="correo"
+                                                       ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/">
+                                                <span class="help-block error"
+                                                      ng-show="formEmployee.correo.$invalid && formEmployee.correo.$error.pattern">Formato de email no es correcto</span>
                                             </div>
                                         </div>
                                     </div>

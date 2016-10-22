@@ -57,14 +57,14 @@ app.controller('empleadosController', function($scope, $http, API_URL) {
 
                     $scope.fechaingreso = fecha();
 
-                    $scope.form_title = "Ingresar nuevo Empleado";
+                    $scope.form_title = "Ingresar nuevo Colaborador";
 
                     $('#modalAction').modal('show');
                 });
 
                 break;
             case 'edit':
-                $scope.form_title = "Editar Empleado";
+                $scope.form_title = "Editar Colaborador";
                 $scope.id = id;
 
                 $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
@@ -147,7 +147,7 @@ app.controller('empleadosController', function($scope, $http, API_URL) {
             $http.post(url,$scope.empleado ).success(function (data) {
                 $scope.initLoad();
                 $('#modalAction').modal('hide');
-                $scope.message = 'Se inserto correctamente el Empleado';
+                $scope.message = 'Se inserto correctamente el Colaborador';
                 $('#modalMessage').modal('show');
             }).error(function (res) {
 
@@ -159,7 +159,7 @@ app.controller('empleadosController', function($scope, $http, API_URL) {
             $http.put(url, $scope.empleado ).success(function (data) {
                 $scope.initLoad();
                 $('#modalAction').modal('hide');
-                $scope.message = 'Se edito correctamente el Empleado seleccionado';
+                $scope.message = 'Se editó correctamente el Colaborador seleccionado';
                 $('#modalMessage').modal('show');
             }).error(function (res) {
 
@@ -198,7 +198,7 @@ app.controller('empleadosController', function($scope, $http, API_URL) {
             $scope.initLoad();
             $('#modalConfirmDelete').modal('hide');
             $scope.empleado_del = 0;
-            $scope.message = 'Se elimino correctamente el Empleado seleccionado';
+            $scope.message = 'Se eliminó correctamente el Colaborador seleccionado';
             $('#modalMessage').modal('show');
         });
     }
