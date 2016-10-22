@@ -50,28 +50,33 @@ class TerrenoController extends Controller
         $object_filter = json_decode($filter);
 
         $terreno = Terreno::with(['cultivo', 'tarifa', 'cliente',
-            'derivacion.canal.calle.barrio' => function ($query) use ($object_filter){
-
+            'derivacion' => function ($query) use ($object_filter){
+                $result_derivacion = $query->with([
+                    'canal' => function ($query_canal) use ($object_filter) {
+                        $result_canal = $query_canal->with([
+                            'calle' => function ($query_calle) use ($object_filter) {
+                                $result_calle = $query_calle->with([
+                                    'barrio' => function ($query_barrio) use ($object_filter) {
+                                        if ($object_filter->barrio != 0) {
+                                            $query_barrio->where('idbarrio', $object_filter->barrio);
+                                        }
+                                    }
+                                ]);
+                                if ($object_filter->calle != 0) {
+                                    return $result_calle->where('idcalle', $object_filter->calle);
+                                }
+                            }
+                        ]);
+                        if ($object_filter->canal != 0) {
+                            return $result_canal->where('idcanal', $object_filter->canal);
+                        }
+                    }
+                ]);
                 if ($object_filter->derivacion != 0) {
-                    $query->where('derivacion.idderivacion', $object_filter->idderivacion);
+                    return $result_derivacion->where('idderivacion', $object_filter->derivacion);
                 }
-
-                if ($object_filter->canal != 0) {
-                    $query->where('canal.idcanal', $object_filter->canal);
-                }
-
-                if ($object_filter->calle != 0) {
-                    $query->where('calle.idcalle', $object_filter->calle);
-                }
-
-                if ($object_filter->barrio != 0) {
-                    $query->where('barrio.idbarrio', $object_filter->barrio);
-                }
-
             }
         ]);
-
-        //$terreno = Terreno::with('cultivo', 'tarifa', 'cliente', 'derivacion.canal.calle.barrio');
 
         if ($object_filter->tarifa != 0){
             $terreno = $terreno->where('idtarifa', $object_filter->tarifa);

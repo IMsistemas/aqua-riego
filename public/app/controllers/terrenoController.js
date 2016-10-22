@@ -22,7 +22,7 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
 
         $http.get(API_URL + 'editTerreno/getTerrenos').success(function(response){
             $scope.terrenos = response;
-
+            console.log(response);
             $('.datepicker').datetimepicker({
                 locale: 'es',
                 viewMode: 'years',
@@ -46,7 +46,24 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
 
         $http.get(API_URL + 'editTerreno/getByFilter/' + JSON.stringify(filter)).success(function(response){
             console.log(response);
-            $scope.terrenos = response;
+
+            var longitud = response.length;
+
+            var temp = [];
+
+            for (var i = 0; i < longitud; i++) {
+               if(response[i].derivacion != null) {
+                   if(response[i].derivacion.canal != null) {
+                       if(response[i].derivacion.canal.calle != null) {
+                           if(response[i].derivacion.canal.calle.barrio != null) {
+                               temp.push(response[i]);
+                           }
+                       }
+                   }
+               }
+            }
+
+            $scope.terrenos = temp;
         });
     };
 

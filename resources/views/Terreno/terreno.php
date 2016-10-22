@@ -31,7 +31,7 @@
         <div class="col-xs-12">
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" id="search" placeholder="BUSCAR..."
+                    <input type="text" class="form-control" id="search" ng-model="search" placeholder="BUSCAR..."
                            ng-model="search" >
                     <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                 </div>
@@ -115,7 +115,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="terreno in terrenos" ng-cloak>
+                <tr ng-repeat="terreno in terrenos | filter : search" ng-cloak>
                     <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{terreno.cliente.apellido + ' ' + terreno.cliente.nombre}}</td>
                     <td>{{terreno.tarifa.nombretarifa}}</td>
                     <td>{{terreno.cultivo.nombrecultivo}}</td>
