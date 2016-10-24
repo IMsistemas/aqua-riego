@@ -105,7 +105,7 @@
                             <label for="t_calle" class="col-sm-4 control-label">Toma:</label>
                             <div class="col-sm-8">
                                 <select id="t_calle" class="form-control" ng-model="t_calle"
-                                        ng-options="value.id as value.label for value in calles"></select>
+                                        ng-options="value.id as value.label for value in calles" required></select>
                             </div>
                         </div>
 

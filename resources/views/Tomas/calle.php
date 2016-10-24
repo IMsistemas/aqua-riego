@@ -97,7 +97,7 @@
                             <label for="t_barrio" class="col-sm-4 control-label">Junta Modular:</label>
                             <div class="col-sm-8">
                                 <select id="t_barrio" class="form-control" ng-model="t_barrio"
-                                        ng-options="value.id as value.label for value in barrios"></select>
+                                        ng-options="value.id as value.label for value in barrios" required></select>
                             </div>
                         </div>
 

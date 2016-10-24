@@ -103,7 +103,7 @@
                             <label for="t_canal" class="col-sm-4 control-label">Canal:</label>
                             <div class="col-sm-8">
                                 <select id="t_canal" class="form-control" ng-model="t_canal"
-                                        ng-options="value.id as value.label for value in canals"></select>
+                                        ng-options="value.id as value.label for value in canals" required></select>
                             </div>
                         </div>
 
