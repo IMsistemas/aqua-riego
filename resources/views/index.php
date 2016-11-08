@@ -114,7 +114,7 @@
                         </li>
                         <ul class="sub-menu collapse" id="configuracion">
                             <li><a href="#" ng-click="toModuloTarifa();">Tarifas</a></li>
-                            <li><a href="#" ng-click="toModuloDescuento();">Descuentos</a></li>
+                            
                             <li ng-show="false"><a href="#" ng-click="toModuloCanal();">Descuentos</a></li>
 
                         </ul>
