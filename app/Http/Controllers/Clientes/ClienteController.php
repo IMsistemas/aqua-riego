@@ -359,7 +359,39 @@ class ClienteController extends Controller
         $solicitud->estaprocesada = true;
         $solicitud->fechaprocesada = date('Y-m-d');
         $solicitud->save();
+
+        $this->updateTerreno($solicitud->idterreno, $solicitud->nuevaarea);
+
         return response()->json(['success' => true]);
+    }
+
+    private function updateTerreno($idterreno, $nuevaarea)
+    {
+        $constante = Configuracion::all();
+
+        $terreno = Terreno::find($idterreno);
+        $result_area = $terreno->area - $nuevaarea;
+
+        $result_caudal = ($result_area / 1000) * $constante[0]->constante;
+
+        $area_h = $result_caudal / 1000;
+
+        $costo_area = Area::where('desde', '<', $area_h)
+                            ->where('hasta', '>=', $area_h)
+                            ->where('aniotarifa', date('Y'))
+                            ->get();
+
+        if ($costo_area[0]->esfija == true){
+            $costo = $costo_area[0]->costo;
+        } else {
+            $costo = $area_h * $constante[0]->constante * $costo_area[0]->costo;
+        }
+
+        $terreno->area = $result_area;
+        $terreno->caudal = $result_caudal;
+        $terreno->valoranual = $costo;
+        $terreno->save();
+
     }
 
     /**

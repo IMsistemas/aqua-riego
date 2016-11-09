@@ -665,8 +665,8 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
         $scope.t_observacion_setnombre = '';
 
-
-        $('#btn-process-setnombre').prop('disabled', false);
+        $('#btn-process-setnombre').prop('disabled', true);
+        $('#btn-save-setnombre').prop('disabled', false);
         $('#modalActionSetNombre').modal('show');
     };
 
