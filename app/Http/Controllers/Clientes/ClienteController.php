@@ -67,6 +67,17 @@ class ClienteController extends Controller
         return response()->json(['id' => $max]);
     }
 
+    /**
+     * Obtener si el cliente esta relacionado a alguna solicitud
+     *
+     * @param $codigocliente
+     * @return mixed
+     */
+    public function getIsFreeCliente($codigocliente)
+    {
+        return Solicitud::where('codigocliente', $codigocliente)->count();
+    }
+
     public function getTerrenosByCliente($idcliente)
     {
         $cliente = json_decode($idcliente);

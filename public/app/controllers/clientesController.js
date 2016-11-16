@@ -116,6 +116,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             $scope.codigocliente_del = 0;
             $scope.message = 'Se eliminó correctamente el Cliente seleccionado...';
             $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
         });
     };
 
@@ -141,9 +142,19 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     };
 
     $scope.showModalDeleteCliente = function (item) {
+
         $scope.codigocliente_del = item.codigocliente;
-        $scope.nom_cliente = item.apellido + ' ' + item.nombre;
-        $('#modalDeleteCliente').modal('show');
+        $http.get(API_URL + 'cliente/getIsFreeCliente/' + $scope.codigocliente_del).success(function(response){
+            if (response == 0) {
+                $scope.nom_cliente = item.apellido + ' ' + item.nombre;
+                $('#modalDeleteCliente').modal('show');
+            } else {
+                $scope.message_info = 'No se puede eliminar el cliente seleccionado, ya presenta solicitudes a su nombre...';
+                $('#modalMessageInfo').modal('show');
+
+            }
+        });
+
     };
 
     $scope.showModalInfoCliente = function (item) {
@@ -833,6 +844,10 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     };
 
     $scope.initLoad();
+
+    $scope.hideModalMessage = function () {
+        setTimeout("$('#modalMessage').modal('hide')", 3000);
+    };
 
     $scope.onlyCharasterAndSpace = function ($event) {
 
