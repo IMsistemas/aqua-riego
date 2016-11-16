@@ -1,219 +1,232 @@
 
-app.controller('tarifaController', function($scope, $http, API_URL) {
+    app.controller('tarifaController', function($scope, $http, API_URL) {
 
-    $scope.area_caudal = [];
-    $scope.constante = 0;
-    $scope.item_delete = 0;
+        $scope.area_caudal = [];
+        $scope.constante = 0;
+        $scope.item_delete = 0;
 
-    $scope.initData = function () {
-        $scope.getTarifas();
-        $scope.searchConstante();
-    };
+        $scope.initData = function () {
+            $scope.searchConstante();
+        };
 
-    $scope.searchConstante = function() {
-        $http.get(API_URL + 'tarifa/getConstante').success(function(response){
-            $scope.constante = parseFloat(response[0].constante);
-        });
-    };
+        $scope.searchConstante = function() {
+            $http.get(API_URL + 'tarifa/getConstante').success(function(response){
+                if (response.length == 0){
+                    $('#btn_inform').prop('disabled', true);
+                    $('#btn_edit').prop('disabled', true);
+                    $('#btn_create_row').prop('disabled', true);
 
-    $scope.getTarifas = function () {
-        $http.get(API_URL + 'tarifa/getTarifas').success(function(response){
-            var longitud = response.length;
-            var array_temp = [{label: '-- Seleccione --', id: 0}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
-            }
-            $scope.tarifas = array_temp;
-            $scope.t_tarifa = 0;
-        });
-    };
+                    $scope.message_info = 'Para Trabajar con las Tarifas, se necesita especificar la constante de calculo en Configuracion';
+                    $('#modalMessageInfo').modal('show');
+                } else {
+                    $('#btn_inform').prop('disabled', false);
+                    $('#btn_edit').prop('disabled', false);
+                    $('#btn_create_row').prop('disabled', false);
 
-    $scope.getAreaCaudal = function() {
+                    $scope.getTarifas();
+                    $scope.constante = parseFloat(response[0].constante);
+                }
+            });
+        };
 
-        $scope.t_year = $('#t_year').val();
+        $scope.getTarifas = function () {
+            $http.get(API_URL + 'tarifa/getTarifas').success(function(response){
+                var longitud = response.length;
+                var array_temp = [{label: '-- Seleccione --', id: 0}];
+                for(var i = 0; i < longitud; i++){
+                    array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
+                }
+                $scope.tarifas = array_temp;
+                $scope.t_tarifa = 0;
+            });
+        };
 
-        if ($scope.t_tarifa != 0 && $scope.t_tarifa != undefined){
-            var idtarifa = $scope.t_tarifa;
-            var year = $scope.t_year;
+        $scope.getAreaCaudal = function() {
 
-            if ($scope.t_year == undefined || $scope.t_year == '0'){
-                year = '';
-            }
+            $scope.t_year = $('#t_year').val();
 
-            var data = {
-                idtarifa: idtarifa,
-                year: year
-            };
+            if ($scope.t_tarifa != 0 && $scope.t_tarifa != undefined){
+                var idtarifa = $scope.t_tarifa;
+                var year = $scope.t_year;
 
-            $http.get(API_URL + 'tarifa/getAreaCaudal/' + JSON.stringify(data)).success(function(response){
-                var longitud = (response[0].area).length;
-
-                var list = [];
-
-                for (var i = 0; i < longitud; i++) {
-                    var object = {
-                        area: response[0].area[i],
-                        caudal: response[0].caudal[i]
-                    };
-
-                    list.push(object);
+                if ($scope.t_year == undefined || $scope.t_year == '0'){
+                    year = '';
                 }
 
-                $scope.area_caudal = list;
-                $('#btn_create_row').prop('disabled', false);
-                $('#btn-save-tarifas').prop('disabled', false);
+                var data = {
+                    idtarifa: idtarifa,
+                    year: year
+                };
+
+                $http.get(API_URL + 'tarifa/getAreaCaudal/' + JSON.stringify(data)).success(function(response){
+                    var longitud = (response[0].area).length;
+
+                    var list = [];
+
+                    for (var i = 0; i < longitud; i++) {
+                        var object = {
+                            area: response[0].area[i],
+                            caudal: response[0].caudal[i]
+                        };
+
+                        list.push(object);
+                    }
+
+                    $scope.area_caudal = list;
+                    $('#btn_create_row').prop('disabled', false);
+                    $('#btn-save-tarifas').prop('disabled', false);
+                });
+            } else {
+                $scope.area_caudal = [];
+                $('#btn_create_row').prop('disabled', true);
+                $('#btn-save-tarifas').prop('disabled', true);
+            }
+        };
+
+        $scope.createRow = function () {
+            var object_row = {
+                area: {
+                    aniotarifa: '',
+                    costo: '0.00',
+                    desde: '0.00',
+                    esfija: false,
+                    hasta: '0.00',
+                    idarea: 0,
+                    idtarifa: $scope.t_tarifa,
+                    observacion: ''
+                },
+                caudal: {
+                    aniotarifa: '',
+                    desde: '0.00',
+                    hasta: '0.00',
+                    idcaudal: 0,
+                    idtarifa: $scope.t_tarifa
+                }
+            };
+
+            ($scope.area_caudal).push(object_row);
+
+        };
+
+        $scope.showModal = function () {
+            var now = new Date();
+            $scope.year_ingreso = now.getFullYear();
+
+            $http.get(API_URL + 'tarifa/getLastID').success(function(response){
+                $scope.nombretarifa = '';
+                $scope.idtarifa = response.id;
             });
-        } else {
-            $scope.area_caudal = [];
-            $('#btn_create_row').prop('disabled', true);
-            $('#btn-save-tarifas').prop('disabled', true);
-        }
-    };
 
-    $scope.createRow = function () {
-        var object_row = {
-            area: {
-                aniotarifa: '',
-                costo: '0.00',
-                desde: '0.00',
-                esfija: false,
-                hasta: '0.00',
-                idarea: 0,
-                idtarifa: $scope.t_tarifa,
-                observacion: ''
-            },
-            caudal: {
-                aniotarifa: '',
-                desde: '0.00',
-                hasta: '0.00',
-                idcaudal: 0,
-                idtarifa: $scope.t_tarifa
-            }
+            $('#modalTarifa').modal('show');
         };
 
-        ($scope.area_caudal).push(object_row);
+        $scope.saveTarifa = function () {
 
-    };
+            var data = {
+                nombretarifa: $scope.nombretarifa
+            };
 
-    $scope.showModal = function () {
-        var now = new Date();
-        $scope.year_ingreso = now.getFullYear();
-
-        $http.get(API_URL + 'tarifa/getLastID').success(function(response){
-            $scope.nombretarifa = '';
-            $scope.idtarifa = response.id;
-        });
-
-        $('#modalTarifa').modal('show');
-    };
-
-    $scope.saveTarifa = function () {
-
-        var data = {
-            nombretarifa: $scope.nombretarifa
-        };
-
-        $http.post(API_URL + 'tarifa', data ).success(function (response) {
-            $scope.getTarifas();
-            $('#modalTarifa').modal('hide');
-            $scope.message = 'Se insertó correctamente la Tarifa';
-            $('#modalMessage').modal('show');
-
-        }).error(function (res) {
-
-        });
-    };
-
-    $scope.calculateCaudalDesde = function (item) {
-        item.caudal.desde = (item.area.desde * $scope.constante).toFixed(2);
-    };
-
-    $scope.calculateCaudalHasta = function (item) {
-        item.caudal.hasta = (item.area.hasta * $scope.constante).toFixed(2);
-    };
-
-    $scope.saveSubTarifas = function () {
-
-        var subtarifas = { subtarifas: $scope.area_caudal };
-
-        $http.post(API_URL + 'tarifa/saveSubTarifas', subtarifas).success(function(response){
-            console.log(response);
-            $scope.getAreaCaudal();
-            $scope.message = 'Se actualizó correctamente las SubTarifa del Tipo seleccionado....';
-            $('#modalMessage').modal('show');
-        });
-
-    };
-
-    $scope.showDeleteRow = function (item) {
-
-        $scope.item_delete = item;
-
-        $('#modalConfirmDelete').modal('show');
-    };
-
-    $scope.deleteRow = function () {
-
-        var data = {
-            idarea: $scope.item_delete.area.idarea,
-            idcaudal: $scope.item_delete.caudal.idcaudal
-        };
-
-        $http.post(API_URL + 'tarifa/deleteSubTarifas', data).success(function(response){
-            console.log(response);
-            $scope.getAreaCaudal();
-
-            $('#modalConfirmDelete').modal('hide');
-            $scope.message = 'Se eliminó correctamente la SubTarifa...';
-            $('#modalMessage').modal('show');
-            $scope.item_delete = 0;
-        });
-
-    };
-
-    $scope.generate = function () {
-        $http.get(API_URL + 'tarifa/generate').success(function(response){
-
-            if (response.success == true){
-                $scope.message = 'Se generó correctamente las tarifas para el actual año...';
+            $http.post(API_URL + 'tarifa', data ).success(function (response) {
+                $scope.getTarifas();
+                $('#modalTarifa').modal('hide');
+                $scope.message = 'Se insertó correctamente la Tarifa';
                 $('#modalMessage').modal('show');
-            } else if (response.success == false && response.msg == 'no_exists_tarifa') {
-                $scope.message_info = 'Debe crear tarifas a generar...';
-                $('#modalMessageInfo').modal('show');
-            }
 
+            }).error(function (res) {
+
+            });
+        };
+
+        $scope.calculateCaudalDesde = function (item) {
+            item.caudal.desde = (item.area.desde * $scope.constante).toFixed(2);
+        };
+
+        $scope.calculateCaudalHasta = function (item) {
+            item.caudal.hasta = (item.area.hasta * $scope.constante).toFixed(2);
+        };
+
+        $scope.saveSubTarifas = function () {
+
+            var subtarifas = { subtarifas: $scope.area_caudal };
+
+            $http.post(API_URL + 'tarifa/saveSubTarifas', subtarifas).success(function(response){
+                console.log(response);
+                $scope.getAreaCaudal();
+                $scope.message = 'Se actualizó correctamente las SubTarifa del Tipo seleccionado....';
+                $('#modalMessage').modal('show');
+            });
+
+        };
+
+        $scope.showDeleteRow = function (item) {
+
+            $scope.item_delete = item;
+
+            $('#modalConfirmDelete').modal('show');
+        };
+
+        $scope.deleteRow = function () {
+
+            var data = {
+                idarea: $scope.item_delete.area.idarea,
+                idcaudal: $scope.item_delete.caudal.idcaudal
+            };
+
+            $http.post(API_URL + 'tarifa/deleteSubTarifas', data).success(function(response){
+                console.log(response);
+                $scope.getAreaCaudal();
+
+                $('#modalConfirmDelete').modal('hide');
+                $scope.message = 'Se eliminó correctamente la SubTarifa...';
+                $('#modalMessage').modal('show');
+                $scope.item_delete = 0;
+            });
+
+        };
+
+        $scope.generate = function () {
+            $http.get(API_URL + 'tarifa/generate').success(function(response){
+
+                if (response.success == true){
+                    $scope.message = 'Se generó correctamente las tarifas para el actual año...';
+                    $('#modalMessage').modal('show');
+                } else if (response.success == false && response.msg == 'no_exists_tarifa') {
+                    $scope.message_info = 'Debe crear tarifas a generar...';
+                    $('#modalMessageInfo').modal('show');
+                }
+
+            });
+        };
+
+        $scope.onlyDecimal = function ($event) {
+
+            var k = $event.keyCode;
+            if (k == 8 || k == 0) return true;
+            var patron = /\d/;
+            var n = String.fromCharCode(k);
+
+            if (n == ".") {
+                return true;
+            } else {
+
+                if(patron.test(n) == false){
+                    $event.preventDefault();
+                }
+                else return true;
+            }
+        };
+
+        $scope.initData();
+
+        $('.datepicker').datetimepicker({
+            viewMode: 'years',
+            locale: 'es',
+            format: 'YYYY'
+        }).on('dp.change', function (e) {
+            $scope.getAreaCaudal();
         });
-    };
 
-    $scope.onlyDecimal = function ($event) {
-
-        var k = $event.keyCode;
-        if (k == 8 || k == 0) return true;
-        var patron = /\d/;
-        var n = String.fromCharCode(k);
-
-        if (n == ".") {
-            return true;
-        } else {
-
-            if(patron.test(n) == false){
-                $event.preventDefault();
-            }
-            else return true;
-        }
-    };
-
-    $scope.initData();
-
-    $('.datepicker').datetimepicker({
-        viewMode: 'years',
-        locale: 'es',
-        format: 'YYYY'
-    }).on('dp.change', function (e) {
-        $scope.getAreaCaudal();
     });
-
-});
 
 /*$(document).ready(function () {
 

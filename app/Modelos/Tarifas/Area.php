@@ -8,7 +8,6 @@ class Area extends Model
 {
     protected $table = 'area';
     protected $primaryKey = 'idarea';
-    public $incrementing = false;
     public $timestamps = false;
 
     public function tarifa()

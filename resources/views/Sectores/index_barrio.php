@@ -80,7 +80,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="t_codigo" class="col-sm-4 control-label">Parroquia:</label>
+                                <label for="t_parroquias" class="col-sm-4 control-label">Parroquia:</label>
                                 <div class="col-sm-8">
                                     <select disabled id="t_parroquias" class="form-control" ng-model="t_parroquias"
                                             ng-options="value.id as value.label for value in parroquias"></select>
@@ -99,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="t_codigo" class="col-sm-4 control-label">Observaciones:</label>
+                                <label for="observacionBarrio" class="col-sm-4 control-label">Observaciones:</label>
                                 <div class="col-sm-8">
                                     <textarea id="observacionBarrio" class="form-control" rows="3" ng-model="observacionBarrio"></textarea>
                                 </div>
