@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
-    protected $table = "cliente";
-    protected $primaryKey = "codigocliente";
+    protected $table = 'cliente';
+    protected $primaryKey = 'codigocliente';
     public $timestamps = false;
 
-    public function solicitud(){
+    public function solicitud()
+    {
     	return $this->hasMany('App\Modelos\Solicitud\Solicitud','codigocliente');
     }
 
