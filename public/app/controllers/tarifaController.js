@@ -29,7 +29,7 @@
             });
         };
 
-        $scope.getTarifas = function () {
+        $scope.getTarifas = function (idtarifa) {
             $http.get(API_URL + 'tarifa/getTarifas').success(function(response){
                 var longitud = response.length;
                 var array_temp = [{label: '-- Seleccione --', id: 0}];
@@ -37,7 +37,10 @@
                     array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
                 }
                 $scope.tarifas = array_temp;
-                $scope.t_tarifa = 0;
+
+                if (idtarifa != undefined) {
+                    $scope.t_tarifa = idtarifa;
+                } else $scope.t_tarifa = 0;
             });
         };
 
@@ -121,16 +124,16 @@
         };
 
         $scope.saveTarifa = function () {
-
             var data = {
                 nombretarifa: $scope.nombretarifa
             };
 
             $http.post(API_URL + 'tarifa', data ).success(function (response) {
-                $scope.getTarifas();
+                $scope.getTarifas($scope.t_tarifa);
                 $('#modalTarifa').modal('hide');
-                $scope.message = 'Se insertó correctamente la Tarifa';
+                $scope.message = 'Se insertó correctamente la Tarifa...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
 
             }).error(function (res) {
 
@@ -154,12 +157,12 @@
                 $scope.getAreaCaudal();
                 $scope.message = 'Se actualizó correctamente las SubTarifa del Tipo seleccionado....';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             });
 
         };
 
         $scope.showDeleteRow = function (item) {
-
             $scope.item_delete = item;
 
             $('#modalConfirmDelete').modal('show');
@@ -196,6 +199,10 @@
                 }
 
             });
+        };
+
+        $scope.hideModalMessage = function () {
+            setTimeout("$('#modalMessage').modal('hide')", 3000);
         };
 
         $scope.onlyDecimal = function ($event) {

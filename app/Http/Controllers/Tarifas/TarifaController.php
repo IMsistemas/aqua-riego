@@ -24,6 +24,11 @@ class TarifaController extends Controller
     }
 
 
+    /**
+     * Obtener el ultimo ID insertado en la tabla Tarifa
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getLastID()
     {
         $max_tarifa = Tarifa::max('idtarifa');
@@ -37,6 +42,11 @@ class TarifaController extends Controller
         return response()->json(['id' => $max_tarifa]);
     }
 
+    /**
+     * Obtener el nombre de todas las tarifas
+     *
+     * @return mixed
+     */
     public function getTarifas()
     {
         return Tarifa::orderBy('nombretarifa', 'asc')->get();
@@ -52,6 +62,12 @@ class TarifaController extends Controller
         return Configuracion::all();
     }
 
+    /**
+     * Obtener el area y caudal de las tarifas en base al anno ingresado
+     *
+     * @param $data
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
     public function getAreaCaudal($data)
     {
         $data = json_decode($data);
@@ -65,11 +81,11 @@ class TarifaController extends Controller
         return Tarifa::with(
             [
                 'area' => function ($query) use ($year){
-                    $query->where('aniotarifa', $year)->orderBy('idarea', 'asc');
+                    $query->where('aniotarifa', $year)->orderBy('desde', 'asc');
                 }
             ,
                 'caudal' => function ($query0) use ($year){
-                    $query0->where('aniotarifa', $year);
+                    $query0->where('aniotarifa', $year)->orderBy('desde', 'asc');
                 }
             ]
         )
@@ -77,10 +93,15 @@ class TarifaController extends Controller
         ->get();
     }
 
+    /**
+     * Guardar los cambios en las Subtarifas y las nuevas subtarifas
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function saveSubTarifas(Request $request)
     {
         $subtarifas = $request->input('subtarifas');
-
         $action_edit = false;
 
         foreach ($subtarifas as $item) {
@@ -116,6 +137,12 @@ class TarifaController extends Controller
         return response()->json(['success' => true]);
     }
 
+    /**
+     * Eliminar los datos de area y caudal de la subtarifa seleccionada
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteSubTarifas(Request $request)
     {
         $area = Area::find($request->input('idarea'));
@@ -183,9 +210,8 @@ class TarifaController extends Controller
         }
     }
 
-
     /**
-     * Store a newly created resource in storage.
+     * Almacenar la Tarifa creada
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -193,9 +219,7 @@ class TarifaController extends Controller
     public function store(Request $request)
     {
         $tarifa = new Tarifa();
-
         $tarifa->nombretarifa = $request->input('nombretarifa');
-
         $year = date('Y');
         $tarifa->aniotarifa = $year;
         $tarifa->save();
@@ -203,48 +227,5 @@ class TarifaController extends Controller
         return response()->json(['success' => true]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
