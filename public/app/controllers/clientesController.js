@@ -16,6 +16,18 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
     $scope.initLoad = function () {
         $http.get(API_URL + 'cliente/getClientes').success(function(response){
+
+            var longitud = response.length;
+            for (var i = 0; i < longitud; i++) {
+                var complete_name = {
+                    value: response[i].apellido + ', ' + response[i].nombre,
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                };
+                Object.defineProperty(response[i], 'complete_name', complete_name);
+            }
+            console.log(response);
             $scope.clientes = response;
         });
     };

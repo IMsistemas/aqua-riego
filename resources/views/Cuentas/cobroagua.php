@@ -75,7 +75,7 @@
                         <div class="col-xs-12">Periodo: {{periodo}}</div>
                     </h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="region-imprimir">
                     <div class="row">
                         <div class="col-xs-12">
                             <fieldset>
@@ -154,7 +154,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-info" id="btn-print" ng-click="">
+                    <button type="button" class="btn btn-info" id="btn-print" ng-click="imprimir();">
                         Imprimir <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
                     </button>
                     <button type="button" class="btn btn-primary" id="btn-pagar" ng-click="pagar()">
