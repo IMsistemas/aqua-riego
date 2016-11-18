@@ -281,6 +281,9 @@ Route::get('cargo/getByFilter/{filters}', 'Nomina\CargoController@getByFilter');
 Route::resource('cargo', 'Nomina\CargoController');
 
 //Ruta devuelve todos los empleados
+
+
+//Ruta devuelve todos los empleados
 Route::get('empleado/getEmployees', 'Nomina\EmpleadoController@getEmployees');
 //Ruta devuelve todos los cargos
 Route::get('empleado/getAllPositions', 'Nomina\EmpleadoController@getAllPositions');

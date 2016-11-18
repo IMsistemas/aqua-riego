@@ -146,7 +146,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 console.log(response);
                 $scope.initLoad();
                 $scope.idbarrio_del = 0;
-                $scope.message = 'Se elimino correctamente la Junta Modular seleccionada...';
+                $scope.message = 'Se eliminó correctamente la Junta Modular seleccionada...';
                 $('#modalMessage').modal('show');
             } else if(response.success == false && response.msg == 'exist_calle') {
                 $scope.message_error = 'La Junta no puede ser eliminada porque contiene Tomas...';
@@ -201,7 +201,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $scope.nombrecalle = '';
             $scope.observacionCalle = '';
             $scope.aux1 = aux0 ;
-            $('#modalTomas').modal('hide');
+            $('#modalTomas').modal('show');
             $('#modalNuevaToma').modal('show');
         });
     };
@@ -266,7 +266,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             if(response.success == true){
                 $scope.initLoad();
                 $scope.idcalle_delete = 0;
-                $scope.message = 'Se elimino correctamente la Toma seleccionada...';
+                $scope.message = 'Se eliminó correctamente la Toma seleccionada...';
                 $('#modalMessage').modal('show');
                 /*setTimeout(function(){
                     $('#modalMessage').modal('hide');
@@ -418,7 +418,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             if(response.success == true){
                 $scope.initLoad();
                 $scope.idcanal_delete = 0;
-                $scope.message = 'Se elimino correctamente el Canal seleccionado...';
+                $scope.message = 'Se eliminó correctamente el Canal seleccionado...';
                 $('#modalMessage').modal('show');
                 /*setTimeout(function(){
                     $('#modalMessage').modal('hide');
@@ -505,7 +505,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $('#modalDeleteDerivaciones').modal('hide');
                 $scope.initLoad();
                 $scope.idderivacion_delete = 0;
-                $scope.message = 'Se elimino correctamente la Derivacion seleccionada...';
+                $scope.message = 'Se eliminó correctamente la Derivacion seleccionada...';
                 $('#modalMessage').modal('show');
                 $scope.showModalActionDerivaciones($scope.derivaciones);
         });

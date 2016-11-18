@@ -1,17 +1,12 @@
 <?php
-
 namespace App\Http\Controllers\Nomina;
-
 use App\Modelos\Nomina\Cargo;
 use App\Modelos\Nomina\Empleado;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 class EmpleadoController extends Controller
 {
-
     /**
      * Devolver la vista
      *
@@ -21,7 +16,6 @@ class EmpleadoController extends Controller
     {
         return view('Nomina.index_empleado');
     }
-
     /**
      * Obtener todos los empleados
      *
@@ -29,15 +23,15 @@ class EmpleadoController extends Controller
      */
     public function getEmployees()
     {
-        return Empleado::join('cargo', 'empleado.idcargo', '=', 'cargo.idcargo')
-                            ->select('empleado.nombre', 'empleado.apellido', 'empleado.telefonoprincipal',
-                                        'empleado.celular', 'empleado.documentoidentidadempleado',
-                                        'cargo.nombrecargo')
-                            ->orderBy('empleado.apellido', 'asc')
-                            ->get();
+      /*  return Empleado::join('cargo', 'empleado.idcargo', '=', 'cargo.idcargo')
+            ->select('empleado.nombre', 'empleado.apellido', 'empleado.telefonoprincipal',
+                'empleado.celular', 'empleado.documentoidentidadempleado',
+                'cargo.nombrecargo')
+            ->orderBy('empleado.apellido', 'asc')
+            ->get();*/
 
+        return Empleado::with('cargo')->orderBy('fechaingreso', 'asc')->get();
     }
-
     /**
      * Obtener los cargos filtrados
      *
@@ -47,19 +41,17 @@ class EmpleadoController extends Controller
     public function getByFilter($filter)
     {
         $filter = json_decode($filter);
-
         return Empleado::join('cargo', 'empleado.idcargo', '=', 'cargo.idcargo')
-                        ->select('empleado.nombre', 'empleado.apellido', 'empleado.telefonoprincipal',
-                            'empleado.celular', 'empleado.documentoidentidadempleado',
-                            'cargo.nombrecargo')
-                        ->orderBy('empleado.apellido', 'asc')
-                        ->whereRaw(
-                                "empleado.documentoidentidadempleado LIKE '%" . $filter->text .
-                                "%' OR empleado.nombre LIKE '%" . $filter->text .
-                                "%' OR empleado.apellido LIKE '%" . $filter->text . "%' ")
-                        ->get();
+            ->select('empleado.nombre', 'empleado.apellido', 'empleado.telefonoprincipal',
+                'empleado.celular', 'empleado.documentoidentidadempleado',
+                'cargo.nombrecargo')
+            ->orderBy('empleado.apellido', 'asc')
+            ->whereRaw(
+                "empleado.documentoidentidadempleado LIKE '%" . $filter->text .
+                "%' OR empleado.nombre LIKE '%" . $filter->text .
+                "%' OR empleado.apellido LIKE '%" . $filter->text . "%' ")
+            ->get();
     }
-
     /**
      * Obtener todos los cargos
      *
@@ -69,7 +61,6 @@ class EmpleadoController extends Controller
     {
         return Cargo::orderBy('nombrecargo', 'asc')->get();
     }
-
     /**
      * Almacenar el recurso empleado
      *
@@ -81,7 +72,6 @@ class EmpleadoController extends Controller
         $result = Empleado::create($request->all());
         return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
     }
-
     /**
      * Mostrar un recurso empleado especifico.
      *
@@ -96,10 +86,8 @@ class EmpleadoController extends Controller
                 'empleado.direccion', 'empleado.correo', 'empleado.idcargo','cargo.nombrecargo')
             ->where('empleado.documentoidentidadempleado', '=', $id)
             ->get();
-
         return response()->json($empleado);
     }
-
     /**
      * Actualizar el recurso empleado seleccionado
      *
@@ -114,7 +102,6 @@ class EmpleadoController extends Controller
         $empleado->save();
         return response()->json(['success' => true]);
     }
-
     /**
      * Eliminar el recurso empleado seleccionado
      *
@@ -127,5 +114,4 @@ class EmpleadoController extends Controller
         $empleado->delete();
         return response()->json(['success' => true]);
     }
-
 }

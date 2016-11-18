@@ -37,6 +37,8 @@ app.controller('callesController', function($scope, $http, API_URL) {
     }
 
     $scope.saveCalle = function () {
+        console.log($scope.t_barrio);
+
         var data = {
             nombrecalle: $scope.nombrecalle,
             idbarrio: $scope.t_barrio,

@@ -114,7 +114,7 @@ app.controller('cargosController', function($scope, $http, API_URL) {
             $scope.initLoad();
             $('#modalConfirmDelete').modal('hide');
             $scope.idcargo_del = 0;
-            $scope.message = 'Se elimino correctamente el Cargo seleccionado';
+            $scope.message = 'Se eliminó correctamente el Cargo seleccionado';
             $('#modalMessage').modal('show');
         });
     }
