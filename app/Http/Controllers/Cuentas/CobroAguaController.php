@@ -34,7 +34,18 @@ class CobroAguaController extends Controller
         $count = CobroAgua::where('aniocobro', date('Y'))
                                 ->count();
 
-        return response()->json(['count' => $count]);
+        if ($count != 0) {
+            $count_terreno = Terreno::whereRaw('idterreno NOT IN (SELECT idterreno FROM cobroagua)')->count();
+            if ($count_terreno != 0) {
+                return response()->json(['success' => true, 'count' => $count_terreno]);
+            } else {
+                return response()->json(['success' => false, 'count' => $count_terreno]);
+            }
+        } else {
+            return response()->json(['success' => true, 'count' => $count]);
+        }
+
+
     }
 
     /**
@@ -93,27 +104,31 @@ class CobroAguaController extends Controller
         if (count($terreno) > 0){
 
             foreach ($terreno as $item){
-                $cobro = new CobroAgua();
 
-                $atraso = $this->searchAtraso($item->idterreno);
+                $objectCobro = CobroAgua::where('idterreno', $item->idterreno)
+                                            ->where('aniocobro', date('Y'))
+                                            ->count();
+                if ($objectCobro == 0) {
+                    $cobro = new CobroAgua();
 
-                $cobro->idterreno = $item->idterreno;
-                $cobro->aniocobro = date('Y');
+                    $atraso = $this->searchAtraso($item->idterreno);
+                    $cobro->idterreno = $item->idterreno;
+                    $cobro->aniocobro = date('Y');
 
-                if ($atraso == 0){
-                    $cobro->valoratrasados = 0;
-                    $cobro->aniosatrasados = 0;
-                } else {
-                    $cobro->valoratrasados = $atraso['valoratrasados'];
-                    $cobro->aniosatrasados = $atraso['aniosatrasados'];
+                    if ($atraso == 0){
+                        $cobro->valoratrasados = 0;
+                        $cobro->aniosatrasados = 0;
+                    } else {
+                        $cobro->valoratrasados = $atraso['valoratrasados'];
+                        $cobro->aniosatrasados = $atraso['aniosatrasados'];
+                    }
+
+                    $cobro->valorconsumo = $item->valoranual;
+                    $cobro->total = $item->valoranual + $cobro->valoratrasados;
+                    $cobro->estapagada = false;
+
+                    $cobro->save();
                 }
-
-                $cobro->valorconsumo = $item->valoranual;
-
-                $cobro->total = $item->valoranual + $cobro->valoratrasados;
-                $cobro->estapagada = false;
-
-                $cobro->save();
             }
 
             $result = 1;

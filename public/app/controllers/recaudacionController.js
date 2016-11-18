@@ -15,7 +15,7 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
     $scope.initLoad = function () {
 
         $http.get(API_URL + 'recaudacion/verifyPeriodo').success(function(response){
-            (response.count == 0) ? $('#btn-generate').prop('disabled', false) : $('#btn-generate').prop('disabled', true);
+            (response.success == true) ? $('#btn-generate').prop('disabled', false) : $('#btn-generate').prop('disabled', true);
         });
 
         $http.get(API_URL + 'recaudacion/getCobros').success(function(response){
@@ -132,6 +132,16 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
         };
 
         $http.get(API_URL + 'recaudacion/getByFilter/' + JSON.stringify(filters)).success(function(response){
+            var longitud = response.length;
+            for (var i = 0; i < longitud; i++) {
+                var complete_name = {
+                    value: response[i].apellido + ', ' + response[i].nombre,
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                };
+                Object.defineProperty(response[i], 'complete_name', complete_name);
+            }
             $scope.cobros = response;
         });
     };
