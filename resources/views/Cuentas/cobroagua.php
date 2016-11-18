@@ -46,7 +46,7 @@
             <tbody style="font-size: 13px;">
             <tr ng-repeat="cobro in cobros  | filter : search" ng-cloak>
                 <td>{{cobro.aniocobro}}</td>
-                <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{cobro.apellido + ' ' + cobro.nombre}}</td>
+                <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{cobro.complete_name}}</td>
                 <td>{{cobro.nombretarifa}}</td>
                 <td>{{cobro.nombrebarrio}}</td>
                 <td>{{cobro.nombrecalle}}</td>
