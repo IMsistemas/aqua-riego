@@ -75,7 +75,7 @@
                         <div class="col-xs-12">Periodo: {{periodo}}</div>
                     </h4>
                 </div>
-                <div class="modal-body" id="region-imprimir">
+                <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
                             <fieldset>
@@ -190,6 +190,76 @@
                     <span>{{message_error}}</span>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="region-imprimir" style="font-family: Arial; display: none;">
+        <div class="col-xs-12">
+            <fieldset style="border-radius: 5px;">
+                <legend>Datos de Terreno</legend>
+
+                <table border="0" style="width: 100%;">
+
+                    <tbody>
+                        <tr>
+                            <td style="width: 18%; font-weight: bold;">Cliente:</td>
+                            <td style="width: 35%;">{{cliente_info}}</td>
+                            <td style="width: 12%; font-weight: bold;">Tarifa:</td>
+                            <td style="width: 35%;">{{tarifa_info}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Area:</td>
+                            <td>{{area_info}}</td>
+                            <td style="font-weight: bold;">Caudal:</td>
+                            <td>{{caudal_info}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Junta Modular:</td>
+                            <td>{{junta_info}}</td>
+                            <td style="font-weight: bold;">Toma:</td>
+                            <td>{{toma_info}}</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Canal:</td>
+                            <td>{{canal_info}}</td>
+                            <td style="font-weight: bold;">Derivación:</td>
+                            <td>{{derivacion_info}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+        <div class="col-xs-12">
+            <fieldset style="border-radius: 5px;">
+                <legend>Rubros</legend>
+
+                <div class="col-xs-12">
+                    <table  border="1" style="width: 100%;" cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Rubro</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{tipo_tarifa}}</td>
+                                <td style="text-align: right;">{{valor_base_tarifa}}</td>
+                            </tr>
+                            <tr>
+                                <td>Valores Atrasados</td>
+                                <td style="text-align: right;">{{valor_atrasado}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>TOTAL:</th>
+                                <th style="text-align: right;">{{total}}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </fieldset>
         </div>
     </div>
 
