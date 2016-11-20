@@ -36,7 +36,8 @@
             <thead class="bg-primary">
             <tr>
                 <th style="width: 15%;">Fecha de Ingreso</th>
-                <th style="width: 15%;">Nombre de la Derivacion</th>
+                <th style="width: 15%;">Nombre de la Derivación</th>
+                <th style="width: 15%;">Observaciones</th>
                 <th style="width: 15%;">Acciones</th>
             </tr>
             </thead>
@@ -44,6 +45,7 @@
             <tr ng-repeat="item in derivacions|filter:busqueda" ng-cloak>
                 <td>{{item.fechaingreso}}</td>
                 <td><input type="text" class="form-control" ng-model="item.nombrederivacion"></td>
+                <td>{{item.observacion}}</td>
                 <td>
                     <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDelete(item)">
                         <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
@@ -64,7 +66,7 @@
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <div class="col-sm-5 col-xs-12">
-                        <h4 class="modal-title">Nueva Derivacion</h4>
+                        <h4 class="modal-title">Nueva Derivación</h4>
                     </div>
                     <div class="col-sm-7 col-xs-12 text-right">
                         <div class="col-xs-10"><h4 class="modal-title">Fecha Ingreso:  {{date_ingreso}}</h4></div>
@@ -91,12 +93,12 @@
                         </div>
 
                         <div class="form-group error">
-                            <label for="nombrederi" class="col-sm-4 control-label">Nombre Derivacion:</label>
+                            <label for="nombrederi" class="col-sm-4 control-label">Nombre Derivación:</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="nombrederi" id="nombrederi" ng-model="nombrederi" placeholder=""
                                        ng-required="true" ng-maxlength="64">
                                 <span class="help-block error"
-                                      ng-show="formDeri.nombrederi.$invalid && formDeri.nombrederi.$touched">El nombre de la Derivacion es requerido</span>
+                                      ng-show="formDeri.nombrederi.$invalid && formDeri.nombrederi.$touched">El nombre de la Derivación es requerido</span>
                                 <span class="help-block error"
                                       ng-show="formDeri.nombrederi.$invalid && formDeri.nombrederi.$error.maxlength">La longitud máxima es de 64 caracteres</span>
                             </div>
@@ -156,7 +158,7 @@
                     <h4 class="modal-title">Confirmación</h4>
                 </div>
                 <div class="modal-body">
-                    <span>Realmente desea eliminar la Derivacion: <strong>"{{nom_deriv}}"</strong>?</span>
+                    <span>Realmente desea eliminar la Derivación: <strong>"{{nom_deriv}}"</strong>?</span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">

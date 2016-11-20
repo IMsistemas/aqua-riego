@@ -25,6 +25,7 @@
                 <th style="width: 15%;">Fecha de Ingreso</th>
                 <th style="width: 15%;">Nombre de la Toma</th>
                 <th style="">Canales</th>
+                <th style="">Observaciones</th>
                 <th style="width: 15%;">Acciones</th>
             </tr>
             </thead>
@@ -36,6 +37,7 @@
                 <td>
                     <span ng-repeat="canal in item.canal">{{canal.nombrecanal}}; </span>
                 </td>
+                <td>{{item.observacion}}</td>
                 <td>
                     <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfo(item)">
                         <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>

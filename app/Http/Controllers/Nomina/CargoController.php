@@ -27,32 +27,15 @@ class CargoController extends Controller
      */
     public function getCargos()
     {
-        return Cargo::orderBy('idcargo', 'asc')->get();
+        return Cargo::orderBy('nombrecargo', 'asc')->get();
     }
 
     /**
-     * Obtener el ultimo ID insertado y sumarle 1
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getLastID()
-    {
-        $lastID = Cargo::max('idcargo');
-
-        if ($lastID == ''){
-            $lastID = 'CAR01';
-        } else {
-            $lastID = trim($lastID);
-            $str_to_array = explode('CAR', $lastID);
-            $lastID = $str_to_array[1];
-
-            settype($lastID, 'integer');
-            $lastID = $lastID + 1;
-
-            $lastID = (strlen($lastID) == 1) ? 'CAR0' . $lastID : 'CAR' . $lastID;
-        }
-
-        return response()->json(['lastId' => $lastID]);
+    public function getCargoByID($id){
+        return Cargo::where('idcargo', $id)->orderBy('nombrecargo')->get();
     }
 
     /**
@@ -78,8 +61,15 @@ class CargoController extends Controller
      */
     public function store(Request $request)
     {
-        $result = Cargo::create($request->all());
-        return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
+
+        $cargo = new Cargo();
+
+        $cargo->nombrecargo = $request->input('nombrecargo');
+
+        $cargo->save();
+
+        return response()->json(['success' => true]);
+
     }
 
     /**
@@ -105,8 +95,10 @@ class CargoController extends Controller
     public function update(Request $request, $id)
     {
         $cargo = Cargo::find($id);
-        $cargo->fill($request->all());
+
+        $cargo->nombrecargo = $request->input('nombrecargo');
         $cargo->save();
+
         return response()->json(['success' => true]);
     }
 

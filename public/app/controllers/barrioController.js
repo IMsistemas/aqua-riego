@@ -20,7 +20,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
 
     $scope.initLoad = function () {
         $http.get(API_URL + 'barrio/getBarrios').success(function(response){
-           // console.log(response);
+            console.log(response);
             $scope.barrios = response;
         });
     };
@@ -179,31 +179,62 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.show_toma = function (idbarrio,aux0, barrio)   {
-        if(barrio !== undefined && barrio !== null){
-            $scope.barrio = barrio;}
+        if(aux0 == 2)
+        {
+            if(barrio !== undefined && barrio !== null){
+                $scope.barrio = barrio;}
 
-        $http.get(API_URL + 'barrio/getBarrio').success(function (response) {
-            var longitud = response.length;
-            //var array_temp = [{label: '--Seleccione--', id: 0}];
-            var array_temp = [];
-            for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
-            }
-            $scope.barrios2 = array_temp;
-            $scope.id_barrio = idbarrio;
-        });
-        $http.get(API_URL + 'calle/getLastID').success(function(response){
-           // console.log(response);
+            $http.get(API_URL + 'barrio/getBarrio').success(function (response) {
+                var longitud = response.length;
+                //var array_temp = [{label: '--Seleccione--', id: 0}];
+                var array_temp = [];
+                for (var i = 0; i < longitud; i++) {
+                    array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+                }
+                $scope.barrios2 = array_temp;
+                $scope.id_barrio = idbarrio;
+            });
+            $http.get(API_URL + 'calle/getLastID').success(function(response){
+                // console.log(response);
 
-            $scope.codigo_toma = response.id;
-            $scope.date_ingreso_toma = now();
+                $scope.codigo_toma = response.id;
+                $scope.date_ingreso_toma = now();
 
-            $scope.nombrecalle = '';
-            $scope.observacionCalle = '';
-            $scope.aux1 = aux0 ;
-            $('#modalTomas').modal('show');
-            $('#modalNuevaToma').modal('show');
-        });
+                $scope.nombrecalle = '';
+                $scope.observacionCalle = '';
+                $scope.aux1 = aux0 ;
+                $('#modalTomas').modal('hide');
+                $('#modalNuevaToma').modal('show');
+            });
+
+        } else {
+            if(barrio !== undefined && barrio !== null){
+                $scope.barrio = barrio;}
+
+            $http.get(API_URL + 'barrio/getBarrio').success(function (response) {
+                var longitud = response.length;
+                //var array_temp = [{label: '--Seleccione--', id: 0}];
+                var array_temp = [];
+                for (var i = 0; i < longitud; i++) {
+                    array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+                }
+                $scope.barrios2 = array_temp;
+                $scope.id_barrio = idbarrio;
+            });
+            $http.get(API_URL + 'calle/getLastID').success(function(response){
+                // console.log(response);
+
+                $scope.codigo_toma = response.id;
+                $scope.date_ingreso_toma = now();
+
+                $scope.nombrecalle = '';
+                $scope.observacionCalle = '';
+                $scope.aux1 = aux0 ;
+                $('#modalTomas').modal('show');
+                $('#modalNuevaToma').modal('show');
+            });
+        }
+
     };
 
     $scope.editar = function ()  {

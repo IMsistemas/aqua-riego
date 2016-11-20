@@ -33,6 +33,7 @@
                 <th style="width: 15%;">Fecha de Ingreso</th>
                 <th style="width: 15%;">Nombre del Canal</th>
                 <th style="">Derivaciones</th>
+                <th style="">Observaciones</th>
                 <th style="width: 15%;">Acciones</th>
             </tr>
             </thead>
@@ -45,6 +46,7 @@
                     <!--<span ng-repeat="derivacion in item.derivaciones">{{derivacion.nombrederivacion}}; </span>-->
                     <span ng-repeat="derivacion1 in item.derivacion">{{derivacion1.nombrederivacion}}; </span>
                 </td>
+                <td>{{item.observacion}}</td>
                 <td>
                     <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfo(item)">
                         <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>

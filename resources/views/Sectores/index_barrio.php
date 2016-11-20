@@ -20,6 +20,7 @@
                         <th style="width: 15%;">Fecha de Ingreso</th>
                         <th style="width: 15%;">Nombre de la Junta</th>
                         <th style="">Tomas</th>
+                        <th style="width: 15%;">Observaciones</th>
                         <th style="width: 15%;">Acciones</th>
                     </tr>
                 </thead>
@@ -35,6 +36,7 @@
                                 <i class="fa fa-lg fa-plus" aria-hidden="true"></i>
                             </button>
                         </td>
+                        <td>{{item.observacion}}</td>
                         <td>
                             <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfo(item)">
                                 <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
@@ -290,6 +292,7 @@
                                         <tr>
                                             <th style="width: 15%;">Nombre de la Toma</th>
                                             <th style="">Canales</th>
+                                            <th style="width: 15%;">Observaciones</th>
                                             <th style="width: 15%;">Acciones</th>
                                         </tr>
                                         </thead>
@@ -300,6 +303,7 @@
                                             <td>
                                                 <span ng-repeat="canal in item.canal">{{canal.nombrecanal}}; </span>
                                             </td>
+                                            <td>{{item.observacion}}</td>
                                             <td>
                                                 <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDeleteCalle(item)">
                                                     <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
@@ -380,6 +384,7 @@
                                     <tr>
                                         <th style="width: 15%;">Nombre del Canal</th>
                                         <th style="">Derivaciones</th>
+                                        <th style="width: 15%;">Observaciones</th>
                                         <th style="width: 15%;">Acciones</th>
                                     </tr>
                                     </thead>
@@ -390,6 +395,7 @@
                                         <td>
                                             <span ng-repeat="derivaciones in item.derivacion">{{derivaciones.nombrederivacion}}; </span>
                                         </td>
+                                        <td>{{item.observacion}}</td>
                                         <td>
                                             <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDeleteCanal(item)">
                                                 <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
@@ -446,13 +452,15 @@
                                 <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                                     <thead class="bg-primary">
                                     <tr>
-                                        <th style="width: 15%;">Nombre de la Derivacion</th>
+                                        <th style="width: 15%;">Nombre de la Derivación</th>
+                                        <th style="width: 15%;">Observaciones</th>
                                         <th style="width: 15%;">Acciones</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr ng-repeat="item in aux_derivaciones|filter:busquedaaaa" ng-cloak>
                                         <td><input type="text" class="form-control" ng-model="item.nombrederivacion"></td>
+                                        <td>{{item.observacion}}</td>
 
                                         <td>
                                             <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDeleteDerivaciones(item)">
@@ -567,7 +575,7 @@
                 <div class="modal-content">
                     <div class="modal-header modal-header-primary">
                         <div class="col-sm-5 col-xs-12">
-                            <h4 class="modal-title">Nueva Derivacion</h4>
+                            <h4 class="modal-title">Nueva Derivación</h4>
                         </div>
                         <div class="col-sm-7 col-xs-12 text-right">
                             <div class="col-xs-10"><h4 class="modal-title">Fecha Ingreso: {{date_ingreso_deri}}</h4></div>
@@ -593,12 +601,12 @@
                             </div>
 
                             <div class="form-group error">
-                                <label for="nombrederi" class="col-sm-4 control-label">Nombre Derivacion:</label>
+                                <label for="nombrederi" class="col-sm-4 control-label">Nombre Derivación:</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" name="nombrederi" id="nombrederi" ng-model="nombrederi" placeholder=""
                                            ng-required="true" ng-maxlength="64">
                                     <span class="help-block error"
-                                          ng-show="formDeri.nombrederi.$invalid && formDeri.nombrederi.$touched">El nombre de la Derivacion es requerido</span>
+                                          ng-show="formDeri.nombrederi.$invalid && formDeri.nombrederi.$touched">El nombre de la Derivación es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formDeri.nombrederi.$invalid && formDeri.nombrederi.$error.maxlength">La longitud máxima es de 64 caracteres</span>
                                 </div>
@@ -631,7 +639,7 @@
                         <h4 class="modal-title">Confirmación</h4>
                     </div>
                     <div class="modal-body">
-                        <span>Realmente desea eliminar la Derivacion: <strong>"{{nom_deri_delete}}"</strong>?</span>
+                        <span>Realmente desea eliminar la Derivación: <strong>"{{nom_deri_delete}}"</strong>?</span>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">

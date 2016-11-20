@@ -1,7 +1,9 @@
-app.controller('empleadosController', function($scope, $http, API_URL) {
+
+app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
     $scope.empleados = [];
     $scope.empleado_del = 0;
+    $scope.id = 0;
 
     $scope.initLoad = function(verifyPosition){
 
@@ -10,10 +12,12 @@ app.controller('empleadosController', function($scope, $http, API_URL) {
         }
 
         $http.get(API_URL + 'empleado/getEmployees').success(function(response){
+            console.log(response);
             $scope.empleados = response;
-            $('[data-toggle="tooltip"]').tooltip();
+            //$('[data-toggle="tooltip"]').tooltip();
         });
-    }
+
+    };
 
     $scope.searchPosition = function(){
         $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
@@ -28,23 +32,18 @@ app.controller('empleadosController', function($scope, $http, API_URL) {
         });
     }
 
-
-    $scope.initLoad(true);
-
-    $scope.toggle = function(modalstate, id) {
+    $scope.toggle = function(modalstate, item) {
         $scope.modalstate = modalstate;
-
         switch (modalstate) {
             case 'add':
-
                 $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
                     var longitud = response.length;
                     var array_temp = [];
                     for(var i = 0; i < longitud; i++){
                         array_temp.push({label: response[i].nombrecargo, id: response[i].idcargo})
                     }
-                    $scope.idcargos = array_temp;
 
+                    $scope.idcargos = array_temp;
                     $scope.documentoidentidadempleado = '';
                     $scope.apellido = '';
                     $scope.nombre = '';
@@ -53,18 +52,19 @@ app.controller('empleadosController', function($scope, $http, API_URL) {
                     $scope.celular = '';
                     $scope.direccion = '';
                     $scope.correo = '';
+                    $scope.salario = '';
 
                     $scope.fechaingreso = fecha();
 
-                    $scope.form_title = "Ingresar nuevo Colaborador";
+                    $scope.form_title = "Ingresar nuevo Empleado";
 
                     $('#modalAction').modal('show');
                 });
 
                 break;
             case 'edit':
-                $scope.form_title = "Editar Colaborador";
-                $scope.id = id;
+                $scope.form_title = "Editar Empleado";
+                $scope.id = item.idempleado;
 
                 $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
                     var longitud = response.length;
@@ -74,41 +74,43 @@ app.controller('empleadosController', function($scope, $http, API_URL) {
                     }
                     $scope.idcargos = array_temp;
 
-                    $http.get(API_URL + 'empleado/' + id)
-                        .success(function(response) {
-                            $scope.fechaingreso = convertDatetoDB(response[0].fechaingreso, true);
-                            $scope.documentoidentidadempleado = response[0].documentoidentidadempleado;
-                            $scope.idcargo = response[0].idcargo;
-                            $scope.apellido = response[0].apellido;
-                            $scope.nombre = response[0].nombre;
-                            $scope.telefonoprincipal = response[0].telefonoprincipal;
-                            $scope.telefonosecundario = response[0].telefonosecundario;
-                            $scope.celular = response[0].celular;
-                            $scope.direccion = response[0].direccion;
-                            $scope.correo = response[0].correo;
+                    console.log(item.fechaingreso);
 
-                            $('#modalAction').modal('show');
+                    // $scope.fechaingreso = item.fechaingreso;
 
-                        });
-
+                    $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
+                    $scope.documentoidentidadempleado = item.documentoidentidadempleado;
+                    $scope.idcargo = item.idcargo;
+                    $scope.apellido = item.apellido;
+                    $scope.nombre = item.nombre;
+                    $scope.telefonoprincipal = item.telefonoprincipal.trim();
+                    $scope.telefonosecundario = item.telefonosecundario.trim();
+                    $scope.celular = item.celular;
+                    $scope.direccion = item.direccion;
+                    $scope.correo = item.correo;
+                    $scope.salario = item.salario;
+                    $('#modalAction').modal('show');
                 });
-
                 break;
 
             case 'info':
+                $scope.name_employee = item.apellido + ' ' + item.nombre;
+                $scope.cargo_employee = item.nombrecargo;
+                $scope.date_registry_employee = convertDatetoDB(item.fechaingreso, true);
+                //$scope.date_registry_employee = response[0].fechaingreso;
+                $scope.phones_employee = item.telefonoprincipal + '/' + item.telefonosecundario;
+                $scope.cel_employee = item.celular;
+                $scope.address_employee = item.direccion;
+                $scope.email_employee = item.correo;
+                $scope.salario_employee = item.salario;
 
-                $http.get(API_URL + 'empleado/' + id)
-                    .success(function(response) {
-                        $scope.name_employee = response[0].nombre + ' ' + response[0].apellido;
-                        $scope.cargo_employee = response[0].nombrecargo;
-                        $scope.date_registry_employee = convertDatetoDB(response[0].fechaingreso, true);
-                        $scope.phones_employee = response[0].telefonoprincipal + '/' + response[0].telefonosecundario;
-                        $scope.cel_employee = response[0].celular;
-                        $scope.address_employee = response[0].direccion;
-                        $scope.email_employee = response[0].correo;
+                if (item.foto != null && item.foto != ''){
+                    $scope.url_foto = item.foto;
+                } else {
+                    $scope.url_foto = 'img/empleado.png';
+                }
 
-                        $('#modalInfoEmpleado').modal('show');
-                    });
+                $('#modalInfoEmpleado').modal('show');
 
                 break;
 
@@ -117,90 +119,62 @@ app.controller('empleadosController', function($scope, $http, API_URL) {
         }
 
 
-    }
+    };
 
-    $scope.save = function(modalstate, id) {
-
+    $scope.save = function() {
         var url = API_URL + "empleado";
+        var method = 'POST';
 
-        //append employee id to the URL if the form is in edit mode
-        if (modalstate === 'edit'){
-            url += "/" + id;
+        if ($scope.modalstate == 'edit'){
+            url += "/updateEmpleado/" + $scope.id;
+            //method = 'PUT';
         }
-
-        $scope.empleado={
+        var data ={
             fechaingreso: convertDatetoDB($scope.fechaingreso),
             documentoidentidadempleado: $scope.documentoidentidadempleado,
             idcargo: $scope.idcargo,
-            apellido: $scope.apellido,
-            nombre: $scope.nombre,
-            telefonoprincipal: $scope.telefonoprincipal,
-            telefonosecundario: $scope.telefonosecundario,
+            apellidos: $scope.apellido,
+            nombres: $scope.nombre,
+            telefonoprincipaldomicilio: $scope.telefonoprincipal,
+            telefonosecundariodomicilio: $scope.telefonosecundario,
             celular: $scope.celular,
-            direccion: $scope.direccion,
+            direcciondomicilio: $scope.direccion,
             correo: $scope.correo,
+            salario: $scope.salario,
+            file: $scope.file
         };
 
-        if (modalstate === 'add'){
-
-            $http.post(url,$scope.empleado ).success(function (data) {
-                $scope.initLoad();
-                $('#modalAction').modal('hide');
-                $scope.message = 'Se inserto correctamente el Colaborador';
-                $('#modalMessage').modal('show');
-            }).error(function (res) {
-
-                console.log(res);
-
-            });
-
-        } else {
-            $http.put(url, $scope.empleado ).success(function (data) {
-                $scope.initLoad();
-                $('#modalAction').modal('hide');
-                $scope.message = 'Se editó correctamente el Colaborador seleccionado';
-                $('#modalMessage').modal('show');
-            }).error(function (res) {
-
-            });
-        }
-
-    }
-
-    $scope.searchByFilter = function(){
-
-        var t_search = null;
-
-        if($scope.search != undefined && $scope.search != ''){
-            t_search = $scope.search;
-        }
-
-        var filter = {
-            text: t_search
-        };
-
-        $http.get(API_URL + 'empleado/getByFilter/' + JSON.stringify(filter)).success(function(response){
-            $scope.empleados = response;
+        Upload.upload({
+            url: url,
+            method: method,
+            data: data
+        }).success(function(data, status, headers, config) {
+            $scope.initLoad();
+            $scope.message = 'Se actualizó correctamente el empleado seleccionado...';
+            $('#modalAction').modal('hide');
+            $('#modalMessage').modal('show');
         });
-    }
 
-    $scope.showModalConfirm = function(id){
-        $scope.empleado_del = id;
-        $http.get(API_URL + 'empleado/' + id).success(function(response) {
-            $scope.empleado_seleccionado = response[0].nombre + ' ' + response[0].apellido;
-            $('#modalConfirmDelete').modal('show');
-        });
-    }
+    };
 
-    $scope.destroyCargo = function(){
+    $scope.showModalConfirm = function(item){
+        $scope.empleado_del = item.idempleado;
+        $scope.empleado_seleccionado = item.apellido + ' ' + item.nombre;
+        $('#modalConfirmDelete').modal('show');
+    };
+
+    $scope.destroy = function(){
         $http.delete(API_URL + 'empleado/' + $scope.empleado_del).success(function(response) {
             $scope.initLoad();
             $('#modalConfirmDelete').modal('hide');
             $scope.empleado_del = 0;
-            $scope.message = 'Se eliminó correctamente el Colaborador seleccionado';
+            $scope.message = 'Se elimino correctamente el Empleado seleccionado';
             $('#modalMessage').modal('show');
         });
-    }
+    };
+
+    $scope.initLoad(true);
+
 });
 
 $(function () {

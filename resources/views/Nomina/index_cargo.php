@@ -4,10 +4,10 @@
 
         <div class="col-xs-12" style="margin-top: 2%;">
 
+
             <div class="col-sm-6 col-xs-8">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" id="search" placeholder="BUSCAR..."
-                           ng-model="search" ng-change="searchByFilter()">
+                    <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda">
                     <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
@@ -22,20 +22,18 @@
                 <table class="table table-responsive table-striped table-hover table-condensed">
                     <thead class="bg-primary">
                     <tr>
-                        <th style="width: 90px;">Código</th>
                         <th>Nombre</th>
                         <th style="width: 200px;">Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="cargo in cargos">
-                        <td class="text-center">{{cargo.idcargo}}</td>
+                    <tr ng-repeat="cargo in cargos| filter : busqueda" ng-cloak">
                         <td>{{cargo.nombrecargo}}</td>
                         <td class="text-center">
                             <button type="button" class="btn btn-warning" ng-click="toggle('edit', cargo.idcargo)">
                                 Editar <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(cargo.idcargo)">
+                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(cargo)">
                                 Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </button>
                         </td>
@@ -54,12 +52,6 @@
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" name="formCargo" novalidate="">
-                            <div class="form-group">
-                                <label for="t_codigo_cargo" class="col-sm-4 control-label">Código Cargo:</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="idcargo" id="idcargo" ng-model="idcargo" placeholder="" disabled>
-                                </div>
-                            </div>
                             <div class="form-group error">
                                 <label for="t_name_cargo" class="col-sm-4 control-label">Nombre del Cargo:</label>
                                 <div class="col-sm-8">
@@ -77,7 +69,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
-                        <button type="button" class="btn btn-success" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="formCargo.$invalid">
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="Save()" ng-disabled="formCargo.$invalid">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
                     </div>

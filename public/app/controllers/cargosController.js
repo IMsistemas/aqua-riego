@@ -4,9 +4,11 @@ app.controller('cargosController', function($scope, $http, API_URL) {
 
     $scope.cargos = [];
     $scope.idcargo_del = 0;
+    $scope.modalstate = '';
 
     $scope.initLoad = function(){
         $http.get(API_URL + 'cargo/getCargos').success(function(response){
+            console.log(response);
             $scope.cargos = response;
         });
     }
@@ -18,27 +20,21 @@ app.controller('cargosController', function($scope, $http, API_URL) {
 
         switch (modalstate) {
             case 'add':
-
-                $http.get(API_URL + 'cargo/lastId').success(function(response){
-
-                    $scope.idcargo = response.lastId;
-                    $scope.form_title = "Ingresar nuevo Cargo";
-                    $scope.nombrecargo = '';
-                    $('#modalActionCargo').modal('show');
-                });
+                $scope.form_title = "Nuevo Cargo";
+                $scope.nombrecargo = '';
+                $('#modalActionCargo').modal('show');
 
                 break;
             case 'edit':
-                $scope.form_title = "Editar Cargo";
-                $scope.id = id;
 
-                $http.get(API_URL + 'cargo/' + id).success(function(response) {
-                    $scope.idcargo = (response.idcargo).trim();
-                    $scope.nombrecargo = (response.nombrecargo).trim();
+                $scope.form_title = "Editar Cargo";
+                $scope.idc = id;
+
+                $http.get(API_URL + 'cargo/getCargoByID/' + id).success(function(response) {
+                    $scope.nombrecargo = response[0].nombrecargo;
                     $('#modalActionCargo').modal('show');
                 });
-
-                break;
+                    break;
             default:
                 break;
         }
@@ -46,76 +42,62 @@ app.controller('cargosController', function($scope, $http, API_URL) {
 
     }
 
-    $scope.save = function(modalstate, id) {
+    $scope.Save = function (){
 
-        var url = API_URL + "cargo";
-
-        if (modalstate === 'edit'){
-            url += "/" + id;
-        }
-
-        $scope.cargo={
-            idcargo: $scope.idcargo,
+        var data = {
             nombrecargo: $scope.nombrecargo
         };
 
-        if (modalstate === 'add'){
-            $http.post(url,$scope.cargo ).success(function (data) {
-                $scope.initLoad();
+        switch ( $scope.modalstate) {
+            case 'add':
+                $http.post(API_URL + 'cargo', data ).success(function (response) {
+                    $scope.initLoad();
+                    $('#modalActionCargo').modal('hide');
+                    $scope.message = 'Se insertó correctamente el Cargo...';
+                    $('#modalMessage').modal('show');
+                }).error(function (res) {
+                });
 
-                $('#modalActionCargo').modal('hide');
-                $scope.message = 'Se insertó correctamente el Cargo';
-                $('#modalMessage').modal('show');
+                break;
+            case 'edit':
+                $http.put(API_URL + 'cargo/'+ $scope.idc, data ).success(function (response) {
+                    $scope.initLoad();
+                    $('#modalActionCargo').modal('hide');
+                    $scope.message = 'Se editó correctamente el Cargo seleccionado';
+                    $('#modalMessage').modal('show');
+                }).error(function (res) {
 
-            }).error(function (res) {
-
-            });
-        } else {
-            $http.put(url, $scope.cargo ).success(function (data) {
-                $scope.initLoad();
-                $('#modalActionCargo').modal('hide');
-                $scope.message = 'Se edito correctamente el Cargo seleccionado';
-                $('#modalMessage').modal('show');
-            }).error(function (res) {
-
-            });
+                });
+                break;
         }
+    };
 
-    }
 
-    $scope.searchByFilter = function(){
+    $scope.showModalConfirm = function(cargo){
 
-        var t_search = null;
-
-        if($scope.search != undefined && $scope.search != ''){
-            t_search = $scope.search;
-        }
-
-        var filter = {
-            text: t_search
+        $scope.showModalConfirm = function (cargo) {
+            $scope.idcargo_del = cargo.idcargo;
+            $scope.cargo_seleccionado = cargo.nombrecargo;
+            $('#modalConfirmDelete').modal('show');
         };
 
-        $http.get(API_URL + 'cargo/getByFilter/' + JSON.stringify(filter)).success(function(response){
-            $scope.cargos = response;
-        });
-    }
-
-
-    $scope.showModalConfirm = function(id){
-        $scope.idcargo_del = id;
-        $http.get(API_URL + 'cargo/' + id).success(function(response) {
-            $scope.cargo_seleccionado = (response.nombrecargo).trim();
-            $('#modalConfirmDelete').modal('show');
-        });
     }
 
     $scope.destroyCargo = function(){
         $http.delete(API_URL + 'cargo/' + $scope.idcargo_del).success(function(response) {
-            $scope.initLoad();
             $('#modalConfirmDelete').modal('hide');
-            $scope.idcargo_del = 0;
-            $scope.message = 'Se eliminó correctamente el Cargo seleccionado';
-            $('#modalMessage').modal('show');
+            if(response.success == true){
+                $scope.initLoad();
+                $scope.idcargo_del = 0;
+                $scope.message = 'Se eliminó correctamente el Cargo seleccionado...';
+                $('#modalMessage').modal('show');
+            } else {
+                $scope.message_error = 'El Cargo no puede ser eliminado...';
+                $('#modalMessageError').modal('show');
+            }
         });
-    }
+
+    };
+
+    $scope.initLoad();
 });
