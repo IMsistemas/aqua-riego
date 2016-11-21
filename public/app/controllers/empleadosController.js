@@ -13,8 +13,18 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
         $http.get(API_URL + 'empleado/getEmployees').success(function(response){
             console.log(response);
+            var longitud = response.length;
+            for (var i = 0; i < longitud; i++) {
+                var complete_name = {
+                    value: response[i].nombre + ' ' + response[i].apellido,
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                };
+                Object.defineProperty(response[i], 'complete_name', complete_name);
+            }
             $scope.empleados = response;
-            //$('[data-toggle="tooltip"]').tooltip();
+
         });
 
     };
@@ -153,13 +163,17 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             $scope.message = 'Se actualizó correctamente el empleado seleccionado...';
             $('#modalAction').modal('hide');
             $('#modalMessage').modal('show');
-        });
+
+        })
+
+
+
 
     };
 
     $scope.showModalConfirm = function(item){
         $scope.empleado_del = item.idempleado;
-        $scope.empleado_seleccionado = item.apellido + ' ' + item.nombre;
+        $scope.empleado_seleccionado = item.nombre + ' ' + item.apellido;
         $('#modalConfirmDelete').modal('show');
     };
 
@@ -168,7 +182,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             $scope.initLoad();
             $('#modalConfirmDelete').modal('hide');
             $scope.empleado_del = 0;
-            $scope.message = 'Se elimino correctamente el Empleado seleccionado';
+            $scope.message = 'Se eliminó correctamente el Empleado seleccionado';
             $('#modalMessage').modal('show');
         });
     };
@@ -176,6 +190,11 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
     $scope.initLoad(true);
 
 });
+
+$scope.hideModalMessage = function () {
+    setTimeout("$('#modalMessage').modal('hide')", 3000);
+};
+
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();

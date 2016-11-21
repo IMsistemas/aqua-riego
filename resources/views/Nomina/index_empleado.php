@@ -43,7 +43,7 @@
             <table class="table table-responsive table-striped table-hover table-condensed">
                 <thead class="bg-primary">
                 <tr>
-                    <th>Doc ID</th>
+                    <th>CI/RUC</th>
                     <th>Razon Social</th>
                     <th>Cargo</th>
                     <th>Telefono</th>
@@ -54,7 +54,7 @@
                 <tbody>
                 <tr ng-repeat="empleado in empleados |filter:busqueda" ng-cloak >
                     <td>{{empleado.documentoidentidadempleado}}</td>
-                    <td>{{empleado.apellido + ' ' + empleado.nombre}}</td>
+                    <td>{{empleado.complete_name}}</td>
                     <td>{{empleado.cargo.nombrecargo}}</td>
                     <td>{{empleado.telefonoprincipal}}</td>
                     <td>{{empleado.celular}}</td>
@@ -108,7 +108,7 @@
                             <div class="col-xs-12">
                                 <div class="col-md-6 col-xs-12">
                                     <div class="form-group error">
-                                        <label class="col-sm-4 control-label">Doc. de Identidad:</label>
+                                        <label class="col-sm-4 control-label">CI/RUC:</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" name="documentoidentidadempleado" id="documentoidentidadempleado"
                                                    ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="32" ng-pattern="/[0-9]+/" >
