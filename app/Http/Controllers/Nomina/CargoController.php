@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Nomina;
 
 use App\Modelos\Nomina\Cargo;
+use App\Modelos\Nomina\Empleado;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -62,13 +63,21 @@ class CargoController extends Controller
     public function store(Request $request)
     {
 
-        $cargo = new Cargo();
+        $cargo1 = Cargo::where ('nombrecargo',$request->input('nombrecargo'))-> count();
 
-        $cargo->nombrecargo = $request->input('nombrecargo');
 
-        $cargo->save();
+        if($cargo1 > 0)
+        {
+            return response()->json(['success' => false]);
+        }else{
+            $cargo = new Cargo();
 
-        return response()->json(['success' => true]);
+            $cargo->nombrecargo = $request->input('nombrecargo');
+
+            $cargo->save();
+
+            return response()->json(['success' => true]);
+        }
 
     }
 
@@ -110,8 +119,15 @@ class CargoController extends Controller
      */
     public function destroy($id)
     {
-        $cargo = Cargo::find($id);
-        $cargo->delete();
-        return response()->json(['success' => true]);
+        $empleado = Empleado::where ('idcargo',$id)-> count();
+        if($empleado > 0)
+        {
+            return response()->json(['success' => false]);
+        }else{
+            $cargo = Cargo::find($id);
+            $cargo->delete();
+            return response()->json(['success' => true]);
+        }
+
     }
 }

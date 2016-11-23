@@ -51,12 +51,20 @@ app.controller('cargosController', function($scope, $http, API_URL) {
         switch ( $scope.modalstate) {
             case 'add':
                 $http.post(API_URL + 'cargo', data ).success(function (response) {
-                    $scope.initLoad();
-                    $('#modalActionCargo').modal('hide');
-                    $scope.message = 'Se insertó correctamente el Cargo...';
-                    $('#modalMessage').modal('show');
-                }).error(function (res) {
+                    if (response.success == true) {
+                        $scope.initLoad();
+                        $('#modalActionCargo').modal('hide');
+                        $scope.message = 'Se insertó correctamente el Cargo...';
+                        $('#modalMessage').modal('show');
+                        $scope.hideModalMessage();
+                    }
+                    else {
+                        $('#modalActionCargo').modal('hide');
+                        $scope.message_error = 'Ya existe ese Cargo...';
+                        $('#modalMessageError').modal('show');
+                    }
                 });
+
 
                 break;
             case 'edit':
@@ -65,6 +73,7 @@ app.controller('cargosController', function($scope, $http, API_URL) {
                     $('#modalActionCargo').modal('hide');
                     $scope.message = 'Se editó correctamente el Cargo seleccionado';
                     $('#modalMessage').modal('show');
+                    $scope.hideModalMessage();
                 }).error(function (res) {
 
                 });
@@ -83,21 +92,30 @@ app.controller('cargosController', function($scope, $http, API_URL) {
 
     }
 
-    $scope.destroyCargo = function(){
+    $scope.delete = function(){
         $http.delete(API_URL + 'cargo/' + $scope.idcargo_del).success(function(response) {
-            $('#modalConfirmDelete').modal('hide');
+            console.log(response.success);
             if(response.success == true){
                 $scope.initLoad();
+                $('#modalConfirmDelete').modal('hide');
                 $scope.idcargo_del = 0;
                 $scope.message = 'Se eliminó correctamente el Cargo seleccionado...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+
             } else {
-                $scope.message_error = 'El Cargo no puede ser eliminado...';
+                $scope.message_error = 'El Cargo no puede ser eliminado porque esta asignado a un colaborador...';
                 $('#modalMessageError').modal('show');
+                $('#modalConfirmDelete').modal('hide');
             }
         });
 
     };
+
+    $scope.hideModalMessage = function () {
+        setTimeout("$('#modalMessage').modal('hide')", 3000);
+    };
+
 
     $scope.initLoad();
 });

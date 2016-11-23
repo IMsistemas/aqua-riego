@@ -159,15 +159,23 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             method: method,
             data: data
         }).success(function(data, status, headers, config) {
-            $scope.initLoad();
-            $scope.message = 'Se actualizó correctamente el empleado seleccionado...';
-            $('#modalAction').modal('hide');
-            $('#modalMessage').modal('show');
-
-        })
-
-
-
+            console.log(data);
+            console.log(status);
+            console.log(headers);
+            console.log(config);
+            if (data.success == true) {
+                $scope.initLoad();
+                $scope.message = 'Se guardó correctamente la información del empleado...';
+                $('#modalAction').modal('hide');
+                $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+            }
+            else {
+                $('#modalAction').modal('hide');
+                $scope.message_error = 'Ya existe ese Colaborador...';
+                $('#modalMessageError').modal('show');
+            }
+        });
 
     };
 
@@ -184,16 +192,19 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             $scope.empleado_del = 0;
             $scope.message = 'Se eliminó correctamente el Empleado seleccionado';
             $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
         });
+    };
+
+
+    $scope.hideModalMessage = function () {
+        setTimeout("$('#modalMessage').modal('hide')", 3000);
     };
 
     $scope.initLoad(true);
 
 });
 
-$scope.hideModalMessage = function () {
-    setTimeout("$('#modalMessage').modal('hide')", 3000);
-};
 
 
 $(function () {
