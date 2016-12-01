@@ -89,8 +89,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="terreno in terrenos | filter : search" ng-cloak>
-                    <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{terreno.cliente.apellido + ' ' + terreno.cliente.nombre}}</td>
+                <tr dir-paginate="terreno in terrenos | orderBy:sortKey:reverse |itemsPerPage:5  | filter : search" ng-cloak>
+                    <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{terreno.cliente.complete_name}}</td>
                     <td>{{terreno.tarifa.nombretarifa}}</td>
                     <td>{{terreno.cultivo.nombrecultivo}}</td>
                     <td>{{terreno.derivacion.nombrederivacion}}</td>
@@ -108,6 +108,11 @@
                 </tr>
                 </tbody>
             </table>
+            <dir-pagination-controls
+                    max-size="5"
+                    direction-links="true"
+                    boundary-links="true" >
+            </dir-pagination-controls>
         </div>
 
         <div class="modal fade" tabindex="-1" role="dialog" id="modalEdit">
@@ -127,19 +132,23 @@
 
                                         <div class="col-xs-12" style="padding: 0;">
                                             <div class="col-sm-6 col-xs-12">
-                                                <span class="label label-default" style="font-size: 12px !important;">Documento ID:</span> {{codigo_cliente}}
+                                                <span class="label label-default" style="font-size: 12px !important;">
+                                                    <i class="fa fa-star" aria-hidden="true"></i> RUC / CI:</span> {{codigo_cliente}}
                                             </div>
                                             <div class="col-sm-6 col-xs-12">
-                                                <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_cliente}}
+                                                <span class="label label-default" style="font-size: 12px !important;">
+                                                    <i class="fa fa-user" aria-hidden="true"></i> Cliente:</span> {{nom_cliente}}
                                                 <input type="hidden" ng-model="h_codigocliente">
                                             </div>
                                         </div>
                                         <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
                                             <div class="col-sm-6 col-xs-12">
-                                                <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_cliente}}
+                                                <span class="label label-default" style="font-size: 12px !important;">
+                                                    <i class="fa fa-map-marker" aria-hidden="true"></i> Dirección Domicilio:</span> {{direcc_cliente}}
                                             </div>
                                             <div class="col-sm-6 col-xs-12">
-                                                <span class="label label-default" style="font-size: 12px !important;">Teléfono:</span> {{telf_cliente}}
+                                                <span class="label label-default" style="font-size: 12px !important;">
+                                                    <i class="fa fa-phone" aria-hidden="true"></i> Teléfono:</span> {{telf_cliente}}
                                             </div>
                                         </div>
                                     </fieldset>

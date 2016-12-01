@@ -12,6 +12,7 @@
         <link href="<?= asset('css/font-awesome.min.css') ?>" rel="stylesheet">
         <link href="<?= asset('css/index.css') ?>" rel="stylesheet">
         <link href="<?= asset('css/bootstrap-datetimepicker.min.css') ?>" rel="stylesheet">
+        <link href="<?= asset('css/angucomplete-alt.css') ?>" rel="stylesheet">
         <link href="<?= asset('css/style_generic_app.css') ?>" rel="stylesheet">
 
         <style>
@@ -169,6 +170,8 @@
 
     <script src="<?= asset('app/lib/angular/ng-file-upload-shim.min.js') ?>"></script>
     <script src="<?= asset('app/lib/angular/ng-file-upload.min.js') ?>"></script>
+
+    <script src="<?= asset('app/lib/angular/dirPagination.js') ?>"></script>
 
     <script src="<?= asset('app/controllers/mainController.js') ?>"></script>
     <script src="<?= asset('app/controllers/cargosController.js') ?>"></script>

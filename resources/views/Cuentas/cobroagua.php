@@ -31,20 +31,32 @@
         <table class="table table-responsive table-striped table-hover table-condensed">
             <thead class="bg-primary">
             <tr>
-                <th style="width: 5%;">Periodo</th>
-                <th>Cliente</th>
+                <th style="width: 5%;" ng-click="sort('aniocobro')">
+                    Periodo
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='aniocobro'"
+                          ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
+                <th ng-click="sort('complete_name')">
+                    Cliente
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='complete_name'"
+                          ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
                 <th style="width: 10%;">Tarifa</th>
                 <th style="width: 10%;">Junta</th>
                 <th style="width: 10%;">Toma</th>
                 <th style="width: 10%;">Canal</th>
                 <th style="width: 10%;">Derivación</th>
                 <th style="width: 10%;">Estado</th>
-                <th style="width: 6%;">Total</th>
+                <th style="width: 6%;" ng-click="sort('total')">
+                    Total
+                    <span class="glyphicon sort-icon" ng-show="sortKey=='total'"
+                          ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
                 <th style="width: 6%;">Acción</th>
             </tr>
             </thead>
             <tbody style="font-size: 13px;">
-            <tr ng-repeat="cobro in cobros  | filter : search" ng-cloak>
+            <tr dir-paginate="cobro in cobros | orderBy:sortKey:reverse |itemsPerPage:10 | filter : search" ng-cloak>
                 <td>{{cobro.aniocobro}}</td>
                 <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{cobro.complete_name}}</td>
                 <td>{{cobro.nombretarifa}}</td>
@@ -63,6 +75,11 @@
             </tr>
             </tbody>
         </table>
+        <dir-pagination-controls
+                max-size="5"
+                direction-links="true"
+                boundary-links="true" >
+        </dir-pagination-controls>
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="modalInfoAction">
@@ -81,36 +98,45 @@
                             <fieldset>
                                 <legend>Datos de Terreno</legend>
                                 <div class="col-xs-12 col-sm-6" style="padding: 0;  margin-top: 5px;">
-                                    <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">Cliente:</span></div>
+                                    <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">
+                                            <i class="fa fa-user" aria-hidden="true"></i> Cliente:</span>
+                                    </div>
                                     <div class="col-xs-12 col-sm-9">{{cliente_info}}</div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
-                                    <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">Tarifa:</span></div>
+                                    <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">
+                                            <i class="fa fa-list" aria-hidden="true"></i> Tarifa:</span></div>
                                     <div class="col-xs-12 col-sm-9">{{tarifa_info}}</div>
                                 </div>
 
                                 <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
-                                    <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">Area:</span></div>
+                                    <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">
+                                            <i class="fa fa-globe" aria-hidden="true"></i> Area:</span></div>
                                     <div class="col-xs-12 col-sm-9">{{area_info}}</div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
-                                    <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">Caudal:</span></div>
+                                    <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">
+                                            <i class="fa fa-globe" aria-hidden="true"></i> Caudal:</span></div>
                                     <div class="col-xs-12 col-sm-8">{{caudal_info}}</div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6" style="padding: 0;  margin-top: 5px;">
-                                    <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">Junta Modular:</span></div>
-                                    <div class="col-xs-12 col-sm-8">{{junta_info}}</div>
+                                    <div class="col-xs-12 col-sm-5"><span class="label label-default" style="font-size: 14px !important;">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i> Junta Modular:</span></div>
+                                    <div class="col-xs-12 col-sm-7">{{junta_info}}</div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
-                                    <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">Toma:</span></div>
+                                    <div class="col-xs-12 col-sm-3"><span class="label label-default" style="font-size: 14px !important;">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i> Toma:</span></div>
                                     <div class="col-xs-12 col-sm-9">{{toma_info}}</div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
-                                    <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">Canal:</span></div>
+                                    <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">
+                                            <i class="fa fa-list" aria-hidden="true"></i> Canal:</span></div>
                                     <div class="col-xs-12 col-sm-8">{{canal_info}}</div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6" style="padding: 0; margin-top: 5px;">
-                                    <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">Derivación:</span></div>
+                                    <div class="col-xs-12 col-sm-4"><span class="label label-default" style="font-size: 14px !important;">
+                                            <i class="fa fa-list" aria-hidden="true"></i> Derivación:</span></div>
                                     <div class="col-xs-12 col-sm-8">{{derivacion_info}}</div>
                                 </div>
                             </fieldset>
@@ -133,20 +159,23 @@
                                         <tbody ng-cloak>
                                             <tr>
                                                 <td>{{tipo_tarifa}}</td>
-                                                <td>{{valor_base_tarifa}}</td>
+                                                <td class="text-right">{{valor_base_tarifa}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Valores Atrasados</td>
-                                                <td>{{valor_atrasado}}</td>
+                                                <td class="text-right">{{valor_atrasado}}</td>
                                             </tr>
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="text-right" style="font-weight: bold;">TOTAL</th>
+                                                <th class="text-right">{{total}}</th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
 
                             </fieldset>
-                        </div>
-                        <div class="col-xs-12" style="font-weight: bold;">
-                            <span class="label label-default" style="font-size: 14px !important;">TOTAL:</span> {{total}}
                         </div>
                     </div>
                 </div>

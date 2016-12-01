@@ -53,7 +53,7 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
     $scope.infoAction = function (cobro) {
 
         $scope.periodo = cobro.aniocobro;
-        $scope.cliente_info = cobro.apellido + ' ' + cobro.nombre;
+        $scope.cliente_info = cobro.complete_name;
         $scope.junta_info = cobro.nombrebarrio;
         $scope.area_info = cobro.area + ' m2';
         $scope.caudal_info = cobro.caudal;
@@ -144,6 +144,11 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
             }
             $scope.cobros = response;
         });
+    };
+
+    $scope.sort = function(keyname){
+        $scope.sortKey = keyname;
+        $scope.reverse = !$scope.reverse;
     };
 
     $scope.initLoad();
