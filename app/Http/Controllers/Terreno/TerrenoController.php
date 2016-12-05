@@ -29,7 +29,6 @@ class TerrenoController extends Controller
         return view('Terreno.terreno');
     }
 
-
     public function getTerrenos()
     {
         /*return Terreno::join('cultivo', 'terreno.idcultivo', '=', 'cultivo.idcultivo')
@@ -43,7 +42,6 @@ class TerrenoController extends Controller
                             ->get();
 
     }
-
 
     public function getByFilter($filter)
     {
@@ -89,8 +87,6 @@ class TerrenoController extends Controller
         return $terreno->get();
     }
 
-
-
     /**
      * Obtener las tarifas ordenadas ascendentemente
      *
@@ -111,14 +107,17 @@ class TerrenoController extends Controller
         return Barrio::orderBy('nombrebarrio', 'asc')->get();
     }
 
+
     /**
-     * Obtener los cultivos ordenados ascendentemente
+     * Obtener los cultivos de la tarifa ordenados ascendentemente
      *
+     * @param $idtarifa
      * @return mixed
      */
-    public function getCultivos()
+    public function getCultivos($idtarifa)
     {
-        return Cultivo::orderBy('nombrecultivo', 'asc')->get();
+        return Cultivo::orderBy('nombrecultivo', 'asc')
+                        ->where('idtarifa', $idtarifa)->get();
     }
 
     /**

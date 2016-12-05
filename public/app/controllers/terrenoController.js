@@ -9,16 +9,16 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
         //$scope.loadCanales();
         //$scope.loadBarriosSearch();
         $scope.loadBarrios();
-        $scope.loadCultivos();
+        //$scope.loadCultivos();
 
         $scope.tomas_s = [{label: '-- Seleccione --', id: 0}];
-        $scope.t_toma = 0;
+        $scope.t_toma0 = 0;
 
         $scope.canales_s = [{label: '-- Seleccione --', id: 0}];
         $scope.t_canales = 0;
 
         $scope.derivaciones_s = [{label: '-- Seleccione --', id: 0}];
-        $scope.t_derivacion = 0;
+        $scope.t_derivacion0 = 0;
 
         $http.get(API_URL + 'editTerreno/getTerrenos').success(function(response){
 
@@ -34,7 +34,7 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
             }
 
             $scope.terrenos = response;
-            console.log(response);
+
             $('.datepicker').datetimepicker({
                 locale: 'es',
                 viewMode: 'years',
@@ -49,11 +49,11 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
 
         var filter = {
             year: $scope.s_year,
-            tarifa: $scope.t_tarifa,
+            tarifa: $scope.t_tarifa0,
             barrio: $scope.t_barrio_s,
-            calle: $scope.t_toma,
+            calle: $scope.t_toma0,
             canal: $scope.t_canales,
-            derivacion: $scope.t_derivacion
+            derivacion: $scope.t_derivacion0
         };
 
         $http.get(API_URL + 'editTerreno/getByFilter/' + JSON.stringify(filter)).success(function(response){
@@ -75,10 +75,20 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
                }
             }
 
+            var longitud0 = temp.length;
+            for (var i = 0; i < longitud0; i++) {
+                var complete_name = {
+                    value: temp[i].cliente.apellido + ', ' + temp[i].cliente.nombre,
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                };
+                Object.defineProperty(temp[i].cliente, 'complete_name', complete_name);
+            }
+
             $scope.terrenos = temp;
         });
     };
-
 
     $scope.loadInformation = function (terreno) {
         $scope.num_terreno = terreno.idterreno;
@@ -119,24 +129,38 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
                 array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
             }
             $scope.tarifas = array_temp;
-            $scope.t_tarifa = 0;
+            $scope.t_tarifa0 = 0;
         });
     };
 
-    $scope.loadCultivos = function(){
-        $http.get(API_URL + 'editTerreno/getCultivos').success(function(response){
-            var longitud = response.length;
-            var array_temp = [{label: 'Adicionar Nuevo', id: 0}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrecultivo, id: response[i].idcultivo})
-            }
+    $scope.loadCultivos = function(idcultivo){
+        var array_temp = [];
+        if ($scope.t_tarifa != 0) {
+            var tarifa = $scope.t_tarifa;
+            $http.get(API_URL + 'editTerreno/getCultivos/' + tarifa).success(function(response){
+                var longitud = response.length;
+                array_temp = [{label: '-- Seleccione --', id: 0}];
+                for(var i = 0; i < longitud; i++){
+                    array_temp.push({label: response[i].nombrecultivo, id: response[i].idcultivo})
+                }
+                $scope.cultivos = array_temp;
+
+                if (idcultivo != undefined) {
+                    $scope.t_cultivo = idcultivo;
+                } else $scope.t_cultivo = 0;
+
+            });
+        } else {
+            array_temp = [{label: '-- Seleccione --', id: 0}];
             $scope.cultivos = array_temp;
-        });
+            $scope.t_cultivo = 0;
+        }
+
     };
 
     $scope.loadCanales = function(){
 
-        var idcalle = $scope.t_toma;
+        var idcalle = $scope.t_toma0;
 
         $http.get(API_URL + 'editTerreno/getCanales/' + idcalle).success(function(response){
             var longitud = response.length;
@@ -157,6 +181,7 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
             for(var i = 0; i < longitud; i++){
                 array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
             }
+            console.log(array_temp);
             $scope.tomas_s = array_temp;
         });
     };
@@ -171,6 +196,60 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
                 array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
             }
             $scope.derivaciones_s = array_temp;
+        });
+    };
+
+    $scope.loadTomasEdit = function(){
+        var idbarrio = $scope.t_junta;
+
+        $http.get(API_URL + 'editTerreno/getTomas/' + idbarrio).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
+            }
+
+            $scope.tomas_edit = array_temp;
+            $scope.t_toma = 0;
+
+            $scope.canales_edit = [{label: '-- Seleccione --', id: 0}];
+            $scope.t_canal = 0;
+
+            $scope.derivaciones_edit = [{label: '-- Seleccione --', id: 0}];
+            $scope.t_derivacion = 0;
+        });
+    };
+
+    $scope.loadCanalesEdit = function(){
+
+        var idcalle = $scope.t_toma;
+
+        $http.get(API_URL + 'editTerreno/getCanales/' + idcalle).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
+            }
+
+            $scope.canales_edit = array_temp;
+            $scope.t_canal = 0;
+
+            $scope.derivaciones_edit = [{label: '-- Seleccione --', id: 0}];
+            $scope.t_derivacion = 0;
+        });
+    };
+
+    $scope.loadDerivacionesEdit = function(){
+        var idcanal = $scope.t_canal;
+
+        $http.get(API_URL + 'editTerreno/getDerivaciones/' + idcanal).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
+            }
+            $scope.derivaciones_edit = array_temp;
+            $scope.t_derivacion = 0;
         });
     };
 
@@ -191,7 +270,7 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
         $http.get(API_URL + 'editTerreno/calculateValor/' + area).success(function(response){
             $scope.valor_total = parseFloat(response.costo).toFixed(2);
         });
-    }
+    };
 
     $scope.edit = function (terreno) {
 
@@ -203,8 +282,11 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
         $scope.t_terreno = terreno.idterreno;
         $scope.num_terreno_edit = terreno.idterreno;
         $scope.t_junta = terreno.derivacion.canal.calle.barrio.idbarrio;
-        $scope.t_cultivo = terreno.cultivo.idcultivo;
+        //$scope.t_cultivo = terreno.cultivo.idcultivo;
         $scope.t_tarifa = terreno.tarifa.idtarifa;
+
+        $scope.loadCultivos(terreno.cultivo.idcultivo);
+
         $scope.t_canal = terreno.derivacion.canal.idcanal;
 
         $scope.t_area = terreno.area;

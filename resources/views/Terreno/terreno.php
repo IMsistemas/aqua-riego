@@ -23,8 +23,8 @@
                 <div class="form-group">
                     <label for="t_estado" class="col-sm-4 control-label" ><span style="float: right;">Tarifa:</span></label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="t_tarifa" id="t_tarifa"
-                                ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
+                        <select class="form-control" name="t_tarifa0" id="t_tarifa0"
+                                ng-model="t_tarifa0" ng-options="value.id as value.label for value in tarifas"
                                 ng-change="getByFilter()"> </select>
                     </div>
                 </div>
@@ -46,8 +46,8 @@
                 <div class="form-group">
                     <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Toma:</span></label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="t_toma" id="t_toma"
-                                ng-model="t_toma" ng-options="value.id as value.label for value in tomas_s"
+                        <select class="form-control" name="t_toma" id="t_toma0"
+                                ng-model="t_toma0" ng-options="value.id as value.label for value in tomas_s"
                                 ng-change="loadCanales(); getByFilter();"> </select>
                     </div>
                 </div>
@@ -66,8 +66,8 @@
                 <div class="form-group">
                     <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Derivación:</span></label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="t_derivacion" id="t_derivacion"
-                                ng-model="t_derivacion" ng-options="value.id as value.label for value in derivaciones_s"
+                        <select class="form-control" name="t_derivacion0" id="t_derivacion0"
+                                ng-model="t_derivacion0" ng-options="value.id as value.label for value in derivaciones_s"
                                 ng-change="getByFilter()"> </select>
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                                                 <div class="col-sm-8 col-xs-12">
                                                     <select class="form-control" name="t_tarifa" id="t_tarifa"
                                                             ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
-                                                            ng-change="calculateValor()"></select>
+                                                            ng-change="calculateValor(); loadCultivos();"></select>
                                                 </div>
                                             </div>
 
@@ -223,7 +223,7 @@
                                         <div class="col-sm-6 col-xs-12 form-group error">
                                             <label for="t_junta" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Junta Modular:</label>
                                             <div class="col-sm-8 col-xs-12">
-                                                <select class="form-control" name="t_junta" id="t_junta" ng-change="loadTomas()"
+                                                <select class="form-control" name="t_junta" id="t_junta" ng-change="loadTomasEdit()"
                                                         ng-model="t_junta" ng-options="value.id as value.label for value in barrios"></select>
                                             </div>
                                         </div>
@@ -233,7 +233,7 @@
                                             <div class="col-sm-8 col-xs-12">
                                                 <select class="form-control" name="t_toma" id="t_toma"
                                                         ng-model="t_toma" ng-options="value.id as value.label for value in tomas_edit"
-                                                        ng-change="loadCanal()"></select>
+                                                        ng-change="loadCanalesEdit()"></select>
                                             </div>
                                         </div>
 
@@ -242,7 +242,7 @@
                                             <div class="col-sm-8 col-xs-12">
                                                 <select class="form-control" name="t_canal" id="t_canal"
                                                         ng-model="t_canal" ng-options="value.id as value.label for value in canales_edit"
-                                                        ng-change="loadDerivaciones()"></select>
+                                                        ng-change="loadDerivacionesEdit()"></select>
                                             </div>
                                         </div>
 

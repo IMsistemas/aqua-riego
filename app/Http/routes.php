@@ -250,7 +250,7 @@ Route::get('editTerreno/getTarifas', 'Terreno\TerrenoController@getTarifas');
 //Peticion para obtener el listado de barrios
 Route::get('editTerreno/getBarrios', 'Terreno\TerrenoController@getBarrios');
 //Peticion para obtener el listado de cultivos
-Route::get('editTerreno/getCultivos', 'Terreno\TerrenoController@getCultivos');
+Route::get('editTerreno/getCultivos/{tarifa}', 'Terreno\TerrenoController@getCultivos');
 //Peticion para obtener el listado de canales
 Route::get('editTerreno/getCanales/{idcalle}', 'Terreno\TerrenoController@getCanales');
 //Peticion para obtener el listado de tomas en base a un canal
