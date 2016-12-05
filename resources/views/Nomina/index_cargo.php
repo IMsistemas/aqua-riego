@@ -27,7 +27,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="cargo in cargos| filter : busqueda" ng-cloak">
+                    <tr dir-paginate="cargo in cargos | orderBy:sortKey:reverse | itemsPerPage:10| filter : busqueda" ng-cloak">
                         <td>{{cargo.nombrecargo}}</td>
                         <td class="text-center">
                             <button type="button" class="btn btn-warning" ng-click="toggle('edit', cargo.idcargo)">
@@ -40,6 +40,12 @@
                     </tr>
                     </tbody>
                 </table>
+                <dir-pagination-controls
+                    max-size="5"
+                    direction-links="true"
+                    boundary-links="true" >
+                </dir-pagination-controls>
+
             </div>
         </div>
 

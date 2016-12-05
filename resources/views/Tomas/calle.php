@@ -30,7 +30,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="item in calles|filter:busqueda" ng-cloak>
+            <tr dir-paginate="item in calles | orderBy:sortKey:reverse | itemsPerPage:10|filter:busqueda" ng-cloak>
                 <td>{{item.fechaingreso}}</td>
                 <td><input type="text" class="form-control" ng-model="item.nombrecalle"></td>
 
@@ -50,6 +50,12 @@
             </tr>
             </tbody>
         </table>
+        <dir-pagination-controls
+            max-size="5"
+            direction-links="true"
+            boundary-links="true" >
+        </dir-pagination-controls>
+
     </div>
 
     <div class="col-xs-12" style="float: right;">
@@ -110,7 +116,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-success" id="btn-save" ng-click="saveCalle();" ng-disabled="formCalle.$invalid">
+                    <button type="button" class="btn btn-success" id="btn-savecalle" ng-click="saveCalle();" ng-disabled="formCalle.$invalid">
                         Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                     </button>
                 </div>

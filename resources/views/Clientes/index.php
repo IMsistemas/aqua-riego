@@ -32,7 +32,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="item in clientes | filter : t_busqueda" ng-cloak>
+                        <tr dir-paginate="item in clientes | orderBy:sortKey:reverse | itemsPerPage:10 | filter : t_busqueda" ng-cloak>
                             <td>{{item.documentoidentidad}}</td>
                             <td>{{item.fechaingreso | formatDate}}</td>
                             <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{item.complete_name}}</td>
@@ -63,6 +63,12 @@
                         </tr>
                     </tbody>
                 </table>
+                <dir-pagination-controls
+                    max-size="5"
+                    direction-links="true"
+                    boundary-links="true" >
+                </dir-pagination-controls>
+
             </div>
 
 

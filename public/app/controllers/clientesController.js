@@ -57,6 +57,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
      */
 
     $scope.edit = function (item) {
+
         $scope.t_codigocliente = item.codigocliente;
         $scope.t_fecha_ingreso = $scope.convertDatetoDB(item.fechaingreso, true);
         $scope.t_doc_id = item.documentoidentidad;
@@ -102,18 +103,22 @@ app.controller('clientesController', function($scope, $http, API_URL) {
                 $('#modalAddCliente').modal('hide');
                 $scope.message = 'Se insertó correctamente el cliente...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             }).error(function (res) {
                 console.log(res);
             });
 
         } else {
+
+
             url += '/' + $scope.t_codigocliente;
 
             $http.put(url, data ).success(function (response) {
                 $scope.initLoad();
                 $('#modalAddCliente').modal('hide');
-                $scope.message = 'Se edito correctamente el Cliente seleccionado...';
+                $scope.message = 'Se editó correctamente el Cliente seleccionado...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             }).error(function (res) {
 
             });
@@ -133,6 +138,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
     };
 
     $scope.showModalAddCliente = function () {
+        
         $scope.t_codigocliente = 0;
         $scope.t_fecha_ingreso = $scope.nowDate();
 

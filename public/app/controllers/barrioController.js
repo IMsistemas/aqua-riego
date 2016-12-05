@@ -26,7 +26,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.viewModalAdd = function () {
-
+        $('#btn-savebarrio').prop('disabled', false)
         $http.get(API_URL + 'barrio/getParroquias').success(function(response){
             var longitud = response.length;
             //var array_temp = [{label: '--Seleccione--', id: 0}];
@@ -37,8 +37,6 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $scope.parroquias = array_temp;
             $scope.t_parroquias = 1;
         });
-
-
 
 
         $http.get(API_URL + 'barrio/getLastID').success(function(response){
@@ -57,6 +55,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.saveBarrio = function () {
+        $('#btn-savebarrio').prop('disabled', true)
         var data = {
             nombrebarrio: $scope.nombrebarrio,
             idparroquia: $scope.t_parroquias,
@@ -70,6 +69,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $('#modalNueva').modal('hide');
             $scope.message = 'Se insertó correctamente la Junta Modular';
             $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
+
 
         }).error(function (res) {
 
@@ -148,6 +149,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 $scope.idbarrio_del = 0;
                 $scope.message = 'Se eliminó correctamente la Junta Modular seleccionada...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+
             } else if(response.success == false && response.msg == 'exist_calle') {
                 $scope.message_error = 'La Junta no puede ser eliminada porque contiene Tomas...';
                 $('#modalMessageError').modal('show');
@@ -156,6 +159,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.saveCalle = function () {
+        $('#btn-savecalle').prop('disabled', true)
         var data = {
             nombrecalle: $scope.nombrecalle,
             idbarrio: $scope.id_barrio,
@@ -167,6 +171,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $('#modalNuevaToma').modal('hide');
             $scope.message = 'Se insertó correctamente la Toma';
             $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
+
             if( $scope.aux1==1) {
                 /*setTimeout(function () {
                     $('#modalMessage').modal('hide');
@@ -258,6 +264,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 $scope.initLoad();
                 $scope.message= 'Se editaron correctamente las Juntas Modulares';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+
             });
         }
 
@@ -299,6 +307,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 $scope.idcalle_delete = 0;
                 $scope.message = 'Se eliminó correctamente la Toma seleccionada...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+
                 /*setTimeout(function(){
                     $('#modalMessage').modal('hide');
                 }, 500);*/
@@ -331,6 +341,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 $scope.initLoad();
                 $scope.message = 'Se editaron correctamente las Tomas';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+
 
                 /*setTimeout(function(){
                  $('#modalMessage').modal('hide');
@@ -387,6 +399,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.saveCanal = function () {
+        $('#btn-savecanal').prop('disabled', true)
         var data = {
             nombrecanal: $scope.nombrecanal,
             idcalle: $scope.id_toma,
@@ -398,6 +411,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $('#modalNuevoCanal').modal('hide');
             $scope.message = 'Se insertó correctamente el Canal';
             $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
+
             console.log($scope.aux_calles);
                 $scope.showModalActionCanal($scope.canales);
         }).error(function (res) {
@@ -427,6 +442,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 $scope.initLoad();
                 $scope.message = 'Se editaron correctamente los Canales';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+
 
                 /*setTimeout(function(){
                  $('#modalMessage').modal('hide');
@@ -451,6 +468,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 $scope.idcanal_delete = 0;
                 $scope.message = 'Se eliminó correctamente el Canal seleccionado...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+
                 /*setTimeout(function(){
                     $('#modalMessage').modal('hide');
                 }, 500);*/
@@ -506,6 +525,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.saveDeri = function () {
+        $('#btn-savederi').prop('disabled', true);
+
         var data = {
             nombrederivacion: $scope.nombrederi,
             idcanal: $scope.id_canal,
@@ -517,6 +538,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $('#modalNuevaDerivacion').modal('hide');
             $scope.message = 'Se insertó correctamente la Derivacion';
             $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
+
             console.log($scope.derivaciones);
 
             $scope.showModalActionDerivaciones($scope.derivaciones);
@@ -538,7 +561,9 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 $scope.idderivacion_delete = 0;
                 $scope.message = 'Se eliminó correctamente la Derivacion seleccionada...';
                 $('#modalMessage').modal('show');
-                $scope.showModalActionDerivaciones($scope.derivaciones);
+            $scope.hideModalMessage();
+
+            $scope.showModalActionDerivaciones($scope.derivaciones);
         });
     };
 
@@ -564,11 +589,18 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 $scope.initLoad();
                 $scope.message = 'Se editaron correctamente las Derivaciones';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+
 
                 $scope.showModalActionDerivaciones($scope.derivaciones);
             });
         }
     }
+
+
+    $scope.hideModalMessage = function () {
+        setTimeout("$('#modalMessage').modal('hide')", 3000);
+    };
 
     $scope.initLoad();
 });

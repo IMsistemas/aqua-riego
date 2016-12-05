@@ -32,11 +32,13 @@ app.controller('callesController', function($scope, $http, API_URL) {
             $scope.observacionCalle = '';
 
             $('#modalNueva').modal('show');
+
         });
 
     }
 
     $scope.saveCalle = function () {
+        $('#btn-savecalle').prop('disabled', true);
         console.log($scope.t_barrio);
 
         var data = {
@@ -52,6 +54,7 @@ app.controller('callesController', function($scope, $http, API_URL) {
             $('#modalNueva').modal('hide');
             $scope.message = 'Se insertó correctamente la Toma';
             $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
 
         }).error(function (res) {
 
@@ -72,8 +75,9 @@ app.controller('callesController', function($scope, $http, API_URL) {
                 console.log(response);
                 $scope.initLoad();
                 $scope.idcalle_del = 0;
-                $scope.message = 'Se elimino correctamente la Toma seleccionada...';
+                $scope.message = 'Se eliminó correctamente la Toma seleccionada...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             } else if(response.success == false && response.msg == 'exist_canales') {
                 $scope.message_error = 'La Toma no puede ser eliminado porque contiene Canales...';
                 $('#modalMessageError').modal('show');
@@ -137,6 +141,7 @@ app.controller('callesController', function($scope, $http, API_URL) {
                 $scope.initLoad();
                 $scope.message = 'Se editaron correctamente las Tomas';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             });
         }
 
@@ -176,6 +181,9 @@ app.controller('callesController', function($scope, $http, API_URL) {
     }
 
 
+    $scope.hideModalMessage = function () {
+        setTimeout("$('#modalMessage').modal('hide')", 3000);
+    };
 
 
     $scope.initLoad();

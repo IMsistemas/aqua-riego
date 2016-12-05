@@ -78,12 +78,15 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
             $scope.nombrederi = '';
             $scope.observacionderi = '';
 
+            $('#btn-save').prop('disabled', true);
+
             $('#modalNueva').modal('show');
         });
 
     }
 
     $scope.saveDeri = function () {
+        $('#btn-save').prop('disabled', true);
         var data = {
             nombrederivacion: $scope.nombrederi,
             observacion: $scope.observacionderi,
@@ -94,8 +97,9 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
             $scope.initLoad();
 
             $('#modalNueva').modal('hide');
-            $scope.message = 'Se insertó correctamente la Derivacion';
+            $scope.message = 'Se insertó correctamente la Derivación';
             $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
 
         }).error(function (res) {
 
@@ -147,8 +151,9 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
             $scope.initLoad();
             $('#modalDelete').modal('hide');
             $scope.idderiv_del = 0;
-            $scope.message = 'Se elimino correctamente la Derivacion seleccionada...';
+            $scope.message = 'Se eliminó correctamente la Derivación seleccionada...';
             $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
         });
     };
 
@@ -174,6 +179,7 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
                 $scope.initLoad();
                 $scope.message = 'Se editaron correctamente las Derivaciones';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             });
         }
     };
@@ -256,6 +262,10 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
         else {  $scope.FiltrarPorCalle();
         }
     }
+
+    $scope.hideModalMessage = function () {
+        setTimeout("$('#modalMessage').modal('hide')", 3000);
+    };
 
 
     $scope.initLoad();

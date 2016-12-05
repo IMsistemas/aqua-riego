@@ -52,7 +52,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="empleado in empleados |filter:busqueda" ng-cloak >
+                <tr dir-paginate="empleado in empleados | orderBy:sortKey:reverse | itemsPerPage:10 |filter:busqueda" ng-cloak >
                     <td>{{empleado.documentoidentidadempleado}}</td>
                     <td>{{empleado.complete_name}}</td>
                     <td>{{empleado.cargo.nombrecargo}}</td>
@@ -76,6 +76,11 @@
                 </tr>
                 </tbody>
             </table>
+            <dir-pagination-controls
+                max-size="5"
+                direction-links="true"
+                boundary-links="true" >
+            </dir-pagination-controls>
 
         </div>
 

@@ -66,6 +66,7 @@ app.controller('canallController', function($scope, $http, API_URL) {
     }
 
     $scope.saveCanal = function () {
+        $('#btn-save').prop('disabled', true);
         var data = {
             nombrecanal: $scope.nombrecanal,
             idcalle: $scope.t_calle,
@@ -79,6 +80,7 @@ app.controller('canallController', function($scope, $http, API_URL) {
             $('#modalNueva').modal('hide');
             $scope.message = 'Se insertó correctamente el Canal';
             $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
 
         }).error(function (res) {
 
@@ -99,8 +101,9 @@ app.controller('canallController', function($scope, $http, API_URL) {
                 console.log(response);
                 $scope.initLoad();
                 $scope.idcanal_del = 0;
-                $scope.message = 'Se elimino correctamente el Canal seleccionado...';
+                $scope.message = 'Se eliminó correctamente el Canal seleccionado...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             } else if(response.success == false && response.msg == 'exist_derivacion') {
                 $scope.message_error = 'El Canal no puede ser eliminado porque contiene Derivaciones...';
                 $('#modalMessageError').modal('show');
@@ -146,6 +149,7 @@ app.controller('canallController', function($scope, $http, API_URL) {
                 $scope.initLoad();
                 $scope.message = 'Se editaron correctamente los Canales';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             });
         }
     };
@@ -206,6 +210,9 @@ app.controller('canallController', function($scope, $http, API_URL) {
     }
 
 
+    $scope.hideModalMessage = function () {
+        setTimeout("$('#modalMessage').modal('hide')", 3000);
+    };
 
     $scope.initLoad();
     $scope.FiltroCalle();
