@@ -127,7 +127,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                         othercliente: reparticion[i].codigonuevocliente,
                         direccion: reparticion[i].cliente.direcciondomicilio,
                         telefono: reparticion[i].cliente.telefonoprincipaldomicilio,
-                        tipo: 'Repartición',
+                        tipo: 'Fraccionamiento',
                         estado: reparticion[i].estaprocesada,
                         areanueva: reparticion[i].nuevaarea,
                         fechaprocesada: reparticion[i].fechaprocesada,
@@ -244,7 +244,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                         cliente: reparticion[i].cliente.apellido + ' ' + reparticion[i].cliente.nombre,
                         direccion: reparticion[i].cliente.direcciondomicilio,
                         telefono: reparticion[i].cliente.telefonoprincipaldomicilio,
-                        tipo: 'Repartición',
+                        tipo: 'Fraccionamiento',
                         estado: reparticion[i].estaprocesada,
                         areanueva: reparticion[i].nuevaarea,
                         fechaprocesada: reparticion[i].fechaprocesada

@@ -719,8 +719,6 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
             if(response.success == true){
                 $scope.initLoad();
-
-
                 $scope.idsolicitud_to_process = response.idsolicitud;
 
                 $('#btn-save-riego').prop('disabled', true);
@@ -728,6 +726,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
                 $scope.message = 'Se ha ingresado la solicitud correctamente...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             }
 
         });
@@ -762,6 +761,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
                 $scope.message = 'Se ha ingresado la solicitud correctamente...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             }
 
         });
@@ -788,6 +788,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
                 $scope.message = 'Se ha ingresado la solicitud correctamente...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             }
 
         });
@@ -818,6 +819,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
                 $scope.message = 'Se ha ingresado la solicitud correctamente...';
                 $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
             }
 
         });
@@ -852,9 +854,9 @@ app.controller('clientesController', function($scope, $http, API_URL) {
 
             $('#modalAction').modal('hide');
 
-
             $scope.message = 'Se procesó correctamente la solicitud...';
             $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
 
         }).error(function (res) {
 

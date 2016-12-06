@@ -84,12 +84,12 @@
                     <th style="width: 10%;">Derivación</th>
                     <th style="width: 15%;">Junta Modular</th>
                     <th style="width: 8%;">Caudal</th>
-                    <th style="width: 10%;">Area (m2)</th>
-                    <th style="width: 10%;">Acciones</th>
+                    <th style="width: 8%;">Area (m2)</th>
+                    <th style="width: 12%;">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr dir-paginate="terreno in terrenos | orderBy:sortKey:reverse |itemsPerPage:5  | filter : search" ng-cloak>
+                <tr dir-paginate="terreno in terrenos | orderBy:sortKey:reverse |itemsPerPage:10  | filter : search" ng-cloak>
                     <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{terreno.cliente.complete_name}}</td>
                     <td>{{terreno.tarifa.nombretarifa}}</td>
                     <td>{{terreno.cultivo.nombrecultivo}}</td>
@@ -103,6 +103,9 @@
                         </button>
                         <button type="button" class="btn btn-warning" id="btn_edit" ng-click="edit(terreno)" >
                             <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" id="btn_pdf" ng-click="" >
+                            <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
                         </button>
                     </td>
                 </tr>

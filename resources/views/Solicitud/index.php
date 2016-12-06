@@ -47,7 +47,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="solicitud in solicitudes | filter : search" ng-cloak>
+                    <tr dir-paginate="solicitud in solicitudes | orderBy:sortKey:reverse |itemsPerPage:10 | filter : search" ng-cloak>
                         <td>{{solicitud.no_solicitud}}</td>
                         <td>{{solicitud.fecha | formatDate}}</td>
                         <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{solicitud.cliente}}</td>
@@ -89,6 +89,11 @@
                     </tr>
                     </tbody>
                 </table>
+                <dir-pagination-controls
+                        max-size="5"
+                        direction-links="true"
+                        boundary-links="true" >
+                </dir-pagination-controls>
             </div>
 
             <div class="modal fade" tabindex="-1" role="dialog" id="modalProcesar">
