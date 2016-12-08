@@ -73,8 +73,10 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
 
         if (cobro.estapagada == true) {
             $('#btn-pagar').prop('disabled', true);
+            $('#btn-print').prop('disabled', false);
         } else {
             $('#btn-pagar').prop('disabled', false);
+            $('#btn-print').prop('disabled', true);
         }
 
         $('#modalInfoAction').modal('show');
