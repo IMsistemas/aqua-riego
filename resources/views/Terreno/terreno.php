@@ -83,9 +83,9 @@
                     <th style="width: 10%;">Cultivo</th>
                     <th style="width: 10%;">Derivación</th>
                     <th style="width: 15%;">Junta Modular</th>
-                    <th style="width: 8%;">Caudal</th>
+                    <th style="width: 6%;">Caudal</th>
                     <th style="width: 8%;">Area (m2)</th>
-                    <th style="width: 12%;">Acciones</th>
+                    <th style="width: 15%;">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -104,9 +104,18 @@
                         <button type="button" class="btn btn-warning" id="btn_edit" ng-click="edit(terreno)" >
                             <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
                         </button>
-                        <button type="button" class="btn btn-default" id="btn_pdf" ng-click="" >
-                            <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
-                        </button>
+
+                        <span ng-if="terreno.urlescrituras == null">
+                            <button type="button" class="btn btn-default" id="btn_pdf" disabled >
+                                <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
+                            </button>
+                        </span>
+
+                        <span ng-if="terreno.urlescrituras != null">
+                            <button type="button" class="btn btn-default" id="btn_pdf" ng-click="openEscrituras(terreno.urlescrituras)" >
+                                <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
+                            </button>
+                        </span>
                     </td>
                 </tr>
                 </tbody>
@@ -172,6 +181,20 @@
                                                     <span class="help-block error"
                                                           ng-show="formProcess.t_terreno.$invalid && formProcess.t_terreno.$error.pattern">El Nro. Terreno debe ser solo números</span>
                                                 </div>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-12 form-group">
+
+                                                <label for="foto" class="col-sm-4 control-label">Escrituras:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" type="file" ngf-select ng-model="file" name="file" id="file"
+                                                           ngf-max-size="8MB" >
+
+                                                    <!--<span class="help-block error"
+                                                          ng-show="formProcess.file.$error.pattern">El archivo debe ser PDF</span>-->
+                                                    <span class="help-block error"
+                                                          ng-show="formProcess.file.$error.maxSize">El tamaño máximo es de 8 MB </span>
+                                                </div>
+
                                             </div>
                                         </div>
 

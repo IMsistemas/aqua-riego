@@ -392,6 +392,20 @@
                                                         {{nro_terreno}}
                                                     </div>
                                                 </div>
+                                                <div class="col-sm-6 col-xs-12 form-group">
+
+                                                    <label for="foto" class="col-sm-4 control-label">Escrituras:</label>
+                                                    <div class="col-sm-8">
+                                                        <input class="form-control" type="file" ngf-select ng-model="file" name="file" id="file"
+                                                                ngf-max-size="8MB" >
+
+                                                        <!--<span class="help-block error"
+                                                              ng-show="formProcess.file.$error.pattern">El archivo debe ser PDF</span>-->
+                                                        <span class="help-block error"
+                                                              ng-show="formProcess.file.$error.maxSize">El tamaño máximo es de 8 MB </span>
+                                                    </div>
+
+                                                </div>
                                             </div>
 
                                             <div class="col-xs-12" style="padding: 0;">

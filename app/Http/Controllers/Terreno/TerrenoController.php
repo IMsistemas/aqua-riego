@@ -31,13 +31,6 @@ class TerrenoController extends Controller
 
     public function getTerrenos()
     {
-        /*return Terreno::join('cultivo', 'terreno.idcultivo', '=', 'cultivo.idcultivo')
-                        ->join('tarifa', 'terreno.idtarifa', '=', 'tarifa.idtarifa')
-                        ->join('cliente', 'terreno.codigocliente', '=', 'cliente.codigocliente')
-                        ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
-                        ->join('barrio', 'terreno.idbarrio', '=', 'barrio.idbarrio')
-                        ->get();*/
-
         return Terreno::with('cultivo', 'tarifa', 'cliente', 'derivacion.canal.calle.barrio')
                             ->get();
 
@@ -204,6 +197,24 @@ class TerrenoController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $url_file = null;
+
+        if ($request->hasFile('file')) {
+
+            $pdf = $request->file('file');
+            //$destinationPath = storage_path() . '/app/empleados';
+            $destinationPath = public_path() . '/uploads/escrituras';
+            $name = rand(0, 9999).'_'.$pdf->getClientOriginalName();
+            if(!$pdf->move($destinationPath, $name)) {
+                return response()->json(['success' => false]);
+            } else {
+                // $url_file = '/app/empleados/' . $name;
+                $url_file = 'uploads/escrituras/' . $name;
+            }
+
+        }
+
         $terreno = Terreno::find($id);
 
         //$terreno->idbarrio = $request->input('idbarrio');
@@ -217,6 +228,10 @@ class TerrenoController extends Controller
         $costo = $this->calculateValor($request->input('area'), true);
 
         $terreno->valoranual = $costo;
+
+        if ($url_file != null) {
+            $terreno->urlescrituras = $url_file;
+        }
 
         $terreno->save();
 

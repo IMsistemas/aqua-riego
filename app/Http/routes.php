@@ -266,6 +266,9 @@ Route::get('editTerreno/calculateValor/{area}', 'Terreno\TerrenoController@calcu
 //Peticion para buscar terrenos por filtros
 Route::get('editTerreno/getByFilter/{filter}', 'Terreno\TerrenoController@getByFilter');
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Terreno
+
+Route::post('editTerreno/update/{id}', 'Terreno\TerrenoController@update');
+
 Route::resource('/editTerreno', 'Terreno\TerrenoController');
 
 /*===================================Módulo Nomina===========================================*/

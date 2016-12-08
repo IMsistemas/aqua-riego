@@ -5,7 +5,7 @@ app.filter('formatDate', function(){
     }
 });
 
-app.controller('clientesController', function($scope, $http, API_URL) {
+app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.clientes = [];
     $scope.codigocliente_del = 0;
@@ -711,11 +711,36 @@ app.controller('clientesController', function($scope, $http, API_URL) {
             valoranual: $scope.valor_total,
             idtarifa: $scope.t_tarifa,
             idderivacion : $scope.t_derivacion,
-            observacion: $scope.t_observacion_riego
+            observacion: $scope.t_observacion_riego,
+            file: $scope.file
+
             //idsolicitud: $scope.num_solicitud
         };
 
-        $http.post(API_URL + 'cliente/storeSolicitudRiego', solicitud).success(function(response){
+        Upload.upload({
+            url: API_URL + 'cliente/storeSolicitudRiego',
+            method: 'POST',
+            data: solicitud
+        }).success(function(data, status, headers, config) {
+
+            if (data.success == true) {
+                $scope.initLoad();
+                $scope.idsolicitud_to_process = data.idsolicitud;
+                $('#btn-save-riego').prop('disabled', true);
+                $('#btn-process-riego').prop('disabled', false);
+                $scope.message = 'Se ha ingresado la solicitud correctamente...';
+                $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+            }
+            else {
+
+            }
+        });
+
+
+
+
+        /*$http.post(API_URL + 'cliente/storeSolicitudRiego', solicitud).success(function(response){
 
             if(response.success == true){
                 $scope.initLoad();
@@ -729,7 +754,7 @@ app.controller('clientesController', function($scope, $http, API_URL) {
                 $scope.hideModalMessage();
             }
 
-        });
+        });*/
 
     };
 

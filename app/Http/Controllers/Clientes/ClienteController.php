@@ -219,6 +219,25 @@ class ClienteController extends Controller
 
     public function storeSolicitudRiego(Request $request)
     {
+
+        $url_file = null;
+
+        if ($request->hasFile('file')) {
+
+            $pdf = $request->file('file');
+            //$destinationPath = storage_path() . '/app/empleados';
+            $destinationPath = public_path() . '/uploads/escrituras';
+            $name = rand(0, 9999).'_'.$pdf->getClientOriginalName();
+            if(!$pdf->move($destinationPath, $name)) {
+                return response()->json(['success' => false]);
+            } else {
+                // $url_file = '/app/empleados/' . $name;
+                $url_file = 'uploads/escrituras/' . $name;
+            }
+
+        }
+
+
         $terreno = new Terreno();
         $terreno->idcultivo = $request->input('idcultivo');
         $terreno->idtarifa = $request->input('idtarifa');
@@ -229,6 +248,7 @@ class ClienteController extends Controller
         $terreno->area = $request->input('area');
         $terreno->valoranual = $request->input('valoranual');
         $terreno->observacion = $request->input('observacion');
+        $terreno->urlescrituras = $url_file;
 
         $terreno->save();
 

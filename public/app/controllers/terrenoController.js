@@ -1,5 +1,5 @@
 
-app.controller('terrenoController', function($scope, $http, API_URL) {
+app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
 
     $scope.terrenos = [];
 
@@ -34,6 +34,8 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
             }
 
             $scope.terrenos = response;
+
+            console.log(response);
 
             $('.datepicker').datetimepicker({
                 locale: 'es',
@@ -349,11 +351,32 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
             valoranual: $scope.valor_total,
             idtarifa: $scope.t_tarifa,
             idderivacion : $scope.t_derivacion,
+            file: $scope.file
 
             //idsolicitud: $scope.num_solicitud
         };
 
-        $http.put(API_URL + 'editTerreno/' + $scope.num_terreno_edit, solicitud).success(function(response){
+        Upload.upload({
+            url: API_URL + 'editTerreno/update/' + $scope.num_terreno_edit,
+            method: 'POST',
+            data: solicitud
+        }).success(function(data, status, headers, config) {
+            console.log(data);
+            console.log(status);
+            console.log(headers);
+            console.log(config);
+            if (data.success == true) {
+                $scope.initLoad();
+                $('#modalEdit').modal('hide');
+                $scope.message = 'Se ha editado correctamente la informacion del Terreno...';
+                $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+            }
+            else {
+            }
+        });
+
+        /*$http.put(API_URL + 'editTerreno/' + $scope.num_terreno_edit, solicitud).success(function(response){
 
             if(response.success == true){
                 $scope.initLoad();
@@ -362,8 +385,16 @@ app.controller('terrenoController', function($scope, $http, API_URL) {
                 $('#modalMessage').modal('show');
             }
 
-        });
+        });*/
 
+    };
+
+    $scope.openEscrituras = function (url) {
+        window.open(url);
+    };
+
+    $scope.hideModalMessage = function () {
+        setTimeout("$('#modalMessage').modal('hide')", 3000);
     };
 
     $scope.initLoad();
