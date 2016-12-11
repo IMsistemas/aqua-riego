@@ -131,6 +131,13 @@ class EmpleadoController extends Controller
 
     public function updateEmpleado(Request $request, $id)
     {
+        $empleado1 = Empleado::where ('documentoidentidadempleado',$request->input('documentoidentidadempleado'))-> count();
+
+
+        if($empleado1 > 0) {
+            return response()->json(['success' => false]);
+        }else
+        {
         $url_file = null;
 
         if ($request->hasFile('file')) {
@@ -164,6 +171,7 @@ class EmpleadoController extends Controller
         $empleado->save();
 
         return response()->json(['success' => true, 'request' => $request]);
+    }
     }
 
     /**
