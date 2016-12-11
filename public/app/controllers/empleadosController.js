@@ -66,14 +66,14 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                     $scope.fechaingreso = fecha();
 
-                    $scope.form_title = "Ingresar nuevo Empleado";
+                    $scope.form_title = "Ingresar Nuevo Colaborador";
 
                     $('#modalAction').modal('show');
                 });
 
                 break;
             case 'edit':
-                $scope.form_title = "Editar Empleado";
+                $scope.form_title = "Editar Colaborador";
                 $scope.id = item.idempleado;
 
                 $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
@@ -165,7 +165,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             console.log(config);
             if (data.success == true) {
                 $scope.initLoad();
-                $scope.message = 'Se guardó correctamente la información del empleado...';
+                $scope.message = 'Se guardó correctamente la información del Colaborador...';
                 $('#modalAction').modal('hide');
                 $('#modalMessage').modal('show');
                 $scope.hideModalMessage();
@@ -190,7 +190,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             $scope.initLoad();
             $('#modalConfirmDelete').modal('hide');
             $scope.empleado_del = 0;
-            $scope.message = 'Se eliminó correctamente el Empleado seleccionado';
+            $scope.message = 'Se eliminó correctamente el Colaborador seleccionado';
             $('#modalMessage').modal('show');
             $scope.hideModalMessage();
         });

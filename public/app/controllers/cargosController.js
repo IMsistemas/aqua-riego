@@ -31,7 +31,7 @@ app.controller('cargosController', function($scope, $http, API_URL) {
                 $scope.idc = id;
 
                 $http.get(API_URL + 'cargo/getCargoByID/' + id).success(function(response) {
-                    $scope.nombrecargo = response[0].nombrecargo;
+                    $scope.nombrecargo = response[0].nombrecargo.trim();
                     $('#modalActionCargo').modal('show');
                 });
                     break;
