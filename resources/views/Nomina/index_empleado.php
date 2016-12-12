@@ -116,13 +116,15 @@
                                         <label class="col-sm-4 control-label">CI/RUC:</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" name="documentoidentidadempleado" id="documentoidentidadempleado"
-                                                   ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="32" ng-pattern="/[0-9]+/" >
+                                                   ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="32" ng-minlength="10" ng-pattern="/[0-9]+/" >
                                             <span class="help-block error"
                                                   ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$touched">La Identificación es requerido</span>
                                             <span class="help-block error"
                                                   ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$error.maxlength">La longitud máxima es de 32 caracteres</span>
                                             <span class="help-block error"
                                                   ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$error.pattern">La Identificación debe ser solo números</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$error.minlength">La longitud mínima es de 10 caracteres</span>
                                         </div>
                                     </div>
                                 </div>
@@ -176,11 +178,15 @@
                                         <label class="col-sm-4 control-label">Teléfono Principal:</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" name="telefonoprincipal" id="telefonoprincipal"
-                                                   ng-model="telefonoprincipal" ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/" >
+                                                   ng-model="telefonoprincipal" ng-minlength="9" ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/" >
                                             <span class="help-block error"
                                                   ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$error.maxlength">La longitud máxima es de 16 números</span>
                                             <span class="help-block error"
                                                   ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$error.minlength">La longitud mínima es de 9 caracteres</span>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -189,11 +195,15 @@
                                         <label class="col-sm-4 control-label">Teléfono Secundario:</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" name="telefonosecundario" id="telefonosecundario"
-                                                   ng-model="telefonosecundario" ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/" >
+                                                   ng-model="telefonosecundario" ng-minlength="9"  ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/" >
                                             <span class="help-block error"
                                                   ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.maxlength">La longitud máxima es de 16 números</span>
                                             <span class="help-block error"
                                                   ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.minlength">La longitud mínima es de 9 caracteres</span>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -204,11 +214,14 @@
                                         <label class="col-sm-4 control-label">Celular:</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" name="celular" id="celular"
-                                                   ng-model="celular" ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/">
+                                                   ng-model="celular" ng-minlength="10" ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/">
                                             <span class="help-block error"
                                                   ng-show="formEmployee.celular.$invalid && formEmployee.celular.$error.maxlength">La longitud máxima es de 16 números</span>
                                             <span class="help-block error"
                                                   ng-show="formEmployee.celular.$invalid && formEmployee.celular.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.celular.$invalid && formEmployee.celular.$error.minlength">La longitud mínima es de 10 caracteres</span>
+
                                         </div>
                                     </div>
                                 </div>
