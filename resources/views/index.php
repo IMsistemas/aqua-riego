@@ -86,6 +86,24 @@
                         <li data-toggle="collapse" data-target="#personal" class="collapsed">
                             <a href="#"><i class="fa fa-male fa-lg"></i> Personal <span class="arrow"></span></a>
                         </li>
+
+                        <li data-toggle="collapse" data-target="#proveedor" class="collapsed">
+                            <a href="#"><i class="fa fa-user fa-lg"></i> Proveedores <span class="arrow"></span></a>
+                        </li>
+                        <ul class="sub-menu collapse" id="proveedor">
+                            <li><a href="#" ng-click="toModuloCliente();">Proveedores</a></li>
+                        </ul>
+
+                        <li data-toggle="collapse" data-target="#contabilidad" class="collapsed">
+                            <a href="#"><i class="fa fa-user fa-lg"></i> Contabilidad <span class="arrow"></span></a>
+                        </li>
+                        <ul class="sub-menu collapse" id="contabilidad">
+                            <li><a href="#" ng-click="toModuloCompras();">Compras</a></li>
+                            <li><a href="#" ng-click="toModuloVentas();">Ventas</a></li>
+                            <li ><a href="#" ng-click="toModuloComprobantes();">Comprobantes</a></li>
+                            <li ><a href="#" ng-click="toModuloRetenciones();">Retenciones</a></li>
+                        </ul>
+
                         <ul class="sub-menu collapse" id="personal">
                             <li><a href="#" ng-click="toModuloCargo();">Cargos</a></li>
                             <li><a href="#" ng-click="toModuloEmpleado();">Colaboradores</a></li>
@@ -115,8 +133,10 @@
                         </li>
                         <ul class="sub-menu collapse" id="configuracion">
                             <li><a href="#" ng-click="toModuloTarifa();">Tarifas</a></li>
-                            
                             <li ng-show="false"><a href="#" ng-click="toModuloCanal();">Descuentos</a></li>
+                             <li><a href="#" ng-click="toModuloPortafolioProductos();">Portafolio de Productos</a></li>
+                            <li><a href="#" ng-click="toModuloCatalogoProductos();">Catálogo de Productos</a></li>
+                            <li><a href="#" ng-click="toModuloCrearBodegas();">Crear Bodegas</a></li>
 
                         </ul>
 
