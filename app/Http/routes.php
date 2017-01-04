@@ -498,3 +498,32 @@ Route::post('/descuentos/gestion/actualizardescuento/{anio}','Descuentos\Descuen
 //Ruta página de inicio de gestión de clientes
 Route::post('/descuentos/gestion/eliminardescuento/{iddescuento}','Descuentos\DescuentoController@destroy');
 
+/*===================================Módulo Compras===========================================*/
+
+
+Route::get('compras/getLastCompra', 'Compras\CompraProductoController@getLastCompra');
+Route::get('compras/getProveedores', 'Compras\CompraProductoController@getProveedores');
+Route::get('compras/getComprasMes/{proveedor}', 'Compras\CompraProductoController@getComprasMes');
+Route::get('compras/getFormaPagoDocumento', 'Compras\CompraProductoController@getFormaPagoDocumento');
+Route::get('compras/getCompras/{filters}', 'Compras\CompraProductoController@getCompras');
+Route::get('compras/getProveedorByCI/{ci}', 'Compras\CompraProductoController@getProveedorByCI');
+Route::get('compras/pagarCompra/{id}', 'Compras\CompraProductoController@pagarCompra');
+Route::get('compras/anularCompra/{id}', 'Compras\CompraProductoController@anularCompra');
+Route::get('compras/getBodega/{texto}', 'Compras\CompraProductoController@getBodega');
+Route::get('compras/getCodigoProducto/{texto}', 'Compras\CompraProductoController@getCodigoProducto');
+Route::get('compras/getFormaPago', 'Compras\CompraProductoController@getFormaPago');
+Route::get('compras/getConfiguracion', 'Compras\CompraProductoController@getConfiguracion');
+Route::get('compras/getTipoComprobante', 'Compras\CompraProductoController@getTipoComprobante');
+Route::get('compras/getSustentoTributario', 'Compras\CompraProductoController@getSustentoTributario');
+Route::get('compras/getPais', 'Compras\CompraProductoController@getPais');
+Route::get('compras/imprimir/{id}', 'Compras\CompraProductoController@imprimir');
+Route::get('compras/pdf/{id}', 'Compras\CompraProductoController@pdf');
+Route::get('compras/excel/{id}', 'Compras\CompraProductoController@excel');
+Route::get('compras/imprimirCompra/{id}', 'Compras\CompraProductoController@imprimirCompra');
+Route::get('compras/{id}', 'Compras\CompraProductoController@show');
+Route::get('compras/getDetalle/{id}', 'Compras\CompraProductoController@getDetalle');
+
+
+Route::get('compras/formulario/{compra}', 'Compras\CompraProductoController@formulario');
+Route::resource('compras', 'Compras\CompraProductoController');
+

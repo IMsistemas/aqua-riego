@@ -135,6 +135,11 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$('#list_breadcrumb').html(breadcrumb);
 
 	}
+	
+	$scope.toModuloCompras = function(){		
+		$scope.titulo = "Compras Inventario";
+		$scope.toModulo = "compras";
+	}
 
 	$scope.prepareListBreadcrumb();
 	

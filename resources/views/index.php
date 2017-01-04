@@ -210,6 +210,9 @@
     <script src="<?= asset('app/controllers/recaudacionController.js') ?>"></script>
     <script src="<?= asset('app/controllers/terrenoController.js') ?>"></script>
     <script src="<?= asset('app/controllers/tarifaController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/comprasproductoController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/comprasproductoIngresoController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/comprasImprimirController.js') ?>"></script>
 
 
     <script type="text/javascript">
