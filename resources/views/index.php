@@ -226,6 +226,9 @@
     <script src="<?= asset('app/controllers/comprasproductoController.js') ?>"></script>
     <script src="<?= asset('app/controllers/comprasproductoIngresoController.js') ?>"></script>
     <script src="<?= asset('app/controllers/comprasImprimirController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/proveedoresController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/comprasImprimirController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/comprasImprimirController.js') ?>"></script>
 
 
     <script type="text/javascript">
