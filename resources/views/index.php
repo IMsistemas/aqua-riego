@@ -115,6 +115,7 @@
                                 <li><a href="#" ng-click="toModuloRetencionesCompras();">Retenciones Compras</a></li>
                                 <li><a href="#" ng-click="toModuloRetencionesVentas();">Retenciones Ventas</a></li>
                             </ul>
+                        </ul>
 
                         <ul class="sub-menu collapse" id="personal">
                             <li><a href="#" ng-click="toModuloCargo();">Cargos</a></li>
