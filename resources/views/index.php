@@ -198,6 +198,7 @@
     <script src="<?= asset('js/es.js') ?>"></script>
     <script src="<?= asset('js/bootstrap-datetimepicker.min.js') ?>"></script>
 
+<script src="<?= asset('app/lib/angular/angucomplete-alt.min.js') ?>"></script>
     <script src="<?= asset('app/app.js') ?>"></script>
 
 
