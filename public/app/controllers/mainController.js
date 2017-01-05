@@ -124,6 +124,55 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$scope.toModulo = "tarifa";
 	}
 
++$scope.toModuloProveedores = function(){		
+		$scope.titulo = "Proveedores";
+		$scope.toModulo = "proveedores";
+	}
+
+	$scope.toModuloCompras = function(){		
+		$scope.titulo = "Compras Inventario";
+		$scope.toModulo = "compras";
+	}
+
+	$scope.toModuloVentas = function(){		
+		$scope.titulo = "Ventas: Registro Ventas";
+		$scope.toModulo = "DocumentoVenta";
+	}
+
+	$scope.toModuloComprobantesVentas = function(){		
+		$scope.titulo = "Comprobantes Ventas";
+		$scope.toModulo = "cuentascobrarcliente";
+	}
+
+	$scope.toModuloComprobantesCompras = function(){		
+		$scope.titulo = "Comprobantes Compras";
+		$scope.toModulo = "cuentascobrarcliente";
+	}
+
+	$scope.toModuloRetencionesVentas = function(){		
+		$scope.titulo = "Retenciones Ventas";
+		$scope.toModulo = "retencionCompra";
+	}
+
+	$scope.toModuloRetencionesCompras = function(){		
+		$scope.titulo = "Retenciones Compras";
+		$scope.toModulo = "retencionCompra";
+	}
+
+	$scope.toModuloPortafolioProductos = function(){		
+		$scope.titulo = "Portafolio de Productos";
+		$scope.toModulo = "categoria";
+	}
+
+	$scope.toModuloCatalogoProductos = function(){		
+		$scope.titulo = "Catálogo de Prodructos";
+		$scope.toModulo = "catalogoproducto";
+	}
+
+	$scope.toModuloCrearBodegas = function(){		
+		$scope.titulo = "Crear Bodegas";
+		$scope.toModulo = "bodega";
+	}
 	$scope.prepareListBreadcrumb = function (list_module) {
 		$scope.list_breadcrumb = [
 			"<li><img src='img/ico-aqua.png'></li>",
