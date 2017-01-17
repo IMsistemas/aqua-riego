@@ -4,7 +4,7 @@ namespace App\Modelos\Contabilidad;
 
 use Illuminate\Database\Eloquent\Model;
 
-class registroempleado extends Model
+class Cont_RegistroEmpleado extends Model
 {
     protected $table = "cont_registroempleado";
 
@@ -23,8 +23,8 @@ class registroempleado extends Model
         'haber',
         'numerodocumento'
     ];
-    public function transaccion()
+    public function cont_transaccion()
     {
-        return $this->belongsTo('App\Modelos\Contabilidad\transaccion',"idtransaccion");
+        return $this->belongsTo('App\Modelos\Contabilidad\Cont_Transaccion',"idtransaccion");
     }
 }

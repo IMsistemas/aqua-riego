@@ -4,7 +4,7 @@ namespace App\Modelos\Contabilidad;
 
 use Illuminate\Database\Eloquent\Model;
 
-class tipoingresoegreso extends Model
+class Cont_TipoIngresoEgreso extends Model
 {
     protected $table = "cont_tipoingresoegreso";
 

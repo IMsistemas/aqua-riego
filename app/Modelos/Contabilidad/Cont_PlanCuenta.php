@@ -4,7 +4,7 @@ namespace App\Modelos\Contabilidad;
 
 use Illuminate\Database\Eloquent\Model;
 
-class plancuenta extends Model
+class Cont_PlanCuenta extends Model
 {
     protected $table = "cont_plancuenta";
 

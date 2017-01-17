@@ -4,7 +4,7 @@ namespace App\Modelos\Contabilidad;
 
 use Illuminate\Database\Eloquent\Model;
 
-class transaccion extends Model
+class Cont_Transaccion extends Model
 {
 	protected $table = "cont_transaccion";
 
@@ -22,8 +22,8 @@ class transaccion extends Model
         'numcomprobante',
         'descripcion'
     ];
-    public function tipotransaccion()
+    public function cont_tipotransaccion()
     {
-        return $this->belongsTo('App\Modelos\Contabilidad\tipotransaccion',"idtipotransaccion");
+        return $this->belongsTo('App\Modelos\Contabilidad\Cont_TipoTransaccion',"idtipotransaccion");
     }
 }
