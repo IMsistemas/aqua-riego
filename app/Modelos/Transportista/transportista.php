@@ -24,4 +24,9 @@ class transportista extends Model
     public function persona(){
     	return $this->belongsTo('App\Modelos');
     }
+
+    public function Cont_DocumentoGuiaRemision(){
+        return $this->hasMany('App\Modelos\Contabilidad');
+    }
+
 }

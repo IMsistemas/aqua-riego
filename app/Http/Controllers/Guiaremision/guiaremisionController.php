@@ -30,7 +30,7 @@ use DB;
 
 
 
-class DocumentoVenta extends Controller
+class guiaremisionControler extends Controller
 {
     //
 
@@ -41,8 +41,17 @@ class DocumentoVenta extends Controller
      */
     public function index()
     {
-        return view('Facturacionventa/index');
+        return view('Guiaremision/index_guiaremision');
         //return view('Facturacionventa/aux_index');
+    }
+    /**
+     * Obtener la información de las guias de remisión
+     *
+     * @return guias de remisión
+     */
+    public function getInfoClienteXCIRuc($getInfoCliente)
+    {
+        return Cont_documentoguiaremision::where('documentoidentidad', 'LIKE', '%' . $getInfoCliente . '%')->limit(1)->get();
     }
     /**
      * Obtener la informacion de un cliente en especifico
