@@ -58,8 +58,8 @@
 								<input type="text" class="form-control" name="fecharegistrocompra"
 									id="fecharegistrocompra" 
 									ng-model="compra.fecharegistrocompra" 
-									readonly="readonly"
-									ng-disabled="impreso"
+									
+									
 									> 
 									<label class="input-group-addon btn" for="registro">
 							       <span class="fa fa-calendar"></span>
