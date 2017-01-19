@@ -657,4 +657,5 @@ Route::resource('DocumentoVenta', 'Facturacionventa\DocumentoVenta');
 
 //-------------------------------- Contabilidad---------------/////////
 Route::resource('Contabilidad', 'Contabilidad\Plandecuetas');
+Route::get('Contabilidad/plancuentastipo/{filtro}', 'Contabilidad\Plandecuetas@getplancuentasportipo');
 //-------------------------------- Contabilidad---------------/////////
