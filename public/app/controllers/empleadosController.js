@@ -16,7 +16,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             var longitud = response.length;
             for (var i = 0; i < longitud; i++) {
                 var complete_name = {
-                    value: response[i].nombre + ' ' + response[i].apellido,
+                    value: response[i].namepersona + ' ' + response[i].lastnamepersona,
                     writable: true,
                     enumerable: true,
                     configurable: true
@@ -46,14 +46,36 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         $scope.modalstate = modalstate;
         switch (modalstate) {
             case 'add':
+
+                $http.get(API_URL + 'empleado/getDepartamentos').success(function(response){
+                    var longitud = response.length;
+                    var array_temp = [{label: '-- Seleccione --', id: 0}];
+                    for(var i = 0; i < longitud; i++){
+                        array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento})
+                    }
+                    $scope.iddepartamentos = array_temp;
+                    $scope.departamento = 0;
+                });
+
+                $http.get(API_URL + 'empleado/getTipoIdentificacion').success(function(response){
+                    var longitud = response.length;
+                    var array_temp = [{label: '-- Seleccione --', id: 0}];
+                    for(var i = 0; i < longitud; i++){
+                        array_temp.push({label: response[i].nameidentificacion, id: response[i].idtipoidentificacion})
+                    }
+                    $scope.idtipoidentificacion = array_temp;
+                    $scope.tipoidentificacion = 0;
+                });
+
                 $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
                     var longitud = response.length;
-                    var array_temp = [];
+                    var array_temp = [{label: '-- Seleccione --', id: 0}];
                     for(var i = 0; i < longitud; i++){
-                        array_temp.push({label: response[i].nombrecargo, id: response[i].idcargo})
+                        array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
                     }
-
                     $scope.idcargos = array_temp;
+                    $scope.idcargo = 0;
+
                     $scope.documentoidentidadempleado = '';
                     $scope.apellido = '';
                     $scope.nombre = '';
@@ -127,8 +149,6 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             default:
                 break;
         }
-
-
     };
 
     $scope.save = function() {

@@ -31,7 +31,18 @@ class EmpleadoController extends Controller
      */
     public function getEmployees()
     {
-        return Empleado::with('cargo')->orderBy('fechaingreso', 'asc')->get();
+
+        $employee = null;
+
+        $employees = Empleado::join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
+                                ->join('departamento', 'departamento.iddepartamento', '=', 'empleado.iddepartamento')
+                                ->join('cargo', 'cargo.idcargo', '=', 'empleado.idcargo')
+                                ->select('empleado.*', 'departamento.namedepartamento', 'cargo.namecargo', 'persona.*')
+                                ->orderBy('fechaingreso', 'asc')->get();
+
+        return $employees;
+
+        //return Empleado::with('cargo')->orderBy('fechaingreso', 'asc')->get();
     }
 
 
@@ -42,7 +53,7 @@ class EmpleadoController extends Controller
      */
     public function getAllPositions()
     {
-        return Cargo::orderBy('nombrecargo', 'asc')->get();
+        return Cargo::orderBy('namecargo', 'asc')->get();
     }
 
     /**
