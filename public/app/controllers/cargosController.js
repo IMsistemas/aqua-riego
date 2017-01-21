@@ -8,10 +8,9 @@ app.controller('cargosController', function($scope, $http, API_URL) {
 
     $scope.initLoad = function(){
         $http.get(API_URL + 'cargo/getCargos').success(function(response){
-            console.log(response);
             $scope.cargos = response;
         });
-    }
+    };
 
     $scope.initLoad();
 
@@ -31,16 +30,14 @@ app.controller('cargosController', function($scope, $http, API_URL) {
                 $scope.idc = id;
 
                 $http.get(API_URL + 'cargo/getCargoByID/' + id).success(function(response) {
-                    $scope.nombrecargo = response[0].nombrecargo.trim();
+                    $scope.nombrecargo = response[0].namecargo.trim();
                     $('#modalActionCargo').modal('show');
                 });
                     break;
             default:
                 break;
         }
-
-
-    }
+    };
 
     $scope.Save = function (){
 
@@ -64,8 +61,6 @@ app.controller('cargosController', function($scope, $http, API_URL) {
                         $('#modalMessageError').modal('show');
                     }
                 });
-
-
                 break;
             case 'edit':
                 $http.put(API_URL + 'cargo/'+ $scope.idc, data ).success(function (response) {
@@ -81,20 +76,18 @@ app.controller('cargosController', function($scope, $http, API_URL) {
         }
     };
 
-
     $scope.showModalConfirm = function(cargo){
 
         $scope.showModalConfirm = function (cargo) {
             $scope.idcargo_del = cargo.idcargo;
-            $scope.cargo_seleccionado = cargo.nombrecargo;
+            $scope.cargo_seleccionado = cargo.namecargo;
             $('#modalConfirmDelete').modal('show');
         };
 
-    }
+    };
 
     $scope.delete = function(){
         $http.delete(API_URL + 'cargo/' + $scope.idcargo_del).success(function(response) {
-            console.log(response.success);
             if(response.success == true){
                 $scope.initLoad();
                 $('#modalConfirmDelete').modal('hide');

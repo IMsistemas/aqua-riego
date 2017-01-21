@@ -22,13 +22,13 @@
                 <table class="table table-responsive table-striped table-hover table-condensed">
                     <thead class="bg-primary">
                     <tr>
-                        <th>Nombre</th>
+                        <th>Nombre Cargo</th>
                         <th style="width: 200px;">Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr dir-paginate="cargo in cargos | orderBy:sortKey:reverse | itemsPerPage:10| filter : busqueda" ng-cloak">
-                        <td>{{cargo.nombrecargo}}</td>
+                        <td>{{cargo.namecargo}}</td>
                         <td class="text-center">
                             <button type="button" class="btn btn-warning" ng-click="toggle('edit', cargo.idcargo)">
                                 Editar <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
@@ -58,15 +58,17 @@
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" name="formCargo" novalidate="">
-                            <div class="form-group error">
-                                <label for="t_name_cargo" class="col-sm-4 control-label">Nombre del Cargo:</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="nombrecargo" id="nombrecargo" ng-model="nombrecargo" placeholder=""
-                                           ng-required="true" ng-maxlength="16">
+                            <div class="row">
+                                <div class="col-xs-12 error">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Nombre del Cargo: </span>
+                                        <input type="text" class="form-control" name="nombrecargo" id="nombrecargo" ng-model="nombrecargo" placeholder=""
+                                               ng-required="true" ng-maxlength="50">
+                                    </div>
                                     <span class="help-block error"
                                           ng-show="formCargo.nombrecargo.$invalid && formCargo.nombrecargo.$touched">El nombre del Cargo es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formCargo.nombrecargo.$invalid && formCargo.nombrecargo.$error.maxlength">La longitud máxima es de 16 caracteres</span>
+                                          ng-show="formCargo.nombrecargo.$invalid && formCargo.nombrecargo.$error.maxlength">La longitud máxima es de 50 caracteres</span>
                                 </div>
                             </div>
                         </form>

@@ -28,15 +28,16 @@ class CargoController extends Controller
      */
     public function getCargos()
     {
-        return Cargo::orderBy('nombrecargo', 'asc')->get();
+        return Cargo::orderBy('namecargo', 'asc')->get();
     }
 
     /**
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getCargoByID($id){
-        return Cargo::where('idcargo', $id)->orderBy('nombrecargo')->get();
+    public function getCargoByID($id)
+    {
+        return Cargo::where('idcargo', $id)->orderBy('namecargo')->get();
     }
 
     /**
@@ -50,7 +51,7 @@ class CargoController extends Controller
         $filter = json_decode($filter);
 
         return Cargo::orderBy('idcargo', 'asc')
-                      ->whereRaw("cargo.idcargo LIKE '%" . $filter->text . "%' OR cargo.nombrecargo LIKE '%" . $filter->text . "%' ")
+                      ->whereRaw("cargo.idcargo LIKE '%" . $filter->text . "%' OR cargo.namecargo LIKE '%" . $filter->text . "%' ")
                       ->get();
     }
 
@@ -62,23 +63,20 @@ class CargoController extends Controller
      */
     public function store(Request $request)
     {
+        $cargo1 = Cargo::where('namecargo', $request->input('nombrecargo'))->count();
 
-        $cargo1 = Cargo::where ('nombrecargo',$request->input('nombrecargo'))-> count();
-
-
-        if($cargo1 > 0)
-        {
+        if ($cargo1 > 0) {
             return response()->json(['success' => false]);
-        }else{
+        } else {
             $cargo = new Cargo();
+            $cargo->namecargo = $request->input('nombrecargo');
 
-            $cargo->nombrecargo = $request->input('nombrecargo');
-
-            $cargo->save();
-
-            return response()->json(['success' => true]);
+            if ($cargo->save()) {
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false]);
+            }
         }
-
     }
 
     /**
@@ -104,11 +102,12 @@ class CargoController extends Controller
     public function update(Request $request, $id)
     {
         $cargo = Cargo::find($id);
-
-        $cargo->nombrecargo = $request->input('nombrecargo');
-        $cargo->save();
-
-        return response()->json(['success' => true]);
+        $cargo->namecargo = $request->input('nombrecargo');
+        if ($cargo->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 
     /**
@@ -119,15 +118,13 @@ class CargoController extends Controller
      */
     public function destroy($id)
     {
-        $empleado = Empleado::where ('idcargo',$id)-> count();
-        if($empleado > 0)
-        {
+        $empleado = Empleado::where('idcargo',$id)->count();
+        if ($empleado > 0) {
             return response()->json(['success' => false]);
-        }else{
+        } else {
             $cargo = Cargo::find($id);
             $cargo->delete();
             return response()->json(['success' => true]);
         }
-
     }
 }
