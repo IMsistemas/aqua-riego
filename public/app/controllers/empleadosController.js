@@ -161,7 +161,6 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         }
         var data ={
             fechaingreso: convertDatetoDB($scope.fechaingreso),
-            documentoidentidadempleado: $scope.documentoidentidadempleado,
             idcargo: $scope.idcargo,
             apellidos: $scope.apellido,
             nombres: $scope.nombre,
@@ -171,7 +170,12 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             direcciondomicilio: $scope.direccion,
             correo: $scope.correo,
             salario: $scope.salario,
-            file: $scope.file
+            file: $scope.file,
+            documentoidentidadempleado: $scope.documentoidentidadempleado,
+
+            departamento: $scope.departamento,
+            tipoidentificacion: $scope.tipoidentificacion,
+            cuentacontable: $scope.cuenta_employee
         };
 
         Upload.upload({

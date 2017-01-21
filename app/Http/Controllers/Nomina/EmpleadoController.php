@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Nomina;
 use App\Modelos\Nomina\Cargo;
 use App\Modelos\Nomina\Departamento;
 use App\Modelos\Nomina\Empleado;
+use App\Modelos\Persona;
 use App\Modelos\SRI\SRI_TipoIdentificacion;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -84,58 +85,75 @@ class EmpleadoController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-
     public function store(Request $request)
     {
 
         $empleado1 = Empleado::where ('documentoidentidadempleado',$request->input('documentoidentidadempleado'))-> count();
 
 
-        if($empleado1 > 0) {
+        if ($empleado1 > 0) {
+
             return response()->json(['success' => false]);
-        }else{
 
-        $url_file = null;
+        } else {
 
-        if ($request->hasFile('file')) {
+            $url_file = null;
 
-            $image = $request->file('file');
-            //$destinationPath = storage_path() . '/app/empleados';
-            $destinationPath = public_path() . '/uploads/empleados';
-            $name = rand(0, 9999).'_'.$image->getClientOriginalName();
-            if(!$image->move($destinationPath, $name)) {
-                return response()->json(['success' => false]);
-            } else {
-                // $url_file = '/app/empleados/' . $name;
-                $url_file = '/uploads/empleados/' . $name;
+            if ($request->hasFile('file')) {
+
+                $image = $request->file('file');
+                //$destinationPath = storage_path() . '/app/empleados';
+                $destinationPath = public_path() . '/uploads/empleados';
+                $name = rand(0, 9999).'_'.$image->getClientOriginalName();
+                if(!$image->move($destinationPath, $name)) {
+                    return response()->json(['success' => false]);
+                } else {
+                    // $url_file = '/app/empleados/' . $name;
+                    $url_file = '/uploads/empleados/' . $name;
+                }
+
             }
 
+            $persona = new Persona();
+            $persona->lastnamepersona = $request->input('apellidos');
+            $persona->namepersona = $request->input('nombres');
+            $persona->numdocidentific = $request->input('documentoidentidadempleado');
+            $persona->fechaingreso = $request->input('fechaingreso');
+            $persona->email = $request->input('correo');
+            $persona->celphone = $request->input('celular');
+            $persona->idtipoidentificacion = $request->input('tipoidentificacion');
+
+            if ($persona->save()) {
+
+            } else {
+                $empleado = new Empleado();
+                $empleado->idcargo = $request->input('idcargo');
+                $empleado->telefonoprincipal = $request->input('telefonoprincipaldomicilio');
+                $empleado->telefonosecundario = $request->input('telefonosecundariodomicilio');
+                $empleado->direccion = $request->input('direcciondomicilio');
+                $empleado->salario = $request->input('salario');
+
+                if ($url_file != null) {
+                    $empleado->foto = $url_file;
+                }
+
+                $empleado->save();
+            }
+
+
+
+            return response()->json(['success' => true]);
+
         }
-
-        $empleado = new Empleado();
-
-        $empleado->fechaingreso = $request->input('fechaingreso');
-        $empleado->documentoidentidadempleado = $request->input('documentoidentidadempleado');
-        $empleado->idcargo = $request->input('idcargo');
-        $empleado->apellido = $request->input('apellidos');
-        $empleado->nombre = $request->input('nombres');
-        $empleado->telefonoprincipal = $request->input('telefonoprincipaldomicilio');
-        $empleado->telefonosecundario = $request->input('telefonosecundariodomicilio');
-        $empleado->celular = $request->input('celular');
-        $empleado->direccion = $request->input('direcciondomicilio');
-        $empleado->correo = $request->input('correo');
-        $empleado->salario = $request->input('salario');
-
-        if ($url_file != null) {
-            $empleado->foto = $url_file;
-        }
-
-        $empleado->save();
-
-        return response()->json(['success' => true]);
-
     }
-    }
+
+
+
+
+
+
+
+
 
 
     /**
