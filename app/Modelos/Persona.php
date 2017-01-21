@@ -11,11 +11,20 @@ class Persona extends Model
     protected $primaryKey = 'idpersona';
     public $timestamps = false;
 
-    public function transportista(){
+    public function transportista()
+    {
     	return $this->hasMany('App\Modelos\Transportista');
     }
-    public function cliente(){
+
+    public function cliente()
+    {
     	return $this->hasMany('App\Modelos\Clientes');
     }
+
+    public function empleado()
+    {
+        return $this->hasMany('App\Modelos\Nomina\Empleado', 'idpersona');
+    }
+
 
 }
