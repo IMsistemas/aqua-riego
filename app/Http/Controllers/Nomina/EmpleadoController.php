@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Nomina;
 
 use App\Modelos\Nomina\Cargo;
+use App\Modelos\Nomina\Departamento;
 use App\Modelos\Nomina\Empleado;
+use App\Modelos\SRI\SRI_TipoIdentificacion;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -54,6 +56,26 @@ class EmpleadoController extends Controller
     public function getAllPositions()
     {
         return Cargo::orderBy('namecargo', 'asc')->get();
+    }
+
+    /**
+     * Obtener todos los departamentos
+     *
+     * @return mixed
+     */
+    public function getDepartamentos()
+    {
+        return Departamento::orderBy('namedepartamento', 'asc')->get();
+    }
+
+    /**
+     * Obtener todos los tipos de identificacion
+     *
+     * @return mixed
+     */
+    public function getTipoIdentificacion()
+    {
+        return SRI_TipoIdentificacion::orderBy('nameidentificacion', 'asc')->get();
     }
 
     /**

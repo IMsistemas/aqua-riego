@@ -283,7 +283,9 @@ Route::get('empleado/getEmployees', 'Nomina\EmpleadoController@getEmployees');
 
 //Ruta devuelve todos los cargos
 Route::get('empleado/getAllPositions', 'Nomina\EmpleadoController@getAllPositions');
+
 Route::get('empleado/getDepartamentos', 'Nomina\EmpleadoController@getDepartamentos');
+
 Route::get('empleado/getTipoIdentificacion', 'Nomina\EmpleadoController@getTipoIdentificacion');
 
 Route::post('empleado/updateEmpleado/{id}', 'Nomina\EmpleadoController@updateEmpleado');
