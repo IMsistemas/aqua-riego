@@ -26,9 +26,21 @@ class CargoController extends Controller
      *
      * @return mixed
      */
-    public function getCargos()
+    public function getCargos(Request $request)
     {
-        return Cargo::orderBy('namecargo', 'asc')->get();
+        $filter = json_decode($request->get('filter'));
+
+        $search = $filter->search;
+
+        $cargo = null;
+
+        if ($search != null) {
+            $cargo = Cargo::whereRaw("cargo.namecargo LIKE '%" . $search . "%'")->orderBy('namecargo', 'asc');
+        } else {
+            $cargo = Cargo::orderBy('namecargo', 'asc');
+        }
+
+        return $cargo->paginate(1);
     }
 
     /**

@@ -6,13 +6,27 @@ app.controller('cargosController', function($scope, $http, API_URL) {
     $scope.idcargo_del = 0;
     $scope.modalstate = '';
 
-    $scope.initLoad = function(){
-        $http.get(API_URL + 'cargo/getCargos').success(function(response){
-            $scope.cargos = response;
+    $scope.pageChanged = function(newPage) {
+        $scope.initLoad(newPage);
+    };
+
+    $scope.initLoad = function(pageNumber){
+
+        if ($scope.busqueda == undefined) {
+            var search = null;
+        } else var search = $scope.busqueda;
+
+        var filtros = {
+            search: search
+        };
+
+        $http.get(API_URL + 'cargo/getCargos?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
+            $scope.cargos = response.data;
+            $scope.totalItems = response.total;
         });
     };
 
-    $scope.initLoad();
+    $scope.initLoad(1);
 
     $scope.toggle = function(modalstate, id) {
         $scope.modalstate = modalstate;
