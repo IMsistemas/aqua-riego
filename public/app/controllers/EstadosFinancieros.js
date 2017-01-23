@@ -2,7 +2,13 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     $scope.GenerarPlanCuentasTipo="E"; //Por default selecciona estado de resultados
     $scope.FechaI=first(); //Cargar por default el primer dia del año actual
     $scope.FechaF=now();  // Cargar por default el dia actual 
+    $scope.Mensaje="";  // Mensaje de validacion
+    $scope.CuentasContables=[];//Cargar las cuentas contables
 
+    $scope.TipoestadoF="E"; //Tipo estado financiero de cueta para agregar una madre
+    $scope.ConceptoCCM=""; //concepto cuenta madre
+    $scope.TipoCuenta=""; // tipo cuenta madre
+    $scope.CodigoSRICCM=""; //codigo sri
     ///---
     $scope.GenereraFiltroPlanCuentas=function(){
         var aux_fechai=$("#FechaI").val();
@@ -12,10 +18,77 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
             FechaI: convertDatetoDB(aux_fechai),
             FechaF: convertDatetoDB(aux_fechaf)
         };
-        $http.get(API_URL + 'Contabilidad/plancuentastipo/'+FiltroCuentasC)
+        $http.get(API_URL + 'estadosfinacieros/plancuentastipo/'+JSON.stringify(FiltroCuentasC))
         .success(function(response){
             console.log(response);
+            $scope.CuentasContables=response;
         });
+
+
+    };
+    ///---
+    $scope.AgregarCuentaMadre=function(){
+        $("#AddCCMadre").modal("show");
+    };
+    ///---
+    $scope.GuardarCCMadre=function(){
+        if($scope.ConceptoCCM !=""){
+            if($scope.TipoCuenta!=""){
+                $scope.SendDataSaveCCMadre();
+            }else{
+                $("#titulomsm").addClass("btn-warning");
+                $("#msm").modal("show");
+                $scope.Mensaje="Seleccione un tipo de cuenta";    
+            }
+        }else{
+            $("#titulomsm").addClass("btn-warning");
+            $("#msm").modal("show");
+            $scope.Mensaje="Agregre un concepto";
+        }
+    };
+    $scope.SendDataSaveCCMadre=function(){
+        var validacioncontrolhaber="+";
+        switch($scope.TipoCuenta){
+            case "A":
+                validacioncontrolhaber="-";
+                break;
+            case "I":
+                validacioncontrolhaber="-";
+                break;
+            default:
+                validacioncontrolhaber="+";
+                break;
+        };
+
+        var CuentaContable={
+            concepto: $scope.ConceptoCCM,
+            codigosri : $scope.CodigoSRICCM,
+            tipoestadofinanz : $scope.TipoestadoF,
+            estado: true,
+            controlhaber: validacioncontrolhaber,
+            jerarquia: "100000",
+            tipocuenta: $scope.TipoCuenta
+        };
+        $http.post(API_URL+'Contabilidad',CuentaContable)
+                .success(function (response) {
+                    console.log(response)
+                    $("#titulomsm").addClass("btn-success");
+                    $scope.Mensaje="Se guardo correctamente";
+                    $("#msm").modal("show");
+                    $scope.GenereraFiltroPlanCuentas();
+                    $scope.ClearCuentaMadre();
+                    $("#AddCCMadre").modal("hide");
+        });
+    };
+    $scope.ClearCuentaMadre=function(){
+        $scope.TipoestadoF="E"; 
+        $scope.ConceptoCCM=""; 
+        $scope.TipoCuenta=""; 
+        $scope.CodigoSRICCM=""; 
+    };
+    ///---
+    $scope.AgregarCuentahija=function(cuenta){
+        console.log(cuenta);
     };
 });
 

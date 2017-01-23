@@ -661,6 +661,8 @@ Route::resource('DocumentoVenta', 'Facturacionventa\DocumentoVenta');
 //------------Modulo documento venta---------------////
 
 //-------------------------------- Contabilidad---------------/////////
+
+Route::get('estadosfinacieros/plancuentastipo/{filtro}', 'Contabilidad\Plandecuetas@getplancuentasportipo');
 Route::resource('Contabilidad', 'Contabilidad\Plandecuetas');
-Route::get('Contabilidad/plancuentastipo/{filtro}', 'Contabilidad\Plandecuetas@getplancuentasportipo');
+
 //-------------------------------- Contabilidad---------------/////////

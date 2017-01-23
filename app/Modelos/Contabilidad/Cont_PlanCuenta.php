@@ -21,6 +21,7 @@ class Cont_PlanCuenta extends Model
         'tipoestadofinanz',
         'estado',
         'controlhaber',
-        'jerarquia'
+        'jerarquia',
+        'tipocuenta'
     ];
 }

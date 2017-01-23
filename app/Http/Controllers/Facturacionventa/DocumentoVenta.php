@@ -419,4 +419,5 @@ class DocumentoVenta extends Controller
         return $pdf->stream('documentoventa');
     }        
 
+
 }
