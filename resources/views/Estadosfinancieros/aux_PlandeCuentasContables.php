@@ -75,7 +75,7 @@
                                     <td>
                                         <button class="btn btn-primary btn-sm" ng-click="AgregarCuentahija(cuenta);"><i class="glyphicon glyphicon glyphicon-plus"></i></button>
                                         <button class="btn btn-warning btn-sm" ng-click="ModificarCuentaC(cuenta);"><i class="glyphicon glyphicon glyphicon-edit"></i></button>
-                                        <button class="btn btn-danger btn-sm" ><i class="glyphicon glyphicon glyphicon-trash"></i></button>
+                                        <button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon glyphicon-trash"></i></button>
                                     </td>
                                     <td>{{cuenta.jerarquia}}</td>
                                     <td>{{cuenta.concepto}}</td>

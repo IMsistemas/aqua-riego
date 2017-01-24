@@ -20,7 +20,6 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         };
         $http.get(API_URL + 'estadosfinacieros/plancuentastipo/'+JSON.stringify(FiltroCuentasC))
         .success(function(response){
-            console.log(response);
             $scope.CuentasContables=response;
         });
 
@@ -71,7 +70,6 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         };
         $http.post(API_URL+'Contabilidad',CuentaContable)
                 .success(function (response) {
-                    console.log(response)
                     $("#titulomsm").addClass("btn-success");
                     $scope.Mensaje="Se guardo correctamente";
                     $("#msm").modal("show");
@@ -87,9 +85,74 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         $scope.CodigoSRICCM=""; 
     };
     ///---
+    $scope.aux_cuentaMadre={};
     $scope.AgregarCuentahija=function(cuenta){
-        console.log(cuenta);
+        $scope.aux_cuentaMadre=cuenta;
+        $("#AddCCNodo").modal("show");
     };
+    $scope.GuardarCCNodo=function(){
+        if($scope.ConceptoCCM !=""){
+            $scope.SendDataSaveCCnodo();
+        }else{
+            $("#titulomsm").addClass("btn-warning");
+            $("#msm").modal("show");
+            $scope.Mensaje="Agregre un concepto";
+        }
+    };
+    $scope.SendDataSaveCCnodo=function(){
+        var CuentaContable={
+            concepto: $scope.ConceptoCCM,
+            codigosri : $scope.CodigoSRICCM,
+            tipoestadofinanz : $scope.aux_cuentaMadre.tipoestadofinanz,
+            estado: true,
+            controlhaber: $scope.aux_cuentaMadre.controlhaber,
+            jerarquia: $scope.aux_cuentaMadre.jerarquia,
+            tipocuenta: $scope.aux_cuentaMadre.tipocuenta
+        };
+        $http.post(API_URL+'Contabilidad',CuentaContable)
+                .success(function (response) {
+                    $("#titulomsm").addClass("btn-success");
+                    $scope.Mensaje="Se guardo correctamente";
+                    $("#msm").modal("show");
+                    $scope.GenereraFiltroPlanCuentas();
+                    $scope.ClearCuentaMadre();
+                    $("#AddCCNodo").modal("hide");
+        });
+        $scope.aux_cuentaMadre={};// limpiar aux cuenta madre
+    };
+    ///---
+    $scope.ModificarCuentaC=function(cuenta){
+        $("#ModifyCCNodo").modal("show");
+        $scope.aux_cuentaMadre=cuenta;
+        $scope.ConceptoCCM=$scope.aux_cuentaMadre.concepto;
+        $scope.CodigoSRICCM=$scope.aux_cuentaMadre.codigosri;
+    };
+    $scope.GuardarModificacionNodo=function(){
+        if($scope.ConceptoCCM !=""){
+            $scope.SendDataSaveModifyCCnodo();
+        }else{
+            $("#titulomsm").addClass("btn-warning");
+            $("#msm").modal("show");
+            $scope.Mensaje="Agregre un concepto";
+        }
+    };
+    $scope.SendDataSaveModifyCCnodo=function(){
+        $scope.aux_cuentaMadre.concepto=$scope.ConceptoCCM;
+        $scope.aux_cuentaMadre.codigosri=$scope.CodigoSRICCM;
+        $http.put(API_URL+'Contabilidad/'+$scope.aux_cuentaMadre.idplancuenta,$scope.aux_cuentaMadre)
+                .success(function (response) {
+                    console.log(response);
+                    $("#titulomsm").addClass("btn-success");
+                    $scope.Mensaje="Se guardo correctamente";
+                    $("#msm").modal("show");
+                    $scope.GenereraFiltroPlanCuentas();
+                    $scope.ClearCuentaMadre();
+                    $("#ModifyCCNodo").modal("hide");
+        });
+        $scope.aux_cuentaMadre={};// limpiar aux cuenta madre
+    };
+
+
 });
 
 
