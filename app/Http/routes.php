@@ -665,4 +665,7 @@ Route::resource('DocumentoVenta', 'Facturacionventa\DocumentoVenta');
 Route::get('estadosfinacieros/plancuentastipo/{filtro}', 'Contabilidad\Plandecuetas@getplancuentasportipo');
 Route::resource('Contabilidad', 'Contabilidad\Plandecuetas');
 
-//-------------------------------- Contabilidad---------------/////////
+//-------------------------------- Guía Remisión---------------/////////
+Route::resource('guiaremision', 'Guiaremision\GuiaremisionController');
+Route::get('guiaremision/getGiaremision', 'Guiaremision\GuiaremisionController@show');
+Route::get('guiaremision/getItemsVenta', 'Guiaremision\GuiaremisionController@getItemsVenta');

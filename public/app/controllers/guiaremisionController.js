@@ -1,5 +1,5 @@
 
-app.controller('guisremisionController', function($scope, $http, API_URL) {
+app.controller('guiaremisionController', function($scope, $http, API_URL) {
 
     $scope.guiaremision = [];
     $scope.idguiaremision_del = 0;
@@ -8,7 +8,7 @@ app.controller('guisremisionController', function($scope, $http, API_URL) {
     $scope.initLoad = function(){
         $http.get(API_URL + 'guiaremision/getGiaremision').success(function(response){
             console.log(response);
-            $scope.cargos = response;
+            $scope.guiaremision = response;
         });
     }
 
