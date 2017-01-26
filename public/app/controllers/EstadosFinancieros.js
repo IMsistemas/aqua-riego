@@ -151,8 +151,33 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         });
         $scope.aux_cuentaMadre={};// limpiar aux cuenta madre
     };
-
-
+    ///---
+    $scope.BorrarCuentaC=function(cuenta){
+        $scope.aux_cuentaMadre=cuenta;
+        $("#msmBorarCC").modal("show");
+    };
+    $scope.okBorrarCuenta=function(){
+        $http.get(API_URL + 'estadosfinacieros/borrarcuenta/'+JSON.stringify($scope.aux_cuentaMadre))
+        .success(function(response){
+            if(response=="Ok"){
+                $("#titulomsm").addClass("btn-success");
+                $scope.Mensaje="Se borro correctamente";
+                $("#msm").modal("show");
+                $scope.GenereraFiltroPlanCuentas();
+                $scope.ClearCuentaMadre();
+                $("#msmBorarCC").modal("hide");
+            }else{
+                $("#titulomsm").addClass("btn-danger");
+                $scope.Mensaje="Error al borrar la cuenta contable";
+                $("#msmBorarCC").modal("hide");
+                $("#msm").modal("show");
+            }
+        });
+    };
+    ///---
+    $scope.AddAsientoContable=function(){
+        $("#AddAsc").modal("show");
+    };
 });
 
 

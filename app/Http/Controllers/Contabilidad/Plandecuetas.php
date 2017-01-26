@@ -23,7 +23,7 @@ class Plandecuetas extends Controller
      * 
      */
     public function index()
-    {
+    {   
         return view('Estadosfinancieros/PlandeCuentasContables');
         //return view('Estadosfinancieros/aux_PlandeCuentasContables');
     }
@@ -62,5 +62,17 @@ class Plandecuetas extends Controller
         $aux_respuesta=Cont_PlanCuenta::where("idplancuenta","=",$id)
                         ->update($datos);
         return $aux_respuesta;
+    }
+    public function deletecuenta($filtro){
+        $filtro = json_decode($filtro);
+        $results = DB::select("SELECT count(*) as nivel FROM cont_plancuenta WHERE jerarquia ~ '".$filtro->jerarquia.".*{1}'");
+        if($results[0]->nivel=="0"){
+            //$cuenta=Cont_PlanCuenta::where("idplancuenta","=",$filtro->idplancuenta)->get();
+            $cuenta=Cont_PlanCuenta::find($filtro->idplancuenta);
+            $respuesta=$cuenta->delete();
+            return "Ok";
+        }else{
+            return "Error";
+        }
     }
 }

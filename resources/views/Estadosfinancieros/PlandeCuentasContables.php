@@ -75,7 +75,7 @@
                                     <td>
                                         <button class="btn btn-primary btn-sm" ng-click="AgregarCuentahija(cuenta);"><i class="glyphicon glyphicon glyphicon-plus"></i></button>
                                         <button class="btn btn-warning btn-sm" ng-click="ModificarCuentaC(cuenta);"><i class="glyphicon glyphicon glyphicon-edit"></i></button>
-                                        <button class="btn btn-danger btn-sm" ><i class="glyphicon glyphicon glyphicon-trash"></i></button>
+                                        <button class="btn btn-danger btn-sm"  ng-click="BorrarCuentaC(cuenta);"><i class="glyphicon glyphicon glyphicon-trash"></i></button>
                                     </td>
                                     <td>{{cuenta.jerarquia}}</td>
                                     <td>{{cuenta.concepto}}</td>
@@ -91,6 +91,12 @@
 
             <!--Registro-->
             <div class="col-xs-6">
+            <br/><br/><br/>
+              <div class="row">
+                <div class="col-xs-1">
+                  <button class="btn btn-primary" ng-click="AddAsientoContable();">Agregar  Asiento contable <i class="glyphicon glyphicon-plus"></i></button>
+                </div>
+              </div>
             </div>
 		</div>
 
@@ -241,6 +247,45 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar <i class="glyphicon glyphicon glyphicon-ban-circle"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="msmBorarCC" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header btn-danger" id="titulomsm">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Mensaje de confirmacion</h4>
+      </div>
+      <div class="modal-body">
+        <strong>Esta seguro de borrar</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar <i class="glyphicon glyphicon glyphicon-ban-circle"></i></button>
+        <button type="button" class="btn btn-primary" ng-click="okBorrarCuenta();" >Aceptar <i class="glyphicon glyphicon glyphicon-ok"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="AddAsc" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Agregar Asiento Contable</h4>
+      </div>
+      <div class="modal-body">
+    
+            
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar <i class="glyphicon glyphicon glyphicon-ban-circle"></i></button>
+        <button type="button" class="btn btn-success" ng-click="">Guardar <i class="glyphicon glyphicon glyphicon-floppy-saved"></i></button>
       </div>
     </div>
   </div>
