@@ -296,7 +296,7 @@
 
 
                             <div class="col-xs-6" style="margin-top: 5px;">
-
+                                <img class="img-thumbnail" src="img/empleado.png" alt="">
                             </div>
 
                         </form>
@@ -343,12 +343,13 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-danger" id="btn-save" ng-click="destroy()">Eliminar</button>
+                    <button type="button" class="btn btn-danger" id="btn-save" ng-click="destroy()">
+                        Eliminar<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" tabindex="-1" role="dialog" id="modalMessageError" style="z-index: 99999;">
         <div class="modal-dialog" role="document">
@@ -363,8 +364,6 @@
             </div>
         </div>
     </div>
-
-
 
     <div class="modal fade" tabindex="-1" role="dialog" id="modalInfoEmpleado">
         <div class="modal-dialog modal-sm" role="document">

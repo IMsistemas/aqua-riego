@@ -154,7 +154,7 @@ class EmpleadoController extends Controller
      */
     public function show($id)
     {
-        return Empleado::with('cargo')->where('documentoidentidadempleado', $id) ->get();
+        return Empleado::with('persona', 'cargo')->where('idempleado', $id) ->get();
     }
 
     /**

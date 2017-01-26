@@ -126,18 +126,19 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                 break;
 
             case 'info':
-                $scope.name_employee = item.apellido + ' ' + item.nombre;
-                $scope.cargo_employee = item.nombrecargo;
+
+                $scope.name_employee = item.complete_name;
+                $scope.cargo_employee = item.namecargo;
                 $scope.date_registry_employee = convertDatetoDB(item.fechaingreso, true);
                 //$scope.date_registry_employee = response[0].fechaingreso;
-                $scope.phones_employee = item.telefonoprincipal + '/' + item.telefonosecundario;
-                $scope.cel_employee = item.celular;
-                $scope.address_employee = item.direccion;
-                $scope.email_employee = item.correo;
+                $scope.phones_employee = item.telefprincipaldomicilio + '/' + item.telefsecundariodomicilio;
+                $scope.cel_employee = item.celphone;
+                $scope.address_employee = item.direcciondomicilio;
+                $scope.email_employee = item.email;
                 $scope.salario_employee = item.salario;
 
-                if (item.foto != null && item.foto != ''){
-                    $scope.url_foto = item.foto;
+                if (item.rutafoto != null && item.rutafoto != ''){
+                    $scope.url_foto = item.rutafoto;
                 } else {
                     $scope.url_foto = 'img/empleado.png';
                 }
@@ -205,13 +206,13 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
     $scope.showModalConfirm = function(item){
         $scope.empleado_del = item.idempleado;
-        $scope.empleado_seleccionado = item.nombre + ' ' + item.apellido;
+        $scope.empleado_seleccionado = item.namepersona + ' ' + item.lastnamepersona;
         $('#modalConfirmDelete').modal('show');
     };
 
     $scope.destroy = function(){
         $http.delete(API_URL + 'empleado/' + $scope.empleado_del).success(function(response) {
-            $scope.initLoad();
+            $scope.initLoad(1);
             $('#modalConfirmDelete').modal('hide');
             $scope.empleado_del = 0;
             $scope.message = 'Se eliminó correctamente el Colaborador seleccionado';
