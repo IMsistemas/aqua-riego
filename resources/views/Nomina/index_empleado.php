@@ -287,7 +287,7 @@
                                 <div class="col-xs-12" style="margin-top: 5px;">
                                     <div class="input-group">
                                         <span class="input-group-addon">C. Contab.: </span>
-                                        <input type="text" class="form-control" name="cuenta_employee" id="cuenta_employee" ng-model="cuenta_employee" placeholder="">
+                                        <input type="text" class="form-control" name="cuenta_employee" id="cuenta_employee" ng-model="cuenta_employee" placeholder="" readonly>
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-pcc" ng-click="showPlanCuenta()">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -421,18 +421,20 @@
                             <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                                 <thead class="bg-primary">
                                 <tr>
-                                    <th>ORDEN</th>
+                                    <th style="width: 15%;">ORDEN</th>
                                     <th>CONCEPTO</th>
-                                    <th>COD. SRI</th>
-                                    <th></th>
+                                    <th style="width: 10%;">COD. SRI</th>
+                                    <th style="width: 4%;"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="cuentas in items" ng-cloak >
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <tr ng-repeat="item in cuentas" ng-cloak >
+                                        <td>{{item.jerarquia}}</td>
+                                        <td>{{item.concepto}}</td>
+                                        <td>{{item.codigosri}}</td>
+                                        <td>
+                                            <input type="radio" name="select_cuenta"  ng-click="click_radio(item)">
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -443,7 +445,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-primary" id="btn-ok" ng-click="">
+                    <button type="button" class="btn btn-primary" id="btn-ok" ng-click="selectCuenta()">
                         Aceptar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     </button>
                 </div>

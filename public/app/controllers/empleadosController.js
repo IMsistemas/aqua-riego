@@ -6,6 +6,8 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
     $scope.idpersona = 0;
     $scope.id = 0;
 
+    $scope.select_cuenta = null;
+
     $scope.initLoad = function(verifyPosition){
 
         if (verifyPosition != undefined){
@@ -264,10 +266,23 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
     $scope.showPlanCuenta = function () {
 
         $http.get(API_URL + 'empleado/getPlanCuenta').success(function(response){
+            console.log(response);
             $scope.cuentas = response;
-            $('#modalPlanCuenta').modal();
+            $('#modalPlanCuenta').modal('show');
         });
-        
+
+    };
+
+    $scope.selectCuenta = function () {
+        var selected = $scope.select_cuenta;
+
+        $scope.cuenta_employee = selected.concepto;
+
+        $('#modalPlanCuenta').modal('hide');
+    };
+
+    $scope.click_radio = function (item) {
+        $scope.select_cuenta = item;
     };
 
     $scope.hideModalMessage = function () {

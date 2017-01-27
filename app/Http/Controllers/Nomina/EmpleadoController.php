@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Nomina;
 
+use App\Modelos\Contabilidad\Cont_PlanCuenta;
 use App\Modelos\Nomina\Cargo;
 use App\Modelos\Nomina\Departamento;
 use App\Modelos\Nomina\Empleado;
@@ -78,6 +79,13 @@ class EmpleadoController extends Controller
     {
         return SRI_TipoIdentificacion::orderBy('nameidentificacion', 'asc')->get();
     }
+
+
+    public function getPlanCuenta()
+    {
+        return Cont_PlanCuenta::orderBy('jerarquia', 'asc')->get();
+    }
+
 
     /**
      * Almacenar el recurso empleado
