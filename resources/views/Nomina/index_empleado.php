@@ -43,11 +43,11 @@
             <table class="table table-responsive table-striped table-hover table-condensed">
                 <thead class="bg-primary">
                 <tr>
-                    <th>CI/RUC</th>
-                    <th>Razon Social</th>
+                    <th>RUC / CI</th>
+                    <th>Nombre y Apellidos</th>
                     <th>Cargo</th>
-                    <th>Telefono</th>
-                    <th>Cel.</th>
+                    <th>Teléfono</th>
+                    <th>Celular</th>
                     <th style="width: 160px;">Acciones</th>
                 </tr>
                 </thead>
@@ -95,7 +95,7 @@
                     <div class="col-md-5 col-xs-12">
                         <div class="input-group">
                             <span class="input-group-addon">Fecha de Ingreso:</span>
-                            <input type="text" class="form-control" name="fechaingreso" id="fechaingreso" ng-model="fechaingreso" placeholder="" disabled>
+                            <input type="text" class="datepicker form-control" name="fechaingreso" id="fechaingreso" ng-model="fechaingreso" placeholder="" >
                         </div>
                     </div>
                     <div class="col-md-1 col-xs-12 text-right" style="padding: 0;">
@@ -295,8 +295,8 @@
 
 
 
-                            <div class="col-xs-6" style="margin-top: 5px;">
-                                <img class="img-thumbnail" src="img/empleado.png" alt="">
+                            <div class="col-xs-6 text-center" style="margin-top: 5px;">
+                                <img class="img-thumbnail" src="{{url_foto}}" alt="" style="width: 50%;">
                             </div>
 
                         </form>
