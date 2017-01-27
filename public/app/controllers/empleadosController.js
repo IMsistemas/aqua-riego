@@ -262,7 +262,12 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
     };
 
     $scope.showPlanCuenta = function () {
-        $('#modalPlanCuenta').modal();
+
+        $http.get(API_URL + 'empleado/getPlanCuenta').success(function(response){
+            $scope.cuentas = response;
+            $('#modalPlanCuenta').modal();
+        });
+        
     };
 
     $scope.hideModalMessage = function () {

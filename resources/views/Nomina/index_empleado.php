@@ -416,7 +416,28 @@
                     <h4 class="modal-title">Plan de Cuenta</h4>
                 </div>
                 <div class="modal-body">
-
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
+                                <thead class="bg-primary">
+                                <tr>
+                                    <th>ORDEN</th>
+                                    <th>CONCEPTO</th>
+                                    <th>COD. SRI</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="cuentas in items" ng-cloak >
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">

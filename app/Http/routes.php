@@ -286,6 +286,8 @@ Route::get('empleado/getAllPositions', 'Nomina\EmpleadoController@getAllPosition
 
 Route::get('empleado/getDepartamentos', 'Nomina\EmpleadoController@getDepartamentos');
 
+Route::get('empleado/getPlanCuenta', 'Nomina\EmpleadoController@getPlanCuenta');
+
 Route::get('empleado/getTipoIdentificacion', 'Nomina\EmpleadoController@getTipoIdentificacion');
 
 Route::post('empleado/updateEmpleado/{id}', 'Nomina\EmpleadoController@updateEmpleado');
