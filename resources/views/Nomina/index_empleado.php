@@ -147,7 +147,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">RUC / CI:</span>
                                         <input type="text" class="form-control" name="documentoidentidadempleado" id="documentoidentidadempleado"
-                                               ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="32" ng-minlength="10" ng-pattern="/[0-9]+/" >
+                                               ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="32" ng-pattern="/[0-9]+/" >
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$touched">La Identificación es requerido</span>
@@ -155,8 +155,7 @@
                                           ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$error.maxlength">La longitud máxima es de 32 caracteres</span>
                                     <span class="help-block error"
                                           ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$error.pattern">La Identificación debe ser solo números</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$error.minlength">La longitud mínima es de 10 caracteres</span>
+
                                 </div>
 
                             </div>
@@ -289,6 +288,12 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">C. Contab.: </span>
                                         <input type="text" class="form-control" name="cuenta_employee" id="cuenta_employee" ng-model="cuenta_employee" placeholder="">
+                                        <span class="input-group-btn" role="group">
+                                            <button type="button" class="btn btn-info" id="btn-pcc" ng-click="showPlanCuenta()">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+
                                     </div>
                                 </div>
                             </div>
@@ -398,6 +403,28 @@
                             <span style="font-weight: bold">Salario: </span>{{salario_employee}}
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalPlanCuenta">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Plan de Cuenta</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-ok" ng-click="">
+                        Aceptar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </button>
                 </div>
             </div>
         </div>

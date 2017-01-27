@@ -108,7 +108,7 @@ class EmpleadoController extends Controller
         $persona->lastnamepersona = $request->input('apellidos');
         $persona->namepersona = $request->input('nombres');
         $persona->numdocidentific = $request->input('documentoidentidadempleado');
-        $persona->fechaingreso = $request->input('fechaingreso');
+
         $persona->email = $request->input('correo');
         $persona->celphone = $request->input('celular');
         $persona->idtipoidentificacion = $request->input('tipoidentificacion');
@@ -120,7 +120,7 @@ class EmpleadoController extends Controller
             $empleado->iddepartamento = $request->input('departamento');
             $empleado->idplancuenta = $request->input('cuentacontable');
             $empleado->estado = true;
-
+            $empleado->fechaingreso = $request->input('fechaingreso');
             $empleado->telefprincipaldomicilio = $request->input('telefonoprincipaldomicilio');
             $empleado->telefsecundariodomicilio = $request->input('telefonosecundariodomicilio');
             $empleado->direcciondomicilio = $request->input('direcciondomicilio');
@@ -232,22 +232,22 @@ class EmpleadoController extends Controller
 
         }
 
-        $persona = new Persona();
+        $persona = Persona::find($request->input('idpersona'));;
         $persona->lastnamepersona = $request->input('apellidos');
         $persona->namepersona = $request->input('nombres');
         $persona->numdocidentific = $request->input('documentoidentidadempleado');
-        $persona->fechaingreso = $request->input('fechaingreso');
         $persona->email = $request->input('correo');
         $persona->celphone = $request->input('celular');
         $persona->idtipoidentificacion = $request->input('tipoidentificacion');
 
         if ($persona->save()) {
-            $empleado = new Empleado();
-            $empleado->idpersona = $persona->idpersona;
+            $empleado = Empleado::find($id);
+            //$empleado->idpersona = $persona->idpersona;
             $empleado->idcargo = $request->input('idcargo');
             $empleado->iddepartamento = $request->input('departamento');
             $empleado->idplancuenta = $request->input('cuentacontable');
-            $empleado->estado = true;
+            //$empleado->estado = true;
+            $empleado->fechaingreso = $request->input('fechaingreso');
 
             $empleado->telefprincipaldomicilio = $request->input('telefonoprincipaldomicilio');
             $empleado->telefsecundariodomicilio = $request->input('telefonosecundariodomicilio');

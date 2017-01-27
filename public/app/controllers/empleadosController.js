@@ -3,6 +3,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
     $scope.empleados = [];
     $scope.empleado_del = 0;
+    $scope.idpersona = 0;
     $scope.id = 0;
 
     $scope.initLoad = function(verifyPosition){
@@ -12,7 +13,6 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         }
 
         $http.get(API_URL + 'empleado/getEmployees').success(function(response){
-            console.log(response);
             var longitud = response.length;
             for (var i = 0; i < longitud; i++) {
                 var complete_name = {
@@ -128,9 +128,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                     }
                     $scope.idcargos = array_temp;
 
-                    console.log(item);
-
-                    // $scope.fechaingreso = item.fechaingreso;
+                     // $scope.fechaingreso = item.fechaingreso;
 
                     $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
                     $scope.documentoidentidadempleado = item.numdocidentific;
@@ -143,6 +141,8 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                     $scope.direccion = item.direcciondomicilio;
                     $scope.correo = item.email;
                     $scope.salario = item.salario;
+
+                    $scope.idpersona = item.idpersona;
 
                     if (item.rutafoto != null && item.rutafoto != ''){
                         $scope.url_foto = item.rutafoto;
@@ -196,10 +196,12 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
         if ($scope.modalstate == 'edit'){
             url += "/updateEmpleado/" + $scope.id;
-            //method = 'PUT';
         }
+
+        var fechaingreso = $('#fechaingreso').val();
+
         var data ={
-            fechaingreso: convertDatetoDB($scope.fechaingreso),
+            fechaingreso: convertDatetoDB(fechaingreso),
             idcargo: $scope.idcargo,
             apellidos: $scope.apellido,
             nombres: $scope.nombre,
@@ -212,6 +214,8 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             file: $scope.file,
             documentoidentidadempleado: $scope.documentoidentidadempleado,
 
+            idpersona:  $scope.idpersona,
+
             departamento: $scope.departamento,
             tipoidentificacion: $scope.tipoidentificacion,
             cuentacontable: $scope.cuenta_employee
@@ -222,11 +226,9 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             method: method,
             data: data
         }).success(function(data, status, headers, config) {
-            console.log(data);
-            console.log(status);
-            console.log(headers);
-            console.log(config);
             if (data.success == true) {
+                $scope.idpersona = 0;
+
                 $scope.initLoad();
                 $scope.message = 'Se guardó correctamente la información del Colaborador...';
                 $('#modalAction').modal('hide');
@@ -259,6 +261,9 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         });
     };
 
+    $scope.showPlanCuenta = function () {
+        $('#modalPlanCuenta').modal();
+    };
 
     $scope.hideModalMessage = function () {
         setTimeout("$('#modalMessage').modal('hide')", 3000);
