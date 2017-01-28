@@ -271,6 +271,44 @@
 </div>
 
 
+
+<div class="modal fade" id="BuscarCuentaContable" style="z-index: 5000;" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header btn-primary" id="titulomsm">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Plan de cuentas contables</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <table class="table table-bordered table-condensed">
+              <thead>
+                <tr class="btn-primary">
+                  <th></th>
+                  <th>Descripción</th>
+                  <th>Codigo SRI</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar <i class="glyphicon glyphicon glyphicon-ban-circle"></i></button>
+        <button type="button" class="btn btn-primary" ng-click="AsignarCuentaContable();" >Aceptar <i class="glyphicon glyphicon glyphicon-ok"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 <div class="modal fade" id="AddAsc" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -279,8 +317,93 @@
         <h4 class="modal-title">Agregar Asiento Contable</h4>
       </div>
       <div class="modal-body">
-    
-            
+      
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="input-group">
+            <span class="input-group-addon">Fecha : </span>
+            <input type="type" class="form-control datepicker  input-sm" id="FechaIASC" ng-model="FechaIASC">
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="input-group">
+            <span class="input-group-addon">Transacción: </span>
+            <select class="form-control">
+              <option></option>
+            </select>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="input-group">
+            <span class="input-group-addon">Numero de comprobante: </span>
+            <input type="type" class="form-control datepicker  input-sm"  ng-model="NumeroIASC">
+          </div>
+        </div>
+
+        <div class="col-xs-6">
+          <div class="input-group">
+            <span class="input-group-addon">descripción: </span>
+            <input type="type" class="form-control datepicker  input-sm"  ng-model="DescripcionASC">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-4">
+          <button ng-click="AddIntemCotable()" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <table class="table table-bordered table-condensed">
+            <thead>
+              <tr class="bg-primary">
+                <th></th>
+                <th>Cuenta</th>
+                <th>Debe</th>
+                <th>Haber</th>
+                <th>Descripción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="registro in RegistroC">
+                <td>
+                  <button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                </td>
+                <td>
+                  <div class="input-group">
+                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.CContable">
+                    <span ng-click="BuscarCuentaContable(registro);" class="btn btn-info input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                  </div>
+                </td>
+                <td>
+                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.Debe">
+                </td>
+                <td>
+                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.Haber">
+                </td>
+                <td>
+                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.Descipcion">
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="2" class="text-right"> Total: </th>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+
 
       </div>
       <div class="modal-footer">

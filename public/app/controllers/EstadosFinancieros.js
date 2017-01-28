@@ -9,6 +9,10 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     $scope.ConceptoCCM=""; //concepto cuenta madre
     $scope.TipoCuenta=""; // tipo cuenta madre
     $scope.CodigoSRICCM=""; //codigo sri
+
+    $scope.FechaIASC=now(); //Cargar por default el primer dia del año actual
+
+    $scope.RegistroC=[];
     ///---
     $scope.GenereraFiltroPlanCuentas=function(){
         var aux_fechai=$("#FechaI").val();
@@ -177,6 +181,21 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     ///---
     $scope.AddAsientoContable=function(){
         $("#AddAsc").modal("show");
+    };
+    ///---
+    $scope.AddIntemCotable=function(){
+        var item={
+            IdContable:"",
+            CContable:"",
+            Debe:0,
+            Haber:0,
+            Descipcion:""
+        };
+        $scope.RegistroC.push(item);
+    };
+    ///---
+    $scope.BuscarCuentaContable=function(){
+        $("#BuscarCuentaContable").modal("show");
     };
 });
 
