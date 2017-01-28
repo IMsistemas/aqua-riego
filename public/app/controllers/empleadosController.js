@@ -90,6 +90,9 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                     $scope.fechaingreso = fecha();
 
+                    $scope.cuenta_employee = '';
+                    $scope.select_cuenta = null;
+
                     $scope.form_title = "Ingresar Nuevo Colaborador";
 
                     $scope.url_foto = 'img/empleado.png';
@@ -132,6 +135,8 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                      // $scope.fechaingreso = item.fechaingreso;
 
+                    console.log(item);
+
                     $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
                     $scope.documentoidentidadempleado = item.numdocidentific;
                     $scope.idcargo = item.idcargo;
@@ -155,7 +160,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                     $scope.departamento = item.iddepartamento;
 
-                    $scope.cuenta_employee = item.idplancuenta;
+                    $scope.cuenta_employee = item.concepto;
 
                     $scope.tipoidentificacion = item.idtipoidentificacion;
 
@@ -220,7 +225,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
             departamento: $scope.departamento,
             tipoidentificacion: $scope.tipoidentificacion,
-            cuentacontable: $scope.cuenta_employee
+            cuentacontable: $scope.select_cuenta.idplancuenta
         };
 
         Upload.upload({

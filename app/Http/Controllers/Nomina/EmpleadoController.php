@@ -41,7 +41,8 @@ class EmpleadoController extends Controller
         $employees = Empleado::join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
                                 ->join('departamento', 'departamento.iddepartamento', '=', 'empleado.iddepartamento')
                                 ->join('cargo', 'cargo.idcargo', '=', 'empleado.idcargo')
-                                ->select('empleado.*', 'departamento.namedepartamento', 'cargo.namecargo', 'persona.*')
+                                ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'empleado.idplancuenta')
+                                ->select('empleado.*', 'departamento.namedepartamento', 'cargo.namecargo', 'persona.*', 'cont_plancuenta.*')
                                 ->orderBy('fechaingreso', 'asc')->get();
 
         return $employees;

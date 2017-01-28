@@ -147,15 +147,12 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">RUC / CI:</span>
                                         <input type="text" class="form-control" name="documentoidentidadempleado" id="documentoidentidadempleado"
-                                               ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="32" ng-pattern="/[0-9]+/" >
+                                               ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="13" >
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$touched">La Identificación es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$error.maxlength">La longitud máxima es de 32 caracteres</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$error.pattern">La Identificación debe ser solo números</span>
-
+                                          ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$error.maxlength">La longitud máxima es de 13 caracteres</span>
                                 </div>
 
                             </div>
@@ -287,7 +284,8 @@
                                 <div class="col-xs-12" style="margin-top: 5px;">
                                     <div class="input-group">
                                         <span class="input-group-addon">C. Contab.: </span>
-                                        <input type="text" class="form-control" name="cuenta_employee" id="cuenta_employee" ng-model="cuenta_employee" placeholder="" readonly>
+                                        <input type="text" class="form-control" name="cuenta_employee" id="cuenta_employee" ng-model="cuenta_employee" placeholder=""
+                                               ng-required="true" readonly>
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-pcc" ng-click="showPlanCuenta()">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -295,6 +293,8 @@
                                         </span>
 
                                     </div>
+                                    <span class="help-block error"
+                                          ng-show="formEmployee.cuenta_employee.$error.required">La asignación de una cuenta es requerida</span>
                                 </div>
                             </div>
 
