@@ -27,7 +27,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr dir-paginate="cargo in cargos | orderBy:sortKey:reverse | itemsPerPage:1" total-items="totalItems" ng-cloak">
+                    <tr dir-paginate="cargo in cargos | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
                         <td>{{cargo.namecargo}}</td>
                         <td class="text-center">
                             <button type="button" class="btn btn-warning" ng-click="toggle('edit', cargo.idcargo)">
@@ -47,7 +47,7 @@
                         template-url="dirPagination.html"
 
                         class="pull-right"
-                        max-size="1"
+                        max-size="10"
                         direction-links="true"
                         boundary-links="true" >
 

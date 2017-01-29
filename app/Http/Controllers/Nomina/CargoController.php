@@ -40,7 +40,7 @@ class CargoController extends Controller
             $cargo = Cargo::orderBy('namecargo', 'asc');
         }
 
-        return $cargo->paginate(1);
+        return $cargo->paginate(10);
     }
 
     /**
