@@ -138,49 +138,51 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                     }
                     $scope.idtipoidentificacion = array_temp;
                     $scope.tipoidentificacion = 0;
+
+                    $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
+                        var longitud = response.length;
+                        var array_temp = [];
+                        for(var i = 0; i < longitud; i++){
+                            array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
+                        }
+                        $scope.idcargos = array_temp;
+
+                        $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
+                        $scope.documentoidentidadempleado = item.numdocidentific;
+
+                        $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', item.numdocidentific);
+
+                        $scope.idcargo = item.idcargo;
+                        $scope.apellido = item.lastnamepersona;
+                        $scope.nombre = item.namepersona;
+                        $scope.telefonoprincipal = item.telefprincipaldomicilio;
+                        $scope.telefonosecundario = item.telefsecundariodomicilio;
+                        $scope.celular = item.celphone;
+                        $scope.direccion = item.direcciondomicilio;
+                        $scope.correo = item.email;
+                        $scope.salario = item.salario;
+
+                        $scope.idpersona = item.idpersona;
+
+                        if (item.rutafoto != null && item.rutafoto != ''){
+                            $scope.url_foto = item.rutafoto;
+                        } else {
+                            $scope.url_foto = 'img/empleado.png';
+                        }
+
+
+                        $scope.departamento = item.iddepartamento;
+
+                        $scope.cuenta_employee = item.concepto;
+
+                        $scope.tipoidentificacion = item.idtipoidentificacion;
+
+                        $('#modalAction').modal('show');
+                    });
+
                 });
 
-                $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
-                    var longitud = response.length;
-                    var array_temp = [];
-                    for(var i = 0; i < longitud; i++){
-                        array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
-                    }
-                    $scope.idcargos = array_temp;
 
-                     // $scope.fechaingreso = item.fechaingreso;
-
-                    console.log(item);
-
-                    $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
-                    $scope.documentoidentidadempleado = item.numdocidentific;
-                    $scope.idcargo = item.idcargo;
-                    $scope.apellido = item.lastnamepersona;
-                    $scope.nombre = item.namepersona;
-                    $scope.telefonoprincipal = item.telefprincipaldomicilio;
-                    $scope.telefonosecundario = item.telefsecundariodomicilio;
-                    $scope.celular = item.celphone;
-                    $scope.direccion = item.direcciondomicilio;
-                    $scope.correo = item.email;
-                    $scope.salario = item.salario;
-
-                    $scope.idpersona = item.idpersona;
-
-                    if (item.rutafoto != null && item.rutafoto != ''){
-                        $scope.url_foto = item.rutafoto;
-                    } else {
-                        $scope.url_foto = 'img/empleado.png';
-                    }
-
-
-                    $scope.departamento = item.iddepartamento;
-
-                    $scope.cuenta_employee = item.concepto;
-
-                    $scope.tipoidentificacion = item.idtipoidentificacion;
-
-                    $('#modalAction').modal('show');
-                });
                 break;
 
             case 'info':
@@ -332,7 +334,6 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             else return true;
         }
     };
-
 
     $scope.initLoad(true);
 
