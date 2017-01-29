@@ -88,6 +88,15 @@ class EmpleadoController extends Controller
     }
 
 
+    public function getIdentify($identify)
+    {
+        return Persona::whereRaw("numdocidentific::text ILIKE '%" . $identify . "%'")
+                        ->whereRaw('idpersona NOT IN (SELECT idpersona FROM empleado)')
+                        ->get();
+    }
+
+
+
     /**
      * Almacenar el recurso empleado
      *

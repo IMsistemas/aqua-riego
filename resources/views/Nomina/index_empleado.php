@@ -88,6 +88,7 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="modalAction">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
+                <form class="form-horizontal" name="formEmployee" novalidate="">
                 <div class="modal-header modal-header-primary">
                     <div class="col-md-6 col-xs-12">
                         <h4 class="modal-title">{{form_title}}</h4>
@@ -95,8 +96,10 @@
                     <div class="col-md-5 col-xs-12">
                         <div class="input-group">
                             <span class="input-group-addon">Fecha de Ingreso:</span>
-                            <input type="text" class="datepicker form-control" name="fechaingreso" id="fechaingreso" ng-model="fechaingreso" placeholder="" >
+                            <input type="text" class="datepicker form-control" name="fechaingreso" id="fechaingreso" ng-model="fechaingreso" ng-required="true">
                         </div>
+                        <span class="help-block error"
+                              ng-show="formEmployee.fechaingreso.$invalid && formEmployee.fechaingreso.$touched">La Fecha de Ingreso es requerida</span>
                     </div>
                     <div class="col-md-1 col-xs-12 text-right" style="padding: 0;">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -105,7 +108,7 @@
                 <div class="modal-body">
 
                     <div class="row">
-                        <form class="form-horizontal" name="formEmployee" novalidate="">
+
 
                             <div class="col-xs-12">
                                 <div class="col-md-6 col-xs-12">
@@ -146,8 +149,29 @@
                                 <div class="col-md-6 col-xs-12">
                                     <div class="input-group">
                                         <span class="input-group-addon">RUC / CI:</span>
-                                        <input type="text" class="form-control" name="documentoidentidadempleado" id="documentoidentidadempleado"
-                                               ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="13" >
+                                        <!--<input type="text" class="form-control" name="documentoidentidadempleado" id="documentoidentidadempleado"
+                                               ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="13" > -->
+
+                                        <angucomplete-alt
+                                                id = "documentoidentidadempleado"
+                                                pause = "400"
+                                                selected-object = "showDataPurchase"
+
+                                                remote-url = "{{API_URL}}empleado/getIdentify/"
+
+                                                title-field="numdocidentific"
+
+                                                minlength="1"
+                                                input-class="form-control"
+                                                match-class="highlight"
+                                                field-required="true"
+                                                input-name="documentoidentidadempleado"
+                                                disable-input="guardado"
+                                                text-searching="Buscando Identificaciones Personas"
+                                                text-no-results="Persona no encontrada"
+
+                                        />
+
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$touched">La Identificación es requerido</span>

@@ -44,6 +44,21 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         });
     };
 
+    $scope.showDataPurchase = function (object) {
+
+        if (object.originalObject != undefined) {
+
+            $scope.documentoidentidadempleado = object.originalObject.numdocidentific;
+            $scope.apellido = object.originalObject.lastnamepersona;
+            $scope.nombre = object.originalObject.namepersona;
+            $scope.celular = object.originalObject.celphone;
+            $scope.correo = object.originalObject.email;
+            $scope.tipoidentificacion = object.originalObject.idtipoidentificacion;
+            $scope.idpersona = object.originalObject.idpersona;
+        }
+
+    };
+
     $scope.toggle = function(modalstate, item) {
         $scope.modalstate = modalstate;
         switch (modalstate) {
