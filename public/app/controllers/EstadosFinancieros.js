@@ -185,8 +185,8 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     ///---
     $scope.AddIntemCotable=function(){
         var item={
-            IdContable:"",
-            CContable:"",
+            idplancuenta:"",
+            concepto:"",
             Debe:0,
             Haber:0,
             Descipcion:""
@@ -194,8 +194,24 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         $scope.RegistroC.push(item);
     };
     ///---
-    $scope.BuscarCuentaContable=function(){
-        $("#BuscarCuentaContable").modal("show");
+    $scope.aux_plancuentas=[];
+    $scope.aux_cuentabuscar={};
+    $scope.BuscarCuentaContable=function(registro){
+        $scope.aux_cuentabuscar=registro;
+        $("#PlanContable").modal("show");
+        $http.get(API_URL + 'estadosfinacieros/plancontabletotal')
+        .success(function(response){
+            console.log(response);
+            $scope.aux_plancuentas=response;
+        });
+    };
+    $scope.AsignarCuentaContable=function(cuenta){
+        $scope.aux_cuentabuscar.idplancuenta=cuenta.idplancuenta;
+        $scope.aux_cuentabuscar.concepto=cuenta.concepto;
+        $("#PlanContable").modal("hide");
+    };
+    $scope.AsientoContable=function(){
+        console.log($scope.RegistroC);
     };
 });
 

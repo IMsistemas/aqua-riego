@@ -21,7 +21,9 @@ class Cont_RegistroContable extends Model
         'fecha',
         'descripcion',
         'debe',
-        'haber'
+        'haber',
+        'debe_c',
+        'haber_c'
     ];
 	public function cont_transaccion()
     {

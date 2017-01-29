@@ -666,6 +666,8 @@ Route::resource('DocumentoVenta', 'Facturacionventa\DocumentoVenta');
 
 Route::get('estadosfinacieros/plancuentastipo/{filtro}', 'Contabilidad\Plandecuetas@getplancuentasportipo');
 Route::get('estadosfinacieros/borrarcuenta/{filtro}', 'Contabilidad\Plandecuetas@deletecuenta');
+Route::get('estadosfinacieros/plancontabletotal', 'Contabilidad\Plandecuetas@plancontabletotal');
+
 Route::resource('Contabilidad', 'Contabilidad\Plandecuetas');
 
 //-------------------------------- Guía Remisión---------------/////////

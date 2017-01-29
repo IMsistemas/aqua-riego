@@ -272,7 +272,7 @@
 
 
 
-<div class="modal fade" id="BuscarCuentaContable" style="z-index: 5000;" tabindex="-1" role="dialog">
+<div class="modal fade" id="PlanContable" style="z-index: 5000;" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header btn-primary" id="titulomsm">
@@ -292,7 +292,14 @@
                 </tr>
               </thead>
               <tbody>
-                
+                <tr ng-repeat="cuenta in aux_plancuentas">
+                  <td>{{cuenta.jerarquia}}</td>
+                  <td>{{cuenta.concepto}}</td>
+                  <td>{{cuenta.codigosri}}</td>
+                  <td>
+                      <input ng-show="cuenta.madreohija=='1' " ng-hide="cuenta.madreohija!='1' " type="checkbox" name="" ng-click="AsignarCuentaContable(cuenta);">
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -377,7 +384,8 @@
                 </td>
                 <td>
                   <div class="input-group">
-                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.CContable">
+                    <input type="hidden" class="form-control datepicker  input-sm"  ng-model="registro.idplancuenta">
+                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.concepto" readonly>
                     <span ng-click="BuscarCuentaContable(registro);" class="btn btn-info input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                   </div>
                 </td>
@@ -408,7 +416,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar <i class="glyphicon glyphicon glyphicon-ban-circle"></i></button>
-        <button type="button" class="btn btn-success" ng-click="">Guardar <i class="glyphicon glyphicon glyphicon-floppy-saved"></i></button>
+        <button type="button" class="btn btn-success" ng-click="AsientoContable();">Guardar <i class="glyphicon glyphicon glyphicon-floppy-saved"></i></button>
       </div>
     </div>
   </div>

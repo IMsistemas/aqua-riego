@@ -75,4 +75,17 @@ class Plandecuetas extends Controller
             return "Error";
         }
     }
+    /**
+     *
+     * Plan cotable total
+     *
+     */
+    public function plancontabletotal(){
+        $aux_sqlplan="SELECT * , ";
+        $aux_sqlplan.=" (SELECT count(*)  FROM cont_plancuenta aux WHERE aux.jerarquia <@ pl.jerarquia) madreohija ";
+        $aux_sqlplan.=" FROM cont_plancuenta pl";
+        $aux_sqlplan.=" ORDER BY pl.jerarquia; ";
+        $aux_data=DB::select($aux_sqlplan);
+        return $aux_data;
+    }
 }
