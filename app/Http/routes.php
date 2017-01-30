@@ -563,6 +563,7 @@ Route::get('compras/getConfiguracion', 'Compras\CompraProductoController@getConf
 Route::get('compras/getTipoComprobante', 'Compras\CompraProductoController@getTipoComprobante');
 Route::get('compras/getSustentoTributario', 'Compras\CompraProductoController@getSustentoTributario');
 Route::get('compras/getPais', 'Compras\CompraProductoController@getPais');
+Route::get('compras/getBodegas', 'Compras\CompraProductoController@getBodegas');
 Route::get('compras/imprimir/{id}', 'Compras\CompraProductoController@imprimir');
 Route::get('compras/pdf/{id}', 'Compras\CompraProductoController@pdf');
 Route::get('compras/excel/{id}', 'Compras\CompraProductoController@excel');
