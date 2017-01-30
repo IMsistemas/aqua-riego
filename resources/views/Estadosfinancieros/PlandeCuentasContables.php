@@ -235,7 +235,7 @@
 
 
 
-<div class="modal fade" id="msm" tabindex="-1" role="dialog">
+<div class="modal fade" id="msm" style="z-index: 8000;" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header bg-primary" id="titulomsm">
@@ -335,8 +335,9 @@
         <div class="col-xs-6">
           <div class="input-group">
             <span class="input-group-addon">Transacción: </span>
-            <select class="form-control">
-              <option></option>
+            <select class="form-control" ng-model="tipotransaccion">
+              <option value="">Seleccione</option>
+              <option ng-repeat=" transaccion in listatipotransaccion" ng-value="transaccion.idtipotransaccion">{{transaccion.descripcion +" "+ transaccion.cont_tipoingresoegreso.descripcion}}</option>
             </select>
           </div>
         </div>
@@ -347,15 +348,15 @@
       <div class="row">
         <div class="col-xs-4">
           <div class="input-group">
-            <span class="input-group-addon">Numero de comprobante: </span>
-            <input type="type" class="form-control datepicker  input-sm"  ng-model="NumeroIASC">
+            <span class="input-group-addon">Numero De comprobante: </span>
+            <input type="number" class="form-control   input-sm"  ng-model="NumeroIASC">
           </div>
         </div>
 
         <div class="col-xs-6">
           <div class="input-group">
-            <span class="input-group-addon">descripción: </span>
-            <input type="type" class="form-control datepicker  input-sm"  ng-model="DescripcionASC">
+            <span class="input-group-addon">Descripción: </span>
+            <input type="type" class="form-control   input-sm"  ng-model="DescripcionASC">
           </div>
         </div>
       </div>
@@ -380,7 +381,7 @@
             <tbody>
               <tr ng-repeat="registro in RegistroC">
                 <td>
-                  <button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+                  <button class="btn btn-danger" ng-click="BorrarFilaAsientoContable(registro);"><i class="glyphicon glyphicon-trash"></i></button>
                 </td>
                 <td>
                   <div class="input-group">
@@ -390,10 +391,10 @@
                   </div>
                 </td>
                 <td>
-                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.Debe">
+                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.Debe" ng-keyup="SumarDebeHaber();">
                 </td>
                 <td>
-                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.Haber">
+                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.Haber" ng-keyup="SumarDebeHaber();">
                 </td>
                 <td>
                     <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.Descipcion">
@@ -403,8 +404,8 @@
             <tfoot>
               <tr>
                 <th colspan="2" class="text-right"> Total: </th>
-                <td></td>
-                <td></td>
+                <th>{{aux_sumdebe}}</th>
+                <th>{{aux_sumhaber}}</th>
                 <td></td>
               </tr>
             </tfoot>

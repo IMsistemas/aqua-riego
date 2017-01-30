@@ -179,8 +179,10 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         });
     };
     ///---
+    $scope.NumeroIASC="";
     $scope.AddAsientoContable=function(){
         $("#AddAsc").modal("show");
+        $scope.TipoTransaccion();
     };
     ///---
     $scope.AddIntemCotable=function(){
@@ -194,6 +196,21 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         $scope.RegistroC.push(item);
     };
     ///---
+    $scope.BorrarFilaAsientoContable=function(item){
+        var posicion= $scope.RegistroC.indexOf(item);
+         $scope.RegistroC.splice(posicion,1);
+         $scope.SumarDebeHaber();
+    };
+    ///---
+    $scope.listatipotransaccion=[];
+    $scope.tipotransaccion="";
+    $scope.TipoTransaccion=function(){
+      $http.get(API_URL + 'transacciones/alltipotransacciones')
+        .success(function(response){
+            $scope.listatipotransaccion=response;
+        });  
+    };
+    ///---
     $scope.aux_plancuentas=[];
     $scope.aux_cuentabuscar={};
     $scope.BuscarCuentaContable=function(registro){
@@ -205,13 +222,105 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
             $scope.aux_plancuentas=response;
         });
     };
+    ///---
     $scope.AsignarCuentaContable=function(cuenta){
         $scope.aux_cuentabuscar.idplancuenta=cuenta.idplancuenta;
         $scope.aux_cuentabuscar.concepto=cuenta.concepto;
         $("#PlanContable").modal("hide");
     };
+    ///---
     $scope.AsientoContable=function(){
-        console.log($scope.RegistroC);
+
+        if($scope.tipotransaccion!=""){
+            if($scope.NumeroIASC!=""){
+                if($scope.ValidaRegistriContable()==true){
+                    if($scope.ValidaDebeHaber()==true){
+                        $scope.ProcesarDatosAsientoContable();
+                    }else{
+                        $("#titulomsm").addClass("btn-warning");
+                        $scope.Mensaje="El Debe no es igual a el Haber";
+                        $("#msm").modal("show");    
+                    }
+                }else{
+                    $("#titulomsm").addClass("btn-warning");
+                    $scope.Mensaje="Transacción contable erronea";
+                    $("#msm").modal("show");    
+                }
+            }else{
+                $("#titulomsm").addClass("btn-warning");
+                $scope.Mensaje="Ingrese un número de egreo o ingreso";
+                $("#msm").modal("show");
+            }
+        }else{
+            $("#titulomsm").addClass("btn-warning");
+            $scope.Mensaje="Seleccione un tipo de transacción";
+            $("#msm").modal("show");
+        }
+    };
+    ///---
+    $scope.ProcesarDatosAsientoContable=function () {
+        var aux_fecha=convertDatetoDB($("#FechaIASC").val());
+        var Transaccion={
+            fecha: aux_fecha,
+            idtipotransaccion: $scope.tipotransaccion,
+            numcomprobante: $scope.NumeroIASC,
+            descripcion: $scope.DescripcionASC
+        };
+
+        var Contabilidad={
+            obj_transaccion: Transaccion,
+            obj_registro: $scope.RegistroC
+        };
+        console.log(Contabilidad);
+        /*$http.post(API_URL+'CoreContabilidad',Contabilidad)
+        .success(function (response) {
+            console.log(response);
+        });*/
+    };
+    ///---
+    $scope.aux_sumdebe=0.0;
+    $scope.aux_sumhaber=0.0;
+    $scope.SumarDebeHaber=function() {
+        var aux_debe=0.0;
+        var aux_haber=0.0;
+        for(x=0;x<$scope.RegistroC.length;x++){
+            if($scope.RegistroC[x].Debe!="") aux_debe+=parseFloat($scope.RegistroC[x].Debe);
+            if($scope.RegistroC[x].Haber!="") aux_haber+=parseFloat($scope.RegistroC[x].Haber);
+        }
+        $scope.aux_sumdebe=aux_debe;
+        $scope.aux_sumhaber=aux_haber;
+    };
+    ///---
+    $scope.ValidaRegistriContable=function(){
+        var aux_validacion=0;
+        for(x=0;x<$scope.RegistroC.length;x++){
+            if($scope.RegistroC[x].concepto!=""){
+                if(($scope.RegistroC[x].Debe!="0" & $scope.RegistroC[x].Haber=="0") || ($scope.RegistroC[x].Debe=="0" & $scope.RegistroC[x].Haber!="0") ){
+                     aux_validacion=1;
+                }else{
+                    aux_validacion=0;
+                    return false;
+                }
+            }else{
+                aux_validacion=0;
+                return false;
+            }
+        }
+        if(aux_validacion==1) return true;
+    };
+    ///---
+    $scope.ValidaDebeHaber=function(){
+        var aux_debe=0.0;
+        var aux_haber=0.0;
+        for(x=0;x<$scope.RegistroC.length;x++){
+            if($scope.RegistroC[x].Debe!="") aux_debe+=parseFloat($scope.RegistroC[x].Debe);
+            if($scope.RegistroC[x].Haber!="") aux_haber+=parseFloat($scope.RegistroC[x].Haber);
+        }
+        if(aux_debe==aux_haber){
+            return true;
+        }else{
+            return false;
+        }
     };
 });
 

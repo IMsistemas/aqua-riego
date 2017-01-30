@@ -664,13 +664,17 @@ Route::get('DocumentoVenta/print/{id}', 'Facturacionventa\DocumentoVenta@imprimi
 Route::resource('DocumentoVenta', 'Facturacionventa\DocumentoVenta');
 //------------Modulo documento venta---------------////
 
-//-------------------------------- Contabilidad---------------/////////
+//-------------------------------- Plan Cuentas ---------------/////////
 
 Route::get('estadosfinacieros/plancuentastipo/{filtro}', 'Contabilidad\Plandecuetas@getplancuentasportipo');
 Route::get('estadosfinacieros/borrarcuenta/{filtro}', 'Contabilidad\Plandecuetas@deletecuenta');
 Route::get('estadosfinacieros/plancontabletotal', 'Contabilidad\Plandecuetas@plancontabletotal');
 
 Route::resource('Contabilidad', 'Contabilidad\Plandecuetas');
+
+//-------------------------------- Tipo Transaccion Contable---------------/////////
+Route::get('transacciones/alltipotransacciones', 'Contabilidad\TipoTransaccion@getalltipotransacciones');
+
 
 //-------------------------------- Guía Remisión---------------/////////
 Route::resource('guiaremision', 'Guiaremision\GuiaremisionController');
