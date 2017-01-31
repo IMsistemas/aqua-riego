@@ -157,6 +157,9 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                         for(var i = 0; i < longitud; i++){
                             array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
                         }
+
+                        console.log(item);
+
                         $scope.idcargos = array_temp;
 
                         $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
@@ -182,12 +185,18 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                             $scope.url_foto = 'img/empleado.png';
                         }
 
-
                         $scope.departamento = item.iddepartamento;
 
                         $scope.cuenta_employee = item.concepto;
 
                         $scope.tipoidentificacion = item.idtipoidentificacion;
+
+                        var objectPlan = {
+                            idplancuenta: item.idplancuenta,
+                            concepto: item.concepto
+                        };
+
+                        $scope.select_cuenta = objectPlan;
 
                         $('#modalAction').modal('show');
                     });

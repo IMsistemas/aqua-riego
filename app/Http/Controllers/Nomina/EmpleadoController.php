@@ -35,7 +35,6 @@ class EmpleadoController extends Controller
      */
     public function getEmployees()
     {
-
         $employee = null;
 
         $employees = Empleado::join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
@@ -46,8 +45,6 @@ class EmpleadoController extends Controller
                                 ->orderBy('fechaingreso', 'asc')->get();
 
         return $employees;
-
-        //return Empleado::with('cargo')->orderBy('fechaingreso', 'asc')->get();
     }
 
 
@@ -160,18 +157,10 @@ class EmpleadoController extends Controller
 
             $empleado->save();
         } else {
-
+            return response()->json(['success' => false]);
         }
         return response()->json(['success' => true]);
     }
-
-
-
-
-
-
-
-
 
 
     /**
@@ -185,6 +174,7 @@ class EmpleadoController extends Controller
         return Empleado::with('persona', 'cargo')->where('idempleado', $id) ->get();
     }
 
+
     /**
      * Actualizar el recurso empleado seleccionado
      *
@@ -192,56 +182,8 @@ class EmpleadoController extends Controller
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
-    {
-
-    }
-
-
     public function updateEmpleado(Request $request, $id)
     {
-        /*$empleado1 = Empleado::where ('documentoidentidadempleado',$request->input('documentoidentidadempleado'))-> count();
-
-
-        if($empleado1 > 0) {
-            return response()->json(['success' => false]);
-        }else
-        {
-            $url_file = null;
-
-            if ($request->hasFile('file')) {
-
-                $image = $request->file('file');
-                $destinationPath = public_path() . '/uploads/empleados';
-                $name = rand(0, 9999).'_'.$image->getClientOriginalName();
-                if(!$image->move($destinationPath, $name)) {
-                    return response()->json(['success' => false]);
-                } else {
-                    $url_file = '/uploads/empleados/' . $name;
-                }
-            }
-
-            $empleado = Empleado::find($id);
-            $empleado->documentoidentidadempleado = $request->input('documentoidentidadempleado');
-            $empleado->idcargo = $request->input('idcargo');
-            $empleado->apellido = $request->input('apellidos');
-            $empleado->nombre = $request->input('nombres');
-            $empleado->telefonoprincipal = $request->input('telefonoprincipaldomicilio');
-            $empleado->telefonosecundario = $request->input('telefonosecundariodomicilio');
-            $empleado->celular = $request->input('celular');
-            $empleado->direccion = $request->input('direcciondomicilio');
-            $empleado->correo = $request->input('correo');
-            $empleado->salario = $request->input('salario');
-
-            if ($url_file != null) {
-                $empleado->foto = $url_file;
-            }
-
-            $empleado->save();
-
-            return response()->json(['success' => true, 'request' => $request]);
-        }*/
-
 
         $url_file = null;
 
@@ -288,13 +230,12 @@ class EmpleadoController extends Controller
 
             $empleado->save();
         } else {
-
+            return response()->json(['success' => false]);
         }
         return response()->json(['success' => true]);
 
-
-
     }
+
 
     /**
      * Eliminar el recurso empleado seleccionado
