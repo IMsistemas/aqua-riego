@@ -8,6 +8,11 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
     $scope.select_cuenta = null;
 
+    $scope.objectPerson = {
+        idperson: 0,
+        identify: ''
+    };
+
     $scope.initLoad = function(verifyPosition){
 
         if (verifyPosition != undefined){
@@ -46,7 +51,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
     $scope.showDataPurchase = function (object) {
 
-        if (object.originalObject != undefined) {
+        if (object != undefined && object.originalObject != undefined) {
 
             $scope.documentoidentidadempleado = object.originalObject.numdocidentific;
             $scope.apellido = object.originalObject.lastnamepersona;
@@ -55,6 +60,11 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             $scope.correo = object.originalObject.email;
             $scope.tipoidentificacion = object.originalObject.idtipoidentificacion;
             $scope.idpersona = object.originalObject.idpersona;
+
+            $scope.objectPerson = {
+                idperson: object.originalObject.idpersona,
+                identify: object.originalObject.numdocidentific
+            };
         }
 
     };
@@ -66,34 +76,36 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                 $http.get(API_URL + 'empleado/getDepartamentos').success(function(response){
                     var longitud = response.length;
-                    var array_temp = [{label: '-- Seleccione --', id: 0}];
+                    var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
                         array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento})
                     }
                     $scope.iddepartamentos = array_temp;
-                    $scope.departamento = 0;
+                    $scope.departamento = '';
                 });
 
                 $http.get(API_URL + 'empleado/getTipoIdentificacion').success(function(response){
                     var longitud = response.length;
-                    var array_temp = [{label: '-- Seleccione --', id: 0}];
+                    var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
                         array_temp.push({label: response[i].nameidentificacion, id: response[i].idtipoidentificacion})
                     }
                     $scope.idtipoidentificacion = array_temp;
-                    $scope.tipoidentificacion = 0;
+                    $scope.tipoidentificacion = '';
                 });
 
                 $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
                     var longitud = response.length;
-                    var array_temp = [{label: '-- Seleccione --', id: 0}];
+                    var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
                         array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
                     }
                     $scope.idcargos = array_temp;
-                    $scope.idcargo = 0;
+                    $scope.idcargo = '';
 
                     $scope.documentoidentidadempleado = '';
+                    $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', '');
+
                     $scope.apellido = '';
                     $scope.nombre = '';
                     $scope.telefonoprincipal = '';
@@ -122,22 +134,22 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                 $http.get(API_URL + 'empleado/getDepartamentos').success(function(response){
                     var longitud = response.length;
-                    var array_temp = [{label: '-- Seleccione --', id: 0}];
+                    var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
                         array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento})
                     }
                     $scope.iddepartamentos = array_temp;
-                    $scope.departamento = 0;
+                    $scope.departamento = '';
                 });
 
                 $http.get(API_URL + 'empleado/getTipoIdentificacion').success(function(response){
                     var longitud = response.length;
-                    var array_temp = [{label: '-- Seleccione --', id: 0}];
+                    var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
                         array_temp.push({label: response[i].nameidentificacion, id: response[i].idtipoidentificacion})
                     }
                     $scope.idtipoidentificacion = array_temp;
-                    $scope.tipoidentificacion = 0;
+                    $scope.tipoidentificacion = '';
 
                     $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
                         var longitud = response.length;
@@ -214,6 +226,30 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         }
     };
 
+    $scope.focusOut = function () {
+
+        if ($scope.documentoidentidadempleado != null && $scope.documentoidentidadempleado != '' && $scope.documentoidentidadempleado != undefined) {
+            $http.get(API_URL + 'empleado/getPersonaByIdentify/' + $scope.documentoidentidadempleado).success(function(response){
+
+                var longitud = response.length;
+
+                if (longitud > 0) {
+                    $scope.idpersona = response[0].idpersona;
+                } else {
+                    $scope.idpersona = 0;
+                }
+
+            });
+
+            $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', $scope.documentoidentidadempleado);
+        }
+
+    };
+
+    $scope.inputChanged = function (str) {
+        $scope.documentoidentidadempleado = str;
+    };
+
     $scope.save = function() {
         var url = API_URL + "empleado";
         var method = 'POST';
@@ -245,6 +281,8 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             cuentacontable: $scope.select_cuenta.idplancuenta
         };
 
+        console.log(data);
+
         Upload.upload({
             url: url,
             method: method,
@@ -252,6 +290,11 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         }).success(function(data, status, headers, config) {
             if (data.success == true) {
                 $scope.idpersona = 0;
+
+                $scope.objectPerson = {
+                    idperson: 0,
+                    identify: ''
+                };
 
                 $scope.initLoad();
                 $scope.message = 'Se guardó correctamente la información del Colaborador...';

@@ -292,6 +292,8 @@ Route::get('empleado/getTipoIdentificacion', 'Nomina\EmpleadoController@getTipoI
 
 Route::get('empleado/getIdentify/{identify}', 'Nomina\EmpleadoController@getIdentify');
 
+Route::get('empleado/getPersonaByIdentify/{identify}', 'Nomina\EmpleadoController@getPersonaByIdentify');
+
 Route::post('empleado/updateEmpleado/{id}', 'Nomina\EmpleadoController@updateEmpleado');
 
 Route::resource('/empleado', 'Nomina\EmpleadoController');

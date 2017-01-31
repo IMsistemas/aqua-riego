@@ -115,17 +115,19 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Departamento: </span>
                                         <select class="form-control" name="departamento" id="departamento" ng-model="departamento"
-                                                ng-options="value.id as value.label for value in iddepartamentos" ng-required="true"></select>
+                                                ng-options="value.id as value.label for value in iddepartamentos" required></select>
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.departamento.$invalid && formEmployee.departamento.$touched">El Departamento es requerido</span>
+                                    <!--<span class="help-block error"
+                                          ng-show="formEmployee.departamento.$invalid && formEmployee.departamento.$error.pattern">Seleccione un Departamento</span>-->
                                 </div>
 
                                 <div class="col-md-6 col-xs-12">
                                     <div class="input-group">
                                         <span class="input-group-addon">Cargo: </span>
                                         <select class="form-control" name="idcargo" id="idcargo" ng-model="idcargo"
-                                                ng-options="value.id as value.label for value in idcargos" ng-required="true"></select>
+                                                ng-options="value.id as value.label for value in idcargos" required></select>
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.idcargo.$invalid && formEmployee.idcargo.$touched">El Cargo es requerido</span>
@@ -139,7 +141,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Tipo Identificación: </span>
                                         <select class="form-control" name="tipoidentificacion" id="tipoidentificacion" ng-model="tipoidentificacion"
-                                                ng-options="value.id as value.label for value in idtipoidentificacion" ng-required="true"></select>
+                                                ng-options="value.id as value.label for value in idtipoidentificacion" required></select>
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.tipoidentificacion.$invalid && formEmployee.tipoidentificacion.$touched">El Tipo de Identificación es requerido</span>
@@ -154,15 +156,20 @@
 
                                         <angucomplete-alt
                                                 id = "documentoidentidadempleado"
-                                                pause = "400"
+                                                pause = "200"
                                                 selected-object = "showDataPurchase"
 
+                                                input-changed="inputChanged"
+
                                                 remote-url = "{{API_URL}}empleado/getIdentify/"
+
+                                                focus-out="focusOut()"
+
 
                                                 title-field="numdocidentific"
 
                                                 minlength="1"
-                                                input-class="form-control"
+                                                input-class="form-control form-control-small small-input"
                                                 match-class="highlight"
                                                 field-required="true"
                                                 input-name="documentoidentidadempleado"
@@ -170,7 +177,7 @@
                                                 text-searching="Buscando Identificaciones Personas"
                                                 text-no-results="Persona no encontrada"
 
-                                        />
+                                        > </angucomplete-alt>
 
                                     </div>
                                     <span class="help-block error"

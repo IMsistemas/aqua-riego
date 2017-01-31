@@ -95,6 +95,11 @@ class EmpleadoController extends Controller
                         ->get();
     }
 
+    public function getPersonaByIdentify($identify)
+    {
+        return Persona::whereRaw("numdocidentific::text ILIKE '%" . $identify . "%'")->get();
+    }
+
 
 
     /**
@@ -122,7 +127,12 @@ class EmpleadoController extends Controller
 
         }
 
-        $persona = new Persona();
+        if ($request->input('idpersona') == 0) {
+            $persona = new Persona();
+        } else {
+            $persona = Persona::find($request->input('idpersona'));
+        }
+
         $persona->lastnamepersona = $request->input('apellidos');
         $persona->namepersona = $request->input('nombres');
         $persona->numdocidentific = $request->input('documentoidentidadempleado');
