@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Modelos\Contabilidad\Cont_PlanCuenta;
 
+use App\Http\Controllers\Contabilidad\CoreContabilidad;
 
 use Carbon\Carbon;
 use DateTime;
@@ -87,5 +88,19 @@ class Plandecuetas extends Controller
         $aux_sqlplan.=" ORDER BY pl.jerarquia; ";
         $aux_data=DB::select($aux_sqlplan);
         return $aux_data;
+    }
+    /**
+     *
+     *
+     *
+     *
+     */
+    public function GuardarAsientoContable($transaccion)
+    {
+        $transaccion = json_decode($transaccion);
+        /*$aux=new CoreContabilidad;
+        $resp=$aux->SaveAsientoContable($transaccion);*/
+        $res=CoreContabilidad::SaveAsientoContable($transaccion);
+        return $resp;
     }
 }

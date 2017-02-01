@@ -386,6 +386,8 @@
                 <td>
                   <div class="input-group">
                     <input type="hidden" class="form-control datepicker  input-sm"  ng-model="registro.idplancuenta">
+                    <input type="hidden" class="form-control datepicker  input-sm"  ng-model="registro.tipocuenta">
+                    <input type="hidden" class="form-control datepicker  input-sm"  ng-model="registro.controlhaber">
                     <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.concepto" readonly>
                     <span ng-click="BuscarCuentaContable(registro);" class="btn btn-info input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                   </div>

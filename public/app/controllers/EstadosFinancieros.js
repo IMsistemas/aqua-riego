@@ -189,6 +189,8 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         var item={
             idplancuenta:"",
             concepto:"",
+            controlhaber:"",
+            tipocuenta:'',
             Debe:0,
             Haber:0,
             Descipcion:""
@@ -226,6 +228,8 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     $scope.AsignarCuentaContable=function(cuenta){
         $scope.aux_cuentabuscar.idplancuenta=cuenta.idplancuenta;
         $scope.aux_cuentabuscar.concepto=cuenta.concepto;
+        $scope.aux_cuentabuscar.controlhaber=cuenta.controlhaber;
+        $scope.aux_cuentabuscar.tipocuenta=cuenta.tipocuenta;
         $("#PlanContable").modal("hide");
     };
     ///---
@@ -268,14 +272,18 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         };
 
         var Contabilidad={
-            obj_transaccion: Transaccion,
-            obj_registro: $scope.RegistroC
+            transaccion: Transaccion,
+            registro: $scope.RegistroC
         };
         console.log(Contabilidad);
         /*$http.post(API_URL+'CoreContabilidad',Contabilidad)
         .success(function (response) {
             console.log(response);
         });*/
+        $http.get(API_URL + 'estadosfinacieros/asc/'+JSON.stringify(Contabilidad))
+        .success(function(response){
+           console.log(response)
+        });
     };
     ///---
     $scope.aux_sumdebe=0.0;
