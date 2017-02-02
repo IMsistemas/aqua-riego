@@ -67,7 +67,7 @@
                                     <th ></th>
                                     <th style="width: 50%;">Detalle</th>
                                     <th style="width: 10%;">Codigo SRI</th>
-                                    <!--<th>Balance</th>-->
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,7 +80,11 @@
                                     <td>{{cuenta.jerarquia}}</td>
                                     <td>{{cuenta.concepto}}</td>
                                     <td>{{cuenta.codigosri}}</td>
-                                    <!--<td></td>-->
+                                    <td>
+                                      <button ng-click="RegistroContableCuenta(cuenta);"; class="btn btn-primary btn-sm" ng-show="cuenta.madreohija=='1' " ng-hide=" cuenta.madreohija!='1' ">
+                                        <span class="glyphicon glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                      </button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -97,7 +101,67 @@
                   <button class="btn btn-primary" ng-click="AddAsientoContable();">Agregar  Asiento contable <i class="glyphicon glyphicon-plus"></i></button>
                 </div>
               </div>
+              <div class="row" style="padding-top: 5px;">
+                <div class="col-xs-4">
+                  <div class="input-group">
+                    <span class="input-group-addon">Fecha I.: </span>
+                    <input type="type" class="form-control datepicker  input-sm" id="FechaRI" ng-model="FechaRI">
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <div class="input-group">
+                    <span class="input-group-addon">Fecha F.: </span>
+                    <input type="type" class="form-control datepicker  input-sm" id="FechaRF" ng-model="FechaRF">
+                  </div>
+                </div>
+                <div class="col-xs-4">
+                  <button class="btn btn-primary" ng-click="LoadRegistroCuenta();" >Actualizar <i class="glyphicon glyphicon-refresh"></i></button>
+                </div>
+              </div>
+
+              <div class="row" style="padding-top: 5px;">
+                <div class="col-xs-12">
+                  <table class="table table-bordered table-condensed">
+                    <thead>
+                      <tr class="bg-primary">
+                        <th colspan="9" class="text-center">
+                          {{aux_CuentaContableSelc.concepto}}
+                        </th>
+                      </tr>
+                      <tr class="bg-primary">
+                        <th></th>
+                        <th></th>
+                        <th>Tipo</th>
+                        <th>Fecha</th>
+                        <th>Numero T.</th>
+                        <th>Concepto</th>
+                        <th>Debe</th>
+                        <th>Haber</th>
+                        <th>Saldo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat=" registro in RegistroCuentaContable">
+                        <td>{{$index+1}}</td>
+                        <td>
+                          <button class="btn btn-warning btn-sm" ng-click="ProcesoModificarAsientoCt(registro)" > <i class="glyphicon glyphicon glyphicon-edit"></i></button>
+                          <button class="btn btn-danger btn-sm" ng-click="ProcesoBorrarAsientoCt(registro)" > <i class="glyphicon glyphicon glyphicon-trash"></i></button>
+                        </td>
+                        <td>{{ registro.cont_transaccion.cont_tipotransaccion.descripcion }}</td>
+                        <td>{{ registro.fecha }}</td>
+                        <td>{{ registro.cont_transaccion.numcontable }}</td>
+                        <td>{{ registro.descripcion }}</td>
+                        <td>{{ registro.debe_c }}</td>
+                        <td>{{ registro.haber_c }}</td>
+                        <td>{{ registro.saldo }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
             </div>
+
+            </div>
+
     </div>
 
 
@@ -426,6 +490,24 @@
 </div>
 
 
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 9999999;" tabindex="-1" id="procesarinfomracion" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <span > Procesando </span>
+          </div>
+      </div>
+
+      </div>
+      
+    </div>
+  </div>
+</div>
 
 
   </div>

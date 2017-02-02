@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Modelos\Contabilidad\Cont_PlanCuenta;
+use App\Modelos\Contabilidad\Cont_RegistroContable;
 
 use App\Http\Controllers\Contabilidad\CoreContabilidad;
 
@@ -28,12 +29,26 @@ class Plandecuetas extends Controller
         return view('Estadosfinancieros/PlandeCuentasContables');
         //return view('Estadosfinancieros/aux_PlandeCuentasContables');
     }
+    /**
+     *
+     * Carga el pla de cuentas segun los parametros pasados
+     *
+     *
+     */
     public function getplancuentasportipo($filtro)
     {
         $filtro = json_decode($filtro);
-        return Cont_PlanCuenta::where("tipoestadofinanz","=",$filtro->Tipo)
+        /*return Cont_PlanCuenta::where("tipoestadofinanz","=",$filtro->Tipo)
                 ->orderBy('jerarquia', 'ASC')
                 ->get();
+        */
+        $aux_sqlplan="SELECT * , ";
+        $aux_sqlplan.=" (SELECT count(*)  FROM cont_plancuenta aux WHERE aux.jerarquia <@ pl.jerarquia) madreohija ";
+        $aux_sqlplan.=" FROM cont_plancuenta pl";
+        $aux_sqlplan.=" WHERE pl.tipoestadofinanz='".$filtro->Tipo."' ";
+        $aux_sqlplan.=" ORDER BY pl.jerarquia; ";
+        $aux_data=DB::select($aux_sqlplan);
+        return $aux_data;                
     }
     public function store(Request $request)
     {
@@ -68,10 +83,14 @@ class Plandecuetas extends Controller
         $filtro = json_decode($filtro);
         $results = DB::select("SELECT count(*) as nivel FROM cont_plancuenta WHERE jerarquia ~ '".$filtro->jerarquia.".*{1}'");
         if($results[0]->nivel=="0"){
-            //$cuenta=Cont_PlanCuenta::where("idplancuenta","=",$filtro->idplancuenta)->get();
-            $cuenta=Cont_PlanCuenta::find($filtro->idplancuenta);
-            $respuesta=$cuenta->delete();
-            return "Ok";
+            $aux_registro=Cont_RegistroContable::where("idplancuenta","=",$filtro->idplancuenta)->get();
+            if(count($aux_registro)>0){
+                return "Error";
+            }else{
+                $cuenta=Cont_PlanCuenta::find($filtro->idplancuenta);
+                $respuesta=$cuenta->delete();
+                return "Ok";
+            }
         }else{
             return "Error";
         }
@@ -92,15 +111,60 @@ class Plandecuetas extends Controller
     /**
      *
      *
-     *
+     * Guardando el asiento contable "Llamada desde el  core contable"
      *
      */
     public function GuardarAsientoContable($transaccion)
     {
         $transaccion = json_decode($transaccion);
-        /*$aux=new CoreContabilidad;
-        $resp=$aux->SaveAsientoContable($transaccion);*/
         $res=CoreContabilidad::SaveAsientoContable($transaccion);
-        return $resp;
+        return $res;
+    }
+    /**
+     *
+     *
+     * Load Registro Cuenta Contable
+     *
+     */
+    public function LoadRegistroContable($filtro)
+    {
+        $filtro = json_decode($filtro);
+        $data=Cont_RegistroContable::with("cont_transaccion.cont_tipotransaccion","cont_plancuentas")
+                                    ->whereRaw("cont_registrocontable.idplancuenta=".$filtro->idplancuenta." AND  cont_registrocontable.fecha>='".$filtro->Fechai."' AND cont_registrocontable.fecha<='".$filtro->Fechaf."' ")
+                                    ->orderBy('cont_registrocontable.fecha', 'asc')
+                                    ->get();
+        //return $data;
+        $saldocuenta=0;
+        $datosconsaldo = array();
+        foreach ($data as $registro) {
+            if($filtro->controlhaber=="-"){
+                if($registro->debe_c>0 & $registro->haber_c==0){
+                   $saldocuenta=$saldocuenta+$registro->debe_c;
+                }elseif($registro->debe_c==0 & $registro->haber_c>0){
+                    $saldocuenta=$saldocuenta-$registro->haber_c;
+                }
+            }elseif($filtro->controlhaber=="+"){
+                if($registro->debe_c==0 & $registro->haber_c>0){
+                   $saldocuenta=$saldocuenta+$registro->haber_c;
+                }elseif($registro->debe_c>0 & $registro->haber_c==0){
+                    $saldocuenta=$saldocuenta-$registro->debe_c;
+                }
+            }
+            $aux_cuenta = array(
+                'cont_plancuentas' => $registro->cont_plancuentas ,
+                'cont_transaccion' => $registro->cont_transaccion,
+                'debe' => $registro->debe,
+                'debe_c' => $registro->debe_c,
+                'descripcion' => $registro->descripcion,
+                'fecha' => $registro->fecha,
+                'haber' => $registro->haber,
+                'haber_c' => $registro->haber_c,
+                'idplancuenta' => $registro->idplancuenta,
+                'idregistrocontable' => $registro->idregistrocontable,
+                'idtransaccion' => $registro->idtransaccion,
+                'saldo' => $saldocuenta );
+            array_push($datosconsaldo, $aux_cuenta);
+        }
+        return $datosconsaldo;
     }
 }

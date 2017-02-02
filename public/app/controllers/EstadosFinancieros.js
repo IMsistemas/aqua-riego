@@ -13,6 +13,10 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     $scope.FechaIASC=now(); //Cargar por default el primer dia del año actual
 
     $scope.RegistroC=[];
+
+    $scope.FechaRI=first(); //Cargar por default el primer dia del año actual
+    $scope.FechaRF=now();  // Cargar por default el dia actual 
+
     ///---
     $scope.GenereraFiltroPlanCuentas=function(){
         var aux_fechai=$("#FechaI").val();
@@ -26,8 +30,6 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         .success(function(response){
             $scope.CuentasContables=response;
         });
-
-
     };
     ///---
     $scope.AgregarCuentaMadre=function(){
@@ -39,11 +41,13 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
             if($scope.TipoCuenta!=""){
                 $scope.SendDataSaveCCMadre();
             }else{
+                QuitarClasesMensaje();
                 $("#titulomsm").addClass("btn-warning");
                 $("#msm").modal("show");
                 $scope.Mensaje="Seleccione un tipo de cuenta";    
             }
         }else{
+            QuitarClasesMensaje();
             $("#titulomsm").addClass("btn-warning");
             $("#msm").modal("show");
             $scope.Mensaje="Agregre un concepto";
@@ -74,6 +78,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         };
         $http.post(API_URL+'Contabilidad',CuentaContable)
                 .success(function (response) {
+                    QuitarClasesMensaje();
                     $("#titulomsm").addClass("btn-success");
                     $scope.Mensaje="Se guardo correctamente";
                     $("#msm").modal("show");
@@ -98,6 +103,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         if($scope.ConceptoCCM !=""){
             $scope.SendDataSaveCCnodo();
         }else{
+            QuitarClasesMensaje();
             $("#titulomsm").addClass("btn-warning");
             $("#msm").modal("show");
             $scope.Mensaje="Agregre un concepto";
@@ -115,6 +121,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         };
         $http.post(API_URL+'Contabilidad',CuentaContable)
                 .success(function (response) {
+                    QuitarClasesMensaje();
                     $("#titulomsm").addClass("btn-success");
                     $scope.Mensaje="Se guardo correctamente";
                     $("#msm").modal("show");
@@ -127,7 +134,16 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     ///---
     $scope.ModificarCuentaC=function(cuenta){
         $("#ModifyCCNodo").modal("show");
-        $scope.aux_cuentaMadre=cuenta;
+        $scope.aux_cuentaMadre={
+            idplancuenta:cuenta.idplancuenta,
+            concepto : cuenta.concepto,
+            codigosri : cuenta.codigosri,
+            tipoestadofinanz : cuenta.tipoestadofinanz,
+            estado : cuenta.estado,
+            controlhaber : cuenta.controlhaber,
+            jerarquia : cuenta.jerarquia,
+            tipocuenta : cuenta.tipocuenta
+        };
         $scope.ConceptoCCM=$scope.aux_cuentaMadre.concepto;
         $scope.CodigoSRICCM=$scope.aux_cuentaMadre.codigosri;
     };
@@ -135,6 +151,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         if($scope.ConceptoCCM !=""){
             $scope.SendDataSaveModifyCCnodo();
         }else{
+            QuitarClasesMensaje();
             $("#titulomsm").addClass("btn-warning");
             $("#msm").modal("show");
             $scope.Mensaje="Agregre un concepto";
@@ -145,7 +162,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         $scope.aux_cuentaMadre.codigosri=$scope.CodigoSRICCM;
         $http.put(API_URL+'Contabilidad/'+$scope.aux_cuentaMadre.idplancuenta,$scope.aux_cuentaMadre)
                 .success(function (response) {
-                    console.log(response);
+                    QuitarClasesMensaje();
                     $("#titulomsm").addClass("btn-success");
                     $scope.Mensaje="Se guardo correctamente";
                     $("#msm").modal("show");
@@ -164,6 +181,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         $http.get(API_URL + 'estadosfinacieros/borrarcuenta/'+JSON.stringify($scope.aux_cuentaMadre))
         .success(function(response){
             if(response=="Ok"){
+                QuitarClasesMensaje();
                 $("#titulomsm").addClass("btn-success");
                 $scope.Mensaje="Se borro correctamente";
                 $("#msm").modal("show");
@@ -171,6 +189,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
                 $scope.ClearCuentaMadre();
                 $("#msmBorarCC").modal("hide");
             }else{
+                QuitarClasesMensaje();
                 $("#titulomsm").addClass("btn-danger");
                 $scope.Mensaje="Error al borrar la cuenta contable";
                 $("#msmBorarCC").modal("hide");
@@ -241,21 +260,25 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
                     if($scope.ValidaDebeHaber()==true){
                         $scope.ProcesarDatosAsientoContable();
                     }else{
+                        QuitarClasesMensaje();
                         $("#titulomsm").addClass("btn-warning");
                         $scope.Mensaje="El Debe no es igual a el Haber";
                         $("#msm").modal("show");    
                     }
                 }else{
+                    QuitarClasesMensaje();
                     $("#titulomsm").addClass("btn-warning");
                     $scope.Mensaje="Transacción contable erronea";
                     $("#msm").modal("show");    
                 }
             }else{
+                QuitarClasesMensaje();
                 $("#titulomsm").addClass("btn-warning");
                 $scope.Mensaje="Ingrese un número de egreo o ingreso";
                 $("#msm").modal("show");
             }
         }else{
+            QuitarClasesMensaje();
             $("#titulomsm").addClass("btn-warning");
             $scope.Mensaje="Seleccione un tipo de transacción";
             $("#msm").modal("show");
@@ -263,6 +286,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     };
     ///---
     $scope.ProcesarDatosAsientoContable=function () {
+        $("#procesarinfomracion").modal("show");
         var aux_fecha=convertDatetoDB($("#FechaIASC").val());
         var Transaccion={
             fecha: aux_fecha,
@@ -275,15 +299,32 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
             transaccion: Transaccion,
             registro: $scope.RegistroC
         };
-        console.log(Contabilidad);
-        /*$http.post(API_URL+'CoreContabilidad',Contabilidad)
-        .success(function (response) {
-            console.log(response);
-        });*/
         $http.get(API_URL + 'estadosfinacieros/asc/'+JSON.stringify(Contabilidad))
         .success(function(response){
-           console.log(response)
+           if(!isNaN(response)){
+                QuitarClasesMensaje();
+                $("#procesarinfomracion").modal("hide");
+                $("#titulomsm").addClass("btn-success");
+                $scope.Mensaje="Se Guardo Correctamente";
+                $("#AddAsc").modal("hide");
+                $("#msm").modal("show");
+                $scope.ClearAsientoContable();
+           }else{
+                QuitarClasesMensaje();
+                $("#titulomsm").addClass("btn-danger");
+                $scope.Mensaje="Error Al Guardar El Asiento Contable";
+                $("#msm").modal("show");
+           }
         });
+    };
+    ///---
+    $scope.ClearAsientoContable=function(){
+        $scope.tipotransaccion="";
+        $scope.NumeroIASC="";
+        $scope.DescripcionASC="";
+        $scope.RegistroC=[];
+        $scope.aux_sumdebe=0;
+        $scope.aux_sumhaber=0;
     };
     ///---
     $scope.aux_sumdebe=0.0;
@@ -330,6 +371,38 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
             return false;
         }
     };
+    ///---
+    $scope.RegistroCuentaContable=[];
+    $scope.aux_CuentaContableSelc={};
+    $scope.RegistroContableCuenta=function(cuenta) {
+        $scope.aux_CuentaContableSelc=cuenta;
+        $scope.LoadRegistroCuenta();
+    };
+    ///---
+    $scope.LoadRegistroCuenta=function() {
+        $("#procesarinfomracion").modal("show");
+        var aux_fechai=$("#FechaRI").val();
+        var aux_fechaf=$("#FechaRF").val();
+        var filtroregistro={
+            idplancuenta: $scope.aux_CuentaContableSelc.idplancuenta,
+            controlhaber: $scope.aux_CuentaContableSelc.controlhaber,
+            Fechai: convertDatetoDB(aux_fechai),
+            Fechaf: convertDatetoDB(aux_fechaf)
+        };
+      $http.get(API_URL + 'estadosfinacieros/registrocuenta/'+JSON.stringify(filtroregistro))
+        .success(function(response){
+            $scope.RegistroCuentaContable=response;
+            $("#procesarinfomracion").modal("hide");
+        });
+    };
+    ///---
+    $scope.ProcesoModificarAsientoCt=function(registro) {
+        /// Por definir edicion
+    };
+    ///--- 
+    $scope.ProcesoBorrarAsientoCt=function(registro) {
+        /// Por definir morrar
+    };
 });
 
 
@@ -371,6 +444,13 @@ function completarNumer(valor){
     return completa+valor.toString();
 }
 
+function QuitarClasesMensaje() {
+    $("#titulomsm").removeClass("btn-primary");
+    $("#titulomsm").removeClass("btn-warning");
+    $("#titulomsm").removeClass("btn-success");
+    $("#titulomsm").removeClass("btn-info");
+    $("#titulomsm").removeClass("btn-danger");
+}
 $(document).ready(function(){
     $('.datepicker').datetimepicker({
         locale: 'es',

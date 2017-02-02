@@ -29,10 +29,10 @@ class CoreContabilidad extends Controller
 	{	
 		$aux_numerocomprobante=1;
 		$transaccion=Cont_Transaccion::whereRaw("idtipotransaccion='$id' AND numcomprobante='$numero' ")->get();
-		if($transaccion->idtransaccion){
-			$aux_numerocomprobante=($transaccion->numcomprobante+1);
+		if(count($transaccion)>0){
+			$aux_numerocomprobante=($transaccion[0]->numcomprobante+1);
 		}else{
-			$aux_numerocomprobante=$transaccion->numcomprobante;
+			$aux_numerocomprobante=$numero;
 		}
 		return $aux_numerocomprobante;
 	}
@@ -53,9 +53,9 @@ class CoreContabilidad extends Controller
 	 *
 	 *
 	 */
-	public   function SaveAsientoContable($transaccioncontable)
+	public static  function SaveAsientoContable($transaccioncontable)
 	{	
-		$transaccioncontable = json_decode($transaccioncontable);
+		//$transaccioncontable = json_decode($transaccioncontable);
 		
 		$aux_core=new CoreContabilidad;
 		$aux_transaccion=$transaccioncontable->transaccion;
@@ -69,10 +69,12 @@ class CoreContabilidad extends Controller
 			'descripcion' => $aux_transaccion->descripcion
 			 );
 		$transaccionguardada=Cont_Transaccion::create($transaccion);
-		$idtransaccion=$transaccion->idtransaccion;
+		$idtransaccion=$transaccionguardada->idtransaccion;
 		$fecharegistro=$aux_transaccion->fecha;
+		//$fecharegistro=$transaccionguardada->fecha;
+
 		if($idtransaccion){
-			$aux_respuesta=$this->SaveRegistroAsientoContable($$aux_registro,$idtransaccion,$fecharegistro);
+			$aux_respuesta=$aux_core->SaveRegistroAsientoContable($aux_registro,$idtransaccion,$fecharegistro);
 			if($aux_respuesta==1){
 				return $idtransaccion;
 			}

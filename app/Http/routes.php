@@ -673,7 +673,11 @@ Route::get('estadosfinacieros/plancuentastipo/{filtro}', 'Contabilidad\Plandecue
 Route::get('estadosfinacieros/borrarcuenta/{filtro}', 'Contabilidad\Plandecuetas@deletecuenta');
 Route::get('estadosfinacieros/plancontabletotal', 'Contabilidad\Plandecuetas@plancontabletotal');
 
-Route::get('estadosfinacieros/asc/{transaccion}', 'Contabilidad\CoreContabilidad@SaveAsientoContable');
+//-------------------------------- Asiento Contable ---------------/////////
+Route::get('estadosfinacieros/asc/{transaccion}', 'Contabilidad\Plandecuetas@GuardarAsientoContable');
+
+//-------------------------------- Registro Contable ---------------/////////
+Route::get('estadosfinacieros/registrocuenta/{filtro}', 'Contabilidad\Plandecuetas@LoadRegistroContable');
 
 Route::resource('Contabilidad', 'Contabilidad\Plandecuetas');
 
