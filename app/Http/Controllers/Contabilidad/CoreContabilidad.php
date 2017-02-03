@@ -352,4 +352,31 @@ class CoreContabilidad extends Controller
 			 );
 		$cuentacontablesave=Cont_RegistroContable::create($cuentacontable);
 	}
+	/**
+	 *
+	 *
+	 * Borrar Asienco Contable De Todo Tipo De Transaccion
+	 *
+	 */
+	public static function BorrarAsientoContable($id_transaccion)
+	{
+		$aux_core=new CoreContabilidad;
+		if($aux_core->BorrarRegistroAsientoContable($id_transaccion)){
+			Cont_Transaccion::whereRaw("idtransaccion=".$id_transaccion."")->delete();
+			return response()->json(['success' => true ]);
+		}else{
+			return response()->json(['success' => false ]);
+		}
+	}
+	/**
+	 *
+	 * Borrar Registro Asiento Contable De Todo Tipo De Transaccion
+	 *
+	 *
+	 */
+	public function BorrarRegistroAsientoContable($id_transaccion)
+	{
+		Cont_RegistroContable::whereRaw("idtransaccion=".$id_transaccion."")->delete();
+		return true;
+	}
 }

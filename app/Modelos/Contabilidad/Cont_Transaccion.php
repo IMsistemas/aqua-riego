@@ -26,4 +26,8 @@ class Cont_Transaccion extends Model
     {
         return $this->belongsTo('App\Modelos\Contabilidad\Cont_TipoTransaccion',"idtipotransaccion");
     }
+    public function cont_registrocontable()
+    {
+        return $this->hasMany('App\Modelos\Contabilidad\Cont_RegistroContable',"idtransaccion");
+    }
 }

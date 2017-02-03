@@ -18,7 +18,8 @@ class Cont_TipoTransaccion extends Model
         'idtipotransaccion',
         'idtipoingresoegreso',
         'descripcion',
-        'estado'
+        'estado',
+        'sigla'
     ];
     public function cont_tipoingresoegreso()
     {

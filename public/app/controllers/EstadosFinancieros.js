@@ -398,10 +398,56 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     ///---
     $scope.ProcesoModificarAsientoCt=function(registro) {
         /// Por definir edicion
+        $("#AddAsc").modal("show");
+        $scope.DatosModificarAsientoCt(registro.idtransaccion);
+    };
+    ///---
+    $scope_auxTransaccionEditar={};
+    $scope.DatosModificarAsientoCt=function(id_transaccion){
+       $http.get(API_URL + 'estadosfinacieros/datosasc/'+id_transaccion)
+        .success(function(response){
+            console.log(response);
+            $scope_auxTransaccionEditar={
+                idtransaccion: response[0].idtransaccion,
+                idtipotransaccion : response[0].idtipotransaccion,
+                numcontable: response[0].numcontable,
+                fechatransaccion: response[0].fechatransaccion,
+                numcomprobante: response[0].numcomprobante,
+                descripcion : response[0].descripcion
+            };
+            console.log($scope_auxTransaccionEditar);
+            $scope.RegistroC=response[0].cont_registrocontable;
+        }); 
     };
     ///--- 
+    $scope.aux_registroBorrar={};
     $scope.ProcesoBorrarAsientoCt=function(registro) {
-        /// Por definir morrar
+        /// Por definir edicion
+        $scope.aux_registroBorrar=registro;
+        $("#BorraTransaccion").modal("show");
+    };
+    ///---
+    $scope.ConfirmarBorrarTransaccion=function(){
+        $("#BorraTransaccion").modal("hide");
+        $scope.BorrarAsientoContable($scope.aux_registroBorrar.idtransaccion);
+    };
+    ///---
+    $scope.BorrarAsientoContable=function (id_transaccion) {
+        $http.get(API_URL + 'estadosfinacieros/borrarasc/'+id_transaccion)
+        .success(function(response){
+            if(response.success==true){
+                QuitarClasesMensaje();
+                $("#titulomsm").addClass("btn-success");
+                $scope.Mensaje="Se Elmino Correctamente El Asiento Contable";
+                $("#msm").modal("show");
+                $scope.LoadRegistroCuenta();
+            }else{
+                QuitarClasesMensaje();
+                $("#titulomsm").addClass("btn-danger");
+                $scope.Mensaje="Error Al Eliminar El Asiento Contable";
+                $("#msm").modal("show");
+            }
+        });
     };
 });
 

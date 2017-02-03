@@ -675,6 +675,8 @@ Route::get('estadosfinacieros/plancontabletotal', 'Contabilidad\Plandecuetas@pla
 
 //-------------------------------- Asiento Contable ---------------/////////
 Route::get('estadosfinacieros/asc/{transaccion}', 'Contabilidad\Plandecuetas@GuardarAsientoContable');
+Route::get('estadosfinacieros/borrarasc/{id}', 'Contabilidad\Plandecuetas@BorrarAsientoContable');
+Route::get('estadosfinacieros/datosasc/{id}', 'Contabilidad\Plandecuetas@DatosAsientoContable');
 
 //-------------------------------- Registro Contable ---------------/////////
 Route::get('estadosfinacieros/registrocuenta/{filtro}', 'Contabilidad\Plandecuetas@LoadRegistroContable');

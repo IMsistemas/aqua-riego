@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Modelos\Contabilidad\Cont_PlanCuenta;
 use App\Modelos\Contabilidad\Cont_RegistroContable;
+use App\Modelos\Contabilidad\Cont_Transaccion;
 
 use App\Http\Controllers\Contabilidad\CoreContabilidad;
 
@@ -166,5 +167,27 @@ class Plandecuetas extends Controller
             array_push($datosconsaldo, $aux_cuenta);
         }
         return $datosconsaldo;
+    }
+    /**
+     *
+     * Borra Asiento Contable
+     *
+     *
+     */
+    public function BorrarAsientoContable($id)
+    {
+        return CoreContabilidad::BorrarAsientoContable($id);
+    }
+    /**
+     *
+     * Obtener Datos Asiento Contable Para Modificar
+     *
+     *
+     */
+    public function DatosAsientoContable($id)
+    {
+        return Cont_Transaccion::with("cont_registrocontable")
+                                ->whereRaw("cont_transaccion.idtransaccion=".$id."")
+                                ->get();
     }
 }
