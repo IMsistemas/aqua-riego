@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Transportista;
 
+use App\Modelos\SRI\SRI_TipoIdentificacion;
 use App\Modelos\Transportista\Transportista;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,18 @@ class TransportistaController extends Controller
 
         return $transportista->orderBy('fechaingreso', 'desc')->paginate(10);
     }
+
+
+    /**
+     * Obtener todos los tipos de identificacion
+     *
+     * @return mixed
+     */
+    public function getTipoIdentificacion()
+    {
+        return SRI_TipoIdentificacion::orderBy('nameidentificacion', 'asc')->get();
+    }
+
 
 
     /**

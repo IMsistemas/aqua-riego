@@ -54,17 +54,7 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
         switch (modalstate) {
             case 'add':
 
-                $http.get(API_URL + 'empleado/getDepartamentos').success(function(response){
-                    var longitud = response.length;
-                    var array_temp = [{label: '-- Seleccione --', id: ''}];
-                    for(var i = 0; i < longitud; i++){
-                        array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento})
-                    }
-                    $scope.iddepartamentos = array_temp;
-                    $scope.departamento = '';
-                });
-
-                $http.get(API_URL + 'empleado/getTipoIdentificacion').success(function(response){
+                $http.get(API_URL + 'transportista/getTipoIdentificacion').success(function(response){
                     var longitud = response.length;
                     var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
@@ -72,16 +62,6 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
                     }
                     $scope.idtipoidentificacion = array_temp;
                     $scope.tipoidentificacion = '';
-                });
-
-                $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
-                    var longitud = response.length;
-                    var array_temp = [{label: '-- Seleccione --', id: ''}];
-                    for(var i = 0; i < longitud; i++){
-                        array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
-                    }
-                    $scope.idcargos = array_temp;
-                    $scope.idcargo = '';
 
                     $scope.documentoidentidadempleado = '';
                     $('#documentoidentidadempleado').val('');
@@ -89,39 +69,19 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
 
                     $scope.apellido = '';
                     $scope.nombre = '';
-                    $scope.telefonoprincipal = '';
-                    $scope.telefonosecundario = '';
                     $scope.celular = '';
-                    $scope.direccion = '';
                     $scope.correo = '';
-                    $scope.salario = '';
-
                     $scope.fechaingreso = fecha();
-
-                    $scope.cuenta_employee = '';
-                    $scope.select_cuenta = null;
-
-                    $scope.form_title = "Ingresar Nuevo Colaborador";
-
-                    $scope.url_foto = 'img/empleado.png';
+                    $scope.form_title = "Ingresar Nuevo Transportista";
 
                     $('#modalAction').modal('show');
+
                 });
 
                 break;
             case 'edit':
-                $scope.form_title = "Editar Colaborador";
+                $scope.form_title = "Editar Transportista";
                 $scope.id = item.idempleado;
-
-                $http.get(API_URL + 'empleado/getDepartamentos').success(function(response){
-                    var longitud = response.length;
-                    var array_temp = [{label: '-- Seleccione --', id: ''}];
-                    for(var i = 0; i < longitud; i++){
-                        array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento})
-                    }
-                    $scope.iddepartamentos = array_temp;
-                    $scope.departamento = '';
-                });
 
                 $http.get(API_URL + 'empleado/getTipoIdentificacion').success(function(response){
                     var longitud = response.length;
