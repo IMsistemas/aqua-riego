@@ -13,7 +13,7 @@ class Persona extends Model
 
     public function transportista()
     {
-    	return $this->hasMany('App\Modelos\Transportista');
+    	return $this->hasMany('App\Modelos\Transportista\Transportista', 'idpersona');
     }
 
     public function cliente()

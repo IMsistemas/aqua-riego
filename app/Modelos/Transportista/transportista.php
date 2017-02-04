@@ -4,29 +4,20 @@ namespace App\Modelos\Transportista;
 
 use Illuminate\Database\Eloquent\Model;
 
-class transportista extends Model
+class Transportista extends Model
 {
-    protected $table = "transportista";
-
-    protected $primaryKey = "transportista";
-
-    public $incrementing = false;
-
+    protected $table = 'transportista';
+    protected $primaryKey = 'idtransportista';
     public $timestamps = false;
 
-    protected $fillable = [
-        'idtransportista',
-        'idpersona',
-        'razonsocial',
-        'placa',
-        'estado',        
-    ];
-    public function persona(){
-    	return $this->belongsTo('App\Modelos');
+    public function persona()
+    {
+        return $this->belongsTo('App\Modelos\Persona', 'idpersona');
     }
 
-    public function Cont_DocumentoGuiaRemision(){
-        return $this->hasMany('App\Modelos\Contabilidad');
+    public function cont_documentoguiaremision()
+    {
+        return $this->hasMany('App\Modelos\Contabilidad\Cont_DocumentoGuiaRemision', 'idtransportista');
     }
 
 }

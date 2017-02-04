@@ -638,6 +638,9 @@ Route::get('proveedor/getProveedores', 'Proveedores\ProveedorController@getProve
 
 Route::resource('proveedor', 'Proveedores\ProveedorController');
 
+
+Route::resource('/transportista', 'Transportista\TransportistaController');
+
 /*
  * ---------------------------------------------------------------------------------------------------------------------
  */

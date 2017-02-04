@@ -1,37 +1,33 @@
 
-app.controller('proveedoresController', function($scope, $http, API_URL, Upload) {
+app.controller('transportistaController', function($scope, $http, API_URL, Upload) {
 
-    $scope.proveedores = [];
-    $scope.empleado_del = 0;
+    $scope.transportistas = [];
+    $scope.transportista_del = 0;
     $scope.idpersona = 0;
     $scope.id = 0;
 
     $scope.select_cuenta = null;
 
-    $scope.objectPerson = {
-        idperson: 0,
-        identify: ''
+    $scope.pageChanged = function(newPage) {
+        $scope.initLoad(newPage);
     };
 
-    $scope.initLoad = function(){
+    $scope.initLoad = function(pageNumber){
 
-        $http.get(API_URL + 'proveedor/getProveedores').success(function(response){
-            var longitud = response.length;
-            for (var i = 0; i < longitud; i++) {
-                var complete_name = {
-                    value: response[i].namepersona + ' ' + response[i].lastnamepersona,
-                    writable: true,
-                    enumerable: true,
-                    configurable: true
-                };
-                Object.defineProperty(response[i], 'complete_name', complete_name);
-            }
-            $scope.proveedores = response;
+        if ($scope.busqueda == undefined) {
+            var search = null;
+        } else var search = $scope.busqueda;
 
+        var filtros = {
+            search: search
+        };
+
+        $http.get(API_URL + 'transportista/getTransportista?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
+            $scope.transportistas = response.data;
+            $scope.totalItems = response.total;
         });
 
     };
-
 
     $scope.showDataPurchase = function (object) {
 
@@ -88,7 +84,8 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
                     $scope.idcargo = '';
 
                     $scope.documentoidentidadempleado = '';
-                    $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', '');
+                    $('#documentoidentidadempleado').val('');
+                    $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', ' ');
 
                     $scope.apellido = '';
                     $scope.nombre = '';
@@ -347,7 +344,6 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
         setTimeout("$('#modalMessage').modal('hide')", 3000);
     };
 
-
     $scope.onlyNumber = function ($event, length, field) {
 
         if (length != undefined) {
@@ -371,7 +367,7 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
         }
     };
 
-    $scope.initLoad();
+    $scope.initLoad(1);
 
     $('.datepicker').datetimepicker({
         locale: 'es',
@@ -379,8 +375,6 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
     });
 
 });
-
-
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();

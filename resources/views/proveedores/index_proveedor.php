@@ -16,13 +16,13 @@
 </head>
 
 <body>
-<div ng-controller="empleadosController">
+<div ng-controller="proveedoresController">
 
     <div class="container" style="margin-top: 2%;">
 
         <div class="col-sm-6 col-xs-8">
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda" ng-keypress="initLoad(1)">
+                <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda">
                 <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
@@ -32,60 +32,46 @@
         </div>
 
         <div class="col-xs-12">
-            <div class="alert alert-info" role="alert" id="message-positions" style="display: none;">
-                <span style="font-weight: bold;">INFORMACION: </span>
-                Para Administrar Empleados, se necesita crear Cargos primeramente...
-            </div>
-        </div>
-
-        <div class="col-xs-12">
 
             <table class="table table-responsive table-striped table-hover table-condensed">
                 <thead class="bg-primary">
                 <tr>
-                    <th>RUC / CI</th>
-                    <th>Nombre y Apellidos</th>
-                    <th>Cargo</th>
+                    <th>RUC</th>
+                    <th>Razón Social</th>
+                    <th>Dirección</th>
                     <th>Teléfono</th>
                     <th>Celular</th>
                     <th style="width: 160px;">Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr dir-paginate="empleado in empleados | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak >
-                    <td>{{empleado.numdocidentific}}</td>
-                    <td>{{empleado.razonsocial}}</td>
-                    <td>{{empleado.namecargo}}</td>
-                    <td>{{empleado.telefprincipaldomicilio}}</td>
-                    <td>{{empleado.celphone}}</td>
-                    <td>
-                        <button type="button" class="btn btn-info" ng-click="toggle('info', empleado)"
-                                data-toggle="tooltip" data-placement="bottom" title="Información">
-                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-warning" ng-click="toggle('edit', empleado)"
-                                data-toggle="tooltip" data-placement="bottom" title="Editar" >
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(empleado)"
-                                data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>
-                    </td>
-                </tr>
+                    <tr dir-paginate="proveedor in proveedores | orderBy:sortKey:reverse | itemsPerPage:10 |filter:busqueda" ng-cloak >
+                        <td>{{proveedor.numdocidentific}}</td>
+                        <td>{{proveedor.complete_name}}</td>
+                        <td>{{proveedor.namecargo}}</td>
+                        <td>{{proveedor.telefprincipaldomicilio}}</td>
+                        <td>{{proveedor.celphone}}</td>
+                        <td>
+                            <button type="button" class="btn btn-info" ng-click="toggle('info', proveedor)"
+                                    data-toggle="tooltip" data-placement="bottom" title="Información">
+                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-warning" ng-click="toggle('edit', proveedor)"
+                                    data-toggle="tooltip" data-placement="bottom" title="Editar" >
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(proveedor)"
+                                    data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <dir-pagination-controls
-
-                    on-page-change="pageChanged(newPageNumber)"
-
-                    template-url="dirPagination.html"
-
-                    class="pull-right"
-                    max-size="10"
-                    direction-links="true"
-                    boundary-links="true" >
-
+                max-size="5"
+                direction-links="true"
+                boundary-links="true" >
             </dir-pagination-controls>
 
         </div>
@@ -96,25 +82,25 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <form class="form-horizontal" name="formEmployee" novalidate="">
-                <div class="modal-header modal-header-primary">
-                    <div class="col-md-6 col-xs-12">
-                        <h4 class="modal-title">{{form_title}}</h4>
-                    </div>
-                    <div class="col-md-5 col-xs-12">
-                        <div class="input-group">
-                            <span class="input-group-addon">Fecha de Ingreso:</span>
-                            <input type="text" class="datepicker form-control" name="fechaingreso" id="fechaingreso" ng-model="fechaingreso" ng-required="true">
+                    <div class="modal-header modal-header-primary">
+                        <div class="col-md-6 col-xs-12">
+                            <h4 class="modal-title">{{form_title}}</h4>
                         </div>
-                        <span class="help-block error"
-                              ng-show="formEmployee.fechaingreso.$invalid && formEmployee.fechaingreso.$touched">La Fecha de Ingreso es requerida</span>
+                        <div class="col-md-5 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">Fecha de Ingreso:</span>
+                                <input type="text" class="datepicker form-control" name="fechaingreso" id="fechaingreso" ng-model="fechaingreso" ng-required="true">
+                            </div>
+                            <span class="help-block error"
+                                  ng-show="formEmployee.fechaingreso.$invalid && formEmployee.fechaingreso.$touched">La Fecha de Ingreso es requerida</span>
+                        </div>
+                        <div class="col-md-1 col-xs-12 text-right" style="padding: 0;">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
                     </div>
-                    <div class="col-md-1 col-xs-12 text-right" style="padding: 0;">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                </div>
-                <div class="modal-body">
+                    <div class="modal-body">
 
-                    <div class="row">
+                        <div class="row">
 
 
                             <div class="col-xs-12">
@@ -162,27 +148,27 @@
                                                ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="13" > -->
 
                                         <angucomplete-alt
-                                                id = "documentoidentidadempleado"
-                                                pause = "200"
-                                                selected-object = "showDataPurchase"
+                                            id = "documentoidentidadempleado"
+                                            pause = "200"
+                                            selected-object = "showDataPurchase"
 
-                                                input-changed="inputChanged"
+                                            input-changed="inputChanged"
 
-                                                remote-url = "{{API_URL}}empleado/getIdentify/"
+                                            remote-url = "{{API_URL}}empleado/getIdentify/"
 
-                                                focus-out="focusOut()"
+                                            focus-out="focusOut()"
 
 
-                                                title-field="numdocidentific"
+                                            title-field="numdocidentific"
 
-                                                minlength="1"
-                                                input-class="form-control form-control-small small-input"
-                                                match-class="highlight"
-                                                field-required="true"
-                                                input-name="documentoidentidadempleado"
-                                                disable-input="guardado"
-                                                text-searching="Buscando Identificaciones Personas"
-                                                text-no-results="Persona no encontrada"
+                                            minlength="1"
+                                            input-class="form-control form-control-small small-input"
+                                            match-class="highlight"
+                                            field-required="true"
+                                            input-name="documentoidentidadempleado"
+                                            disable-input="guardado"
+                                            text-searching="Buscando Identificaciones Personas"
+                                            text-no-results="Persona no encontrada"
 
                                         > </angucomplete-alt>
 
@@ -342,154 +328,154 @@
                                 <img class="img-thumbnail" src="{{url_foto}}" alt="" style="width: 50%;">
                             </div>
 
-                        </form>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+                Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-success" id="btn-save" ng-click="save(modalstate)" ng-disabled="formEmployee.$invalid">
+                Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirmación</h4>
+            </div>
+            <div class="modal-body">
+                <span>{{message}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalConfirmDelete">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-danger">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirmación</h4>
+            </div>
+            <div class="modal-body">
+                <span>Realmente desea eliminar el Empleado: <span style="font-weight: bold;">{{empleado_seleccionado}}</span></span>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-danger" id="btn-save" ng-click="destroy()">
+                    Eliminar<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalMessageError" style="z-index: 99999;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-danger">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Información</h4>
+            </div>
+            <div class="modal-body">
+                <span>{{message_error}}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalInfoEmpleado">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-info">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Información del Empleado</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-xs-12 text-center">
+                    <img class="img-thumbnail" src="{{url_foto}}" alt="">
+                </div>
+                <div class="row text-center">
+                    <div class="col-xs-12 text-center" style="font-size: 18px;">{{name_employee}}</div>
+                    <div class="col-xs-12 text-center" style="font-size: 16px;">{{cargo_employee}}</div>
+                    <div class="col-xs-12">
+                        <span style="font-weight: bold">Empleado desde: </span>{{date_registry_employee}}
+                    </div>
+                    <div class="col-xs-12">
+                        <span style="font-weight: bold">Teléfonos: </span>{{phones_employee}}
+                    </div>
+                    <div class="col-xs-12">
+                        <span style="font-weight: bold">Celular: </span>{{cel_employee}}
+                    </div>
+                    <div class="col-xs-12">
+                        <span style="font-weight: bold">Dirección: </span>{{address_employee}}
+                    </div>
+                    <div class="col-xs-12">
+                        <span style="font-weight: bold">Email: </span>{{email_employee}}
+                    </div>
+                    <div class="col-xs-12">
+                        <span style="font-weight: bold">Salario: </span>{{salario_employee}}
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                    </button>
-                    <button type="button" class="btn btn-success" id="btn-save" ng-click="save(modalstate)" ng-disabled="formEmployee.$invalid">
-                        Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
-                    </button>
-                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header modal-header-success">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Confirmación</h4>
-                </div>
-                <div class="modal-body">
-                    <span>{{message}}</span>
-                </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="modalPlanCuenta">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Plan de Cuenta</h4>
             </div>
-        </div>
-    </div>
-
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalConfirmDelete">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header modal-header-danger">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Confirmación</h4>
-                </div>
-                <div class="modal-body">
-                    <span>Realmente desea eliminar el Empleado: <span style="font-weight: bold;">{{empleado_seleccionado}}</span></span>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                    </button>
-                    <button type="button" class="btn btn-danger" id="btn-save" ng-click="destroy()">
-                        Eliminar<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalMessageError" style="z-index: 99999;">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header modal-header-danger">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Información</h4>
-                </div>
-                <div class="modal-body">
-                    <span>{{message_error}}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalInfoEmpleado">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header modal-header-info">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Información del Empleado</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="col-xs-12 text-center">
-                        <img class="img-thumbnail" src="{{url_foto}}" alt="">
-                    </div>
-                    <div class="row text-center">
-                        <div class="col-xs-12 text-center" style="font-size: 18px;">{{name_employee}}</div>
-                        <div class="col-xs-12 text-center" style="font-size: 16px;">{{cargo_employee}}</div>
-                        <div class="col-xs-12">
-                            <span style="font-weight: bold">Empleado desde: </span>{{date_registry_employee}}
-                        </div>
-                        <div class="col-xs-12">
-                            <span style="font-weight: bold">Teléfonos: </span>{{phones_employee}}
-                        </div>
-                        <div class="col-xs-12">
-                            <span style="font-weight: bold">Celular: </span>{{cel_employee}}
-                        </div>
-                        <div class="col-xs-12">
-                            <span style="font-weight: bold">Dirección: </span>{{address_employee}}
-                        </div>
-                        <div class="col-xs-12">
-                            <span style="font-weight: bold">Email: </span>{{email_employee}}
-                        </div>
-                        <div class="col-xs-12">
-                            <span style="font-weight: bold">Salario: </span>{{salario_employee}}
-                        </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
+                            <thead class="bg-primary">
+                            <tr>
+                                <th style="width: 15%;">ORDEN</th>
+                                <th>CONCEPTO</th>
+                                <th style="width: 10%;">COD. SRI</th>
+                                <th style="width: 4%;"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in cuentas" ng-cloak >
+                                <td>{{item.jerarquia}}</td>
+                                <td>{{item.concepto}}</td>
+                                <td>{{item.codigosri}}</td>
+                                <td>
+                                    <input type="radio" name="select_cuenta"  ng-click="click_radio(item)">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalPlanCuenta">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header modal-header-primary">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Plan de Cuenta</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
-                                <thead class="bg-primary">
-                                <tr>
-                                    <th style="width: 15%;">ORDEN</th>
-                                    <th>CONCEPTO</th>
-                                    <th style="width: 10%;">COD. SRI</th>
-                                    <th style="width: 4%;"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="item in cuentas" ng-cloak >
-                                        <td>{{item.jerarquia}}</td>
-                                        <td>{{item.concepto}}</td>
-                                        <td>{{item.codigosri}}</td>
-                                        <td>
-                                            <input type="radio" name="select_cuenta"  ng-click="click_radio(item)">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                    </button>
-                    <button type="button" class="btn btn-primary" id="btn-ok" ng-click="selectCuenta()">
-                        Aceptar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                    </button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-primary" id="btn-ok" ng-click="selectCuenta()">
+                    Aceptar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                </button>
             </div>
         </div>
     </div>
+</div>
 
 </div>
 
@@ -508,7 +494,7 @@
 <script src="<?= asset('js/bootstrap.min.js') ?>"></script>
 
 <script src="<?= asset('app/app.js') ?>"></script>
-<script src="<?= asset('app/controllers/empleadosController.js') ?>"></script>
+<script src="<?= asset('app/controllers/proveedoresController.js') ?>"></script>
 
 
 </html>

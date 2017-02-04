@@ -50,7 +50,7 @@ class EmpleadoController extends Controller
             $employees = $employees->whereRaw("persona.razonsocial LIKE '%" . $search . "%'");
         }
 
-        return $employees->orderBy('fechaingreso', 'asc')->paginate(1);
+        return $employees->orderBy('fechaingreso', 'desc')->paginate(10);
     }
 
 
