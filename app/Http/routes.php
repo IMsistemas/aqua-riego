@@ -632,7 +632,11 @@ Route::resource('compras', 'Compras\CompraProductoController');
 	Route::post('api/proveedores/contactos/{idcontacto}', 'Proveedores\ContactosProveedoresController@destroyContactosProveedor');
 	Route::get('api/proveedores/fechacreacioncuenta/{idproveedor}', 'Proveedores\ProveedoresController@getFechaCreacion');
 	Route::resource('api/proveedores', 'Proveedores\ProveedoresController');
-	
+
+//Ruta devuelve todos los empleados
+Route::get('proveedor/getProveedores', 'Proveedores\ProveedorController@getProveedores');
+
+Route::resource('proveedor', 'Proveedores\ProveedorController');
 
 /*
  * ---------------------------------------------------------------------------------------------------------------------

@@ -26,5 +26,8 @@ class Persona extends Model
         return $this->hasMany('App\Modelos\Nomina\Empleado', 'idpersona');
     }
 
-
+    public function proveedor()
+    {
+        return $this->hasMany('App\Modelos\Proveedores\Proveedor', 'idpersona');
+    }
 }
