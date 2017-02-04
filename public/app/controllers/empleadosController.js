@@ -13,25 +13,27 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         identify: ''
     };
 
-    $scope.initLoad = function(verifyPosition){
+    $scope.pageChanged = function(newPage) {
+        $scope.initLoad(newPage);
+    };
+
+    $scope.initLoad = function(pageNumber, verifyPosition){
 
         if (verifyPosition != undefined){
             $scope.searchPosition();
         }
 
-        $http.get(API_URL + 'empleado/getEmployees').success(function(response){
-            var longitud = response.length;
-            for (var i = 0; i < longitud; i++) {
-                var complete_name = {
-                    value: response[i].namepersona + ' ' + response[i].lastnamepersona,
-                    writable: true,
-                    enumerable: true,
-                    configurable: true
-                };
-                Object.defineProperty(response[i], 'complete_name', complete_name);
-            }
-            $scope.empleados = response;
+        if ($scope.busqueda == undefined) {
+            var search = null;
+        } else var search = $scope.busqueda;
 
+        var filtros = {
+            search: search
+        };
+
+        $http.get(API_URL + 'empleado/getEmployees?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
+            $scope.empleados = response.data;
+            $scope.totalItems = response.total;
         });
 
     };
@@ -364,7 +366,6 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         setTimeout("$('#modalMessage').modal('hide')", 3000);
     };
 
-
     $scope.onlyNumber = function ($event, length, field) {
 
         if (length != undefined) {
@@ -388,7 +389,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         }
     };
 
-    $scope.initLoad(true);
+    $scope.initLoad(1, true);
 
     $('.datepicker').datetimepicker({
         locale: 'es',
@@ -396,8 +397,6 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
     });
 
 });
-
-
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();

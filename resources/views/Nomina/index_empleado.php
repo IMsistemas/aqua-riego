@@ -22,7 +22,7 @@
 
         <div class="col-sm-6 col-xs-8">
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda">
+                <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda" ng-keypress="initLoad(1)">
                 <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
@@ -52,9 +52,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr dir-paginate="empleado in empleados | orderBy:sortKey:reverse | itemsPerPage:10 |filter:busqueda" ng-cloak >
+                <tr dir-paginate="empleado in empleados | orderBy:sortKey:reverse | itemsPerPage:1" total-items="totalItems" ng-cloak >
                     <td>{{empleado.numdocidentific}}</td>
-                    <td>{{empleado.complete_name}}</td>
+                    <td>{{empleado.razonsocial}}</td>
                     <td>{{empleado.namecargo}}</td>
                     <td>{{empleado.telefprincipaldomicilio}}</td>
                     <td>{{empleado.celphone}}</td>
@@ -76,9 +76,16 @@
                 </tbody>
             </table>
             <dir-pagination-controls
-                max-size="5"
-                direction-links="true"
-                boundary-links="true" >
+
+                    on-page-change="pageChanged(newPageNumber)"
+
+                    template-url="dirPagination.html"
+
+                    class="pull-right"
+                    max-size="1"
+                    direction-links="true"
+                    boundary-links="true" >
+
             </dir-pagination-controls>
 
         </div>

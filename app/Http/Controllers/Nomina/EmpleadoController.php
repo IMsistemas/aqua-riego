@@ -31,20 +31,26 @@ class EmpleadoController extends Controller
     /**
      * Obtener todos los empleados
      *
+     * @param Request $request
      * @return mixed
      */
-    public function getEmployees()
+    public function getEmployees(Request $request)
     {
+        $filter = json_decode($request->get('filter'));
+        $search = $filter->search;
         $employee = null;
 
         $employees = Empleado::join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
                                 ->join('departamento', 'departamento.iddepartamento', '=', 'empleado.iddepartamento')
                                 ->join('cargo', 'cargo.idcargo', '=', 'empleado.idcargo')
                                 ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'empleado.idplancuenta')
-                                ->select('empleado.*', 'departamento.namedepartamento', 'cargo.namecargo', 'persona.*', 'cont_plancuenta.*')
-                                ->orderBy('fechaingreso', 'asc')->get();
+                                ->select('empleado.*', 'departamento.namedepartamento', 'cargo.namecargo', 'persona.*', 'cont_plancuenta.*');
 
-        return $employees;
+        if ($search != null) {
+            $employees = $employees->whereRaw("persona.razonsocial LIKE '%" . $search . "%'");
+        }
+
+        return $employees->orderBy('fechaingreso', 'asc')->paginate(1);
     }
 
 
