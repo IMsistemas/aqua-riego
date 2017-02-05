@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Proveedores;
 
+use App\Modelos\Persona;
 use App\Modelos\Proveedores\Proveedor;
 use App\Modelos\Proveedores\Provincias;
 use App\Modelos\Sectores\Canton;
@@ -56,6 +57,20 @@ class ProveedorController extends Controller
     }
 
 
+    /**
+     * Obtener y devolver los numeros de identificacion que concuerden con el parametro a buscar
+     *
+     * @param $identify
+     * @return mixed
+     */
+    public function getIdentify($identify)
+    {
+        return Persona::whereRaw("numdocidentific::text ILIKE '%" . $identify . "%'")
+                        ->whereRaw('idpersona NOT IN (SELECT idpersona FROM proveedor)')
+                        ->get();
+    }
+
+
     public function getProvincias()
     {
         return Provincias::orderBy('nameprovincia', 'asc')->get();
@@ -78,16 +93,6 @@ class ProveedorController extends Controller
 
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -95,30 +100,44 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $state = false;
+
+        if ($request->input('idpersona') == 0) {
+            $persona = new Persona();
+        } else {
+            $persona = Persona::find($request->input('idpersona'));
+            $state = true;
+        }
+
+        $persona->numdocidentific = $request->input('documentoidentidadempleado');
+        $persona->email = $request->input('correo');
+        $persona->celphone = $request->input('celular');
+        $persona->idtipoidentificacion = $request->input('tipoidentificacion');
+        $persona->razonsocial = $request->input('razonsocial');
+        $persona->direccion = $request->input('direccion');
+
+        if ($state == false) {
+            $persona->lastnamepersona = $request->input('razonsocial');
+            $persona->namepersona = $request->input('razonsocial');
+        }
+
+        if ($persona->save()) {
+            $proveedor = new Proveedor();
+            $proveedor->fechaingreso = $request->input('fechaingreso');
+            $proveedor->estado = true;
+            $proveedor->idpersona = $persona->idpersona;
+            $proveedor->telefonoprincipal = $request->input('telefonoprincipal');
+            $proveedor->idparroquia = $request->input('parroquia');
+            $proveedor->idplancuenta = $request->input('cuentacontable');
+            $proveedor->idtipoimpuestoiva = $request->input('impuesto_iva');
+
+            if ($proveedor->save()) {
+                return response()->json(['success' => true]);
+            } else return response()->json(['success' => false]);
+
+        } else return response()->json(['success' => false]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

@@ -35,7 +35,6 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
     };
 
     $scope.showDataPurchase = function (object) {
-
         if (object != undefined && object.originalObject != undefined) {
 
             $scope.documentoidentidadempleado = object.originalObject.numdocidentific;
@@ -51,7 +50,6 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
                 identify: object.originalObject.numdocidentific
             };
         }
-
     };
 
     $scope.toggle = function(modalstate, item) {
@@ -89,16 +87,14 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
                     $scope.iva = '';
 
                     $scope.documentoidentidadempleado = '';
+                    $('#documentoidentidadempleado').val('');
                     $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', '');
 
-                    $scope.apellido = '';
-                    $scope.nombre = '';
+                    $scope.razonsocial = '';
                     $scope.telefonoprincipal = '';
-                    $scope.telefonosecundario = '';
                     $scope.celular = '';
                     $scope.direccion = '';
                     $scope.correo = '';
-                    $scope.salario = '';
 
                     $scope.fechaingreso = fecha();
 
@@ -209,14 +205,6 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
                 $scope.email_employee = item.email;
                 $scope.salario_employee = item.salario;
 
-
-
-                if (item.rutafoto != null && item.rutafoto != ''){
-                    $scope.url_foto = item.rutafoto;
-                } else {
-                    $scope.url_foto = 'img/empleado.png';
-                }
-
                 $('#modalInfoEmpleado').modal('show');
 
                 break;
@@ -291,63 +279,62 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
     };
 
     $scope.save = function() {
-        var url = API_URL + "empleado";
-        var method = 'POST';
-
-        if ($scope.modalstate == 'edit'){
-            url += "/updateEmpleado/" + $scope.id;
-        }
+        var url = API_URL + 'proveedor';
 
         var fechaingreso = $('#fechaingreso').val();
 
         var data ={
             fechaingreso: convertDatetoDB(fechaingreso),
-            idcargo: $scope.idcargo,
-            apellidos: $scope.apellido,
-            nombres: $scope.nombre,
-            telefonoprincipaldomicilio: $scope.telefonoprincipal,
-            telefonosecundariodomicilio: $scope.telefonosecundario,
+            telefonoprincipal: $scope.telefonoprincipal,
             celular: $scope.celular,
-            direcciondomicilio: $scope.direccion,
+            direccion: $scope.direccion,
             correo: $scope.correo,
-            salario: $scope.salario,
-            file: $scope.file,
             documentoidentidadempleado: $scope.documentoidentidadempleado,
-
+            razonsocial: $scope.razonsocial,
             idpersona:  $scope.idpersona,
-
-            departamento: $scope.departamento,
             tipoidentificacion: $scope.tipoidentificacion,
-            cuentacontable: $scope.select_cuenta.idplancuenta
+            cuentacontable: $scope.select_cuenta.idplancuenta,
+            impuesto_iva: $scope.iva,
+            parroquia: $scope.parroquia
         };
 
         console.log(data);
 
-        Upload.upload({
-            url: url,
-            method: method,
-            data: data
-        }).success(function(data, status, headers, config) {
-            if (data.success == true) {
-                $scope.idpersona = 0;
+        if ($scope.modalstate == 'add') {
+            $http.post(url, data ).success(function (response) {
+                if (response.success == true) {
+                    $scope.initLoad(1);
+                    $scope.message = 'Se guardó correctamente la información del Proveedor...';
+                    $('#modalAction').modal('hide');
+                    $('#modalMessage').modal('show');
+                    $scope.hideModalMessage();
+                }
+                else {
+                    $('#modalAction').modal('hide');
+                    $scope.message_error = 'Ha ocurrido un error..';
+                    $('#modalMessageError').modal('show');
+                }
+            });
+        } else {
+            $http.put(url + '/' + $scope.id, data ).success(function (response) {
+                if (response.success == true) {
+                    $scope.idpersona = 0;
+                    $scope.id = 0;
+                    $scope.initLoad(1);
+                    $scope.message = 'Se editó correctamente la información del Proveedor...';
+                    $('#modalAction').modal('hide');
+                    $('#modalMessage').modal('show');
+                    $scope.hideModalMessage();
+                }
+                else {
+                    $('#modalAction').modal('hide');
+                    $scope.message_error = 'Ha ocurrido un error..';
+                    $('#modalMessageError').modal('show');
+                }
+            }).error(function (res) {
 
-                $scope.objectPerson = {
-                    idperson: 0,
-                    identify: ''
-                };
-
-                $scope.initLoad();
-                $scope.message = 'Se guardó correctamente la información del Colaborador...';
-                $('#modalAction').modal('hide');
-                $('#modalMessage').modal('show');
-                $scope.hideModalMessage();
-            }
-            else {
-                $('#modalAction').modal('hide');
-                $scope.message_error = 'Ya existe ese Colaborador...';
-                $('#modalMessageError').modal('show');
-            }
-        });
+            });
+        }
 
     };
 

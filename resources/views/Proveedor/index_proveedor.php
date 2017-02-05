@@ -49,9 +49,9 @@
                 <tbody>
                     <tr dir-paginate="proveedor in proveedores | orderBy:sortKey:reverse | itemsPerPage:10 |filter:busqueda" ng-cloak >
                         <td>{{proveedor.numdocidentific}}</td>
-                        <td>{{proveedor.complete_name}}</td>
-                        <td>{{proveedor.namecargo}}</td>
-                        <td>{{proveedor.telefprincipaldomicilio}}</td>
+                        <td>{{proveedor.razonsocial}}</td>
+                        <td>{{proveedor.direccion}}</td>
+                        <td>{{proveedor.telefonoprincipal}}</td>
                         <td>{{proveedor.celphone}}</td>
                         <td>
                             <button type="button" class="btn btn-info" ng-click="toggle('info', proveedor)"
@@ -128,7 +128,7 @@
 
                                             input-changed="inputChanged"
 
-                                            remote-url = "{{API_URL}}empleado/getIdentify/"
+                                            remote-url = "{{API_URL}}proveedor/getIdentify/"
 
                                             focus-out="focusOut()"
 

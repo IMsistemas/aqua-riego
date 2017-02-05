@@ -647,6 +647,8 @@ Route::get('proveedor/getParroquias/{idcanton}', 'Proveedores\ProveedorControlle
 
 Route::get('proveedor/getImpuestoIVA', 'Proveedores\ProveedorController@getImpuestoIVA');
 
+Route::get('proveedor/getIdentify/{identify}', 'Proveedores\ProveedorController@getIdentify');
+
 Route::get('proveedor/getProveedores', 'Proveedores\ProveedorController@getProveedores');
 
 Route::resource('proveedor', 'Proveedores\ProveedorController');
