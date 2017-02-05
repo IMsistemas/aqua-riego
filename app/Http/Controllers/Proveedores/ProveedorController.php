@@ -17,16 +17,26 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        return view('proveedores.index_proveedor');
+        return view('Proveedor.index_proveedor');
     }
 
 
-    public function getProveedores()
+    public function getProveedores(Request $request)
     {
-        return Proveedor::join('persona', 'persona.idpersona', '=', 'proveedor.idpersona')
+
+        $filter = json_decode($request->get('filter'));
+        $search = $filter->search;
+        $employee = null;
+
+        $proveedor = Proveedor::join('persona', 'persona.idpersona', '=', 'proveedor.idpersona')
                         ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'proveedor.idplancuenta')
-                        ->select('proveedor.*', 'persona.*', 'cont_plancuenta.*')
-                        ->orderBy('fechaingreso', 'asc')->get();
+                        ->select('proveedor.*', 'persona.*', 'cont_plancuenta.*');
+
+        if ($search != null) {
+            $proveedor = $proveedor->whereRaw("persona.razonsocial LIKE '%" . $search . "%'");
+        }
+
+        return $proveedor->orderBy('fechaingreso', 'desc')->paginate(10);
     }
 
 

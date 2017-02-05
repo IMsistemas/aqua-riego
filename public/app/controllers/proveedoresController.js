@@ -2,7 +2,7 @@
 app.controller('proveedoresController', function($scope, $http, API_URL, Upload) {
 
     $scope.proveedores = [];
-    $scope.empleado_del = 0;
+    $scope.proveedor_del = 0;
     $scope.idpersona = 0;
     $scope.id = 0;
 
@@ -13,24 +13,32 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
         identify: ''
     };
 
-    $scope.initLoad = function(){
+    $scope.pageChanged = function(newPage) {
+        $scope.initLoad(newPage);
+    };
 
-        $http.get(API_URL + 'proveedor/getProveedores').success(function(response){
-            var longitud = response.length;
-            for (var i = 0; i < longitud; i++) {
-                var complete_name = {
-                    value: response[i].namepersona + ' ' + response[i].lastnamepersona,
-                    writable: true,
-                    enumerable: true,
-                    configurable: true
-                };
-                Object.defineProperty(response[i], 'complete_name', complete_name);
-            }
-            $scope.proveedores = response;
+    $scope.initLoad = function(pageNumber){
 
+        if ($scope.busqueda == undefined) {
+            var search = null;
+        } else var search = $scope.busqueda;
+
+        var filtros = {
+            search: search
+        };
+
+        $http.get(API_URL + 'proveedor/getProveedores?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
+            $scope.proveedores = response.data;
+            $scope.totalItems = response.total;
         });
 
     };
+
+
+
+
+
+
 
 
     $scope.showDataPurchase = function (object) {
@@ -371,7 +379,7 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
         }
     };
 
-    $scope.initLoad();
+    $scope.initLoad(1);
 
     $('.datepicker').datetimepicker({
         locale: 'es',
