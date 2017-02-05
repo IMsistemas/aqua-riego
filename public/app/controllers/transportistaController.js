@@ -34,17 +34,12 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
         if (object != undefined && object.originalObject != undefined) {
 
             $scope.documentoidentidadempleado = object.originalObject.numdocidentific;
-            $scope.apellido = object.originalObject.lastnamepersona;
-            $scope.nombre = object.originalObject.namepersona;
+            $scope.razonsocial = object.originalObject.razonsocial;
             $scope.celular = object.originalObject.celphone;
             $scope.correo = object.originalObject.email;
             $scope.tipoidentificacion = object.originalObject.idtipoidentificacion;
             $scope.idpersona = object.originalObject.idpersona;
 
-            $scope.objectPerson = {
-                idperson: object.originalObject.idpersona,
-                identify: object.originalObject.numdocidentific
-            };
         }
 
     };
@@ -67,12 +62,14 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
                     $('#documentoidentidadempleado').val('');
                     $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', ' ');
 
-                    $scope.apellido = '';
-                    $scope.nombre = '';
+                    $scope.razonsocial = '';
+                    $scope.placa = '';
                     $scope.celular = '';
                     $scope.correo = '';
                     $scope.fechaingreso = fecha();
                     $scope.form_title = "Ingresar Nuevo Transportista";
+
+                    $scope.idpersona = 0;
 
                     $('#modalAction').modal('show');
 
@@ -201,63 +198,57 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
     };
 
     $scope.save = function() {
-        var url = API_URL + "empleado";
-        var method = 'POST';
-
-        if ($scope.modalstate == 'edit'){
-            url += "/updateEmpleado/" + $scope.id;
-        }
+        var url = API_URL + 'transportista';
 
         var fechaingreso = $('#fechaingreso').val();
 
         var data ={
             fechaingreso: convertDatetoDB(fechaingreso),
-            idcargo: $scope.idcargo,
-            apellidos: $scope.apellido,
-            nombres: $scope.nombre,
-            telefonoprincipaldomicilio: $scope.telefonoprincipal,
-            telefonosecundariodomicilio: $scope.telefonosecundario,
             celular: $scope.celular,
-            direcciondomicilio: $scope.direccion,
             correo: $scope.correo,
-            salario: $scope.salario,
-            file: $scope.file,
-            documentoidentidadempleado: $scope.documentoidentidadempleado,
-
-            idpersona:  $scope.idpersona,
-
-            departamento: $scope.departamento,
             tipoidentificacion: $scope.tipoidentificacion,
-            cuentacontable: $scope.select_cuenta.idplancuenta
+            documentoidentidadempleado: $scope.documentoidentidadempleado,
+            idpersona:  $scope.idpersona,
+            placa: $scope.placa,
+            razonsocial: $scope.razonsocial
         };
 
         console.log(data);
 
-        Upload.upload({
-            url: url,
-            method: method,
-            data: data
-        }).success(function(data, status, headers, config) {
-            if (data.success == true) {
-                $scope.idpersona = 0;
+        if ($scope.modalstate == 'add') {
+            $http.post(url, data ).success(function (response) {
+                if (response.success == true) {
+                    $scope.initLoad(1);
+                    $scope.message = 'Se guardó correctamente la información del Transportista...';
+                    $('#modalAction').modal('hide');
+                    $('#modalMessage').modal('show');
+                    $scope.hideModalMessage();
+                }
+                else {
+                    $('#modalAction').modal('hide');
+                    $scope.message_error = 'Ha ocurrido un error..';
+                    $('#modalMessageError').modal('show');
+                }
+            });
+        } else {
+            $http.put(url + $scope.id, data ).success(function (response) {
+                if (response.success == true) {
+                    $scope.idpersona = 0;
+                    $scope.initLoad(1);
+                    $scope.message = 'Se editó correctamente la información del Transportista...';
+                    $('#modalAction').modal('hide');
+                    $('#modalMessage').modal('show');
+                    $scope.hideModalMessage();
+                }
+                else {
+                    $('#modalAction').modal('hide');
+                    $scope.message_error = 'Ha ocurrido un error..';
+                    $('#modalMessageError').modal('show');
+                }
+            }).error(function (res) {
 
-                $scope.objectPerson = {
-                    idperson: 0,
-                    identify: ''
-                };
-
-                $scope.initLoad();
-                $scope.message = 'Se guardó correctamente la información del Colaborador...';
-                $('#modalAction').modal('hide');
-                $('#modalMessage').modal('show');
-                $scope.hideModalMessage();
-            }
-            else {
-                $('#modalAction').modal('hide');
-                $scope.message_error = 'Ya existe ese Colaborador...';
-                $('#modalMessageError').modal('show');
-            }
-        });
+            });
+        }
 
     };
 

@@ -10,6 +10,8 @@
     <link href="<?= asset('css/bootstrap.min.css') ?>" rel="stylesheet">
     <link href="<?= asset('css/font-awesome.min.css') ?>" rel="stylesheet">
     <link href="<?= asset('css/index.css') ?>" rel="stylesheet">
+    <link href="<?= asset('css/bootstrap-datetimepicker.min.css') ?>" rel="stylesheet">
+    <link href="<?= asset('css/angucomplete-alt.css') ?>" rel="stylesheet">
     <link href="<?= asset('css/style_generic_app.css') ?>" rel="stylesheet">
 
 </head>
@@ -44,7 +46,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr dir-paginate="transp in transportistas | orderBy:sortKey:reverse | itemsPerPage:1" total-items="totalItems" ng-cloak >
+                <tr dir-paginate="transp in transportistas | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak >
                     <td>{{transp.numdocidentific}}</td>
                     <td>{{transp.razonsocial}}</td>
                     <td>{{transp.placa}}</td>
@@ -74,7 +76,7 @@
                 template-url="dirPagination.html"
 
                 class="pull-right"
-                max-size="1"
+                max-size="10"
                 direction-links="true"
                 boundary-links="true" >
 
@@ -159,33 +161,19 @@
                             </div>
 
                             <div class="col-xs-12" style="margin-top: 5px;">
-                                <div class="col-md-6 col-xs-12">
+
+                                <div class="col-xs-12">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Apellidos: </span>
-                                        <input type="text" class="form-control" name="apellido" id="apellido"
-                                               ng-model="apellido" ng-required="true" ng-maxlength="128" ng-pattern="/^([a-zA-ZáéíóúñÑ ])+$/" >
+                                        <span class="input-group-addon">Razón Social: </span>
+                                        <input type="text" class="form-control" name="razonsocial" id="razonsocial"
+                                               ng-model="razonsocial" ng-required="true" ng-maxlength="200" >
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$touched">El Apellido es requerido</span>
+                                          ng-show="formEmployee.razonsocial.$invalid && formEmployee.razonsocial.$touched">La Razón Social es requerida</span>
                                     <span class="help-block error"
-                                          ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$error.maxlength">La longitud máxima es de 128 caracteres</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$error.pattern">El Apellido debe ser solo letras y espacios</span>
+                                          ng-show="formEmployee.razonsocial.$invalid && formEmployee.razonsocial.$error.maxlength">La longitud máxima es de 200 caracteres</span>
                                 </div>
 
-                                <div class="col-md-6 col-xs-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Nombre(s): </span>
-                                        <input type="text" class="form-control" name="nombre" id="nombre"
-                                               ng-model="nombre" ng-required="true" ng-maxlength="128" ng-pattern="/^([a-zA-ZáéíóúñÑ ])+$/" >
-                                    </div>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.nombre.$invalid && formEmployee.nombre.$touched">El Nombre es requerido</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.nombre.$invalid && formEmployee.nombre.$error.maxlength">La longitud máxima es de 128 caracteres</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.nombre.$invalid && formEmployee.nombre.$error.pattern">El Nombre debe ser solo letras y espacios</span>
-                                </div>
                             </div>
 
                             <div class="col-xs-12" style="margin-top: 5px;">
@@ -214,16 +202,17 @@
                             </div>
 
                             <div class="col-xs-12" style="margin-top: 5px;">
-                                <div class="col-xs-12">
+                                <div class="col-sm-6 col-xs-12">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Dirección: </span>
-                                        <input type="text" class="form-control" name="direccion" id="direccion" ng-model="direccion" ng-maxlength="256">
+                                        <span class="input-group-addon">Placa: </span>
+                                        <input type="text" class="form-control" name="placa" id="placa" ng-model="placa" ng-required="true" ng-maxlength="20">
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formEmployee.direccion.$invalid && formEmployee.direccion.$error.maxlength">La longitud máxima es de 256 caracteres</span>
+                                          ng-show="formEmployee.placa.$invalid && formEmployee.placa.$touched">La Placa es requerida</span>
+                                    <span class="help-block error"
+                                          ng-show="formEmployee.placa.$invalid && formEmployee.placa.$error.maxlength">La longitud máxima es de 20 caracteres</span>
                                 </div>
                             </div>
-
 
                 </form>
             </div>
@@ -296,32 +285,22 @@
         <div class="modal-content">
             <div class="modal-header modal-header-info">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Información del Empleado</h4>
+                <h4 class="modal-title">Información del Transportista</h4>
             </div>
             <div class="modal-body">
-                <div class="col-xs-12 text-center">
-                    <img class="img-thumbnail" src="{{url_foto}}" alt="">
-                </div>
                 <div class="row text-center">
-                    <div class="col-xs-12 text-center" style="font-size: 18px;">{{name_employee}}</div>
-                    <div class="col-xs-12 text-center" style="font-size: 16px;">{{cargo_employee}}</div>
+                    <div class="col-xs-12 text-center" style="font-size: 18px;">{{razonsocial_transp}}</div>
                     <div class="col-xs-12">
-                        <span style="font-weight: bold">Empleado desde: </span>{{date_registry_employee}}
+                        <span style="font-weight: bold">Empleado desde: </span>{{date_registry_transp}}
                     </div>
                     <div class="col-xs-12">
-                        <span style="font-weight: bold">Teléfonos: </span>{{phones_employee}}
+                        <span style="font-weight: bold">Celular: </span>{{cel_transp}}
                     </div>
                     <div class="col-xs-12">
-                        <span style="font-weight: bold">Celular: </span>{{cel_employee}}
+                        <span style="font-weight: bold">Email: </span>{{email_transp}}
                     </div>
                     <div class="col-xs-12">
-                        <span style="font-weight: bold">Dirección: </span>{{address_employee}}
-                    </div>
-                    <div class="col-xs-12">
-                        <span style="font-weight: bold">Email: </span>{{email_employee}}
-                    </div>
-                    <div class="col-xs-12">
-                        <span style="font-weight: bold">Salario: </span>{{salario_employee}}
+                        <span style="font-weight: bold">Salario: </span>{{placa_transp}}
                     </div>
                 </div>
             </div>

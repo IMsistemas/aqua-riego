@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Transportista;
 
+use App\Modelos\Persona;
 use App\Modelos\SRI\SRI_TipoIdentificacion;
 use App\Modelos\Transportista\Transportista;
 use Illuminate\Http\Request;
@@ -49,16 +50,19 @@ class TransportistaController extends Controller
     }
 
 
-
     /**
-     * Show the form for creating a new resource.
+     * Obtener y devolver los numeros de identificacion que concuerden con el parametro a buscar
      *
-     * @return \Illuminate\Http\Response
+     * @param $identify
+     * @return mixed
      */
-    public function create()
+    public function getIdentify($identify)
     {
-        //
+        return Persona::whereRaw("numdocidentific::text ILIKE '%" . $identify . "%'")
+            ->whereRaw('idpersona NOT IN (SELECT idpersona FROM transportista)')
+            ->get();
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -68,7 +72,39 @@ class TransportistaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $state = false;
+
+        if ($request->input('idpersona') == 0) {
+            $persona = new Persona();
+        } else {
+            $persona = Persona::find($request->input('idpersona'));
+            $state = true;
+        }
+
+        $persona->numdocidentific = $request->input('documentoidentidadempleado');
+        $persona->email = $request->input('correo');
+        $persona->celphone = $request->input('celular');
+        $persona->idtipoidentificacion = $request->input('tipoidentificacion');
+        $persona->razonsocial = $request->input('razonsocial');
+
+        if ($state == false) {
+            $persona->lastnamepersona = $request->input('razonsocial');
+            $persona->namepersona = $request->input('razonsocial');
+        }
+
+        if ($persona->save()) {
+            $transportista = new Transportista();
+            $transportista->fechaingreso = $request->input('fechaingreso');
+            $transportista->estado = true;
+            $transportista->idpersona = $persona->idpersona;
+            $transportista->placa = $request->input('placa');
+
+            if ($transportista->save()) {
+                return response()->json(['success' => true]);
+            } else return response()->json(['success' => false]);
+
+        } else return response()->json(['success' => false]);
+
     }
 
     /**
