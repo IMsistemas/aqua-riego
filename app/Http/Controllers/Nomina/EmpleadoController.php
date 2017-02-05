@@ -157,6 +157,7 @@ class EmpleadoController extends Controller
         $persona->celphone = $request->input('celular');
         $persona->idtipoidentificacion = $request->input('tipoidentificacion');
         $persona->razonsocial = $request->input('nombres') . ' ' . $request->input('apellidos');
+        $persona->direccion = $request->input('direcciondomicilio');
 
         if ($persona->save()) {
             $empleado = new Empleado();
@@ -168,7 +169,6 @@ class EmpleadoController extends Controller
             $empleado->fechaingreso = $request->input('fechaingreso');
             $empleado->telefprincipaldomicilio = $request->input('telefonoprincipaldomicilio');
             $empleado->telefsecundariodomicilio = $request->input('telefonosecundariodomicilio');
-            $empleado->direcciondomicilio = $request->input('direcciondomicilio');
             $empleado->salario = $request->input('salario');
 
             if ($url_file != null) {
@@ -224,6 +224,7 @@ class EmpleadoController extends Controller
         $persona->celphone = $request->input('celular');
         $persona->idtipoidentificacion = $request->input('tipoidentificacion');
         $persona->razonsocial = $request->input('nombres') . ' ' . $request->input('apellidos');
+        $persona->direccion = $request->input('direcciondomicilio');
 
         if ($persona->save()) {
             $empleado = Empleado::find($id);
@@ -233,7 +234,6 @@ class EmpleadoController extends Controller
             $empleado->fechaingreso = $request->input('fechaingreso');
             $empleado->telefprincipaldomicilio = $request->input('telefonoprincipaldomicilio');
             $empleado->telefsecundariodomicilio = $request->input('telefonosecundariodomicilio');
-            $empleado->direcciondomicilio = $request->input('direcciondomicilio');
             $empleado->salario = $request->input('salario');
 
             if ($url_file != null) {

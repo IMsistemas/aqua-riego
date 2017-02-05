@@ -6,8 +6,6 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
     $scope.idpersona = 0;
     $scope.id = 0;
 
-    $scope.select_cuenta = null;
-
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
     };
@@ -38,6 +36,8 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
             $scope.celular = object.originalObject.celphone;
             $scope.correo = object.originalObject.email;
             $scope.tipoidentificacion = object.originalObject.idtipoidentificacion;
+            $scope.direccion = object.originalObject.direccion;
+            $scope.telefonoprincipal = object.originalObject.telefonoprincipal;
             $scope.idpersona = object.originalObject.idpersona;
 
         }
@@ -67,6 +67,9 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
                     $scope.celular = '';
                     $scope.correo = '';
                     $scope.fechaingreso = fecha();
+                    $scope.direccion = '';
+                    $scope.telefonoprincipal = '';
+
                     $scope.form_title = "Ingresar Nuevo Transportista";
 
                     $scope.idpersona = 0;
@@ -80,7 +83,7 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
                 $scope.form_title = "Editar Transportista";
                 $scope.id = item.idempleado;
 
-                $http.get(API_URL + 'empleado/getTipoIdentificacion').success(function(response){
+                $http.get(API_URL + 'transportista/getTipoIdentificacion').success(function(response){
                     var longitud = response.length;
                     var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
@@ -89,55 +92,23 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
                     $scope.idtipoidentificacion = array_temp;
                     $scope.tipoidentificacion = '';
 
-                    $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
-                        var longitud = response.length;
-                        var array_temp = [];
-                        for(var i = 0; i < longitud; i++){
-                            array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
-                        }
+                    $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
+                    $scope.documentoidentidadempleado = item.numdocidentific;
+                    $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', item.numdocidentific);
 
-                        console.log(item);
+                    $scope.razonsocial = item.razonsocial;
+                    $scope.telefonoprincipal = item.telefonoprincipal;
+                    $scope.celular = item.celphone;
+                    $scope.direccion = item.direccion;
+                    $scope.correo = item.email;
+                    $scope.placa = item.placa;
+                    $scope.idpersona = item.idpersona;
+                    $scope.tipoidentificacion = item.idtipoidentificacion;
 
-                        $scope.idcargos = array_temp;
+                    $scope.id = item.idtransportista;
 
-                        $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
-                        $scope.documentoidentidadempleado = item.numdocidentific;
 
-                        $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', item.numdocidentific);
-
-                        $scope.idcargo = item.idcargo;
-                        $scope.apellido = item.lastnamepersona;
-                        $scope.nombre = item.namepersona;
-                        $scope.telefonoprincipal = item.telefprincipaldomicilio;
-                        $scope.telefonosecundario = item.telefsecundariodomicilio;
-                        $scope.celular = item.celphone;
-                        $scope.direccion = item.direcciondomicilio;
-                        $scope.correo = item.email;
-                        $scope.salario = item.salario;
-
-                        $scope.idpersona = item.idpersona;
-
-                        if (item.rutafoto != null && item.rutafoto != ''){
-                            $scope.url_foto = item.rutafoto;
-                        } else {
-                            $scope.url_foto = 'img/empleado.png';
-                        }
-
-                        $scope.departamento = item.iddepartamento;
-
-                        $scope.cuenta_employee = item.concepto;
-
-                        $scope.tipoidentificacion = item.idtipoidentificacion;
-
-                        var objectPlan = {
-                            idplancuenta: item.idplancuenta,
-                            concepto: item.concepto
-                        };
-
-                        $scope.select_cuenta = objectPlan;
-
-                        $('#modalAction').modal('show');
-                    });
+                    $('#modalAction').modal('show');
 
                 });
 
@@ -151,6 +122,8 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
                 $scope.cel_transp = item.celphone;
                 $scope.email_transp = item.email;
                 $scope.placa_transp = item.placa;
+                $scope.address_transp = item.direccion;
+                $scope.phones_transp = item.telefonoprincipal;
 
                 $('#modalInfoEmpleado').modal('show');
 
@@ -198,6 +171,8 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
             documentoidentidadempleado: $scope.documentoidentidadempleado,
             idpersona:  $scope.idpersona,
             placa: $scope.placa,
+            direccion: $scope.direccion,
+            telefonoprincipal: $scope.telefonoprincipal,
             razonsocial: $scope.razonsocial
         };
 
@@ -219,9 +194,10 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
                 }
             });
         } else {
-            $http.put(url + $scope.id, data ).success(function (response) {
+            $http.put(url + '/' + $scope.id, data ).success(function (response) {
                 if (response.success == true) {
                     $scope.idpersona = 0;
+                    $scope.id = 0;
                     $scope.initLoad(1);
                     $scope.message = 'Se editó correctamente la información del Transportista...';
                     $('#modalAction').modal('hide');
@@ -241,17 +217,17 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
     };
 
     $scope.showModalConfirm = function(item){
-        $scope.empleado_del = item.idempleado;
-        $scope.empleado_seleccionado = item.namepersona + ' ' + item.lastnamepersona;
+        $scope.transportista_del = item.idtransportista;
+        $scope.empleado_seleccionado = item.razonsocial;
         $('#modalConfirmDelete').modal('show');
     };
 
     $scope.destroy = function(){
-        $http.delete(API_URL + 'empleado/' + $scope.empleado_del).success(function(response) {
+        $http.delete(API_URL + 'transportista/' + $scope.transportista_del).success(function(response) {
             $scope.initLoad(1);
             $('#modalConfirmDelete').modal('hide');
-            $scope.empleado_del = 0;
-            $scope.message = 'Se eliminó correctamente el Colaborador seleccionado';
+            $scope.transportista_del = 0;
+            $scope.message = 'Se eliminó correctamente el Transportista seleccionado...';
             $('#modalMessage').modal('show');
             $scope.hideModalMessage();
         });
@@ -265,18 +241,6 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
             $('#modalPlanCuenta').modal('show');
         });
 
-    };
-
-    $scope.selectCuenta = function () {
-        var selected = $scope.select_cuenta;
-
-        $scope.cuenta_employee = selected.concepto;
-
-        $('#modalPlanCuenta').modal('hide');
-    };
-
-    $scope.click_radio = function (item) {
-        $scope.select_cuenta = item;
     };
 
     $scope.hideModalMessage = function () {

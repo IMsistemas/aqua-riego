@@ -23,6 +23,12 @@ class TransportistaController extends Controller
     }
 
 
+    /**
+     * Obtener todos los transportistas
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function getTransportista(Request $request)
     {
         $filter = json_decode($request->get('filter'));
@@ -86,6 +92,7 @@ class TransportistaController extends Controller
         $persona->celphone = $request->input('celular');
         $persona->idtipoidentificacion = $request->input('tipoidentificacion');
         $persona->razonsocial = $request->input('razonsocial');
+        $persona->direccion = $request->input('direccion');
 
         if ($state == false) {
             $persona->lastnamepersona = $request->input('razonsocial');
@@ -98,6 +105,7 @@ class TransportistaController extends Controller
             $transportista->estado = true;
             $transportista->idpersona = $persona->idpersona;
             $transportista->placa = $request->input('placa');
+            $transportista->telefonoprincipal = $request->input('telefonoprincipal');
 
             if ($transportista->save()) {
                 return response()->json(['success' => true]);
@@ -107,27 +115,6 @@ class TransportistaController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -138,8 +125,42 @@ class TransportistaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $state = false;
+
+        if ($request->input('idpersona') == 0) {
+            $persona = new Persona();
+        } else {
+            $persona = Persona::find($request->input('idpersona'));
+            $state = true;
+        }
+
+        $persona->numdocidentific = $request->input('documentoidentidadempleado');
+        $persona->email = $request->input('correo');
+        $persona->celphone = $request->input('celular');
+        $persona->idtipoidentificacion = $request->input('tipoidentificacion');
+        $persona->razonsocial = $request->input('razonsocial');
+        $persona->direccion = $request->input('direccion');
+
+        if ($state == false) {
+            $persona->lastnamepersona = $request->input('razonsocial');
+            $persona->namepersona = $request->input('razonsocial');
+        }
+
+        if ($persona->save()) {
+            $transportista = Transportista::find($id);
+            $transportista->fechaingreso = $request->input('fechaingreso');
+            $transportista->estado = true;
+            $transportista->idpersona = $persona->idpersona;
+            $transportista->placa = $request->input('placa');
+            $transportista->telefonoprincipal = $request->input('telefonoprincipal');
+
+            if ($transportista->save()) {
+                return response()->json(['success' => true]);
+            } else return response()->json(['success' => false]);
+
+        } else return response()->json(['success' => false]);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -149,6 +170,10 @@ class TransportistaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $transportista = Transportista::find($id);
+        if ($transportista->delete()) {
+            return response()->json(['success' => true]);
+        }
+        else return response()->json(['success' => false]);
     }
 }

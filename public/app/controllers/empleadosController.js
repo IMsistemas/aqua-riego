@@ -161,8 +161,6 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                             array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
                         }
 
-                        console.log(item);
-
                         $scope.idcargos = array_temp;
 
                         $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
@@ -176,7 +174,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                         $scope.telefonoprincipal = item.telefprincipaldomicilio;
                         $scope.telefonosecundario = item.telefsecundariodomicilio;
                         $scope.celular = item.celphone;
-                        $scope.direccion = item.direcciondomicilio;
+                        $scope.direccion = item.direccion;
                         $scope.correo = item.email;
                         $scope.salario = item.salario;
 
@@ -217,7 +215,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                 //$scope.date_registry_employee = response[0].fechaingreso;
                 $scope.phones_employee = item.telefprincipaldomicilio + '/' + item.telefsecundariodomicilio;
                 $scope.cel_employee = item.celphone;
-                $scope.address_employee = item.direcciondomicilio;
+                $scope.address_employee = item.direccion;
                 $scope.email_employee = item.email;
                 $scope.salario_employee = item.salario;
 
