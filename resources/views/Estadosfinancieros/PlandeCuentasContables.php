@@ -15,7 +15,7 @@
 </head>
 <body>
 
-	<div class="container-fluid" ng-controller="Contabilidad" ng-cloak>
+	<div class="container-fluid" ng-controller="Contabilidad" ng-init="TipoTransaccion();" ng-cloak>
 		<div class="row">
 			<div class="col-xs-6">
                 <h3><strong>Plan de cuentas</strong></h3>
@@ -401,7 +401,7 @@
             <span class="input-group-addon">Transacción: </span>
             <select class="form-control" ng-model="tipotransaccion">
               <option value="">Seleccione</option>
-              <option ng-repeat=" transaccion in listatipotransaccion" ng-value="transaccion.idtipotransaccion">{{transaccion.descripcion +" "+ transaccion.cont_tipoingresoegreso.descripcion}}</option>
+              <option ng-repeat=" transaccion in listatipotransaccion" ng-value="{{transaccion.idtipotransaccion}}">{{transaccion.descripcion +" "+ transaccion.cont_tipoingresoegreso.descripcion}}</option>
             </select>
           </div>
         </div>

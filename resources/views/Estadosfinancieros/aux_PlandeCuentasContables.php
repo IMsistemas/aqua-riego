@@ -147,7 +147,7 @@
                           <button class="btn btn-warning btn-sm" ng-click="ProcesoModificarAsientoCt(registro)" > <i class="glyphicon glyphicon glyphicon-edit"></i></button>
                           <button class="btn btn-danger btn-sm" ng-click="ProcesoBorrarAsientoCt(registro)" > <i class="glyphicon glyphicon glyphicon-trash"></i></button>
                         </td>
-                        <td>{{ registro.cont_transaccion.cont_tipotransaccion.descripcion }}</td>
+                        <td>{{ registro.cont_transaccion.cont_tipotransaccion.sigla }}</td>
                         <td>{{ registro.fecha }}</td>
                         <td>{{ registro.cont_transaccion.numcontable }}</td>
                         <td>{{ registro.descripcion }}</td>
@@ -321,7 +321,7 @@
     <div class="modal-content">
       <div class="modal-header btn-danger" id="titulomsm">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Mensaje de confirmacion</h4>
+        <h4 class="modal-title">Mensaje De Validación</h4>
       </div>
       <div class="modal-body">
         <strong>Esta seguro de borrar</strong>
@@ -508,6 +508,26 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="BorraTransaccion" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header btn-danger">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Mensaje De Validación</h4>
+      </div>
+      <div class="modal-body">
+        <strong>Está Seguro De Eliminar La Transacción  Contable</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar <i class="glyphicon glyphicon-ban-circle"></i></button>
+        <button type="button" class="btn btn-danger" ng-click="ConfirmarBorrarTransaccion();">Eliminar <i class="glyphicon glyphicon-trash"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 
   </div>

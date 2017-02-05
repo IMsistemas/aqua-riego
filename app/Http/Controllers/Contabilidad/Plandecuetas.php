@@ -186,8 +186,20 @@ class Plandecuetas extends Controller
      */
     public function DatosAsientoContable($id)
     {
-        return Cont_Transaccion::with("cont_registrocontable")
+        return Cont_Transaccion::with("cont_registrocontable.cont_plancuentas")
                                 ->whereRaw("cont_transaccion.idtransaccion=".$id."")
                                 ->get();
+    }
+    /**
+     *
+     * 
+     * Modificar  el asiento contable "Llamada desde el  core contable"
+     *
+     */
+    public function EditarAsientoContable($transaccion)
+    {
+        $transaccion = json_decode($transaccion);
+        $res=CoreContabilidad::ModifyAsientoContable($transaccion);
+        return $res;
     }
 }

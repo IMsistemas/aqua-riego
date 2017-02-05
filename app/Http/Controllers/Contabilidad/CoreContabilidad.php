@@ -379,4 +379,40 @@ class CoreContabilidad extends Controller
 		Cont_RegistroContable::whereRaw("idtransaccion=".$id_transaccion."")->delete();
 		return true;
 	}
+	/**
+	 *
+	 *
+	 *
+	 *
+	 */
+	public static function ModifyAsientoContable($transaccioncontable)
+	{
+		$aux_core=new CoreContabilidad;
+		$aux_transaccion=$transaccioncontable->transaccion;
+		$aux_registro=$transaccioncontable->registro;
+		
+		$transaccion= array(
+			'idtipotransaccion'=> $aux_transaccion->idtipotransaccion,
+			'numcontable'=> $aux_transaccion->numcontable,
+			'fechatransaccion' => $aux_transaccion->fechatransaccion,
+			'numcomprobante'=> $aux_transaccion->numcomprobante,
+			'descripcion' => $aux_transaccion->descripcion
+			 );
+		Cont_Transaccion::where("idtransaccion",$aux_transaccion->idtransaccion)
+											->update($transaccion);
+		$transaccionguardada=Cont_Transaccion::find($aux_transaccion->idtransaccion);
+		$idtransaccion=$transaccionguardada->idtransaccion;
+		$fecharegistro=$transaccionguardada->fechatransaccion;
+
+		$aux_core->BorrarRegistroAsientoContable($idtransaccion);
+
+		if($idtransaccion){
+			$aux_respuesta=$aux_core->SaveRegistroAsientoContable($aux_registro,$idtransaccion,$fecharegistro);
+			if($aux_respuesta==1){
+				return $idtransaccion;
+			}
+		}else{
+			return 0;
+		}
+	}
 }

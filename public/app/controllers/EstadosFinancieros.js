@@ -1,5 +1,5 @@
 app.controller('Contabilidad', function($scope, $http, API_URL) {
-    $scope.GenerarPlanCuentasTipo="E"; //Por default selecciona estado de resultados
+    $scope.GenerarPlanCuentasTipo="B"; //Por default selecciona estado de resultados
     $scope.FechaI=first(); //Cargar por default el primer dia del año actual
     $scope.FechaF=now();  // Cargar por default el dia actual 
     $scope.Mensaje="";  // Mensaje de validacion
@@ -16,6 +16,8 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
 
     $scope.FechaRI=first(); //Cargar por default el primer dia del año actual
     $scope.FechaRF=now();  // Cargar por default el dia actual 
+
+    $scope.EstadoSave="";
 
     ///---
     $scope.GenereraFiltroPlanCuentas=function(){
@@ -201,7 +203,9 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     $scope.NumeroIASC="";
     $scope.AddAsientoContable=function(){
         $("#AddAsc").modal("show");
+        $scope.EstadoSave="N";
         $scope.TipoTransaccion();
+        $scope.ClearAsientoContable();
     };
     ///---
     $scope.AddIntemCotable=function(){
@@ -287,35 +291,68 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     ///---
     $scope.ProcesarDatosAsientoContable=function () {
         $("#procesarinfomracion").modal("show");
-        var aux_fecha=convertDatetoDB($("#FechaIASC").val());
-        var Transaccion={
-            fecha: aux_fecha,
-            idtipotransaccion: $scope.tipotransaccion,
-            numcomprobante: $scope.NumeroIASC,
-            descripcion: $scope.DescripcionASC
-        };
+        if($scope.EstadoSave=="N"){
+            var aux_fecha=convertDatetoDB($("#FechaIASC").val());
+            var Transaccion={
+                fecha: aux_fecha,
+                idtipotransaccion: $scope.tipotransaccion,
+                numcomprobante: $scope.NumeroIASC,
+                descripcion: $scope.DescripcionASC
+            };
 
-        var Contabilidad={
-            transaccion: Transaccion,
-            registro: $scope.RegistroC
-        };
-        $http.get(API_URL + 'estadosfinacieros/asc/'+JSON.stringify(Contabilidad))
-        .success(function(response){
-           if(!isNaN(response)){
-                QuitarClasesMensaje();
-                $("#procesarinfomracion").modal("hide");
-                $("#titulomsm").addClass("btn-success");
-                $scope.Mensaje="Se Guardo Correctamente";
-                $("#AddAsc").modal("hide");
-                $("#msm").modal("show");
-                $scope.ClearAsientoContable();
-           }else{
-                QuitarClasesMensaje();
-                $("#titulomsm").addClass("btn-danger");
-                $scope.Mensaje="Error Al Guardar El Asiento Contable";
-                $("#msm").modal("show");
-           }
-        });
+            var Contabilidad={
+                transaccion: Transaccion,
+                registro: $scope.RegistroC
+            };
+            $http.get(API_URL + 'estadosfinacieros/asc/'+JSON.stringify(Contabilidad))
+            .success(function(response){
+               if(!isNaN(response)){
+                    QuitarClasesMensaje();
+                    $("#procesarinfomracion").modal("hide");
+                    $("#titulomsm").addClass("btn-success");
+                    $scope.Mensaje="Se Guardo Correctamente";
+                    $("#AddAsc").modal("hide");
+                    $("#msm").modal("show");
+                    $scope.ClearAsientoContable();
+               }else{
+                    QuitarClasesMensaje();
+                    $("#titulomsm").addClass("btn-danger");
+                    $scope.Mensaje="Error Al Guardar El Asiento Contable";
+                    $("#msm").modal("show");
+               }
+               $scope.EstadoSave="";
+            });
+        }
+        if($scope.EstadoSave=="M"){
+            var aux_fecha=convertDatetoDB($("#FechaIASC").val());
+            $scope.auxTransaccionEditar.idtipotransaccion=$scope.tipotransaccion;
+            $scope.auxTransaccionEditar.fechatransaccion=aux_fecha;
+            $scope.auxTransaccionEditar.numcomprobante=$scope.NumeroIASC;
+            $scope.auxTransaccionEditar.descripcion=$scope.DescripcionASC;
+            var Contabilidad={
+                transaccion: $scope.auxTransaccionEditar,
+                registro: $scope.RegistroC
+            };
+            
+            $http.get(API_URL + 'estadosfinacieros/Editarasc/'+JSON.stringify(Contabilidad))
+            .success(function(response){
+               if(!isNaN(response)){
+                    QuitarClasesMensaje();
+                    $("#procesarinfomracion").modal("hide");
+                    $("#titulomsm").addClass("btn-success");
+                    $scope.Mensaje="Se Guardo Correctamente";
+                    $("#AddAsc").modal("hide");
+                    $("#msm").modal("show");
+                    $scope.ClearAsientoContable();
+               }else{
+                    QuitarClasesMensaje();
+                    $("#titulomsm").addClass("btn-danger");
+                    $scope.Mensaje="Error Al Guardar El Asiento Contable";
+                    $("#msm").modal("show");
+               }
+               $scope.EstadoSave="";
+            });
+        }
     };
     ///---
     $scope.ClearAsientoContable=function(){
@@ -400,14 +437,16 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         /// Por definir edicion
         $("#AddAsc").modal("show");
         $scope.DatosModificarAsientoCt(registro.idtransaccion);
+        $scope.EstadoSave="M";
     };
     ///---
-    $scope_auxTransaccionEditar={};
+    $scope.auxTransaccionEditar={};
     $scope.DatosModificarAsientoCt=function(id_transaccion){
+        $scope_auxTransaccionEditar={};
        $http.get(API_URL + 'estadosfinacieros/datosasc/'+id_transaccion)
         .success(function(response){
             console.log(response);
-            $scope_auxTransaccionEditar={
+            $scope.auxTransaccionEditar={
                 idtransaccion: response[0].idtransaccion,
                 idtipotransaccion : response[0].idtipotransaccion,
                 numcontable: response[0].numcontable,
@@ -415,9 +454,31 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
                 numcomprobante: response[0].numcomprobante,
                 descripcion : response[0].descripcion
             };
-            console.log($scope_auxTransaccionEditar);
-            $scope.RegistroC=response[0].cont_registrocontable;
+            $scope.RenderRegistroContble(response[0].cont_registrocontable);
         }); 
+    };
+    ///---
+    $scope.RenderRegistroContble=function(registro){
+        $scope.tipotransaccion=$scope.auxTransaccionEditar.idtipotransaccion+"";
+        $("#FechaIASC").val(convertDatetoDB($scope.auxTransaccionEditar.fechatransaccion,"true"));
+            $scope.NumeroIASC=$scope.auxTransaccionEditar.numcomprobante;
+            $scope.DescripcionASC=$scope.auxTransaccionEditar.descripcion;
+
+        console.log(registro);
+        $scope.RegistroC=[];
+        for(x=0;x<registro.length;x++){
+            var item={
+                idplancuenta:registro[x].cont_plancuentas.idplancuenta,
+                concepto: registro[x].cont_plancuentas.concepto,
+                controlhaber: registro[x].cont_plancuentas.controlhaber,
+                tipocuenta: registro[x].cont_plancuentas.tipocuenta,
+                Debe:  parseFloat(registro[x].debe),
+                Haber: parseFloat(registro[x].haber),
+                Descipcion: registro[x].descripcion
+            };
+            $scope.RegistroC.push(item);
+        }
+        $scope.SumarDebeHaber();
     };
     ///--- 
     $scope.aux_registroBorrar={};
