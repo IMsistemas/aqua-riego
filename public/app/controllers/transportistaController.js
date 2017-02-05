@@ -146,23 +146,11 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
 
             case 'info':
 
-                $scope.name_employee = item.complete_name;
-                $scope.cargo_employee = item.namecargo;
-                $scope.date_registry_employee = convertDatetoDB(item.fechaingreso, true);
-                //$scope.date_registry_employee = response[0].fechaingreso;
-                $scope.phones_employee = item.telefprincipaldomicilio + '/' + item.telefsecundariodomicilio;
-                $scope.cel_employee = item.celphone;
-                $scope.address_employee = item.direcciondomicilio;
-                $scope.email_employee = item.email;
-                $scope.salario_employee = item.salario;
-
-
-
-                if (item.rutafoto != null && item.rutafoto != ''){
-                    $scope.url_foto = item.rutafoto;
-                } else {
-                    $scope.url_foto = 'img/empleado.png';
-                }
+                $scope.razonsocial_transp = item.razonsocial;
+                $scope.date_registry_transp = convertDatetoDB(item.fechaingreso, true);
+                $scope.cel_transp = item.celphone;
+                $scope.email_transp = item.email;
+                $scope.placa_transp = item.placa;
 
                 $('#modalInfoEmpleado').modal('show');
 

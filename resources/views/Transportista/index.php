@@ -291,7 +291,7 @@
                 <div class="row text-center">
                     <div class="col-xs-12 text-center" style="font-size: 18px;">{{razonsocial_transp}}</div>
                     <div class="col-xs-12">
-                        <span style="font-weight: bold">Empleado desde: </span>{{date_registry_transp}}
+                        <span style="font-weight: bold">Ingresado desde: </span>{{date_registry_transp}}
                     </div>
                     <div class="col-xs-12">
                         <span style="font-weight: bold">Celular: </span>{{cel_transp}}
@@ -300,7 +300,7 @@
                         <span style="font-weight: bold">Email: </span>{{email_transp}}
                     </div>
                     <div class="col-xs-12">
-                        <span style="font-weight: bold">Salario: </span>{{placa_transp}}
+                        <span style="font-weight: bold">Placa: </span>{{placa_transp}}
                     </div>
                 </div>
             </div>
