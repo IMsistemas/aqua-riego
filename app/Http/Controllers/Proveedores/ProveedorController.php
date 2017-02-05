@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Proveedores;
 
 use App\Modelos\Proveedores\Proveedor;
+use App\Modelos\Proveedores\Provincias;
+use App\Modelos\Sectores\Canton;
+use App\Modelos\Sectores\Parroquia;
+use App\Modelos\SRI\SRI_TipoIdentificacion;
+use App\Modelos\SRI\SRI_TipoImpuestoIva;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -37,6 +42,38 @@ class ProveedorController extends Controller
         }
 
         return $proveedor->orderBy('fechaingreso', 'desc')->paginate(10);
+    }
+
+
+    /**
+     * Obtener todos los tipos de identificacion
+     *
+     * @return mixed
+     */
+    public function getTipoIdentificacion()
+    {
+        return SRI_TipoIdentificacion::orderBy('nameidentificacion', 'asc')->get();
+    }
+
+
+    public function getProvincias()
+    {
+        return Provincias::orderBy('nameprovincia', 'asc')->get();
+    }
+
+    public function getCantones($idprovincia)
+    {
+        return Canton::where('idprovincia', $idprovincia)->orderBy('namecanton', 'asc')->get();
+    }
+
+    public function getParroquias($idcanton)
+    {
+        return Parroquia::where('idcanton', $idcanton)->orderBy('nameparroquia', 'asc')->get();
+    }
+
+    public function getImpuestoIVA()
+    {
+        return SRI_TipoImpuestoIva::orderBy('nametipoimpuestoiva', 'asc')->get();
     }
 
 

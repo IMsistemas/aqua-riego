@@ -633,12 +633,27 @@ Route::resource('compras', 'Compras\CompraProductoController');
 	Route::get('api/proveedores/fechacreacioncuenta/{idproveedor}', 'Proveedores\ProveedoresController@getFechaCreacion');
 	Route::resource('api/proveedores', 'Proveedores\ProveedoresController');
 
-//Ruta devuelve todos los empleados
+
+
+
+
+Route::get('proveedor/getTipoIdentificacion', 'Proveedores\ProveedorController@getTipoIdentificacion');
+
+Route::get('proveedor/getProvincias', 'Proveedores\ProveedorController@getProvincias');
+
+Route::get('proveedor/getCantones/{idprovincia}', 'Proveedores\ProveedorController@getCantones');
+
+Route::get('proveedor/getParroquias/{idcanton}', 'Proveedores\ProveedorController@getParroquias');
+
+Route::get('proveedor/getImpuestoIVA', 'Proveedores\ProveedorController@getImpuestoIVA');
+
 Route::get('proveedor/getProveedores', 'Proveedores\ProveedorController@getProveedores');
 
 Route::resource('proveedor', 'Proveedores\ProveedorController');
 
-//Ruta devuelve todos los transportistas
+
+
+
 Route::get('transportista/getTransportista', 'Transportista\TransportistaController@getTransportista');
 
 Route::get('transportista/getTipoIdentificacion', 'Transportista\TransportistaController@getTipoIdentificacion');

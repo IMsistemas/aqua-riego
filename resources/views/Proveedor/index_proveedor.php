@@ -104,32 +104,6 @@
 
                         <div class="row">
 
-
-                            <div class="col-xs-12">
-                                <div class="col-md-6 col-xs-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Departamento: </span>
-                                        <select class="form-control" name="departamento" id="departamento" ng-model="departamento"
-                                                ng-options="value.id as value.label for value in iddepartamentos" required></select>
-                                    </div>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.departamento.$invalid && formEmployee.departamento.$touched">El Departamento es requerido</span>
-                                    <!--<span class="help-block error"
-                                          ng-show="formEmployee.departamento.$invalid && formEmployee.departamento.$error.pattern">Seleccione un Departamento</span>-->
-                                </div>
-
-                                <div class="col-md-6 col-xs-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Cargo: </span>
-                                        <select class="form-control" name="idcargo" id="idcargo" ng-model="idcargo"
-                                                ng-options="value.id as value.label for value in idcargos" required></select>
-                                    </div>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.idcargo.$invalid && formEmployee.idcargo.$touched">El Cargo es requerido</span>
-
-                                </div>
-                            </div>
-
                             <div class="col-xs-12" style="margin-top: 5px;">
 
                                 <div class="col-md-6 col-xs-12">
@@ -146,8 +120,6 @@
                                 <div class="col-md-6 col-xs-12">
                                     <div class="input-group">
                                         <span class="input-group-addon">RUC / CI:</span>
-                                        <!--<input type="text" class="form-control" name="documentoidentidadempleado" id="documentoidentidadempleado"
-                                               ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="13" > -->
 
                                         <angucomplete-alt
                                             id = "documentoidentidadempleado"
@@ -184,32 +156,16 @@
                             </div>
 
                             <div class="col-xs-12" style="margin-top: 5px;">
-                                <div class="col-md-6 col-xs-12">
+                                <div class="col-xs-12">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Apellidos: </span>
-                                        <input type="text" class="form-control" name="apellido" id="apellido"
-                                               ng-model="apellido" ng-required="true" ng-maxlength="128" ng-pattern="/^([a-zA-ZáéíóúñÑ ])+$/" >
+                                        <span class="input-group-addon">Razón Social: </span>
+                                        <input type="text" class="form-control" name="razonsocial" id="razonsocial"
+                                               ng-model="razonsocial" ng-required="true" ng-maxlength="200" >
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$touched">El Apellido es requerido</span>
+                                          ng-show="formEmployee.razonsocial.$invalid && formEmployee.razonsocial.$touched">La Razón Social es requerida</span>
                                     <span class="help-block error"
-                                          ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$error.maxlength">La longitud máxima es de 128 caracteres</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$error.pattern">El Apellido debe ser solo letras y espacios</span>
-                                </div>
-
-                                <div class="col-md-6 col-xs-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Nombre(s): </span>
-                                        <input type="text" class="form-control" name="nombre" id="nombre"
-                                               ng-model="nombre" ng-required="true" ng-maxlength="128" ng-pattern="/^([a-zA-ZáéíóúñÑ ])+$/" >
-                                    </div>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.nombre.$invalid && formEmployee.nombre.$touched">El Nombre es requerido</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.nombre.$invalid && formEmployee.nombre.$error.maxlength">La longitud máxima es de 128 caracteres</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.nombre.$invalid && formEmployee.nombre.$error.pattern">El Nombre debe ser solo letras y espacios</span>
+                                          ng-show="formEmployee.razonsocial.$invalid && formEmployee.razonsocial.$error.maxlength">La longitud máxima es de 200 caracteres</span>
                                 </div>
                             </div>
 
@@ -230,22 +186,6 @@
 
                                 <div class="col-md-6 col-xs-12">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Teléfono Secundario: </span>
-                                        <input type="text" class="form-control" name="telefonosecundario" id="telefonosecundario"
-                                               ng-model="telefonosecundario" ng-minlength="9"  ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/" >
-                                    </div>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.maxlength">La longitud máxima es de 16 números</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.minlength">La longitud mínima es de 9 caracteres</span>
-                                </div>
-                            </div>
-
-                            <div class="col-xs-12" style="margin-top: 5px;">
-                                <div class="col-md-6 col-xs-12">
-                                    <div class="input-group">
                                         <span class="input-group-addon">Celular: </span>
                                         <input type="text" class="form-control" name="celular" id="celular"
                                                ng-model="celular" ng-minlength="10" ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/">
@@ -257,6 +197,9 @@
                                     <span class="help-block error"
                                           ng-show="formEmployee.celular.$invalid && formEmployee.celular.$error.minlength">La longitud mínima es de 10 caracteres</span>
                                 </div>
+                            </div>
+
+                            <div class="col-xs-12" style="margin-top: 5px;">
 
                                 <div class="col-md-6 col-xs-12">
                                     <div class="input-group">
@@ -265,6 +208,41 @@
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.correo.$invalid && formEmployee.correo.$error.pattern">Formato de email no es correcto</span>
+                                </div>
+
+                                <div class="col-md-6 col-xs-12">
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12" style="margin-top: 5px;">
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Provincia: </span>
+                                        <select class="form-control" name="provincia" id="provincia" ng-model="provincia"
+                                                ng-options="value.id as value.label for value in provincias" ng-change="getCantones()" required></select>
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formEmployee.provincia.$invalid && formEmployee.provincia.$touched">La Provincia es requerida</span>
+                                </div>
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Cantón: </span>
+                                        <select class="form-control" name="canton" id="canton" ng-model="canton"
+                                                ng-options="value.id as value.label for value in cantones" ng-change="getParroquias()" required></select>
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formEmployee.canton.$invalid && formEmployee.canton.$touched">El Cantón es requerido</span>
+                                </div>
+                                <div class="col-sm-4 col-xs-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Parroquia: </span>
+                                        <select class="form-control" name="parroquia" id="parroquia" ng-model="parroquia"
+                                                ng-options="value.id as value.label for value in parroquias" required></select>
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formEmployee.parroquia.$invalid && formEmployee.parroquia.$touched">La Parroquia es requerido</span>
                                 </div>
                             </div>
 
@@ -279,35 +257,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-6" style="margin-top: 5px;">
-                                <div class="col-xs-12">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Foto: </span>
-                                        <input class="form-control" type="file" ngf-select ng-model="file" name="file" id="file"
-                                               accept="image/*" ngf-max-size="2MB"  ng-required="false" ngf-pattern="image/*">
-                                    </div>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.file.$error.required">La Foto del Empleado es requerida</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.file.$error.pattern">El archivo debe ser Imagen</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.file.$error.maxSize">El tamaño máximo es de 2 MB </span>
+                            <div class="col-xs-12" style="margin-top: 5px;">
 
-                                </div>
-
-                                <div class="col-xs-12" style="margin-top: 5px;">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">Salario: </span>
-                                        <input type="text" class="form-control" name="salario" id="salario" ng-model="salario" placeholder="" ng-maxlength="12"
-                                               ng-pattern="/^([0-9]{1,9}\.[0-9]{2})$/">
-                                    </div>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.salario.$invalid && formEmployee.salario.$error.maxlength">La longitud máxima es de 12 caracteres</span>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.salario.$invalid && formEmployee.salario.$error.pattern">El Salario debe ser solo números y punto</span>
-                                </div>
-
-                                <div class="col-xs-12" style="margin-top: 5px;">
+                                <div class="col-sm-6 col-xs-12">
                                     <div class="input-group">
                                         <span class="input-group-addon">C. Contab.: </span>
                                         <input type="text" class="form-control" name="cuenta_employee" id="cuenta_employee" ng-model="cuenta_employee" placeholder=""
@@ -319,16 +271,22 @@
                                         </span>
 
                                     </div>
-                                    <span class="help-block error"
-                                          ng-show="formEmployee.cuenta_employee.$error.required">La asignación de una cuenta es requerida</span>
+                                    <span class="help-block error" ng-show="formEmployee.cuenta_employee.$error.required">La asignación de una cuenta es requerida</span>
                                 </div>
+
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Impuesto IVA: </span>
+                                        <select class="form-control" name="iva" id="iva" ng-model="iva"
+                                                ng-options="value.id as value.label for value in imp_iva" required></select>
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formEmployee.iva.$invalid && formEmployee.iva.$touched">El Impuesto IVA es requerido</span>
+                                </div>
+
                             </div>
 
 
-
-                            <div class="col-xs-6 text-center" style="margin-top: 5px;">
-                                <img class="img-thumbnail" src="{{url_foto}}" alt="" style="width: 50%;">
-                            </div>
 
                 </form>
             </div>

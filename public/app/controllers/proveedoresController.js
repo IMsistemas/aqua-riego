@@ -34,20 +34,13 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
 
     };
 
-
-
-
-
-
-
-
     $scope.showDataPurchase = function (object) {
 
         if (object != undefined && object.originalObject != undefined) {
 
             $scope.documentoidentidadempleado = object.originalObject.numdocidentific;
-            $scope.apellido = object.originalObject.lastnamepersona;
-            $scope.nombre = object.originalObject.namepersona;
+            $scope.razonsocial = object.originalObject.razonsocial;
+            $scope.direccion = object.originalObject.direccion;
             $scope.celular = object.originalObject.celphone;
             $scope.correo = object.originalObject.email;
             $scope.tipoidentificacion = object.originalObject.idtipoidentificacion;
@@ -66,17 +59,7 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
         switch (modalstate) {
             case 'add':
 
-                $http.get(API_URL + 'empleado/getDepartamentos').success(function(response){
-                    var longitud = response.length;
-                    var array_temp = [{label: '-- Seleccione --', id: ''}];
-                    for(var i = 0; i < longitud; i++){
-                        array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento})
-                    }
-                    $scope.iddepartamentos = array_temp;
-                    $scope.departamento = '';
-                });
-
-                $http.get(API_URL + 'empleado/getTipoIdentificacion').success(function(response){
+                $http.get(API_URL + 'proveedor/getTipoIdentificacion').success(function(response){
                     var longitud = response.length;
                     var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
@@ -86,14 +69,24 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
                     $scope.tipoidentificacion = '';
                 });
 
-                $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
+                $http.get(API_URL + 'proveedor/getProvincias').success(function(response){
                     var longitud = response.length;
                     var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
-                        array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
+                        array_temp.push({label: response[i].nameprovincia, id: response[i].idprovincia})
                     }
-                    $scope.idcargos = array_temp;
-                    $scope.idcargo = '';
+                    $scope.provincias = array_temp;
+                    $scope.provincia = '';
+                });
+
+                $http.get(API_URL + 'proveedor/getImpuestoIVA').success(function(response){
+                    var longitud = response.length;
+                    var array_temp = [{label: '-- Seleccione --', id: ''}];
+                    for(var i = 0; i < longitud; i++){
+                        array_temp.push({label: response[i].nametipoimpuestoiva, id: response[i].idtipoimpuestoiva})
+                    }
+                    $scope.imp_iva = array_temp;
+                    $scope.iva = '';
 
                     $scope.documentoidentidadempleado = '';
                     $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', '');
@@ -112,11 +105,17 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
                     $scope.cuenta_employee = '';
                     $scope.select_cuenta = null;
 
-                    $scope.form_title = "Ingresar Nuevo Colaborador";
+                    $scope.form_title = "Ingresar Nuevo Proveedor";
 
-                    $scope.url_foto = 'img/empleado.png';
+                    var array_temp = [{label: '-- Seleccione --', id: ''}];
+                    $scope.cantones = array_temp;
+                    $scope.canton = '';
+                    $scope.parroquias = array_temp;
+                    $scope.parroquia = '';
 
                     $('#modalAction').modal('show');
+
+
                 });
 
                 break;
@@ -226,6 +225,46 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
                 break;
         }
     };
+
+
+    $scope.getCantones = function () {
+        var idprovincia = $scope.provincia;
+        var array_temp = [{label: '-- Seleccione --', id: ''}];
+
+        if (idprovincia != '' && idprovincia != undefined) {
+            $http.get(API_URL + 'proveedor/getCantones/' + idprovincia).success(function(response){
+                var longitud = response.length;
+                for(var i = 0; i < longitud; i++){
+                    array_temp.push({label: response[i].namecanton, id: response[i].idcanton})
+                }
+
+            });
+        }
+
+        $scope.cantones = array_temp;
+        $scope.canton = '';
+        $scope.parroquias = array_temp;
+        $scope.parroquia = '';
+    };
+
+    $scope.getParroquias = function () {
+        var idcanton = $scope.canton;
+        var array_temp = [{label: '-- Seleccione --', id: ''}];
+
+        if (idcanton != '' && idcanton != undefined) {
+            $http.get(API_URL + 'proveedor/getParroquias/' + idcanton).success(function(response){
+                var longitud = response.length;
+                for(var i = 0; i < longitud; i++){
+                    array_temp.push({label: response[i].nameparroquia, id: response[i].idparroquia})
+                }
+
+            });
+        }
+
+        $scope.parroquias = array_temp;
+        $scope.parroquia = '';
+    };
+
 
     $scope.focusOut = function () {
 
