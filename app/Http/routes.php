@@ -721,3 +721,11 @@ Route::get('transacciones/alltipotransacciones', 'Contabilidad\TipoTransaccion@g
 Route::resource('guiaremision', 'Guiaremision\GuiaremisionController');
 Route::get('guiaremision/getGiaremision', 'Guiaremision\GuiaremisionController@show');
 Route::get('guiaremision/getItemsVenta', 'Guiaremision\GuiaremisionController@getItemsVenta');
+
+
+/*
+ * -------------------------------------Configuracion del Sistema (Dayana)---------------------------------------------
+ */
+
+
+Route::resource('configuracion', 'ConfiguracionSystem\ConfiguracionSystemController');
