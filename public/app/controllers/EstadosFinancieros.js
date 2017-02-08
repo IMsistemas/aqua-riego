@@ -98,6 +98,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     ///---
     $scope.aux_cuentaMadre={};
     $scope.AgregarCuentahija=function(cuenta){
+        $scope.ClearCuentaMadre();
         $scope.aux_cuentaMadre=cuenta;
         $("#AddCCNodo").modal("show");
     };
@@ -123,13 +124,23 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         };
         $http.post(API_URL+'Contabilidad',CuentaContable)
                 .success(function (response) {
-                    QuitarClasesMensaje();
-                    $("#titulomsm").addClass("btn-success");
-                    $scope.Mensaje="Se guardo correctamente";
-                    $("#msm").modal("show");
-                    $scope.GenereraFiltroPlanCuentas();
-                    $scope.ClearCuentaMadre();
-                    $("#AddCCNodo").modal("hide");
+                    if(response!="Error"){
+                        QuitarClasesMensaje();
+                        $("#titulomsm").addClass("btn-success");
+                        $scope.Mensaje="Se guardo correctamente";
+                        $("#msm").modal("show");
+                        $scope.GenereraFiltroPlanCuentas();
+                        $scope.ClearCuentaMadre();
+                        $("#AddCCNodo").modal("hide");
+                    }else{
+                        QuitarClasesMensaje();
+                        $("#titulomsm").addClass("btn-danger");
+                        $scope.Mensaje="No se puede agregar una subcuenta por que la cuenta contable tiene asientos contables asigandos";
+                        $("#msm").modal("show");
+                        $scope.GenereraFiltroPlanCuentas();
+                        $scope.ClearCuentaMadre();
+                        $("#AddCCNodo").modal("hide");
+                    }
         });
         $scope.aux_cuentaMadre={};// limpiar aux cuenta madre
     };
@@ -193,7 +204,11 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
             }else{
                 QuitarClasesMensaje();
                 $("#titulomsm").addClass("btn-danger");
-                $scope.Mensaje="Error al borrar la cuenta contable";
+                if(response=="Error1"){
+                    $scope.Mensaje="La cuenta seleccionada tiene subcuentas";
+                }else{
+                    $scope.Mensaje="La cuenta seleccionada tiene asientos contables";
+                }
                 $("#msmBorarCC").modal("hide");
                 $("#msm").modal("show");
             }

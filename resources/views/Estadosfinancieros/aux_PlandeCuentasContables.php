@@ -15,7 +15,7 @@
 </head>
 <body>
 
-  <div class="container-fluid" ng-controller="Contabilidad" ng-cloak>
+  <div class="container-fluid" ng-controller="Contabilidad" ng-init="TipoTransaccion();" ng-cloak>
     <div class="row">
       <div class="col-xs-6">
                 <h3><strong>Plan de cuentas</strong></h3>
@@ -75,7 +75,7 @@
                                     <td>
                                         <button class="btn btn-primary btn-sm" ng-click="AgregarCuentahija(cuenta);"><i class="glyphicon glyphicon glyphicon-plus"></i></button>
                                         <button class="btn btn-warning btn-sm" ng-click="ModificarCuentaC(cuenta);"><i class="glyphicon glyphicon glyphicon-edit"></i></button>
-                                        <button class="btn btn-danger btn-sm"  ng-click="BorrarCuentaC(cuenta);"><i class="glyphicon glyphicon glyphicon-trash"></i></button>
+                                        <button ng-show="cuenta.madreohija=='1' " ng-hide=" cuenta.madreohija!='1' " class="btn btn-danger btn-sm"  ng-click="BorrarCuentaC(cuenta);"><i class="glyphicon glyphicon glyphicon-trash"></i></button>
                                     </td>
                                     <td>{{cuenta.jerarquia}}</td>
                                     <td>{{cuenta.concepto}}</td>
@@ -328,7 +328,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar <i class="glyphicon glyphicon glyphicon-ban-circle"></i></button>
-        <button type="button" class="btn btn-primary" ng-click="okBorrarCuenta();" >Aceptar <i class="glyphicon glyphicon glyphicon-ok"></i></button>
+        <button type="button" class="btn btn-danger" ng-click="okBorrarCuenta();" >Eliminar <i class="glyphicon glyphicon glyphicon-ok"></i></button>
       </div>
     </div>
   </div>
@@ -401,7 +401,7 @@
             <span class="input-group-addon">Transacción: </span>
             <select class="form-control" ng-model="tipotransaccion">
               <option value="">Seleccione</option>
-              <option ng-repeat=" transaccion in listatipotransaccion" ng-value="transaccion.idtipotransaccion">{{transaccion.descripcion +" "+ transaccion.cont_tipoingresoegreso.descripcion}}</option>
+              <option ng-repeat=" transaccion in listatipotransaccion" ng-value="{{transaccion.idtipotransaccion}}">{{transaccion.descripcion +" "+ transaccion.cont_tipoingresoegreso.descripcion}}</option>
             </select>
           </div>
         </div>

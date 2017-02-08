@@ -63,14 +63,20 @@ class Plandecuetas extends Controller
             $aux_respuesta=$aux_cuentacm1;
         }else{//creando cuenta nodo o hija
             //Buscar nodo siguiente
-            /*$results= Cont_PlanCuenta::select("(count(*)+1) ")
-                                    ->whereRaw("cont_plancuenta.jerarquia <@ '".$aux_cuentamadre."' AND cont_plancuenta.jerarquia!='".$aux_cuentamadre."'");*/
+
             $aux_cuentamadre=$datos["jerarquia"];
-            //$results = DB::select("SELECT (count(*)+1) as nivel FROM cont_plancuenta WHERE jerarquia <@ '$aux_cuentamadre' AND jerarquia!='$aux_cuentamadre';");
-            $results = DB::select("SELECT (count(*)+1) as nivel FROM cont_plancuenta WHERE jerarquia ~ '$aux_cuentamadre.*{1}'");
-            $datos["jerarquia"]=$datos["jerarquia"].".".$results[0]->nivel;
-            $aux_cuentanodo = Cont_PlanCuenta::create($datos);
-            $aux_respuesta= $aux_cuentanodo;  
+            $aux_registro=Cont_RegistroContable::whereHas("cont_plancuentas",function($tbl) use ($aux_cuentamadre) { // Validacion de que no tengo registro contable para crear una cuenta hija
+                                                    $tbl->where("jerarquia","=",$aux_cuentamadre);
+                                                })
+                                                ->get();
+            if(count($aux_registro)==0){
+                $results = DB::select("SELECT (count(*)+1) as nivel FROM cont_plancuenta WHERE jerarquia ~ '$aux_cuentamadre.*{1}'");
+                $datos["jerarquia"]=$datos["jerarquia"].".".$results[0]->nivel;
+                $aux_cuentanodo = Cont_PlanCuenta::create($datos);
+                $aux_respuesta= $aux_cuentanodo;  
+            }else{
+                $aux_respuesta= "Error"; //Cuenta contable ya tiene dinero
+            }
         }
         return $aux_respuesta;
     }
@@ -85,15 +91,15 @@ class Plandecuetas extends Controller
         $results = DB::select("SELECT count(*) as nivel FROM cont_plancuenta WHERE jerarquia ~ '".$filtro->jerarquia.".*{1}'");
         if($results[0]->nivel=="0"){
             $aux_registro=Cont_RegistroContable::where("idplancuenta","=",$filtro->idplancuenta)->get();
-            if(count($aux_registro)>0){
-                return "Error";
+            if(count($aux_registro)>0){ // Tiene asientos contable
+                return "Error2";
             }else{
                 $cuenta=Cont_PlanCuenta::find($filtro->idplancuenta);
                 $respuesta=$cuenta->delete();
                 return "Ok";
             }
         }else{
-            return "Error";
+            return "Error1"; // Es cuenta hija
         }
     }
     /**
