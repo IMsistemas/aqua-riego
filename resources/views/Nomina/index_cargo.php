@@ -70,12 +70,14 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Nombre del Cargo: </span>
                                         <input type="text" class="form-control" name="nombrecargo" id="nombrecargo" ng-model="nombrecargo" placeholder=""
-                                               ng-required="true" ng-maxlength="50">
+                                               ng-required="true" ng-minlength="10" ng-maxlength="50">
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formCargo.nombrecargo.$invalid && formCargo.nombrecargo.$touched">El nombre del Cargo es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formCargo.nombrecargo.$invalid && formCargo.nombrecargo.$error.maxlength">La longitud máxima es de 50 caracteres</span>
+                                    <span class="help-block error"
+                                          ng-show="formCargo.nombrecargo.$invalid && formCargo.nombrecargo.$error.minlength">La longitud mínima es de 10 caracteres</span>
                                 </div>
                             </div>
                         </form>
@@ -137,7 +139,8 @@
                         </button>
                         <button type="button" class="btn btn-danger" id="btn-save" ng-click="delete()">
                             Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>                    </div>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

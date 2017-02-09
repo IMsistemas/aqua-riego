@@ -325,7 +325,7 @@
                 <h4 class="modal-title">Confirmación</h4>
             </div>
             <div class="modal-body">
-                <span>Realmente desea eliminar el Empleado: <span style="font-weight: bold;">{{empleado_seleccionado}}</span></span>
+                <span>Realmente desea eliminar el Proveedor: <span style="font-weight: bold;">{{empleado_seleccionado}}</span></span>
 
             </div>
             <div class="modal-footer">

@@ -36,7 +36,10 @@ class ProveedorController extends Controller
 
         $proveedor = Proveedor::join('persona', 'persona.idpersona', '=', 'proveedor.idpersona')
                         ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'proveedor.idplancuenta')
-                        ->select('proveedor.*', 'persona.*', 'cont_plancuenta.*');
+                        ->join('parroquia', 'proveedor.idparroquia', '=', 'parroquia.idparroquia')
+                        ->join('canton', 'canton.idcanton', '=', 'parroquia.idparroquia')
+                        ->join('provincia', 'canton.idprovincia', '=', 'provincia.idprovincia')
+                        ->select('proveedor.*', 'persona.*', 'cont_plancuenta.*', 'canton.idcanton', 'provincia.idprovincia');
 
         if ($search != null) {
             $proveedor = $proveedor->whereRaw("persona.razonsocial LIKE '%" . $search . "%'");
@@ -148,7 +151,36 @@ class ProveedorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $persona = Persona::find($request->input('idpersona'));
+        $state = true;
+
+        $persona->numdocidentific = $request->input('documentoidentidadempleado');
+        $persona->email = $request->input('correo');
+        $persona->celphone = $request->input('celular');
+        $persona->idtipoidentificacion = $request->input('tipoidentificacion');
+        $persona->razonsocial = $request->input('razonsocial');
+        $persona->direccion = $request->input('direccion');
+
+        if ($state == false) {
+            $persona->lastnamepersona = $request->input('razonsocial');
+            $persona->namepersona = $request->input('razonsocial');
+        }
+
+        if ($persona->save()) {
+            $proveedor = Proveedor::find($id);
+            $proveedor->fechaingreso = $request->input('fechaingreso');
+            $proveedor->estado = true;
+            $proveedor->idpersona = $persona->idpersona;
+            $proveedor->telefonoprincipal = $request->input('telefonoprincipal');
+            $proveedor->idparroquia = $request->input('parroquia');
+            $proveedor->idplancuenta = $request->input('cuentacontable');
+            $proveedor->idtipoimpuestoiva = $request->input('impuesto_iva');
+
+            if ($proveedor->save()) {
+                return response()->json(['success' => true]);
+            } else return response()->json(['success' => false]);
+
+        } else return response()->json(['success' => false]);
     }
 
     /**
@@ -159,6 +191,10 @@ class ProveedorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $proveedor = Proveedor::find($id);
+        if ($proveedor->delete()) {
+            return response()->json(['success' => true]);
+        }
+        else return response()->json(['success' => false]);
     }
 }
