@@ -49,6 +49,11 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$scope.toModulo = "cantones";
 	}
 
+	$scope.toModuloPlanCuentas = function(){			
+		$scope.titulo = "Plan de Cuentas";
+		$scope.toModulo = "Contabilidad";
+	}
+
 	$scope.toModuloParroquia = function(idcanton){
 		$scope.idcanton = idcanton;		
 		$scope.titulo = "Parroquias";
