@@ -5,13 +5,16 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
     $scope.proveedor_del = 0;
     $scope.idpersona = 0;
     $scope.id = 0;
-
     $scope.select_cuenta = null;
 
     $scope.objectPerson = {
         idperson: 0,
         identify: ''
     };
+
+
+    $scope.contactos = [];
+
 
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
@@ -169,8 +172,6 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
                         $scope.imp_iva = array_temp;
                         $scope.iva = '';
 
-                        console.log(item);
-
                         $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
                         $scope.documentoidentidadempleado = item.numdocidentific;
 
@@ -209,7 +210,7 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
 
             case 'info':
 
-                $scope.name_employee = item.complete_name;
+                /*$scope.name_employee = item.complete_name;
                 $scope.cargo_employee = item.namecargo;
                 $scope.date_registry_employee = convertDatetoDB(item.fechaingreso, true);
                 //$scope.date_registry_employee = response[0].fechaingreso;
@@ -217,9 +218,9 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
                 $scope.cel_employee = item.celphone;
                 $scope.address_employee = item.direcciondomicilio;
                 $scope.email_employee = item.email;
-                $scope.salario_employee = item.salario;
+                $scope.salario_employee = item.salario;*/
 
-                $('#modalInfoEmpleado').modal('show');
+                $('#modalContactos').modal('show');
 
                 break;
 
@@ -266,7 +267,6 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
         $scope.parroquia = '';
     };
 
-
     $scope.focusOut = function () {
 
         if ($scope.documentoidentidadempleado != null && $scope.documentoidentidadempleado != '' && $scope.documentoidentidadempleado != undefined) {
@@ -310,8 +310,6 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
             impuesto_iva: $scope.iva,
             parroquia: $scope.parroquia
         };
-
-        console.log(data);
 
         if ($scope.modalstate == 'add') {
             $http.post(url, data ).success(function (response) {
@@ -371,7 +369,6 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
     $scope.showPlanCuenta = function () {
 
         $http.get(API_URL + 'empleado/getPlanCuenta').success(function(response){
-            console.log(response);
             $scope.cuentas = response;
             $('#modalPlanCuenta').modal('show');
         });
@@ -390,10 +387,27 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
         $scope.select_cuenta = item;
     };
 
+    /*
+    * ACCIONES DE CONTACTO
+    */
+
+    $scope.addcontacto = function  () {
+        $scope.contactos.push({
+            nombrecontacto: '',
+            idcontacto: '',
+            telefonoprincipal: '',
+            telefonosecundario: '',
+            celular: '',
+            observacion: '',
+            //idproveedor: $scope.proveedornuevo.idproveedor
+        });
+
+    };
+
+
     $scope.hideModalMessage = function () {
         setTimeout("$('#modalMessage').modal('hide')", 3000);
     };
-
 
     $scope.onlyNumber = function ($event, length, field) {
 

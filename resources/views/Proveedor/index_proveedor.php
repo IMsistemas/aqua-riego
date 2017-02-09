@@ -362,9 +362,7 @@
                 <h4 class="modal-title">Información del Empleado</h4>
             </div>
             <div class="modal-body">
-                <div class="col-xs-12 text-center">
-                    <img class="img-thumbnail" src="{{url_foto}}" alt="">
-                </div>
+
                 <div class="row text-center">
                     <div class="col-xs-12 text-center" style="font-size: 18px;">{{name_employee}}</div>
                     <div class="col-xs-12 text-center" style="font-size: 16px;">{{cargo_employee}}</div>
@@ -436,6 +434,89 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalContactos">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Contactos del Proveedor No @{{proveedornuevo.idproveedor}}</h4>
+            </div>
+            <form action="" method="POST" role="form" name="formcontactos">
+
+                <div class="modal-body">
+                    <div class="col-sm-4 col-xs-6">
+                        <div class="form-group has-feedback">
+                            <input type="text" class="form-control" id="search" placeholder="BUSCAR..."
+                                   ng-model="searchcontato" >
+                            <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 col-xs-2">
+                        <button type="button" class="btn btn-primary pull-right"  ng-click="addcontacto()" ng-disabled="button">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <table class="table table-responsive table-striped table-hover table-condensed">
+                        <thead class="bg-primary">
+                        <tr>
+                            <th >Nombre</th>
+                            <th >Teléfono Principal</th>
+                            <th >Teléfono Secundario</th>
+                            <th >Celular</th>
+                            <th >Observacion</th>
+                            <th >Opcion</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  ng-repeat="contacto in contactos  | orderBy:'-idcontacto' | filter:searchcontato">
+
+                            <td >
+                                <input type="text" ng-keypress="onlyCharasterAndSpace($event);" class="form-control" ng-model="contacto.nombrecontacto" required>
+                            </td >
+                            <td >
+                                <input type="text" ng-minlength ="9" id="telefonoprincipal-@{{ contacto.idcontacto }}" name="telefonoprincipal-@{{ contacto.idcontacto }}" ng-keypress="onlyNumber($event)" class="form-control"
+                                       ng-model="contacto.telefonoprincipal" required>
+                                <span class="text-danger" ng-show="formcontactos['telefonoprincipal-' + contacto.idcontacto].$error.minlength">La longitud mínima es de 9 caracteres <br></span>
+                            </td>
+                            <td >
+                                <input type="text"ng-minlength ="9" id="telefonosecundario-@{{ contacto.idcontacto }}" name="telefonosecundario-@{{ contacto.idcontacto }}" ng-keypress="onlyNumber($event)" class="form-control"
+                                       ng-model="contacto.telefonosecundario" >
+                                <span class="text-danger" ng-show="formcontactos['telefonosecundario-' + contacto.idcontacto].$error.minlength">La longitud mínima es de 9 caracteres <br></span>
+                            </td>
+                            <td >
+                                <input type="text" ng-minlength ="10" id="celular-@{{ contacto.idcontacto }}" name="celular-@{{ contacto.idcontacto }}" ng-keypress="onlyNumber($event)" class="form-control"
+                                       ng-model="contacto.celular" >
+                                <span class="text-danger" ng-show="formcontactos['celular-' + contacto.idcontacto].$error.minlength">La longitud mínima es de 10 caracteres <br></span>
+                            </td>
+                            <td >
+                                <input type="text" class="form-control"
+                                       ng-model="contacto.observacion" >
+                            </td>
+                            <td >
+                                <button ng-click="eliminarcontacto(contacto)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-success" id="botonguardarcontactos" ng-click="saveAllContactos()">
+                        Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 
 </div>
 
