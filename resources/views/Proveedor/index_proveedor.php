@@ -55,7 +55,7 @@
                         <td>{{proveedor.celphone}}</td>
                         <td>
                             <button type="button" class="btn btn-info" ng-click="toggle('info', proveedor)"
-                                    data-toggle="tooltip" data-placement="bottom" title="Información">
+                                    data-toggle="tooltip" data-placement="bottom" title="Contactos">
                                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="btn btn-warning" ng-click="toggle('edit', proveedor)"
@@ -408,7 +408,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Contactos del Proveedor {{razonsocial_contacto}}</h4>
             </div>
-            <form action="" role="form" name="formcontactos">
+            <form role="form" name="formcontactos" id="formcontactos">
 
                 <div class="modal-body">
                     <div class="col-sm-4 col-xs-6">
@@ -440,11 +440,23 @@
                             <td >
                                 <input type="text" ng-keypress="onlyCharasterAndSpace($event);" class="form-control" ng-model="contacto.nombrecontacto" required />
                             </td >
-                            <td >
-                                <input type="text" class="form-control" ng-model="contacto.telefonoprincipalcont" required />
+                            <td>
+                                <input type="text" class="form-control" name="telefonoprincipalcont" ng-model="contacto.telefonoprincipalcont"
+                                       ng-required="true" ng-minlength="9" ng-maxlength="9"/>
+                                <span class="help-block error"
+                                      ng-show="formcontactos.telefonoprincipalcont.$invalid && formEmployee.telefonoprincipalcont.$touched">Requerido</span>
+                                <span class="help-block error"
+                                      ng-show="formcontactos.telefonoprincipalcont.$invalid && formEmployee.telefonoprincipalcont.$error.maxlength">La longitud máxima es de 9</span>
+                                <span class="help-block error"
+                                      ng-show="formcontactos.telefonoprincipalcont.$invalid && formEmployee.telefonoprincipalcont.$error.minlength">La longitud mínima es de 9</span>
                             </td>
                             <td >
-                                <input type="text" class="form-control" ng-model="contacto.telefonosecundario" />
+                                <input type="text" class="form-control" name="telefonosecundario" ng-model="contacto.telefonosecundario"
+                                       ng-minlength="9" ng-maxlength="9"/>
+                                <span class="help-block error"
+                                      ng-show="formcontactos.telefonoprincipalcont.$invalid && formEmployee.telefonoprincipalcont.$error.maxlength">La longitud máxima es de 9</span>
+                                <span class="help-block error"
+                                      ng-show="formcontactos.telefonoprincipalcont.$invalid && formEmployee.telefonoprincipalcont.$error.minlength">La longitud mínima es de 9</span>
                             </td>
                             <td >
                                 <input type="text" class="form-control" ng-model="contacto.celular" />
@@ -465,7 +477,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-success" id="botonguardarcontactos" ng-click="saveAllContactos()">
+                    <button type="button" class="btn btn-success" id="botonguardarcontactos" ng-click="saveAllContactos()" ng-disabled="formcontactos.$invalid">
                         Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                     </button>
                 </div>

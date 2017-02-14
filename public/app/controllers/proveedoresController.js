@@ -528,9 +528,11 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
         format: 'DD/MM/YYYY'
     });
 
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    })
+
 });
-
-
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
