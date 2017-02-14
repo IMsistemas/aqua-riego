@@ -651,6 +651,12 @@ Route::get('proveedor/getIdentify/{identify}', 'Proveedores\ProveedorController@
 
 Route::get('proveedor/getProveedores', 'Proveedores\ProveedorController@getProveedores');
 
+Route::get('proveedor/getContactos/{idproveedor}', 'Proveedores\ProveedorController@getContactos');
+
+Route::post('proveedor/storeContactos', 'Proveedores\ProveedorController@storeContactos');
+
+Route::delete('proveedor/destroyContacto/{idcontacto}', 'Proveedores\ProveedorController@destroyContacto');
+
 Route::resource('proveedor', 'Proveedores\ProveedorController');
 
 

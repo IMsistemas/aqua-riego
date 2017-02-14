@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Proveedores;
 
 use App\Modelos\Persona;
+use App\Modelos\Proveedores\ContactoProveedor;
 use App\Modelos\Proveedores\Proveedor;
 use App\Modelos\Proveedores\Provincias;
 use App\Modelos\Sectores\Canton;
@@ -73,7 +74,6 @@ class ProveedorController extends Controller
                         ->get();
     }
 
-
     public function getProvincias()
     {
         return Provincias::orderBy('nameprovincia', 'asc')->get();
@@ -94,9 +94,13 @@ class ProveedorController extends Controller
         return SRI_TipoImpuestoIva::orderBy('nametipoimpuestoiva', 'asc')->get();
     }
 
+    public function getContactos($idproveedor)
+    {
+        return ContactoProveedor::where('idproveedor', $idproveedor)->orderBy('namecontacto', 'asc')->get();
+    }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created proveedor in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -141,6 +145,37 @@ class ProveedorController extends Controller
         } else return response()->json(['success' => false]);
     }
 
+    /**
+     * Store a newly created contact in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeContactos(Request $request)
+    {
+        $contactos = $request->input('contactos');
+
+        foreach ($contactos as $item) {
+            if ($item['idcontacto'] == 0) {
+                $objectContacto = new ContactoProveedor();
+            } else {
+                $objectContacto = ContactoProveedor::find($item['idcontacto']);
+            }
+
+            $objectContacto->idproveedor = $item['idproveedor'];
+            $objectContacto->namecontacto = $item['nombrecontacto'];
+            $objectContacto->telefonoprincipal = $item['telefonoprincipalcont'];
+            $objectContacto->telefonosecundario = $item['telefonosecundario'];
+            $objectContacto->celular = $item['celular'];
+            $objectContacto->observacion = $item['observacion'];
+
+            if ($objectContacto->save() == false) {
+                return response()->json(['success' => false]);
+            }
+        }
+
+        return response()->json(['success' => true]);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -193,6 +228,15 @@ class ProveedorController extends Controller
     {
         $proveedor = Proveedor::find($id);
         if ($proveedor->delete()) {
+            return response()->json(['success' => true]);
+        }
+        else return response()->json(['success' => false]);
+    }
+
+    public function destroyContacto($idcontacto)
+    {
+        $contacto = ContactoProveedor::find($idcontacto);
+        if ($contacto->delete()) {
             return response()->json(['success' => true]);
         }
         else return response()->json(['success' => false]);

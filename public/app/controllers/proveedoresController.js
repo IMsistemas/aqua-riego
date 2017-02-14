@@ -6,6 +6,7 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
     $scope.idpersona = 0;
     $scope.id = 0;
     $scope.select_cuenta = null;
+    $scope.idproveedor = null;
 
     $scope.objectPerson = {
         idperson: 0,
@@ -210,17 +211,30 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
 
             case 'info':
 
-                /*$scope.name_employee = item.complete_name;
-                $scope.cargo_employee = item.namecargo;
-                $scope.date_registry_employee = convertDatetoDB(item.fechaingreso, true);
-                //$scope.date_registry_employee = response[0].fechaingreso;
-                $scope.phones_employee = item.telefprincipaldomicilio + '/' + item.telefsecundariodomicilio;
-                $scope.cel_employee = item.celphone;
-                $scope.address_employee = item.direcciondomicilio;
-                $scope.email_employee = item.email;
-                $scope.salario_employee = item.salario;*/
+                $http.get(API_URL + 'proveedor/getContactos/' + item.idproveedor).success(function(response){
+                    $scope.contactos = [];
+                    console.log(response);
+                    var longitud = response.length;
 
-                $('#modalContactos').modal('show');
+                    for(var i = 0; i < longitud; i++){
+                        var object = {
+                            nombrecontacto: response[i].namecontacto,
+                            idcontacto: response[i].idcontactoproveedor,
+                            telefonoprincipalcont: response[i].telefonoprincipal,
+                            telefonosecundario: response[i].telefonosecundario,
+                            celular: response[i].celular,
+                            observacion: response[i].observacion,
+                            idproveedor: response[i].idproveedor
+                        };
+
+                        $scope.contactos.push(object);
+                    }
+
+                    $scope.razonsocial_contacto = item.razonsocial;
+                    $scope.idproveedor = item.idproveedor;
+
+                    $('#modalContactos').modal('show');
+                });
 
                 break;
 
@@ -388,22 +402,98 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
     };
 
     /*
-    * ACCIONES DE CONTACTO
-    */
+     *   ACCIONES DE CONTACTO (INICIO)
+     */
 
     $scope.addcontacto = function  () {
-        $scope.contactos.push({
+
+        var object = {
             nombrecontacto: '',
-            idcontacto: '',
-            telefonoprincipal: '',
+            idcontacto: 0,
+            telefonoprincipalcont: '',
             telefonosecundario: '',
             celular: '',
             observacion: '',
-            //idproveedor: $scope.proveedornuevo.idproveedor
+            idproveedor: $scope.idproveedor
+        };
+
+        $scope.contactos.push(object);
+    };
+
+    $scope.saveAllContactos = function() {
+        console.log($scope.contactos);
+
+        var data = {
+            contactos: $scope.contactos
+        };
+
+        $http.post(API_URL + 'proveedor/storeContactos', data ).success(function (response) {
+            if (response.success == true) {
+
+                $scope.message = 'Se guardó correctamente la información de los Contactos del Proveedor...';
+                $('#modalContactos').modal('hide');
+                $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+            }
+            else {
+                $('#modalContactos').modal('hide');
+                $scope.message_error = 'Ha ocurrido un error..';
+                $('#modalMessageError').modal('show');
+            }
         });
+    };
+
+    $scope.eliminarContacto = function (contacto) {
+
+        $scope.idcontacto = contacto.idcontacto;
+        $scope.message = 'Está seguro que desea eliminar el Contacto: ' + contacto.nombrecontacto;
+
+        $('#modalMessageDeleteContacto').modal('show');
+    };
+
+    $scope.destroyContacto = function () {
+
+        $http.delete(API_URL + 'proveedor/destroyContacto/' + $scope.idcontacto).success(function (data) {
+            $http.get(API_URL + 'proveedor/getContactos/' + $scope.idproveedor).success(function(response){
+                $scope.contactos = [];
+
+                var longitud = response.length;
+                for(var i = 0; i < longitud; i++){
+                    var object = {
+                        nombrecontacto: response[i].namecontacto,
+                        idcontacto: response[i].idcontactoproveedor,
+                        telefonoprincipalcont: response[i].telefonoprincipal,
+                        telefonosecundario: response[i].telefonosecundario,
+                        celular: response[i].celular,
+                        observacion: response[i].observacion,
+                        idproveedor: response[i].idproveedor
+                    };
+
+                    $scope.contactos.push(object);
+                }
+
+                $('#modalMessageDeleteContacto').modal('hide');
+                $scope.message = 'Contacto eliminado satisfactoriamente';
+                $scope.idcontacto = 0;
+                $('#modalMessage').modal('show');
+                setTimeout("$('#modalMessage').modal('hide')",3000);
+
+            });
+
+
+
+
+        }).error(function (res) {
+
+        });
+
+
 
     };
 
+    /*
+     *   ACCIONES DE CONTACTO (FIN)
+     */
 
     $scope.hideModalMessage = function () {
         setTimeout("$('#modalMessage').modal('hide')", 3000);

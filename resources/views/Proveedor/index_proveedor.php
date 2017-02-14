@@ -303,7 +303,7 @@
 </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
+<div class="modal fade" tabindex="-1" role="dialog" id="modalMessage" style="z-index: 99999;">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header modal-header-success">
@@ -435,15 +435,14 @@
     </div>
 </div>
 
-
 <div class="modal fade" tabindex="-1" role="dialog" id="modalContactos">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header modal-header-primary">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Contactos del Proveedor No @{{proveedornuevo.idproveedor}}</h4>
+                <h4 class="modal-title">Contactos del Proveedor {{razonsocial_contacto}}</h4>
             </div>
-            <form action="" method="POST" role="form" name="formcontactos">
+            <form action="" role="form" name="formcontactos">
 
                 <div class="modal-body">
                     <div class="col-sm-4 col-xs-6">
@@ -461,41 +460,34 @@
                     <table class="table table-responsive table-striped table-hover table-condensed">
                         <thead class="bg-primary">
                         <tr>
-                            <th >Nombre</th>
-                            <th >Teléfono Principal</th>
-                            <th >Teléfono Secundario</th>
-                            <th >Celular</th>
-                            <th >Observacion</th>
-                            <th >Opcion</th>
+                            <th>Nombre</th>
+                            <th>Teléfono Principal</th>
+                            <th>Teléfono Secundario</th>
+                            <th>Celular</th>
+                            <th>Observación</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr  ng-repeat="contacto in contactos  | orderBy:'-idcontacto' | filter:searchcontato">
+                        <tr  ng-repeat="contacto in contactos  | filter:searchcontato">
 
                             <td >
-                                <input type="text" ng-keypress="onlyCharasterAndSpace($event);" class="form-control" ng-model="contacto.nombrecontacto" required>
+                                <input type="text" ng-keypress="onlyCharasterAndSpace($event);" class="form-control" ng-model="contacto.nombrecontacto" required />
                             </td >
                             <td >
-                                <input type="text" ng-minlength ="9" id="telefonoprincipal-@{{ contacto.idcontacto }}" name="telefonoprincipal-@{{ contacto.idcontacto }}" ng-keypress="onlyNumber($event)" class="form-control"
-                                       ng-model="contacto.telefonoprincipal" required>
-                                <span class="text-danger" ng-show="formcontactos['telefonoprincipal-' + contacto.idcontacto].$error.minlength">La longitud mínima es de 9 caracteres <br></span>
+                                <input type="text" class="form-control" ng-model="contacto.telefonoprincipalcont" required />
                             </td>
                             <td >
-                                <input type="text"ng-minlength ="9" id="telefonosecundario-@{{ contacto.idcontacto }}" name="telefonosecundario-@{{ contacto.idcontacto }}" ng-keypress="onlyNumber($event)" class="form-control"
-                                       ng-model="contacto.telefonosecundario" >
-                                <span class="text-danger" ng-show="formcontactos['telefonosecundario-' + contacto.idcontacto].$error.minlength">La longitud mínima es de 9 caracteres <br></span>
+                                <input type="text" class="form-control" ng-model="contacto.telefonosecundario" />
                             </td>
                             <td >
-                                <input type="text" ng-minlength ="10" id="celular-@{{ contacto.idcontacto }}" name="celular-@{{ contacto.idcontacto }}" ng-keypress="onlyNumber($event)" class="form-control"
-                                       ng-model="contacto.celular" >
-                                <span class="text-danger" ng-show="formcontactos['celular-' + contacto.idcontacto].$error.minlength">La longitud mínima es de 10 caracteres <br></span>
+                                <input type="text" class="form-control" ng-model="contacto.celular" />
                             </td>
                             <td >
-                                <input type="text" class="form-control"
-                                       ng-model="contacto.observacion" >
+                                <input type="text" class="form-control" ng-model="contacto.observacion" />
                             </td>
                             <td >
-                                <button ng-click="eliminarcontacto(contacto)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                <button ng-click="eliminarContacto(contacto)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                             </td>
 
                         </tr>
@@ -512,7 +504,28 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="modalMessageDeleteContacto" style="z-index: 99999;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-danger">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirmación</h4>
+            </div>
+            <div class="modal-body">
+                <span>{{message}}</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-danger" id="btn-eliminarcontacto" ng-click="destroyContacto()">
+                    Eliminar<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                </button>
+            </div>
         </div>
     </div>
 </div>
