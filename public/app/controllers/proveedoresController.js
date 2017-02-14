@@ -213,7 +213,7 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
 
                 $http.get(API_URL + 'proveedor/getContactos/' + item.idproveedor).success(function(response){
                     $scope.contactos = [];
-                    console.log(response);
+
                     var longitud = response.length;
 
                     for(var i = 0; i < longitud; i++){
@@ -421,7 +421,6 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
     };
 
     $scope.saveAllContactos = function() {
-        console.log($scope.contactos);
 
         var data = {
             contactos: $scope.contactos
