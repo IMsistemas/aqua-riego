@@ -300,6 +300,8 @@
             </button>
         </div>
     </div>
+
+
 </div>
 </div>
 
@@ -349,42 +351,6 @@
             </div>
             <div class="modal-body">
                 <span>{{message_error}}</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="modalInfoEmpleado">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header modal-header-info">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Información del Empleado</h4>
-            </div>
-            <div class="modal-body">
-
-                <div class="row text-center">
-                    <div class="col-xs-12 text-center" style="font-size: 18px;">{{name_employee}}</div>
-                    <div class="col-xs-12 text-center" style="font-size: 16px;">{{cargo_employee}}</div>
-                    <div class="col-xs-12">
-                        <span style="font-weight: bold">Empleado desde: </span>{{date_registry_employee}}
-                    </div>
-                    <div class="col-xs-12">
-                        <span style="font-weight: bold">Teléfonos: </span>{{phones_employee}}
-                    </div>
-                    <div class="col-xs-12">
-                        <span style="font-weight: bold">Celular: </span>{{cel_employee}}
-                    </div>
-                    <div class="col-xs-12">
-                        <span style="font-weight: bold">Dirección: </span>{{address_employee}}
-                    </div>
-                    <div class="col-xs-12">
-                        <span style="font-weight: bold">Email: </span>{{email_employee}}
-                    </div>
-                    <div class="col-xs-12">
-                        <span style="font-weight: bold">Salario: </span>{{salario_employee}}
-                    </div>
-                </div>
             </div>
         </div>
     </div>
