@@ -301,10 +301,10 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
 
     };
 
+
     $scope.inputChanged = function (str) {
         $scope.documentoidentidadempleado = str;
     };
-
     $scope.save = function() {
         var url = API_URL + 'proveedor';
 

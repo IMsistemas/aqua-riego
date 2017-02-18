@@ -11,13 +11,8 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
     $scope.codigocliente_del = 0;
     $scope.idsolicitud_to_process = 0;
     $scope.objectAction = null;
+
     $scope.list_terrenos = [];
-
-
-    $scope.idpersona = 0;
-    $scope.id = 0;
-    $scope.select_cuenta = null;
-
 
     $scope.initLoad = function () {
         $http.get(API_URL + 'cliente/getClientes').success(function(response){
@@ -36,132 +31,6 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             $scope.clientes = response;
         });
     };
-
-    $scope.showDataPurchase = function (object) {
-        if (object != undefined && object.originalObject != undefined) {
-
-            console.log(object.originalObject);
-
-            $scope.documentoidentidadempleado = object.originalObject.numdocidentific;
-            $scope.apellido = object.originalObject.lastnamepersona;
-            $scope.nombre = object.originalObject.namepersona;
-            $scope.direccion = object.originalObject.direccion;
-            $scope.celular = object.originalObject.celphone;
-            $scope.correo = object.originalObject.email;
-            $scope.tipoidentificacion = object.originalObject.idtipoidentificacion;
-            $scope.idpersona = object.originalObject.idpersona;
-
-            $scope.objectPerson = {
-                idperson: object.originalObject.idpersona,
-                identify: object.originalObject.numdocidentific
-            };
-        }
-    };
-
-    $scope.focusOut = function () {
-
-        if ($scope.documentoidentidadempleado != null && $scope.documentoidentidadempleado != '' && $scope.documentoidentidadempleado != undefined) {
-            $http.get(API_URL + 'empleado/getPersonaByIdentify/' + $scope.documentoidentidadempleado).success(function(response){
-
-                var longitud = response.length;
-
-                if (longitud > 0) {
-                    $scope.idpersona = response[0].idpersona;
-                } else {
-                    $scope.idpersona = 0;
-                }
-
-            });
-
-            $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', $scope.documentoidentidadempleado);
-        }
-
-    };
-
-
-    $scope.inputChanged = function (str) {
-        $scope.documentoidentidadempleado = str;
-    };
-
-    $scope.showPlanCuenta = function () {
-
-        $http.get(API_URL + 'empleado/getPlanCuenta').success(function(response){
-            $scope.cuentas = response;
-            $('#modalPlanCuenta').modal('show');
-        });
-
-    };
-
-    $scope.selectCuenta = function () {
-        var selected = $scope.select_cuenta;
-
-        $scope.cuenta_employee = selected.concepto;
-
-        $('#modalPlanCuenta').modal('hide');
-    };
-
-    $scope.click_radio = function (item) {
-        $scope.select_cuenta = item;
-    };
-
-    $scope.showModalAddCliente = function () {
-
-        $http.get(API_URL + 'cliente/getTipoIdentificacion').success(function(response){
-            var longitud = response.length;
-            var array_temp = [{label: '-- Seleccione --', id: ''}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nameidentificacion, id: response[i].idtipoidentificacion})
-            }
-            $scope.idtipoidentificacion = array_temp;
-            $scope.tipoidentificacion = '';
-
-
-            $http.get(API_URL + 'cliente/getImpuestoIVA').success(function(response){
-                var longitud = response.length;
-                var array_temp = [{label: '-- Seleccione --', id: ''}];
-                for(var i = 0; i < longitud; i++){
-                    array_temp.push({label: response[i].nametipoimpuestoiva, id: response[i].idtipoimpuestoiva})
-                }
-                $scope.imp_iva = array_temp;
-                $scope.iva = '';
-
-                $scope.t_codigocliente = 0;
-                $scope.t_fecha_ingreso = $scope.nowDate();
-
-                $scope.t_doc_id = '';
-                $scope.t_apellidos = '';
-                $scope.t_nombres = '';
-                $scope.t_telf_principal = '';
-                $scope.t_telf_secundario = '';
-                $scope.t_celular = '';
-                $scope.t_direccion = '';
-                $scope.t_telf_principal_emp = '';
-                $scope.t_telf_secundario_emp = '';
-                $scope.t_direccion_emp = '';
-                $scope.t_email = '';
-
-                $scope.title_modal_cliente = 'Nuevo Cliente';
-
-                $('#modalAddCliente').modal('show');
-
-            });
-
-        });
-
-    };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     $scope.nowDate = function () {
         var now = new Date();
@@ -210,62 +79,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.saveCliente = function () {
 
-        var url = API_URL + 'cliente';
-
-        var fechaingreso = $('#t_fecha_ingreso').val();
-
         var data = {
-            fechaingreso: convertDatetoDB(fechaingreso),
-            telefonoprincipal: $scope.telefonoprincipal,
-            celular: $scope.celular,
-            direccion: $scope.direccion,
-            correo: $scope.correo,
-            documentoidentidadempleado: $scope.documentoidentidadempleado,
-            razonsocial: $scope.razonsocial,
-            idpersona:  $scope.idpersona,
-            tipoidentificacion: $scope.tipoidentificacion,
-            cuentacontable: $scope.select_cuenta.idplancuenta,
-            impuesto_iva: $scope.iva
-
-        };
-
-        if ($scope.modalstate == 'add') {
-            $http.post(url, data ).success(function (response) {
-                if (response.success == true) {
-                    $scope.initLoad(1);
-                    $scope.message = 'Se guardó correctamente la información del Proveedor...';
-                    $('#modalAction').modal('hide');
-                    $('#modalMessage').modal('show');
-                    $scope.hideModalMessage();
-                }
-                else {
-                    $('#modalAction').modal('hide');
-                    $scope.message_error = 'Ha ocurrido un error..';
-                    $('#modalMessageError').modal('show');
-                }
-            });
-        } else {
-            $http.put(url + '/' + $scope.id, data ).success(function (response) {
-                if (response.success == true) {
-                    $scope.idpersona = 0;
-                    $scope.id = 0;
-                    $scope.initLoad(1);
-                    $scope.message = 'Se editó correctamente la información del Proveedor...';
-                    $('#modalAction').modal('hide');
-                    $('#modalMessage').modal('show');
-                    $scope.hideModalMessage();
-                }
-                else {
-                    $('#modalAction').modal('hide');
-                    $scope.message_error = 'Ha ocurrido un error..';
-                    $('#modalMessageError').modal('show');
-                }
-            }).error(function (res) {
-
-            });
-        }
-
-        /*var data = {
             fechaingreso: $scope.convertDatetoDB($scope.t_fecha_ingreso),
             codigocliente: $scope.t_doc_id,
             apellido: $scope.t_apellidos,
@@ -308,7 +122,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             }).error(function (res) {
 
             });
-        }*/
+        }
 
     };
 
@@ -323,7 +137,27 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         });
     };
 
+    $scope.showModalAddCliente = function () {
+        
+        $scope.t_codigocliente = 0;
+        $scope.t_fecha_ingreso = $scope.nowDate();
 
+        $scope.t_doc_id = '';
+        $scope.t_apellidos = '';
+        $scope.t_nombres = '';
+        $scope.t_telf_principal = '';
+        $scope.t_telf_secundario = '';
+        $scope.t_celular = '';
+        $scope.t_direccion = '';
+        $scope.t_telf_principal_emp = '';
+        $scope.t_telf_secundario_emp = '';
+        $scope.t_direccion_emp = '';
+        $scope.t_email = '';
+
+        $scope.title_modal_cliente = 'Nuevo Cliente';
+
+        $('#modalAddCliente').modal('show');
+    };
 
     $scope.showModalDeleteCliente = function (item) {
 

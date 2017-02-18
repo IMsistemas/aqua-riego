@@ -91,14 +91,272 @@
 
 
 
-
-
-
-
-
-
-
             <div class="modal fade" tabindex="-1" role="dialog" id="modalAddCliente">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <form class="form-horizontal" name="formEmployee" novalidate="">
+                            <div class="modal-header modal-header-primary">
+                                <div class="col-md-6 col-xs-12">
+                                    <h4 class="modal-title">{{title_modal_cliente}}</h4>
+                                </div>
+                                <div class="col-md-5 col-xs-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Fecha de Ingreso:</span>
+                                        <input type="text" class="datepicker form-control" name="t_fecha_ingreso" id="t_fecha_ingreso" ng-model="t_fecha_ingreso" ng-required="true">
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formEmployee.t_fecha_ingreso.$invalid && formEmployee.t_fecha_ingreso.$touched">La Fecha de Ingreso es requerida</span>
+                                </div>
+                                <div class="col-md-1 col-xs-12 text-right" style="padding: 0;">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row">
+
+                                    <div class="col-xs-12" style="margin-top: 5px;">
+
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Tipo Identificación: </span>
+                                                <select class="form-control" name="tipoidentificacion" id="tipoidentificacion" ng-model="tipoidentificacion"
+                                                        ng-options="value.id as value.label for value in idtipoidentificacion" required></select>
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.tipoidentificacion.$invalid && formEmployee.tipoidentificacion.$touched">El Tipo de Identificación es requerido</span>
+                                        </div>
+
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">RUC / CI:</span>
+                                                <!--<input type="text" class="form-control" name="documentoidentidadempleado" id="documentoidentidadempleado"
+                                                       ng-model="documentoidentidadempleado" ng-required="true" ng-maxlength="13" > -->
+
+                                                <angucomplete-alt
+                                                        id = "documentoidentidadempleado"
+                                                        pause = "200"
+                                                        selected-object = "showDataPurchase"
+
+                                                        input-changed="inputChanged"
+
+                                                        remote-url = "{{API_URL}}cliente/getIdentify/"
+
+                                                        focus-out="focusOut()"
+
+
+                                                        title-field="numdocidentific"
+
+                                                        minlength="1"
+                                                        input-class="form-control form-control-small small-input"
+                                                        match-class="highlight"
+                                                        field-required="true"
+                                                        input-name="documentoidentidadempleado"
+                                                        disable-input="guardado"
+                                                        text-searching="Buscando Identificaciones Personas"
+                                                        text-no-results="Persona no encontrada"
+
+                                                > </angucomplete-alt>
+
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$touched">La Identificación es requerido</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.documentoidentidadempleado.$invalid && formEmployee.documentoidentidadempleado.$error.maxlength">La longitud máxima es de 13 caracteres</span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Apellidos: </span>
+                                                <input type="text" class="form-control" name="apellido" id="apellido"
+                                                       ng-model="apellido" ng-required="true" ng-maxlength="128" ng-pattern="/^([a-zA-ZáéíóúñÑ ])+$/" >
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$touched">El Apellido es requerido</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$error.maxlength">La longitud máxima es de 128 caracteres</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$error.pattern">El Apellido debe ser solo letras y espacios</span>
+                                        </div>
+
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Nombre(s): </span>
+                                                <input type="text" class="form-control" name="nombre" id="nombre"
+                                                       ng-model="nombre" ng-required="true" ng-maxlength="128" ng-pattern="/^([a-zA-ZáéíóúñÑ ])+$/" >
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.nombre.$invalid && formEmployee.nombre.$touched">El Nombre es requerido</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.nombre.$invalid && formEmployee.nombre.$error.maxlength">La longitud máxima es de 128 caracteres</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.nombre.$invalid && formEmployee.nombre.$error.pattern">El Nombre debe ser solo letras y espacios</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Teléfono Principal: </span>
+                                                <input type="text" class="form-control" name="telefonoprincipal" id="telefonoprincipal"
+                                                       ng-model="telefonoprincipal" ng-minlength="9" ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/" >
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$error.maxlength">La longitud máxima es de 16 números</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$error.minlength">La longitud mínima es de 9 caracteres</span>
+                                        </div>
+
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Teléfono Secundario: </span>
+                                                <input type="text" class="form-control" name="telefonosecundario" id="telefonosecundario"
+                                                       ng-model="telefonosecundario" ng-minlength="9"  ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/" >
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.maxlength">La longitud máxima es de 16 números</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.minlength">La longitud mínima es de 9 caracteres</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Celular: </span>
+                                                <input type="text" class="form-control" name="celular" id="celular"
+                                                       ng-model="celular" ng-minlength="10" ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/">
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.celular.$invalid && formEmployee.celular.$error.maxlength">La longitud máxima es de 16 números</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.celular.$invalid && formEmployee.celular.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.celular.$invalid && formEmployee.celular.$error.minlength">La longitud mínima es de 10 caracteres</span>
+                                        </div>
+
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">E-mail: </span>
+                                                <input type="text" class="form-control" name="correo" id="correopersona" ng-model="correo" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" placeholder="" >
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.correo.$invalid && formEmployee.correo.$error.pattern">Formato de email no es correcto</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Dirección: </span>
+                                                <input type="text" class="form-control" name="direccion" id="direccion" ng-model="direccion" ng-maxlength="256">
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.direccion.$invalid && formEmployee.direccion.$error.maxlength">La longitud máxima es de 256 caracteres</span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Teléfono Principal Trabajo: </span>
+                                                <input type="text" class="form-control" name="telefonoprincipaltrabajo" id="telefonoprincipaltrabajo"
+                                                       ng-model="telefonoprincipaltrabajo" ng-minlength="9" ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/" >
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonoprincipaltrabajo.$invalid && formEmployee.telefonoprincipaltrabajo.$error.maxlength">La longitud máxima es de 16 números</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonoprincipaltrabajo.$invalid && formEmployee.telefonoprincipaltrabajo.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonoprincipaltrabajo.$invalid && formEmployee.telefonoprincipaltrabajo.$error.minlength">La longitud mínima es de 9 caracteres</span>
+                                        </div>
+
+                                        <div class="col-md-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Teléfono Secundario Trabajo: </span>
+                                                <input type="text" class="form-control" name="telefonosecundariotrabajo" id="telefonosecundariotrabajo"
+                                                       ng-model="telefonosecundariotrabajo" ng-minlength="9"  ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/" >
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonosecundariotrabajo.$invalid && formEmployee.telefonosecundariotrabajo.$error.maxlength">La longitud máxima es de 16 números</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonosecundariotrabajo.$invalid && formEmployee.telefonosecundariotrabajo.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonosecundariotrabajo.$invalid && formEmployee.telefonosecundariotrabajo.$error.minlength">La longitud mínima es de 9 caracteres</span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Dirección Trabajo: </span>
+                                                <input type="text" class="form-control" name="direcciontrabajo" id="direcciontrabajo" ng-model="direcciontrabajo" ng-maxlength="256">
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.direcciontrabajo.$invalid && formEmployee.direcciontrabajo.$error.maxlength">La longitud máxima es de 256 caracteres</span>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-xs-12" style="margin-top: 5px;">
+                                        <div class="col-sm-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Impuesto IVA: </span>
+                                                <select class="form-control" name="iva" id="iva" ng-model="iva"
+                                                        ng-options="value.id as value.label for value in imp_iva" required></select>
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.iva.$invalid && formEmployee.iva.$touched">El Impuesto IVA es requerido</span>
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">C. Contab.: </span>
+                                                <input type="text" class="form-control" name="cuenta_employee" id="cuenta_employee" ng-model="cuenta_employee" placeholder=""
+                                                       ng-required="true" readonly>
+                                                    <span class="input-group-btn" role="group">
+                                                    <button type="button" class="btn btn-info" id="btn-pcc" ng-click="showPlanCuenta()">
+                                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                    </button>
+                                                </span>
+
+                                            </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.cuenta_employee.$error.required">La asignación de una cuenta es requerida</span>
+                                        </div>
+                                    </div>
+                        </form>
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="save(modalstate)" ng-disabled="formEmployee.$invalid">
+                            Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+
+
+
+
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalAddCliente2">
                 <div class="modal-dialog" role="document" style="width: 60%;">
                     <div class="modal-content">
                         <div class="modal-header modal-header-primary">
@@ -259,6 +517,54 @@
                     </div>
                 </div>
             </div>
+
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalPlanCuenta">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Plan de Cuenta</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
+                                    <thead class="bg-primary">
+                                    <tr>
+                                        <th style="width: 15%;">ORDEN</th>
+                                        <th>CONCEPTO</th>
+                                        <th style="width: 10%;">COD. SRI</th>
+                                        <th style="width: 4%;"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in cuentas" ng-cloak >
+                                        <td>{{item.jerarquia}}</td>
+                                        <td>{{item.concepto}}</td>
+                                        <td>{{item.codigosri}}</td>
+                                        <td>
+                                            <input type="radio" name="select_cuenta"  ng-click="click_radio(item)">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-primary" id="btn-ok" ng-click="selectCuenta()">
+                            Aceptar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
             <div class="modal fade" tabindex="-1" role="dialog" id="modalDeleteCliente">
                 <div class="modal-dialog" role="document">

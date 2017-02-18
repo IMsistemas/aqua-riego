@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Clientes;
 use App\Modelos\Clientes\Cliente;
 use App\Modelos\Clientes\ClienteArriendo;
 use App\Modelos\Configuraciones\Configuracion;
+use App\Modelos\Persona;
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Solicitud\Solicitud;
 use App\Modelos\Solicitud\SolicitudCambioNombre;
 use App\Modelos\Solicitud\SolicitudOtro;
 use App\Modelos\Solicitud\SolicitudReparticion;
 use App\Modelos\Solicitud\SolicitudRiego;
+use App\Modelos\SRI\SRI_TipoIdentificacion;
+use App\Modelos\SRI\SRI_TipoImpuestoIva;
 use App\Modelos\Tarifas\Area;
 use App\Modelos\Tarifas\Tarifa;
 use App\Modelos\Terreno\Cultivo;
@@ -32,13 +35,59 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return view('Clientes/index');
+        return view('Clientes/index_cliente');
     }
+
 
     public function getClientes()
     {
         return Cliente::orderBy('fechaingreso', 'asc')->get();
     }
+
+    /**
+     * Obtener todos los tipos de identificacion
+     *
+     * @return mixed
+     */
+    public function getTipoIdentificacion()
+    {
+        return SRI_TipoIdentificacion::orderBy('nameidentificacion', 'asc')->get();
+    }
+
+    /**
+     * Obtener y devolver los numeros de identificacion que concuerden con el parametro a buscar
+     *
+     * @param $identify
+     * @return mixed
+     */
+    public function getIdentify($identify)
+    {
+        return Persona::whereRaw("numdocidentific::text ILIKE '%" . $identify . "%'")
+                        ->whereRaw('idpersona NOT IN (SELECT idpersona FROM cliente)')
+                        ->get();
+    }
+
+    /**
+     * Obtener y devolver la persona que cumpla con el numero de identificacion buscado
+     *
+     * @param $identify
+     * @return mixed
+     */
+    public function getPersonaByIdentify($identify)
+    {
+        return Persona::whereRaw("numdocidentific::text ILIKE '%" . $identify . "%'")->get();
+    }
+
+    public function getImpuestoIVA()
+    {
+        return SRI_TipoImpuestoIva::orderBy('nametipoimpuestoiva', 'asc')->get();
+    }
+
+
+    /**
+     * ---------------------------------------------------------------------------------------------------------------
+     */
+
 
     public function getLastID($table)
     {

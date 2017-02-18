@@ -67,7 +67,9 @@ Route::post('tarifa/deleteSubTarifas', 'Tarifas\TarifaController@deleteSubTarifa
 Route::resource('/tarifa', 'Tarifas\TarifaController');
 
 
-/*===================================Cliente======================================================*/
+/*
+ * -------------------------Modulo Cliente (Yamilka)---------------------------------------------------------------------
+ */
 
 Route::get('cliente/getClienteByIdentify/{idcliente}', 'Clientes\ClienteController@getClienteByIdentify');
 
@@ -110,6 +112,11 @@ Route::put('cliente/processSolicitud/{idsolicitud}', 'Clientes\ClienteController
 Route::put('cliente/processSolicitudSetName/{idsolicitud}', 'Clientes\ClienteController@processSolicitudSetName');
 
 Route::put('cliente/processSolicitudFraccion/{idsolicitud}', 'Clientes\ClienteController@processSolicitudFraccion');
+
+Route::get('cliente/getTipoIdentificacion', 'Clientes\ClienteController@getTipoIdentificacion');
+Route::get('cliente/getImpuestoIVA', 'Clientes\ClienteController@getImpuestoIVA');
+Route::get('cliente/getPersonaByIdentify/{identify}', 'Clientes\ClienteController@getPersonaByIdentify');
+Route::get('cliente/getIdentify/{identify}', 'Clientes\ClienteController@getIdentify');
 
 Route::resource('/cliente', 'Clientes\ClienteController');
 
