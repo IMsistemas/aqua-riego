@@ -599,7 +599,7 @@ Route::resource('compras', 'Compras\CompraProductoController');
 /*
  * -------------------------Modulo Proveedores y Transportista (Raidel)-------------------------------------------------
  */
-	
+
 Route::get('proveedor/getTipoIdentificacion', 'Proveedores\ProveedorController@getTipoIdentificacion');
 Route::get('proveedor/getProvincias', 'Proveedores\ProveedorController@getProvincias');
 Route::get('proveedor/getCantones/{idprovincia}', 'Proveedores\ProveedorController@getCantones');
@@ -679,6 +679,10 @@ Route::get('guiaremision/getItemsVenta', 'Guiaremision\GuiaremisionController@ge
 /*
  * -------------------------------------Modulo Configuracion del Sistema (Dayana)---------------------------------------
  */
+
+Route::get('configuracion/getDataEmpresa', 'ConfiguracionSystem\ConfiguracionSystemController@getDataEmpresa');
+
+Route::post('configuracion/updateEstablecimiento/{id}', 'ConfiguracionSystem\ConfiguracionSystemController@updateEstablecimiento');
 
 Route::resource('configuracion', 'ConfiguracionSystem\ConfiguracionSystemController');
 
