@@ -29,13 +29,11 @@ class CargoController extends Controller
     public function getCargos(Request $request)
     {
         $filter = json_decode($request->get('filter'));
-
         $search = $filter->search;
-
         $cargo = null;
 
         if ($search != null) {
-            $cargo = Cargo::whereRaw("cargo.namecargo LIKE '%" . $search . "%'")->orderBy('namecargo', 'asc');
+            $cargo = Cargo::whereRaw("cargo.namecargo ILIKE '%" . $search . "%'")->orderBy('namecargo', 'asc');
         } else {
             $cargo = Cargo::orderBy('namecargo', 'asc');
         }
@@ -63,7 +61,7 @@ class CargoController extends Controller
         $filter = json_decode($filter);
 
         return Cargo::orderBy('idcargo', 'asc')
-                      ->whereRaw("cargo.idcargo LIKE '%" . $filter->text . "%' OR cargo.namecargo LIKE '%" . $filter->text . "%' ")
+                      ->whereRaw("cargo.namecargo ILIKE '%" . $filter->text . "%' ")
                       ->get();
     }
 

@@ -4,7 +4,6 @@
 
         <div class="col-xs-12" style="margin-top: 2%;">
 
-
             <div class="col-sm-6 col-xs-8">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda" ng-keypress="initLoad(1)">

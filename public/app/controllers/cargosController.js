@@ -90,14 +90,10 @@ app.controller('cargosController', function($scope, $http, API_URL) {
         }
     };
 
-    $scope.showModalConfirm = function(cargo){
-
-        $scope.showModalConfirm = function (cargo) {
-            $scope.idcargo_del = cargo.idcargo;
-            $scope.cargo_seleccionado = cargo.namecargo;
-            $('#modalConfirmDelete').modal('show');
-        };
-
+    $scope.showModalConfirm = function (cargo) {
+        $scope.idcargo_del = cargo.idcargo;
+        $scope.cargo_seleccionado = cargo.namecargo;
+        $('#modalConfirmDelete').modal('show');
     };
 
     $scope.delete = function(){

@@ -339,7 +339,7 @@
 
 
                             <div class="col-xs-6 text-center" style="margin-top: 5px;">
-                                <img class="img-thumbnail" src="{{url_foto}}" alt="" style="width: 50%;">
+                                <img class="img-thumbnail" ngf-src="file" src="{{url_foto}}" alt="" style="width: 50%;">
                             </div>
 
                         </form>
