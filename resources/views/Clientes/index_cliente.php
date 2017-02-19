@@ -39,29 +39,25 @@
                     <thead class="bg-primary">
                     <tr>
                         <th class="text-center" style="width: 10%;">CI / RUC</th>
-                        <th class="text-center" style="width: 10%;">Fecha Ingreso</th>
-                        <th class="text-center" style="">Razón Social</th>
+                        <th class="text-center" style="width: 10%;">Fecha Ingr.</th>
+                        <th class="text-center" style="">Razón Social / Nombre y Apellidos</th>
                         <th class="text-center" style="width: 8%;">Celular</th>
-                        <th class="text-center" style="width: 10%;">Telf. Domicilio</th>
-                        <th class="text-center" style="width: 9%;">Telf. Trabajo</th>
-                        <th class="text-center" style="width: 10%;">Dirección</th>
+                        <th class="text-center" style="width: 20%;">Dirección</th>
                         <th class="text-center" style="width: 7%;">Estado</th>
                         <th class="text-center" style="width: 16%;">Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <tr dir-paginate="item in clientes | orderBy:sortKey:reverse | itemsPerPage:10 | filter : t_busqueda" ng-cloak>
-                            <td>{{item.documentoidentidad}}</td>
+                        <tr dir-paginate="item in clientes | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak >
+                            <td>{{item.numdocidentific}}</td>
                             <td>{{item.fechaingreso | formatDate}}</td>
-                            <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{item.complete_name}}</td>
-                            <td>{{item.celular}}</td>
-                            <td>{{item.telefonoprincipaldomicilio}}</td>
-                            <td>{{item.telefonoprincipaltrabajo}}</td>
-                            <td>{{item.direcciondomicilio}}</td>
-                            <td ng-if="item.estaactivo == true">
+                            <td>{{item.razonsocial}}</td>
+                            <td>{{item.celphone}}</td>
+                            <td>{{item.direccion}}</td>
+                            <td ng-if="item.estado == true">
                                 <span class="label label-primary" style="font-size: 14px !important;">Activo</span>
                             </td>
-                            <td ng-if="item.estaactivo == false">
+                            <td ng-if="item.estado == false">
                                 <span class="label label-warning" style="font-size: 14px !important;">Inactivo</span>
                             </td>
                             <td  class="text-center">
@@ -82,9 +78,16 @@
                     </tbody>
                 </table>
                 <dir-pagination-controls
-                    max-size="5"
-                    direction-links="true"
-                    boundary-links="true" >
+
+                        on-page-change="pageChanged(newPageNumber)"
+
+                        template-url="dirPagination.html"
+
+                        class="pull-right"
+                        max-size="10"
+                        direction-links="true"
+                        boundary-links="true" >
+
                 </dir-pagination-controls>
 
             </div>
@@ -343,7 +346,7 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
-                        <button type="button" class="btn btn-success" id="btn-save" ng-click="save(modalstate)" ng-disabled="formEmployee.$invalid">
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="saveCliente()" ng-disabled="formEmployee.$invalid">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
                     </div>

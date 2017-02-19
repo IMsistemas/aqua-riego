@@ -13,27 +13,30 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
     $scope.objectAction = null;
     $scope.list_terrenos = [];
 
+    $scope.idcliente = 0;
 
     $scope.idpersona = 0;
     $scope.id = 0;
     $scope.select_cuenta = null;
 
+    $scope.pageChanged = function(newPage) {
+        $scope.initLoad(newPage);
+    };
 
-    $scope.initLoad = function () {
-        $http.get(API_URL + 'cliente/getClientes').success(function(response){
 
-            var longitud = response.length;
-            for (var i = 0; i < longitud; i++) {
-                var complete_name = {
-                    value: response[i].apellido + ', ' + response[i].nombre,
-                    writable: true,
-                    enumerable: true,
-                    configurable: true
-                };
-                Object.defineProperty(response[i], 'complete_name', complete_name);
-            }
-            console.log(response);
-            $scope.clientes = response;
+    $scope.initLoad = function (pageNumber) {
+        if ($scope.busqueda == undefined) {
+            var search = null;
+        } else var search = $scope.busqueda;
+
+        var filtros = {
+            search: search
+        };
+
+        $http.get(API_URL + 'cliente/getClientes?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
+            console.log(response.data);
+            $scope.clientes = response.data;
+            $scope.totalItems = response.total;
         });
     };
 
@@ -77,7 +80,6 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         }
 
     };
-
 
     $scope.inputChanged = function (str) {
         $scope.documentoidentidadempleado = str;
@@ -150,9 +152,127 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     };
 
+    $scope.saveCliente = function () {
+
+        var url = API_URL + 'cliente';
+
+        var fechaingreso = $('#t_fecha_ingreso').val();
+
+        var data = {
+
+            // datos de persona
+
+            documentoidentidadempleado: $scope.documentoidentidadempleado,
+            correo: $scope.correo,
+            celular: $scope.celular,
+            tipoidentificacion: $scope.tipoidentificacion,
+            apellidos: $scope.apellido,
+            nombres: $scope.nombre,
+            direccion: $scope.direccion,
+
+            // datos de cliente
+
+            fechaingreso: convertDatetoDB(fechaingreso),
+            idpersona:  $scope.idpersona,
+            cuentacontable: $scope.select_cuenta.idplancuenta,
+            impuesto_iva: $scope.iva,
+
+            telefonoprincipaldomicilio: $scope.telefonoprincipal,
+            telefonosecundariodomicilio: $scope.telefonosecundario,
+            telefonoprincipaltrabajo: $scope.telefonoprincipaltrabajo,
+            telefonosecundariotrabajo: $scope.telefonosecundariotrabajo,
+            direcciontrabajo: $scope.direcciontrabajo
+
+        };
+
+        console.log(data);
+
+        if ($scope.idcliente == 0) {
+            $http.post(url, data ).success(function (response) {
+                if (response.success == true) {
+                    $scope.initLoad(1);
+                    $scope.message = 'Se guardó correctamente la información del Cliente...';
+                    $('#modalAddCliente').modal('hide');
+                    $('#modalMessage').modal('show');
+                    $scope.hideModalMessage();
+                }
+                else {
+                    $('#modalAddCliente').modal('hide');
+                    $scope.message_error = 'Ha ocurrido un error..';
+                    $('#modalMessageError').modal('show');
+                }
+            });
+        } else {
+            $http.put(url + '/' + $scope.id, data ).success(function (response) {
+                if (response.success == true) {
+                    $scope.idpersona = 0;
+                    $scope.id = 0;
+                    $scope.initLoad(1);
+                    $scope.message = 'Se editó correctamente la información del Cliente...';
+                    $('#modalAddCliente').modal('hide');
+                    $('#modalMessage').modal('show');
+                    $scope.hideModalMessage();
+                }
+                else {
+                    $('#modalAddCliente').modal('hide');
+                    $scope.message_error = 'Ha ocurrido un error..';
+                    $('#modalMessageError').modal('show');
+                }
+            }).error(function (res) {
+
+            });
+        }
+
+        /*var data = {
+         fechaingreso: $scope.convertDatetoDB($scope.t_fecha_ingreso),
+         codigocliente: $scope.t_doc_id,
+         apellido: $scope.t_apellidos,
+         nombre: $scope.t_nombres,
+         telefonoprincipal: $scope.t_telf_principal,
+         telefonosecundario: $scope.t_telf_secundario,
+         celular: $scope.t_celular,
+         direccion: $scope.t_direccion,
+         telfprincipalemp: $scope.t_telf_principal_emp,
+         telfsecundarioemp: $scope.t_telf_secundario_emp,
+         direccionemp: $scope.t_direccion_emp,
+         email: $scope.t_email
+         };
+
+         var url = API_URL + "cliente";
+
+         if ($scope.t_codigocliente == 0){
+
+         $http.post(url, data ).success(function (response) {
+         $scope.initLoad();
+         $('#modalAddCliente').modal('hide');
+         $scope.message = 'Se insertó correctamente el cliente...';
+         $('#modalMessage').modal('show');
+         $scope.hideModalMessage();
+         }).error(function (res) {
+         console.log(res);
+         });
+
+         } else {
 
 
+         url += '/' + $scope.t_codigocliente;
 
+         $http.put(url, data ).success(function (response) {
+         $scope.initLoad();
+         $('#modalAddCliente').modal('hide');
+         $scope.message = 'Se editó correctamente el Cliente seleccionado...';
+         $('#modalMessage').modal('show');
+         $scope.hideModalMessage();
+         }).error(function (res) {
+
+         });
+         }*/
+
+    };
+
+/**
+* ----------------------------------------------------------------------------------------------------------------------
+*/
 
 
 
@@ -208,109 +328,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         $('#modalAddCliente').modal('show');
     };
 
-    $scope.saveCliente = function () {
 
-        var url = API_URL + 'cliente';
-
-        var fechaingreso = $('#t_fecha_ingreso').val();
-
-        var data = {
-            fechaingreso: convertDatetoDB(fechaingreso),
-            telefonoprincipal: $scope.telefonoprincipal,
-            celular: $scope.celular,
-            direccion: $scope.direccion,
-            correo: $scope.correo,
-            documentoidentidadempleado: $scope.documentoidentidadempleado,
-            razonsocial: $scope.razonsocial,
-            idpersona:  $scope.idpersona,
-            tipoidentificacion: $scope.tipoidentificacion,
-            cuentacontable: $scope.select_cuenta.idplancuenta,
-            impuesto_iva: $scope.iva
-
-        };
-
-        if ($scope.modalstate == 'add') {
-            $http.post(url, data ).success(function (response) {
-                if (response.success == true) {
-                    $scope.initLoad(1);
-                    $scope.message = 'Se guardó correctamente la información del Proveedor...';
-                    $('#modalAction').modal('hide');
-                    $('#modalMessage').modal('show');
-                    $scope.hideModalMessage();
-                }
-                else {
-                    $('#modalAction').modal('hide');
-                    $scope.message_error = 'Ha ocurrido un error..';
-                    $('#modalMessageError').modal('show');
-                }
-            });
-        } else {
-            $http.put(url + '/' + $scope.id, data ).success(function (response) {
-                if (response.success == true) {
-                    $scope.idpersona = 0;
-                    $scope.id = 0;
-                    $scope.initLoad(1);
-                    $scope.message = 'Se editó correctamente la información del Proveedor...';
-                    $('#modalAction').modal('hide');
-                    $('#modalMessage').modal('show');
-                    $scope.hideModalMessage();
-                }
-                else {
-                    $('#modalAction').modal('hide');
-                    $scope.message_error = 'Ha ocurrido un error..';
-                    $('#modalMessageError').modal('show');
-                }
-            }).error(function (res) {
-
-            });
-        }
-
-        /*var data = {
-            fechaingreso: $scope.convertDatetoDB($scope.t_fecha_ingreso),
-            codigocliente: $scope.t_doc_id,
-            apellido: $scope.t_apellidos,
-            nombre: $scope.t_nombres,
-            telefonoprincipal: $scope.t_telf_principal,
-            telefonosecundario: $scope.t_telf_secundario,
-            celular: $scope.t_celular,
-            direccion: $scope.t_direccion,
-            telfprincipalemp: $scope.t_telf_principal_emp,
-            telfsecundarioemp: $scope.t_telf_secundario_emp,
-            direccionemp: $scope.t_direccion_emp,
-            email: $scope.t_email
-        };
-
-        var url = API_URL + "cliente";
-
-        if ($scope.t_codigocliente == 0){
-
-            $http.post(url, data ).success(function (response) {
-                $scope.initLoad();
-                $('#modalAddCliente').modal('hide');
-                $scope.message = 'Se insertó correctamente el cliente...';
-                $('#modalMessage').modal('show');
-                $scope.hideModalMessage();
-            }).error(function (res) {
-                console.log(res);
-            });
-
-        } else {
-
-
-            url += '/' + $scope.t_codigocliente;
-
-            $http.put(url, data ).success(function (response) {
-                $scope.initLoad();
-                $('#modalAddCliente').modal('hide');
-                $scope.message = 'Se editó correctamente el Cliente seleccionado...';
-                $('#modalMessage').modal('show');
-                $scope.hideModalMessage();
-            }).error(function (res) {
-
-            });
-        }*/
-
-    };
 
     $scope.deleteCliente = function(){
         $http.delete(API_URL + 'cliente/' + $scope.codigocliente_del).success(function(response) {

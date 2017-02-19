@@ -39,9 +39,21 @@ class ClienteController extends Controller
     }
 
 
-    public function getClientes()
+    public function getClientes(Request $request)
     {
-        return Cliente::orderBy('fechaingreso', 'asc')->get();
+        $filter = json_decode($request->get('filter'));
+        $search = $filter->search;
+        $cliente = null;
+
+        $cliente = Cliente::join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
+            ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'cliente.idplancuenta')
+            ->select('cliente.*', 'persona.*', 'cont_plancuenta.*');
+
+        if ($search != null) {
+            $cliente = $cliente->whereRaw("persona.razonsocial ILIKE '%" . $search . "%'");
+        }
+
+        return $cliente->orderBy('fechaingreso', 'desc')->paginate(10);
     }
 
     /**
@@ -81,6 +93,51 @@ class ClienteController extends Controller
     public function getImpuestoIVA()
     {
         return SRI_TipoImpuestoIva::orderBy('nametipoimpuestoiva', 'asc')->get();
+    }
+
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        if ($request->input('idpersona') == 0) {
+            $persona = new Persona();
+        } else {
+            $persona = Persona::find($request->input('idpersona'));
+        }
+
+        $persona->numdocidentific = $request->input('documentoidentidadempleado');
+        $persona->email = $request->input('correo');
+        $persona->celphone = $request->input('celular');
+        $persona->idtipoidentificacion = $request->input('tipoidentificacion');
+        $persona->razonsocial = $request->input('nombres') . ' ' . $request->input('apellidos');
+        $persona->lastnamepersona = $request->input('apellidos');
+        $persona->namepersona = $request->input('nombres');
+        $persona->direccion = $request->input('direccion');
+
+        if ($persona->save()) {
+            $cliente = new Cliente();
+            $cliente->fechaingreso = $request->input('fechaingreso');
+            $cliente->estado = true;
+            $cliente->idpersona = $persona->idpersona;
+            $cliente->idplancuenta = $request->input('cuentacontable');
+            $cliente->idtipoimpuestoiva = $request->input('impuesto_iva');
+            $cliente->telefonoprincipaldomicilio = $request->input('telefonoprincipaldomicilio');
+            $cliente->telefonosecundariodomicilio = $request->input('telefonosecundariodomicilio');
+            $cliente->telefonoprincipaltrabajo = $request->input('telefonoprincipaltrabajo');
+            $cliente->telefonosecundariotrabajo = $request->input('telefonosecundariotrabajo');
+            $cliente->direcciontrabajo = $request->input('direcciontrabajo');
+
+            if ($cliente->save()) {
+                return response()->json(['success' => true]);
+            } else return response()->json(['success' => false]);
+
+        } else return response()->json(['success' => false]);
+
     }
 
 
@@ -237,34 +294,7 @@ class ClienteController extends Controller
         return response()->json(['costo' => $costo]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $cliente = new Cliente();
 
-        $cliente->documentoidentidad = $request->input('codigocliente');
-        $cliente->fechaingreso = $request->input('fechaingreso');
-        $cliente->apellido = $request->input('apellido');
-        $cliente->nombre = $request->input('nombre');
-        $cliente->celular = $request->input('celular');
-        $cliente->correo = $request->input('email');
-        $cliente->direcciondomicilio = $request->input('direccion');
-        $cliente->telefonoprincipaldomicilio = $request->input('telefonoprincipal');
-        $cliente->telefonosecundariodomicilio = $request->input('telefonosecundario');
-        $cliente->direcciontrabajo = $request->input('direccionemp');
-        $cliente->telefonoprincipaltrabajo = $request->input('telfprincipalemp');
-        $cliente->telefonosecundariotrabajo = $request->input('telfsecundarioemp');
-        $cliente->estaactivo = true;
-
-        $cliente->save();
-
-        return response()->json(['success' => true]);
-    }
 
     public function storeSolicitudRiego(Request $request)
     {
