@@ -39,6 +39,12 @@ class ClienteController extends Controller
     }
 
 
+    /**
+     * Obtener los clientes paginados
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function getClientes(Request $request)
     {
         $filter = json_decode($request->get('filter'));
@@ -90,6 +96,11 @@ class ClienteController extends Controller
         return Persona::whereRaw("numdocidentific::text ILIKE '%" . $identify . "%'")->get();
     }
 
+    /**
+     * Obtener el listado de los tipos de impuestos IVA
+     *
+     * @return mixed
+     */
     public function getImpuestoIVA()
     {
         return SRI_TipoImpuestoIva::orderBy('nametipoimpuestoiva', 'asc')->get();
@@ -180,6 +191,31 @@ class ClienteController extends Controller
     }
 
     /**
+     * Obtener si el cliente esta relacionado a alguna solicitud
+     *
+     * @param $codigocliente
+     * @return mixed
+     */
+    public function getIsFreeCliente($codigocliente)
+    {
+        return Solicitud::where('idcliente', $codigocliente)->count();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $cliente = Cliente::find($id);
+        if ($cliente->delete()) {
+            return response()->json(['success' => true]);
+        } else return response()->json(['success' => false]);
+    }
+
+    /**
      * -----------------------------------------------------------------------------------------------------------------
      */
 
@@ -211,16 +247,6 @@ class ClienteController extends Controller
         return response()->json(['id' => $max]);
     }
 
-    /**
-     * Obtener si el cliente esta relacionado a alguna solicitud
-     *
-     * @param $codigocliente
-     * @return mixed
-     */
-    public function getIsFreeCliente($codigocliente)
-    {
-        return Solicitud::where('codigocliente', $codigocliente)->count();
-    }
 
     public function getTerrenosByCliente($idcliente)
     {
@@ -513,16 +539,5 @@ class ClienteController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $cliente = Cliente::find($id);
-        $cliente->delete();
-        return response()->json(['success' => true]);
-    }
+
 }

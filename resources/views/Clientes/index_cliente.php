@@ -577,7 +577,7 @@
                             <h4 class="modal-title">Confirmación</h4>
                         </div>
                         <div class="modal-body">
-                            <span>Realmente desea eliminar el cliente: <strong>"{{nom_cliente}}"</strong> seleccionado...</span>
+                            <span>Realmente desea eliminar el cliente: <strong>"{{nom_cliente}}"</strong> </span>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">

@@ -310,6 +310,31 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     };
 
+    $scope.showModalDeleteCliente = function (item) {
+        $scope.idcliente = item.idcliente;
+        $http.get(API_URL + 'cliente/getIsFreeCliente/' + item.idcliente).success(function(response){
+            if (response == 0) {
+                $scope.nom_cliente = item.razonsocial;
+                $('#modalDeleteCliente').modal('show');
+            } else {
+                $scope.message_info = 'No se puede eliminar el cliente seleccionado, ya presenta solicitudes a su nombre...';
+                $('#modalMessageInfo').modal('show');
+            }
+        });
+
+    };
+
+    $scope.deleteCliente = function(){
+        $http.delete(API_URL + 'cliente/' + $scope.idcliente).success(function(response) {
+            $scope.initLoad(1);
+            $('#modalDeleteCliente').modal('hide');
+            $scope.idcliente = 0;
+            $scope.message = 'Se eliminó correctamente el Cliente seleccionado...';
+            $('#modalMessage').modal('show');
+            $scope.hideModalMessage();
+        });
+    };
+
 /**
 * ----------------------------------------------------------------------------------------------------------------------
 */
@@ -351,34 +376,11 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
 
 
-    $scope.deleteCliente = function(){
-        $http.delete(API_URL + 'cliente/' + $scope.codigocliente_del).success(function(response) {
-            $scope.initLoad();
-            $('#modalDeleteCliente').modal('hide');
-            $scope.codigocliente_del = 0;
-            $scope.message = 'Se eliminó correctamente el Cliente seleccionado...';
-            $('#modalMessage').modal('show');
-            $scope.hideModalMessage();
-        });
-    };
 
 
 
-    $scope.showModalDeleteCliente = function (item) {
 
-        $scope.codigocliente_del = item.codigocliente;
-        $http.get(API_URL + 'cliente/getIsFreeCliente/' + $scope.codigocliente_del).success(function(response){
-            if (response == 0) {
-                $scope.nom_cliente = item.apellido + ' ' + item.nombre;
-                $('#modalDeleteCliente').modal('show');
-            } else {
-                $scope.message_info = 'No se puede eliminar el cliente seleccionado, ya presenta solicitudes a su nombre...';
-                $('#modalMessageInfo').modal('show');
 
-            }
-        });
-
-    };
 
 
 
