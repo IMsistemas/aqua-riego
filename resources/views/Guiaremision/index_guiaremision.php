@@ -70,20 +70,7 @@
 					                <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true" ng-click="delete(item.iddocumentoguiaremision)"></span> 
 					            </button>
 							</td>
-						</tr>
-						<tr dir-paginate="item in guiaremision.guiasinventa|orderBy:sortKey:reverse|filter:search|itemsPerPage:5" ng-cloak>
-							<td>{{item.iddocumentoguiaremision}}</td>
-							<td>{{item.razonsocial}}</td>
-							<td>{{item.nrodocumentoguiaremision}}</td>
-							<td>Sin Factura</td>
-							<td>
-								<button type="button" class="btn btn-warning">
-					                <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true" ng-click="editarGuia(item)"></span> 
-					            </button>
-					            <button type="button" class="btn btn-danger">
-					                <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true" ng-click="delete(item.iddocumentoguiaremision)"></span> 
-					            </button>
-							</td>
+						
 						</tr>
 					</tbody>
 				</table>
@@ -179,7 +166,7 @@
 								<div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
 									<div class="input-group">                        
 						                <apan class="input-group-addon" ><i class="fa fa-calendar"></i> Fecha Inicio Transporte: </apan>
-						                <input type="date" class="form-control" id="finiciotrans" name="finiciotrans| date:'dd/MM/yyyy'" ng-model="finiciotrans" ng-blur="todayinicio('finiciotrans')" required>
+						                <input type="date" class="form-control" id="finiciotrans" name="finiciotrans" ng-model="finiciotrans" ng-blur="todayinicio('finiciotrans')" required>
 						                <span class="input-group-addon"  ><i class="fa fa-calendar"></i></span>      
 						            </div>
 						             <span class="help-block error" ng-show="formguia.finiciotrans.$touched && formguia.finiciotrans.$invalid">La fecha es requerida</span>
