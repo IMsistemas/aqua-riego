@@ -44,7 +44,8 @@ class Plandecuetas extends Controller
                 ->get();
         */
         $aux_sqlplan="SELECT * , ";
-        $aux_sqlplan.=" (SELECT count(*)  FROM cont_plancuenta aux WHERE aux.jerarquia <@ pl.jerarquia) madreohija ";
+        $aux_sqlplan.=" (SELECT count(*)  FROM cont_plancuenta aux WHERE aux.jerarquia <@ pl.jerarquia) madreohija, ";
+        $aux_sqlplan.=" f_balancecuentacontable(pl.idplancuenta,'".$filtro->FechaI."','".$filtro->FechaF."') balance ";
         $aux_sqlplan.=" FROM cont_plancuenta pl";
         $aux_sqlplan.=" WHERE pl.tipoestadofinanz='".$filtro->Tipo."' ";
         $aux_sqlplan.=" ORDER BY pl.jerarquia; ";
@@ -137,7 +138,7 @@ class Plandecuetas extends Controller
     {
         $filtro = json_decode($filtro);
         $data=Cont_RegistroContable::with("cont_transaccion.cont_tipotransaccion","cont_plancuentas")
-                                    ->whereRaw("cont_registrocontable.idplancuenta=".$filtro->idplancuenta." AND  cont_registrocontable.fecha>='".$filtro->Fechai."' AND cont_registrocontable.fecha<='".$filtro->Fechaf."' ")
+                                    ->whereRaw("cont_registrocontable.idplancuenta=".$filtro->idplancuenta." AND  cont_registrocontable.fecha>='".$filtro->Fechai."' AND cont_registrocontable.fecha<='".$filtro->Fechaf."' AND  cont_registrocontable.estadoanulado=true ")
                                     ->orderBy('cont_registrocontable.fecha', 'asc')
                                     ->get();
         //return $data;
@@ -182,7 +183,8 @@ class Plandecuetas extends Controller
      */
     public function BorrarAsientoContable($id)
     {
-        return CoreContabilidad::BorrarAsientoContable($id);
+        //return CoreContabilidad::BorrarAsientoContable($id); 
+        return CoreContabilidad::AnularAsientoContable($id); 
     }
     /**
      *
@@ -207,5 +209,17 @@ class Plandecuetas extends Controller
         $transaccion = json_decode($transaccion);
         $res=CoreContabilidad::ModifyAsientoContable($transaccion);
         return $res;
+    }
+    /**
+     *
+     *
+     * Numero de comprobante por tipo de transaccion contable
+     *
+     */
+    public function NumComprobante($filtro)
+    {   $filtro = json_decode($filtro);
+        $aux_numero = DB::select("SELECT (MAX(numcomprobante)+1) numero FROM cont_transaccion WHERE idtipotransaccion='".$filtro->idtipotransaccion."'");
+        $aux_numerocomprobante=$aux_numero[0]->numero;
+        return $aux_numerocomprobante;
     }
 }

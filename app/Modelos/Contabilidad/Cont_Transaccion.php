@@ -20,7 +20,8 @@ class Cont_Transaccion extends Model
         'numcontable',
         'fechatransaccion',
         'numcomprobante',
-        'descripcion'
+        'descripcion',
+        'estadoanulado'
     ];
     public function cont_tipotransaccion()
     {

@@ -219,8 +219,24 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     $scope.AddAsientoContable=function(){
         $("#AddAsc").modal("show");
         $scope.EstadoSave="N";
-        $scope.TipoTransaccion();
+        $scope.LoadTipoTransaccion();
         $scope.ClearAsientoContable();
+        $scope.AddIntemCotable();
+        $scope.AddIntemCotable();
+    };
+    ///---
+    $scope.NumeroComprobante=function(){
+        if($scope.tipotransaccion!=""){
+            var aux_filtronumero={
+                idtipotransaccion: $scope.tipotransaccion
+            };
+            $http.get(API_URL + 'estadosfinacieros/numcomp/'+JSON.stringify(aux_filtronumero))
+            .success(function(response){
+                $scope.NumeroIASC=parseInt(response);
+            });
+        }else{
+            $scope.NumeroIASC="";
+        }
     };
     ///---
     $scope.AddIntemCotable=function(){
@@ -244,7 +260,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     ///---
     $scope.listatipotransaccion=[];
     $scope.tipotransaccion="";
-    $scope.TipoTransaccion=function(){
+    $scope.LoadTipoTransaccion=function(){
       $http.get(API_URL + 'transacciones/alltipotransacciones')
         .success(function(response){
             $scope.listatipotransaccion=response;
@@ -258,7 +274,6 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         $("#PlanContable").modal("show");
         $http.get(API_URL + 'estadosfinacieros/plancontabletotal')
         .success(function(response){
-            console.log(response);
             $scope.aux_plancuentas=response;
         });
     };
@@ -269,6 +284,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         $scope.aux_cuentabuscar.controlhaber=cuenta.controlhaber;
         $scope.aux_cuentabuscar.tipocuenta=cuenta.tipocuenta;
         $("#PlanContable").modal("hide");
+        $scope.FiltraCuenta="";
     };
     ///---
     $scope.AsientoContable=function(){
@@ -377,19 +393,34 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         $scope.RegistroC=[];
         $scope.aux_sumdebe=0;
         $scope.aux_sumhaber=0;
+        $scope.aux_sumdebedif=0;
+        $scope.aux_sumhaberdif=0;
     };
     ///---
     $scope.aux_sumdebe=0.0;
     $scope.aux_sumhaber=0.0;
+    
+    $scope.aux_sumdebedif=0.0;
+    $scope.aux_sumhaberdif=0.0;
     $scope.SumarDebeHaber=function() {
         var aux_debe=0.0;
         var aux_haber=0.0;
+
+        var aux_debedif=0.0;
+        var aux_haberdif=0.0;
         for(x=0;x<$scope.RegistroC.length;x++){
             if($scope.RegistroC[x].Debe!="") aux_debe+=parseFloat($scope.RegistroC[x].Debe);
             if($scope.RegistroC[x].Haber!="") aux_haber+=parseFloat($scope.RegistroC[x].Haber);
         }
         $scope.aux_sumdebe=aux_debe;
         $scope.aux_sumhaber=aux_haber;
+
+        aux_debedif=aux_debe-aux_haber;
+        aux_haberdif=aux_haber-aux_debe;
+        
+        $scope.aux_sumdebedif=aux_debedif;
+        $scope.aux_sumhaberdif=aux_haberdif;        
+
     };
     ///---
     $scope.ValidaRegistriContable=function(){
@@ -460,7 +491,6 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         $scope_auxTransaccionEditar={};
        $http.get(API_URL + 'estadosfinacieros/datosasc/'+id_transaccion)
         .success(function(response){
-            console.log(response);
             $scope.auxTransaccionEditar={
                 idtransaccion: response[0].idtransaccion,
                 idtipotransaccion : response[0].idtipotransaccion,
@@ -474,12 +504,14 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     };
     ///---
     $scope.RenderRegistroContble=function(registro){
-        $scope.tipotransaccion=$scope.auxTransaccionEditar.idtipotransaccion+"";
+        //$("#tipotransaccion").val($scope.auxTransaccionEditar.idtipotransaccion);
+        
+        $scope.tipotransaccion=String($scope.auxTransaccionEditar.idtipotransaccion);
         $("#FechaIASC").val(convertDatetoDB($scope.auxTransaccionEditar.fechatransaccion,"true"));
-            $scope.NumeroIASC=$scope.auxTransaccionEditar.numcomprobante;
-            $scope.DescripcionASC=$scope.auxTransaccionEditar.descripcion;
+        $scope.NumeroIASC=$scope.auxTransaccionEditar.numcomprobante;
+        $scope.DescripcionASC=$scope.auxTransaccionEditar.descripcion;
+            
 
-        console.log(registro);
         $scope.RegistroC=[];
         for(x=0;x<registro.length;x++){
             var item={
@@ -514,13 +546,13 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
             if(response.success==true){
                 QuitarClasesMensaje();
                 $("#titulomsm").addClass("btn-success");
-                $scope.Mensaje="Se Elmino Correctamente El Asiento Contable";
+                $scope.Mensaje="Se Anulo Correctamente El Asiento Contable";
                 $("#msm").modal("show");
                 $scope.LoadRegistroCuenta();
             }else{
                 QuitarClasesMensaje();
                 $("#titulomsm").addClass("btn-danger");
-                $scope.Mensaje="Error Al Eliminar El Asiento Contable";
+                $scope.Mensaje="Error Al Anular El Asiento Contable";
                 $("#msm").modal("show");
             }
         });

@@ -15,7 +15,7 @@
 </head>
 <body>
 
-  <div class="container-fluid" ng-controller="Contabilidad" ng-init="TipoTransaccion();" ng-cloak>
+  <div class="container-fluid" ng-controller="Contabilidad" ng-init="LoadTipoTransaccion();" ng-cloak>
     <div class="row">
       <div class="col-xs-6">
                 <h3><strong>Plan de cuentas</strong></h3>
@@ -67,6 +67,7 @@
                                     <th ></th>
                                     <th style="width: 50%;">Detalle</th>
                                     <th style="width: 10%;">Codigo SRI</th>
+                                    <th>Balance</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -80,6 +81,7 @@
                                     <td>{{cuenta.jerarquia}}</td>
                                     <td>{{cuenta.concepto}}</td>
                                     <td>{{cuenta.codigosri}}</td>
+                                    <td>{{cuenta.balance}}</td>
                                     <td>
                                       <button ng-click="RegistroContableCuenta(cuenta);"; class="btn btn-primary btn-sm" ng-show="cuenta.madreohija=='1' " ng-hide=" cuenta.madreohija!='1' ">
                                         <span class="glyphicon glyphicon glyphicon-th-list" aria-hidden="true"></span>
@@ -145,7 +147,7 @@
                         <td>{{$index+1}}</td>
                         <td>
                           <button class="btn btn-warning btn-sm" ng-click="ProcesoModificarAsientoCt(registro)" > <i class="glyphicon glyphicon glyphicon-edit"></i></button>
-                          <button class="btn btn-danger btn-sm" ng-click="ProcesoBorrarAsientoCt(registro)" > <i class="glyphicon glyphicon glyphicon-trash"></i></button>
+                          <button class="btn btn-danger btn-sm" ng-click="ProcesoBorrarAsientoCt(registro)" > <i class="glyphicon glyphicon glyphicon-ban-circle"></i></button>
                         </td>
                         <td>{{ registro.cont_transaccion.cont_tipotransaccion.sigla }}</td>
                         <td>{{ registro.fecha }}</td>
@@ -346,6 +348,14 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-xs-12">
+            <div class="form-group  has-feedback">
+            <input type="text" class="form-control" id="" ng-model="FiltraCuenta" placeholder="Buscar" >
+            <span class="glyphicon glyphicon-search form-control-feedback" ></span>
+          </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
             <table class="table table-bordered table-condensed">
               <thead>
                 <tr class="btn-primary">
@@ -356,7 +366,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr ng-repeat="cuenta in aux_plancuentas">
+                <tr ng-repeat="cuenta in aux_plancuentas | filter:FiltraCuenta">
                   <td>{{cuenta.jerarquia}}</td>
                   <td>{{cuenta.concepto}}</td>
                   <td>{{cuenta.codigosri}}</td>
@@ -399,9 +409,9 @@
         <div class="col-xs-6">
           <div class="input-group">
             <span class="input-group-addon">Transacción: </span>
-            <select class="form-control" ng-model="tipotransaccion">
+            <select ng-disabled="EstadoSave=='M'"  class="form-control" id="tipotransaccion" ng-model="tipotransaccion" ng-change="NumeroComprobante();">
               <option value="">Seleccione</option>
-              <option ng-repeat=" transaccion in listatipotransaccion" ng-value="{{transaccion.idtipotransaccion}}">{{transaccion.descripcion +" "+ transaccion.cont_tipoingresoegreso.descripcion}}</option>
+              <option ng-repeat=" transaccion in listatipotransaccion" value="{{transaccion.idtipotransaccion}}">{{transaccion.descripcion +" "+ transaccion.cont_tipoingresoegreso.descripcion}}</option>
             </select>
           </div>
         </div>
@@ -445,7 +455,7 @@
             <tbody>
               <tr ng-repeat="registro in RegistroC">
                 <td>
-                  <button class="btn btn-danger" ng-click="BorrarFilaAsientoContable(registro);"><i class="glyphicon glyphicon-trash"></i></button>
+                  <button ng-disabled="EstadoSave=='M'"  class="btn btn-danger" ng-click="BorrarFilaAsientoContable(registro);"><i class="glyphicon glyphicon-trash"></i></button>
                 </td>
                 <td>
                   <div class="input-group">
@@ -453,21 +463,27 @@
                     <input type="hidden" class="form-control datepicker  input-sm"  ng-model="registro.tipocuenta">
                     <input type="hidden" class="form-control datepicker  input-sm"  ng-model="registro.controlhaber">
                     <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.concepto" readonly>
-                    <span ng-click="BuscarCuentaContable(registro);" class="btn btn-info input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                    <span ng-disabled="EstadoSave=='M'" ng-click="BuscarCuentaContable(registro);" class="btn btn-info input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
                   </div>
                 </td>
                 <td>
-                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.Debe" ng-keyup="SumarDebeHaber();">
+                    <input ng-disabled="EstadoSave=='M'" type="type" class="form-control datepicker  input-sm"  ng-model="registro.Debe" ng-keyup="SumarDebeHaber();">
                 </td>
                 <td>
-                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.Haber" ng-keyup="SumarDebeHaber();">
+                    <input ng-disabled="EstadoSave=='M'" type="type" class="form-control datepicker  input-sm"  ng-model="registro.Haber" ng-keyup="SumarDebeHaber();">
                 </td>
                 <td>
-                    <input type="type" class="form-control datepicker  input-sm"  ng-model="registro.Descipcion">
+                    <input ng-disabled="EstadoSave=='M'" type="type" class="form-control datepicker  input-sm"  ng-model="registro.Descipcion">
                 </td>
               </tr>
             </tbody>
             <tfoot>
+              <tr>
+                <th colspan="2" class="text-right"> Diferencia: </th>
+                <th>{{aux_sumdebedif}}</th>
+                <th>{{aux_sumhaberdif}}</th>
+                <td></td>
+              </tr>
               <tr>
                 <th colspan="2" class="text-right"> Total: </th>
                 <th>{{aux_sumdebe}}</th>
@@ -517,11 +533,11 @@
         <h4 class="modal-title">Mensaje De Validación</h4>
       </div>
       <div class="modal-body">
-        <strong>Está Seguro De Eliminar La Transacción  Contable</strong>
+        <strong>Está Seguro De Anular La Transacción  Contable</strong>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar <i class="glyphicon glyphicon-ban-circle"></i></button>
-        <button type="button" class="btn btn-danger" ng-click="ConfirmarBorrarTransaccion();">Eliminar <i class="glyphicon glyphicon-trash"></i></button>
+        <button type="button" class="btn btn-danger" ng-click="ConfirmarBorrarTransaccion();">Anular <i class="glyphicon glyphicon-ban-circle"></i></button>
       </div>
     </div>
   </div>

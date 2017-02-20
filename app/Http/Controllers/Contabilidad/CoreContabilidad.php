@@ -30,7 +30,9 @@ class CoreContabilidad extends Controller
 		$aux_numerocomprobante=1;
 		$transaccion=Cont_Transaccion::whereRaw("idtipotransaccion='$id' AND numcomprobante='$numero' ")->get();
 		if(count($transaccion)>0){
-			$aux_numerocomprobante=($transaccion[0]->numcomprobante+1);
+			$aux_numero = DB::select("SELECT (MAX(numcomprobante)+1) numero FROM cont_transaccion WHERE idtipotransaccion='$id'");
+			$aux_numerocomprobante=$aux_numero[0]->numero;
+			//$aux_numerocomprobante=($transaccion[0]->numcomprobante+1);
 		}else{
 			$aux_numerocomprobante=$numero;
 		}
@@ -66,7 +68,8 @@ class CoreContabilidad extends Controller
 			'numcontable'=> $aux_core->getnumerocontable(),
 			'fechatransaccion' => $aux_transaccion->fecha,
 			'numcomprobante'=> $aux_core->getnumerocomprobante($aux_transaccion->idtipotransaccion,$aux_transaccion->numcomprobante),
-			'descripcion' => $aux_transaccion->descripcion
+			'descripcion' => $aux_transaccion->descripcion,
+			'estadoanulado'=> true
 			 );
 		$transaccionguardada=Cont_Transaccion::create($transaccion);
 		$idtransaccion=$transaccionguardada->idtransaccion;
@@ -104,7 +107,8 @@ class CoreContabilidad extends Controller
 					'debe'=> $cuenta->Debe,
 					'haber'=> $cuenta->Haber,
 					'debe_c'=> $cuenta->Debe,
-					'haber_c'=> $cuenta->Haber
+					'haber_c'=> $cuenta->Haber,
+					'estadoanulado'=>true
 					 );
 				$cuentacomandasave=Cont_RegistroContable::create($cuentacomada);
 				if($cuenta->controlhaber=="-"){
@@ -145,7 +149,8 @@ class CoreContabilidad extends Controller
 						'debe'=> $cuenta->Debe,
 						'haber'=> $cuenta->Haber,
 						'debe_c'=> $cuenta->Debe,
-						'haber_c'=> $cuenta->Haber
+						'haber_c'=> $cuenta->Haber,
+						'estadoanulado'=>true
 						 );
 					$cuentacontablesave=Cont_RegistroContable::create($cuentacontable);
 				}else{ //la cuenta se le aplicara  la regla contable
@@ -348,7 +353,8 @@ class CoreContabilidad extends Controller
 			'debe'=> $cuenta->Debe,
 			'haber'=> $cuenta->Haber,
 			'debe_c'=> $aux_debe,
-			'haber_c'=> $aux_haber
+			'haber_c'=> $aux_haber,
+			'estadoanulado'=>true
 			 );
 		$cuentacontablesave=Cont_RegistroContable::create($cuentacontable);
 	}
@@ -381,7 +387,7 @@ class CoreContabilidad extends Controller
 	}
 	/**
 	 *
-	 *
+	 * Modifcar transaccion contable => solo datos como fecha o comentario 
 	 *
 	 *
 	 */
@@ -403,7 +409,8 @@ class CoreContabilidad extends Controller
 		$transaccionguardada=Cont_Transaccion::find($aux_transaccion->idtransaccion);
 		$idtransaccion=$transaccionguardada->idtransaccion;
 		$fecharegistro=$transaccionguardada->fechatransaccion;
-
+		return $idtransaccion;
+		/*
 		$aux_core->BorrarRegistroAsientoContable($idtransaccion);
 
 		if($idtransaccion){
@@ -413,6 +420,20 @@ class CoreContabilidad extends Controller
 			}
 		}else{
 			return 0;
-		}
+		}*/
+	}
+	/**
+	 *
+	 * Anular Transaccion Contable
+	 *
+	 *
+	 */
+	public static function AnularAsientoContable($id_transaccion)
+	{
+		$aux_trasaccion= Cont_Transaccion::where("idtransaccion", $id_transaccion)
+                    ->update(['estadoanulado' => false]);
+        $aux_registro= Cont_RegistroContable::where("idtransaccion", $id_transaccion)
+                    ->update(['estadoanulado' => false]);
+         return response()->json(['success' => true ]);
 	}
 }

@@ -23,7 +23,8 @@ class Cont_RegistroContable extends Model
         'debe',
         'haber',
         'debe_c',
-        'haber_c'
+        'haber_c',
+        'estadoanulado'
     ];
 	public function cont_transaccion()
     {
