@@ -6,18 +6,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transportista extends Model
 {
-    protected $table = 'transportista';
-    protected $primaryKey = 'idtransportista';
+    protected $table = "transportista";
+
+    protected $primaryKey = "idtransportista";
+
+    public $incrementing = false;
+
     public $timestamps = false;
 
-    public function persona()
-    {
-        return $this->belongsTo('App\Modelos\Persona', 'idpersona');
+    protected $fillable = [
+        'idtransportista',
+        'idpersona',
+        'razonsocial',
+        'placa',
+        'estado',
+        'fechaingreso',
+        'telefonoprincipal',        
+    ];
+    public function persona(){
+    	return $this->belongsTo('App\Modelos');
     }
 
-    public function cont_documentoguiaremision()
-    {
-        return $this->hasMany('App\Modelos\Contabilidad\Cont_DocumentoGuiaRemision', 'idtransportista');
+    public function Cont_DocumentoGuiaRemision(){
+        return $this->hasMany('App\Modelos\Contabilidad');
     }
 
 }

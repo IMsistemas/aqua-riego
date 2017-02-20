@@ -680,8 +680,14 @@ Route::get('transacciones/alltipotransacciones', 'Contabilidad\TipoTransaccion@g
 
 //-------------------------------- Guía Remisión---------------/////////
 Route::resource('guiaremision', 'Guiaremision\GuiaremisionController');
-Route::get('guiaremision/getGiaremision', 'Guiaremision\GuiaremisionController@show');
-Route::get('guiaremision/getItemsVenta', 'Guiaremision\GuiaremisionController@getItemsVenta');
+Route::get('guiaremision/getransportista/{texto}', 'Guiaremision\GuiaremisionController@GetTrasportista');
+Route::get('guiaremision/nuevaguia', 'Guiaremision\GuiaremisionController@geNuevaGuia');
+Route::get('guiaremision/getformguia', 'Guiaremision\GuiaremisionController@formguia');
+Route::get('guiaremision/getdestinatario/{texto}', 'Guiaremision\GuiaremisionController@BuscarDestinatario');
+Route::get('guiaremision/getventa/{idventa}', 'Guiaremision\GuiaremisionController@BuscarVenta');
+Route::get('guiaremision/venta/{texto}', 'Guiaremision\GuiaremisionController@GetVentanro');
+Route::get('guiaremision/getGuia/{idguiaremision}', 'Guiaremision\GuiaremisionController@getGuia');
+
 
 
 /*

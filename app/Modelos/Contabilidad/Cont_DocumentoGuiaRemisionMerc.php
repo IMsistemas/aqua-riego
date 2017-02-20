@@ -13,7 +13,7 @@ class Cont_DocumentoGuiaRemisionMerc extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'iddocumentoguiaremisionmerc','iddocumentoguiaremision','cantidad','peso', 'largo',
+        'iddocumentoguiaremision','cantidad','peso', 'largo',
   		'ancho','altura','tipoempaque','descripcion'        
     ];
 

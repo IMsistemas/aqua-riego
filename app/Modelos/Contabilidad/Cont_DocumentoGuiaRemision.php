@@ -14,7 +14,7 @@ class Cont_DocumentoGuiaRemision extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'iddocumentoguiaremision','idtransportista','idcliente','iddocumentoventa', 'nrodocumentoguiaremision',
+        'idtransportista','idcliente','iddocumentoventa', 'nrodocumentoguiaremision',
   		'nrodeclaracionaduana','codestablesimiento','ruta','fechainiciotransp','fechafintransp','motivotraslado','direccdestinatario','partida'        
     ];
 
