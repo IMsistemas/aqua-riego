@@ -73,7 +73,7 @@ class GuiaremisionController extends Controller
         ->get() ;
 
     }
-
+    //Buscar la venta
     public function BuscarVenta($texto)
     {
         $venta=Cont_DocumentoVenta::
