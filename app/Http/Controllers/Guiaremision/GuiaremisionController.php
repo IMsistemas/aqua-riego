@@ -36,7 +36,7 @@ class GuiaremisionController extends Controller
 
     public function show()
     {
-        return $guiaventa=Cont_DocumentoGuiaRemision::join('cliente','cliente.idcliente','=','cont_documentoguiaremision.idcliente')
+        $guiaventa=Cont_DocumentoGuiaRemision::join('cliente','cliente.idcliente','=','cont_documentoguiaremision.idcliente')
         ->join('cont_documentoventa','cont_documentoventa.iddocumentoventa','=','cont_documentoguiaremision.iddocumentoventa')
         ->join('persona','persona.idpersona','=','cliente.idpersona')
         ->select('persona.razonsocial','cont_documentoguiaremision.iddocumentoguiaremision','cont_documentoguiaremision.nrodocumentoguiaremision','cont_documentoventa.numdocumentoventa')
