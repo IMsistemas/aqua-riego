@@ -70,7 +70,20 @@
 					                <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true" ng-click="delete(item.iddocumentoguiaremision)"></span> 
 					            </button>
 							</td>
-						
+						</tr>
+						<tr dir-paginate="item in guiaremision.guiasinventa|orderBy:sortKey:reverse|filter:search|itemsPerPage:10" ng-cloak>
+							<td>{{item.iddocumentoguiaremision}}</td>
+							<td>{{item.razonsocial}}</td>
+							<td>{{item.nrodocumentoguiaremision}}</td>
+							<td>{{$item.numdocumentoventa==null ? item.numdocumentoventa:'Sin Factura'}}</td>
+							<td>
+								<button type="button" class="btn btn-warning">
+					                <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true" ng-click="editarGuia(item);"></span> 
+					            </button>
+					            <button type="button" class="btn btn-danger">
+					                <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true" ng-click="delete(item.iddocumentoguiaremision)"></span> 
+					            </button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
