@@ -80,38 +80,40 @@
                     </div>
                     <div class="modal-body">
                         <form class="form-horizontal" name="formBarrio" novalidate="">
-                            <div class="form-group">
-                                <label for="t_codigo" class="col-sm-4 control-label">Código: </label>
-                                <div class="col-sm-8" style="padding-top: 7px;">
-                                    {{codigo}}
-                                </div>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="t_parroquias" class="col-sm-4 control-label">Parroquia:</label>
-                                <div class="col-sm-8">
-                                    <select disabled id="t_parroquias" class="form-control" ng-model="t_parroquias"
-                                            ng-options="value.id as value.label for value in parroquias"></select>
-                                </div>
-                            </div>
+                            <div class="row">
+                                <!--<div class="form-group">
+                                    <label for="t_codigo" class="col-sm-4 control-label">Código: </label>
+                                    <div class="col-sm-8" style="padding-top: 7px;">
+                                        {{codigo}}
+                                    </div>
+                                </div>-->
 
-                            <div class="form-group error">
-                                <label for="t_name" class="col-sm-4 control-label">Nombre de la Junta:</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control"  name ="nombrebarrio" id="nombrebarrio" ng-model="nombrebarrio" placeholder=""
-                                           ng-required="true" ng-maxlength="64">
+                                <div class="col-xs-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Parroquia: </span>
+                                        <select id="t_parroquias" class="form-control" ng-model="t_parroquias"
+                                                ng-options="value.id as value.label for value in parroquias"></select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 error" style="margin-top: 5px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Nombre de la Junta: </span>
+                                        <input type="text" class="form-control" name="nombrebarrio" id="nombrebarrio" ng-model="nombrebarrio" placeholder=""
+                                               ng-required="true" ng-maxlength="100">
+                                    </div>
                                     <span class="help-block error"
                                           ng-show="formBarrio.nombrebarrio.$invalid && formBarrio.nombrebarrio.$touched">El nombre de la Junta es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formBarrio.nombrebarrio.$invalid && formBarrio.nombrebarrio.$error.maxlength">La longitud máxima es de 64 caracteres</span>
+                                          ng-show="formBarrio.nombrebarrio.$invalid && formBarrio.nombrebarrio.$error.maxlength">La longitud máxima es de 100 caracteres</span>
+                                </div>
+
+                                <div class="col-xs-12" style="margin-top: 5px;">
+                                    <textarea id="observacionBarrio" class="form-control" rows="3" ng-model="observacionBarrio" placeholder="Observación"></textarea>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="observacionBarrio" class="col-sm-4 control-label">Observaciones:</label>
-                                <div class="col-sm-8">
-                                    <textarea id="observacionBarrio" class="form-control" rows="3" ng-model="observacionBarrio"></textarea>
-                                </div>
-                            </div>
+
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -659,3 +661,4 @@
             </div>
         </div>
 
+    </div>

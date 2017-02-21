@@ -104,7 +104,7 @@ class BarrioController extends Controller
 
     public function getParroquias()
     {
-        return Parroquia::orderBy('nombreparroquia', 'asc')->get();
+        return Parroquia::orderBy('nameparroquia', 'asc')->get();
     }
 
     /**

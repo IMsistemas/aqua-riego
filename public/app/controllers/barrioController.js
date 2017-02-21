@@ -26,20 +26,30 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.viewModalAdd = function () {
-        $('#btn-savebarrio').prop('disabled', false)
+        $('#btn-savebarrio').prop('disabled', false);
+
         $http.get(API_URL + 'barrio/getParroquias').success(function(response){
             var longitud = response.length;
             //var array_temp = [{label: '--Seleccione--', id: 0}];
             var array_temp = [];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombreparroquia, id: response[i].idparroquia})
+                array_temp.push({label: response[i].nameparroquia, id: response[i].idparroquia})
             }
+
             $scope.parroquias = array_temp;
             $scope.t_parroquias = 1;
+
+            $scope.date_ingreso = now();
+
+            $scope.nombrebarrio = '';
+            $scope.observacionBarrio = '';
+
+            $('#modalNueva').modal('show');
+
         });
 
 
-        $http.get(API_URL + 'barrio/getLastID').success(function(response){
+        /*$http.get(API_URL + 'barrio/getLastID').success(function(response){
             console.log(response);
 
             $scope.codigo = response.id;
@@ -49,7 +59,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             $scope.observacionBarrio = '';
 
             $('#modalNueva').modal('show');
-        });
+        });*/
 
 
     };
