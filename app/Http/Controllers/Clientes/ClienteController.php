@@ -278,7 +278,7 @@ class ClienteController extends Controller
      */
     public function getBarrios()
     {
-        return Barrio::orderBy('nombrebarrio', 'asc')->get();
+        return Barrio::orderBy('namebarrio', 'asc')->get();
     }
 
     public function getTarifas()
@@ -299,7 +299,7 @@ class ClienteController extends Controller
      */
     public function getTomas($idbarrio)
     {
-        return Calle::where('idbarrio', $idbarrio)->orderBy('nombrecalle', 'asc')->get();
+        return Calle::where('idbarrio', $idbarrio)->orderBy('namecalle', 'asc')->get();
     }
 
     /**

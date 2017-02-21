@@ -690,27 +690,67 @@
 
                                             <div class="col-xs-12" style="padding: 0;">
                                                 <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">RUC/CI:</span> {{documentoidentidad_cliente}}
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">RUC/CI: </span>
+                                                        <input class="form-control" type="text" name="documentoidentidad_cliente" id="documentoidentidad_cliente"
+                                                               ng-model="documentoidentidad_cliente" disabled >
+                                                    </div>
+
                                                 </div>
+
                                                 <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_cliente}}
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Cliente: </span>
+                                                        <input class="form-control" type="text" name="nom_cliente" id="nom_cliente"
+                                                               ng-model="nom_cliente" disabled >
+                                                    </div>
+
                                                     <input type="hidden" ng-model="h_codigocliente">
                                                 </div>
                                             </div>
+
                                             <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_cliente}}
-                                                </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Domicilio:</span> {{telf_cliente}}
+                                                <div class="col-xs-12">
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Dirección Domicilio: </span>
+                                                        <input class="form-control" type="text" name="direcc_cliente" id="direcc_cliente"
+                                                               ng-model="direcc_cliente" disabled >
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Celular:</span> {{celular_cliente}}
+                                                <div class="col-sm-4 col-xs-12">
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Celular: </span>
+                                                        <input class="form-control" type="text" name="celular_cliente" id="celular_cliente"
+                                                               ng-model="celular_cliente" disabled >
+                                                    </div>
+
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Trabajo:</span> {{telf_trab_cliente}}
+
+                                                <div class="col-sm-4 col-xs-12">
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Teléfono Domicilio: </span>
+                                                        <input class="form-control" type="text" name="telf_cliente" id="telf_cliente"
+                                                               ng-model="telf_cliente" disabled >
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-sm-4 col-xs-12">
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Teléfono Trabajo: </span>
+                                                        <input class="form-control" type="text" name="telf_trab_cliente" id="telf_trab_cliente"
+                                                               ng-model="telf_trab_cliente" disabled >
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -721,68 +761,78 @@
                                             <legend style="font-size: 16px; font-weight: bold;">Datos de Terreno</legend>
 
                                             <div class="col-xs-12" style="padding: 0; margin-top: -15px;">
-                                                <div class="col-sm-6 col-xs-12 form-group error">
-                                                    <label for="t_terreno" class="col-sm-4 col-xs-12 control-label">Nro. Terreno:</label>
-                                                    <div class="col-sm-8 col-xs-12" style="padding-top: 10px;">
-                                                        {{nro_terreno}}
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-xs-12 form-group">
+                                                <div class="col-sm-6 col-xs-12 error">
 
-                                                    <label for="foto" class="col-sm-4 control-label">Escrituras:</label>
-                                                    <div class="col-sm-8">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Nro. Terreno: </span>
+                                                        <input class="form-control" type="text" name="nro_terreno" id="nro_terreno" ng-model="nro_terreno" disabled >
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-sm-6 col-xs-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Escrituras: </span>
                                                         <input class="form-control" type="file" ngf-select ng-model="file" name="file" id="file"
-                                                                ngf-max-size="8MB" >
-
-                                                        <!--<span class="help-block error"
-                                                              ng-show="formProcess.file.$error.pattern">El archivo debe ser PDF</span>-->
-                                                        <span class="help-block error"
-                                                              ng-show="formProcess.file.$error.maxSize">El tamaño máximo es de 8 MB </span>
+                                                               ngf-max-size="8MB" >
                                                     </div>
-
+                                                    <!--<span class="help-block error"
+                                                              ng-show="formProcess.file.$error.pattern">El archivo debe ser PDF</span>-->
+                                                    <span class="help-block error"
+                                                          ng-show="formProcess.file.$error.maxSize">El tamaño máximo es de 8 MB </span>
                                                 </div>
+
+
                                             </div>
 
-                                            <div class="col-xs-12" style="padding: 0;">
-                                                <div class="col-sm-6 col-xs-12 form-group error">
-                                                    <label for="t_tarifa" class="col-sm-4 col-xs-12 control-label">Tipo Cultivo:</label>
-                                                    <div class="col-sm-8 col-xs-12">
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-6 col-xs-12 error">
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Tipo Cultivo: </span>
                                                         <select class="form-control" name="t_tarifa" id="t_tarifa"
                                                                 ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
                                                                 ng-change="getCultivos()"></select><!--ng-change="showAddCultivo()"-->
                                                     </div>
+
                                                 </div>
 
-                                                <div class="col-sm-6 col-xs-12 form-group error">
-                                                    <label for="t_cultivo" class="col-sm-4 col-xs-12 control-label">Cultivo:</label>
-                                                    <div class="col-sm-8 col-xs-12">
+                                                <div class="col-sm-6 col-xs-12 error">
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Cultivo: </span>
                                                         <select class="form-control" name="t_cultivo" id="t_cultivo"
                                                                 ng-model="t_cultivo" ng-options="value.id as value.label for value in cultivos">
                                                         </select><!--ng-change="showAddCultivo()"-->
                                                     </div>
+
                                                 </div>
                                             </div>
 
-                                            <div class="col-xs-12" style="padding: 0;">
-                                                <div class="col-sm-6 col-xs-12 form-group error">
-                                                    <label for="t_area" class="col-sm-4 col-xs-12 control-label" >Area (m2):</label>
-                                                    <div class="col-sm-8 col-xs-12">
+                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                                <div class="col-sm-4 col-xs-12 error">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Area (m2): </span>
                                                         <input type="text" class="form-control" name="t_area" id="t_area" ng-keypress="onlyNumber($event)"
                                                                ng-model="t_area" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculate()">
-                                                        <span class="help-block error"
-                                                              ng-show="formProcess.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
-                                                        <span class="help-block error"
-                                                              ng-show="formProcess.t_area.$invalid && formProcess.t_area.$error.pattern">El Area debe ser solo números</span>
+                                                    </div>
+                                                    <span class="help-block error"
+                                                          ng-show="formProcess.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
+                                                    <span class="help-block error"
+                                                          ng-show="formProcess.t_area.$invalid && formProcess.t_area.$error.pattern">El Area debe ser solo números</span>
+                                                </div>
+
+                                                <div class="col-sm-4 col-xs-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Caudal: </span>
+                                                        <input class="form-control" type="text" name="calculate_caudal" id="calculate_caudal" ng-model="calculate_caudal" disabled >
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12 form-group error" style="margin-top: 5px;">
-                                                    <div class="col-sm-6 col-xs-12" ng-cloak>
-                                                        <span class="label label-primary" style="font-size: 12px !important;">Caudal:</span>
-                                                        <span style="font-size: 14px !important; font-weight: bold;">{{calculate_caudal}}</span>
-                                                    </div>
-                                                    <div class="col-sm-6 col-xs-12" ng-cloak>
-                                                        <span class="label label-primary" style="font-size: 12px !important;">Valor Anual:</span>
-                                                        <span style="font-size: 14px !important; font-weight: bold;">{{valor_total}}</span>
+
+                                                <div class="col-sm-4 col-xs-12">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Valor Anual: </span>
+                                                        <input class="form-control" type="text" name="valor_total" id="valor_total" ng-model="valor_total" disabled >
                                                     </div>
                                                 </div>
                                             </div>
@@ -793,45 +843,55 @@
                                     <div class="col-xs-12" style="padding: 2%; margin-top: -35px !important;">
                                         <fieldset>
                                             <legend style="font-size: 16px; font-weight: bold;">Datos de Ubicación</legend>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_junta" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Junta Modular:</label>
-                                                <div class="col-sm-8 col-xs-12">
+                                            <div class="col-sm-6 col-xs-12 error">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Junta Modular: </span>
                                                     <select class="form-control" name="t_junta" id="t_junta"
                                                             ng-model="t_junta" ng-options="value.id as value.label for value in barrios"
                                                             ng-change="getTomas()" ></select>
                                                 </div>
+
                                             </div>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_toma" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Toma:</label>
-                                                <div class="col-sm-8 col-xs-12">
+
+                                            <div class="col-sm-6 col-xs-12 error">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Toma: </span>
                                                     <select class="form-control" name="t_toma" id="t_toma"
                                                             ng-model="t_toma" ng-options="value.id as value.label for value in tomas"
                                                             ng-change="getCanales()"></select>
                                                 </div>
+
                                             </div>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_canal" class="col-sm-4 col-xs-12 control-label">Canal:</label>
-                                                <div class="col-sm-8 col-xs-12">
+
+                                            <div class="col-sm-6 col-xs-12 error" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Canal: </span>
                                                     <select class="form-control" name="t_canal" id="t_canal"
                                                             ng-model="t_canal" ng-options="value.id as value.label for value in canales"
                                                             ng-change="getDerivaciones()"></select>
                                                 </div>
+
                                             </div>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_derivacion" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Derivación:</label>
-                                                <div class="col-sm-8 col-xs-12">
+
+                                            <div class="col-sm-6 col-xs-12 error" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Derivación: </span>
                                                     <select class="form-control" name="t_derivacion" id="t_derivacion"
                                                             ng-model="t_derivacion" ng-options="value.id as value.label for value in derivaciones"></select>
                                                 </div>
+
                                             </div>
 
                                         </fieldset>
                                     </div>
 
-                                    <div class="col-xs-12 form-group" style="margin-top: -15px;">
-                                        <label for="t_derivacion" class="col-sm-2 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Observación:</label>
-                                        <div class="col-sm-10 col-xs-12">
-                                            <textarea class="form-control" id="t_observacion_riego" ng-model="t_observacion_riego" rows="2"></textarea>
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-12">
+                                            <textarea class="form-control" id="t_observacion_riego" ng-model="t_observacion_riego" rows="2" placeholder="Observación"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -1245,43 +1305,80 @@
 
                                             <div class="col-xs-12" style="padding: 0;">
                                                 <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">RUC/CI:</span> {{documentoidentidad_cliente_otro}}
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">RUC/CI: </span>
+                                                        <input class="form-control" type="text" name="documentoidentidad_cliente_otro" id="documentoidentidad_cliente_otro"
+                                                               ng-model="documentoidentidad_cliente_otro" disabled >
+                                                    </div>
+
                                                 </div>
+
                                                 <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_cliente_otro}}
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Cliente: </span>
+                                                        <input class="form-control" type="text" name="nom_cliente_otro" id="nom_cliente_otro"
+                                                               ng-model="nom_cliente_otro" disabled >
+                                                    </div>
+
                                                     <input type="hidden" ng-model="h_codigocliente_otro">
                                                 </div>
                                             </div>
+
                                             <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_cliente_otro}}
-                                                </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Domicilio:</span> {{telf_cliente_otro}}
+                                                <div class="col-xs-12">
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Dirección Domicilio: </span>
+                                                        <input class="form-control" type="text" name="direcc_cliente_otro" id="direcc_cliente_otro"
+                                                               ng-model="direcc_cliente_otro" disabled >
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Celular:</span> {{celular_cliente_otro}}
+                                                <div class="col-sm-4 col-xs-12">
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Celular: </span>
+                                                        <input class="form-control" type="text" name="celular_cliente_otro" id="celular_cliente_otro"
+                                                               ng-model="celular_cliente_otro" disabled >
+                                                    </div>
+
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Trabajo:</span> {{telf_trab_cliente_otro}}
+
+                                                <div class="col-sm-4 col-xs-12">
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Teléfono Domicilio: </span>
+                                                        <input class="form-control" type="text" name="telf_cliente_otro" id="telf_cliente_otro"
+                                                               ng-model="telf_cliente_otro" disabled >
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-sm-4 col-xs-12">
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Teléfono Trabajo: </span>
+                                                        <input class="form-control" type="text" name="telf_trab_cliente_otro" id="telf_trab_cliente_otro"
+                                                               ng-model="telf_trab_cliente_otro" disabled >
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </fieldset>
                                     </div>
 
-                                    <div class="col-xs-12 form-group" style="">
-                                        <label for="t_derivacion" class="col-sm-2 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Descripción:</label>
-                                        <div class="col-sm-10 col-xs-12">
-                                            <textarea class="form-control" id="t_observacion_otro" ng-model="t_observacion_otro" rows="2" ng-required="true"></textarea>
+                                    <div class="col-xs-12">
+                                        <div class="col-xs-12">
+                                            <textarea class="form-control" id="t_observacion_otro" ng-model="t_observacion_otro" rows="2" ng-required="true" placeholder="Observación"></textarea>
                                             <span class="help-block error"
                                                   ng-show="formProcessOtros.t_observacion_otro.$invalid && formProcessOtros.t_observacion_otro.$touched">La Descripción es requerida</span>
                                         </div>
                                     </div>
                                 </div>
-
-
 
                             </form>
                         </div>
