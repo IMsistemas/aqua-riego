@@ -42,17 +42,17 @@ class BarrioController extends Controller
     public function getBarrios()
     {
         //return Barrio::orderBy('nombrebarrio', 'asc')->get();
-        return Barrio::with('calle')->orderBy('nombrebarrio', 'asc')->get();
+        return Barrio::with('calle')->orderBy('namebarrio', 'asc')->get();
     }
 
     public function getBarrio()
     {
-        return Barrio::orderBy('nombrebarrio', 'asc')->get();
+        return Barrio::orderBy('namebarrio', 'asc')->get();
     }
 
     public function getBarrio_ID($id)
     {
-        return Barrio::where('idbarrio', $id)->orderBy('nombrebarrio', 'asc')->get();
+        return Barrio::where('idbarrio', $id)->orderBy('namebarrio', 'asc')->get();
     }
 
 
@@ -128,9 +128,9 @@ class BarrioController extends Controller
         $barrio = new Barrio();
 
         $barrio->idparroquia = $request->input('idparroquia');
-        $barrio->nombrebarrio = $request->input('nombrebarrio');
-        $barrio->observacion = $request->input('observacion');
-        $barrio->fechaingreso = date('Y-m-d');
+        $barrio->namebarrio = $request->input('nombrebarrio');
+        //$barrio->observacion = $request->input('observacion');
+        //$barrio->fechaingreso = date('Y-m-d');
 
         $barrio->save();
 
@@ -144,7 +144,7 @@ class BarrioController extends Controller
         foreach ($barrioa as $item) {
             $barri = Barrio::find($item['idbarrio']);
 
-            $barri->nombrebarrio = $item['nombrebarrio'];
+            $barri->namebarrio = $item['namebarrio'];
 
             $barri->save();
         }

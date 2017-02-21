@@ -72,6 +72,8 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             observacion: $scope.observacionBarrio
         };
 
+        console.log(data);
+
         $http.post(API_URL + 'barrio', data ).success(function (response) {
 
             $scope.initLoad();
@@ -89,7 +91,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.showModalInfo = function (item) {
-        $scope.name_junta = item.nombrebarrio;
+        $scope.name_junta = item.namebarrio;
         $scope.fecha_ingreso = item.fechaingreso;
 
         var array_tomas = item.calle;
@@ -98,7 +100,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
 
         for (var e = 0; e < array_tomas.length; e++){
             calles.push(array_tomas[e].idcalle);
-            text += array_tomas[e].nombrecalle + ','
+            text += array_tomas[e].namecalle + ','
         }
         var data = {
             idcalles: calles
@@ -145,7 +147,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
 
     $scope.showModalDelete = function (item) {
         $scope.idbarrio_del = item.idbarrio;
-        $scope.nom_junta_modular = item.nombrebarrio;
+        $scope.nom_junta_modular = item.namebarrio;
         $('#modalDelete').modal('show');
     };
 
@@ -169,7 +171,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     };
 
     $scope.saveCalle = function () {
-        $('#btn-savecalle').prop('disabled', true)
+        $('#btn-savecalle').prop('disabled', true);
         var data = {
             nombrecalle: $scope.nombrecalle,
             idbarrio: $scope.id_barrio,
@@ -194,7 +196,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
         });
     };
 
-    $scope.show_toma = function (idbarrio,aux0, barrio)   {
+    $scope.show_toma = function (idbarrio, aux0, barrio)   {
         if(aux0 == 2)
         {
             if(barrio !== undefined && barrio !== null){
@@ -205,23 +207,26 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 //var array_temp = [{label: '--Seleccione--', id: 0}];
                 var array_temp = [];
                 for (var i = 0; i < longitud; i++) {
-                    array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+                    array_temp.push({label: response[i].namebarrio, id: response[i].idbarrio})
                 }
                 $scope.barrios2 = array_temp;
                 $scope.id_barrio = idbarrio;
-            });
-            $http.get(API_URL + 'calle/getLastID').success(function(response){
-                // console.log(response);
 
-                $scope.codigo_toma = response.id;
-                $scope.date_ingreso_toma = now();
+                $http.get(API_URL + 'calle/getLastID').success(function(response){
+                    // console.log(response);
 
-                $scope.nombrecalle = '';
-                $scope.observacionCalle = '';
-                $scope.aux1 = aux0 ;
-                $('#modalTomas').modal('hide');
-                $('#modalNuevaToma').modal('show');
+                    $scope.codigo_toma = response.id;
+                    $scope.date_ingreso_toma = now();
+
+                    $scope.nombrecalle = '';
+                    $scope.observacionCalle = '';
+                    $scope.aux1 = aux0 ;
+                    $('#modalTomas').modal('hide');
+                    $('#modalNuevaToma').modal('show');
+                });
+
             });
+
 
         } else {
             if(barrio !== undefined && barrio !== null){
@@ -232,7 +237,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
                 //var array_temp = [{label: '--Seleccione--', id: 0}];
                 var array_temp = [];
                 for (var i = 0; i < longitud; i++) {
-                    array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+                    array_temp.push({label: response[i].namebarrio, id: response[i].idbarrio})
                 }
                 $scope.barrios2 = array_temp;
                 $scope.id_barrio = idbarrio;
@@ -283,7 +288,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
 
     $scope.showModalAction = function (item) {
         //console.log(item);
-        $scope.junta_n = item.nombrebarrio;
+        $scope.junta_n = item.namebarrio;
         $scope.calless = item.calle ;
         $scope.barrio_actual = item.idbarrio;
         $scope.barrio = item;
@@ -305,7 +310,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
     $scope.showModalDeleteCalle = function (item) {
         console.log(item);
         $scope.idcalle_delete = item.idcalle;
-        $scope.nom_calle_delete = item.nombrecalle;
+        $scope.nom_calle_delete = item.namecalle;
         $('#modalDeleteCalle').modal('show');
     };
 
@@ -366,7 +371,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
         console.log(item);
         $('#modalTomas').modal('hide');
        // console.log(item);
-        $scope.toma_n = item.nombrecalle;
+        $scope.toma_n = item.namecalle;
         $scope.aux_canales = item.canales ;
         $scope.calle_actual = item.idcalle;
         $scope.canales = item;
@@ -389,7 +394,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             //var array_temp = [{label: '--Seleccione--', id: 0}];
             var array_temp = [];
             for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
+                array_temp.push({label: response[i].namecalle, id: response[i].idcalle})
             }
             $scope.calles2 = array_temp;
             $scope.id_toma =  $scope.calle_actual;
