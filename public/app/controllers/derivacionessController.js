@@ -51,7 +51,7 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
             var array_temp = [{label: '--JUNTAS MODULARES--', id: 0}];
 
             for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+                array_temp.push({label: response[i].namebarrio, id: response[i].idbarrio})
             }
             $scope.barrioss = array_temp;
             $scope.s_barrio = 0;
@@ -63,12 +63,13 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
         $http.get(API_URL + 'derivaciones/getCanales').success(function (response) {
             console.log(response);
             var longitud = response.length;
-            //var array_temp = [{label: '--Seleccione--', id: 0}];
-            var array_temp = [];
+            var array_temp = [{label: '--Seleccione--', id: 0}];
+
             for (var i = 0; i < longitud; i++) {
                 array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
             }
             $scope.canals = array_temp;
+            $scope.t_canal = 0;
         });
 
         $http.get(API_URL + 'derivaciones/getLastID').success(function(response){
@@ -190,7 +191,7 @@ app.controller('derivacionessController', function($scope, $http, API_URL) {
             var longitud = response.length;
             var array_temp = [{label: '--TOMAS--', id: 0}];
             for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
+                array_temp.push({label: response[i].namecalle, id: response[i].idcalle})
             }
             $scope.calless = array_temp;
             $scope.s_calle = 0;

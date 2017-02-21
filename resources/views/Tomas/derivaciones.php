@@ -83,38 +83,42 @@
                 <div class="modal-body">
                     <form class="form-horizontal" name="formDeri" novalidate="">
 
-                        <div class="form-group">
-                            <label for="t_codigo" class="col-sm-4 control-label">Código: </label>
-                            <div class="col-sm-8" style="padding-top: 7px;">
-                                {{codigo}}
-                            </div>
-                        </div>
+                        <div class="row">
+                            <!--<div class="form-group">
+                                <label for="t_codigo" class="col-sm-4 control-label">Código: </label>
+                                <div class="col-sm-8" style="padding-top: 7px;">
+                                    {{codigo}}
+                                </div>
+                            </div>-->
 
-                        <div class="form-group">
-                            <label for="t_canal" class="col-sm-4 control-label">Canal:</label>
-                            <div class="col-sm-8">
-                                <select id="t_canal" class="form-control" ng-model="t_canal"
-                                        ng-options="value.id as value.label for value in canals" required></select>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Canal: </span>
+                                    <select id="t_canal" class="form-control" ng-model="t_canal"
+                                            ng-options="value.id as value.label for value in canals" required></select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group error">
-                            <label for="nombrederi" class="col-sm-4 control-label">Nombre Derivación:</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" name="nombrederi" id="nombrederi" ng-model="nombrederi" placeholder=""
-                                       ng-required="true" ng-maxlength="64">
+                            <div class="col-xs-12 error" style="margin-top: 5px;">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Nombre Derivación: </span>
+                                    <input type="text" class="form-control" name="nombrederi" id="nombrederi" ng-model="nombrederi" placeholder=""
+                                           ng-required="true" ng-maxlength="100">
+                                </div>
                                 <span class="help-block error"
                                       ng-show="formDeri.nombrederi.$invalid && formDeri.nombrederi.$touched">El nombre de la Derivación es requerido</span>
                                 <span class="help-block error"
-                                      ng-show="formDeri.nombrederi.$invalid && formDeri.nombrederi.$error.maxlength">La longitud máxima es de 64 caracteres</span>
+                                      ng-show="formDeri.nombrederi.$invalid && formDeri.nombrederi.$error.maxlength">La longitud máxima es de 100 caracteres</span>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="observacionderi" class="col-sm-4 control-label">Observaciones:</label>
-                            <div class="col-sm-8">
-                                <textarea id="observacionderi" class="form-control" rows="5" ng-model="observacionderi"></textarea>
+
+                            <div class="col-xs-12" style="margin-top: 5px;">
+                                <textarea id="observacionderi" class="form-control" rows="3" ng-model="observacionderi" placeholder="Observación"></textarea>
                             </div>
+
                         </div>
+
+
+
                     </form>
                 </div>
                 <div class="modal-footer">

@@ -30,7 +30,7 @@ class DerivacionesController extends Controller
 
     public function getDerivacionesByBarrio1($id)
     {
-        return Calle::with('canal.derivacion')->where('idbarrio', $id)->orderBy('nombrecalle')->get();
+        return Calle::with('canal.derivacion')->where('idbarrio', $id)->orderBy('namecalle')->get();
     }
 
     public function getDerivacionesById($id){
@@ -41,7 +41,7 @@ class DerivacionesController extends Controller
 
     public function getDerivacionesByBarrio($id){
 
-       return $calle = Calle::with('canal') ->where('idbarrio', $id)->orderBy('nombrecalle')->get();
+       return $calle = Calle::with('canal') ->where('idbarrio', $id)->orderBy('namecalle')->get();
     }
 
 
@@ -57,12 +57,12 @@ class DerivacionesController extends Controller
 
     public function getCalles()
     {
-        return Calle::orderBy('nombrecalle', 'asc')->get();
+        return Calle::orderBy('namecalle', 'asc')->get();
     }
 
     public function getBarrios()
     {
-        return Barrio::orderBy('nombrebarrio', 'asc')->get();
+        return Barrio::orderBy('namebarrio', 'asc')->get();
     }
 
 
