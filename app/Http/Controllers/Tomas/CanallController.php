@@ -54,22 +54,22 @@ class CanallController extends Controller
 
     public function getCanalesByBarrio($id)
     {
-        return Calle::with('canal.derivacion')->where('idbarrio', $id)->orderBy('nombrecalle' , 'asc')->get();
+        return Calle::with('canal.derivacion')->where('idbarrio', $id)->orderBy('namecalle' , 'asc')->get();
     }
 
     public function getCalles()
     {
-        return Calle::orderBy('nombrecalle', 'asc')->get();
+        return Calle::orderBy('namecalle', 'asc')->get();
     }
 
     public function getBarrios()
     {
-        return Barrio::orderBy('nombrebarrio', 'asc')->get();
+        return Barrio::orderBy('namebarrio', 'asc')->get();
     }
 
     public function getCalle()
     {
-        return Calle::orderBy('nombrecalle', 'asc')->get();
+        return Calle::orderBy('namecalle', 'asc')->get();
     }
 
     public function getLastID()

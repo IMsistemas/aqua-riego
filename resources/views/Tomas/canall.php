@@ -88,38 +88,40 @@
                 <div class="modal-body">
                     <form class="form-horizontal" name="formCanal" novalidate="">
 
-                        <div class="form-group">
-                            <label for="t_codigo" class="col-sm-4 control-label">Código: </label>
-                            <div class="col-sm-8" style="padding-top: 7px;">
-                                {{codigo}}
-                            </div>
-                        </div>
+                        <div class="row">
+                            <!--<div class="form-group">
+                                <label for="t_codigo" class="col-sm-4 control-label">Código: </label>
+                                <div class="col-sm-8" style="padding-top: 7px;">
+                                    {{codigo}}
+                                </div>
+                            </div>-->
 
-                        <div class="form-group">
-                            <label for="t_calle" class="col-sm-4 control-label">Toma:</label>
-                            <div class="col-sm-8">
-                                <select id="t_calle" class="form-control" ng-model="t_calle"
-                                        ng-options="value.id as value.label for value in calles" required></select>
+                            <div class="col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Toma: </span>
+                                    <select id="t_calle" class="form-control" ng-model="t_calle"
+                                            ng-options="value.id as value.label for value in calles" required></select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group error">
-                            <label for="nombrecanal" class="col-sm-4 control-label">Nombre del Canal:</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control"  name="nombrecanal" id="nombrecanal" ng-model="nombrecanal" placeholder=""
-                                       ng-required="true" ng-maxlength="64">
+                            <div class="col-xs-12 error" style="margin-top: 5px;">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Nombre del Canal: </span>
+                                    <input type="text" class="form-control"  name="nombrecanal" id="nombrecanal" ng-model="nombrecanal" placeholder=""
+                                           ng-required="true" ng-maxlength="100">
+                                </div>
                                 <span class="help-block error"
                                       ng-show="formCanal.nombrecanal.$invalid && formCanal.nombrecanal.$touched">El nombre del Canal es requerido</span>
                                 <span class="help-block error"
-                                      ng-show="formCanal.nombrecanal.$invalid && formCanal.nombrecanal.$error.maxlength">La longitud máxima es de 64 caracteres</span>
+                                      ng-show="formCanal.nombrecanal.$invalid && formCanal.nombrecanal.$error.maxlength">La longitud máxima es de 100 caracteres</span>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="observacionCanal" class="col-sm-4 control-label">Observaciones:</label>
-                            <div class="col-sm-8">
-                                <textarea id="observacionCanal" class="form-control" rows="5" ng-model="observacionCanal"></textarea>
+
+                            <div class="col-xs-12" style="margin-top: 5px;">
+                                <textarea id="observacionCanal" class="form-control" rows="3" ng-model="observacionCanal" placeholder="Observación"></textarea>
                             </div>
+
                         </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">

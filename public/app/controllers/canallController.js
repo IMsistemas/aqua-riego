@@ -34,7 +34,7 @@ app.controller('canallController', function($scope, $http, API_URL) {
             var array_temp = [{label: '--JUNTAS MODULARES--', id: 0}];
 
             for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+                array_temp.push({label: response[i].namebarrio, id: response[i].idbarrio})
             }
             $scope.barrioss = array_temp;
             $scope.s_barrio = 0;
@@ -44,12 +44,12 @@ app.controller('canallController', function($scope, $http, API_URL) {
     $scope.viewModalAdd = function () {
         $http.get(API_URL + 'canal/getCalle').success(function (response) {
             var longitud = response.length;
-            //var array_temp = [{label: '--Seleccione--', id: 0}];
-            var array_temp = [];
+            var array_temp = [{label: '--Seleccione--', id: 0}];
             for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
+                array_temp.push({label: response[i].namecalle, id: response[i].idcalle})
             }
             $scope.calles = array_temp;
+            $scope.t_calle = 0;
         });
         $http.get(API_URL + 'canal/getLastID').success(function(response){
             console.log(response);
@@ -159,7 +159,7 @@ app.controller('canallController', function($scope, $http, API_URL) {
             var longitud = response.length;
             var array_temp = [{label: '--TOMAS--', id: 0}];
             for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
+                array_temp.push({label: response[i].namecalle, id: response[i].idcalle})
             }
             $scope.calless = array_temp;
             $scope.s_calle = 0;

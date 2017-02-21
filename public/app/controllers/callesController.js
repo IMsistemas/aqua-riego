@@ -14,12 +14,12 @@ app.controller('callesController', function($scope, $http, API_URL) {
     $scope.viewModalAdd = function () {
         $http.get(API_URL + 'calle/getBarrio').success(function (response) {
             var longitud = response.length;
-            //var array_temp = [{label: '--Seleccione--', id: 0}];
-            var array_temp = [];
+            var array_temp = [{label: '--Seleccione--', id: 0}];
             for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+                array_temp.push({label: response[i].namebarrio, id: response[i].idbarrio})
             }
             $scope.barrios = array_temp;
+            $scope.t_barrio = 0;
         });
 
         $http.get(API_URL + 'calle/getLastID').success(function(response){
@@ -64,7 +64,7 @@ app.controller('callesController', function($scope, $http, API_URL) {
 
     $scope.showModalDelete = function (item) {
         $scope.idcalle_del = item.idcalle;
-        $scope.nom_calle = item.nombrecalle;
+        $scope.nom_calle = item.namecalle;
         $('#modalDelete').modal('show');
     };
 
@@ -87,7 +87,7 @@ app.controller('callesController', function($scope, $http, API_URL) {
     };
 
     $scope.showModalInfo = function (item) {
-        $scope.name_calle = item.nombrecalle;
+        $scope.name_calle = item.namecalle;
         $scope.fecha_ingreso = item.fechaingreso;
 
         var array_canal = item.canal;
@@ -123,7 +123,7 @@ app.controller('callesController', function($scope, $http, API_URL) {
         var c = 0;
         for (var i = 0; i <  $scope.calles.length; i++)
         {
-            if( $scope.calles[i].nombrecalle == ""){
+            if( $scope.calles[i].namecalle == ""){
                 c ++ ;
             }
         }
@@ -159,7 +159,7 @@ app.controller('callesController', function($scope, $http, API_URL) {
             var longitud = response.length;
             var array_temp = [{label: '--JUNTAS MODULARES--', id: 0}];
             for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+                array_temp.push({label: response[i].namebarrio, id: response[i].idbarrio})
             }
             $scope.barrioss = array_temp;
             $scope.s_barrio = 0;
