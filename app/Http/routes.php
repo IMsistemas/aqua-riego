@@ -703,3 +703,10 @@ Route::resource('configuracion', 'ConfiguracionSystem\ConfiguracionSystemControl
 /*
  * ---------------------------------------------------------------------------------------------------------------------
  */
+
+
+//-------------------------------- Inveario Intem Kardex ---------------/////////
+
+Route::resource('Inventario', 'CatalogoProductos\InventarioKardex');
+
+//-------------------------------- Inveario Intem Kardex ---------------/////////
