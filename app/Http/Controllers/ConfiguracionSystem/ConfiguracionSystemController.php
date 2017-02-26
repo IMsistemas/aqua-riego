@@ -200,7 +200,6 @@ class ConfiguracionSystemController extends Controller
 
         $configuracion = ConfiguracionSystem::find($id);
 
-        $configuracion->optionname = $request->input('optionname');
         $configuracion->optionvalue = $request->input('optionvalue');
 
 
@@ -214,12 +213,32 @@ class ConfiguracionSystemController extends Controller
 
     public function getConfigCompra()
     {
-        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_COMPRA'
-            OR 'optionname','CONT_PROPINA_COMPRA'
-            OR 'optionname','SRI_RETEN_IVA_COMPRA'
-            OR 'optionname','SRI_RETEN_RENTA_COMPRA')->get();
+        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_COMPRA')
+                                    ->orWhere('optionname','CONT_PROPINA_COMPRA')
+                                    ->orWhere('optionname','SRI_RETEN_IVA_COMPRA')
+                                    ->orWhere('optionname','SRI_RETEN_RENTA_COMPRA')
+            ->selectRaw('*, (SELECT concepto FROM cont_plancuenta WHERE cont_plancuenta.idplancuenta = (configuracionsystem.optionvalue)::INT) ')
+            ->get();
 
     }
+
+
+    public function updateConfigCompra(Request $request, $id)
+    {
+        $array_option = $request->input('array_data');
+
+        foreach ($array_option as $item) {
+            $configuracion = ConfiguracionSystem::find($item['idconfiguracionsystem']);
+            $configuracion->optionvalue = $item['optionvalue'];
+
+            if (! $configuracion->save()) {
+                return response()->json(['success' => false]);
+            }
+        }
+
+        return response()->json(['success' => true]);
+    }
+
 
     public function getConfigVenta()
     {

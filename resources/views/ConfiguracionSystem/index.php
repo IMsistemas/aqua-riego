@@ -143,6 +143,7 @@
                                         <input type="text" class="form-control" name="irbpnr_compra" id="irbpnr_compra" ng-model="irbpnr_compra" placeholder=""
                                                ng-required="true" readonly>
                                         <input type="hidden" name="irbpnr_compra_h" id="irbpnr_compra_h" ng-model="irbpnr_compra_h">
+                                        <input type="hidden" name="id_irbpnr_compra_h" id="id_irbpnr_compra_h" ng-model="id_irbpnr_compra_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-irbpnr-compra" ng-click="showPlanCuenta('irbpnr_compra', 'irbpnr_compra_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -158,6 +159,7 @@
                                         <input type="text" class="form-control" name="propina_compra" id="propina_compra" ng-model="propina_compra" placeholder=""
                                                ng-required="true" readonly>
                                         <input type="hidden" name="propina_compra_h" id="propina_compra_h" ng-model="propina_compra_h">
+                                        <input type="hidden" name="id_propina_compra_h" id="id_propina_compra_h" ng-model="id_propina_compra_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-propina-compra" ng-click="showPlanCuenta('propina_compra', 'propina_compra_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -172,6 +174,7 @@
                                         <span class="input-group-addon">Cuenta Retención IVA: </span>
                                         <input type="text" class="form-control" name="retiva_compra" id="retiva_compra" ng-model="retiva_compra" readonly>
                                         <input type="hidden" name="retiva_compra_h" id="retiva_compra_h" ng-model="retiva_compra_h">
+                                        <input type="hidden" name="id_retiva_compra_h" id="id_retiva_compra_h" ng-model="id_retiva_compra_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-retiva-compra" ng-click="showPlanCuenta('retiva_compra', 'retiva_compra_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -185,6 +188,7 @@
                                         <span class="input-group-addon">Cuenta Retención Renta: </span>
                                         <input type="text" class="form-control" name="retrenta_compra" id="retrenta_compra" ng-model="retrenta_compra" readonly>
                                         <input type="hidden" name="retrenta_compra_h" id="retrenta_compra_h" ng-model="retrenta_compra_h">
+                                        <input type="hidden" name="id_retrenta_compra_h" id="id_retrenta_compra_h" ng-model="id_retrenta_compra_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-retrenta-compra" ng-click="showPlanCuenta('retrenta_compra', 'retrenta_compra_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -199,7 +203,7 @@
                                     <button type="button" class="btn btn-default">
                                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                     </button>
-                                    <button type="button" class="btn btn-success" id="btn-save" >
+                                    <button type="button" class="btn btn-success" id="btn-save" ng-click="saveConfigCompra()">
                                         Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                                     </button>
 
@@ -486,6 +490,49 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-header-success">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Confirmación</h4>
+                </div>
+                <div class="modal-body">
+                    <span>{{message}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalMessageError">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-header-danger">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Confirmación</h4>
+                </div>
+                <div class="modal-body">
+                    <span>{{message_error}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalMessageInfo" style="z-index: 999999;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-header-info">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Información</h4>
+                </div>
+                <div class="modal-body">
+                    <span>{{message_info}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 

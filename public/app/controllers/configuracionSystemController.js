@@ -51,9 +51,11 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             $http.get(API_URL + '/configuracion/getIVADefault').success(function(response){
                 console.log(response);
 
-                if(response.length != 0){
+                if(response.length > 0){
+
+                    $scope.idconfiguracionsystem = response[0].idconfiguracionsystem;
+
                     if (response[0].optionvalue != null && response[0].optionvalue != '') {
-                        $scope.idconfiguracionsystem = response[0].idconfiguracionsystem;
                         $scope.iva = parseInt(response[0].optionvalue);
                     }
 
@@ -62,26 +64,31 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         });
 
-        $http.get(API_URL + 'configuracion/getImpuestoIVA').success(function(response){
+        $http.get(API_URL + 'configuracion/getConfigCompra').success(function(response){
+
+            console.log(response);
+
             var longitud = response.length;
-            var array_temp = [{label: '-- Seleccione --', id: ''}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nametipoimpuestoiva, id: response[i].idtipoimpuestoiva})
-            }
-            $scope.imp_iva = array_temp;
-            $scope.iva = '';
 
-            $http.get(API_URL + '/configuracion/getIVADefault').success(function(response){
-                console.log(response);
-
-                if(response.length != 0){
-                    if (response[0].optionvalue != null && response[0].optionvalue != '') {
-                        $scope.idconfiguracionsystem = response[0].idconfiguracionsystem;
-                        $scope.iva = parseInt(response[0].optionvalue);
-                    }
-
+            for (var i = 0; i < longitud; i++) {
+                if (response[i].optionname == 'CONT_IRBPNR_COMPRA') {
+                    $scope.id_irbpnr_compra_h = response[i].idconfiguracionsystem;
+                    $scope.irbpnr_compra_h = parseInt(response[i].optionvalue);
+                    $scope.irbpnr_compra = response[i].concepto;
+                } else if (response[i].optionname == 'CONT_PROPINA_COMPRA') {
+                    $scope.id_propina_compra_h = response[i].idconfiguracionsystem;
+                    $scope.propina_compra_h = parseInt(response[i].optionvalue);
+                    $scope.propina_compra = response[i].concepto;
+                } else if (response[i].optionname == 'SRI_RETEN_IVA_COMPRA') {
+                    $scope.id_retiva_compra_h = response[i].idconfiguracionsystem;
+                    $scope.retiva_compra_h = parseInt(response[i].optionvalue);
+                    $scope.retiva_compra = response[i].concepto;
+                } else if (response[i].optionname == 'SRI_RETEN_RENTA_COMPRA') {
+                    $scope.id_retrenta_compra_h = response[i].idconfiguracionsystem;
+                    $scope.retrenta_compra_h = parseInt(response[i].optionvalue);
+                    $scope.retrenta_compra = response[i].concepto;
                 }
-            });
+            }
 
         });
 
@@ -149,10 +156,50 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         });*/
     }
 
-    $scope.hideModalMessage = function () {
-        setTimeout("$('#modalMessage').modal('hide')", 3000);
-    };
 
+    $scope.saveConfigCompra = function () {
+        var irbpnr = {
+            idconfiguracionsystem: $scope.id_irbpnr_compra_h,
+            optionvalue: $scope.irbpnr_compra_h
+        };
+
+        var retiva = {
+            idconfiguracionsystem: $scope.id_retiva_compra_h,
+            optionvalue: $scope.retiva_compra_h
+        };
+
+        var propina = {
+            idconfiguracionsystem: $scope.id_propina_compra_h,
+            optionvalue: $scope.propina_compra_h
+        };
+
+        var retrenta = {
+            idconfiguracionsystem: $scope.id_retrenta_compra_h,
+            optionvalue: $scope.retrenta_compra_h
+        };
+
+        var data = {
+            array_data: [irbpnr, retiva, propina, retrenta]
+        };
+
+        $http.put(API_URL + '/configuracion/updateConfigCompra/0', data ).success(function (response) {
+
+            if (response.success == true) {
+                $scope.initLoad();
+                $scope.message = 'Se editó correctamente los datos de la Configuración de Compras';
+                $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+            } else {
+                $scope.message_error = 'Ha ocurrido un error al actualizar los datos de la Configuración de Compras';
+                $('#modalMessageError').modal('show');
+                $scope.hideModalMessage();
+            }
+
+
+        }).error(function (res) {
+
+        });
+    };
 
 
     $scope.showPlanCuenta = function (field_concepto, field_id) {
@@ -211,6 +258,9 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
          });
     }
 
+    $scope.hideModalMessage = function () {
+        setTimeout("$('#modalMessage').modal('hide')", 3000);
+    };
 
     $scope.initLoad();
 
