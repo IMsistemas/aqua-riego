@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\ConfiguracionSystem;
 
+use App\Modelos\Configuracion\ConfiguracionSystem;
+use App\Modelos\Contabilidad\Cont_PlanCuenta;
 use App\Modelos\SRI\SRI_Establecimiento;
 use Illuminate\Http\Request;
+use App\Modelos\SRI\SRI_TipoImpuestoIva;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -26,6 +29,16 @@ class ConfiguracionSystemController extends Controller
         return SRI_Establecimiento::get();
     }
 
+    public function getConfigurations()
+    {
+        return ConfiguracionSystem::get();
+    }
+
+    public function getIVADefault()
+    {
+        return ConfiguracionSystem::where('optionname', 'SRI_IVA_DEFAULT')->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -39,7 +52,7 @@ class ConfiguracionSystemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -50,7 +63,7 @@ class ConfiguracionSystemController extends Controller
             $image = $request->file('rutalogo');
             $destinationPath = public_path() . '/uploads/configuracion';
             $name = rand(0, 9999) . '_' . $image->getClientOriginalName();
-            if(!$image->move($destinationPath, $name)) {
+            if (!$image->move($destinationPath, $name)) {
                 return response()->json(['success' => false]);
             } else {
                 $url_file = '/uploads/configuracion/' . $name;
@@ -91,7 +104,7 @@ class ConfiguracionSystemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -102,7 +115,7 @@ class ConfiguracionSystemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -113,8 +126,8 @@ class ConfiguracionSystemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function updateEstablecimiento(Request $request, $id)
@@ -126,7 +139,7 @@ class ConfiguracionSystemController extends Controller
             $image = $request->file('rutalogo');
             $destinationPath = public_path() . '/uploads/configuracion';
             $name = rand(0, 9999) . '_' . $image->getClientOriginalName();
-            if(!$image->move($destinationPath, $name)) {
+            if (!$image->move($destinationPath, $name)) {
                 return response()->json(['success' => false]);
             } else {
                 $url_file = '/uploads/configuracion/' . $name;
@@ -165,15 +178,94 @@ class ConfiguracionSystemController extends Controller
 
     }
 
+    /**
+     * Obtener los valores para seleccionar configuración
+     */
+
+
+    public function getImpuestoIVA()
+    {
+        return SRI_TipoImpuestoIva::orderBy('nametipoimpuestoiva', 'asc')->get();
+    }
+
+    public function getPlanCuenta()
+    {
+        return Cont_PlanCuenta::orderBy('jerarquia', 'asc')->get();
+    }
+
+
+
+    public function updateIvaDefault(Request $request, $id)
+    {
+
+        $configuracion = ConfiguracionSystem::find($id);
+
+        $configuracion->optionname = $request->input('optionname');
+        $configuracion->optionvalue = $request->input('optionvalue');
+
+
+        if ($configuracion->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+
+    }
+
+    public function getConfigCompra()
+    {
+        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_COMPRA'
+            OR 'optionname','CONT_PROPINA_COMPRA'
+            OR 'optionname','SRI_RETEN_IVA_COMPRA'
+            OR 'optionname','SRI_RETEN_RENTA_COMPRA')->get();
+
+    }
+
+    public function getConfigVenta()
+    {
+        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_VENTA'
+            OR 'optionname','CONT_PROPINA_VENTA'
+            OR 'optionname','SRI_RETEN_IVA_VENTA'
+            OR 'optionname','SRI_RETEN_RENTA_VENTA'
+            OR 'optionname','CONT_COSTO_VENTA')->get();
+
+    }
+
+    public function getConfigNC()
+    {
+        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_NC'
+            OR 'optionname','CONT_PROPINA_NC'
+            OR 'optionname','SRI_RETEN_IVA_NC'
+            OR 'optionname','SRI_RETEN_RENTA_NC')->get();
+
+    }
+
+    public function getConfigSRI()
+    {
+        return ConfiguracionSystem::where('optionname','SRI_TIPO_AMBIENTE'
+            OR 'optionname','SRI_TIPO_EMISION')->get();
+
+    }
+
+    public function getConfigPisque()
+    {
+        return ConfiguracionSystem::where('optionname','PISQUE_CONSTANTE')->get();
+
+    }
+
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
     }
+
 }
+
+
+

@@ -696,9 +696,21 @@ Route::get('guiaremision/getGuia/{idguiaremision}', 'Guiaremision\GuiaremisionCo
 
 Route::get('configuracion/getDataEmpresa', 'ConfiguracionSystem\ConfiguracionSystemController@getDataEmpresa');
 
+Route::get('configuracion/getIVADefault', 'ConfiguracionSystem\ConfiguracionSystemController@getIVADefault');
+
+Route::get('configuracion/getImpuestoIVA', 'ConfiguracionSystem\ConfiguracionSystemController@getImpuestoIVA');
+
+Route::get('configuracion/getPlanCuenta', 'ConfiguracionSystem\ConfiguracionSystemController@getPlanCuenta');
+
 Route::post('configuracion/updateEstablecimiento/{id}', 'ConfiguracionSystem\ConfiguracionSystemController@updateEstablecimiento');
 
+Route::put('configuracion/updateIvaDefault/{id}', 'ConfiguracionSystem\ConfiguracionSystemController@updateIvaDefault');
+
 Route::resource('configuracion', 'ConfiguracionSystem\ConfiguracionSystemController');
+
+
+
+
 
 /*
  * ---------------------------------------------------------------------------------------------------------------------
