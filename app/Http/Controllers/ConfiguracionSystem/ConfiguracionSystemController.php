@@ -242,22 +242,58 @@ class ConfiguracionSystemController extends Controller
 
     public function getConfigVenta()
     {
-        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_VENTA'
-            OR 'optionname','CONT_PROPINA_VENTA'
-            OR 'optionname','SRI_RETEN_IVA_VENTA'
-            OR 'optionname','SRI_RETEN_RENTA_VENTA'
-            OR 'optionname','CONT_COSTO_VENTA')->get();
+        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_VENTA')
+            ->orWhere('optionname','CONT_PROPINA_VENTA')
+            ->orWhere('optionname','CONT_COSTO_VENTA')
+            ->orWhere('optionname','SRI_RETEN_IVA_VENTA')
+            ->orWhere('optionname','SRI_RETEN_RENTA_VENTA')
+            ->selectRaw('*, (SELECT concepto FROM cont_plancuenta WHERE cont_plancuenta.idplancuenta = (configuracionsystem.optionvalue)::INT) ')
+            ->get();
+    }
 
+    public function updateConfigVenta(Request $request, $id)
+    {
+        $array_option = $request->input('array_data');
+
+        foreach ($array_option as $item) {
+            $configuracion = ConfiguracionSystem::find($item['idconfiguracionsystem']);
+            $configuracion->optionvalue = $item['optionvalue'];
+
+            if (! $configuracion->save()) {
+                return response()->json(['success' => false]);
+            }
+        }
+
+        return response()->json(['success' => true]);
     }
 
     public function getConfigNC()
     {
-        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_NC'
-            OR 'optionname','CONT_PROPINA_NC'
-            OR 'optionname','SRI_RETEN_IVA_NC'
-            OR 'optionname','SRI_RETEN_RENTA_NC')->get();
-
+        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_NC')
+            ->orWhere('optionname','CONT_PROPINA_NC')
+            ->orWhere('optionname','SRI_RETEN_IVA_NC')
+            ->orWhere('optionname','SRI_RETEN_RENTA_NC')
+            ->selectRaw('*, (SELECT concepto FROM cont_plancuenta WHERE cont_plancuenta.idplancuenta = (configuracionsystem.optionvalue)::INT) ')
+            ->get();
     }
+
+    public function updateConfigNC(Request $request, $id)
+    {
+        $array_option = $request->input('array_data');
+
+        foreach ($array_option as $item) {
+            $configuracion = ConfiguracionSystem::find($item['idconfiguracionsystem']);
+            $configuracion->optionvalue = $item['optionvalue'];
+
+            if (! $configuracion->save()) {
+                return response()->json(['success' => false]);
+            }
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+
 
     public function getConfigSRI()
     {

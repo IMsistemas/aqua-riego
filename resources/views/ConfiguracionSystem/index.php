@@ -19,6 +19,7 @@
 <body>
 
 <div ng-controller="configuracionSystemController">
+
     <div class="container">
         <div id="dvTab" style="margin-top: 5px;">
             <ul class="nav nav-tabs" role="tablist">
@@ -218,6 +219,7 @@
                                         <input type="text" class="form-control" name="irbpnr_venta" id="irbpnr_venta" ng-model="irbpnr_venta" placeholder=""
                                                ng-required="true" readonly>
                                         <input type="hidden" name="irbpnr_venta_h" id="irbpnr_venta_h" ng-model="irbpnr_venta_h">
+                                        <input type="hidden" name="id_irbpnr_venta_h" id="id_irbpnr_venta_h" ng-model="id_venta_compra_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-irbpnr_venta" ng-click="showPlanCuenta('irbpnr_venta', 'irbpnr_venta_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -233,6 +235,7 @@
                                         <input type="text" class="form-control" name="propina_venta" id="propina_venta" ng-model="propina_venta" placeholder=""
                                                ng-required="true" readonly>
                                         <input type="hidden" name="propina_venta_h" id="propina_venta_h" ng-model="propina_venta_h">
+                                        <input type="hidden" name="id_propina_venta_h" id="id_propina_venta_h" ng-model="id_propina_compra_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-propina-venta" ng-click="showPlanCuenta('propina_venta', 'propina_venta_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -248,6 +251,7 @@
                                         <input type="text" class="form-control" name="retiva_venta" id="retiva_venta" ng-model="retiva_venta" placeholder=""
                                                ng-required="true" readonly>
                                         <input type="hidden" name="retiva_venta_h" id="retiva_venta_h" ng-model="retiva_venta_h">
+                                        <input type="hidden" name="id_retiva_venta_h" id="id_retiva_venta_h" ng-model="id_retiva_compra_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-retiva-venta" ng-click="showPlanCuenta('retiva_venta', 'retiva_venta_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -256,12 +260,14 @@
 
                                     </div>
                                 </div>
+
                                 <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                                     <div class="input-group">
                                         <span class="input-group-addon">Cuenta Retención Renta: </span>
                                         <input type="text" class="form-control" name="retrenta_venta" id="retrenta_venta" ng-model="retrenta_venta" placeholder=""
                                                ng-required="true" readonly>
                                         <input type="hidden" name="retrenta_venta_h" id="retrenta_venta_h" ng-model="retrenta_venta_h">
+                                        <input type="hidden" name="id_retrenta_venta_h" id="id_retrenta_venta_h" ng-model="id_retrenta_compra_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-retrenta-venta" ng-click="showPlanCuenta('retrenta_venta', 'retrenta_venta_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -270,12 +276,14 @@
 
                                     </div>
                                 </div>
+
                                 <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                                     <div class="input-group">
                                         <span class="input-group-addon">Costo de Venta: </span>
                                         <input type="text" class="form-control" name="costo_venta" id="costo_venta" ng-model="costo_venta" placeholder=""
                                                ng-required="true" readonly>
                                         <input type="hidden" name="costo_venta_h" id="costo_venta_h" ng-model="costo_venta_h">
+                                        <input type="hidden" name="id_costo_venta_h" id="id_costo_venta_h" ng-model="id_costo_compra_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-costo-venta" ng-click="showPlanCuenta('costo_venta', 'costo_venta_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -284,12 +292,13 @@
 
                                     </div>
                                 </div>
+
                                 <div class="col-xs-12 text-center" style="margin-top: 5px;">
 
                                     <button type="button" class="btn btn-default">
                                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                     </button>
-                                    <button type="button" class="btn btn-success" id="btn-save" >
+                                    <button type="button" class="btn btn-success" id="btn-save" ng-click="saveConfigVenta()" >
                                         Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                                     </button>
 
@@ -303,6 +312,7 @@
                                         <input type="text" class="form-control" name="irbpnr_nc" id="irbpnr_nc" ng-model="irbpnr_nc" placeholder=""
                                                ng-required="true" readonly>
                                         <input type="hidden" name="irbpnr_nc_h" id="irbpnr_nc_h" ng-model="irbpnr_nc_h">
+                                        <input type="hidden" name="id_irbpnr_nc_h" id="id_irbpnr_nc_h" ng-model="id_venta_nc_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-irbpnr-nc" ng-click="showPlanCuenta('irbpnr_nc', 'irbpnr_nc_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -318,6 +328,7 @@
                                         <input type="text" class="form-control" name="propina_nc" id="propina_nc" ng-model="propina_nc" placeholder=""
                                                ng-required="true" readonly>
                                         <input type="hidden" name="propina_nc_h" id="propina_nc_h" ng-model="propina_nc_h">
+                                        <input type="hidden" name="id_propina_nc_h" id="id_propina_nc_h" ng-model="id_propina_nc_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-propina-nc" ng-click="showPlanCuenta('propina_nc', 'propina_nc_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -333,20 +344,23 @@
                                         <input type="text" class="form-control" name="retiva_nc" id="retiva_nc" ng-model="retiva_nc" placeholder=""
                                                ng-required="true" readonly>
                                         <input type="hidden" name="retiva_nc_h" id="retiva_nc_h" ng-model="retiva_nc_h">
+                                        <input type="hidden" name="id_retiva_nc_h" id="id_retiva_nc_h" ng-model="id_retiva_nc_h">
                                         <span class="input-group-btn" role="group">
-                                            <button type="button" class="btn btn-info" id="btn-retiva_nc" ng-click="showPlanCuenta('retiva_nc', 'propina_nc_h')">
+                                            <button type="button" class="btn btn-info" id="btn-retiva_nc" ng-click="showPlanCuenta('retiva_nc', 'retiva_nc_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                             </button>
                                         </span>
 
                                     </div>
                                 </div>
+
                                 <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                                     <div class="input-group">
                                         <span class="input-group-addon">Cuenta Retención Renta: </span>
                                         <input type="text" class="form-control" name="retrenta_nc" id="retrenta_nc" ng-model="retrenta_nc" placeholder=""
                                                ng-required="true" readonly>
                                         <input type="hidden" name="retrenta_nc_h" id="retrenta_nc_h" ng-model="retrenta_nc_h">
+                                        <input type="hidden" name="id_retrenta_nc_h" id="id_retrenta_nc_h" ng-model="id_retrenta_nc_h">
                                         <span class="input-group-btn" role="group">
                                             <button type="button" class="btn btn-info" id="btn-retrenta-nc" ng-click="showPlanCuenta('retrenta_nc', 'retrenta_nc_h')">
                                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -355,12 +369,13 @@
 
                                     </div>
                                 </div>
+
                                 <div class="col-xs-12 text-center" style="margin-top: 5px;">
 
                                     <button type="button" class="btn btn-default">
                                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                     </button>
-                                    <button type="button" class="btn btn-success" id="btn-save" >
+                                    <button type="button" class="btn btn-success" id="btn-save" ng-click="saveConfigNC()" >
                                         Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                                     </button>
 
@@ -371,8 +386,6 @@
                     </div>
 
                 </div>
-
-
 
                 <div role="tabpanel" class="tab-pane fade" id="sri" style="padding-top: 10px;">
                     <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
@@ -534,8 +547,6 @@
     </div>
 
 </div>
-
-
 
 </body>
 
