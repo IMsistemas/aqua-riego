@@ -92,7 +92,7 @@
 
                     <div class="col-xs-12 text-center" style="margin-top: 5px;">
 
-                        <button type="button" class="btn btn-default">
+                        <button type="button" class="btn btn-default" ng-click="getDataEmpresa()">
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
                         <button type="button" class="btn btn-success" id="btn-save" ng-click="saveEstablecimiento()">
@@ -125,7 +125,7 @@
 
                                 <div class="col-xs-12 text-center" style="margin-top: 5px;">
 
-                                    <button type="button" class="btn btn-default">
+                                    <button type="button" class="btn btn-default" ng-click="getImpuestoIVA()">
                                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-success" id="btn-save" ng-click="updateIvaDefault()">
@@ -201,7 +201,7 @@
 
                                 <div class="col-xs-12 text-center" style="margin-top: 5px;">
 
-                                    <button type="button" class="btn btn-default">
+                                    <button type="button" class="btn btn-default" ng-click="getConfigCompra()">
                                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-success" id="btn-save" ng-click="saveConfigCompra()">
@@ -295,7 +295,7 @@
 
                                 <div class="col-xs-12 text-center" style="margin-top: 5px;">
 
-                                    <button type="button" class="btn btn-default">
+                                    <button type="button" class="btn btn-default" ng-click="getConfigVenta()">
                                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-success" id="btn-save" ng-click="saveConfigVenta()" >
@@ -372,7 +372,7 @@
 
                                 <div class="col-xs-12 text-center" style="margin-top: 5px;">
 
-                                    <button type="button" class="btn btn-default">
+                                    <button type="button" class="btn btn-default" ng-click="getConfigNC()">
                                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-success" id="btn-save" ng-click="saveConfigNC()" >
@@ -422,13 +422,6 @@
 
                     <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                         <div class="input-group">
-                            <span class="input-group-addon">Constante: </span>
-                            <input type="text" class="form-control" placeholder="Para sistema Pisque" />
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                        <div class="input-group">
                             <span class="input-group-addon">Dividendos: </span>
                             <input type="text" class="form-control" placeholder="Para sistema AYORA" />
                         </div>
@@ -438,6 +431,13 @@
                         <div class="input-group">
                             <span class="input-group-addon">Tasa Interés: </span>
                             <input type="text" class="form-control" placeholder="Para sistema AYORA" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                        <div class="input-group">
+                            <span class="input-group-addon">Constante: </span>
+                            <input type="text" class="form-control" placeholder="Para sistema Pisque" />
                         </div>
                     </div>
 

@@ -442,8 +442,6 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 });
 
 
-
-
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
