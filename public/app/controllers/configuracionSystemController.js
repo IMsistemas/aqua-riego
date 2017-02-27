@@ -17,6 +17,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         $scope.getConfigNC();
 
+        $scope.getConfigEspecifica();
     };
 
     //-----------------------------------------------------------------------------------------------------------------
@@ -391,6 +392,83 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                 $scope.hideModalMessage();
             } else {
                 $scope.message_error = 'Ha ocurrido un error al actualizar los datos de la Configuración de Nota de Crédito';
+                $('#modalMessageError').modal('show');
+                $scope.hideModalMessage();
+            }
+
+        }).error(function (res) {
+
+        });
+    };
+
+    //-----------------------------------------------------------------------------------------------------------------
+
+    $scope.getConfigEspecifica = function () {
+        $http.get(API_URL + 'configuracion/getConfigEspecifica').success(function(response){
+
+            var longitud = response.length;
+
+            for (var i = 0; i < longitud; i++) {
+
+                //-----PARA SISTEMA PISQUE (RIEGO)------------------------------------------------
+
+                if (response[i].optionname == 'PISQUE_CONSTANTE') {
+                    $scope.h_pisque_constante = response[i].idconfiguracionsystem;
+                    $scope.t_pisque_constante = response[i].optionvalue;
+                }
+
+                //-----PARA SISTEMA AYORA (POTABLE)-----------------------------------------------
+
+                /*if (response[i].optionname == 'AYORA_DIVIDENDO') {
+                     $scope.h_ayora_dividendos = response[i].idconfiguracionsystem;
+                     $scope.t_ayora_dividendos = parseInt(response[i].optionvalue);
+                } else if (response[i].optionname == 'AYORA_TASAINTERES') {
+                     $scope.h_ayora_tasainteres = response[i].idconfiguracionsystem;
+                     $scope.t_ayora_tasainteres = parseInt(response[i].optionvalue);
+                }*/
+            }
+
+        });
+    };
+
+    $scope.saveConfigEspecifica = function () {
+
+        //-----PARA SISTEMA PISQUE (RIEGO)------------------------------------------------
+
+        var pisque_constante = {
+            idconfiguracionsystem: $scope.h_pisque_constante,
+            optionvalue: $scope.t_pisque_constante
+        };
+
+        var data = {
+            array_data: [pisque_constante]
+        };
+
+        //-----PARA SISTEMA AYORA (POTABLE)-----------------------------------------------
+
+        /*var ayora_dividendo = {
+            idconfiguracionsystem: $scope.h_ayora_dividendos,
+            optionvalue: $scope.t_ayora_dividendos
+        };
+
+        var ayora_tasainteres = {
+            idconfiguracionsystem: $scope.h_ayora_tasainteres,
+            optionvalue: $scope.t_ayora_tasainteres
+        };
+
+        var data = {
+            array_data: [ayora_dividendo, ayora_tasainteres]
+        };*/
+
+        $http.put(API_URL + '/configuracion/updateConfigEspecifica/0', data ).success(function (response) {
+
+            if (response.success == true) {
+                $scope.initLoad();
+                $scope.message = 'Se editó correctamente los datos de la Configuración Específica';
+                $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+            } else {
+                $scope.message_error = 'Ha ocurrido un error al actualizar los datos de la Configuración Específica';
                 $('#modalMessageError').modal('show');
                 $scope.hideModalMessage();
             }

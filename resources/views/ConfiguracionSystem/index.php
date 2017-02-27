@@ -423,21 +423,27 @@
                     <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                         <div class="input-group">
                             <span class="input-group-addon">Dividendos: </span>
-                            <input type="text" class="form-control" placeholder="Para sistema AYORA" />
+                            <input type="text" class="form-control" placeholder="Para sistema AYORA"
+                                name="t_ayora_dividendos" id="t_ayora_dividendos" ng-model="t_ayora_dividendos" />
+                            <input type="hidden" name="h_ayora_dividendos" id="h_ayora_dividendos" ng-model="h_ayora_dividendos" >
                         </div>
                     </div>
 
                     <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                         <div class="input-group">
                             <span class="input-group-addon">Tasa Interés: </span>
-                            <input type="text" class="form-control" placeholder="Para sistema AYORA" />
+                            <input type="text" class="form-control" placeholder="Para sistema AYORA"
+                                   name="t_ayora_tasainteres" id="t_ayora_tasainteres" ng-model="t_ayora_tasainteres" />
+                            <input type="hidden" name="h_ayora_tasainteres" id="h_ayora_tasainteres" ng-model="h_ayora_tasainteres" >
                         </div>
                     </div>
 
                     <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                         <div class="input-group">
                             <span class="input-group-addon">Constante: </span>
-                            <input type="text" class="form-control" placeholder="Para sistema Pisque" />
+                            <input type="text" class="form-control" placeholder="Para sistema Pisque"
+                                   name="t_pisque_constante" id="t_pisque_constante" ng-model="t_pisque_constante" />
+                            <input type="hidden" name="h_pisque_constante" id="h_pisque_constante" ng-model="h_pisque_constante" >
                         </div>
                     </div>
 
@@ -446,7 +452,7 @@
                         <button type="button" class="btn btn-default">
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
-                        <button type="button" class="btn btn-success" id="btn-save" >
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="saveConfigEspecifica()">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
 

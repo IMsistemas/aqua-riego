@@ -193,8 +193,6 @@ class ConfiguracionSystemController extends Controller
         return Cont_PlanCuenta::orderBy('jerarquia', 'asc')->get();
     }
 
-
-
     public function updateIvaDefault(Request $request, $id)
     {
 
@@ -222,7 +220,6 @@ class ConfiguracionSystemController extends Controller
 
     }
 
-
     public function updateConfigCompra(Request $request, $id)
     {
         $array_option = $request->input('array_data');
@@ -238,7 +235,6 @@ class ConfiguracionSystemController extends Controller
 
         return response()->json(['success' => true]);
     }
-
 
     public function getConfigVenta()
     {
@@ -293,18 +289,42 @@ class ConfiguracionSystemController extends Controller
         return response()->json(['success' => true]);
     }
 
+    public function getConfigEspecifica()
+    {
+
+        //-----PARA SISTEMA PISQUE (RIEGO)------------------------------------------------
+
+        return ConfiguracionSystem::where('optionname','PISQUE_CONSTANTE')->get();
+
+        //-----PARA SISTEMA AYORA (POTABLE)-----------------------------------------------
+
+        /*return ConfiguracionSystem::where('optionname','AYORA_DIVIDENDO')
+            ->orWhere('optionname','AYORA_TASAINTERES')
+            ->get();*/
+
+    }
+
+    public function updateConfigEspecifica(Request $request, $id)
+    {
+        $array_option = $request->input('array_data');
+
+        foreach ($array_option as $item) {
+            $configuracion = ConfiguracionSystem::find($item['idconfiguracionsystem']);
+            $configuracion->optionvalue = $item['optionvalue'];
+
+            if (! $configuracion->save()) {
+                return response()->json(['success' => false]);
+            }
+        }
+
+        return response()->json(['success' => true]);
+    }
 
 
     public function getConfigSRI()
     {
         return ConfiguracionSystem::where('optionname','SRI_TIPO_AMBIENTE'
             OR 'optionname','SRI_TIPO_EMISION')->get();
-
-    }
-
-    public function getConfigPisque()
-    {
-        return ConfiguracionSystem::where('optionname','PISQUE_CONSTANTE')->get();
 
     }
 
