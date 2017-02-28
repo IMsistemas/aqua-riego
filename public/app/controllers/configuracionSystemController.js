@@ -516,6 +516,67 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             $scope.s_sri_tipoemision = '';
 
         });
+
+        $http.get(API_URL + 'configuracion/getConfigSRI').success(function(response){
+
+            var longitud = response.length;
+
+            for (var i = 0; i < longitud; i++) {
+                if (response[i].optionname == 'SRI_TIPO_AMBIENTE') {
+
+                    $scope.h_sri_tipoambiente = response[i].idconfiguracionsystem;
+
+                    if (response[i].optionvalue != null && response[i].optionvalue != '') {
+                        $scope.s_sri_tipoambiente = parseInt(response[i].optionvalue);
+                    }
+
+                } else if (response[i].optionname == 'SRI_TIPO_EMISION') {
+
+                    $scope.h_sri_tipoemision = response[i].idconfiguracionsystem;
+
+                    if (response[i].optionvalue != null && response[i].optionvalue != '') {
+                        $scope.s_sri_tipoemision = parseInt(response[i].optionvalue);
+                    }
+
+                }
+            }
+
+        });
+
+    };
+
+    $scope.saveConfigSRI = function () {
+
+        var tipoambiente = {
+            idconfiguracionsystem: $scope.h_sri_tipoambiente,
+            optionvalue: $scope.s_sri_tipoambiente
+        };
+
+        var tipoemision = {
+            idconfiguracionsystem: $scope.h_sri_tipoemision,
+            optionvalue: $scope.s_sri_tipoemision
+        };
+
+        var data = {
+            array_data: [tipoambiente, tipoemision]
+        };
+
+        $http.put(API_URL + '/configuracion/updateConfigSRI/0', data ).success(function (response) {
+
+            if (response.success == true) {
+                $scope.initLoad();
+                $scope.message = 'Se editó correctamente los datos de la Configuración SRI';
+                $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+            } else {
+                $scope.message_error = 'Ha ocurrido un error al actualizar los datos de la Configuración SRI';
+                $('#modalMessageError').modal('show');
+                $scope.hideModalMessage();
+            }
+
+        }).error(function (res) {
+
+        });
     };
 
     //-----------------------------------------------------------------------------------------------------------------

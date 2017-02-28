@@ -399,28 +399,38 @@
                 </div>
 
                 <div role="tabpanel" class="tab-pane fade" id="sri" style="padding-top: 10px;">
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                        <div class="input-group">
-                            <span class="input-group-addon">Tipo Ambiente: </span>
-                            <select class="form-control" name="s_sri_tipoambiente" id="s_sri_tipoambiente" ng-model="s_sri_tipoambiente"
-                                    ng-options="value.id as value.label for value in tipoambiente">
-                            </select>
+
+                    <form class="form-horizontal" name="formSRI" novalidate="">
+                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                            <div class="input-group">
+                                <span class="input-group-addon">Tipo Ambiente: </span>
+                                <select class="form-control" name="s_sri_tipoambiente" id="s_sri_tipoambiente" ng-model="s_sri_tipoambiente"
+                                        ng-options="value.id as value.label for value in tipoambiente" required>
+                                </select>
+                                <input type="hidden" name="h_sri_tipoambiente" id="h_sri_tipoambiente" ng-model="h_sri_tipoambiente">
+                            </div>
+                            <span class="help-block error"
+                                  ng-show="formSRI.s_sri_tipoambiente.$invalid && formSRI.s_sri_tipoambiente.$touched">Tipo Ambiente es requerido</span>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                        <div class="input-group">
-                            <span class="input-group-addon">Tipo Emisión: </span>
-                            <select class="form-control" name="s_sri_tipoemision" id="s_sri_tipoemision" ng-model="s_sri_tipoemision"
-                                    ng-options="value.id as value.label for value in tipoemision">
-                            </select>
+                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                            <div class="input-group">
+                                <span class="input-group-addon">Tipo Emisión: </span>
+                                <select class="form-control" name="s_sri_tipoemision" id="s_sri_tipoemision" ng-model="s_sri_tipoemision"
+                                        ng-options="value.id as value.label for value in tipoemision" required>
+                                </select>
+                                <input type="hidden" name="h_sri_tipoemision" id="h_sri_tipoemision" ng-model="h_sri_tipoemision">
+                            </div>
+                            <span class="help-block error"
+                                  ng-show="formSRI.s_sri_tipoemision.$invalid && formSRI.s_sri_tipoemision.$touched">Tipo Emisión es requerido</span>
                         </div>
-                    </div>
+                    </form>
+
                     <div class="col-xs-12 text-center" style="margin-top: 5px;">
 
-                        <button type="button" class="btn btn-default">
+                        <button type="button" class="btn btn-default" ng-click="getConfigSRI()">
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
-                        <button type="button" class="btn btn-success" id="btn-save" >
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="saveConfigSRI()" ng-disabled="formSRI.$invalid">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
 

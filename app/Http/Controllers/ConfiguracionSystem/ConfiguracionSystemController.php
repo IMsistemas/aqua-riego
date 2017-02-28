@@ -5,6 +5,8 @@ namespace App\Http\Controllers\ConfiguracionSystem;
 use App\Modelos\Configuracion\ConfiguracionSystem;
 use App\Modelos\Contabilidad\Cont_PlanCuenta;
 use App\Modelos\SRI\SRI_Establecimiento;
+use App\Modelos\SRI\SRI_TipoAmbiente;
+use App\Modelos\SRI\SRI_TipoEmision;
 use Illuminate\Http\Request;
 use App\Modelos\SRI\SRI_TipoImpuestoIva;
 
@@ -209,6 +211,7 @@ class ConfiguracionSystemController extends Controller
 
     }
 
+
     public function getConfigCompra()
     {
         return ConfiguracionSystem::where('optionname','CONT_IRBPNR_COMPRA')
@@ -235,6 +238,7 @@ class ConfiguracionSystemController extends Controller
 
         return response()->json(['success' => true]);
     }
+
 
     public function getConfigVenta()
     {
@@ -263,6 +267,7 @@ class ConfiguracionSystemController extends Controller
         return response()->json(['success' => true]);
     }
 
+
     public function getConfigNC()
     {
         return ConfiguracionSystem::where('optionname','CONT_IRBPNR_NC')
@@ -288,6 +293,7 @@ class ConfiguracionSystemController extends Controller
 
         return response()->json(['success' => true]);
     }
+
 
     public function getConfigEspecifica()
     {
@@ -323,14 +329,36 @@ class ConfiguracionSystemController extends Controller
 
     public function getTipoEmision()
     {
-
+        return SRI_TipoEmision::orderBy('nametipoemision', 'asc')->get();
     }
 
     public function getTipoAmbiente()
     {
-
+        return SRI_TipoAmbiente::orderBy('nametipoambiente', 'asc')->get();
     }
 
+    public function getConfigSRI()
+    {
+        return ConfiguracionSystem::where('optionname','SRI_TIPO_AMBIENTE')
+                                    ->orWhere('optionname','SRI_TIPO_EMISION')
+                                    ->get();
+    }
+
+    public function updateConfigSRI(Request $request, $id)
+    {
+        $array_option = $request->input('array_data');
+
+        foreach ($array_option as $item) {
+            $configuracion = ConfiguracionSystem::find($item['idconfiguracionsystem']);
+            $configuracion->optionvalue = $item['optionvalue'];
+
+            if (! $configuracion->save()) {
+                return response()->json(['success' => false]);
+            }
+        }
+
+        return response()->json(['success' => true]);
+    }
 
     /**
      * Remove the specified resource from storage.
