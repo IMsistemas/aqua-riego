@@ -31,71 +31,82 @@
             <div class="tab-content">
 
                 <div role="tabpanel" class="tab-pane fade active in" id="empresa" style="padding-top: 10px;">
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                        <div class="input-group">
-                            <span class="input-group-addon">Razón Social: </span>
-                            <input type="text" class="form-control" name="t_razonsocial" id="t_razonsocial" ng-model="t_razonsocial" />
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
-                        <div class="input-group">
-                            <span class="input-group-addon">Nombre Comercial: </span>
-                            <input type="text" class="form-control" name="t_nombrecomercial" id="t_nombrecomercial" ng-model="t_nombrecomercial" />
-                        </div>
-                    </div>
 
-                    <div class="col-xs-12" style="margin-top: 5px;">
-                        <div class="input-group">
-                            <span class="input-group-addon">Dirección: </span>
-                            <input type="text" class="form-control" name="t_direccion" id="t_direccion" ng-model="t_direccion" />
-                        </div>
-                    </div>
+                    <form class="form-horizontal" name="formEstablecim" novalidate="">
 
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <div class="col-xs-12" style="margin-top: 5px;">
-                                <div class="input-group">
-                                    <span class="input-group-addon">RUC: </span>
-                                    <span class="input-group-btn" style="width: 15%;">
-					                    <input type="text" class="form-control" id="t_establ" name="t_establ" ng-model="t_establ" ng-keypress="onlyNumber($event, 3, 't_establ')" ng-blur="calculateLength('t_establ', 3)" />
-					                </span>
-                                    <span class="input-group-btn" style="width: 15%;" >
-					                    <input type="text" class="form-control" id="t_pto" name="t_pto" ng-model="t_pto" ng-keypress="onlyNumber($event, 3, 't_pto')" ng-blur="calculateLength('t_pto', 3)" />
-					                </span>
-                                    <input type="text" class="form-control" id="t_secuencial" name="t_secuencial" ng-model="t_secuencial" ng-keypress="onlyNumber($event, 9, 't_secuencial')" ng-blur="calculateLength('t_secuencial', 9)" />
+                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                            <div class="input-group">
+                                <span class="input-group-addon">Razón Social: </span>
+                                <input type="text" class="form-control" name="t_razonsocial" id="t_razonsocial" ng-model="t_razonsocial" required/>
+                            </div>
+                            <span class="help-block error"
+                                  ng-show="formEstablecim.t_razonsocial.$invalid && formEstablecim.t_razonsocial.$touched">La Razón Social es requerida</span>
+                        </div>
+
+                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                            <div class="input-group">
+                                <span class="input-group-addon">Nombre Comercial: </span>
+                                <input type="text" class="form-control" name="t_nombrecomercial" id="t_nombrecomercial" ng-model="t_nombrecomercial" required/>
+                            </div>
+                            <span class="help-block error"
+                                  ng-show="formEstablecim.t_nombrecomercial.$invalid && formEstablecim.t_nombrecomercial.$touched">El Nombre Comercial es requerido</span>
+                        </div>
+
+                        <div class="col-xs-12" style="margin-top: 5px;">
+                            <div class="input-group">
+                                <span class="input-group-addon">Dirección: </span>
+                                <input type="text" class="form-control" name="t_direccion" id="t_direccion" ng-model="t_direccion" required />
+                            </div>
+                            <span class="help-block error"
+                                  ng-show="formEstablecim.t_direccion.$invalid && formEstablecim.t_direccion.$touched">La Dirección es requerida</span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="col-xs-12" style="margin-top: 5px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">RUC: </span>
+                                        <span class="input-group-btn" style="width: 15%;">
+                                            <input type="text" class="form-control" id="t_establ" name="t_establ" ng-model="t_establ" ng-keypress="onlyNumber($event, 3, 't_establ')" ng-blur="calculateLength('t_establ', 3)" />
+                                        </span>
+                                        <span class="input-group-btn" style="width: 15%;" >
+                                            <input type="text" class="form-control" id="t_pto" name="t_pto" ng-model="t_pto" ng-keypress="onlyNumber($event, 3, 't_pto')" ng-blur="calculateLength('t_pto', 3)" />
+                                        </span>
+                                        <input type="text" class="form-control" id="t_secuencial" name="t_secuencial" ng-model="t_secuencial" ng-keypress="onlyNumber($event, 13, 't_secuencial')" ng-blur="calculateLength('t_secuencial', 9)" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12" style="margin-top: 5px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Contribuyente Especial: </span>
+                                        <input type="text" class="form-control" name="t_contribuyente" id="t_contribuyente" ng-model="t_contribuyente" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12" style="margin-top: 5px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Obligado Contabilidad: </span>
+                                        <select class="form-control" name="s_obligado" id="s_obligado" ng-model="s_obligado"
+                                                ng-options="value.id as value.label for value in obligadocont"></select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12" style="margin-top: 5px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Logo Empresa: </span>
+                                        <input type="file" class="form-control"  name="f_logoempresa" id="f_logoempresa" ng-model="f_logoempresa" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12" style="margin-top: 5px;">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Contribuyente Especial: </span>
-                                    <input type="text" class="form-control" name="t_contribuyente" id="t_contribuyente" ng-model="t_contribuyente" />
-                                </div>
-                            </div>
-                            <div class="col-xs-12" style="margin-top: 5px;">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Obligado Contabilidad: </span>
-                                    <select class="form-control" name="s_obligado" id="s_obligado" ng-model="s_obligado"
-                                            ng-options="value.id as value.label for value in obligadocont"></select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12" style="margin-top: 5px;">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Logo Empresa: </span>
-                                    <input type="file" class="form-control"  name="f_logoempresa" id="f_logoempresa" ng-model="f_logoempresa" />
-                                </div>
+                            <div class="col-xs-6" style="margin-top: 5px;">
+                                <img class="img-thumbnail" ngf-src="file" src="{{url_foto}}" alt="" style="width: 50%;">
                             </div>
                         </div>
-                        <div class="col-xs-6">
-                            FOTO
-                        </div>
-                    </div>
+                    </form>
 
                     <div class="col-xs-12 text-center" style="margin-top: 5px;">
 
                         <button type="button" class="btn btn-default" ng-click="getDataEmpresa()">
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
-                        <button type="button" class="btn btn-success" id="btn-save" ng-click="saveEstablecimiento()">
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="saveEstablecimiento()" ng-disabled="formEstablecim.$invalid">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
 
@@ -391,18 +402,16 @@
                     <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                         <div class="input-group">
                             <span class="input-group-addon">Tipo Ambiente: </span>
-                            <select class="form-control">
-                                <option value="1">PRUEBAS</option>
-                                <option value="2">PRODUCCION</option>
+                            <select class="form-control" name="s_sri_tipoambiente" id="s_sri_tipoambiente" ng-model="s_sri_tipoambiente"
+                                    ng-options="value.id as value.label for value in tipoambiente">
                             </select>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                         <div class="input-group">
                             <span class="input-group-addon">Tipo Emisión: </span>
-                            <select class="form-control">
-                                <option value="1">NORMAL</option>
-                                <option value="2">CONTINGENCIA</option>
+                            <select class="form-control" name="s_sri_tipoemision" id="s_sri_tipoemision" ng-model="s_sri_tipoemision"
+                                    ng-options="value.id as value.label for value in tipoemision">
                             </select>
                         </div>
                     </div>

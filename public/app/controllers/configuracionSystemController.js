@@ -5,6 +5,8 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     $scope.fieldconcepto = '';
     $scope.fieldid = '';
 
+    $scope.url_foto = 'img/empleado.png';
+
     $scope.initLoad = function () {
 
         $scope.getDataEmpresa();
@@ -18,6 +20,8 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         $scope.getConfigNC();
 
         $scope.getConfigEspecifica();
+
+        $scope.getConfigSRI();
     };
 
     //-----------------------------------------------------------------------------------------------------------------
@@ -48,8 +52,18 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                 } else $scope.s_obligado = '0';
 
                 $scope.idestablecimiento = response[0].idestablecimiento;
-                $scope.f_logoempresa = response[0].rutalogo;
 
+                //$scope.f_logoempresa = response[0].rutalogo;
+
+                /*if (response[0].rutalogo != null && response[0].rutalogo != ''){
+                    $scope.url_foto = response[0].rutalogo;
+                    $scope.f_logoempresa = response[0].rutalogo;
+                } else {
+
+                    $scope.url_foto = 'img/no-image-found.gif';
+                }*/
+
+                $scope.url_foto = 'img/no-image-found.gif';
             }
         });
     };
@@ -480,6 +494,32 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
     //-----------------------------------------------------------------------------------------------------------------
 
+    $scope.getConfigSRI = function () {
+        $http.get(API_URL + 'configuracion/getTipoAmbiente').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: ''}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nametipoambiente, id: response[i].idtipoambiente})
+            }
+            $scope.tipoambiente = array_temp;
+            $scope.s_sri_tipoambiente = '';
+
+        });
+
+        $http.get(API_URL + 'configuracion/getTipoEmision').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: ''}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nametipoemision, id: response[i].idtipoemision})
+            }
+            $scope.tipoemision = array_temp;
+            $scope.s_sri_tipoemision = '';
+
+        });
+    };
+
+    //-----------------------------------------------------------------------------------------------------------------
+
     $scope.showPlanCuenta = function (field_concepto, field_id) {
 
         $scope.fieldconcepto = field_concepto;
@@ -513,6 +553,51 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     $scope.hideModalMessage = function () {
         setTimeout("$('#modalMessage').modal('hide')", 3000);
     };
+
+    $scope.onlyNumber = function ($event, length, field) {
+
+        if (length != undefined) {
+            var valor = $('#' + field).val();
+            if (valor.length == length) $event.preventDefault();
+        }
+
+        var k = $event.keyCode;
+        if (k == 8 || k == 0) return true;
+        var patron = /\d/;
+        var n = String.fromCharCode(k);
+
+        if (n == ".") {
+            return true;
+        } else {
+
+            if(patron.test(n) == false){
+                $event.preventDefault();
+            }
+            else return true;
+        }
+    };
+
+    $scope.calculateLength = function(field, length) {
+        var text = $("#" + field).val();
+        var longitud = text.length;
+        if (longitud == length) {
+            $("#" + field).val(text);
+        } else {
+            var diferencia = parseInt(length) - parseInt(longitud);
+            var relleno = '';
+            if (diferencia == 1) {
+                relleno = '0';
+            } else {
+                var i = 0;
+                while (i < diferencia) {
+                    relleno += '0';
+                    i++;
+                }
+            }
+            $("#" + field).val(relleno + text);
+        }
+    };
+
 
     $scope.initLoad();
 

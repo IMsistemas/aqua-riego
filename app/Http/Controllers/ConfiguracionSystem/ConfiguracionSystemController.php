@@ -321,10 +321,13 @@ class ConfiguracionSystemController extends Controller
     }
 
 
-    public function getConfigSRI()
+    public function getTipoEmision()
     {
-        return ConfiguracionSystem::where('optionname','SRI_TIPO_AMBIENTE'
-            OR 'optionname','SRI_TIPO_EMISION')->get();
+
+    }
+
+    public function getTipoAmbiente()
+    {
 
     }
 
