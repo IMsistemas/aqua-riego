@@ -5,8 +5,6 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     $scope.fieldconcepto = '';
     $scope.fieldid = '';
 
-    $scope.url_foto = 'img/empleado.png';
-
     $scope.initLoad = function () {
 
         $scope.getDataEmpresa();
@@ -32,6 +30,8 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         $scope.obligadocont = array_temp;
         $scope.s_obligado = '1';
 
+        $scope.url_foto = 'img/empleado.png';
+
         $http.get(API_URL + '/configuracion/getDataEmpresa/').success(function(response){
 
             if(response.length != 0){
@@ -53,17 +53,25 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
                 $scope.idestablecimiento = response[0].idestablecimiento;
 
-                //$scope.f_logoempresa = response[0].rutalogo;
-
-                /*if (response[0].rutalogo != null && response[0].rutalogo != ''){
+                if (response[0].rutalogo != null && response[0].rutalogo != ''){
                     $scope.url_foto = response[0].rutalogo;
-                    $scope.f_logoempresa = response[0].rutalogo;
+                    $scope.file = response[0].rutalogo;
                 } else {
 
-                    $scope.url_foto = 'img/no-image-found.gif';
-                }*/
+                    $scope.url_foto = 'img/empleado.png';
+                }
 
-                $scope.url_foto = 'img/no-image-found.gif';
+                //$scope.url_foto = 'img/no-image-found.gif';
+
+                $scope.url_foto = 'img/empleado.png';
+
+            } else {
+
+                $scope.t_establ = '000';
+                $scope.t_pto = '000';
+                $scope.t_secuencial = '0000000000000';
+
+
             }
         });
     };
@@ -79,7 +87,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             contribuyenteespecial: $scope.t_contribuyente,
             ruc: ruc,
             obligadocontabilidad: $scope.s_obligado,
-            rutalogo: $scope.f_logoempresa
+            rutalogo: $scope.file
         };
         console.log(data);
 
@@ -504,42 +512,42 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             $scope.tipoambiente = array_temp;
             $scope.s_sri_tipoambiente = '';
 
-        });
-
-        $http.get(API_URL + 'configuracion/getTipoEmision').success(function(response){
-            var longitud = response.length;
-            var array_temp = [{label: '-- Seleccione --', id: ''}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nametipoemision, id: response[i].idtipoemision})
-            }
-            $scope.tipoemision = array_temp;
-            $scope.s_sri_tipoemision = '';
-
-        });
-
-        $http.get(API_URL + 'configuracion/getConfigSRI').success(function(response){
-
-            var longitud = response.length;
-
-            for (var i = 0; i < longitud; i++) {
-                if (response[i].optionname == 'SRI_TIPO_AMBIENTE') {
-
-                    $scope.h_sri_tipoambiente = response[i].idconfiguracionsystem;
-
-                    if (response[i].optionvalue != null && response[i].optionvalue != '') {
-                        $scope.s_sri_tipoambiente = parseInt(response[i].optionvalue);
-                    }
-
-                } else if (response[i].optionname == 'SRI_TIPO_EMISION') {
-
-                    $scope.h_sri_tipoemision = response[i].idconfiguracionsystem;
-
-                    if (response[i].optionvalue != null && response[i].optionvalue != '') {
-                        $scope.s_sri_tipoemision = parseInt(response[i].optionvalue);
-                    }
-
+            $http.get(API_URL + 'configuracion/getTipoEmision').success(function(response){
+                var longitud = response.length;
+                var array_temp = [{label: '-- Seleccione --', id: ''}];
+                for(var i = 0; i < longitud; i++){
+                    array_temp.push({label: response[i].nametipoemision, id: response[i].idtipoemision})
                 }
-            }
+                $scope.tipoemision = array_temp;
+                $scope.s_sri_tipoemision = '';
+
+                $http.get(API_URL + 'configuracion/getConfigSRI').success(function(response){
+
+                    var longitud = response.length;
+
+                    for (var i = 0; i < longitud; i++) {
+                        if (response[i].optionname == 'SRI_TIPO_AMBIENTE') {
+
+                            $scope.h_sri_tipoambiente = response[i].idconfiguracionsystem;
+
+                            if (response[i].optionvalue != null && response[i].optionvalue != '') {
+                                $scope.s_sri_tipoambiente = parseInt(response[i].optionvalue);
+                            }
+
+                        } else if (response[i].optionname == 'SRI_TIPO_EMISION') {
+
+                            $scope.h_sri_tipoemision = response[i].idconfiguracionsystem;
+
+                            if (response[i].optionvalue != null && response[i].optionvalue != '') {
+                                $scope.s_sri_tipoemision = parseInt(response[i].optionvalue);
+                            }
+
+                        }
+                    }
+
+                });
+
+            });
 
         });
 
@@ -631,6 +639,21 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             return true;
         } else {
 
+            if(patron.test(n) == false){
+                $event.preventDefault();
+            }
+            else return true;
+        }
+    };
+
+    $scope.onlyDecimal = function ($event) {
+        var k = $event.keyCode;
+        if (k == 8 || k == 0) return true;
+        var patron = /\d/;
+        var n = String.fromCharCode(k);
+        if (n == ".") {
+            return true;
+        } else {
             if(patron.test(n) == false){
                 $event.preventDefault();
             }
