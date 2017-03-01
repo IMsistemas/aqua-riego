@@ -36,20 +36,15 @@ class GuiaremisionController extends Controller
 
     public function show()
     {
-        $guiaventa=Cont_DocumentoGuiaRemision::join('cliente','cliente.idcliente','=','cont_documentoguiaremision.idcliente')
-        ->join('cont_documentoventa','cont_documentoventa.iddocumentoventa','=','cont_documentoguiaremision.iddocumentoventa')
+        return $guias=DB::table('cont_documentoguiaremision')
+        ->join('cliente','cliente.idcliente','=','cont_documentoguiaremision.idcliente')
         ->join('persona','persona.idpersona','=','cliente.idpersona')
-        ->select('persona.razonsocial','cont_documentoguiaremision.iddocumentoguiaremision','cont_documentoguiaremision.nrodocumentoguiaremision','cont_documentoventa.numdocumentoventa')
+        ->select(DB::raw("persona.razonsocial,cont_documentoguiaremision.iddocumentoguiaremision,cont_documentoguiaremision.nrodocumentoguiaremision,cont_documentoguiaremision.iddocumentoventa, (select cont_documentoventa.numdocumentoventa  from  cont_documentoventa  join cont_documentoguiaremision on cont_documentoventa.iddocumentoventa= cont_documentoguiaremision.iddocumentoventa 
+            where cont_documentoguiaremision.iddocumentoventa = cont_documentoventa.iddocumentoventa   limit 1
+        )"))
         ->get();
-        $guiasinventa=Cont_DocumentoGuiaRemision::join('cliente','cliente.idcliente','=','cont_documentoguiaremision.idcliente')
-        ->join('persona','persona.idpersona','=','cliente.idpersona')
-        ->where('cont_documentoguiaremision.iddocumentoventa','=',null)
-        ->select('persona.razonsocial','cont_documentoguiaremision.iddocumentoguiaremision','cont_documentoguiaremision.nrodocumentoguiaremision')
-        ->get();
-        return response()->json([
-                'guiaventa' => $guiaventa,
-                'guiasinventa' => $guiasinventa
-                ]);
+
+
     }
 
     public function GetTrasportista($texto)

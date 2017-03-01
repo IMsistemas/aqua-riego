@@ -299,7 +299,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
             $scope.t_pto=response.guiaremision.nrodocumentoguiaremision.substring(4,7);
             $scope.t_sec=response.guiaremision.nrodocumentoguiaremision.substring(8,18);
             $scope.puntopartida=response.guiaremision.puntopartida;
-            $scope.citransportista=response.transportista[0].numdocidentific;
+            $scope.$broadcast('angucomplete-alt:changeInput', 'citransportista', response.transportista[0].numdocidentific);
             $scope.transrazoncocial=response.transportista[0].razonsocial;
             $scope.placa=response.transportista[0].placa;
             $scope.ruta=response.guiaremision.ruta;
@@ -308,7 +308,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
             $scope.motivotraslado=response.guiaremision.motivotraslado;
             $scope.codestablecimiento=response.guiaremision.codestablecdestino;
             $scope.docaduana=response.guiaremision.nrodeclaracionaduana;
-            $scope.cidestinatario=response.destinatario[0].numdocidentific;
+            $scope.$broadcast('angucomplete-alt:changeInput', 'cidestinatario', response.destinatario[0].numdocidentific);
             $scope.destirazonsocial=response.destinatario[0].razonsocial;
             $scope.direccion=response.destinatario[0].direccion;
             $scope.itemguiaretension=response.mercaderia;
@@ -317,7 +317,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
                 
             }else{
                 $scope.nroventa=response.venta.numdocumentoventa;
-                $scope.ventanumautorizacion=response.venta.nroautorizacionventa;
+                $scope.$broadcast('angucomplete-alt:changeInput', 'nrodocventa', $scope.ventanumautorizacion=response.venta.nroautorizacionventa);
                 $scope.ventafecha=response.venta.fechaemisionventa;
                 $scope.guia=response.productos;
             } 
@@ -348,17 +348,21 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
         $scope.destirazoncocial=null;
         $scope.direccion=null;
         $scope.itemguiaretension=[];
-        $scope.Venta=null;
         $scope.ventanumautorizacion=null;
         $scope.ventafecha=null;
         $scope.guia=null;
-        $scope.Transportista.title=null;
-        $scope.Destinatario.title=null;
-        $scope.Transportista.originalObject.razonsocial=null;
-        $scope.Transportista,originalObject.placa=null;
-        $scope.Destinatario.originalObject.razonsocial=null;
-        $scope.Destinatario,originalObject.direccion=null;
+        $scope.$broadcast('angucomplete-alt:clearInput','citransportista');
+        $scope.$broadcast('angucomplete-alt:clearInput','cidestinatario');
+        $scope.$broadcast('angucomplete-alt:clearInput','nroventa');
+        if ($scope.guiaventa==1) {
+            $scope.Transportista.originalObject.razonsocial=null;
+            $scope.Transportista,originalObject.placa=null;
+            $scope.Destinatario.originalObject.razonsocial=null;
+            $scope.Destinatario,originalObject.direccion=null;
+        }
     };
+
+
 
     $scope.BloquearGuardar = function () {
         document.guardar.disabled=true;

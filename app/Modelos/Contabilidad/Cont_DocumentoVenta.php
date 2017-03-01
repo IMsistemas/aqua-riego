@@ -22,7 +22,7 @@ class Cont_DocumentoVenta extends Model
     ];
 
     public function cont_documentoguiaremision(){
-    	return $this->belongsTo('App\Modelos\Contabilidad');
+    	return $this->hasMany('App\Modelos\Contabilidad');
     }
     public function cont_itemventa(){
         return $this->hasMany('App\Modelos\Contabilidad');
