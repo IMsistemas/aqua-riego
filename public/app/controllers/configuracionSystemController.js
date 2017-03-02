@@ -55,7 +55,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
                 if (response[0].rutalogo != null && response[0].rutalogo != ''){
                     $scope.url_foto = response[0].rutalogo;
-                    $scope.file = response[0].rutalogo;
+                    $scope.file = API_URL+response[0].rutalogo;
                 } else {
 
                     $scope.url_foto = 'img/empleado.png';
