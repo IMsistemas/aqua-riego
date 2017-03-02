@@ -32,7 +32,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         $scope.url_foto = 'img/empleado.png';
 
-        $http.get(API_URL + '/configuracion/getDataEmpresa/').success(function(response){
+        $http.get(API_URL + 'configuracion/getDataEmpresa').success(function(response){
 
             if(response.length != 0){
                 $scope.t_razonsocial = response[0].razonsocial;
@@ -91,7 +91,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         };
         console.log(data);
 
-        var url = API_URL + "/configuracion";
+        var url = API_URL + "configuracion";
 
         if ($scope.idestablecimiento != 0){
             url += "/updateEstablecimiento/" + $scope.idestablecimiento;
@@ -149,7 +149,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             $scope.imp_iva = array_temp;
             $scope.iva = '';
 
-            $http.get(API_URL + '/configuracion/getIVADefault').success(function(response){
+            $http.get(API_URL + 'configuracion/getIVADefault').success(function(response){
                 console.log(response);
 
                 if(response.length > 0){
@@ -173,7 +173,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         };
         console.log(data);
 
-        $http.put(API_URL + '/configuracion/updateIvaDefault/'+ $scope.idconfiguracionsystem, data ).success(function (response) {
+        $http.put(API_URL + 'configuracion/updateIvaDefault/'+ $scope.idconfiguracionsystem, data ).success(function (response) {
 
             console.log(response);
 
@@ -247,7 +247,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             array_data: [irbpnr, retiva, propina, retrenta]
         };
 
-        $http.put(API_URL + '/configuracion/updateConfigCompra/0', data ).success(function (response) {
+        $http.put(API_URL + 'configuracion/updateConfigCompra/0', data ).success(function (response) {
 
             if (response.success == true) {
                 $scope.initLoad();
@@ -332,7 +332,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             array_data: [irbpnr, retiva, propina, retrenta, costo]
         };
 
-        $http.put(API_URL + '/configuracion/updateConfigVenta/0', data ).success(function (response) {
+        $http.put(API_URL + 'configuracion/updateConfigVenta/0', data ).success(function (response) {
 
             if (response.success == true) {
                 $scope.initLoad();
@@ -405,7 +405,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             array_data: [irbpnr, retiva, propina, retrenta]
         };
 
-        $http.put(API_URL + '/configuracion/updateConfigNC/0', data ).success(function (response) {
+        $http.put(API_URL + 'configuracion/updateConfigNC/0', data ).success(function (response) {
 
             if (response.success == true) {
                 $scope.initLoad();
@@ -482,7 +482,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             array_data: [ayora_dividendo, ayora_tasainteres]
         };*/
 
-        $http.put(API_URL + '/configuracion/updateConfigEspecifica/0', data ).success(function (response) {
+        $http.put(API_URL + 'configuracion/updateConfigEspecifica/0', data ).success(function (response) {
 
             if (response.success == true) {
                 $scope.initLoad();
@@ -569,7 +569,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             array_data: [tipoambiente, tipoemision]
         };
 
-        $http.put(API_URL + '/configuracion/updateConfigSRI/0', data ).success(function (response) {
+        $http.put(API_URL + 'configuracion/updateConfigSRI/0', data ).success(function (response) {
 
             if (response.success == true) {
                 $scope.initLoad();
