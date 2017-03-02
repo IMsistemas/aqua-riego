@@ -213,8 +213,8 @@
                           <option ng-show="TipoestadoF=='B'" ng-hide="TipoestadoF=='E'" value="P">Pasivos</option>
                           <option ng-show="TipoestadoF=='B'" ng-hide="TipoestadoF=='E'" value="PT">Patrimonio</option>
                           <option ng-show="TipoestadoF=='E'" ng-hide="TipoestadoF=='B'" value="I">Ingresos</option>
-                          <option ng-show="TipoestadoF=='E'" ng-hide="TipoestadoF=='B'"value="C">Costos</option>
-                          <option ng-show="TipoestadoF=='E'" ng-hide="TipoestadoF=='B'" value="C">Gastos</option>
+                          <option ng-show="TipoestadoF=='E'" ng-hide="TipoestadoF=='B'" value="C">Costos</option>
+                          <option ng-show="TipoestadoF=='E'" ng-hide="TipoestadoF=='B'" value="G">Gastos</option>
                       </select>
                     </div>
                 </div>

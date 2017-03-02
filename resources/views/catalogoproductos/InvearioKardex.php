@@ -15,14 +15,166 @@
 </head>
 <body>
 
-	<!--<div class="container-fluid" ng-controller="" ng-init="" ng-cloak>
-		
+	<div class="container-fluid" ng-controller="Kardex" ng-init="" ng-cloak>
+        <div class="row">
+            <div class="col-xs-3">
+                <h3><strong>Inventariio (Kardex)</strong></h3>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control " id="search" placeholder="BUSCAR..." ng-model="search" ng-change="">
+                    <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="input-group">
+                  <span class="input-group-addon">Categoria: </span>
+                  <select class="form-control input-sm" id="CategoriaItem" ng-model="CategoriaItem">
+                  </select>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="input-group">
+                  <span class="input-group-addon">Bodega: </span>
+                  <select class="form-control input-sm" id="BodegaItem" ng-model="BodegaItem">
+                  </select>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <button class="btn btn-primary btn-sm">Actualizar <i class="glyphicon glyphicon glyphicon-refresh"></i></button>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-12">
+
+                <table class="table ">
+                    <thead>
+                        <tr class="bg-primary">
+                            <th></th>
+                            <th></th>
+                            <th>Nombre</th>
+                            <th>Codigo</th>
+                            <th>Precio V.</th>
+                            <th>Costo P.</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <button class="btn btn-info btn-sm" ng-click="RegistroKardexPP()" title="Kardex"><i class="glyphicon glyphicon glyphicon-info-sign"></i></button>
+                            </td>
+                            <td>dfghjk</td>
+                            <td>ccc2</td>
+                            <td>22.3</td>
+                            <td>22.3</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>
+                                <button class="btn btn-info btn-sm" ng-click="RegistroKardexPP()" title="Kardex"><i class="glyphicon glyphicon glyphicon-info-sign"></i></button>
+                            </td>
+                            <td>dfghjk</td>
+                            <td>ccc2</td>
+                            <td>22.3</td>
+                            <td>22.3</td>
+                            <td>2</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
 
 
 
-	</div>-->
 
-  <strong>Invetario</strong>
+    <div class="modal fade" id="RegistroKardePromedioPonderado" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary" >
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">kardex Promedio Ponderado</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="input-group">
+                      <span class="input-group-addon">Fecha I.: </span>
+                      <input type="type" class="form-control datepicker  input-sm" id="FechaI" ng-model="FechaI">
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="input-group">
+                      <span class="input-group-addon">Fecha F.: </span>
+                      <input type="type" class="form-control datepicker  input-sm" id="FechaF" ng-model="FechaF">
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="form-group has-feedback">
+                        <input type="text" class="form-control " id="search" placeholder="BUSCAR..." ng-model="search" ng-change="">
+                        <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                    </div>
+                </div>
+
+                <div class="col-xs-3">
+                    <button class="btn btn-primary btn-sm">Actualizar <i class="glyphicon glyphicon glyphicon-refresh"></i></button>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="bg-primary">
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th colspan="3" class="text-center">Entradas</th>
+                                <th colspan="3" class="text-center">Salidas</th>
+                                <th></th>
+                            </tr>
+                            <tr class="bg-primary">
+                                <th></th>
+                                <th>Tipo T.</th>
+                                <th>Fecha</th>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Costo U.</th>
+                                <th>Costo T.</th>
+                                <th>Cantidad</th>
+                                <th>Costo U.</th>
+                                <th>Costo T.</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar <i class="glyphicon glyphicon glyphicon-ban-circle"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+	</div>
+
 
 
     <script src="<?= asset('app/lib/angular/angular.min.js') ?>"></script>
@@ -44,6 +196,6 @@
 
 
     <script src="<?= asset('app/app.js') ?>"></script>
-    <!--<script src="<?= asset('app/controllers/InvetarioItemKardex.js') ?>"></script>-->
+    <script src="<?= asset('app/controllers/InvetarioItemKardex.js') ?>"></script>
 </body>
 </html>
