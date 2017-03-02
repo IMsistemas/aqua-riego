@@ -227,7 +227,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
             console.log(guiaremisionsave);
             $http.put(url+'/'+$scope.idguia, guiaremisionsave ).success(function (response) {
             if (response.success == true) {
-                $scope.message = 'Se insertó correctamente la Guía de Remisión';
+                $scope.message = 'Se actualizó correctamente la Guía de Remisión';
                 $('#modalMessage').modal('show');
                 idguia=0;
                 $scope.ActivaGuia=0;
