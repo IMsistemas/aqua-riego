@@ -83,6 +83,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
                                 }
                             }
                             $("#" + field).val(relleno + text);
+                            return relleno+text;
                         }
                     };
 
@@ -100,6 +101,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
 
 
     $scope.onlyNumber = function ($event, length, field) {
+
         if (length != undefined) {
             var valor = $('#' + field).val();
             if (valor.length == length) $event.preventDefault();
@@ -116,6 +118,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
                 }
                 else return true;
             }
+            console.log(field);
         };
 
     $scope.BuscarVenta=function(){
@@ -149,7 +152,6 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
          });
          
         var url = API_URL + "guiaremision";
-        console.log($scope.Transportista);
             if ($scope.guiaventa ==0 && $scope.edit==0){
                     var guiaremisionsave = {
                     citransportista: $scope.Transportista.title,
@@ -199,7 +201,6 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
                     detallemer: datas
                 };
             }
-        console.log("Éste ees el arreglo");  
         console.log(guiaremisionsave);
         if ($scope.edit==0) {
             $http.post(url, guiaremisionsave ).success(function (response) {
@@ -226,7 +227,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
             console.log(guiaremisionsave);
             $http.put(url+'/'+$scope.idguia, guiaremisionsave ).success(function (response) {
             if (response.success == true) {
-                $scope.message = 'Se insertó correctamente la Guía de Remisión';
+                $scope.message = 'Se actualizó correctamente la Guía de Remisión';
                 $('#modalMessage').modal('show');
                 idguia=0;
                 $scope.ActivaGuia=0;
@@ -234,6 +235,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
                  $scope.BorrarEditar();
                  $scope.hideModalMessage();
                 $scope.guiaventa=0;
+                $scope.edit=0;
                 }
             else {
                     $scope.message_error = 'Ocurrio un error intentelo mas tarde';
@@ -242,6 +244,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
                     $scope.ActivaGuia=0;
                     $scope.BorrarEditar();
                     $scope.guiaventa=0;
+                    $scope.edit=0;
                 }
             });  
         }
@@ -252,11 +255,11 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
         $scope.day = new Date();
         $scope.finiciotransaux=$scope.finiciotrans.toDateString();
         $scope.dayaux=$scope.day.toDateString();
-        if($scope.finiciotransaux < $scope.dayaux)
+        if($scope.finiciotransaux <= $scope.dayaux)
         {
-            $scope.Menor=1;
-        }else{
             $scope.Menor=0;
+        }else{
+            $scope.Menor=1;
         }
     };
 
@@ -264,11 +267,11 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
         $scope.day = new Date();
         $scope.ffintransaux=$scope.ffintrans.toDateString();
         $scope.dayaux=$scope.day.toDateString();
-        if($scope.ffintransaux < $scope.dayaux)
+        if($scope.ffintransaux <= $scope.dayaux)
         {
-            $scope.menor=1;
-        }else{
             $scope.menor=0;
+        }else{
+            $scope.menor=1;
         }
     };
 
@@ -299,7 +302,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
             $scope.t_pto=response.guiaremision.nrodocumentoguiaremision.substring(4,7);
             $scope.t_sec=response.guiaremision.nrodocumentoguiaremision.substring(8,18);
             $scope.puntopartida=response.guiaremision.puntopartida;
-            $scope.$broadcast('angucomplete-alt:changeInput', 'citransportista', response.transportista[0].numdocidentific);
+            $scope.$broadcast('angucomplete-alt:changeInput', 'citransportista', $scope.citransportista=response.transportista[0].numdocidentific);
             $scope.transrazoncocial=response.transportista[0].razonsocial;
             $scope.placa=response.transportista[0].placa;
             $scope.ruta=response.guiaremision.ruta;
@@ -308,7 +311,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
             $scope.motivotraslado=response.guiaremision.motivotraslado;
             $scope.codestablecimiento=response.guiaremision.codestablecdestino;
             $scope.docaduana=response.guiaremision.nrodeclaracionaduana;
-            $scope.$broadcast('angucomplete-alt:changeInput', 'cidestinatario', response.destinatario[0].numdocidentific);
+            $scope.$broadcast('angucomplete-alt:changeInput', 'cidestinatario', $scope.cidestinatario=response.destinatario[0].numdocidentific);
             $scope.destirazonsocial=response.destinatario[0].razonsocial;
             $scope.direccion=response.destinatario[0].direccion;
             $scope.itemguiaretension=response.mercaderia;
@@ -331,6 +334,7 @@ app.controller('guiaremisionController', function($scope, $http, API_URL) {
     };
 
     $scope.BorrarEditar = function () {
+        $scope.initLoad();
         $scope.t_establ=null;
         $scope.t_pto=null;
         $scope.t_sec=null;

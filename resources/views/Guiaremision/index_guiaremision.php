@@ -24,6 +24,14 @@
             .datepicker{
                 color: #000 !important;
             }
+            .error {
+			  border-color: red;
+			}
+			 
+			.warning {
+			  border-color: yellow;
+			}
+ 
         </style>
 
 </head>
@@ -93,19 +101,19 @@
 									<div class="input-group">
 						                <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Nro. Guía de Remisión: </span>
 						                <span class="input-group-btn" style="width: 15%;">
-						                    <input type="text" class="form-control" id="t_establ" name="t_establ" ng-model="t_establ" ng-keypress="onlyNumber($event,3,'t_establ')" ng-blur="calculateLength('t_establ','3')" ng-maxlength="3" maxlength="3">
+						                    <input type="text" class="form-control" id="t_establ" name="t_establ" ng-model="t_establ" ng-keypress="onlyNumber($event,3,'t_establ')" ng-blur="t_establ=calculateLength('t_establ','3')" ng-maxlength="3" maxlength="3">
 						                </span>
 						                <span class="input-group-btn" style="width: 15%;">
-						                    <input type="text" class="form-control" id="t_pto" name="t_pto" ng-model="t_pto" ng-keypress="onlyNumber($event,3,'t_pto')" ng-blur="calculateLength('t_pto','3')" ng-maxlength="3" maxlength="3">
+						                    <input type="text" class="form-control" id="t_pto" name="t_pto" ng-model="t_pto" ng-keypress="onlyNumber($event,3,'t_pto')" ng-blur="t_pto=calculateLength('t_pto','3')" ng-maxlength="3" maxlength="3">
 						                </span>
-						                <input type="text" class="form-control" id="t_sec" name="t_sec" ng-model="t_sec" ng-keypress="onlyNumber($event,9,'t_sec')" ng-blur="calculateLength('t_sec','9')" ng-maxlength="9" maxlength="9">
+						                <input type="text" class="form-control" id="t_sec" name="t_sec" ng-model="t_sec" ng-keypress="onlyNumber($event,9,'t_sec')" ng-blur="t_sec=calculateLength('t_sec','9')" ng-maxlength="9" maxlength="9">
 						            </div>
 								</div>
 
 								<div class="col-sm-6 col-xs-12">
 									<div class="input-group">                        
 						                <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Punto Partida: </span>
-						                <input type="text" class="form-control" id="puntopartida" name="puntopartida" ng-model="puntopartida" maxlength="300" required>
+						                <input type="text" class="form-control" id="puntopartida" name="puntopartida" ng-model="puntopartida" maxlength="300" required >
 						            </div> 
 						            <span class="help-block error" ng-show="formguia.puntopartida.$touched && formguia.puntopartida.$invalid">El punto de partida es requerido</span>
 								</div>
@@ -127,14 +135,12 @@
 									              match-class="highlight"
 									              field-required="true"
 									              input-name="citransportista"
-									              disable-input="guardado"
 									              text-searching="Buscando Transportista"
 									              text-no-results="Transportista no encontrado"
 									              initial-value="citransportista"
 									              />
 									
-						            <span class="help-block error" ng-show="formguia.citransportista.$touched && formguia.citransportista.$invalid">La identificación es requerida</span>
-						                <span class="help-block error" ng-show="formguia.citransportista.$error.minlength">La identificación debe tener mínimo 10 dígitos</span>
+						          
 						            </div>
 								</div>
 
@@ -193,7 +199,7 @@
 								<div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
 									<div class="input-group">                        
 						                <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Código Establecimiento: </span>
-						                <input type="text" class="form-control" id="codestablecimiento" name="codestablecimiento" ng-keypress="onlyNumber($event,3,'codestablecimiento')" ng-blur="calculateLength('codestablecimiento','3')" ng-model="codestablecimiento" maxlength="3">
+						                <input type="text" class="form-control" id="codestablecimiento" name="codestablecimiento" ng-keypress="onlyNumber($event,3,'codestablecimiento')" ng-blur="codestablecimiento=calculateLength('codestablecimiento','3')" ng-model="codestablecimiento" maxlength="3">
 						            </div>
 								</div>
 
@@ -228,15 +234,14 @@
 									              match-class="highlight"
 									              field-required="true"
 									              input-name="citransportista"
-									              disable-input="guardado"
+									              -idisablenput="guardado"
 									              text-searching="Buscando Destinatario"
 									              text-no-results="Destinatario no encontrado"
 									              initial-value="cidestinatario"
 									              />
 
 						            </div>
-						             <span class="help-block error" ng-show="formguia.cidestinatario.$touched && formguia.cidestinatario.$invalid">La ruta es requerida</span>
-						            <span class="help-block error" ng-show="pru.cidestinatario.$error.minlength">La identificación debe tener mínimo 10 dígitos</span>
+						             
 								</div>
 
 								<div class="col-sm-6 col-xs-12">
@@ -429,7 +434,7 @@
 							<button type="button" class="btn btn-default" ng-click="ActivaGuia='0'; BorrarEditar();">
 				                Cancelar <span class="glyphicon glyphicon glyphicon-ban-circle" aria-hidden="true"></span> 
 				            </button>
-							<button type="button" name="guardar" class="btn btn-success"  ng-click="save()" ng-disabled="(formmercaderia.$invalid)">
+							<button type="button" name="guardar" class="btn btn-success"  ng-click="save()" ng-disabled="(formmercaderia.$invalid ||  form.puntopartida.$invalid ||  formguia.motivotraslado.$invalid ||  formguia.ffintrans.$invalid ||  formguia.finiciotrans.$invalid ||  formguia.ruta.$invalid ||  formguia.codestablecimiento.$invalid ||  formguia.docaduana.$invalid ||  formguia.citransportista.$invalid ||  formguia.cidestinatario.$invalid)">
 				                Guardar <span class="glyphicon glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> 
 				            </button>
 						</div>

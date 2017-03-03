@@ -144,7 +144,7 @@ class ConfiguracionSystemController extends Controller
             if (!$image->move($destinationPath, $name)) {
                 return response()->json(['success' => false]);
             } else {
-                $url_file = '/uploads/configuracion/' . $name;
+                $url_file = '/uploads/configuracion/'.$name;
             }
         }
 
