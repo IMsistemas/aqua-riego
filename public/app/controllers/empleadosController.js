@@ -181,8 +181,6 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                         $scope.salario = item.salario;
 
                         $scope.idpersona = item.idpersona;
-                        console.log("edit");
-                        console.log(item.rutafoto);
                         if (item.rutafoto != null && item.rutafoto != ''){
                             $scope.url_foto = API_URL+item.rutafoto;
                             console.log($scope.url_foto);
@@ -247,7 +245,10 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                 if (longitud > 0) {
                     $scope.idpersona = response[0].idpersona;
-                } else {
+                } else if($scope.edit=1){
+                    
+                }
+                else {
                     $scope.idpersona = 0;
                 }
 
@@ -294,6 +295,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         };
 
         console.log(data);
+        console.log($scope.empreado);
 
         Upload.upload({
             url: url,
