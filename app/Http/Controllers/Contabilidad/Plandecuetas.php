@@ -138,7 +138,7 @@ class Plandecuetas extends Controller
     {
         $filtro = json_decode($filtro);
         $data=Cont_RegistroContable::with("cont_transaccion.cont_tipotransaccion","cont_plancuentas")
-                                    ->whereRaw("cont_registrocontable.idplancuenta=".$filtro->idplancuenta." AND  cont_registrocontable.fecha>='".$filtro->Fechai."' AND cont_registrocontable.fecha<='".$filtro->Fechaf."' AND  cont_registrocontable.estadoanulado=true ")
+                                    ->whereRaw("cont_registrocontable.idplancuenta=".$filtro->idplancuenta." AND  cont_registrocontable.fecha>='".$filtro->Fechai."' AND cont_registrocontable.fecha<='".$filtro->Fechaf."' AND  cont_registrocontable.estadoanulado=".$filtro->Estado." ")
                                     ->orderBy('cont_registrocontable.fecha', 'asc')
                                     ->get();
         //return $data;

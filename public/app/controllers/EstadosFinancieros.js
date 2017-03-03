@@ -215,7 +215,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
         });
     };
     ///---
-    $scope.NumeroIASC="";
+    $scope.NumeroIASC=1;
     $scope.AddAsientoContable=function(){
         $("#AddAsc").modal("show");
         $scope.EstadoSave="N";
@@ -235,7 +235,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
                 $scope.NumeroIASC=parseInt(response);
             });
         }else{
-            $scope.NumeroIASC="";
+            $scope.NumeroIASC=1;
         }
     };
     ///---
@@ -388,7 +388,7 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     ///---
     $scope.ClearAsientoContable=function(){
         $scope.tipotransaccion="";
-        $scope.NumeroIASC="";
+        $scope.NumeroIASC=1;
         $scope.DescripcionASC="";
         $scope.RegistroC=[];
         $scope.aux_sumdebe=0;
@@ -457,12 +457,18 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     ///---
     $scope.RegistroCuentaContable=[];
     $scope.aux_CuentaContableSelc={};
+    $scope.EstadoAsc="Ac";
     $scope.RegistroContableCuenta=function(cuenta) {
         $scope.aux_CuentaContableSelc=cuenta;
         $scope.LoadRegistroCuenta();
     };
     ///---
     $scope.LoadRegistroCuenta=function() {
+        var aux_estado=$("#EstadoAsc").val();
+        var estado='true';
+        if(aux_estado!="Ac"){
+            estado='false';
+        }
         $("#procesarinfomracion").modal("show");
         var aux_fechai=$("#FechaRI").val();
         var aux_fechaf=$("#FechaRF").val();
@@ -470,7 +476,8 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
             idplancuenta: $scope.aux_CuentaContableSelc.idplancuenta,
             controlhaber: $scope.aux_CuentaContableSelc.controlhaber,
             Fechai: convertDatetoDB(aux_fechai),
-            Fechaf: convertDatetoDB(aux_fechaf)
+            Fechaf: convertDatetoDB(aux_fechaf),
+            Estado: estado
         };
       $http.get(API_URL + 'estadosfinacieros/registrocuenta/'+JSON.stringify(filtroregistro))
         .success(function(response){

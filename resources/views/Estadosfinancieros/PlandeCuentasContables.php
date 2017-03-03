@@ -60,7 +60,7 @@
                         <table class="table table-bordered table-condensed">
                             <thead>
                                 <tr class="bg-primary">
-                                    <th colspan="5"></th>
+                                    <th colspan="6"></th>
                                 </tr>
                                 <tr class="bg-primary">
                                     <th style="width: 20%;"></th>
@@ -104,19 +104,28 @@
                 </div>
               </div>
               <div class="row" style="padding-top: 5px;">
-                <div class="col-xs-4">
+                <div class="col-xs-3">
+                  <div class="input-group">
+                    <span class="input-group-addon">Estado: </span>
+                    <select class="form-control" ng-model="EstadoAsc" id="EstadoAsc">
+                      <option value="Ac">Activas</option>
+                      <option value="An">Anuladas</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-xs-3">
                   <div class="input-group">
                     <span class="input-group-addon">Fecha I.: </span>
                     <input type="type" class="form-control datepicker  input-sm" id="FechaRI" ng-model="FechaRI">
                   </div>
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-3">
                   <div class="input-group">
                     <span class="input-group-addon">Fecha F.: </span>
                     <input type="type" class="form-control datepicker  input-sm" id="FechaRF" ng-model="FechaRF">
                   </div>
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-3">
                   <button class="btn btn-primary" ng-click="LoadRegistroCuenta();" >Actualizar <i class="glyphicon glyphicon-refresh"></i></button>
                 </div>
               </div>
@@ -423,7 +432,7 @@
         <div class="col-xs-4">
           <div class="input-group">
             <span class="input-group-addon">Numero De comprobante: </span>
-            <input type="number" class="form-control   input-sm"  ng-model="NumeroIASC">
+            <input type="number" class="form-control   input-sm"   ng-model="NumeroIASC" readonly>
           </div>
         </div>
 
@@ -437,7 +446,7 @@
 
       <div class="row">
         <div class="col-xs-4">
-          <button ng-click="AddIntemCotable()" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>
+          <button ng-disabled="EstadoSave=='M'"  ng-click="AddIntemCotable()" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>
         </div>
       </div>
       <div class="row">
