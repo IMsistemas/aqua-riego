@@ -224,7 +224,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                 if (item.rutafoto != null && item.rutafoto != ''){
                     $scope.url_foto = item.rutafoto;
                 } else {
-                    $scope.url_foto = 'img/empleado.png';
+                    $scope.url_foto = API_URL+'img/empleado.png';
                 }
 
                 $('#modalInfoEmpleado').modal('show');
