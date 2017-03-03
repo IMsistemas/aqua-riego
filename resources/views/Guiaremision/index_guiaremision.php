@@ -82,9 +82,14 @@
 					</tbody>
 				</table>
 				<dir-pagination-controls
-	               max-size="1"
-	               direction-links="true"
-	               boundary-links="true" >
+	               on-page-change="pageChanged(newPageNumber)"
+
+                    template-url="dirPagination.html"
+
+                    class="pull-right"
+                    max-size="10"
+                    direction-links="true"
+                    boundary-links="true" >
 	            </dir-pagination-controls>
 			</div>
 		</div>
@@ -329,9 +334,14 @@
 										</tbody>
 									</table>
 									<dir-pagination-controls
-						               	max-size="5"
-						               	direction-links="true"
-						               	boundary-links="true" >
+						               on-page-change="pageChanged(newPageNumber)"
+
+					                    template-url="dirPagination.html"
+
+					                    class="pull-right"
+					                    max-size="10"
+					                    direction-links="true"
+					                    boundary-links="true" >
 						            </dir-pagination-controls>
 								</div>
 							</fieldset>
@@ -423,9 +433,14 @@
 									</div>
 								</div>
 								<dir-pagination-controls
-			               			max-size="5"
-			               			direction-links="true"
-			               			boundary-links="true">
+			               			on-page-change="pageChanged(newPageNumber)"
+
+				                    template-url="dirPagination.html"
+
+				                    class="pull-right"
+				                    max-size="10"
+				                    direction-links="true"
+				                    boundary-links="true" >
 			            		</dir-pagination-controls>
 			            	</form>
 							</div>

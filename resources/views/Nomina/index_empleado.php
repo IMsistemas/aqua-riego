@@ -22,7 +22,7 @@
 
         <div class="col-sm-6 col-xs-8">
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda" ng-keypress="initLoad(1)">
+                <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda" ng-change="searchByFilter()">
                 <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
@@ -52,7 +52,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr dir-paginate="empleado in empleados | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak >
+                <tr dir-paginate="empleado in empleados | orderBy:sortKey:reverse |filter:busqueda| itemsPerPage:10" total-items="totalItems" ng-cloak >
                     <td>{{empleado.numdocidentific}}</td>
                     <td>{{empleado.razonsocial}}</td>
                     <td>{{empleado.namecargo}}</td>
@@ -296,7 +296,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Foto: </span>
                                         <input class="form-control" type="file" ngf-select ng-model="file" name="file" id="file"
-                                               accept="image/*" ngf-max-size="2MB"  ng-required="false" ngf-pattern="image/*">
+                                               accept="image/*" ngf-max-size="2MB"  ng-required="false" ngf-pattern="image/*"/>
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.file.$error.required">La Foto del Empleado es requerida</span>
@@ -338,8 +338,8 @@
 
 
 
-                            <div class="col-xs-6 text-center" style="margin-top: 5px;">
-                                <img class="img-thumbnail" ngf-src="file" src="{{url_foto}}" alt="" style="width: 50%;">
+                            <div class="col-xs-6 text-center" style="margin-top: 5px;" ng-cloak>
+                                <img class="img-thumbnail" ngf-src="file || url_foto"  alt="" style="width: 50%;">
                             </div>
 
                         </form>

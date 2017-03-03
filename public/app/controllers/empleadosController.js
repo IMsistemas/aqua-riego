@@ -117,6 +117,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                     $scope.direccion = '';
                     $scope.correo = '';
                     $scope.salario = '';
+                    $scope.file='';
 
                     $scope.fechaingreso = fecha();
 
@@ -147,6 +148,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                 $http.get(API_URL + 'empleado/getTipoIdentificacion').success(function(response){
                     var longitud = response.length;
+                    console.log(response);
                     var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
                         array_temp.push({label: response[i].nameidentificacion, id: response[i].idtipoidentificacion})
@@ -179,11 +181,13 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                         $scope.salario = item.salario;
 
                         $scope.idpersona = item.idpersona;
-
+                        console.log("edit");
+                        console.log(item.rutafoto);
                         if (item.rutafoto != null && item.rutafoto != ''){
-                            $scope.url_foto = item.rutafoto;
+                            $scope.url_foto = API_URL+item.rutafoto;
+                            console.log($scope.url_foto);
                         } else {
-                            $scope.url_foto = 'img/empleado.png';
+                            $scope.url_foto = API_URL+'img/empleado.png';
                         }
 
                         $scope.departamento = item.iddepartamento;
@@ -218,15 +222,13 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                 $scope.address_employee = item.direccion;
                 $scope.email_employee = item.email;
                 $scope.salario_employee = item.salario;
-
-
-
+                console.log("info");
+                console.log(item.rutafoto);
                 if (item.rutafoto != null && item.rutafoto != ''){
-                    $scope.url_foto = item.rutafoto;
+                    $scope.url_foto = API_URL+item.rutafoto;
                 } else {
                     $scope.url_foto = API_URL+'img/empleado.png';
                 }
-
                 $('#modalInfoEmpleado').modal('show');
 
                 break;

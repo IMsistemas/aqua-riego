@@ -6,7 +6,7 @@
 
             <div class="col-sm-6 col-xs-8">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda" ng-keypress="initLoad(1)">
+                    <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda" ng-change="searchByFilter()">
                     <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr dir-paginate="cargo in cargos | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
+                    <tr dir-paginate="cargo in cargos | orderBy:sortKey:reverse |filter:busqueda| itemsPerPage:10" total-items="totalItems" ng-cloak">
                         <td>{{cargo.namecargo}}</td>
                         <td class="text-center">
                             <button type="button" class="btn btn-warning" ng-click="toggle('edit', cargo.idcargo)">
