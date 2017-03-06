@@ -15,36 +15,52 @@
 </head>
 <body>
 
-	<div class="container-fluid" ng-controller="Kardex" ng-init="" ng-cloak>
+	<div class="container-fluid" ng-controller="Kardex" ng-init="CargarBodegas();CargarCategoriaNivel1();" ng-cloak>
         <div class="row">
             <div class="col-xs-3">
-                <h3><strong>Inventariio (Kardex)</strong></h3>
+                <h3><strong>Inventario (Kardex)</strong></h3>
             </div>
         </div>
 
 
         <div class="row">
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control " id="search" placeholder="BUSCAR..." ng-model="search" ng-change="">
                     <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-2">
+                <div class="input-group">
+                  <span class="input-group-addon">Fecha: </span>
+                  <input type="type" class="form-control datepicker  input-sm" id="FechaK" ng-model="FechaK">
+                </div>
+            </div>
+            <div class="col-xs-2">
                 <div class="input-group">
                   <span class="input-group-addon">Categoria: </span>
-                  <select class="form-control input-sm" id="CategoriaItem" ng-model="CategoriaItem">
+                  <select class="form-control input-sm" id="CategoriaItem" ng-model="CategoriaItem" ng-change="CargarCategoriaNivel2();">
+                    <option ng-repeat="c1 in Categoria1" value="{{c1.idcategoria}}">{{c1.nombrecategoria}}</option>
                   </select>
                 </div>
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-2">
+                <div class="input-group">
+                  <span class="input-group-addon">Categoria 2: </span>
+                  <select class="form-control input-sm" id="SubCategoriaItem" ng-model="SubCategoriaItem">
+                  <option ng-repeat="c2 in Categoria2" value="{{c2.idcategoria}}">{{c2.nombrecategoria}}</option>
+                  </select>
+                </div>
+            </div>
+            <div class="col-xs-2">
                 <div class="input-group">
                   <span class="input-group-addon">Bodega: </span>
                   <select class="form-control input-sm" id="BodegaItem" ng-model="BodegaItem">
+                  <option ng-repeat="b in Bodegas" value="{{b.idbodega}}">{{b.namebodega}}</option>
                   </select>
                 </div>
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <button class="btn btn-primary btn-sm">Actualizar <i class="glyphicon glyphicon glyphicon-refresh"></i></button>
             </div>
         </div>

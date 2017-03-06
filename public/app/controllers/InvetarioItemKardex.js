@@ -1,6 +1,34 @@
 app.controller('Kardex', function($scope, $http, API_URL) {
- 
+    $scope.FechaK=now();  // Cargar por default el dia actual 
 
+    $scope.Bodegas=[]; //listas Bodegas
+    $scope.Categoria1=[]; //lista categoria 1
+    $scope.Categoria2=[]; //lista categoria 2 (subcategoria)
+
+    $scope.CategoriaItem="";
+    ///---
+    $scope.CargarBodegas=function(){
+        $http.get(API_URL + 'procesoskardex/loadbodegas')
+        .success(function(response){
+            $scope.Bodegas=response;
+        });
+    };
+    ///---
+    $scope.CargarCategoriaNivel1=function(){
+        $http.get(API_URL + 'procesoskardex/loadcategoria')
+        .success(function(response){
+            $scope.Categoria1=response;
+        });
+    };
+    ///---
+    $scope.CargarCategoriaNivel2=function(){
+        if($scope.CategoriaItem!=""){
+            $http.get(API_URL + 'procesoskardex/loadsubcategoria/'+$scope.CategoriaItem)
+            .success(function(response){
+                $scope.Categoria2=response;
+            });
+        }
+    };
      ///---
      $scope.RegistroKardexPP=function (item) {
          $("#RegistroKardePromedioPonderado").modal("show")
