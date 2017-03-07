@@ -232,7 +232,11 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
             };
             $http.get(API_URL + 'estadosfinacieros/numcomp/'+JSON.stringify(aux_filtronumero))
             .success(function(response){
-                $scope.NumeroIASC=parseInt(response);
+                if(parseInt(response)>0){
+                    $scope.NumeroIASC=parseInt(response);
+                }else{
+                    $scope.NumeroIASC=1;
+                }
             });
         }else{
             $scope.NumeroIASC=1;
@@ -464,26 +468,35 @@ app.controller('Contabilidad', function($scope, $http, API_URL) {
     };
     ///---
     $scope.LoadRegistroCuenta=function() {
-        var aux_estado=$("#EstadoAsc").val();
-        var estado='true';
-        if(aux_estado!="Ac"){
-            estado='false';
+        if($scope.aux_CuentaContableSelc.idplancuenta!=undefined){
+            var aux_estado=$("#EstadoAsc").val();
+            var estado='true';
+            if(aux_estado!="Ac"){
+                estado='false';
+            }
+            $("#procesarinfomracion").modal("show");
+            var aux_fechai=$("#FechaRI").val();
+            var aux_fechaf=$("#FechaRF").val();
+            var filtroregistro={
+                idplancuenta: $scope.aux_CuentaContableSelc.idplancuenta,
+                controlhaber: $scope.aux_CuentaContableSelc.controlhaber,
+                Fechai: convertDatetoDB(aux_fechai),
+                Fechaf: convertDatetoDB(aux_fechaf),
+                Estado: estado
+            };
+          $http.get(API_URL + 'estadosfinacieros/registrocuenta/'+JSON.stringify(filtroregistro))
+            .success(function(response){
+                $scope.RegistroCuentaContable=response;
+                $("#procesarinfomracion").modal("hide");
+            });
+        }else{
+                $("#procesarinfomracion").modal("hide");
+                QuitarClasesMensaje();
+                $("#titulomsm").addClass("btn-info");
+                $scope.Mensaje="Seleccione Una Cuenta Contable";
+                $("#msm").modal("show");
         }
-        $("#procesarinfomracion").modal("show");
-        var aux_fechai=$("#FechaRI").val();
-        var aux_fechaf=$("#FechaRF").val();
-        var filtroregistro={
-            idplancuenta: $scope.aux_CuentaContableSelc.idplancuenta,
-            controlhaber: $scope.aux_CuentaContableSelc.controlhaber,
-            Fechai: convertDatetoDB(aux_fechai),
-            Fechaf: convertDatetoDB(aux_fechaf),
-            Estado: estado
-        };
-      $http.get(API_URL + 'estadosfinacieros/registrocuenta/'+JSON.stringify(filtroregistro))
-        .success(function(response){
-            $scope.RegistroCuentaContable=response;
-            $("#procesarinfomracion").modal("hide");
-        });
+        
     };
     ///---
     $scope.ProcesoModificarAsientoCt=function(registro) {
