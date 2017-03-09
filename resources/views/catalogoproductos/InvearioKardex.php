@@ -38,16 +38,18 @@
             </div>
             <div class="col-xs-2">
                 <div class="input-group">
-                  <span class="input-group-addon">Categoria: </span>
+                  <span class="input-group-addon">Categoría: </span>
                   <select class="form-control input-sm" id="CategoriaItem" ng-model="CategoriaItem" ng-change="CargarCategoriaNivel2();">
+                    <option value="">Seleccione</option>
                     <option ng-repeat="c1 in Categoria1" value="{{c1.idcategoria}}">{{c1.nombrecategoria}}</option>
                   </select>
                 </div>
             </div>
             <div class="col-xs-2">
                 <div class="input-group">
-                  <span class="input-group-addon">Categoria 2: </span>
+                  <span class="input-group-addon">Categoría 2: </span>
                   <select class="form-control input-sm" id="SubCategoriaItem" ng-model="SubCategoriaItem">
+                  <option value="">Seleccione</option>
                   <option ng-repeat="c2 in Categoria2" value="{{c2.idcategoria}}">{{c2.nombrecategoria}}</option>
                   </select>
                 </div>
@@ -56,12 +58,13 @@
                 <div class="input-group">
                   <span class="input-group-addon">Bodega: </span>
                   <select class="form-control input-sm" id="BodegaItem" ng-model="BodegaItem">
+                  <option value="">Seleccione</option>
                   <option ng-repeat="b in Bodegas" value="{{b.idbodega}}">{{b.namebodega}}</option>
                   </select>
                 </div>
             </div>
             <div class="col-xs-2">
-                <button class="btn btn-primary btn-sm">Actualizar <i class="glyphicon glyphicon glyphicon-refresh"></i></button>
+                <button ng-click="CargarInventario()" class="btn btn-primary btn-sm">Actualizar <i class="glyphicon glyphicon glyphicon-refresh"></i></button>
             </div>
         </div>
 
@@ -82,27 +85,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
+                        <tr ng-repeat="item in Inventario">
+                            <td>{{$index+1}}</td>
                             <td>
-                                <button class="btn btn-info btn-sm" ng-click="RegistroKardexPP()" title="Kardex"><i class="glyphicon glyphicon glyphicon-info-sign"></i></button>
+                                <button class="btn btn-info btn-sm" ng-click="RegistroKardexPP(item)" title="Kardex"><i class="glyphicon glyphicon glyphicon-info-sign"></i></button>
                             </td>
-                            <td>dfghjk</td>
-                            <td>ccc2</td>
-                            <td>22.3</td>
-                            <td>22.3</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>
-                                <button class="btn btn-info btn-sm" ng-click="RegistroKardexPP()" title="Kardex"><i class="glyphicon glyphicon glyphicon-info-sign"></i></button>
-                            </td>
-                            <td>dfghjk</td>
-                            <td>ccc2</td>
-                            <td>22.3</td>
-                            <td>22.3</td>
-                            <td>2</td>
+                            <td>{{item.nombreproducto}}</td>
+                            <td>{{item.codigoproducto}}</td>
+                            <td>{{item.precioventa}}</td>
+                            <td>{{item.costopromedio}}</td>
+                            <td>{{item.cantidad}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -187,6 +179,25 @@
         </div>
       </div>
     </div>
+
+
+<div class="modal fade" id="msm" style="z-index: 8000;" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary" id="titulomsm">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Mensaje</h4>
+      </div>
+      <div class="modal-body">
+        <strong>{{Mensaje}}</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar <i class="glyphicon glyphicon glyphicon-ban-circle"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 	</div>

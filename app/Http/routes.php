@@ -747,5 +747,6 @@ Route::resource('Inventario', 'CatalogoProductos\InventarioKardex');
 Route::get('procesoskardex/loadbodegas', 'CatalogoProductos\InventarioKardex@cargarbodegas'); 
 Route::get('procesoskardex/loadcategoria', 'CatalogoProductos\InventarioKardex@cargarcategoria');
 Route::get('procesoskardex/loadsubcategoria/{id}', 'CatalogoProductos\InventarioKardex@cargarsubcategoria');
+Route::get('procesoskardex/loadinventario/{filtro}', 'CatalogoProductos\InventarioKardex@cargarinvetarioporbodega');
 
 //-------------------------------- Inveario Intem Kardex ---------------/////////

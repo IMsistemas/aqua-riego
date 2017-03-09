@@ -66,7 +66,7 @@
                                     <th style="width: 20%;"></th>
                                     <th ></th>
                                     <th style="width: 50%;">Detalle</th>
-                                    <th style="width: 10%;">Codigo SRI</th>
+                                    <th style="width: 10%;">Codigo</th>
                                     <th>Balance</th>
                                     <th></th>
                                 </tr>
@@ -198,7 +198,7 @@
                 </div>
                 <div class="col-xs-6">
                     <div class="input-group">
-                      <span class="input-group-addon">Codigo SRI: </span>
+                      <span class="input-group-addon">Codigo : </span>
                       <input type="type" class="form-control   input-sm" ng-model="CodigoSRICCM">
                     </div>
                 </div>

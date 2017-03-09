@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Modelos\Contabilidad\Cont_Bodega;
 use App\Modelos\Contabilidad\Cont_Categoria;
+use App\Modelos\Contabilidad\Cont_CatalogItem;
 
 use Carbon\Carbon;
 use DateTime;
@@ -59,5 +60,19 @@ class InventarioKardex extends Controller
     	return Cont_Categoria::whereRaw("jerarquia <@ '".$aux_nivel1->jerarquia."' AND  idcategoria!=$id ")
     							->orderBy('jerarquia', 'asc')
     							->get();			
+    }
+    /**
+     *
+     * Cargar invetario
+     *
+     */
+    public function cargarinvetarioporbodega($filtro)
+    {
+    	$filtro = json_decode($filtro);
+    	return 	Cont_CatalogItem::selectRaw("*")
+    							->selectRaw("(SELECT f_cantidaditemxbodega(idcatalogitem,".$filtro->Bodega.",'".$filtro->Fecha."') ) as Cantidad")
+    							->selectRaw("(SELECT f_costopromedioitem(idcatalogitem,'".$filtro->Fecha."') ) as CostoPromedio")
+    							->whereRaw(" idclaseitem=1 ")
+    							->get();
     }
 }

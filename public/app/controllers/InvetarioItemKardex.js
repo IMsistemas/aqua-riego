@@ -6,6 +6,10 @@ app.controller('Kardex', function($scope, $http, API_URL) {
     $scope.Categoria2=[]; //lista categoria 2 (subcategoria)
 
     $scope.CategoriaItem="";
+    $scope.SubCategoriaItem="";
+    $scope.BodegaItem="";
+
+    $scope.Inventario=[];
     ///---
     $scope.CargarBodegas=function(){
         $http.get(API_URL + 'procesoskardex/loadbodegas')
@@ -29,7 +33,38 @@ app.controller('Kardex', function($scope, $http, API_URL) {
             });
         }
     };
-     ///---
+    ///---
+    $scope.CargarInventario=function () {
+        var filtro={
+            Fecha: convertDatetoDB($("#FechaK").val()),
+            Categoria: $scope.CategoriaItem,
+            SubCategria: $scope.SubCategoriaItem,
+            Bodega : $scope.BodegaItem,
+            Tipo: 'B'
+        };
+        if($("#FechaK").val()!=""){
+            if($scope.BodegaItem!=""){
+                $scope.EnviarFiltroInventario(filtro);
+            }else{
+                QuitarClasesMensaje();
+                $("#titulomsm").addClass("btn-warning");
+                $scope.Mensaje="Seleccione Una Bodega";
+                $("#msm").modal("show");   
+            }
+        }else{
+            QuitarClasesMensaje();
+            $("#titulomsm").addClass("btn-warning");
+            $scope.Mensaje="Seleccione Un Fecha";
+            $("#msm").modal("show");   
+        }
+    };
+    $scope.EnviarFiltroInventario=function(data){
+        $http.get(API_URL + 'procesoskardex/loadinventario/'+JSON.stringify(data))
+            .success(function(response){
+                $scope.Inventario=response;
+        });
+    };
+    ///---
      $scope.RegistroKardexPP=function (item) {
          $("#RegistroKardePromedioPonderado").modal("show")
      };
