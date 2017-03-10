@@ -1,6 +1,7 @@
 app.controller('Kardex', function($scope, $http, API_URL) {
     $scope.FechaK=now();  // Cargar por default el dia actual 
-
+    $scope.FechaF=now();
+    $scope.FechaI=first();
     $scope.Bodegas=[]; //listas Bodegas
     $scope.Categoria1=[]; //lista categoria 1
     $scope.Categoria2=[]; //lista categoria 2 (subcategoria)
@@ -10,6 +11,7 @@ app.controller('Kardex', function($scope, $http, API_URL) {
     $scope.BodegaItem="";
 
     $scope.Inventario=[];
+    $scope.Kardex=[];
     ///---
     $scope.CargarBodegas=function(){
         $http.get(API_URL + 'procesoskardex/loadbodegas')
@@ -66,7 +68,17 @@ app.controller('Kardex', function($scope, $http, API_URL) {
     };
     ///---
      $scope.RegistroKardexPP=function (item) {
-         $("#RegistroKardePromedioPonderado").modal("show")
+         $("#RegistroKardePromedioPonderado").modal("show");
+         var filtro={
+            FechaI: convertDatetoDB($("#FechaI").val()),
+            FechaF: convertDatetoDB($("#FechaF").val()),
+            idproducto_bodega: item.idproducto_bodega,
+            Tipo: 'B'
+        };
+         $http.get(API_URL + 'procesoskardex/loadkardex/'+JSON.stringify(filtro))
+            .success(function(response){
+                $scope.Kardex=response;
+        });
      };
 });
 

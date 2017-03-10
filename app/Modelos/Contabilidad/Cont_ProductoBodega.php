@@ -19,7 +19,13 @@ class Cont_ProductoBodega extends Model
         'idcatalogitem',
         'idbodega'
     ];
-    
+    public function cont_catalogoitem()
+    {
+        return $this->belongsTo('App\Modelos\Contabilidad\Cont_CatalogItem');
+    }
+    public function cont_bodega(){
+        return $this->belongsTo('App\Modelos\Contabilidad\Cont_Bodega',"idbodega");
+    }
 
    
 }

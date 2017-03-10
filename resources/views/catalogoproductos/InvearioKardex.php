@@ -142,7 +142,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-condensend">
                         <thead>
                             <tr class="bg-primary">
                                 <th></th>
@@ -151,6 +151,8 @@
                                 <th></th>
                                 <th colspan="3" class="text-center">Entradas</th>
                                 <th colspan="3" class="text-center">Salidas</th>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                             </tr>
                             <tr class="bg-primary">
@@ -164,9 +166,28 @@
                                 <th>Cantidad</th>
                                 <th>Costo U.</th>
                                 <th>Costo T.</th>
-                                <th>Total</th>
+                                <th>Total Cant.</th>
+                                <th>Costo P.</th>
+                                <th>Total Val.</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr ng-repeat="k in Kardex">
+                                <td>{{$id+1}}</td>
+                                <td></td>
+                                <td>{{k.fecharegistro}}</td>
+                                <td>{{k.descripcion}}</td>
+                                <td>{{k.cantidadE}}</td>
+                                <td>{{k.costounitarioE}}</td>
+                                <td>{{k.costototalE}}</td>
+                                <td>{{k.cantidadS}}</td>
+                                <td>{{k.costounitarioS}}</td>
+                                <td>{{k.costototalS}}</td>
+                                <td>{{k.CantidadT}}</td>
+                                <td>{{k.CostoP}}</td>
+                                <td>{{k.TotalV}}</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

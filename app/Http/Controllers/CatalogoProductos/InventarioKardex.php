@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Modelos\Contabilidad\Cont_Kardex;
+use App\Modelos\Contabilidad\Cont_ProductoBodega;
 use App\Modelos\Contabilidad\Cont_Bodega;
 use App\Modelos\Contabilidad\Cont_Categoria;
 use App\Modelos\Contabilidad\Cont_CatalogItem;
+
+
+
 
 use Carbon\Carbon;
 use DateTime;
@@ -69,10 +74,90 @@ class InventarioKardex extends Controller
     public function cargarinvetarioporbodega($filtro)
     {
     	$filtro = json_decode($filtro);
-    	return 	Cont_CatalogItem::selectRaw("*")
+    	/*return 	Cont_CatalogItem::selectRaw("*")
     							->selectRaw("(SELECT f_cantidaditemxbodega(idcatalogitem,".$filtro->Bodega.",'".$filtro->Fecha."') ) as Cantidad")
     							->selectRaw("(SELECT f_costopromedioitem(idcatalogitem,'".$filtro->Fecha."') ) as CostoPromedio")
     							->whereRaw(" idclaseitem=1 ")
+    							->get();*/
+    	return Cont_CatalogItem:: join("cont_producto_bodega","cont_producto_bodega.idcatalogitem","=","cont_catalogitem.idcatalogitem")
+    							->selectRaw("*")
+    							->selectRaw("(SELECT f_cantidaditemxbodega(cont_catalogitem.idcatalogitem,".$filtro->Bodega.",'".$filtro->Fecha."') ) as Cantidad")
+    							->selectRaw("(SELECT f_costopromedioitem(cont_catalogitem.idcatalogitem,'".$filtro->Fecha."') ) as CostoPromedio")
+    							->whereRaw("cont_catalogitem.idclaseitem=1 AND cont_producto_bodega.idbodega=".$filtro->Bodega." ")
     							->get();
+    }
+    /**
+     *
+     * Kardex Producto
+     *
+     */
+    public function kardexitem($filtro)
+    {
+    	$filtro = json_decode($filtro);
+    	$aux_data= Cont_Kardex::whereRaw("idproducto_bodega=".$filtro->idproducto_bodega." AND fecharegistro BETWEEN '".$filtro->FechaI."' AND '".$filtro->FechaF."'")
+    						->orderBy('fecharegistro', 'ASC')
+    						->get();
+    	$aux_cantidad=0;
+    	$aux_total=0;
+    	$aux_costop=0;
+    	$aux_kardex=array();
+    	foreach ($aux_data as $item) {
+    		if($item->tipoentradasalida==1){ // Entradas
+    			$aux_cantidad=$aux_cantidad+$item->cantidad;
+    			$aux_total=$aux_total+$item->costototal;
+
+    			if($aux_cantidad!=0){
+    				$aux_costop=($aux_total/$aux_cantidad);
+    			}else{
+    				$aux_costop=0;
+    			}
+
+    			$aux_entrada=array(
+    			"idkardex"=> $item->idkardex, 
+    			"idtransaccion"=> $item->idtransaccion, 
+    			"idproducto_bodega"=>$item->idproducto_bodega,
+    			"fecharegistro"=> $item->fecharegistro, 
+    			"descripcion"=> $item->descripcion,
+    			"cantidadE"=> $item->cantidad,
+    			"costounitarioE"=> $item->costounitario, 
+    			"costototalE"=> $item->costototal,
+    			"cantidadS"=> "",
+    			"costounitarioS"=> "", 
+    			"costototalS"=> "",
+    			"CantidadT"=>$aux_cantidad,
+    			"CostoP"=>$aux_costop,
+    			"TotalV"=>$aux_total
+    			);
+    			array_push($aux_kardex, $aux_entrada);
+    		}else{
+    			
+    			if($aux_cantidad!=0){
+    				$aux_costop=($aux_total/$aux_cantidad);
+    			}else{
+    				$aux_costop=0;
+    			}
+
+    			$aux_cantidad=$aux_cantidad-$item->cantidad;
+    			$aux_total=$aux_total-$item->costototal;
+    			$aux_salida=array(
+    			"idkardex"=> $item->idkardex, 
+    			"idtransaccion"=> $item->idtransaccion, 
+    			"idproducto_bodega"=>$item->idproducto_bodega,
+    			"fecharegistro"=> $item->fecharegistro, 
+    			"descripcion"=> $item->descripcion,
+    			"cantidadE"=> "",
+    			"costounitarioE"=> "", 
+    			"costototalE"=> "",
+    			"cantidadS"=> $item->cantidad,
+    			"costounitarioS"=>$item->costounitario, 
+    			"costototalS"=> $item->costototal,
+    			"CantidadT"=>$aux_cantidad,
+    			"CostoP"=>$aux_costop,
+    			"TotalV"=>$aux_total
+    			);
+    			array_push($aux_kardex, $aux_salida);
+    		}
+    	}
+    	return $aux_kardex;
     }
 }
