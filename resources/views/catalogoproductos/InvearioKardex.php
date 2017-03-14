@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-xs-2">
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control " id="search" placeholder="BUSCAR..." ng-model="search" ng-change="">
+                    <input type="text" class="form-control " id="search" placeholder="BUSCAR..." ng-model="search" ng-keyup="CargarInventario()">
                     <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
@@ -106,7 +106,7 @@
 
 
     <div class="modal fade" id="RegistroKardePromedioPonderado" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-dialog modal-lg" role="document" style="width:90%">
         <div class="modal-content">
           <div class="modal-header bg-primary" >
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -129,14 +129,17 @@
                 </div>
 
                 <div class="col-xs-3">
-                    <div class="form-group has-feedback">
-                        <input type="text" class="form-control " id="search" placeholder="BUSCAR..." ng-model="search" ng-change="">
-                        <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
+                    <div class="input-group">
+                      <span class="input-group-addon">Estado: </span>
+                      <select class="form-control input-sm " ng-model="ActivasInactivas">
+                          <option value="A">Activas</option>
+                          <option value="AN">Anuladas</option>
+                      </select>
                     </div>
                 </div>
 
                 <div class="col-xs-3">
-                    <button class="btn btn-primary btn-sm">Actualizar <i class="glyphicon glyphicon glyphicon-refresh"></i></button>
+                    <button class="btn btn-primary btn-sm" ng-click="RegistroKardexPPActualizar()">Actualizar <i class="glyphicon glyphicon glyphicon-refresh"></i></button>
                 </div>
 
             </div>
@@ -174,7 +177,7 @@
                         <tbody>
                             <tr ng-repeat="k in Kardex">
                                 <td>{{$id+1}}</td>
-                                <td></td>
+                                <td>{{k.transaccion.cont_tipotransaccion.siglas}}</td>
                                 <td>{{k.fecharegistro}}</td>
                                 <td>{{k.descripcion}}</td>
                                 <td>{{k.cantidadE}}</td>

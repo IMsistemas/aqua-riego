@@ -36,12 +36,14 @@ app.controller('Kardex', function($scope, $http, API_URL) {
         }
     };
     ///---
+    $scope.search="";
     $scope.CargarInventario=function () {
         var filtro={
             Fecha: convertDatetoDB($("#FechaK").val()),
             Categoria: $scope.CategoriaItem,
             SubCategria: $scope.SubCategoriaItem,
             Bodega : $scope.BodegaItem,
+            Search: $scope.search,
             Tipo: 'B'
         };
         if($("#FechaK").val()!=""){
@@ -67,12 +69,30 @@ app.controller('Kardex', function($scope, $http, API_URL) {
         });
     };
     ///---
+    $scope.ActivasInactivas="A";
+    $scope.itemproductobodega={};
      $scope.RegistroKardexPP=function (item) {
          $("#RegistroKardePromedioPonderado").modal("show");
          var filtro={
             FechaI: convertDatetoDB($("#FechaI").val()),
             FechaF: convertDatetoDB($("#FechaF").val()),
             idproducto_bodega: item.idproducto_bodega,
+            Estado: $scope.ActivasInactivas,
+            Tipo: 'B'
+        };
+        $scope.itemproductobodega=item;
+         $http.get(API_URL + 'procesoskardex/loadkardex/'+JSON.stringify(filtro))
+            .success(function(response){
+                $scope.Kardex=response;
+        });
+     };
+     $scope.RegistroKardexPPActualizar=function () {
+         $("#RegistroKardePromedioPonderado").modal("show");
+         var filtro={
+            FechaI: convertDatetoDB($("#FechaI").val()),
+            FechaF: convertDatetoDB($("#FechaF").val()),
+            idproducto_bodega: $scope.itemproductobodega.idproducto_bodega,
+            Estado: $scope.ActivasInactivas,
             Tipo: 'B'
         };
          $http.get(API_URL + 'procesoskardex/loadkardex/'+JSON.stringify(filtro))

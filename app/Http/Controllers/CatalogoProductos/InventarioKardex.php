@@ -79,11 +79,19 @@ class InventarioKardex extends Controller
     							->selectRaw("(SELECT f_costopromedioitem(idcatalogitem,'".$filtro->Fecha."') ) as CostoPromedio")
     							->whereRaw(" idclaseitem=1 ")
     							->get();*/
+    	$aux_subcategoria="";
+    	$aux_search="";
+    	if($filtro->SubCategria!=""){
+    		$aux_subcategoria=" AND cont_catalogitem.idcategoria=".$filtro->SubCategria." ";
+    	}
+    	if($filtro->Search!=""){
+    		$aux_search=" AND ( cont_catalogitem.nombreproducto LIKE '%".$filtro->Search."%'  OR cont_catalogitem.codigoproducto LIKE '%".$filtro->Search."%') ";
+    	}
     	return Cont_CatalogItem:: join("cont_producto_bodega","cont_producto_bodega.idcatalogitem","=","cont_catalogitem.idcatalogitem")
     							->selectRaw("*")
     							->selectRaw("(SELECT f_cantidaditemxbodega(cont_catalogitem.idcatalogitem,".$filtro->Bodega.",'".$filtro->Fecha."') ) as Cantidad")
     							->selectRaw("(SELECT f_costopromedioitem(cont_catalogitem.idcatalogitem,'".$filtro->Fecha."') ) as CostoPromedio")
-    							->whereRaw("cont_catalogitem.idclaseitem=1 AND cont_producto_bodega.idbodega=".$filtro->Bodega." ")
+    							->whereRaw("cont_catalogitem.idclaseitem=1 AND cont_producto_bodega.idbodega=".$filtro->Bodega." ".$aux_subcategoria." ".$aux_search)
     							->get();
     }
     /**
@@ -94,9 +102,15 @@ class InventarioKardex extends Controller
     public function kardexitem($filtro)
     {
     	$filtro = json_decode($filtro);
-    	$aux_data= Cont_Kardex::whereRaw("idproducto_bodega=".$filtro->idproducto_bodega." AND fecharegistro BETWEEN '".$filtro->FechaI."' AND '".$filtro->FechaF."'")
+    	$estado="true";
+    	if($filtro->Estado!="A"){
+    		$estado="false";
+    	}
+    	$aux_data= Cont_Kardex::with("cont_transaccion.cont_tipotransaccion")
+    						->whereRaw("idproducto_bodega=".$filtro->idproducto_bodega." AND fecharegistro BETWEEN '".$filtro->FechaI."' AND '".$filtro->FechaF."' AND estadoanulado='".$estado."' ")
     						->orderBy('fecharegistro', 'ASC')
     						->get();
+    						//print_r($aux_data);
     	$aux_cantidad=0;
     	$aux_total=0;
     	$aux_costop=0;
@@ -126,7 +140,8 @@ class InventarioKardex extends Controller
     			"costototalS"=> "",
     			"CantidadT"=>$aux_cantidad,
     			"CostoP"=>$aux_costop,
-    			"TotalV"=>$aux_total
+    			"TotalV"=>$aux_total,
+    			"transaccion"=> $item->cont_transaccion
     			);
     			array_push($aux_kardex, $aux_entrada);
     		}else{
@@ -153,7 +168,8 @@ class InventarioKardex extends Controller
     			"costototalS"=> $item->costototal,
     			"CantidadT"=>$aux_cantidad,
     			"CostoP"=>$aux_costop,
-    			"TotalV"=>$aux_total
+    			"TotalV"=>$aux_total,
+    			"transaccion"=> $item->cont_transaccion
     			);
     			array_push($aux_kardex, $aux_salida);
     		}

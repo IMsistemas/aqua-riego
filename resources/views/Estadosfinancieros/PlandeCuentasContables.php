@@ -107,7 +107,7 @@
                 <div class="col-xs-3">
                   <div class="input-group">
                     <span class="input-group-addon">Estado: </span>
-                    <select class="form-control" ng-model="EstadoAsc" id="EstadoAsc">
+                    <select class="form-control" ng-model="EstadoAsc" id="EstadoAsc" ng-change="LoadRegistroCuenta();">
                       <option value="Ac">Activas</option>
                       <option value="An">Anuladas</option>
                     </select>
@@ -155,8 +155,8 @@
                       <tr ng-repeat=" registro in RegistroCuentaContable">
                         <td>{{$index+1}}</td>
                         <td>
-                          <button class="btn btn-warning btn-sm" ng-click="ProcesoModificarAsientoCt(registro)" > <i class="glyphicon glyphicon glyphicon-edit"></i></button>
-                          <button class="btn btn-danger btn-sm" ng-click="ProcesoBorrarAsientoCt(registro)" > <i class="glyphicon glyphicon glyphicon-ban-circle"></i></button>
+                          <button  ng-disabled="EstadoAsc=='An' "   class="btn btn-warning btn-sm" ng-click="ProcesoModificarAsientoCt(registro)" > <i class="glyphicon glyphicon glyphicon-edit"></i></button>
+                          <button ng-disabled="EstadoAsc=='An' " class="btn btn-danger btn-sm" ng-click="ProcesoBorrarAsientoCt(registro)" > <i class="glyphicon glyphicon glyphicon-ban-circle"></i></button>
                         </td>
                         <td>{{ registro.cont_transaccion.cont_tipotransaccion.sigla }}</td>
                         <td>{{ registro.fecha }}</td>
