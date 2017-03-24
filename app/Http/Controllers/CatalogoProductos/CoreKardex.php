@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Contabilidad;
+namespace App\Http\Controllers\CatalogoProductos;
 
 use Illuminate\Http\Request;
 
@@ -27,10 +27,11 @@ class CoreKardex extends Controller
 	{	$aux_kardex=new CoreKardex;
 		foreach ($items as $item) {
 			$itembodega=Cont_ProductoBodega::whereRaw("idcatalogitem=".$item->idcatalogitem." AND idbodega=".$item->idbodega)->get();	//Busca si el producto exisnte en bodega
+		
 			if(count($itembodega)==0){ // si no exixte el producot en bodega se lo añade a la bodega
 				$aux_kardex->AgregarItemEnBodega($item);
 			}else{ //si ya existe el producto en la bodega se hace el kardex directo 
-				$aux_kardex->RegistroKardex($itembodega->idproducto_bodega,$item);
+				$aux_kardex->RegistroKardex($itembodega[0]->idproducto_bodega,$item);
 			}
 		}
 		return 1;
@@ -66,7 +67,7 @@ class CoreKardex extends Controller
 			'cantidad'=> $registro->cantidad,
 			'costounitario' => $registro->costounitario,
 			'costototal' => $registro->costototal,
-			'tipoentradasalida' => $registro->tipoentradasalida
+			'tipoentradasalida' => $registro->tipoentradasalida,
 			'estadoanulado' => true,
 			'descripcion' => $registro->descripcion
 			 );	
