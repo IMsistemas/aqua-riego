@@ -77,6 +77,7 @@ app.controller('cargosController', function($scope, $http, API_URL) {
                 });
                 break;
             case 'edit':
+
                 $http.put(API_URL + 'cargo/'+ $scope.idc, data ).success(function (response) {
                     $scope.initLoad();
                     $('#modalActionCargo').modal('hide');

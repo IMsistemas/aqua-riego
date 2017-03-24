@@ -9,6 +9,7 @@ class SRI_Sustento_Comprobante extends Model
 
     protected $table = 'sri_sustento_comprobante';
     protected $primaryKey = false;
+    public $incrementing = false;
     public $timestamps = false;
 
     public function sri_sustentotributario()
