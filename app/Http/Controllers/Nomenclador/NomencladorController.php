@@ -21,6 +21,12 @@ use App\Modelos\SRI\SRI_PagoPais;
 use App\Modelos\SRI\SRI_Sustento_Comprobante;
 use App\Modelos\SRI\SRI_Sustento_Comprobantev1;
 use App\Modelos\Contabilidad\Cont_FormaPago;
+use App\Modelos\Sectores\Provincia;
+/*use App\Modelos\Sectores\Emp_Canton;
+use App\Modelos\Sectores\Emp_Parroquia;*/
+use App\Modelos\Sectores\Canton;
+use App\Modelos\Sectores\Parroquia;
+
 
 
 
@@ -109,27 +115,27 @@ class NomencladorController extends Controller
 
     public function getImpuestoIVA(Request $request)
 
-{
+    {
 
-    $filter = json_decode($request->get('filter'));
-    $search = $filter->search;
-    $SRIImpuestoIVA  = null;
+        $filter = json_decode($request->get('filter'));
+        $search = $filter->search;
+        $SRIImpuestoIVA  = null;
 
-    if ($search != null) {
+        if ($search != null) {
 
-        return SRI_TipoImpuestoIva::join('sri_tipoimpuesto', 'sri_tipoimpuestoiva.idtipoimpuesto', '=', 'sri_tipoimpuesto.idtipoimpuesto')
+            return SRI_TipoImpuestoIva::join('sri_tipoimpuesto', 'sri_tipoimpuestoiva.idtipoimpuesto', '=', 'sri_tipoimpuesto.idtipoimpuesto')
                 ->select('sri_tipoimpuestoiva.*', 'sri_tipoimpuesto.idtipoimpuesto')
                 ->where('sri_tipoimpuestoiva.nametipoimpuestoiva','LIKE','%' . $search . '%')
                 ->orderBy ('nametipoimpuestoiva','asc')->paginate(10);
 
-    }
-    else{
-        return SRI_TipoImpuestoIva::join('sri_tipoimpuesto', 'sri_tipoimpuestoiva.idtipoimpuesto', '=', 'sri_tipoimpuesto.idtipoimpuesto')
-            ->select('sri_tipoimpuestoiva.*', 'sri_tipoimpuesto.idtipoimpuesto')
-            ->orderBy ('nametipoimpuestoiva','asc')->paginate(10);
+        }
+        else{
+            return SRI_TipoImpuestoIva::join('sri_tipoimpuesto', 'sri_tipoimpuestoiva.idtipoimpuesto', '=', 'sri_tipoimpuesto.idtipoimpuesto')
+                ->select('sri_tipoimpuestoiva.*', 'sri_tipoimpuesto.idtipoimpuesto')
+                ->orderBy ('nametipoimpuestoiva','asc')->paginate(10);
 
+        }
     }
-}
 
     public function getImpuestoICE(Request $request)
 
@@ -142,9 +148,9 @@ class NomencladorController extends Controller
         if ($search != null) {
 
             return SRI_TipoImpuestoIce::join('sri_tipoimpuesto', 'sri_tipoimpuestoice.idtipoimpuesto', '=', 'sri_tipoimpuesto.idtipoimpuesto')
-                    ->select('sri_tipoimpuestoice.*', 'sri_tipoimpuesto.idtipoimpuesto')
-                    ->where('sri_tipoimpuestoice.nametipoimpuestoice','LIKE','%' . $search . '%')
-                    ->orderBy ('nametipoimpuestoice','asc')->paginate(10);
+                ->select('sri_tipoimpuestoice.*', 'sri_tipoimpuesto.idtipoimpuesto')
+                ->where('sri_tipoimpuestoice.nametipoimpuestoice','LIKE','%' . $search . '%')
+                ->orderBy ('nametipoimpuestoice','asc')->paginate(10);
 
         }
         else{
@@ -188,9 +194,9 @@ class NomencladorController extends Controller
         if ($search != null) {
 
             return SRI_DetalleImpuestoRetencion::join('sri_tipoimpuestoretencion', 'sri_detalleimpuestoretencion.idtipoimpuestoretencion', '=', 'sri_tipoimpuestoretencion.idtipoimpuestoretencion')
-                    ->select('sri_detalleimpuestoretencion.*', 'sri_tipoimpuestoretencion.nametipoimpuestoretencion')
-                    ->where('sri_detalleimpuestoretencion.namedetalleimpuestoretencion','LIKE','%' . $search . '%')
-                    ->orderBy ('namedetalleimpuestoretencion','asc')->paginate(40);
+                ->select('sri_detalleimpuestoretencion.*', 'sri_tipoimpuestoretencion.nametipoimpuestoretencion')
+                ->where('sri_detalleimpuestoretencion.namedetalleimpuestoretencion','LIKE','%' . $search . '%')
+                ->orderBy ('namedetalleimpuestoretencion','asc')->paginate(40);
 
         }
         else{
@@ -224,8 +230,28 @@ class NomencladorController extends Controller
         }
     }
 
+    public function getSustentoTributarioEX(Request $request)
+
+    {
+        $filter = json_decode($request->get('filter'));
+
+        $search = $filter->search;
+
+        $SRISustento = null;
+
+        if ($search != null) {
+            $SRISustento = SRI_SustentoTributario::whereRaw("sri_sustentotributario.namesustento LIKE '%" . $search . "%'")->orderBy('namesustento', 'asc');
+            return $SRISustento->paginate(500);
+        }
+        else{
+
+            $SRISustento = SRI_SustentoTributario::orderBy('namesustento', 'asc');
+            return $SRISustento->paginate(500);
+        }
+    }
+
     public function getTipoComprobante(Request $request)
-   // Caso especial se va hacer de Ultimo
+        // Caso especial se va hacer de Ultimo
     {
         $filter = json_decode($request->get('filter'));
 
@@ -321,46 +347,129 @@ class NomencladorController extends Controller
         }
     }
 
-    /*public function getprovincias(Request $request)
+    public function getprovincia(Request $request)
         // Caso especial se va hacer de Ultimo
     {
         $filter = json_decode($request->get('filter'));
 
         $search = $filter->search;
 
-        $FormaPago = null;
+        $Provin = null;
 
         if ($search != null) {
-            $FormaPago = Cont_FormaPago::whereRaw("cont_formapago.nameformapago LIKE '%" . $search . "%'")->orderBy('nameformapago', 'asc');
-            return $FormaPago->paginate(10);
+            $Provin = Provincia::whereRaw("provincia.nameprovincia LIKE '%" . $search . "%'")->orderBy('nameprovincia', 'asc');
+            return $Provin->paginate(10);
         }
         else{
 
-            $FormaPago = Cont_FormaPago::orderBy('nameformapago', 'asc');
-            return $FormaPago->paginate(10);
+            $Provin = Provincia::orderBy('nameprovincia', 'asc');
+            return $Provin->paginate(10);
         }
-    }*/
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-   /* public function create()
+    }
+
+    public function getprovinciaEX(Request $request)
+        // Caso especial se va hacer de Ultimo
     {
-        //
-    }*/
+        $filter = json_decode($request->get('filter'));
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        $search = $filter->search;
+
+        $Provin = null;
+
+        if ($search != null) {
+            $Provin = Provincia::whereRaw("provincia.nameprovincia LIKE '%" . $search . "%'")->orderBy('nameprovincia', 'asc');
+            return $Provin->paginate(500);
+        }
+        else{
+
+            $Provin = Provincia::orderBy('nameprovincia', 'asc');
+            return $Provin->paginate(500);
+        }
+
+    }
+
+    public function getCantonEX(Request $request)
+
+    {
+
+        $filter = json_decode($request->get('filter'));
+        $search = $filter->search;
+        $Canton  = null;
+
+        if ($search != null) {
+
+            return Canton::join('provincia', 'canton.idprovincia', '=', 'provincia.idprovincia')
+                ->select('canton.*', 'provincia.idprovincia', 'provincia.nameprovincia')
+                ->where('canton.namecanton','LIKE','%' . $search . '%')
+                ->orderBy('provincia.nameprovincia', 'asc')
+                ->orderBy ('namecanton','asc')->paginate(10);
+        }
+        else{
+            return Canton::join('provincia', 'canton.idprovincia', '=', 'provincia.idprovincia')
+                ->select('canton.*', 'provincia.idprovincia', 'provincia.nameprovincia')
+                ->orderBy('provincia.nameprovincia', 'asc')
+                ->orderBy ('namecanton','asc')->paginate(10);
+        }
+
+    }
+
+    public function getCantonEXA(Request $request)
+
+    {
+
+        $filter = json_decode($request->get('filter'));
+        $search = $filter->search;
+        $Canton  = null;
+
+        if ($search != null) {
+
+            return Canton::join('provincia', 'canton.idprovincia', '=', 'provincia.idprovincia')
+                ->select('canton.*', 'provincia.idprovincia', 'provincia.nameprovincia')
+                ->where('canton.namecanton','LIKE','%' . $search . '%')
+                ->orderBy('provincia.nameprovincia', 'asc')
+                ->orderBy ('namecanton','asc')->paginate(500);
+        }
+        else{
+            return Canton::join('provincia', 'canton.idprovincia', '=', 'provincia.idprovincia')
+                ->select('canton.*', 'provincia.idprovincia', 'provincia.nameprovincia')
+                ->orderBy('provincia.nameprovincia', 'asc')
+                ->orderBy ('namecanton','asc')->paginate(500);
+        }
+    }
+
+    public function getParroquiaEX(Request $request)
+
+    {
+
+        $filter = json_decode($request->get('filter'));
+        $search = $filter->search;
+
+        if ($search != null) {
+            return Parroquia::join('canton', 'parroquia.idcanton', '=', 'canton.idcanton')
+                ->select('parroquia.*', 'canton.idcanton', 'canton.namecanton')
+                ->where('parroquia.nameparroquia','LIKE','%' . $search . '%')
+                ->orderBy('canton.namecanton', 'asc')
+                ->orderBy ('nameparroquia','asc')->paginate(10);
+        }
+
+        else{
+
+            return Parroquia::join('canton', 'parroquia.idcanton', '=', 'canton.idcanton')
+                ->select('parroquia.*', 'canton.idcanton', 'canton.namecanton')
+                ->orderBy('canton.namecanton', 'asc')
+                ->orderBy ('nameparroquia','asc')->paginate(10);
+
+        }
+
+        //return Emp_Parroquia::orderBy('nameparroquia', 'asc') ->paginate(10);
+
+
+    }
+
+
     public function store(Request $request)
     {
-
-
         $TipoDoc01 = SRI_TipoDocumento::where('nametipodocumento', $request->input('nametipodocumento'))->count();
 
         if ($TipoDoc01 > 0) {
@@ -601,6 +710,73 @@ class NomencladorController extends Controller
         }
     }
 
+    public function storeprovincia(Request $request)
+    {
+
+        $Provin01 = Provincia::where('nameprovincia', $request->input('nameprovincia'))->count();
+
+        if ($Provin01 > 0) {
+            return response()->json(['success' => false]);
+        }
+        else{
+
+            $Provin = new Provincia();
+            $Provin -> nameprovincia = $request->input('nameprovincia');
+
+            //dd($Provin);
+            if ($Provin  ->save()) {
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false]);
+            }
+        }
+    }
+
+
+    public function storecantonEX(Request $request)
+    {
+
+        $Canton01 = Canton::where('namecanton', $request->input('namecanton'))->count();
+
+        if ($Canton01 > 0) {
+            return response()->json(['success' => false]);
+        }
+        else{
+
+            $Canton = new Canton();
+            $Canton -> namecanton = $request->input('namecanton');
+            $Canton -> idprovincia = $request->input('idprovincia');
+
+            if ($Canton  ->save()) {
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false]);
+            }
+        }
+    }
+
+    public function storeparroquiaEX(Request $request)
+    {
+
+        $parroquia01 = Parroquia::where('nameparroquia', $request->input('nameparroquia'))->count();
+
+        if ($parroquia01 > 0) {
+            return response()->json(['success' => false]);
+        }
+        else{
+
+            $parroquia = new Parroquia();
+            $parroquia -> nameparroquia = $request->input('nameparroquia');
+            $parroquia -> idcanton = $request->input('idcanton');
+
+            if ($parroquia  ->save()) {
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false]);
+            }
+        }
+    }
+
     public function storeSustentoTrib(Request $request)
     {
 
@@ -672,7 +848,7 @@ class NomencladorController extends Controller
 
     public function getTipoDocByID($id)
     {
-       return SRI_TipoDocumento::where('idtipodocumento', $id)->orderBy('nametipodocumento')->get();
+        return SRI_TipoDocumento::where('idtipodocumento', $id)->orderBy('nametipodocumento')->get();
     }
 
     public function getTipoIdentByID($id)
@@ -732,6 +908,7 @@ class NomencladorController extends Controller
 
     }
 
+
     public function getPagoResidenteByID($id)
     {
 
@@ -750,6 +927,27 @@ class NomencladorController extends Controller
     {
 
         return Cont_FormaPago::where('idformapago',$id)  -> get();
+
+    }
+
+    public function getprovinciaByID($id)
+    {
+
+        return Provincia::where('idprovincia',$id)  -> get();
+
+    }
+
+    public function getcantonEXByID($id)
+    {
+
+        return Canton::where('idcanton',$id)  -> get();
+
+    }
+
+    public function getparroquiaEXByID($id)
+    {
+
+        return Parroquia::where('idparroquia',$id)  -> get();
 
     }
 
@@ -955,7 +1153,7 @@ class NomencladorController extends Controller
     public function updatePagoResidente(Request $request, $id)
     {
 
-        $PagoR = SRI_SustentoTributario::find($id);
+        $PagoR = SRI_PagoResidente::find($id);
         $PagoR ->tipopagoresidente = $request->input('tipopagoresidente');
         if ($PagoR ->save()) {
             return response()->json(['success' => true]);
@@ -993,19 +1191,52 @@ class NomencladorController extends Controller
         }
     }
 
+    public function updateprovincia(Request $request, $id)
+    {
+        $Provin = provincia::find($id);
+        $Provin ->nameprovincia = $request->input('nameprovincia');
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+        if ($Provin ->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+
+
+    public function updatecantonEX(Request $request, $id)
+    {
+        $Canton = Canton::find($id);
+        $Canton ->idprovincia = $request->input('idprovincia');
+        $Canton ->namecanton = $request->input('namecanton');
+
+        if ($Canton ->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+
+
+    public function updateparroquiaEX(Request $request, $id)
+    {
+        $Parq = Parroquia::find($id);
+        $Parq ->idcanton = $request->input('idcanton');
+        $Parq ->nameparroquia = $request->input('nameparroquia');
+
+        if ($Parq ->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+
     public function destroy($id)
     {
 
-       $data=SRI_TipoDocumento::find($id);
-       $data->delete();
-       return response()->json(['success' => true]);
+        $data=SRI_TipoDocumento::find($id);
+        $data->delete();
+        return response()->json(['success' => true]);
 
         //$TipoDocu = SRI_TipoDocumento::where('idtipodocumento',$id)->delete();
 
@@ -1013,16 +1244,16 @@ class NomencladorController extends Controller
     }
 
     public function deleteTipoIdentSRI(Request $request)
-{
+    {
 
-    $data=SRI_TipoIdentificacion::find($request->input('id'));
-    $data->delete();
-    return response()->json(['success' => true]);
+        $data=SRI_TipoIdentificacion::find($request->input('id'));
+        $data->delete();
+        return response()->json(['success' => true]);
 
-    //$TipoDocu = SRI_TipoDocumento::where('idtipodocumento',$id)->delete();
+        //$TipoDocu = SRI_TipoDocumento::where('idtipodocumento',$id)->delete();
 
 
-}
+    }
 
     public function deleteTipoImpuesto(Request $request)
     {
@@ -1107,6 +1338,27 @@ class NomencladorController extends Controller
     public function deleteformapago(Request $request)
     {
         $data=Cont_FormaPago::find($request->input('id'));
+        $data->delete();
+        return response()->json(['success' => true]);
+    }
+
+    public function deleteprovincia(Request $request)
+    {
+        $data=provincia::find($request->input('id'));
+        $data->delete();
+        return response()->json(['success' => true]);
+    }
+
+    public function deletecantonEX(Request $request)
+    {
+        $data=Canton::find($request->input('id'));
+        $data->delete();
+        return response()->json(['success' => true]);
+    }
+
+    public function deleteParroquiaEX(Request $request)
+    {
+        $data=Parroquia::find($request->input('id'));
         $data->delete();
         return response()->json(['success' => true]);
     }

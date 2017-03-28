@@ -743,10 +743,19 @@ Route::get('Nomenclador/getImpuestoICE', 'Nomenclador\NomencladorController@getI
 Route::get('Nomenclador/getTipoImpuestoRetenc', 'Nomenclador\NomencladorController@getTipoImpuestoRetenc' );
 Route::get('Nomenclador/getImpuestoIVARENTA', 'Nomenclador\NomencladorController@getImpuestoIVARENTA' );
 Route::get('Nomenclador/getSustentoTributario', 'Nomenclador\NomencladorController@getSustentoTributario' );
+Route::get('Nomenclador/getSustentoTributarioEX', 'Nomenclador\NomencladorController@getSustentoTributarioEX' );
 Route::get('Nomenclador/getTipoComprobante', 'Nomenclador\NomencladorController@getTipoComprobante' );
 Route::get('Nomenclador/getPagoResidente', 'Nomenclador\NomencladorController@getPagoResidente' );
 Route::get('Nomenclador/getPagoPais', 'Nomenclador\NomencladorController@getPagoPais' );
 Route::get('Nomenclador/getContFormaPago', 'Nomenclador\NomencladorController@getContFormaPago' );
+Route::get('Nomenclador/getprovincia', 'Nomenclador\NomencladorController@getprovincia' );
+Route::get('Nomenclador/getprovinciaEX', 'Nomenclador\NomencladorController@getprovinciaEX' );
+Route::get('Nomenclador/getCantonEX', 'Nomenclador\NomencladorController@getCantonEX' );
+Route::get('Nomenclador/getCantonEXA', 'Nomenclador\NomencladorController@getCantonEXA' );
+Route::get('Nomenclador/getParroquiaEX', 'Nomenclador\NomencladorController@getParroquiaEX' );
+
+
+
 
 Route::get('Nomenclador/getTipoDocByID/{id}', 'Nomenclador\NomencladorController@getTipoDocByID');
 Route::get('Nomenclador/getTipoIdentByID/{id}', 'Nomenclador\NomencladorController@getTipoIdentByID');
@@ -761,6 +770,10 @@ Route::get('Nomenclador/getSustentoComprobanteByID/{id}', 'Nomenclador\Nomenclad
 Route::get('Nomenclador/getPagoResidenteByID/{id}', 'Nomenclador\NomencladorController@getPagoResidenteByID' );
 Route::get('Nomenclador/getPaisPagoByID/{id}', 'Nomenclador\NomencladorController@getPaisPagoByID' );
 Route::get('Nomenclador/getFormaPagoByID/{id}', 'Nomenclador\NomencladorController@getFormaPagoByID' );
+Route::get('Nomenclador/getprovinciaByID/{id}', 'Nomenclador\NomencladorController@getprovinciaByID' );
+Route::get('Nomenclador/getcantonEXByID/{id}', 'Nomenclador\NomencladorController@getcantonEXByID' );
+Route::get('Nomenclador/getparroquiaEXByID/{id}', 'Nomenclador\NomencladorController@getparroquiaEXByID' );
+
 
 
 Route::post('Nomenclador/updatetpidentsri/{id}', 'Nomenclador\NomencladorController@updatetpidentsri' );
@@ -774,10 +787,14 @@ Route::post('Nomenclador/updateSustento_Comprobante/{id}', 'Nomenclador\Nomencla
 Route::post('Nomenclador/updatePagoResidente/{id}', 'Nomenclador\NomencladorController@updatePagoResidente' );
 Route::post('Nomenclador/updatePagoPais/{id}', 'Nomenclador\NomencladorController@updatePagoPais' );
 Route::post('Nomenclador/updateFormaPago/{id}', 'Nomenclador\NomencladorController@updateFormaPago' );
+Route::post('Nomenclador/updateProvincia/{id}', 'Nomenclador\NomencladorController@updateProvincia' );
+Route::post('Nomenclador/updatecantonEX/{id}', 'Nomenclador\NomencladorController@updatecantonEX' );
+Route::post('Nomenclador/updateparroquiaEX/{id}', 'Nomenclador\NomencladorController@updateparroquiaEX' );
 
 
 Route::post('Nomenclador/getTipoDocumento','Nomenclador\NomencladorController@store');
 Route::post('Nomenclador/storeTipoIdent','Nomenclador\NomencladorController@storeTipoIdent');
+Route::post('Nomenclador/storeTipoImpuesto','Nomenclador\NomencladorController@storeTipoImpuesto');
 Route::post('Nomenclador/storeTipoImpuestoiva','Nomenclador\NomencladorController@storeTipoImpuestoiva');
 Route::post('Nomenclador/storeTipoImpuestoice','Nomenclador\NomencladorController@storeTipoImpuestoice');
 Route::post('Nomenclador/storeTipoImpuestoReten','Nomenclador\NomencladorController@storeTipoImpuestoReten');
@@ -787,7 +804,9 @@ Route::post('Nomenclador/storeComprobanteSustento','Nomenclador\NomencladorContr
 Route::post('Nomenclador/storeTipoPagoResidente','Nomenclador\NomencladorController@storeTipoPagoResidente');
 Route::post('Nomenclador/storepagopais','Nomenclador\NomencladorController@storepagopais');
 Route::post('Nomenclador/storeformapago','Nomenclador\NomencladorController@storeformapago');
-
+Route::post('Nomenclador/storeprovincia','Nomenclador\NomencladorController@storeprovincia');
+Route::post('Nomenclador/storecantonEX','Nomenclador\NomencladorController@storecantonEX');
+Route::post('Nomenclador/storeparroquiaEX','Nomenclador\NomencladorController@storeparroquiaEX');
 
 
 Route::post('Nomenclador/deleteTipoIdentSRI', 'Nomenclador\NomencladorController@deleteTipoIdentSRI');
@@ -801,9 +820,9 @@ Route::post('Nomenclador/deleteSustentoComprobante', 'Nomenclador\NomencladorCon
 Route::post('Nomenclador/deleteTipoPagoResidente', 'Nomenclador\NomencladorController@deleteTipoPagoResidente');
 Route::post('Nomenclador/deletepagopais', 'Nomenclador\NomencladorController@deletepagopais');
 Route::post('Nomenclador/deleteformapago', 'Nomenclador\NomencladorController@deleteformapago');
-
-
-
+Route::post('Nomenclador/deleteprovincia', 'Nomenclador\NomencladorController@deleteprovincia');
+Route::post('Nomenclador/deletecantonEX', 'Nomenclador\NomencladorController@deletecantonEX');
+Route::post('Nomenclador/deleteParroquiaEX', 'Nomenclador\NomencladorController@deleteParroquiaEX');
 
 
 Route::resource('/Nomenclador', 'Nomenclador\NomencladorController');

@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Configuracion de Nomencladores</title>
-	
+
     <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
@@ -15,7 +15,7 @@
 <div ng-controller="NomencladorController">
     <div id="dvTab" style="margin-top: 5px;">
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active tabs"><a href="#empresa" aria-controls="empresa" role="tab" data-toggle="tab"> Empresa</a></li>
+            <li ng-click="CargadataProvincia()" role="presentation" class="active tabs"><a href="#empresa" aria-controls="empresa" role="tab" data-toggle="tab"> Empresa</a></li>
             <li ng-click="CargadataFormaPago()" role="presentation" class="tabs"><a href="#contabilidad" aria-controls="contabilidad" role="tab" data-toggle="tab"> Contabilidad</a></li>
             <li ng-click="CargadataTPdoc()" role="presentation" class="tabs"><a href="#sri" aria-controls="sri" role="tab" data-toggle="tab"> SRI</a></li>
         </ul>
@@ -25,9 +25,9 @@
 
                 <div id="dvTab1" style="margin-top: 5px;">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active tabs"><a href="#provincia" aria-controls="provincia" role="tab" data-toggle="tab">Provincias</a></li>
-                        <li role="presentation" class="tabs"><a href="#canton" aria-controls="canton" role="tab" data-toggle="tab">Cantones</a></li>
-                        <li role="presentation" class="tabs"><a href="#parroquia" aria-controls="parroquia" role="tab" data-toggle="tab">Parroquias</a></li>
+                        <li ng-click="CargadataProvincia()" role="presentation" class="active tabs"><a href="#provincia" aria-controls="provincia" role="tab" data-toggle="tab">Provincias</a></li>
+                        <li ng-click="CargadataCanton(); CargadataProvinciaEX();" role="presentation" class="tabs"><a href="#canton" aria-controls="canton" role="tab" data-toggle="tab">Cantones</a></li>
+                        <li ng-click="CargadataParroquia(); CargadataCantonA()" role="presentation" class="tabs"><a href="#parroquia" aria-controls="parroquia" role="tab" data-toggle="tab">Parroquias</a></li>
                     </ul>
                     <!-- Tab panels -->
                     <div class="tab-content" style="padding-top: 10px;">
@@ -35,12 +35,12 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group has-feedback">
-                                        <input type="text" class="form-control" placeholder="BUSCAR..." >
+                                        <input type="text" class="form-control" placeholder="BUSCAR..." ng-model="busqueda" ng-change="CargadataProvincia(1)" >
                                         <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 text-right">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myProvincia">
+                                    <button type="button" class="btn btn-primary" style="float: right;" ng-click="toggle('add', 0,'prov')">
                                         Agregar <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     </button>
                                 </div>
@@ -54,16 +54,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">
-                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger">
-                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
+                                    <tr dir-paginate="provi in provincia | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
+                                    <td>{{provi.nameprovincia}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit',provi.idprovincia,'prov')">
+                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(provi,'prov')">
+                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -74,12 +74,12 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group has-feedback">
-                                        <input type="text" class="form-control" placeholder="BUSCAR..." >
+                                        <input type="text" class="form-control" placeholder="BUSCAR..." ng-model="busqueda" ng-change="CargadataCanton(1)" >
                                         <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 text-right">
-                                    <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#myCanton">
+                                    <button type="button" class="btn btn-primary" style="float: right;" ng-click="toggle('add', 0,'canton')">
                                         Agregar <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     </button>
                                 </div>
@@ -94,17 +94,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">
-                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger">
-                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
+                                    <tr dir-paginate="cant in canton | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak" >
+                                    <td>{{cant.nameprovincia}}</td>
+                                    <td>{{cant.namecanton}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit',cant.idcanton,'canton')">
+                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(cant,'canton')">
+                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -115,14 +115,16 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group has-feedback">
-                                        <input type="text" class="form-control" placeholder="BUSCAR..." >
+                                        <input type="text" class="form-control" placeholder="BUSCAR..." ng-model="busqueda" ng-change="CargadataParroquia(1)"
                                         <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                                     </div>
                                 </div>
                                 <div class="col-xs-6 text-right">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myParroquia">
-                                        Agregar <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    </button>
+                                    <div class="col-xs-6 text-right">
+                                        <button type="button" class="btn btn-primary" style="float: right;" ng-click="toggle('add', 0,'parroquia')">
+                                            Agregar <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-xs-12">
@@ -135,17 +137,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">
-                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger">
-                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
+                                    <tr dir-paginate="parq in parroquia | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak" >
+                                    <td>{{parq.namecanton}}</td>
+                                    <td>{{parq.nameparroquia}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit',parq.idparroquia,'parroquia')">
+                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(parq,'parroquia')">
+                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -193,19 +195,19 @@
                                     <td>{{FormaPago.nameformapago}}</td>
                                     <td>{{FormaPago.codigosri}}</td>
                                     <td>
-                                            <div ng-if="FormaPago.estado">
-                                                Activo
-                                            </div>
-                                            <div ng-if="!FormaPago.estado">
-                                                No Activo
-                                            </div>
+                                        <div ng-if="FormaPago.estado">
+                                            Activo
+                                        </div>
+                                        <div ng-if="!FormaPago.estado">
+                                            No Activo
+                                        </div>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-warning" ng-click="toggle('edit', FormaPago.idformapago,'formapago')">
-                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
                                         </button>
                                         <button type="button" class="btn btn-danger" ng-click="showModalConfirm(FormaPago,'formapago')">
-                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
                                         </button>
                                     </td>
                                     </tr>
@@ -231,7 +233,7 @@
                         <li ng-click="CargadataTipoImpRetenc()" role="presentation" class="tabs"><a href="#sri_tiposimpuestosretencion" aria-controls="sri_tiposimpuestosretencion" role="tab" data-toggle="tab"> Impuestos Retención</a></li>
                         <li ng-click="CargadataImpIVARENTA(); CargadataTipoImpRetenc()" role="presentation" class="tabs"><a href="#sri_tiposimpuestosretencioniva_renta" aria-controls="sri_tiposimpuestosretencioniva_renta" role="tab" data-toggle="tab">Imp. Retención IVA-RENTA</a></li>
                         <li ng-click="CargadataSustentoTrib()" role="presentation" class="tabs"><a href="#sri_sustentotributario" aria-controls="sri_sustentotributario" role="tab" data-toggle="tab">Sustentos Tributarios</a></li>
-                        <li ng-click="CargadataComprobante(); CargadataSustentoTrib()" role="presentation" class="tabs"><a href="#sri_tiposcomprobantes" aria-controls="sri_tiposcomprobantes" role="tab" data-toggle="tab">Tipos de Comprobantes</a></li>
+                        <li ng-click="CargadataComprobante(); CargadataSustentoTribEX()" role="presentation" class="tabs"><a href="#sri_tiposcomprobantes" aria-controls="sri_tiposcomprobantes" role="tab" data-toggle="tab">Tipos de Comprobantes</a></li>
                         <li ng-click="CargadataPagoResidente()" role="presentation" class="tabs"><a href="#sri_tipospagoresidentes" aria-controls="sri_tipospagoresidentes" role="tab" data-toggle="tab">Tipos de Pago Residente</a></li>
                         <li ng-click="CargadataPagoPais()" role="presentation" class="tabs"><a href="#sri_pagopais" aria-controls="sri_pagopais" role="tab" data-toggle="tab">País Pago</a></li>
                     </ul>
@@ -263,24 +265,24 @@
                                     </thead>
                                     <tbody>
                                     <tr dir-paginate="tipodocumento in sri_tipodocumento | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
-                                        <td>{{tipodocumento.nametipodocumento}}</td>
-                                        <td>{{tipodocumento.codigosri}} </td>
-                                        <td>
-                                            <div ng-if="tipodocumento.estado">
-                                                Activo
-                                            </div>
-                                            <div ng-if="!tipodocumento.estado">
-                                                No Activo
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning" ng-click="toggle('edit', tipodocumento.idtipodocumento,'tpdocsri')">
-                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipodocumento,'tpdocsri')">
-                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
+                                    <td>{{tipodocumento.nametipodocumento}}</td>
+                                    <td>{{tipodocumento.codigosri}} </td>
+                                    <td>
+                                        <div ng-if="tipodocumento.estado">
+                                            Activo
+                                        </div>
+                                        <div ng-if="!tipodocumento.estado">
+                                            No Activo
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit', tipodocumento.idtipodocumento,'tpdocsri')">
+                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipodocumento,'tpdocsri')">
+                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -289,55 +291,55 @@
 
 
 
-                            <div role="tabpanel" class="tab-pane fade" id="sri_tiposidentificacion">
-                                <div class="col-xs-12">
-                                    <div class="col-xs-6">
-                                        <div class="form-group has-feedback">
-                                            <input type="text" class="form-control" placeholder="BUSCAR..." ng-model="busqueda" ng-change="CargadataTPident(1)" >
-                                            <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6 text-right">
-                                        <button type="button" class="btn btn-primary" style="float: right;" ng-click="toggle('add', 0,'tpidentsri')">
-                                            Agregar <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                        </button>
+                        <div role="tabpanel" class="tab-pane fade" id="sri_tiposidentificacion">
+                            <div class="col-xs-12">
+                                <div class="col-xs-6">
+                                    <div class="form-group has-feedback">
+                                        <input type="text" class="form-control" placeholder="BUSCAR..." ng-model="busqueda" ng-change="CargadataTPident(1)" >
+                                        <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                                     </div>
                                 </div>
-                                <div class="col-xs-12">
-                                    <table class="table table-responsive table-striped table-hover table-condensed">
-                                        <thead class="bg-primary">
-                                        <tr>
-                                            <td style="width: 35%;">Tipo de Identificación</td>
-                                            <td style="width: 20%;">Código SRI</td>
-                                            <td style="width: 15%;">Estado</td>
-                                            <td>Acciones</td>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr dir-paginate="tipoidentificacion in sri_tipoidentificacion | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
-                                            <td>{{tipoidentificacion.nameidentificacion}}</td>
-                                            <td>{{tipoidentificacion.codigosri}}</td>
-                                            <td>
-                                                <div ng-if="tipoidentificacion.estado">
-                                                    Activo
-                                                </div>
-                                                <div ng-if="!tipoidentificacion.estado">
-                                                    No Activo
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-warning" ng-click="toggle('edit',tipoidentificacion.idtipoidentificacion,'tpidentsri')">
-                                                    Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                                </button>
-                                                <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipoidentificacion,'tpidentsri')">
-                                                    Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="col-xs-6 text-right">
+                                    <button type="button" class="btn btn-primary" style="float: right;" ng-click="toggle('add', 0,'tpidentsri')">
+                                        Agregar <span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    </button>
                                 </div>
                             </div>
+                            <div class="col-xs-12">
+                                <table class="table table-responsive table-striped table-hover table-condensed">
+                                    <thead class="bg-primary">
+                                    <tr>
+                                        <td style="width: 35%;">Tipo de Identificación</td>
+                                        <td style="width: 20%;">Código SRI</td>
+                                        <td style="width: 15%;">Estado</td>
+                                        <td>Acciones</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr dir-paginate="tipoidentificacion in sri_tipoidentificacion | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
+                                    <td>{{tipoidentificacion.nameidentificacion}}</td>
+                                    <td>{{tipoidentificacion.codigosri}}</td>
+                                    <td>
+                                        <div ng-if="tipoidentificacion.estado">
+                                            Activo
+                                        </div>
+                                        <div ng-if="!tipoidentificacion.estado">
+                                            No Activo
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit',tipoidentificacion.idtipoidentificacion,'tpidentsri')">
+                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipoidentificacion,'tpidentsri')">
+                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
 
                         <div role="tabpanel" class="tab-pane fade" id="sri_tiposimpuestos">
@@ -366,24 +368,24 @@
                                     </thead>
                                     <tbody>
                                     <tr dir-paginate="tipoimpuesto in sri_tipoimpuesto | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak" >
-                                        <td>{{tipoimpuesto.nameimpuesto}}</td>
-                                        <td>{{tipoimpuesto.codigosri}}</td>
-                                        <td>
-                                            <div ng-if="tipoimpuesto.estado">
-                                                Activo
-                                            </div>
-                                            <div ng-if="!tipoimpuesto.estado">
-                                                No Activo
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning" ng-click="toggle('edit',tipoimpuesto.idtipoimpuesto,'timpsri')">
-                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipoimpuesto,'timpsri')">
-                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
+                                    <td>{{tipoimpuesto.nameimpuesto}}</td>
+                                    <td>{{tipoimpuesto.codigosri}}</td>
+                                    <td>
+                                        <div ng-if="tipoimpuesto.estado">
+                                            Activo
+                                        </div>
+                                        <div ng-if="!tipoimpuesto.estado">
+                                            No Activo
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit',tipoimpuesto.idtipoimpuesto,'timpsri')">
+                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipoimpuesto,'timpsri')">
+                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -421,13 +423,13 @@
                                         <td>{{tipoimpuestoiva.codigosri}}</td>
                                         <td>{{tipoimpuestoiva.porcentaje}}</td>
                                         <td>
-										<div ng-if="tipoimpuestoiva.estado">
+                                            <div ng-if="tipoimpuestoiva.estado">
                                                 Activo
                                             </div>
                                             <div ng-if="!tipoimpuestoiva.estado">
                                                 No Activo
                                             </div>
-										</td>
+                                        </td>
                                         <td>
                                             <button type="button" class="btn btn-warning" ng-click="toggle('edit',tipoimpuestoiva.idtipoimpuestoiva,'tpimpivasri')">
                                                 Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
@@ -522,24 +524,24 @@
                                     </thead>
                                     <tbody>
                                     <tr dir-paginate="tipoimpuestoRten in sri_tipoimpuestoRten | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak" >
-                                        <td>{{tipoimpuestoRten.nametipoimpuestoretencion}}</td>
-                                        <td>{{tipoimpuestoRten.codigosri}}</td>
-                                        <td>
-                                            <div ng-if="tipoimpuestoRten.estado">
-                                                Activo
-                                            </div>
-                                            <div ng-if="!tipoimpuestoRten.estado">
-                                                No Activo
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning" ng-click="toggle('edit',tipoimpuestoRten.idtipoimpuestoretencion,'tpimpretsri')">
-                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                            </button>
-                                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipoimpuestoRten,'tpimpretsri')">
-                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                            </button>
-                                        </td>
+                                    <td>{{tipoimpuestoRten.nametipoimpuestoretencion}}</td>
+                                    <td>{{tipoimpuestoRten.codigosri}}</td>
+                                    <td>
+                                        <div ng-if="tipoimpuestoRten.estado">
+                                            Activo
+                                        </div>
+                                        <div ng-if="!tipoimpuestoRten.estado">
+                                            No Activo
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit',tipoimpuestoRten.idtipoimpuestoretencion,'tpimpretsri')">
+                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipoimpuestoRten,'tpimpretsri')">
+                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -655,7 +657,7 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group has-feedback">
-                                         <input type="text" class="form-control" placeholder="BUSCAR..." ng-model="busqueda" ng-change="CargadataComprobante(1)" >
+                                        <input type="text" class="form-control" placeholder="BUSCAR..." ng-model="busqueda" ng-change="CargadataComprobante(1)" >
                                         <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                                     </div>
                                 </div>
@@ -980,7 +982,6 @@
 
         <!-- Modal  Impuesto Iva Nativo-->
 
-
         <div class="modal fade" tabindex="-1" role="dialog" id="modalActionImpuestoIva">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -1242,15 +1243,15 @@
                                           ng-show="formsritipoimpuestoIvaRetRenta.nametipoimpuestoivaret.$invalid && formsritipoimpuestoIvaRetRenta.nametipoimpuestoivaret.$error.maxlength">La longitud máxima es de 50 caracteres</span>
                                 </div>
                                 <div class="col-xs-12 error">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Porcentaje: </span>
-                                    <input type="text" class="form-control" name="porcentaje" id="porcentaje" ng-model="porcentaje" placeholder=""
-                                           ng-required="true" ng-maxlength="10">
-                                </div>
-                                <span class="help-block error"
-                                      ng-show="formsritipoimpuestoIvaRetRenta.porcentaj.$invalid && formsritipoimpuestoIvaRetRenta.porcentaje==''">El porcentaje es requerido</span>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Porcentaje: </span>
+                                        <input type="text" class="form-control" name="porcentaje" id="porcentaje" ng-model="porcentaje" placeholder=""
+                                               ng-required="true" ng-maxlength="10">
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formsritipoimpuestoIvaRetRenta.porcentaj.$invalid && formsritipoimpuestoIvaRetRenta.porcentaje==''">El porcentaje es requerido</span>
 
-                            </div>
+                                </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
                                         <span class="input-group-addon">Codigo SRI: </span>
@@ -1308,7 +1309,7 @@
                                                ng-required="true" ng-maxlength="50">
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formsriSustentoTributario.nameSustentoTributario.$invalid && formsriSustentoTributario.nameSustentoTributario.$touched">El nombre del Tipo Impuesto es requerido</span>
+                                          ng-show="formsriSustentoTributario.nameSustentoTributario.$invalid && formsriSustentoTributario.nameSustentoTributario.$touched">El nombre Sustento Tributario es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsriSustentoTributario.nameSustentoTributario.$invalid && formsriSustentoTributario.nameSustentoTributario.$error.maxlength">La longitud máxima es de 50 caracteres</span>
                                 </div>
@@ -1380,7 +1381,7 @@
                                                ng-required="true" ng-maxlength="50">
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formsriCompSustTributario.nametipoimpuestoivaret.$invalid && formsriCompSustTributario.nametipoimpuestoivaret.$touched">El nombre del Tipo Impuesto es requerido</span>
+                                          ng-show="formsriCompSustTributario.nametipoimpuestoivaret.$invalid && formsriCompSustTributario.nametipoimpuestoivaret.$touched">El nombre Comprobante de pago es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsriCompSustTributario.nametipoimpuestoivaret.$invalid && formsriCompSustTributario.nametipoimpuestoivaret.$error.maxlength">La longitud máxima es de 50 caracteres</span>
                                 </div>
@@ -1422,9 +1423,6 @@
         </div>
 
 
-
-
-
         <!-- Modal pago residente Nativo-->
 
         <div class="modal fade" tabindex="-1" role="dialog" id="modalActionPagoResidente">
@@ -1444,7 +1442,7 @@
                                                ng-required="true" ng-maxlength="50">
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formsriPagoResidente.tipopagoresidente.$invalid && formsriPagoResidente.tipopagoresidente.$touched">El nombre del Tipo Impuesto es requerido</span>
+                                          ng-show="formsriPagoResidente.tipopagoresidente.$invalid && formsriPagoResidente.tipopagoresidente.$touched">El nombre Residente es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsriPagoResidente.tipopagoresidente.$invalid && formsriPagoResidente.tipopagoresidente.$error.maxlength">La longitud máxima es de 50 caracteres</span>
                                 </div>
@@ -1468,8 +1466,6 @@
 
 
         <!-- Modal  Pais Pago Nativo-->
-
-
         <div class="modal fade" tabindex="-1" role="dialog" id="modalActionPaisPago">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -1487,7 +1483,7 @@
                                                ng-required="true" ng-maxlength="50">
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formsriPaisPago.pais.$invalid && formsriPaisPago.pais.$touched">El nombre del Tipo Identificacion es requerido</span>
+                                          ng-show="formsriPaisPago.pais.$invalid && formsriPaisPago.pais.$touched">El nombre Pais es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsriPaisPago.pais.$invalid && formsriPaisPago.pais.$error.maxlength">La longitud máxima es de 50 caracteres</span>
                                 </div>
@@ -1503,8 +1499,6 @@
                                     <span class="help-block error"
                                           ng-show="formsriPaisPago.codigosri.$invalid && formsriPaisPago.codigosri.$error.maxlength">La longitud máxima es de 4 caracteres</span>
                                 </div>
-
-
                             </div>
                         </form>
                     </div>
@@ -1522,8 +1516,6 @@
 
 
         <!-- Modal Forma Pago Nativo-->
-
-
         <div class="modal fade" tabindex="-1" role="dialog" id="modalActionFormapago">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -1541,7 +1533,7 @@
                                                ng-required="true" ng-maxlength="50">
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formFormapago.nameformapago.$invalid && formFormapago.nameformapago.$touched">El nombre del Tipo Identificacion es requerido</span>
+                                          ng-show="formFormapago.nameformapago.$invalid && formFormapago.nameformapago.$touched">El nombre del Forma de Pago es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formFormapago.nameformapago.$invalid && formFormapago.nameformapago.$error.maxlength">La longitud máxima es de 50 caracteres</span>
                                 </div>
@@ -1581,162 +1573,148 @@
         </div>
 
 
-        <!-- Modal Forma de Pago -->
-        <div id="myFormaPago" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
+        <!-- Modal Provincia Nativo-->
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalActionProvincia">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Forma de Pago</h4>
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">{{form_title}}</h4>
                     </div>
                     <div class="modal-body">
-                        <div class = "row">
-                            <div class="col-xs-11" style ="margin-left:20px;">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Nombre: </span>
-                                    <input type="text" class="form-control">
+                        <form class="form-horizontal" name="formProvicia" novalidate="">
+                            <div class="row">
+                                <div class="col-xs-12 error">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Nombre Provincia: </span>
+                                        <input type="text" class="form-control" name="nameprovincia" id="nameprovincia" ng-model="nameprovincia" placeholder=""
+                                               ng-required="true" ng-maxlength="50">
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formProvicia.nameprovincia.$invalid && formProvicia.nameprovincia.$touched">El nombre provincia es requerido</span>
+                                    <span class="help-block error"
+                                          ng-show="formProvicia.nameprovincia.$invalid && formProvicia.nameprovincia.$error.maxlength">La longitud máxima es de 50 caracteres</span>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class = "row">
-                            <div class="col-xs-11" style ="margin-left:20px;">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Codigo SRI: </span>
-                                    <input type="text" class="form-control">
-                                </div>
                             </div>
-                        </div>
-
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <div class ="row">
-                            <div class="col-xs-7"></div>
-                            <div class="col-xs-2" style ="margin-left:-10px;">
-                                <button type="button" class="btn btn-success">
-                                    Guardar <span class="glyphicon glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                            <div class="col-xs-2">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">
-                                    Cancelar <span class="glyphicon glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>
-
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="Save('prov')" ng-disabled="formProvicia.$invalid">
+                            Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modal Parroquia -->
-        <div id="myParroquia" class="modal fade" role="dialog">
-            <div class="modal-dialog">
 
-                <!-- Modal content-->
+
+        <!-- Modal canton Nativo-->
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalActioncanton">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"> Datos Parroquia</h4>
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">{{form_title}}</h4>
                     </div>
                     <div class="modal-body">
+                        <form class="form-horizontal" name="formsricanton" novalidate="">
+                            <div class="row">
+                                <div class="col-xs-12 error">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Provincia: </span>
+                                        <select class="selectpicker form-control" id="SLprovincia" ng-model="SLprovincia" ng-required="true">
+                                            <option ng-repeat="provi in provincia" value="{{provi.idprovincia}}">{{provi.nameprovincia}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show=" formsricanton.SLprovincia.$invalid && formsricanton.SLprovincia==''">La provincia es requerida</span>
 
-                        <div class = "row">
-                            <div class="col-xs-11" style ="margin-left:20px;">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Canton: </span>
-                                    <select class="form-control">
-                                        <option value="">-- Seleccione --</option>
-                                    </select>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class = "row">
-                            <div class="col-xs-11" style ="margin-left:20px;">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Nombre: </span>
-                                    <input type="text" class="form-control">
+                                <div class="col-xs-12 error">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Nombre del Canton: </span>
+                                        <input type="text" class="form-control" name="namecanton" id="namecanton" ng-model="namecanton" placeholder=""
+                                               ng-required="true" ng-maxlength="50">
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formsricanton.namecanton.$invalid && formsricanton.namecanton.$touched">El nombre del Canton es requerido</span>
+                                    <span class="help-block error"
+                                          ng-show="formsricanton.namecanton.$invalid && formsricanton.namecanton.$error.maxlength">La longitud máxima es de 50 caracteres</span>
                                 </div>
+
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <div class ="row">
-                            <div class="col-xs-7"></div>
-                            <div class="col-xs-2" style ="margin-left:-10px;">
-                                <button type="button" class="btn btn-success">
-                                    Guardar <span class="glyphicon glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                            <div class="col-xs-2">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">
-                                    Cancelar <span class="glyphicon glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>
-
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="Save('canton')" ng-disabled="formsricanton.$invalid">
+                            Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
                     </div>
                 </div>
-
             </div>
         </div>
 
+        <!-- Modal canton Nativo-->
 
-        <!-- Modal Canton -->
-        <div id="myCanton" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-
-                <!-- Modal content-->
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalActionParroquia">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"> Datos Canton</h4>
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">{{form_title}}</h4>
                     </div>
                     <div class="modal-body">
+                        <form class="form-horizontal" name="formsriparroquia" novalidate="">
+                            <div class="row">
+                                <div class="col-xs-12 error">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Canton: </span>
+                                        <select class="selectpicker form-control" id="SLcanton" ng-model="SLcanton" ng-required="true">
+                                            <option ng-repeat="cant in canton" value="{{cant.idcanton}}">{{cant.namecanton}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formsriparroquia.SLCanton.$invalid && formsricanton.SLCanton==''">La provincia es requerida</span>
 
-                        <div class = "row">
-                            <div class="col-xs-11" style ="margin-left:20px;">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Provincia: </span>
-                                    <select class="form-control">
-                                        <option value="">-- Seleccione --</option>
-                                    </select>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class = "row">
-                            <div class="col-xs-11" style ="margin-left:20px;">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Nombre: </span>
-                                    <input type="text" class="form-control">
+                                <div class="col-xs-12 error">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Nombre Parroquia: </span>
+                                        <input type="text" class="form-control" name="nameparroquia" id="nameparroquia" ng-model="nameparroquia" placeholder=""
+                                               ng-required="true" ng-maxlength="50">
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formsriparroquia.nameparroquia.$invalid && formsriparroquia.nameparroquia.$touched">El nombre Parroquia es requerido</span>
+                                    <span class="help-block error"
+                                          ng-show="formsriparroquia.nameparroquia.$invalid && formsriparroquia.nameparroquia.$error.maxlength">La longitud máxima es de 50 caracteres</span>
                                 </div>
+
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <div class ="row">
-                            <div class="col-xs-7"></div>
-                            <div class="col-xs-2" style ="margin-left:-10px;">
-                                <button type="button" class="btn btn-success">
-                                    Guardar <span class="glyphicon glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                            <div class="col-xs-2">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">
-                                    Cancelar <span class="glyphicon glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>
-
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="btn-save" ng-click="Save('parroquia')" ng-disabled="formsriparroquia.$invalid">
+                            Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
                     </div>
                 </div>
-
             </div>
         </div>
+
 
 
         <!-- Modal Confirmacion Borrado -->
@@ -1768,64 +1746,64 @@
 
 
 
-        <!-- Modal Mensajes -->
+    <!-- Modal Mensajes -->
 
 
-        <div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header modal-header-success">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Confirmación</h4>
-                    </div>
-                    <div class="modal-body">
-                        <span>{{message}}</span>
-                    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-header-success">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Confirmación</h4>
+                </div>
+                <div class="modal-body">
+                    <span>{{message}}</span>
                 </div>
             </div>
         </div>
+    </div>
 
 
-        <!-- Modal Provincia -->
-        <div id="myProvincia" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+    <!-- Modal Provincia -->
+    <div id="myProvincia" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"> Datos Provincia</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class = "row">
-                            <div class="col-xs-11" style ="margin-left:20px;">
-                                <div class="input-group">
-                                    <span class="input-group-addon">Nombre: </span>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class ="row">
-                            <div class="col-xs-7"></div>
-                            <div class="col-xs-2" style ="margin-left:-10px;">
-                                <button type="button" class="btn btn-success">
-                                    Guardar <span class="glyphicon glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
-                                </button>
-                            </div>
-                            <div class="col-xs-2">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">
-                                    Cancelar <span class="glyphicon glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>
-
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> Datos Provincia</h4>
+                </div>
+                <div class="modal-body">
+                    <div class = "row">
+                        <div class="col-xs-11" style ="margin-left:20px;">
+                            <div class="input-group">
+                                <span class="input-group-addon">Nombre: </span>
+                                <input type="text" class="form-control">
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <div class ="row">
+                        <div class="col-xs-7"></div>
+                        <div class="col-xs-2" style ="margin-left:-10px;">
+                            <button type="button" class="btn btn-success">
+                                Guardar <span class="glyphicon glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <div class="col-xs-2">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar <span class="glyphicon glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
 
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
+    </div>
 
 
     <div class="modal fade" tabindex="-1" role="dialog" id="modalMessageError" style="z-index: 99999;">
@@ -1843,7 +1821,7 @@
     </div>
 
 
-    </div>
+</div>
 
 </body>
 
@@ -1865,6 +1843,7 @@
 
 <script src="<?= asset('app/app.js') ?>"></script>
 <script src="<?= asset('app/controllers/nomencladorController.js') ?>"></script>
+
 
 
 </html>
