@@ -1422,7 +1422,6 @@
             </div>
         </div>
 
-
         <!-- Modal pago residente Nativo-->
 
         <div class="modal fade" tabindex="-1" role="dialog" id="modalActionPagoResidente">

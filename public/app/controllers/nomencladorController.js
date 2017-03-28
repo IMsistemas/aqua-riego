@@ -2185,9 +2185,6 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
     };
 
 
-
-
-
     $scope.hideModalMessage = function () {
         setTimeout("$('#modalMessage').modal('hide')", 3000);
     };

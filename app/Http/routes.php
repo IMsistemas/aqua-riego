@@ -791,7 +791,6 @@ Route::post('Nomenclador/updateProvincia/{id}', 'Nomenclador\NomencladorControll
 Route::post('Nomenclador/updatecantonEX/{id}', 'Nomenclador\NomencladorController@updatecantonEX' );
 Route::post('Nomenclador/updateparroquiaEX/{id}', 'Nomenclador\NomencladorController@updateparroquiaEX' );
 
-
 Route::post('Nomenclador/getTipoDocumento','Nomenclador\NomencladorController@store');
 Route::post('Nomenclador/storeTipoIdent','Nomenclador\NomencladorController@storeTipoIdent');
 Route::post('Nomenclador/storeTipoImpuesto','Nomenclador\NomencladorController@storeTipoImpuesto');

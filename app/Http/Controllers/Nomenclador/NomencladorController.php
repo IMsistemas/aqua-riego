@@ -1149,7 +1149,6 @@ class NomencladorController extends Controller
         }
     }
 
-
     public function updatePagoResidente(Request $request, $id)
     {
 
