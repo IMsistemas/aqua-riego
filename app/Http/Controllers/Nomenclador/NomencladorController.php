@@ -54,7 +54,7 @@ class NomencladorController extends Controller
         $SRItipodocumento = null;
 
         if ($search != null and !empty($search)) {
-            $SRItipodocumento = SRI_TipoDocumento::whereRaw("sri_tipodocumento.nametipodocumento LIKE '%" . $search . "%'")->orderBy('nametipodocumento', 'asc');
+            $SRItipodocumento = SRI_TipoDocumento::whereRaw("sri_tipodocumento.nametipodocumento ILIKE '%" . $search . "%'")->orderBy('nametipodocumento', 'asc');
             return $SRItipodocumento->paginate(10);
         }
         else{
@@ -76,7 +76,7 @@ class NomencladorController extends Controller
         $SRItipoidentificacion = null;
 
         if ($search != null) {
-            $SRItipoidentificacion = sri_tipoidentificacion::whereRaw("sri_tipodocumento.nameidentificacion LIKE '%" . $search . "%'")->orderBy('nameidentificacion', 'asc');
+            $SRItipoidentificacion = sri_tipoidentificacion::whereRaw("sri_tipodocumento.nameidentificacion ILIKE '%" . $search . "%'")->orderBy('nameidentificacion', 'asc');
             return $SRItipoidentificacion->paginate(10);
         }
         else{
@@ -101,7 +101,7 @@ class NomencladorController extends Controller
         $SRITipoImpuesto = null;
 
         if ($search != null) {
-            $SRITipoImpuesto = SRI_TipoImpuesto::whereRaw("SRI_TipoImpuesto.nameimpuesto LIKE '%" . $search . "%'")->orderBy('nameimpuesto', 'asc');
+            $SRITipoImpuesto = SRI_TipoImpuesto::whereRaw("SRI_TipoImpuesto.nameimpuesto ILIKE '%" . $search . "%'")->orderBy('nameimpuesto', 'asc');
             return $SRITipoImpuesto->paginate(10);
         }
         else{
@@ -125,7 +125,7 @@ class NomencladorController extends Controller
 
             return SRI_TipoImpuestoIva::join('sri_tipoimpuesto', 'sri_tipoimpuestoiva.idtipoimpuesto', '=', 'sri_tipoimpuesto.idtipoimpuesto')
                 ->select('sri_tipoimpuestoiva.*', 'sri_tipoimpuesto.idtipoimpuesto')
-                ->where('sri_tipoimpuestoiva.nametipoimpuestoiva','LIKE','%' . $search . '%')
+                ->where('sri_tipoimpuestoiva.nametipoimpuestoiva','ILIKE','%' . $search . '%')
                 ->orderBy ('nametipoimpuestoiva','asc')->paginate(10);
 
         }
@@ -149,7 +149,7 @@ class NomencladorController extends Controller
 
             return SRI_TipoImpuestoIce::join('sri_tipoimpuesto', 'sri_tipoimpuestoice.idtipoimpuesto', '=', 'sri_tipoimpuesto.idtipoimpuesto')
                 ->select('sri_tipoimpuestoice.*', 'sri_tipoimpuesto.idtipoimpuesto')
-                ->where('sri_tipoimpuestoice.nametipoimpuestoice','LIKE','%' . $search . '%')
+                ->where('sri_tipoimpuestoice.nametipoimpuestoice','ILIKE','%' . $search . '%')
                 ->orderBy ('nametipoimpuestoice','asc')->paginate(10);
 
         }
@@ -172,7 +172,7 @@ class NomencladorController extends Controller
         $SRITipoImpuestoRten = null;
 
         if ($search != null) {
-            $SRITipoImpuestoRten = SRI_TipoImpuestoRetencion::whereRaw("sri_tipoimpuestoretencion.nametipoimpuestoretencion LIKE '%" . $search . "%'")->orderBy('nametipoimpuestoretencion', 'asc');
+            $SRITipoImpuestoRten = SRI_TipoImpuestoRetencion::whereRaw("sri_tipoimpuestoretencion.nametipoimpuestoretencion ILIKE '%" . $search . "%'")->orderBy('nametipoimpuestoretencion', 'asc');
             return $SRITipoImpuestoRten->paginate(10);
         }
         else{
@@ -195,7 +195,7 @@ class NomencladorController extends Controller
 
             return SRI_DetalleImpuestoRetencion::join('sri_tipoimpuestoretencion', 'sri_detalleimpuestoretencion.idtipoimpuestoretencion', '=', 'sri_tipoimpuestoretencion.idtipoimpuestoretencion')
                 ->select('sri_detalleimpuestoretencion.*', 'sri_tipoimpuestoretencion.nametipoimpuestoretencion')
-                ->where('sri_detalleimpuestoretencion.namedetalleimpuestoretencion','LIKE','%' . $search . '%')
+                ->where('sri_detalleimpuestoretencion.namedetalleimpuestoretencion','ILIKE','%' . $search . '%')
                 ->orderBy ('namedetalleimpuestoretencion','asc')->paginate(40);
 
         }
@@ -220,7 +220,7 @@ class NomencladorController extends Controller
         $SRISustento = null;
 
         if ($search != null) {
-            $SRISustento = SRI_SustentoTributario::whereRaw("sri_sustentotributario.namesustento LIKE '%" . $search . "%'")->orderBy('namesustento', 'asc');
+            $SRISustento = SRI_SustentoTributario::whereRaw("sri_sustentotributario.namesustento ILIKE '%" . $search . "%'")->orderBy('namesustento', 'asc');
             return $SRISustento->paginate(15);
         }
         else{
@@ -240,7 +240,7 @@ class NomencladorController extends Controller
         $SRISustento = null;
 
         if ($search != null) {
-            $SRISustento = SRI_SustentoTributario::whereRaw("sri_sustentotributario.namesustento LIKE '%" . $search . "%'")->orderBy('namesustento', 'asc');
+            $SRISustento = SRI_SustentoTributario::whereRaw("sri_sustentotributario.namesustento ILIKE '%" . $search . "%'")->orderBy('namesustento', 'asc');
             return $SRISustento->paginate(500);
         }
         else{
@@ -265,7 +265,7 @@ class NomencladorController extends Controller
             return SRI_Sustento_Comprobante::join('sri_tipocomprobante', 'sri_sustento_comprobante.idtipocomprobante', '=', 'sri_tipocomprobante.idtipocomprobante')
                 -> join('sri_sustentotributario', 'sri_sustento_comprobante.idsustentotributario', '=', 'sri_sustentotributario.idsustentotributario')
                 ->select('sri_tipocomprobante.*', 'sri_sustentotributario.namesustento')
-                ->where('sri_tipocomprobante.namecomprobante','LIKE','%" . $search . "%')
+                ->where('sri_tipocomprobante.namecomprobante','ILIKE','%" . $search . "%')
                 ->orderBy('sri_sustentotributario.namesustento', 'asc')
                 ->orderBy('namecomprobante', 'asc')->paginate(20);
 
@@ -295,7 +295,7 @@ class NomencladorController extends Controller
         $SRIPagoResidente = null;
 
         if ($search != null) {
-            $SRIPagoResidente = SRI_PagoResidente::whereRaw("sri_pagoresidente.tipopagoresidente LIKE '%" . $search . "%'")->orderBy('tipopagoresidente', 'asc');
+            $SRIPagoResidente = SRI_PagoResidente::whereRaw("sri_pagoresidente.tipopagoresidente ILIKE '%" . $search . "%'")->orderBy('tipopagoresidente', 'asc');
             return $SRIPagoResidente->paginate(10);
         }
         else{
@@ -316,7 +316,7 @@ class NomencladorController extends Controller
         $SRIPagoPais = null;
 
         if ($search != null) {
-            $SRIPagoPais = SRI_PagoPais::whereRaw("sri_pagopais.pais LIKE '%" . $search . "%'")->orderBy('pais', 'asc');
+            $SRIPagoPais = SRI_PagoPais::whereRaw("sri_pagopais.pais ILIKE '%" . $search . "%'")->orderBy('pais', 'asc');
             return $SRIPagoPais->paginate(10);
         }
         else{
@@ -337,7 +337,7 @@ class NomencladorController extends Controller
         $FormaPago = null;
 
         if ($search != null) {
-            $FormaPago = Cont_FormaPago::whereRaw("cont_formapago.nameformapago LIKE '%" . $search . "%'")->orderBy('nameformapago', 'asc');
+            $FormaPago = Cont_FormaPago::whereRaw("cont_formapago.nameformapago ILIKE '%" . $search . "%'")->orderBy('nameformapago', 'asc');
             return $FormaPago->paginate(10);
         }
         else{
@@ -357,7 +357,7 @@ class NomencladorController extends Controller
         $Provin = null;
 
         if ($search != null) {
-            $Provin = Provincia::whereRaw("provincia.nameprovincia LIKE '%" . $search . "%'")->orderBy('nameprovincia', 'asc');
+            $Provin = Provincia::whereRaw("provincia.nameprovincia ILIKE '%" . $search . "%'")->orderBy('nameprovincia', 'asc');
             return $Provin->paginate(10);
         }
         else{
@@ -378,7 +378,7 @@ class NomencladorController extends Controller
         $Provin = null;
 
         if ($search != null) {
-            $Provin = Provincia::whereRaw("provincia.nameprovincia LIKE '%" . $search . "%'")->orderBy('nameprovincia', 'asc');
+            $Provin = Provincia::whereRaw("provincia.nameprovincia ILIKE '%" . $search . "%'")->orderBy('nameprovincia', 'asc');
             return $Provin->paginate(500);
         }
         else{
@@ -401,7 +401,7 @@ class NomencladorController extends Controller
 
             return Canton::join('provincia', 'canton.idprovincia', '=', 'provincia.idprovincia')
                 ->select('canton.*', 'provincia.idprovincia', 'provincia.nameprovincia')
-                ->where('canton.namecanton','LIKE','%' . $search . '%')
+                ->where('canton.namecanton','ILIKE','%' . $search . '%')
                 ->orderBy('provincia.nameprovincia', 'asc')
                 ->orderBy ('namecanton','asc')->paginate(10);
         }
@@ -426,7 +426,7 @@ class NomencladorController extends Controller
 
             return Canton::join('provincia', 'canton.idprovincia', '=', 'provincia.idprovincia')
                 ->select('canton.*', 'provincia.idprovincia', 'provincia.nameprovincia')
-                ->where('canton.namecanton','LIKE','%' . $search . '%')
+                ->where('canton.namecanton','ILIKE','%' . $search . '%')
                 ->orderBy('provincia.nameprovincia', 'asc')
                 ->orderBy ('namecanton','asc')->paginate(500);
         }
@@ -448,7 +448,7 @@ class NomencladorController extends Controller
         if ($search != null) {
             return Parroquia::join('canton', 'parroquia.idcanton', '=', 'canton.idcanton')
                 ->select('parroquia.*', 'canton.idcanton', 'canton.namecanton')
-                ->where('parroquia.nameparroquia','LIKE','%' . $search . '%')
+                ->where('parroquia.nameparroquia','ILIKE','%' . $search . '%')
                 ->orderBy('canton.namecanton', 'asc')
                 ->orderBy ('nameparroquia','asc')->paginate(10);
         }
