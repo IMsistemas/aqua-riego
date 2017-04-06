@@ -10,9 +10,12 @@
     <link type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
+
+
 </head>
+
 <body>
-<div ng-controller="NomencladorController">
+<div ng-controller="NomencladorController" ng-init="CargadataProvincia();">
     <div id="dvTab" style="margin-top: 5px;">
         <ul class="nav nav-tabs" role="tablist">
             <li ng-click="CargadataProvincia()" role="presentation" class="active tabs"><a href="#empresa" aria-controls="empresa" role="tab" data-toggle="tab"> Empresa</a></li>
@@ -54,7 +57,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="provi in provincia | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
+                                    <tr dir-paginate="provi in provincia | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemsprv" pagination-id="provinciapg" current-page="currentPage" ng-cloak">
                                     <td>{{provi.nameprovincia}}</td>
                                     <td>
                                         <button type="button" class="btn btn-warning" ng-click="toggle('edit',provi.idprovincia,'prov')">
@@ -67,6 +70,14 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <dir-pagination-controls pagination-id="provinciapg"
+                                        on-page-change="CargadataProvincia(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -94,7 +105,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="cant in canton | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak" >
+                                    <tr dir-paginate="cant in canton | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemscanton" current-page="currentPage" pagination-id="cantonpg" ng-cloak >
                                     <td>{{cant.nameprovincia}}</td>
                                     <td>{{cant.namecanton}}</td>
                                     <td>
@@ -108,6 +119,14 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="cantonpg"
+                                        on-page-change="CargadataCanton(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -137,7 +156,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="parq in parroquia | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak" >
+                                    <tr dir-paginate="parq in parroquia | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItemsparroquia" current-page="currentPage" pagination-id="parroquiapg" ng-cloak >
                                     <td>{{parq.namecanton}}</td>
                                     <td>{{parq.nameparroquia}}</td>
                                     <td>
@@ -151,6 +170,14 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="parroquiapg"
+                                        on-page-change="CargadataParroquia(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+
+                                </dir-pagination-controls>
                             </div>
                         </div>
                     </div>
@@ -191,7 +218,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="FormaPago in Con_FormaPago | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
+                                    <tr dir-paginate="FormaPago in Con_FormaPago | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemsformapago" current-page="currentPage" pagination-id="formapagopg" ng-cloak>
                                     <td>{{FormaPago.nameformapago}}</td>
                                     <td>{{FormaPago.codigosri}}</td>
                                     <td>
@@ -213,6 +240,14 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="formapagopg"
+                                        on-page-change="CargadataFormaPago(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+
+                                </dir-pagination-controls>
                             </div>
                         </div>
                     </div>
@@ -228,8 +263,8 @@
                         <li ng-click="CargadataTPdoc()" role="presentation" class="active tabs"><a href="#sri_tiposdocumentos" aria-controls="sri_tiposdocumentos" role="tab" data-toggle="tab">Tipos de Documentos</a></li>
                         <li ng-click="CargadataTPident()" role="presentation" class="tabs"><a href="#sri_tiposidentificacion" aria-controls="sri_tiposidentificacion" role="tab" data-toggle="tab">Tipos de Identificación</a></li>
                         <li ng-click="CargadataTPimp()" role="presentation" class="tabs"><a href="#sri_tiposimpuestos" aria-controls="sri_tiposimpuestos" role="tab" data-toggle="tab">Tipos de Impuestos</a></li>
-                        <li ng-click="CargadataImpIVA(); CargadataTPimp()" role="presentation" class="tabs"><a href="#sri_tiposimpuestosiva" aria-controls="sri_tiposimpuestosiva" role="tab" data-toggle="tab">Impuestos IVA</a></li>
-                        <li ng-click="CargadataImpICE(); CargadataTPimp()"role="presentation" class="tabs"><a href="#sri_tiposimpuestosice" aria-controls="sri_tiposimpuestosice" role="tab" data-toggle="tab">Impuestos ICE</a></li>
+                        <li ng-click="CargadataImpIVA(); CargadataTPimpEx()" role="presentation" class="tabs"><a href="#sri_tiposimpuestosiva" aria-controls="sri_tiposimpuestosiva" role="tab" data-toggle="tab">Impuestos IVA</a></li>
+                        <li ng-click="CargadataImpICE(); CargadataTPimpEx()"role="presentation" class="tabs"><a href="#sri_tiposimpuestosice" aria-controls="sri_tiposimpuestosice" role="tab" data-toggle="tab">Impuestos ICE</a></li>
                         <li ng-click="CargadataTipoImpRetenc()" role="presentation" class="tabs"><a href="#sri_tiposimpuestosretencion" aria-controls="sri_tiposimpuestosretencion" role="tab" data-toggle="tab"> Impuestos Retención</a></li>
                         <li ng-click="CargadataImpIVARENTA(); CargadataTipoImpRetenc()" role="presentation" class="tabs"><a href="#sri_tiposimpuestosretencioniva_renta" aria-controls="sri_tiposimpuestosretencioniva_renta" role="tab" data-toggle="tab">Imp. Retención IVA-RENTA</a></li>
                         <li ng-click="CargadataSustentoTrib()" role="presentation" class="tabs"><a href="#sri_sustentotributario" aria-controls="sri_sustentotributario" role="tab" data-toggle="tab">Sustentos Tributarios</a></li>
@@ -264,7 +299,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="tipodocumento in sri_tipodocumento | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
+                                    <tr dir-paginate="tipodocumento in sri_tipodocumento | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpdoc" current-page="currentPage" pagination-id="tpdocpg01" ng-cloak>
                                     <td>{{tipodocumento.nametipodocumento}}</td>
                                     <td>{{tipodocumento.codigosri}} </td>
                                     <td>
@@ -286,6 +321,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="tpdocpg01"
+                                        on-page-change="CargadataTPdoc(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -316,7 +358,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="tipoidentificacion in sri_tipoidentificacion | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
+                                    <tr dir-paginate="tipoidentificacion in sri_tipoidentificacion | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpident" current-page="currentPage" pagination-id="tpidentpg" ng-cloak>
                                     <td>{{tipoidentificacion.nameidentificacion}}</td>
                                     <td>{{tipoidentificacion.codigosri}}</td>
                                     <td>
@@ -338,6 +380,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="tpidentpg"
+                                        on-page-change="CargadataTPident(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -367,7 +416,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="tipoimpuesto in sri_tipoimpuesto | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak" >
+                                    <tr dir-paginate="tipoimpuesto in sri_tipoimpuesto | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpimp" current-page="currentPage" pagination-id="tpimppg" ng-cloak >
                                     <td>{{tipoimpuesto.nameimpuesto}}</td>
                                     <td>{{tipoimpuesto.codigosri}}</td>
                                     <td>
@@ -389,6 +438,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="tpimppg"
+                                        on-page-change="CargadataTPimp(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -418,7 +474,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="tipoimpuestoiva in sri_tipoimpuestoIVA | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak >
+                                    <tr dir-paginate="tipoimpuestoiva in sri_tipoimpuestoIVA | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpimpiva" current-page="currentPage" pagination-id="tpimpivapg" ng-cloak >
                                         <td>{{tipoimpuestoiva.nametipoimpuestoiva}}</td>
                                         <td>{{tipoimpuestoiva.codigosri}}</td>
                                         <td>{{tipoimpuestoiva.porcentaje}}</td>
@@ -441,6 +497,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="tpimpivapg"
+                                        on-page-change="CargadataImpIVA(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -471,7 +534,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="tipoimpuestoice in sri_tipoimpuestoICE | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak  >
+                                    <tr dir-paginate="tipoimpuestoice in sri_tipoimpuestoICE | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpimpicepg" current-page="currentPage" pagination-id="tpimpicepg" ng-cloak  >
                                         <td>{{tipoimpuestoice.nametipoimpuestoice}}</td>
                                         <td>{{tipoimpuestoice.codigosri}}</td>
                                         <td>{{tipoimpuestoice.porcentaje}}</td>
@@ -495,6 +558,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="tpimpicepg"
+                                        on-page-change="CargadataImpICE(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -523,7 +593,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="tipoimpuestoRten in sri_tipoimpuestoRten | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak" >
+                                    <tr dir-paginate="tipoimpuestoRten in sri_tipoimpuestoRten | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpimpretpg01" current-page="currentPage" pagination-id="tpimpretcpg" ng-cloak" >
                                     <td>{{tipoimpuestoRten.nametipoimpuestoretencion}}</td>
                                     <td>{{tipoimpuestoRten.codigosri}}</td>
                                     <td>
@@ -545,6 +615,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="tpimpretcpg"
+                                        on-page-change="CargadataTipoImpRetenc(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -575,7 +652,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate=" ImpuestoIVARENTA in sri_ImpuestoIVARENTA | orderBy:sortKey:reverse | itemsPerPage:40" total-items="totalItems" ng-cloak >
+                                    <tr dir-paginate=" ImpuestoIVARENTA in sri_ImpuestoIVARENTA | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpimpretcivapg" current-page="currentPage" pagination-id="tpimpretcivapg" ng-cloak >
                                         <td>{{ImpuestoIVARENTA.nametipoimpuestoretencion}}</td>
                                         <td>{{ImpuestoIVARENTA.namedetalleimpuestoretencion}}</td>
                                         <td>{{ImpuestoIVARENTA.codigosri}}</td>
@@ -600,6 +677,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="tpimpretcivapg"
+                                        on-page-change="CargadataImpIVARENTA(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -628,7 +712,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="SustentoTributario in sri_SustentoTributario | orderBy:sortKey:reverse | itemsPerPage:15" total-items="totalItems" ng-cloak>
+                                    <tr dir-paginate="SustentoTributario in sri_SustentoTributario | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpimpsustpg" current-page="currentPage" pagination-id="tpimpsustpg" ng-cloak>
                                         <td>{{SustentoTributario.namesustento}}</td>
                                         <td>{{SustentoTributario.codigosrisustento}}</td>
                                         <td>
@@ -650,6 +734,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="tpimpsustpg"
+                                        on-page-change="CargadataSustentoTrib(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -679,7 +770,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="Comprobante in sri_Comprobante | orderBy:sortKey:reverse | itemsPerPage:20" total-items="totalItems" ng-cloak>
+                                    <tr dir-paginate="Comprobante in sri_Comprobante | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpcomppg" current-page="currentPage" pagination-id="tpcomppg" ng-cloak>
                                         <td>{{Comprobante.namesustento}}</td>
                                         <td>{{Comprobante.namecomprobante}}</td>
                                         <td>{{Comprobante.codigosri}}
@@ -703,6 +794,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="tpcomppg"
+                                        on-page-change="CargadataComprobante(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -729,7 +827,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="PagoResidente in sri_PagoResidente | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak >
+                                    <tr dir-paginate="PagoResidente in sri_PagoResidente | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpresindentpgs" current-page="currentPage" pagination-id="tpresindentpg" ng-cloak >
                                         <td>{{PagoResidente.tipopagoresidente}}</td>
                                         <td>
                                             <button type="button" class="btn btn-warning" ng-click="toggle('edit',PagoResidente.idpagoresidente,'tppagores')">
@@ -742,6 +840,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="tpresindentpg"
+                                        on-page-change="CargadataPagoResidente(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -749,7 +854,7 @@
                             <div class="col-xs-12">
                                 <div class="col-xs-6">
                                     <div class="form-group has-feedback">
-                                        <input type="text" class="form-control" placeholder="BUSCAR..." ng-model="busqueda" ng-change="sri_pagopais(1)" >
+                                        <input type="text" class="form-control" placeholder="BUSCAR..." ng-model="busqueda" ng-change="CargadataPagoPais(1)" >
                                         <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                                     </div>
                                 </div>
@@ -769,7 +874,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr dir-paginate="pagopais in sri_pagopais | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak>
+                                    <tr dir-paginate="pagopais in sri_pagopais | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItemstppaispg" current-page="currentPage" pagination-id="tppaispg" ng-cloak>
                                         <td>{{pagopais.pais}}</td>
                                         <td>{{pagopais.codigosri}}</td>
                                         <td>
@@ -783,6 +888,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+								<dir-pagination-controls pagination-id="tppaispg"
+                                        on-page-change="CargadataPagoPais(newPageNumber)"
+                                        class="pull-right"
+                                        max-size="8"
+                                        direction-links="true"
+                                        boundary-links="true" >
+                                </dir-pagination-controls>
                             </div>
                         </div>
 
@@ -1081,7 +1193,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Nombre del Impuesto Ice: </span>
                                         <input type="text" class="form-control" name="nameimpuestoice" id="nameimpuestoice" ng-model="nameimpuestoice" placeholder=""
-                                               ng-required="true" ng-maxlength="50">
+                                               ng-required="true" ng-maxlength="200">
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formsriImpuestoIce.nameimpuestoice.$invalid && formsriImpuestoIce.nameimpuestoiva.$touched">El nombre del Tipo Impuesto Ice es requerido</span>
@@ -1162,7 +1274,7 @@
                             <div class="row">
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Nombre del Impuesto de Retencion: </span>
+                                        <span class="input-group-addon">Nombre del Impuesto de Retención: </span>
                                         <input type="text" class="form-control" name="nametipoimpuestoret" id="nametipoimpuestoret" ng-model="nametipoimpuestoret" placeholder=""
                                                ng-required="true" ng-maxlength="50">
                                     </div>
@@ -1235,7 +1347,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Nombre del Impuesto de Iva - Rtencion: </span>
                                         <input type="text" class="form-control" name="nametipoimpuestoivaret" id="nametipoimpuestoivaret" ng-model="nametipoimpuestoivaret" placeholder=""
-                                               ng-required="true" ng-maxlength="50">
+                                               ng-required="true" ng-maxlength="10">
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formsritipoimpuestoIvaRetRenta.nametipoimpuestoivaret.$invalid && formsritipoimpuestoIvaRetRenta.nametipoimpuestoivaret.$touched">El nombre del Tipo Impuesto es requerido</span>
