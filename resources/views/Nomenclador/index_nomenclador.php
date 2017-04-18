@@ -71,11 +71,11 @@
                                     </tbody>
                                 </table>
                                 <dir-pagination-controls pagination-id="provinciapg"
-                                        on-page-change="CargadataProvincia(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                                         on-page-change="CargadataProvincia(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
 
                                 </dir-pagination-controls>
                             </div>
@@ -106,25 +106,25 @@
                                     </thead>
                                     <tbody>
                                     <tr dir-paginate="cant in canton | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemscanton" current-page="currentPage" pagination-id="cantonpg" ng-cloak >
-                                    <td>{{cant.nameprovincia}}</td>
-                                    <td>{{cant.namecanton}}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit',cant.idcanton,'canton')">
-                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(cant,'canton')">
-                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
+                                        <td>{{cant.nameprovincia}}</td>
+                                        <td>{{cant.namecanton}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning" ng-click="toggle('edit',cant.idcanton,'canton')">
+                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(cant,'canton')">
+                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="cantonpg"
-                                        on-page-change="CargadataCanton(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="cantonpg"
+                                                         on-page-change="CargadataCanton(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
 
                                 </dir-pagination-controls>
                             </div>
@@ -157,25 +157,25 @@
                                     </thead>
                                     <tbody>
                                     <tr dir-paginate="parq in parroquia | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItemsparroquia" current-page="currentPage" pagination-id="parroquiapg" ng-cloak >
-                                    <td>{{parq.namecanton}}</td>
-                                    <td>{{parq.nameparroquia}}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit',parq.idparroquia,'parroquia')">
-                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(parq,'parroquia')">
-                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
+                                        <td>{{parq.namecanton}}</td>
+                                        <td>{{parq.nameparroquia}}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning" ng-click="toggle('edit',parq.idparroquia,'parroquia')">
+                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(parq,'parroquia')">
+                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="parroquiapg"
-                                        on-page-change="CargadataParroquia(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="parroquiapg"
+                                                         on-page-change="CargadataParroquia(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
 
                                 </dir-pagination-controls>
                             </div>
@@ -219,33 +219,33 @@
                                     </thead>
                                     <tbody>
                                     <tr dir-paginate="FormaPago in Con_FormaPago | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemsformapago" current-page="currentPage" pagination-id="formapagopg" ng-cloak>
-                                    <td>{{FormaPago.nameformapago}}</td>
-                                    <td>{{FormaPago.codigosri}}</td>
-                                    <td>
-                                        <div ng-if="FormaPago.estado">
-                                            Activo
-                                        </div>
-                                        <div ng-if="!FormaPago.estado">
-                                            No Activo
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit', FormaPago.idformapago,'formapago')">
-                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(FormaPago,'formapago')">
-                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
+                                        <td>{{FormaPago.nameformapago}}</td>
+                                        <td>{{FormaPago.codigosri}}</td>
+                                        <td>
+                                            <div ng-if="FormaPago.estado">
+                                                Activo
+                                            </div>
+                                            <div ng-if="!FormaPago.estado">
+                                                No Activo
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning" ng-click="toggle('edit', FormaPago.idformapago,'formapago')">
+                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(FormaPago,'formapago')">
+                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="formapagopg"
-                                        on-page-change="CargadataFormaPago(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="formapagopg"
+                                                         on-page-change="CargadataFormaPago(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
 
                                 </dir-pagination-controls>
                             </div>
@@ -300,33 +300,33 @@
                                     </thead>
                                     <tbody>
                                     <tr dir-paginate="tipodocumento in sri_tipodocumento | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpdoc" current-page="currentPage" pagination-id="tpdocpg01" ng-cloak>
-                                    <td>{{tipodocumento.nametipodocumento}}</td>
-                                    <td>{{tipodocumento.codigosri}} </td>
-                                    <td>
-                                        <div ng-if="tipodocumento.estado">
-                                            Activo
-                                        </div>
-                                        <div ng-if="!tipodocumento.estado">
-                                            No Activo
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit', tipodocumento.idtipodocumento,'tpdocsri')">
-                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipodocumento,'tpdocsri')">
-                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
+                                        <td>{{tipodocumento.nametipodocumento}}</td>
+                                        <td>{{tipodocumento.codigosri}} </td>
+                                        <td>
+                                            <div ng-if="tipodocumento.estado">
+                                                Activo
+                                            </div>
+                                            <div ng-if="!tipodocumento.estado">
+                                                No Activo
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning" ng-click="toggle('edit', tipodocumento.idtipodocumento,'tpdocsri')">
+                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipodocumento,'tpdocsri')">
+                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="tpdocpg01"
-                                        on-page-change="CargadataTPdoc(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="tpdocpg01"
+                                                         on-page-change="CargadataTPdoc(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -359,33 +359,33 @@
                                     </thead>
                                     <tbody>
                                     <tr dir-paginate="tipoidentificacion in sri_tipoidentificacion | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpident" current-page="currentPage" pagination-id="tpidentpg" ng-cloak>
-                                    <td>{{tipoidentificacion.nameidentificacion}}</td>
-                                    <td>{{tipoidentificacion.codigosri}}</td>
-                                    <td>
-                                        <div ng-if="tipoidentificacion.estado">
-                                            Activo
-                                        </div>
-                                        <div ng-if="!tipoidentificacion.estado">
-                                            No Activo
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit',tipoidentificacion.idtipoidentificacion,'tpidentsri')">
-                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipoidentificacion,'tpidentsri')">
-                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
+                                        <td>{{tipoidentificacion.nameidentificacion}}</td>
+                                        <td>{{tipoidentificacion.codigosri}}</td>
+                                        <td>
+                                            <div ng-if="tipoidentificacion.estado">
+                                                Activo
+                                            </div>
+                                            <div ng-if="!tipoidentificacion.estado">
+                                                No Activo
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning" ng-click="toggle('edit',tipoidentificacion.idtipoidentificacion,'tpidentsri')">
+                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipoidentificacion,'tpidentsri')">
+                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="tpidentpg"
-                                        on-page-change="CargadataTPident(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="tpidentpg"
+                                                         on-page-change="CargadataTPident(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -417,33 +417,33 @@
                                     </thead>
                                     <tbody>
                                     <tr dir-paginate="tipoimpuesto in sri_tipoimpuesto | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItemstpimp" current-page="currentPage" pagination-id="tpimppg" ng-cloak >
-                                    <td>{{tipoimpuesto.nameimpuesto}}</td>
-                                    <td>{{tipoimpuesto.codigosri}}</td>
-                                    <td>
-                                        <div ng-if="tipoimpuesto.estado">
-                                            Activo
-                                        </div>
-                                        <div ng-if="!tipoimpuesto.estado">
-                                            No Activo
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning" ng-click="toggle('edit',tipoimpuesto.idtipoimpuesto,'timpsri')">
-                                            Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipoimpuesto,'timpsri')">
-                                            Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                        </button>
-                                    </td>
+                                        <td>{{tipoimpuesto.nameimpuesto}}</td>
+                                        <td>{{tipoimpuesto.codigosri}}</td>
+                                        <td>
+                                            <div ng-if="tipoimpuesto.estado">
+                                                Activo
+                                            </div>
+                                            <div ng-if="!tipoimpuesto.estado">
+                                                No Activo
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning" ng-click="toggle('edit',tipoimpuesto.idtipoimpuesto,'timpsri')">
+                                                Editar <span class="glyphicon glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(tipoimpuesto,'timpsri')">
+                                                Eliminar <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="tpimppg"
-                                        on-page-change="CargadataTPimp(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="tpimppg"
+                                                         on-page-change="CargadataTPimp(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -497,12 +497,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="tpimpivapg"
-                                        on-page-change="CargadataImpIVA(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="tpimpivapg"
+                                                         on-page-change="CargadataImpIVA(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -558,12 +558,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="tpimpicepg"
-                                        on-page-change="CargadataImpICE(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="tpimpicepg"
+                                                         on-page-change="CargadataImpICE(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -615,12 +615,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="tpimpretcpg"
-                                        on-page-change="CargadataTipoImpRetenc(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="tpimpretcpg"
+                                                         on-page-change="CargadataTipoImpRetenc(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -677,12 +677,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="tpimpretcivapg"
-                                        on-page-change="CargadataImpIVARENTA(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="tpimpretcivapg"
+                                                         on-page-change="CargadataImpIVARENTA(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -734,12 +734,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="tpimpsustpg"
-                                        on-page-change="CargadataSustentoTrib(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="tpimpsustpg"
+                                                         on-page-change="CargadataSustentoTrib(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -794,12 +794,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="tpcomppg"
-                                        on-page-change="CargadataComprobante(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="tpcomppg"
+                                                         on-page-change="CargadataComprobante(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -840,12 +840,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="tpresindentpg"
-                                        on-page-change="CargadataPagoResidente(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="tpresindentpg"
+                                                         on-page-change="CargadataPagoResidente(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -888,12 +888,12 @@
                                     </tr>
                                     </tbody>
                                 </table>
-								<dir-pagination-controls pagination-id="tppaispg"
-                                        on-page-change="CargadataPagoPais(newPageNumber)"
-                                        class="pull-right"
-                                        max-size="8"
-                                        direction-links="true"
-                                        boundary-links="true" >
+                                <dir-pagination-controls pagination-id="tppaispg"
+                                                         on-page-change="CargadataPagoPais(newPageNumber)"
+                                                         class="pull-right"
+                                                         max-size="8"
+                                                         direction-links="true"
+                                                         boundary-links="true" >
                                 </dir-pagination-controls>
                             </div>
                         </div>
@@ -930,7 +930,7 @@
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Codigo SRI: </span>
+                                        <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
                                                ng-required="true" ng-maxlength="2">
                                     </div>
@@ -944,7 +944,7 @@
 
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formsritipodoc.codigosri.$invalid && formsritipodoc.codigosri.$touched">El codigo SRI es requerido</span>
+                                          ng-show="formsritipodoc.codigosri.$invalid && formsritipodoc.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsritipodoc.codigosri.$invalid && formsritipodoc.codigosri.$error.maxlength">La longitud máxima es de 2 caracteres</span>
                                 </div>
@@ -992,7 +992,7 @@
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Codigo SRI: </span>
+                                        <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
                                                ng-required="true" ng-maxlength="2">
                                     </div>
@@ -1005,7 +1005,7 @@
                                     </div>
 
                                     <span class="help-block error"
-                                          ng-show="formsritipoident.codigosri.$invalid && formsritipoident.codigosri.$touched">El codigo SRI es requerido</span>
+                                          ng-show="formsritipoident.codigosri.$invalid && formsritipoident.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsritipoident.codigosri.$invalid && formsritipoident.codigosri.$error.maxlength">La longitud máxima es de 2 caracteres</span>
                                 </div>
@@ -1044,16 +1044,16 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Nombre del Tipo Impuesto: </span>
                                         <input type="text" class="form-control" name="nametipoimpuest" id="nametipoimpuest" ng-model="nametipoimpuest" placeholder=""
-                                               ng-required="true" ng-maxlength="50">
+                                               ng-required="true" ng-maxlength="10">
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formsritipoimpuesto.nametipoimpuest.$invalid && formsritipoimpuesto.nametipoimpuest.$touched">El nombre del Tipo Impuesto es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formsritipoimpuesto.nametipoimpuest.$invalid && formsritipoimpuesto.nametipoimpuest.$error.maxlength">La longitud máxima es de 50 caracteres</span>
+                                          ng-show="formsritipoimpuesto.nametipoimpuest.$invalid && formsritipoimpuesto.nametipoimpuest.$error.maxlength">La longitud máxima es de 10 caracteres</span>
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Codigo SRI: </span>
+                                        <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
                                                ng-required="true" ng-maxlength="2">
                                     </div>
@@ -1066,7 +1066,7 @@
                                     </div>
 
                                     <span class="help-block error"
-                                          ng-show="formsritipoimpuesto.codigosri.$invalid && formsritipoimpuesto.codigosri.$touched">El codigo SRI es requerido</span>
+                                          ng-show="formsritipoimpuesto.codigosri.$invalid && formsritipoimpuesto.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsritipoimpuesto.codigosri.$invalid && formsritipoimpuesto.codigosri.$error.maxlength">La longitud máxima es de 2 caracteres</span>
                                 </div>
@@ -1127,12 +1127,12 @@
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Codigo SRI: </span>
+                                        <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
                                                ng-required="true" ng-maxlength="2">
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formsriImpuestoIva.codigosri.$invalid && formsriImpuestoIva.codigosri.$touched">El codigo SRI es requerido</span>
+                                          ng-show="formsriImpuestoIva.codigosri.$invalid && formsriImpuestoIva.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsriImpuestoIva.codigosri.$invalid && formsriImpuestoIva.codigosri.$error.maxlength">La longitud máxima es de 2 caracteres</span>
                                 </div>
@@ -1198,7 +1198,7 @@
                                     <span class="help-block error"
                                           ng-show="formsriImpuestoIce.nameimpuestoice.$invalid && formsriImpuestoIce.nameimpuestoiva.$touched">El nombre del Tipo Impuesto Ice es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formsriImpuestoIce.nameimpuestoice.$invalid && formsriImpuestoIce.nameimpuestoice.$error.maxlength">La longitud máxima es de 50 caracteres</span>
+                                          ng-show="formsriImpuestoIce.nameimpuestoice.$invalid && formsriImpuestoIce.nameimpuestoice.$error.maxlength">La longitud máxima es de 200 caracteres</span>
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
@@ -1212,12 +1212,12 @@
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Codigo SRI: </span>
+                                        <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
-                                               ng-required="true" ng-maxlength="2">
+                                               ng-required="true" ng-maxlength="5">
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formsriImpuestoIce.codigosri.$invalid && formsriImpuestoIce.codigosri.$touched">El codigo SRI es requerido</span>
+                                          ng-show="formsriImpuestoIce.codigosri.$invalid && formsriImpuestoIce.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsriImpuestoIce.codigosri.$invalid && formsriImpuestoIce.codigosri.$error.maxlength">La longitud máxima es de 2 caracteres</span>
                                 </div>
@@ -1285,7 +1285,7 @@
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Codigo SRI: </span>
+                                        <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
                                                ng-required="true" ng-maxlength="2">
                                     </div>
@@ -1298,7 +1298,7 @@
                                     </div>
 
                                     <span class="help-block error"
-                                          ng-show="formsritipoimpuestoRetRenta.codigosri.$invalid && formsritipoimpuestoRetRenta.codigosri.$touched">El codigo SRI es requerido</span>
+                                          ng-show="formsritipoimpuestoRetRenta.codigosri.$invalid && formsritipoimpuestoRetRenta.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsritipoimpuesto.codigosri.$invalid && formsritipoimpuestoRetRenta.codigosri.$error.maxlength">La longitud máxima es de 2 caracteres</span>
                                 </div>
@@ -1366,7 +1366,7 @@
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Codigo SRI: </span>
+                                        <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
                                                ng-required="true" ng-maxlength="2">
                                     </div>
@@ -1379,7 +1379,7 @@
                                     </div>
 
                                     <span class="help-block error"
-                                          ng-show="formsritipoimpuestoIvaRetRenta.codigosri.$invalid && formsritipoimpuestoIvaRetRenta.codigosri.$touched">El codigo SRI es requerido</span>
+                                          ng-show="formsritipoimpuestoIvaRetRenta.codigosri.$invalid && formsritipoimpuestoIvaRetRenta.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsritipoimpuestoIvaRetRenta.$invalid && formsritipoimpuestoIvaRetRenta.$error.maxlength">La longitud máxima es de 2 caracteres</span>
                                 </div>
@@ -1428,7 +1428,7 @@
 
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Codigo SRI: </span>
+                                        <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosrisustento" id="codigosrisustento" ng-model="codigosrisustento" placeholder=""
                                                ng-required="true" ng-maxlength="2">
                                     </div>
@@ -1441,7 +1441,7 @@
                                     </div>
 
                                     <span class="help-block error"
-                                          ng-show="formsriSustentoTributario.codigosrisustento.$invalid && formsriSustentoTributario.codigosrisustento.$touched">El codigo SRI es requerido</span>
+                                          ng-show="formsriSustentoTributario.codigosrisustento.$invalid && formsriSustentoTributario.codigosrisustento.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsriSustentoTributario.codigosrisustento.$invalid && formsriSustentoTributario.codigosrisustento.$error.maxlength">La longitud máxima es de 2 caracteres</span>
                                 </div>
@@ -1500,7 +1500,7 @@
 
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Codigo SRI: </span>
+                                        <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
                                                ng-required="true" ng-maxlength="2">
                                     </div>
@@ -1513,7 +1513,7 @@
                                     </div>
 
                                     <span class="help-block error"
-                                          ng-show="formsriCompSustTributario.codigosri.$invalid && formsriCompSustTributario.codigosri.$touched">El codigo SRI es requerido</span>
+                                          ng-show="formsriCompSustTributario.codigosri.$invalid && formsriCompSustTributario.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsriCompSustTributario.$invalid && formsriCompSustTributario.$error.maxlength">La longitud máxima es de 2 caracteres</span>
                                 </div>
@@ -1600,13 +1600,13 @@
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Codigo SRI: </span>
+                                        <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
                                                ng-required="true" ng-maxlength="4">
                                     </div>
 
                                     <span class="help-block error"
-                                          ng-show="formsriPaisPago.codigosri.$invalid && formsriPaisPago.codigosri.$touched">El codigo SRI es requerido</span>
+                                          ng-show="formsriPaisPago.codigosri.$invalid && formsriPaisPago.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
                                           ng-show="formsriPaisPago.codigosri.$invalid && formsriPaisPago.codigosri.$error.maxlength">La longitud máxima es de 4 caracteres</span>
                                 </div>
@@ -1650,7 +1650,7 @@
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Codigo SRI: </span>
+                                        <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
                                                ng-required="true" ng-maxlength="2">
                                     </div>
@@ -1664,7 +1664,7 @@
                                     </div>
 
                                     <span class="help-block error"
-                                          ng-show="nameformapago.codigosri.$invalid && nameformapago.codigosri.$touched">El codigo SRI es requerido</span>
+                                          ng-show="nameformapago.codigosri.$invalid && nameformapago.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
                                           ng-show="nameformapago.codigosri.$invalid && nameformapago.codigosri.$error.maxlength">La longitud máxima es de 2 caracteres</span>
                                 </div>
