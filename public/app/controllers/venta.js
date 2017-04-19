@@ -24,11 +24,70 @@ $scope.Valida="0";
 
 $scope.Validabodegaprodct="0";
 $scope.ValidacionCueContExt="0";
+
+    $scope.verifySuministroFactura = function () {
+        $http.get(API_URL + 'DocumentoVenta/getSuministroByFactura').success(function(response){
+            console.log(response);
+
+            $scope.DICliente = response[0].cliente.persona.numdocidentific;
+            $scope.BuscarCliente();
+
+            $http.get(API_URL + 'DocumentoVenta/getProductoPorSuministro/' + response[0].cont_catalogitem.codigoproducto).success(function(response0){
+                console.log(response0);
+
+                var longitud = response0.length;
+
+                for (var i = 0; i < longitud; i++) {
+
+                    var precioventa = 0;
+
+                    if (response0[i].idcatalogitem == 7) {
+                        precioventa = response[0].valoraguapotable;
+                    } else if (response0[i].idcatalogitem == 2) {
+                        precioventa = response[0].valoralcantarillado;
+                    } else {
+                        precioventa = response0[i].precioventa;
+                    }
+
+                    var item = {
+                        productoObj:{
+                            title:response0[i].codigoproducto,
+                            originalObject:response0[i]
+                        },
+                        cantidad: 1,
+                        precioU: precioventa,
+                        descuento: 0,
+                        iva: 0,
+                        ice: 0,
+                        total: precioventa,
+                        producto: response0[i].codigoproducto
+                    };
+
+
+                    $scope.items.push(item);
+                }
+
+                $scope.CalculaValores();
+
+            });
+
+
+
+        });
+    };
+
     ///---
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
     };
     $scope.initLoad = function(pageNumber){
+
+    	if($('#otherFactura').val() == 'true') {
+            $scope.VerFactura = 1;
+            $scope.verifySuministroFactura();
+        } else {
+            $scope.VerFactura = 2;
+        }
 
         var filtros = {
             search: $scope.busquedaventa
@@ -202,6 +261,7 @@ $scope.ValidacionCueContExt="0";
     $scope.QuitarItem=function (item) {
         var posicion= $scope.items.indexOf(item);
          $scope.items.splice(posicion,1);
+         $scope.CalculaValores();
     };
     ///---
     $scope.Subtotalconimpuestos=0;
@@ -694,8 +754,10 @@ $scope.ValidacionCueContExt="0";
                         cantidad:aux_itemsventa[x].cantidad,
                         precioU:aux_itemsventa[x].preciounitario,
                         descuento:aux_itemsventa[x].descuento,
-                        iva : 0,
-                        ice:0,
+                        iva : aux_itemsventa[x].porcentiva,
+                        ice: aux_itemsventa[x].porcentice,
+                        //iva : 0,
+                        //ice:0,
                         total:aux_itemsventa[x].preciototal,
                       //  producto: aux_itemsventa[x].cont_catalogoitem.codigoproducto
                         producto: aux_itemsventa[x].codigoproducto
