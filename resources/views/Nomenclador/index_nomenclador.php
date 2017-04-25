@@ -1108,12 +1108,12 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Nombre del Impuesto Iva: </span>
                                         <input type="text" class="form-control" name="nameimpuestoiva" id="nameimpuestoiva" ng-model="nameimpuestoiva" placeholder=""
-                                               ng-required="true" ng-maxlength="50">
+                                               ng-required="true" ng-maxlength="25">
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formsriImpuestoIva.nameimpuestoiva.$invalid && formsriImpuestoIva.nameimpuestoiva.$touched">El nombre del Tipo Impuesto Iva es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formsriImpuestoIva.nameimpuestoiva.$invalid && formsriImpuestoIva.nameimpuestoiva.$error.maxlength">La longitud máxima es de 50 caracteres</span>
+                                          ng-show="formsriImpuestoIva.nameimpuestoiva.$invalid && formsriImpuestoIva.nameimpuestoiva.$error.maxlength">La longitud máxima es de 25 caracteres</span>
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
@@ -1219,7 +1219,7 @@
                                     <span class="help-block error"
                                           ng-show="formsriImpuestoIce.codigosri.$invalid && formsriImpuestoIce.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formsriImpuestoIce.codigosri.$invalid && formsriImpuestoIce.codigosri.$error.maxlength">La longitud máxima es de 2 caracteres</span>
+                                          ng-show="formsriImpuestoIce.codigosri.$invalid && formsriImpuestoIce.codigosri.$error.maxlength">La longitud máxima es de 5 caracteres</span>
                                 </div>
 
                                 <div class="col-xs-12 error">
@@ -1276,7 +1276,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Nombre del Impuesto de Retención: </span>
                                         <input type="text" class="form-control" name="nametipoimpuestoret" id="nametipoimpuestoret" ng-model="nametipoimpuestoret" placeholder=""
-                                               ng-required="true" ng-maxlength="50">
+                                               ng-required="true" ng-maxlength="25">
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formsritipoimpuestoRetRenta.nametipoimpuestoret.$invalid && formsritipoimpuestoRetRenta.nametipoimpuestoret.$touched">El nombre del Tipo Impuesto es requerido</span>
@@ -1320,7 +1320,7 @@
         </div>
 
 
-        <!-- Modal  impuesto retencion-iva a la renta Nativo-->
+        <!-- Modal  Impuesto de Iva - Rtencion Nativo-->
 
         <div class="modal fade" tabindex="-1" role="dialog" id="modalActionTipoImpIvaRetRenta">
             <div class="modal-dialog" role="document">
@@ -1345,14 +1345,14 @@
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Nombre del Impuesto de Iva - Rtencion: </span>
+                                        <span class="input-group-addon">Nombre del Impuesto de Iva - Retencion: </span>
                                         <input type="text" class="form-control" name="nametipoimpuestoivaret" id="nametipoimpuestoivaret" ng-model="nametipoimpuestoivaret" placeholder=""
                                                ng-required="true" ng-maxlength="10">
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formsritipoimpuestoIvaRetRenta.nametipoimpuestoivaret.$invalid && formsritipoimpuestoIvaRetRenta.nametipoimpuestoivaret.$touched">El nombre del Tipo Impuesto es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formsritipoimpuestoIvaRetRenta.nametipoimpuestoivaret.$invalid && formsritipoimpuestoIvaRetRenta.nametipoimpuestoivaret.$error.maxlength">La longitud máxima es de 50 caracteres</span>
+                                          ng-show="formsritipoimpuestoIvaRetRenta.nametipoimpuestoivaret.$invalid && formsritipoimpuestoIvaRetRenta.nametipoimpuestoivaret.$error.maxlength">La longitud máxima es de 10 caracteres</span>
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
@@ -1368,7 +1368,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
-                                               ng-required="true" ng-maxlength="2">
+                                               ng-required="true" ng-maxlength="5">
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon">Estado: </span>
@@ -1381,7 +1381,7 @@
                                     <span class="help-block error"
                                           ng-show="formsritipoimpuestoIvaRetRenta.codigosri.$invalid && formsritipoimpuestoIvaRetRenta.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formsritipoimpuestoIvaRetRenta.$invalid && formsritipoimpuestoIvaRetRenta.$error.maxlength">La longitud máxima es de 2 caracteres</span>
+                                          ng-show="formsritipoimpuestoIvaRetRenta.$invalid && formsritipoimpuestoIvaRetRenta.$error.maxlength">La longitud máxima es de 5 caracteres</span>
                                 </div>
 
 
@@ -1430,7 +1430,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosrisustento" id="codigosrisustento" ng-model="codigosrisustento" placeholder=""
-                                               ng-required="true" ng-maxlength="2">
+                                               ng-required="true" ng-maxlength="3">
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon">Estado: </span>
@@ -1443,7 +1443,7 @@
                                     <span class="help-block error"
                                           ng-show="formsriSustentoTributario.codigosrisustento.$invalid && formsriSustentoTributario.codigosrisustento.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formsriSustentoTributario.codigosrisustento.$invalid && formsriSustentoTributario.codigosrisustento.$error.maxlength">La longitud máxima es de 2 caracteres</span>
+                                          ng-show="formsriSustentoTributario.codigosrisustento.$invalid && formsriSustentoTributario.codigosrisustento.$error.maxlength">La longitud máxima es de 3 caracteres</span>
                                 </div>
 
 
@@ -1502,7 +1502,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
-                                               ng-required="true" ng-maxlength="2">
+                                               ng-required="true" ng-maxlength="3">
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon">Estado: </span>
@@ -1515,7 +1515,7 @@
                                     <span class="help-block error"
                                           ng-show="formsriCompSustTributario.codigosri.$invalid && formsriCompSustTributario.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formsriCompSustTributario.$invalid && formsriCompSustTributario.$error.maxlength">La longitud máxima es de 2 caracteres</span>
+                                          ng-show="formsriCompSustTributario.$invalid && formsriCompSustTributario.$error.maxlength">La longitud máxima es de 3 caracteres</span>
                                 </div>
 
 
@@ -1550,12 +1550,12 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Nombre Tipo pago Residente: </span>
                                         <input type="text" class="form-control" name="tipopagoresidente" id="tipopagoresidente" ng-model="tipopagoresidente" placeholder=""
-                                               ng-required="true" ng-maxlength="50">
+                                               ng-required="true" ng-maxlength="150">
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formsriPagoResidente.tipopagoresidente.$invalid && formsriPagoResidente.tipopagoresidente.$touched">El nombre Residente es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formsriPagoResidente.tipopagoresidente.$invalid && formsriPagoResidente.tipopagoresidente.$error.maxlength">La longitud máxima es de 50 caracteres</span>
+                                          ng-show="formsriPagoResidente.tipopagoresidente.$invalid && formsriPagoResidente.tipopagoresidente.$error.maxlength">La longitud máxima es de 150 caracteres</span>
                                 </div>
                             </div>
                         </form>
@@ -1591,12 +1591,12 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Nombre Pais: </span>
                                         <input type="text" class="form-control" name="pais" id="pais" ng-model="pais" placeholder=""
-                                               ng-required="true" ng-maxlength="50">
+                                               ng-required="true" ng-maxlength="100">
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formsriPaisPago.pais.$invalid && formsriPaisPago.pais.$touched">El nombre Pais es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formsriPaisPago.pais.$invalid && formsriPaisPago.pais.$error.maxlength">La longitud máxima es de 50 caracteres</span>
+                                          ng-show="formsriPaisPago.pais.$invalid && formsriPaisPago.pais.$error.maxlength">La longitud máxima es de 100 caracteres</span>
                                 </div>
                                 <div class="col-xs-12 error">
                                     <div class="input-group">
@@ -1652,7 +1652,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Código SRI: </span>
                                         <input type="text" class="form-control" name="codigosri" id="codigosri" ng-model="codigosri" placeholder=""
-                                               ng-required="true" ng-maxlength="2">
+                                               ng-required="true" ng-maxlength="3">
                                     </div>
 
                                     <div class="input-group">
@@ -1666,7 +1666,7 @@
                                     <span class="help-block error"
                                           ng-show="nameformapago.codigosri.$invalid && nameformapago.codigosri.$touched">El código SRI es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="nameformapago.codigosri.$invalid && nameformapago.codigosri.$error.maxlength">La longitud máxima es de 2 caracteres</span>
+                                          ng-show="nameformapago.codigosri.$invalid && nameformapago.codigosri.$error.maxlength">La longitud máxima es de 3 caracteres</span>
                                 </div>
                             </div>
                         </form>

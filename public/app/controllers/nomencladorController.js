@@ -482,7 +482,7 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
                 }
 
                 if (obafect == "tpimpivaretsri") {
-                    $scope.form_title = "Nuevo Tipo Impuesto Retencion";
+                    $scope.form_title = "Nuevo Tipo Impuesto Retencion-Iva";
                     $scope.TipoImpuesto = '1';
                     $scope.nametipoimpuestoivaret = '';
                     $scope.porcentaje = '0.00';
@@ -663,7 +663,7 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
                 }
 
                 if (obafect == "tpimpivaretsri") {
-                    $scope.form_title = "Editar Tipo Impuesto Retencion ";
+                    $scope.form_title = "Editar Tipo Impuesto Retencion-Iva ";
                     $scope.idtipodocumento = id;
                     $http.get(API_URL + 'Nomenclador/getTipoImpuestoRetencionIvaRetByID/' + id).success(function(response) {
                         $scope.nametipoimpuestoivaret = response[0].namedetalleimpuestoretencion.trim();
