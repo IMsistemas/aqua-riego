@@ -145,8 +145,10 @@
                                     <li class="dropdown-submenu">
                                         <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Sectorización</a>
                                         <ul class="dropdown-menu">
-                                            <li><a tabindex="-1" href="#" ng-click="toModuloBarrio();">Zonas</a></li>
-                                            <li><a href="#" ng-click="toModuloCalle();">Transversales</a></li>
+                                            <li><a href="#" ng-click="toModuloBarrio();">Juntas Modulares</a></li>
+                                            <li><a href="#" ng-click="toModuloCalle();">Tomas</a></li>
+                                            <li><a href="#" ng-click="toModuloCanal();">Canales</a></li>
+                                            <li><a href="#" ng-click="toModuloDerivacion();">Derivaciones</a></li>
                                         </ul>
                                     </li>
                                 </ul>

@@ -20,13 +20,11 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('index_new');
-
-        /*if (Session::has('users')) {
+        if (Session::has('users')) {
             return view('index_new');
         } else {
             return view('login');
-        }*/
+        }
     }
 
     public function logout()

@@ -129,8 +129,8 @@ class BarrioController extends Controller
 
         $barrio->idparroquia = $request->input('idparroquia');
         $barrio->namebarrio = $request->input('nombrebarrio');
-        //$barrio->observacion = $request->input('observacion');
-        //$barrio->fechaingreso = date('Y-m-d');
+        $barrio->observacion = $request->input('observacion');
+        $barrio->fechaingreso = date('Y-m-d');
 
         $barrio->save();
 

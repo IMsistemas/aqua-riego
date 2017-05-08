@@ -30,14 +30,14 @@ app.controller('barrioController', function($scope, $http, API_URL) {
 
         $http.get(API_URL + 'barrio/getParroquias').success(function(response){
             var longitud = response.length;
-            //var array_temp = [{label: '--Seleccione--', id: 0}];
-            var array_temp = [];
+            var array_temp = [{label: '--Seleccione--', id: ''}];
+            //var array_temp = [];
             for(var i = 0; i < longitud; i++){
                 array_temp.push({label: response[i].nameparroquia, id: response[i].idparroquia})
             }
 
             $scope.parroquias = array_temp;
-            $scope.t_parroquias = 1;
+            $scope.t_parroquias = array_temp[0];
 
             $scope.date_ingreso = now();
 

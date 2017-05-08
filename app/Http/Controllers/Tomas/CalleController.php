@@ -83,8 +83,8 @@ class CalleController extends Controller
 
         $calle->idbarrio = $request->input('idbarrio');
         $calle->namecalle = $request->input('nombrecalle');
-        //$calle->observacion = $request->input('observacion');
-        //$calle->fechaingreso = date('Y-m-d');
+        $calle->observacion = $request->input('observacion');
+        $calle->fechaingreso = date('Y-m-d');
 
         $calle->save();
 

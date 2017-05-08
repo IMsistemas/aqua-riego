@@ -20,6 +20,14 @@
 
         <div ng-controller="clientesController">
 
+            <div class="col-xs-12">
+
+                <h4>Gestión de Clientes</h4>
+
+                <hr>
+
+            </div>
+
             <div class="col-xs-12" style="margin-top: 15px;">
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group has-feedback">
