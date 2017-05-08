@@ -55,7 +55,9 @@ Route::put('solicitud/updateSolicitudFraccion/{idsolicitud}', 'Solicitud\Solicit
 Route::resource('/solicitud', 'Solicitud\SolicitudController');
 
 
-/*===================================Tarifas===================================================*/
+/*
+ * -------------------------Modulo Tarifa (Raidel) ---------------------------------------------------------------------
+ */
 
 Route::get('tarifa/getTarifas', 'Tarifas\TarifaController@getTarifas');
 
@@ -73,9 +75,16 @@ Route::post('tarifa/deleteSubTarifas', 'Tarifas\TarifaController@deleteSubTarifa
 //Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia Tarifa
 Route::resource('/tarifa', 'Tarifas\TarifaController');
 
+/*
+ * -------------------------Modulo Cultivo (Raidel) --------------------------------------------------------------------
+ */
+Route::get('cultivo/getTarifas', 'Tarifas\CultivoController@getTarifas');
+Route::get('cultivo/getCultivos', 'Tarifas\CultivoController@getCultivos');
+Route::get('cultivo/getCultivosByID/{id}', 'Tarifas\CultivoController@getCultivosByID');
+Route::resource('/cultivo', 'Tarifas\CultivoController');
 
 /*
- * -------------------------Modulo Cliente (Yamilka)---------------------------------------------------------------------
+ * -------------------------Modulo Cliente (Yamilka)--------------------------------------------------------------------
  */
 
 Route::get('cliente/getClienteByIdentify/{idcliente}', 'Clientes\ClienteController@getClienteByIdentify');

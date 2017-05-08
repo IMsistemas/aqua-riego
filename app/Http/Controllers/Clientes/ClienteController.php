@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Clientes;
 
 use App\Modelos\Clientes\Cliente;
 use App\Modelos\Clientes\ClienteArriendo;
+use App\Modelos\Configuracion\ConfiguracionSystem;
 use App\Modelos\Configuraciones\Configuracion;
 use App\Modelos\Persona;
 use App\Modelos\Sectores\Barrio;
@@ -330,7 +331,7 @@ class ClienteController extends Controller
      */
     public function getConstante()
     {
-        return Configuracion::all();
+        return ConfiguracionSystem::where('optionname','PISQUE_CONSTANTE')->get();
     }
 
     /**
@@ -342,7 +343,7 @@ class ClienteController extends Controller
     public function calculateValor($area)
     {
         $area_h = $area / 1000;
-        $configuracion = Configuracion::all();
+        $configuracion = ConfiguracionSystem::where('optionname','PISQUE_CONSTANTE')->get();
 
         $costo_area = Area::where('desde', '<', $area_h)
             ->where('hasta', '>=', $area_h)
@@ -352,7 +353,7 @@ class ClienteController extends Controller
         if ($costo_area[0]->esfija == true){
             $costo = $costo_area[0]->costo;
         } else {
-            $costo = $area_h * $configuracion[0]->constante * $costo_area[0]->costo;
+            $costo = $area_h * $configuracion[0]->optionvalue * $costo_area[0]->costo;
         }
 
         return response()->json(['costo' => $costo]);
@@ -380,36 +381,46 @@ class ClienteController extends Controller
 
         }
 
-
         $terreno = new Terreno();
         $terreno->idcultivo = $request->input('idcultivo');
         $terreno->idtarifa = $request->input('idtarifa');
-        $terreno->codigocliente = $request->input('codigocliente');
+        $terreno->idcliente = $request->input('codigocliente');
         $terreno->idderivacion = $request->input('idderivacion');
         $terreno->fechacreacion = date('Y-m-d');
         $terreno->caudal = $request->input('caudal');
         $terreno->area = $request->input('area');
         $terreno->valoranual = $request->input('valoranual');
         $terreno->observacion = $request->input('observacion');
-        $terreno->urlescrituras = $url_file;
+        //$terreno->urlescrituras = $url_file;
 
-        $terreno->save();
+        if ($terreno->save()){
 
-        $solicitudriego = new SolicitudRiego();
-        $solicitudriego->codigocliente = $request->input('codigocliente');
+            $solicitud = new Solicitud();
 
-        $solicitudriego->idterreno = $terreno->idterreno;
+            $solicitud->idcliente = $request->input('codigocliente');
+            $solicitud->fechasolicitud = date('Y-m-d');
+            $solicitud->fechaprocesada = date('Y-m-d');
+            $solicitud->estaprocesada = false;
 
-        $solicitudriego->fechasolicitud = date('Y-m-d');
-        $solicitudriego->estaprocesada = false;
-        $solicitudriego->observacion = $request->input('observacion');
+            if ($solicitud->save()) {
+                $solicitudriego = new SolicitudRiego();
 
-        $result = $solicitudriego->save();
+                $solicitudriego->idsolicitud = $solicitud->idsolicitud;
+                $solicitudriego->idterreno = $terreno->idterreno;
+                $solicitudriego->observacion = $request->input('observacion');
 
-        $max_idsolicitud = SolicitudRiego::where('idsolicitudriego', $solicitudriego->idsolicitudriego)->get();
+                $result = $solicitudriego->save();
 
-        return ($result) ? response()->json(['success' => true, 'idsolicitud' => $max_idsolicitud[0]->idsolicitud]) :
-                                                                                response()->json(['success' => false]);
+                $max_idsolicitud = SolicitudRiego::where('idsolicitudriego', $solicitudriego->idsolicitudriego)->get();
+
+                return ($result) ? response()->json(['success' => true, 'idsolicitud' => $max_idsolicitud[0]->idsolicitud]) :
+                    response()->json(['success' => false]);
+            } else {
+                response()->json(['success' => false]);
+            }
+
+        } else response()->json(['success' => false]);
+
     }
 
     public function storeSolicitudOtro(Request $request)

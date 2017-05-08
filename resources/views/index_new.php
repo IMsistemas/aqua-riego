@@ -140,7 +140,8 @@
                                 <ul class = "dropdown-menu">
                                     <li><a href = "#" ng-click="toModuloConfiguracion();">Configuración del Sistema</a></li>
                                     <li><a href = "#" ng-click="toModuloNomenclador();">Gestión de Nomencladores</a></li>
-
+                                    <li><a href="#" ng-click="toModuloTarifa();">Tarifas</a></li>
+                                    <li><a href="#" ng-click="toModuloCultivo();">Cultivos</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-submenu">
                                         <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Sectorización</a>
@@ -248,7 +249,7 @@
     <script src="<?= asset('app/controllers/recaudacionController.js') ?>"></script>
     <script src="<?= asset('app/controllers/terrenoController.js') ?>"></script>
     <script src="<?= asset('app/controllers/tarifaController.js') ?>"></script>
-
+    <script src="<?= asset('app/controllers/cultivoController.js') ?>"></script>
 
     <script src="<?= asset('app/controllers/esperaController.js') ?>"></script>
 

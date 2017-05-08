@@ -505,7 +505,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
     $scope.calculateCaudal = function () {
         $http.get(API_URL + 'cliente/getConstante').success(function(response){
             var area = parseInt($scope.t_area);
-            var constante = parseFloat(response[0].constante);
+            var constante = parseFloat(response[0].optionvalue);
 
             var caudal_result = (area / 1000) * constante;
 
@@ -905,6 +905,8 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
             //idsolicitud: $scope.num_solicitud
         };
+
+
 
         Upload.upload({
             url: API_URL + 'cliente/storeSolicitudRiego',

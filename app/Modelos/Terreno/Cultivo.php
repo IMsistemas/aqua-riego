@@ -17,6 +17,6 @@ class Cultivo extends Model
 
     public function tarifa()
     {
-        return $this->hasMany('App\Modelos\Tarifas\Tarifa', 'idtarifa');
+        return $this->belongsTo('App\Modelos\Tarifas\Tarifa', 'idtarifa');
     }
 }

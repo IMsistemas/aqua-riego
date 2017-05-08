@@ -11,12 +11,12 @@
 
         $scope.searchConstante = function() {
             $http.get(API_URL + 'tarifa/getConstante').success(function(response){
-                if (response.length == 0){
+                if (response[0].optionvalue == null || response[0].optionvalue == ''){
                     $('#btn_inform').prop('disabled', true);
                     $('#btn_edit').prop('disabled', true);
                     $('#btn_create_row').prop('disabled', true);
 
-                    $scope.message_info = 'Para Trabajar con las Tarifas, se necesita especificar la constante de calculo en Configuracion';
+                    $scope.message_info = 'Para Trabajar con las Tarifas, se necesita especificar la constante de calculo en Configuración del Sistema...';
                     $('#modalMessageInfo').modal('show');
                 } else {
                     $('#btn_inform').prop('disabled', false);
@@ -24,7 +24,7 @@
                     $('#btn_create_row').prop('disabled', false);
 
                     $scope.getTarifas();
-                    $scope.constante = parseFloat(response[0].constante);
+                    $scope.constante = parseFloat(response[0].optionvalue);
                 }
             });
         };
@@ -141,11 +141,11 @@
         };
 
         $scope.calculateCaudalDesde = function (item) {
-            item.caudal.desde = (item.area.desde * $scope.constante).toFixed(2);
+            item.caudal.desde = (parseFloat(item.area.desde) * parseFloat($scope.constante)).toFixed(2);
         };
 
         $scope.calculateCaudalHasta = function (item) {
-            item.caudal.hasta = (item.area.hasta * $scope.constante).toFixed(2);
+            item.caudal.hasta = (parseFloat(item.area.hasta) * parseFloat($scope.constante)).toFixed(2);
         };
 
         $scope.saveSubTarifas = function () {

@@ -3,6 +3,14 @@
         <div class="col-xs-12" ng-controller="tarifaController" style="margin-top: 2%;">
 
             <div class="col-xs-12">
+
+                <h4>Gestión de Tarifas</h4>
+
+                <hr>
+
+            </div>
+
+            <div class="col-xs-12">
                 <div class="col-sm-3 col-xs-12">
                     <div class="form-group">
                         <label for="t_year" class="col-sm-2 control-label">Año:</label>

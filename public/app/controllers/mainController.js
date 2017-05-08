@@ -161,6 +161,11 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$scope.toModulo = "tarifa";
 	}
 
+    $scope.toModuloCultivo = function(){
+        $scope.titulo = "Cultivo";
+        $scope.toModulo = "cultivo";
+    }
+
 	$scope.toModuloProveedores = function(){		
 		$scope.titulo = "Proveedores";
 		$scope.toModulo = "proveedor";

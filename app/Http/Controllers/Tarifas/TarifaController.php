@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Tarifas;
 
+use App\Modelos\Configuracion\ConfiguracionSystem;
 use App\Modelos\Configuraciones\Configuracion;
 use App\Modelos\Tarifas\Area;
 use App\Modelos\Tarifas\Caudal;
@@ -59,7 +60,7 @@ class TarifaController extends Controller
      */
     public function getConstante()
     {
-        return Configuracion::all();
+        return ConfiguracionSystem::where('optionname', 'PISQUE_CONSTANTE')->get();
     }
 
     /**
@@ -125,10 +126,13 @@ class TarifaController extends Controller
             $caudal->desde = $item['caudal']['desde'];
             $caudal->hasta = $item['caudal']['hasta'];
 
-            if ($action_edit == false) {
+            /*if ($action_edit == false) {
                 $area->aniotarifa = date('Y');
                 $caudal->aniotarifa = date('Y');
-            }
+            }*/
+
+            $area->aniotarifa = date('Y');
+            $caudal->aniotarifa = date('Y');
 
             $area->save();
             $caudal->save();
