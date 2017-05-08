@@ -264,17 +264,17 @@ $scope.ValidacionCueContExt="0";
          $scope.CalculaValores();
     };
     ///---
-    $scope.Subtotalconimpuestos=0;
-    $scope.Subtotalcero=0;
-    $scope.Subtotalnobjetoiva=0;
-    $scope.Subototalexentoiva=0;
-    $scope.Subtotalsinimpuestos=0;
-    $scope.Totaldescuento=0;
-    $scope.ValICE=0;
-    $scope.ValIVA=0;
-    $scope.ValIRBPNR=0;
-    $scope.ValPropina=0;
-    $scope.ValorTotal=0;
+    $scope.Subtotalconimpuestos = '0.00';
+    $scope.Subtotalcero = '0.00';
+    $scope.Subtotalnobjetoiva = '0.00';
+    $scope.Subototalexentoiva = '0.00';
+    $scope.Subtotalsinimpuestos = '0.00';
+    $scope.Totaldescuento = '0.00';
+    $scope.ValICE = '0.00';
+    $scope.ValIVA = '0.00';
+    $scope.ValIRBPNR = '0.00';
+    $scope.ValPropina = '0.00';
+    $scope.ValorTotal = '0.00';
     $scope.AsignarData=function(item){
         if(item!=undefined){
             if(item.productoObj!=undefined){
@@ -308,7 +308,7 @@ $scope.ValidacionCueContExt="0";
         var aux_totalIce=0;
 
     	for(x=0;x<$scope.items.length;x++){
-    		console.log($scope.items[x]);
+    		//console.log($scope.items[x]);
     		if(parseInt($scope.items[x].iva)==0 ){
     			if($scope.items[x].cantidad!=undefined && $scope.items[x].precioU!=undefined ){
     				if(parseFloat($scope.items[x].descuento)>0){
@@ -328,7 +328,7 @@ $scope.ValidacionCueContExt="0";
     	}
 
     	for(x=0;x<$scope.items.length;x++){
-    		console.log($scope.items[x]);
+    		//console.log($scope.items[x]);
     		if(parseInt($scope.items[x].iva)==0 ){
     			if($scope.items[x].cantidad!=undefined && $scope.items[x].precioU!=undefined ){
     				aux_subtotalconimpuestos+=(parseFloat($scope.items[x].cantidad)*parseFloat($scope.items[x].precioU));
@@ -386,10 +386,29 @@ $scope.ValidacionCueContExt="0";
             }
         }
 
-    	$scope.Subtotalconimpuestos= aux_subtotalconimpuestos.toFixed(4);
-    	$scope.ValIVA=(($scope.Subtotalconimpuestos*parseInt($scope.Cliente.porcentaje))/100).toFixed(4);
+        var subtotalsinimp = parseFloat($scope.Subtotalconimpuestos) + parseFloat($scope.Subtotalcero);
+        subtotalsinimp += parseFloat($scope.Subtotalnobjetoiva) + parseFloat($scope.Subototalexentoiva);
 
-    	$scope.ValorTotal=((parseFloat($scope.Subtotalconimpuestos)+parseFloat($scope.ValIVA) + parseFloat($scope.ValICE) + parseFloat($scope.ValIRBPNR) + parseFloat($scope.ValPropina) )   - ($scope.Totaldescuento)).toFixed(4);
+        subtotalsinimp -= parseFloat($scope.ValICE);
+
+        $scope.Subtotalsinimpuestos = subtotalsinimp.toFixed(4);
+
+        $scope.Subtotalconimpuestos= (aux_subtotalconimpuestos - parseFloat($scope.Totaldescuento)).toFixed(4);
+
+        $scope.ValIVA=(($scope.Subtotalconimpuestos*parseInt($scope.Cliente.porcentaje))/100).toFixed(4);
+
+        var totalFC = parseFloat($scope.Subtotalconimpuestos) + parseFloat($scope.Subtotalcero);
+        totalFC += parseFloat($scope.Subtotalnobjetoiva) + parseFloat($scope.Subototalexentoiva);
+        totalFC += parseFloat($scope.ValIVA) + parseFloat($scope.ValIRBPNR) + parseFloat($scope.ValPropina);
+
+        $scope.ValorTotal = totalFC.toFixed(4);
+
+        //$scope.ValorTotal=((parseFloat($scope.Subtotalconimpuestos)+parseFloat($scope.ValIVA) + parseFloat($scope.ValICE) + parseFloat($scope.ValIRBPNR) + parseFloat($scope.ValPropina) )   - ($scope.Totaldescuento)).toFixed(4);
+
+    	//$scope.Subtotalconimpuestos= aux_subtotalconimpuestos.toFixed(4);
+    	//$scope.ValIVA=(($scope.Subtotalconimpuestos*parseInt($scope.Cliente.porcentaje))/100).toFixed(4);
+
+    	//$scope.ValorTotal=((parseFloat($scope.Subtotalconimpuestos)+parseFloat($scope.ValIVA) + parseFloat($scope.ValICE) + parseFloat($scope.ValIRBPNR) + parseFloat($scope.ValPropina) )   - ($scope.Totaldescuento)).toFixed(4);
     };
     ///---
     $scope.IniGuardarFactura=function(){
@@ -398,7 +417,7 @@ $scope.ValidacionCueContExt="0";
     $scope.EnviarDatosGuardarVenta=function(){
     	var Transaccion={
     		fecha:convertDatetoDB($("#FechaEmision").val()),
-    		idtipotransaccion: 2,
+    		idtipotransaccion: 6,
     		numcomprobante:1,
     		descripcion: $scope.observacion
     	};
@@ -636,7 +655,7 @@ $scope.ValidacionCueContExt="0";
 	    	ItemsVenta.push(itemsdocventa);
     	}
     	//--Items venta
-    	console.log(Contabilidad);
+    	//console.log(Contabilidad);
     	/*console.log(kardex);
     	console.log(DocVenta);
     	console.log(ItemsVenta);*/
@@ -647,7 +666,7 @@ $scope.ValidacionCueContExt="0";
     		Idformapagoventa: $scope.cmbFormapago, 
     		DataItemsVenta:ItemsVenta
     	};
-        console.log(transaccion_venta_full);
+        //console.log(transaccion_venta_full);
     	//$http.get(API_URL+'DocumentoVenta/getVentas/'+JSON.stringify(transaccion_venta_full))
         //$http.get(API_URL+'DocumentoVenta/getVentas/'+JSON.stringify(2))
         var transaccionfactura={
@@ -805,7 +824,32 @@ $scope.ValidacionCueContExt="0";
 
 
 
+    $scope.numFactura = function (v) {
+        var establecimiento = (v.cont_puntoventa.sri_establecimiento.ruc).split('-')[0];
+        var ptoemision = v.cont_puntoventa.codigoptoemision;
+        var secuencial = v.iddocumentoventa;
 
+        var num_factura = establecimiento + '-' + ptoemision + '-' + $scope.calculateLength2(String(secuencial), 9);
+
+        return num_factura;
+    };
+
+    $scope.calculateLength2 = function(text, length) {
+
+        var longitud = text.length;
+        var diferencia = parseInt(length) - parseInt(longitud);
+        var relleno = '';
+        if (diferencia == 1) {
+            relleno = '0';
+        } else {
+            var i = 0;
+            while (i < diferencia) {
+                relleno += '0';
+                i++;
+            }
+        }
+        return relleno + text;
+    };
 
 
 

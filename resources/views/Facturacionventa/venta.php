@@ -64,7 +64,7 @@
                             <tr>
                                 <th></th>
                                 <th>Fecha Emision</th>
-                                <th>Numero Autorizacion</th>
+                                <th>Número Factura</th>
                                 <th>SubTotal</th>
                                 <th>IVA</th>
                                 <th>Total</th>
@@ -77,7 +77,7 @@
                             <tr dir-paginate="v in Allventas | orderBy:sortKey:reverse |filter:busquedaventa| itemsPerPage:10" total-items="totalItems" ng-cloak">
                             <td>{{$index+1}}</td>
                             <td>{{v.fechaemisionventa}}</td>
-                            <td>{{v.nroautorizacionventa}}</td>
+                            <td>{{numFactura(v)}}</td>
                             <td>{{v.subtotalconimpuestoventa}}</td>
                             <td>{{v.ivacompra}}</td>
                             <td>{{v.valortotalventa}}</td>
@@ -274,7 +274,7 @@
                             <td>Detalle</td>
                             <td style="width: 150px;" >Cantidad</td>
                             <td style="width: 150px;" >Precio Unitario</td>
-                            <td style="width: 150px;" >Descuento</td>
+                            <td style="width: 150px;" >Descuento(%)</td>
                             <td style="width: 70px;">IVA</td>
                             <td style="width: 70px;">ICE</td>
                             <td style="width: 150px;" >Total</td>
@@ -314,8 +314,8 @@
                             <td><input type="text" class="form-control" ng-keyup="CalculaValores();ValidaProducto()" ng-model="item.cantidad"/></td>
                             <td><input type="text" class="form-control" ng-keyup="CalculaValores();ValidaProducto()" ng-model="item.precioU" placeholder="{{item.productoObj.originalObject.precioventa}}" /></td>
                             <td><input type="text" class="form-control" ng-keyup="CalculaValores();ValidaProducto()" ng-model="item.descuento"/></td>
-                            <td><input type="text" class="form-control" disabled ng-model="item.iva"  /></td>
-                            <td><input type="text" class="form-control" disabled ng-model="item.ice"  /></td>
+                            <td><input type="text" class="form-control" disabled ng-model="item.productoObj.originalObject.porcentiva"  /></td>
+                            <td><input type="text" class="form-control" disabled ng-model="item.productoObj.originalObject.porcentice"  /></td>
                             <td><input type="text" class="form-control" ng-model="item.total" disabled  ng-value="item.cantidad*item.precioU"/></td>
                             <td>
                                 <button type="button" class="btn btn-danger" ng-click="QuitarItem(item)">

@@ -86,26 +86,26 @@ class NomencladorController extends Controller
 
     public function getTipoImpuestoEx(Request $request)
 
-{
+    {
 
-    $filter = json_decode($request->get('filter'));
+        $filter = json_decode($request->get('filter'));
 
-    $search = $filter->search;
+        $search = $filter->search;
 
-    $SRITipoImpuesto = null;
+        $SRITipoImpuesto = null;
 
-    if ($search != null) {
-        $SRITipoImpuesto = SRI_TipoImpuesto::whereRaw("SRI_TipoImpuesto.nameimpuesto ILIKE '%" . $search . "%'")->orderBy('nameimpuesto', 'asc');
-        return $SRITipoImpuesto->paginate(100);
+        if ($search != null) {
+            $SRITipoImpuesto = SRI_TipoImpuesto::whereRaw("SRI_TipoImpuesto.nameimpuesto ILIKE '%" . $search . "%'")->orderBy('nameimpuesto', 'asc');
+            return $SRITipoImpuesto->paginate(100);
+        }
+        else{
+
+            $SRITipoImpuesto = SRI_TipoImpuesto::orderBy('nameimpuesto', 'asc');
+            return $SRITipoImpuesto->paginate(100);
+
+        }
+
     }
-    else{
-
-        $SRITipoImpuesto = SRI_TipoImpuesto::orderBy('nameimpuesto', 'asc');
-        return $SRITipoImpuesto->paginate(100);
-
-    }
-
-}
 
     public function getTipoImpuesto(Request $request)
 

@@ -27,8 +27,13 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             var search = null;
         } else var search = $scope.busqueda;
 
+        if ($scope.searchCargo == undefined) {
+            var cargo = null;
+        } else var cargo = $scope.searchCargo;
+
         var filtros = {
-            search: search
+            search: search,
+            cargo: cargo
         };
 
         $http.get(API_URL + 'empleado/getEmployees?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
@@ -36,6 +41,39 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             $scope.totalItems = response.total;
         });
 
+    };
+
+    $scope.searchListCargos = function(){
+        $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione Cargo --', id: ''}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
+            }
+            $scope.search_cargos = array_temp;
+            $scope.searchCargo = '';
+        });
+    };
+
+    $scope.listCargosForModal = function(idcargo){
+
+        var iddepartamento = $scope.departamento;
+
+        $http.get(API_URL + 'empleado/getCargos/' + iddepartamento).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: ''}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
+            }
+            $scope.idcargos = array_temp;
+
+            if (idcargo != undefined) {
+                $scope.idcargo = idcargo;
+            } else {
+                $scope.idcargo = '';
+            }
+
+        });
     };
 
     $scope.searchPosition = function(){
@@ -84,6 +122,9 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                     }
                     $scope.iddepartamentos = array_temp;
                     $scope.departamento = '';
+
+                    $scope.idcargos = [{label: '-- Seleccione --', id: ''}];
+                    $scope.idcargo = '';
                 });
 
                 $http.get(API_URL + 'empleado/getTipoIdentificacion').success(function(response){
@@ -94,21 +135,12 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                     }
                     $scope.idtipoidentificacion = array_temp;
                     $scope.tipoidentificacion = '';
-                });
 
-                $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
-                    var longitud = response.length;
-                    var array_temp = [{label: '-- Seleccione --', id: ''}];
-                    for(var i = 0; i < longitud; i++){
-                        array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
-                    }
-                    $scope.idcargos = array_temp;
-                    $scope.idcargo = '';
 
                     $scope.documentoidentidadempleado = '';
                     $('#documentoidentidadempleado').val('');
                     $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', ' ');
-
+                    $scope.$broadcast('angucomplete-alt:clearInput', 'documentoidentidadempleado');
                     $scope.apellido = '';
                     $scope.nombre = '';
                     $scope.telefonoprincipal = '';
@@ -117,8 +149,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                     $scope.direccion = '';
                     $scope.correo = '';
                     $scope.salario = '';
-                    $scope.file='';
-
+                    $scope.file = '';
                     $scope.fechaingreso = fecha();
 
                     $scope.cuenta_employee = '';
@@ -129,6 +160,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                     $scope.url_foto = 'img/empleado.png';
 
                     $('#modalAction').modal('show');
+
                 });
 
                 break;
@@ -143,12 +175,16 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                         array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento})
                     }
                     $scope.iddepartamentos = array_temp;
-                    $scope.departamento = '';
+                    //$scope.departamento = '';
+
+                    $scope.departamento = item.iddepartamento;
+
+                    $scope.listCargosForModal(item.idcargo);
+
                 });
 
                 $http.get(API_URL + 'empleado/getTipoIdentificacion').success(function(response){
                     var longitud = response.length;
-                    console.log(response);
                     var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
                         array_temp.push({label: response[i].nameidentificacion, id: response[i].idtipoidentificacion})
@@ -156,53 +192,45 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                     $scope.idtipoidentificacion = array_temp;
                     $scope.tipoidentificacion = '';
 
-                    $http.get(API_URL + 'empleado/getAllPositions').success(function(response){
-                        var longitud = response.length;
-                        var array_temp = [];
-                        for(var i = 0; i < longitud; i++){
-                            array_temp.push({label: response[i].namecargo, id: response[i].idcargo})
-                        }
+                    $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
+                    $scope.documentoidentidadempleado = item.numdocidentific;
 
-                        $scope.idcargos = array_temp;
+                    $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', item.numdocidentific);
 
-                        $scope.fechaingreso = convertDatetoDB(item.fechaingreso, true);
-                        $scope.documentoidentidadempleado = item.numdocidentific;
 
-                        $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', item.numdocidentific);
+                    $scope.apellido = item.lastnamepersona;
+                    $scope.nombre = item.namepersona;
+                    $scope.telefonoprincipal = item.telefprincipaldomicilio;
+                    $scope.telefonosecundario = item.telefsecundariodomicilio;
+                    $scope.celular = item.celphone;
+                    $scope.direccion = item.direccion;
+                    $scope.correo = item.email;
+                    $scope.salario = item.salario;
 
-                        $scope.idcargo = item.idcargo;
-                        $scope.apellido = item.lastnamepersona;
-                        $scope.nombre = item.namepersona;
-                        $scope.telefonoprincipal = item.telefprincipaldomicilio;
-                        $scope.telefonosecundario = item.telefsecundariodomicilio;
-                        $scope.celular = item.celphone;
-                        $scope.direccion = item.direccion;
-                        $scope.correo = item.email;
-                        $scope.salario = item.salario;
+                    $scope.idpersona = item.idpersona;
+                    console.log(item);
 
-                        $scope.idpersona = item.idpersona;
-                        if (item.rutafoto != null && item.rutafoto != ''){
-                            $scope.url_foto = API_URL+item.rutafoto;
-                            console.log($scope.url_foto);
-                        } else {
-                            $scope.url_foto = API_URL+'img/empleado.png';
-                        }
+                    if (item.rutafoto != null && item.rutafoto != ''){
+                        $scope.url_foto = API_URL+item.rutafoto;
 
-                        $scope.departamento = item.iddepartamento;
+                    } else {
+                        $scope.url_foto = 'img/empleado.png';
+                    }
 
-                        $scope.cuenta_employee = item.concepto;
 
-                        $scope.tipoidentificacion = item.idtipoidentificacion;
 
-                        var objectPlan = {
-                            idplancuenta: item.idplancuenta,
-                            concepto: item.concepto
-                        };
+                    $scope.cuenta_employee = item.concepto;
 
-                        $scope.select_cuenta = objectPlan;
+                    $scope.tipoidentificacion = item.idtipoidentificacion;
 
-                        $('#modalAction').modal('show');
-                    });
+                    var objectPlan = {
+                        idplancuenta: item.idplancuenta,
+                        concepto: item.concepto
+                    };
+
+                    $scope.select_cuenta = objectPlan;
+
+                    $('#modalAction').modal('show');
 
                 });
 
@@ -220,13 +248,15 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                 $scope.address_employee = item.direccion;
                 $scope.email_employee = item.email;
                 $scope.salario_employee = item.salario;
-                console.log("info");
-                console.log(item.rutafoto);
+
+
+
                 if (item.rutafoto != null && item.rutafoto != ''){
                     $scope.url_foto = API_URL+item.rutafoto;
                 } else {
-                    $scope.url_foto = API_URL+'img/empleado.png';
+                    $scope.url_foto = 'img/empleado.png';
                 }
+
                 $('#modalInfoEmpleado').modal('show');
 
                 break;
@@ -245,10 +275,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                 if (longitud > 0) {
                     $scope.idpersona = response[0].idpersona;
-                } else if($scope.edit=1){
-                    
-                }
-                else {
+                } else {
                     $scope.idpersona = 0;
                 }
 
@@ -295,7 +322,6 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
         };
 
         console.log(data);
-        console.log($scope.empreado);
 
         Upload.upload({
             url: url,
@@ -392,6 +418,8 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
     };
 
     $scope.initLoad(1, true);
+
+    $scope.searchListCargos();
 
     $('.datepicker').datetimepicker({
         locale: 'es',

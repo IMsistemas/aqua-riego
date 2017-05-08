@@ -9,29 +9,51 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 
 	$scope.list_breadcrumb = [];
 
-	$scope.toModuloEmpleado = function(){		
-		$scope.titulo = "Colaboradores";
-		$scope.toModulo = "empleado";
+    $scope.logoutSystem = function () {
 
-		var list = [
-			'<li>Personal</li>',
-			'<li>Colaboradores</li>'
-		];
+        $http.get(API_URL + '/logout' ).success(function (response) {
 
-		$scope.prepareListBreadcrumb(list);
-	}
+            location.reload(true);
 
-	$scope.toModuloCliente = function(){		
-		$scope.titulo = "Clientes";
-		$scope.toModulo = "cliente";
+        }).error(function (res) {
 
-		var list = [
-			'<li>Clientes</li>',
-			'<li>Clientes</li>'
-		];
+        });
 
-		$scope.prepareListBreadcrumb(list);
-	}
+    };
+
+
+    $scope.toLogout = function () {
+        $('#modalConfirmLogout').modal('show');
+    };
+
+    $scope.toModuloRol = function(){
+        $scope.titulo = "Rol";
+        $scope.toModulo = "rol";
+    };
+
+    $scope.toModuloEmpleado = function(){
+        $scope.titulo = "Colaboradores";
+        $scope.toModulo = "empleado";
+
+        var list = [
+            '<li>Personal</li>',
+            '<li>Colaboradores</li>'
+        ];
+
+        $scope.prepareListBreadcrumb(list);
+    }
+
+    $scope.toModuloCliente = function(){
+        $scope.titulo = "Clientes";
+        $scope.toModulo = "cliente";
+
+        var list = [
+            '<li>Clientes</li>',
+            '<li>Clientes</li>'
+        ];
+
+        $scope.prepareListBreadcrumb(list);
+    }
 
 	$scope.toModuloProvincia = function(){		
 		$scope.titulo = "Provincias";
@@ -49,10 +71,20 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$scope.toModulo = "cantones";
 	}
 
+    $scope.toModuloConfiguracion = function(){
+        $scope.titulo = "Configuración";
+        $scope.toModulo = "configuracion";
+    }
+
 	$scope.toModuloPlanCuentas = function(){			
 		$scope.titulo = "Plan de Cuentas";
 		$scope.toModulo = "Contabilidad";
 	}
+
+    $scope.toModuloGuiaRemision = function(){
+        $scope.titulo = "Ventas";
+        $scope.toModulo = "guiaremision";
+    }
 
 	$scope.toModuloParroquia = function(idcanton){
 		$scope.idcanton = idcanton;		
@@ -98,12 +130,12 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 
 		$scope.prepareListBreadcrumb(list);
 	}
- 
 
-	$scope.toModuloLectura = function(){		
-		$scope.titulo = "Lecturas";
-		$scope.toModulo = "verLectura";
-	}
+    $scope.toModuloDepartamento = function(){
+        $scope.titulo = "Departamento";
+        $scope.toModulo = "departamento";
+    }
+
 
 	$scope.toModuloRecaudacion = function(){		
 		$scope.titulo = "Recaudación";
@@ -131,13 +163,23 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 
 	$scope.toModuloProveedores = function(){		
 		$scope.titulo = "Proveedores";
-		$scope.toModulo = "proveedores";
+		$scope.toModulo = "proveedor";
 	}
 
-	$scope.toModuloCompras = function(){		
-		$scope.titulo = "Compras Inventario";
-		$scope.toModulo = "compras";
-	}
+    $scope.toModuloTransportistas = function(){
+        $scope.titulo = "Crear Transportistas";
+        $scope.toModulo = "transportista";
+    }
+
+    $scope.toModuloInventario = function(){
+        $scope.titulo = "Inventario";
+        $scope.toModulo = "Inventario";
+    }
+
+    $scope.toModuloCompras = function(){
+        $scope.titulo = "Compras Inventario";
+        $scope.toModulo = "DocumentoCompras";
+    }
 
 	$scope.toModuloVentas = function(){		
 		$scope.titulo = "Ventas: Registro Ventas";
@@ -161,8 +203,13 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 
 	$scope.toModuloRetencionesCompras = function(){		
 		$scope.titulo = "Retenciones Compras";
-		$scope.toModulo = "retencionCompra";
+		$scope.toModulo = "retencionCompras";
 	}
+
+    $scope.toModuloPuntoVenta = function(){
+        $scope.titulo = "Crear Transportistas";
+        $scope.toModulo = "puntoventa";
+    }
 
 	$scope.toModuloPortafolioProductos = function(){		
 		$scope.titulo = "Portafolio de Productos";
@@ -178,6 +225,12 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$scope.titulo = "Crear Bodegas";
 		$scope.toModulo = "bodega";
 	}
+
+    $scope.toModuloNomenclador = function(){
+        $scope.titulo = "Crear Transportistas";
+        $scope.toModulo = "Nomenclador";
+    }
+
 	$scope.prepareListBreadcrumb = function (list_module) {
 		$scope.list_breadcrumb = [
 			"<li><img src='img/ico-aqua.png'></li>",

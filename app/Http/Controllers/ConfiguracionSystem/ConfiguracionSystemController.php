@@ -144,7 +144,7 @@ class ConfiguracionSystemController extends Controller
             if (!$image->move($destinationPath, $name)) {
                 return response()->json(['success' => false]);
             } else {
-                $url_file = '/uploads/configuracion/'.$name;
+                $url_file = '/uploads/configuracion/' . $name;
             }
         }
 
@@ -192,7 +192,9 @@ class ConfiguracionSystemController extends Controller
 
     public function getPlanCuenta()
     {
-        return Cont_PlanCuenta::orderBy('jerarquia', 'asc')->get();
+        return Cont_PlanCuenta::selectRaw('
+                 * , (SELECT count(*)  FROM cont_plancuenta aux WHERE aux.jerarquia <@ cont_plancuenta.jerarquia) AS madreohija
+            ')->orderBy('jerarquia', 'asc')->get();
     }
 
     public function updateIvaDefault(Request $request, $id)
@@ -214,10 +216,12 @@ class ConfiguracionSystemController extends Controller
 
     public function getConfigCompra()
     {
-        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_COMPRA')
-                                    ->orWhere('optionname','CONT_PROPINA_COMPRA')
-                                    ->orWhere('optionname','SRI_RETEN_IVA_COMPRA')
-                                    ->orWhere('optionname','SRI_RETEN_RENTA_COMPRA')
+        return ConfiguracionSystem::where('optionname','CONT_IVA_COMPRA')
+            ->orWhere('optionname','CONT_ICE_COMPRA')
+            ->orWhere('optionname','CONT_IRBPNR_COMPRA')
+            ->orWhere('optionname','CONT_PROPINA_COMPRA')
+            ->orWhere('optionname','SRI_RETEN_IVA_COMPRA')
+            ->orWhere('optionname','SRI_RETEN_RENTA_COMPRA')
             ->selectRaw('*, (SELECT concepto FROM cont_plancuenta WHERE cont_plancuenta.idplancuenta = (configuracionsystem.optionvalue)::INT) ')
             ->get();
 
@@ -229,6 +233,9 @@ class ConfiguracionSystemController extends Controller
 
         foreach ($array_option as $item) {
             $configuracion = ConfiguracionSystem::find($item['idconfiguracionsystem']);
+            if($configuracion->optionvalue == ""){
+                $configuracion->optionvalue = null;
+            }
             $configuracion->optionvalue = $item['optionvalue'];
 
             if (! $configuracion->save()) {
@@ -242,7 +249,9 @@ class ConfiguracionSystemController extends Controller
 
     public function getConfigVenta()
     {
-        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_VENTA')
+        return ConfiguracionSystem::where('optionname','CONT_IVA_VENTA')
+            ->orWhere('optionname','CONT_ICE_VENTA')
+            ->orWhere('optionname','CONT_IRBPNR_VENTA')
             ->orWhere('optionname','CONT_PROPINA_VENTA')
             ->orWhere('optionname','CONT_COSTO_VENTA')
             ->orWhere('optionname','SRI_RETEN_IVA_VENTA')
@@ -257,6 +266,9 @@ class ConfiguracionSystemController extends Controller
 
         foreach ($array_option as $item) {
             $configuracion = ConfiguracionSystem::find($item['idconfiguracionsystem']);
+            if($configuracion->optionvalue == ""){
+                $configuracion->optionvalue = null;
+            }
             $configuracion->optionvalue = $item['optionvalue'];
 
             if (! $configuracion->save()) {
@@ -270,7 +282,9 @@ class ConfiguracionSystemController extends Controller
 
     public function getConfigNC()
     {
-        return ConfiguracionSystem::where('optionname','CONT_IRBPNR_NC')
+        return ConfiguracionSystem::where('optionname','CONT_IVA_NC')
+            ->orWhere('optionname','CONT_ICE_NC')
+            ->orWhere('optionname','CONT_IRBPNR_NC')
             ->orWhere('optionname','CONT_PROPINA_NC')
             ->orWhere('optionname','SRI_RETEN_IVA_NC')
             ->orWhere('optionname','SRI_RETEN_RENTA_NC')
@@ -284,6 +298,9 @@ class ConfiguracionSystemController extends Controller
 
         foreach ($array_option as $item) {
             $configuracion = ConfiguracionSystem::find($item['idconfiguracionsystem']);
+            if($configuracion->optionvalue == ""){
+                $configuracion->optionvalue = null;
+            }
             $configuracion->optionvalue = $item['optionvalue'];
 
             if (! $configuracion->save()) {
@@ -300,13 +317,13 @@ class ConfiguracionSystemController extends Controller
 
         //-----PARA SISTEMA PISQUE (RIEGO)------------------------------------------------
 
-        return ConfiguracionSystem::where('optionname','PISQUE_CONSTANTE')->get();
+        //return ConfiguracionSystem::where('optionname','PISQUE_CONSTANTE')->get();
 
         //-----PARA SISTEMA AYORA (POTABLE)-----------------------------------------------
 
-        /*return ConfiguracionSystem::where('optionname','AYORA_DIVIDENDO')
+        return ConfiguracionSystem::where('optionname','AYORA_DIVIDENDO')
             ->orWhere('optionname','AYORA_TASAINTERES')
-            ->get();*/
+            ->get();
 
     }
 

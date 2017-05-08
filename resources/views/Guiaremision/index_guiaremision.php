@@ -42,7 +42,7 @@
 			<div class="col-sm-4 col-xs-6">
 	                <div class="form-group has-feedback">
 	                    <input type="text" class="form-control" id="search" placeholder="BUSCAR..."
-	                           ng-model="search" ng-change="searchByFilter()">
+	                           ng-model="search" ng-change="initLoad(1)">
 	                    <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
 	                </div>
 	        </div>
@@ -65,7 +65,7 @@
 					</thead>
 					<tbody>
 					<tr>{{item}}</tr>
-						<tr dir-paginate="item in guiaremision|orderBy:sortKey:reverse|filter:search|itemsPerPage:10" ng-cloak>
+						<tr dir-paginate="item in guiaremision|orderBy:sortKey:reverse|itemsPerPage:10" pagination-id="guiaremision" ng-cloak>
 							<td>{{item.iddocumentoguiaremision}}</td>
 							<td>{{item.razonsocial}}</td>
 							<td>{{item.nrodocumentoguiaremision}}</td>
@@ -89,7 +89,9 @@
                     class="pull-right"
                     max-size="10"
                     direction-links="true"
-                    boundary-links="true" >
+                    boundary-links="true"
+                    pagination-id="guiaremision" 
+                    > 
 	            </dir-pagination-controls>
 			</div>
 		</div>
@@ -106,12 +108,12 @@
 									<div class="input-group">
 						                <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Nro. Guía de Remisión: </span>
 						                <span class="input-group-btn" style="width: 15%;">
-						                    <input type="text" class="form-control" id="t_establ" name="t_establ" ng-model="t_establ" ng-keypress="onlyNumber($event,3,'t_establ')" ng-blur="t_establ=calculateLength('t_establ','3')" ng-maxlength="3" maxlength="3">
+						                    <input type="text" class="form-control" id="t_establ" name="t_establ" ng-model="t_establ" ng-keypress="onlyNumber($event,3,'t_establ')" ng-blur="t_establ=calculateLength('t_establ','3');" ng-maxlength="3" maxlength="3">
 						                </span>
 						                <span class="input-group-btn" style="width: 15%;">
-						                    <input type="text" class="form-control" id="t_pto" name="t_pto" ng-model="t_pto" ng-keypress="onlyNumber($event,3,'t_pto')" ng-blur="t_pto=calculateLength('t_pto','3')" ng-maxlength="3" maxlength="3">
+						                    <input type="text" class="form-control" id="t_pto" name="t_pto" ng-model="t_pto" ng-keypress="onlyNumber($event,3,'t_pto')" ng-blur="t_pto=calculateLength('t_pto','3');" ng-maxlength="3" maxlength="3">
 						                </span>
-						                <input type="text" class="form-control" id="t_sec" name="t_sec" ng-model="t_sec" ng-keypress="onlyNumber($event,9,'t_sec')" ng-blur="t_sec=calculateLength('t_sec','9')" ng-maxlength="9" maxlength="9">
+						                <input type="text" class="form-control" id="t_sec" name="t_sec" ng-model="t_sec" ng-keypress="onlyNumber($event,9,'t_sec')" ng-blur="t_sec=calculateLength('t_sec','9');" ng-maxlength="9" maxlength="9">
 						            </div>
 								</div>
 
@@ -204,7 +206,7 @@
 								<div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
 									<div class="input-group">                        
 						                <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Código Establecimiento: </span>
-						                <input type="text" class="form-control" id="codestablecimiento" name="codestablecimiento" ng-keypress="onlyNumber($event,3,'codestablecimiento')" ng-blur="codestablecimiento=calculateLength('codestablecimiento','3')" ng-model="codestablecimiento" maxlength="3">
+						                <input type="text" class="form-control" id="codestablecimiento" name="codestablecimiento" ng-keypress="onlyNumber($event,3,'codestablecimiento')" ng-blur="codestablecimiento=calculateLength('codestablecimiento','3');" ng-model="codestablecimiento" maxlength="3">
 						            </div>
 								</div>
 
@@ -324,7 +326,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr dir-paginate="item in guia |orderBy:sortKey:reverse | itemsPerPage:3" ng-cloak>
+											<tr dir-paginate="item in guia |orderBy:sortKey:reverse | itemsPerPage:3" pagination-id="item" ng-cloak>
 												<td>{{item.idcatalogitem}}<br></td>
 												<td>{{item.nombrecategoria}}</td>
 												<td>{{item.codigoproducto}}</td>
@@ -341,7 +343,8 @@
 					                    class="pull-right"
 					                    max-size="10"
 					                    direction-links="true"
-					                    boundary-links="true" >
+					                    boundary-links="true" 
+					                    pagination-id="item">
 						            </dir-pagination-controls>
 								</div>
 							</fieldset>
@@ -371,7 +374,7 @@
 										</thead>
 									</table>
 									<div>
-										<div class="table table-responsive table-striped table-hover table-condensed" dir-paginate="itemm in itemguiaretension|itemsPerPage:3" ng-cloak>
+										<div class="table table-responsive table-striped table-hover table-condensed" dir-paginate="itemm in itemguiaretension|itemsPerPage:3" pagination-id="mercaderia" ng-cloak>
 											<div class="col-sm-1 col-xs-1" style="width: 8.33% float: left;">
 												<div>
 												   <input type="number" name='cantidad{{$index}}' class="form-control" 
@@ -440,7 +443,8 @@
 				                    class="pull-right"
 				                    max-size="10"
 				                    direction-links="true"
-				                    boundary-links="true" >
+				                    boundary-links="true" 
+				                    pagination-id="mercaderia">
 			            		</dir-pagination-controls>
 			            	</form>
 							</div>

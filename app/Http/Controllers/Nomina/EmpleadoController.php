@@ -38,6 +38,7 @@ class EmpleadoController extends Controller
     {
         $filter = json_decode($request->get('filter'));
         $search = $filter->search;
+        $cargo = $filter->cargo;
         $employee = null;
 
         $employees = Empleado::join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
@@ -47,7 +48,11 @@ class EmpleadoController extends Controller
                                 ->select('empleado.*', 'departamento.namedepartamento', 'cargo.namecargo', 'persona.*', 'cont_plancuenta.*');
 
         if ($search != null) {
-            $employees = $employees->whereRaw("persona.razonsocial LIKE '%" . $search . "%'");
+            $employees = $employees->whereRaw("persona.razonsocial ILIKE '%" . $search . "%' OR persona.numdocidentific LIKE '%" . $search . "%'");
+        }
+
+        if ($cargo != null) {
+            $employees = $employees->whereRaw('empleado.idcargo = ' . $cargo);
         }
 
         return $employees->orderBy('fechaingreso', 'desc')->paginate(10);
@@ -64,6 +69,15 @@ class EmpleadoController extends Controller
         return Cargo::orderBy('namecargo', 'asc')->get();
     }
 
+    /**
+     * Obtener todos los cargos
+     *
+     * @return mixed
+     */
+    public function getCargos($id)
+    {
+        return Cargo::orderBy('namecargo', 'asc')->where('iddepartamento', $id)->get();
+    }
 
     /**
      * Obtener todos los departamentos
@@ -94,7 +108,9 @@ class EmpleadoController extends Controller
      */
     public function getPlanCuenta()
     {
-        return Cont_PlanCuenta::orderBy('jerarquia', 'asc')->get();
+        return Cont_PlanCuenta::selectRaw('
+                 * , (SELECT count(*)  FROM cont_plancuenta aux WHERE aux.jerarquia <@ cont_plancuenta.jerarquia) AS madreohija
+            ')->orderBy('jerarquia', 'asc')->get();
     }
 
 

@@ -27,7 +27,7 @@ class Cont_DocumentoGuiaRemision extends Model
     }
 
     public function cont_documentoventa(){
-    	return $this->belongsTo('App\Modelos\Contabilidad');
+    	return $this->belongsTo('App\Modelos\Facturacionventa');
     }
 
     public function transportista(){

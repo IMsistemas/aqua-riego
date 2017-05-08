@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Facturacionventa;
 
+use App\Modelos\Suministros\Suministro;
 use Illuminate\Http\Request;
 
 
@@ -312,6 +313,21 @@ class DocumentoVenta extends Controller
             ['idformapago' => $filtro->Idformapagoventa, 'iddocumentoventa' => $aux_addVenta->last()->iddocumentoventa]
         ]);
 
+        if (Session::has('suministro_to_facturar')) {
+
+            $object_s = Session::get('suministro_to_facturar');
+
+            //dd(Session::get('suministro_to_facturar'));
+
+            $suministro = Suministro::find($object_s[0]->idsuministro);
+
+            $suministro->iddocumentoventa = $aux_addVenta->last()->iddocumentoventa;
+
+            $suministro->save();
+
+        }
+
+
         return 1;
 
         //$datos["documentoventa"]
@@ -443,7 +459,8 @@ class DocumentoVenta extends Controller
             $aux_query.=" AND (numdocumentoventa LIKE '%".$search."%' OR nroautorizacionventa LIKE '%".$search."%' )";
         } 
 
-        $data= Cont_DocumentoVenta::whereRaw(" estadoanulado=false ".$aux_query."" );
+        $data= Cont_DocumentoVenta::with('cont_puntoventa.sri_establecimiento')
+                                ->whereRaw(" estadoanulado=false ".$aux_query."" );
         return $data->paginate(10);
 
         /*

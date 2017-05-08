@@ -13,21 +13,41 @@
     <link href="<?= asset('css/index.css') ?>" rel="stylesheet">
     <link href="<?= asset('css/style_generic_app.css') ?>" rel="stylesheet">
 
+    <style>
+        .modal-body {
+            max-height: calc(100vh - 210px);
+            overflow-y: auto;
+        }
+    </style>
+
 </head>
 
 <body>
 <div ng-controller="empleadosController">
 
-    <div class="container" style="margin-top: 2%;">
+    <div class="col-xs-12">
 
-        <div class="col-sm-6 col-xs-8">
+        <h4>Gestión de Personal</h4>
+
+        <hr>
+
+    </div>
+
+    <div class="col-xs-12" style="margin-top: 5px;">
+
+        <div class="col-sm-6 col-xs-6">
             <div class="form-group has-feedback">
-                <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda" ng-change="searchByFilter()">
+                <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda" ng-keyup="initLoad(1)">
                 <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
 
-        <div class="col-sm-6 col-xs-4">
+        <div class="col-md-3 col-xs-3">
+            <select class="form-control" name="searchCargo" id="searchCargo" ng-model="searchCargo"
+                    ng-options="value.id as value.label for value in search_cargos" ng-change="initLoad(1)"></select>
+        </div>
+
+        <div class="col-sm-3 col-xs-3">
             <button type="button" class="btn btn-primary" id="btnAgregar" style="float: right;" ng-click="toggle('add', 0)">Agregar  <span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
         </div>
 
@@ -52,7 +72,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr dir-paginate="empleado in empleados | orderBy:sortKey:reverse |filter:busqueda| itemsPerPage:10" total-items="totalItems" ng-cloak >
+                <tr dir-paginate="empleado in empleados | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak >
                     <td>{{empleado.numdocidentific}}</td>
                     <td>{{empleado.razonsocial}}</td>
                     <td>{{empleado.namecargo}}</td>
@@ -96,6 +116,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <form class="form-horizontal" name="formEmployee" novalidate="">
+
                 <div class="modal-header modal-header-primary">
                     <div class="col-md-6 col-xs-12">
                         <h4 class="modal-title">{{form_title}}</h4>
@@ -116,13 +137,12 @@
 
                     <div class="row">
 
-
                             <div class="col-xs-12">
                                 <div class="col-md-6 col-xs-12">
                                     <div class="input-group">
                                         <span class="input-group-addon">Departamento: </span>
                                         <select class="form-control" name="departamento" id="departamento" ng-model="departamento"
-                                                ng-options="value.id as value.label for value in iddepartamentos" required></select>
+                                                ng-options="value.id as value.label for value in iddepartamentos" ng-change="listCargosForModal()" required></select>
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.departamento.$invalid && formEmployee.departamento.$touched">El Departamento es requerido</span>
@@ -207,7 +227,7 @@
                                     <span class="help-block error"
                                           ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$error.maxlength">La longitud máxima es de 128 caracteres</span>
                                     <span class="help-block error"
-                                          ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$error.pattern">El Apellido debe ser solo letras y espacios</span>
+                                          ng-show="formEmployee.apellido.$invalid && formEmployee.apellido.$error.pattern">El Apellido debe ser sólo letras y espacios</span>
                                 </div>
 
                                 <div class="col-md-6 col-xs-12">
@@ -296,7 +316,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Foto: </span>
                                         <input class="form-control" type="file" ngf-select ng-model="file" name="file" id="file"
-                                               accept="image/*" ngf-max-size="2MB"  ng-required="false" ngf-pattern="image/*"/>
+                                               accept="image/*" ngf-max-size="2MB"  ng-required="false" ngf-pattern="image/*">
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.file.$error.required">La Foto del Empleado es requerida</span>
@@ -311,7 +331,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Salario: </span>
                                         <input type="text" class="form-control" name="salario" id="salario" ng-model="salario" placeholder="" ng-maxlength="12"
-                                               ng-pattern="/^([0-9]{1,9}\.[0-9]{2})$/">
+                                               ng-pattern="/^([0-9]{1,9}\.[0-9]{2})$/" required>
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.salario.$invalid && formEmployee.salario.$error.maxlength">La longitud máxima es de 12 caracteres</span>
@@ -338,13 +358,14 @@
 
 
 
-                            <div class="col-xs-6 text-center" style="margin-top: 5px;" ng-cloak>
+                            <div class="col-xs-6 text-center" style="margin-top: 5px;">
                                 <img class="img-thumbnail" ngf-src="file || url_foto"  alt="" style="width: 50%;">
                             </div>
 
                         </form>
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
@@ -455,23 +476,31 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
+
+                        <div class="col-xs-12">
+                            <div class="form-group  has-feedback">
+                                <input type="text" class="form-control" id="" ng-model="searchContabilidad" placeholder="BUSCAR..." >
+                                <span class="glyphicon glyphicon-search form-control-feedback" ></span>
+                            </div>
+                        </div>
+
                         <div class="col-xs-12">
                             <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                                 <thead class="bg-primary">
                                 <tr>
                                     <th style="width: 15%;">ORDEN</th>
                                     <th>CONCEPTO</th>
-                                    <th style="width: 10%;">COD. SRI</th>
+                                    <th style="width: 10%;">CODIGO</th>
                                     <th style="width: 4%;"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr ng-repeat="item in cuentas" ng-cloak >
+                                    <tr ng-repeat="item in cuentas | filter:searchContabilidad" ng-cloak >
                                         <td>{{item.jerarquia}}</td>
                                         <td>{{item.concepto}}</td>
                                         <td>{{item.codigosri}}</td>
                                         <td>
-                                            <input type="radio" name="select_cuenta"  ng-click="click_radio(item)">
+                                            <input ng-show="item.madreohija=='1'" ng-hide="item.madreohija!='1'" type="radio" name="select_cuenta"  ng-click="click_radio(item)">
                                         </td>
                                     </tr>
                                 </tbody>

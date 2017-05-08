@@ -11,9 +11,16 @@
 |
 */
 
-Route::get('/inicio', function () {
+/*Route::get('/inicio', function () {
     return view('index');
-});
+});*/
+
+Route::get('/logout', 'Index\IndexController@logout');
+
+Route::resource('/', 'Index\IndexController');
+
+Route::resource('/inicio', 'Index\IndexController');
+
 /*--------------------------------------Raidel-------------------------------------------------*/
 /*===================================Solicitud=================================================*/
  
@@ -282,11 +289,16 @@ Route::resource('/editTerreno', 'Terreno\TerrenoController');
  * -------------------------Modulo Nomina (Yamilka)---------------------------------------------------------------------
  */
 
+Route::get('departamento/getDepartamentoByID/{id}', 'Nomina\DepartamentoController@getDepartamentoByID');
+Route::get('departamento/getDepartamentos', 'Nomina\DepartamentoController@getDepartamentos');
+Route::resource('/departamento', 'Nomina\DepartamentoController');
+
 Route::get('cargo/getCargos', 'Nomina\CargoController@getCargos');
 Route::get('cargo/getCargoByID/{id}', 'Nomina\CargoController@getCargoByID');
 Route::resource('/cargo', 'Nomina\CargoController');
 
 Route::get('empleado/getEmployees', 'Nomina\EmpleadoController@getEmployees');
+Route::get('empleado/getCargos/{id}', 'Nomina\EmpleadoController@getCargos');
 Route::get('empleado/getAllPositions', 'Nomina\EmpleadoController@getAllPositions');
 Route::get('empleado/getDepartamentos', 'Nomina\EmpleadoController@getDepartamentos');
 Route::get('empleado/getPlanCuenta', 'Nomina\EmpleadoController@getPlanCuenta');
@@ -634,12 +646,12 @@ Route::resource('/transportista', 'Transportista\TransportistaController');
 	return view('Facturacionventa/index');
 });*/
 
-
-
+Route::get('DocumentoVenta/getSuministroByFactura', 'Facturacionventa\DocumentoVenta@getSuministroByFactura');
+Route::get('DocumentoVenta/getProductoPorSuministro/{id}', 'Facturacionventa\DocumentoVenta@getProductoPorSuministro');
 Route::get('DocumentoVenta/getInfoClienteXCIRuc/{getInfoCliente}', 'Facturacionventa\DocumentoVenta@getInfoClienteXCIRuc');
 Route::get('DocumentoVenta/getBodega/{texto}', 'Facturacionventa\DocumentoVenta@getinfoBodegas');
 Route::get('DocumentoVenta/getProducto/{texto}', 'Facturacionventa\DocumentoVenta@getinfoProducto');
-Route::get('DocumentoVenta/getheaddocumentoventa', 'Facturacionventa\DocumentoVenta@getPuntoVentaEmpleado'); 
+Route::get('DocumentoVenta/getheaddocumentoventa', 'Facturacionventa\DocumentoVenta@getPuntoVentaEmpleado');
 Route::get('DocumentoVenta/formapago', 'Facturacionventa\DocumentoVenta@getFormaPago');
 Route::get('DocumentoVenta/porcentajeivaiceotro', 'Facturacionventa\DocumentoVenta@getCofiguracioncontable');
 Route::get('DocumentoVenta/AllBodegas', 'Facturacionventa\DocumentoVenta@getAllbodegas');
@@ -688,6 +700,23 @@ Route::get('guiaremision/getventa/{idventa}', 'Guiaremision\GuiaremisionControll
 Route::get('guiaremision/venta/{texto}', 'Guiaremision\GuiaremisionController@GetVentanro');
 Route::get('guiaremision/getGuia/{idguiaremision}', 'Guiaremision\GuiaremisionController@getGuia');
 
+/*
+ * ---------------------------------------Raidel Berrillo Gonzalez------------------------------------------------------
+ */
+Route::post('retencionCompra/anularRetencion', 'Retencion\RetencionCompraController@anularRetencion');
+Route::get('retencionCompra/getLastIDRetencion', 'Retencion\RetencionCompraController@getLastIDRetencion');
+Route::get('retencionCompra/getConfigContabilidad', 'Retencion\RetencionCompraController@getConfigContabilidad');
+Route::get('retencionCompra/getRetenciones', 'Retencion\RetencionCompraController@getRetenciones');
+Route::get('retencionCompra/getRetencionesByCompra/{id}', 'Retencion\RetencionCompraController@getRetencionesByCompra');
+Route::get('retencionCompra/getCompras/{codigo}', 'Retencion\RetencionCompraController@getCompras');
+Route::get('retencionCompra/getCodigos/{codigo}', 'Retencion\RetencionCompraController@getCodigos');
+Route::get('retencionCompra/form/{id}', 'Retencion\RetencionCompraController@form');
+Route::get('retencionCompra/getCodigosRetencion/{tipo}', 'Retencion\RetencionCompraController@getCodigosRetencion');
+Route::resource('retencionCompras', 'Retencion\RetencionCompraController');
+
+/*
+ * ---------------------------------------------------------------------------------------------------------------------
+ */
 
 
 /*
@@ -788,7 +817,7 @@ Route::post('Nomenclador/updateSustento_Comprobante/{id}', 'Nomenclador\Nomencla
 Route::post('Nomenclador/updatePagoResidente/{id}', 'Nomenclador\NomencladorController@updatePagoResidente' );
 Route::post('Nomenclador/updatePagoPais/{id}', 'Nomenclador\NomencladorController@updatePagoPais' );
 Route::post('Nomenclador/updateFormaPago/{id}', 'Nomenclador\NomencladorController@updateFormaPago' );
-Route::post('Nomenclador/updateProvincia/{id}', 'Nomenclador\NomencladorController@updateProvincia' );
+Route::post('Nomenclador/updateprovincia/{id}', 'Nomenclador\NomencladorController@updateprovincia' );
 Route::post('Nomenclador/updatecantonEX/{id}', 'Nomenclador\NomencladorController@updatecantonEX' );
 Route::post('Nomenclador/updateparroquiaEX/{id}', 'Nomenclador\NomencladorController@updateparroquiaEX' );
 
@@ -827,15 +856,6 @@ Route::post('Nomenclador/deleteParroquiaEX', 'Nomenclador\NomencladorController@
 
 Route::resource('/Nomenclador', 'Nomenclador\NomencladorController');
 
-
-
-
-
-
-
-
-
-
 /*
  * ---------------------------------------------------------------------------------------------------------------------
  */
@@ -851,3 +871,49 @@ Route::get('procesoskardex/loadinventario', 'CatalogoProductos\InventarioKardex@
 Route::get('procesoskardex/loadkardex/{filtro}', 'CatalogoProductos\InventarioKardex@kardexitem');
 
 //-------------------------------- Inveario Intem Kardex ---------------/////////
+
+/*
+ * ------------------------------------- Modulo Rol---------------------------------------------------------------------
+ */
+
+Route::get('rol/getPermisos', 'Rol\RolController@getPermisos');
+Route::get('rol/getRolByID/{id}', 'Rol\RolController@getRolByID');
+Route::get('rol/getRoles', 'Rol\RolController@getRoles');
+
+Route::resource('/rol', 'Rol\RolController');
+
+/*
+ * ------------------------------------- Modulo Alterno Compras (NO OFICIAL)--------------------------------------------
+ */
+
+Route::post('DocumentoCompras/anularCompra', 'Compras\ComprasController@anularCompra');
+Route::get('DocumentoCompras/getPaisPagoComprobante', 'Compras\ComprasController@getPaisPagoComprobante');
+Route::get('DocumentoCompras/getTipoPagoComprobante', 'Compras\ComprasController@getTipoPagoComprobante');
+Route::get('DocumentoCompras/getLastIDCompra', 'Compras\ComprasController@getLastIDCompra');
+Route::get('DocumentoCompras/porcentajeivaiceotro', 'Compras\ComprasController@getCofiguracioncontable');
+Route::get('DocumentoCompras/getProveedorByIdentify/{identify}', 'Compras\ComprasController@getProveedorByIdentify');
+Route::get('DocumentoCompras/getProveedorByFilter', 'Compras\ComprasController@getProveedorByFilter' );
+Route::get('DocumentoCompras/getBodegas', 'Compras\ComprasController@getBodegas' );
+Route::get('DocumentoCompras/getSustentoTributario', 'Compras\ComprasController@getSustentoTributario' );
+Route::get('DocumentoCompras/getTipoComprobante/{idsustento}', 'Compras\ComprasController@getTipoComprobante' );
+Route::get('DocumentoCompras/getFormaPago', 'Compras\ComprasController@getFormaPago' );
+Route::get('DocumentoCompras/getCompras', 'Compras\ComprasController@getCompras');
+Route::resource('DocumentoCompras', 'Compras\ComprasController');
+
+//-------------------------------- Guía Remisión---------------/////////
+Route::resource('guiaremision', 'Guiaremision\GuiaremisionController');
+Route::get('guiaremision/getransportista/{texto}', 'Guiaremision\GuiaremisionController@GetTrasportista');
+Route::get('guiaremision/nuevaguia', 'Guiaremision\GuiaremisionController@geNuevaGuia');
+Route::get('guiaremision/getformguia', 'Guiaremision\GuiaremisionController@formguia');
+Route::get('guiaremision/getdestinatario/{texto}', 'Guiaremision\GuiaremisionController@BuscarDestinatario');
+Route::get('guiaremision/getventa/{idventa}', 'Guiaremision\GuiaremisionController@BuscarVenta');
+Route::get('guiaremision/venta/{texto}', 'Guiaremision\GuiaremisionController@GetVentanro');
+Route::get('guiaremision/getGuia/{idguiaremision}', 'Guiaremision\GuiaremisionController@getGuia');
+//-------------------------------- Punto de Venta---------------/////////
+Route::resource('puntoventa', 'Contabilidad\PuntoVentaController');
+Route::get('puntoventa/getpuntoventas', 'PuntoVenta\PuntoVentaController@getPuntoventa');
+Route::get('puntoventa/getempleado/{texto}', 'Contabilidad\PuntoVentaController@getEmpleado');
+Route::get('puntoventa/verificaremision/{emision}', 'Contabilidad\PuntoVentaController@verificarCodigo');
+Route::get('puntoventa/cargaestablecimiento', 'Contabilidad\PuntoVentaController@cargaEstablecimiento');
+Route::get('puntoventa/cargarpuntoventa/{id}', 'Contabilidad\PuntoVentaController@cargarPuntoVenta');
+Route::get('puntoventa/verificarvacio', 'Contabilidad\PuntoVentaController@empleadoVacio');

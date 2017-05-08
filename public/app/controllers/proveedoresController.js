@@ -34,6 +34,9 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
         $http.get(API_URL + 'proveedor/getProveedores?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
             $scope.proveedores = response.data;
             $scope.totalItems = response.total;
+            console.log(response);
+            console.log($scope.proveedores);
+            console.log($scope.totalItems);
         });
 
     };
@@ -93,7 +96,7 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
                     $scope.documentoidentidadempleado = '';
                     $('#documentoidentidadempleado').val('');
                     $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', '');
-
+                    $scope.$broadcast('angucomplete-alt:clearInput', 'documentoidentidadempleado');
                     $scope.razonsocial = '';
                     $scope.telefonoprincipal = '';
                     $scope.celular = '';
@@ -371,12 +374,21 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
 
     $scope.destroy = function(){
         $http.delete(API_URL + 'proveedor/' + $scope.proveedor_del).success(function(response) {
-            $scope.initLoad(1);
+
             $('#modalConfirmDelete').modal('hide');
-            $scope.proveedor_del = 0;
-            $scope.message = 'Se eliminó correctamente el Proveedor seleccionado';
-            $('#modalMessage').modal('show');
-            $scope.hideModalMessage();
+
+            if (response.success == true) {
+                $scope.initLoad(1);
+                $scope.proveedor_del = 0;
+                $scope.message = 'Se eliminó correctamente el Proveedor seleccionado';
+                $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+            } else {
+                $scope.message_error = 'Ha ocurrido un error..';
+                $('#modalMessageError').modal('show');
+            }
+
+
         });
     };
 
@@ -409,7 +421,7 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
 
         var object = {
             nombrecontacto: '',
-            idcontacto: 0,
+            idcontacto: '',
             telefonoprincipalcont: '',
             telefonosecundario: '',
             celular: '',
@@ -419,6 +431,19 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
 
         $scope.contactos.push(object);
     };
+
+    app.directive('focusMe', function () {
+        return {
+            link: function(scope, element, attrs) {
+                scope.$watch(attrs.focusMe, function(value) {
+                    if(value === true) {
+                        element[0].focus();
+                        element[0].select();
+                    }
+                });
+            }
+        };
+    });
 
     $scope.saveAllContactos = function() {
 
@@ -430,7 +455,7 @@ app.controller('proveedoresController', function($scope, $http, API_URL, Upload)
             if (response.success == true) {
 
                 $scope.message = 'Se guardó correctamente la información de los Contactos del Proveedor...';
-                $('#modalContactos').modal('hide');
+                //$('#modalContactos').modal('hide');
                 $('#modalMessage').modal('show');
                 $scope.hideModalMessage();
             }

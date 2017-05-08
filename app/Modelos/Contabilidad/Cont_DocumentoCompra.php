@@ -15,15 +15,38 @@ class Cont_DocumentoCompra extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'iddocumentocompra', 
+        'iddocumentocompra', 'idtransaccion',
     		'idproveedor','idtipocomprobante','idsustentotributario','idcomprobanteretencion','idtipoimpuestoiva','numdocumentocompra',
     		'fecharegistrocompra','fechaemisioncompra','nroautorizacioncompra','subtotalconimpuestocompra',
     		'subtotalcerocompra','subtotalnoobjivacompra','subtotalexentivacompra','subtotalsinimpuestocompra',
-    		'totaldescuento','icecompra numeric','ivacompra','irbpnrcompra','propinacompra','otroscompra',
-    		'valortotalcompra','estaAnulada'    		    
+    		'totaldescuento','icecompra','ivacompra','irbpnrcompra','propinacompra','otroscompra',
+    		'valortotalcompra','estadoanulado'
     ];
-    
-    
 
+
+    public function sri_comprobanteretencion()
+    {
+        return $this->belongsTo('App\Modelos\SRI\SRI_ComprobanteRetencion',"idcomprobanteretencion");
+    }
+
+    public function proveedor()
+    {
+        return $this->belongsTo('App\Modelos\Proveedores\Proveedor',"idproveedor");
+    }
+
+    public function sri_sustentotributario()
+    {
+        return $this->belongsTo('App\Modelos\SRI\SRI_SustentoTributario',"idsustentotributario");
+    }
+
+    public function sri_tipocomprobante()
+    {
+        return $this->belongsTo('App\Modelos\SRI\SRI_TipoComprobante',"idtipocomprobante");
+    }
+
+    public function cont_formapago_documentocompra()
+    {
+        return $this->hasMany('App\Modelos\Contabilidad\Cont_FormaPagoDocumentoCompra', 'iddocumentocompra');
+    }
    
 }
