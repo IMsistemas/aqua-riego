@@ -1,29 +1,3 @@
-<!doctype html>
-<html lang="es-ES" ng-app="softver-aqua">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Configuracion</title>
-
-    <link href="<?= asset('css/bootstrap.min.css') ?>" rel="stylesheet">
-    <link href="<?= asset('css/font-awesome.min.css') ?>" rel="stylesheet">
-    <link href="<?= asset('css/index.css') ?>" rel="stylesheet">
-    <link href="<?= asset('css/bootstrap-datetimepicker.min.css') ?>" rel="stylesheet">
-    <link href="<?= asset('css/angucomplete-alt.css') ?>" rel="stylesheet">
-    <link href="<?= asset('css/style_generic_app.css') ?>" rel="stylesheet">
-
-    <style>
-        .modal-body {
-            max-height: calc(100vh - 210px);
-            overflow-y: auto;
-        }
-    </style>
-
-</head>
-
-<body>
 
 <div ng-controller="configuracionSystemController">
 
@@ -93,7 +67,7 @@
                                 </div>
                                 <div class="col-xs-12" style="margin-top: 5px;">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Contribuyente Especial: </span>
+                                        <span class="input-group-addon">No. Contribuyente Especial (si presenta): </span>
                                         <input type="text" class="form-control" name="t_contribuyente" id="t_contribuyente" ng-model="t_contribuyente" />
                                     </div>
                                 </div>
@@ -141,6 +115,7 @@
                         </ul>
                         <!-- Tab panels -->
                         <div class="tab-content" style="padding-top: 10px;">
+
                             <div role="tabpanel" class="tab-pane fade active in" id="cont_general">
 
                                 <form class="form-horizontal" name="formContGeneral" novalidate="">
@@ -551,6 +526,24 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Costo de Venta: </span>
+                                            <input type="text" class="form-control" name="costo_venta" id="costo_nc" ng-model="costo_nc" placeholder=""
+                                                   readonly>
+                                            <input type="hidden" name="costo_nc_h" id="costo_nc_h" ng-model="costo_nc_h">
+                                            <input type="hidden" name="id_costo_nc_h" id="id_costo_venta_h" ng-model="id_costo_venta_h">
+                                            <span class="input-group-btn" role="group">
+                                                <button type="button" class="btn btn-info" id="btn-costo-nc" ng-click="showPlanCuenta('costo_nc', 'costo_nc_h')">
+                                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-default" id="btn-l-costo_venta" ng-click = "clean('costo_nc', 'costo_nc_h')">
+                                                    <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+
                                 </form>
 
 
@@ -614,7 +607,7 @@
 
                     <form class="form-horizontal" name="formEspecifica" novalidate="">
 
-                        <!--<div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                             <div class="input-group">
                                 <span class="input-group-addon">Dividendos: </span>
                                 <input type="text" class="form-control" placeholder="Para sistema AYORA"
@@ -628,7 +621,7 @@
 
                         <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                             <div class="input-group">
-                                <span class="input-group-addon">Tasa Interés: </span>
+                                <span class="input-group-addon">Tasa Interés (%): </span>
                                 <input type="text" class="form-control" placeholder="Para sistema AYORA"
                                        name="t_ayora_tasainteres" id="t_ayora_tasainteres" ng-model="t_ayora_tasainteres" required
                                        ng-keypress="onlyDecimal($event)" />
@@ -636,9 +629,9 @@
                             </div>
                             <span class="help-block error"
                               ng-show="formEspecifica.t_ayora_tasainteres.$invalid && formEspecifica.t_ayora_tasainteres.$touched">Tasa Interés es requerida</span>
-                        </div>-->
+                        </div>
 
-                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                        <!--<div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                             <div class="input-group">
                                 <span class="input-group-addon">Constante: </span>
                                 <input type="text" class="form-control" placeholder="Para sistema Pisque"
@@ -648,7 +641,7 @@
                             </div>
                             <span class="help-block error"
                                   ng-show="formEspecifica.t_pisque_constante.$invalid && formEspecifica.t_pisque_constante.$touched">La Constante es requerida</span>
-                        </div>
+                        </div>-->
 
                     </form>
                     <div class="col-xs-12 text-center" style="margin-top: 5px;">
@@ -661,6 +654,75 @@
                         </button>
 
                     </div>
+
+                    <h4>Estructura Lectura</h4>
+                    <hr>
+
+                    <form class="form-horizontal" name="formEspecifica" novalidate="">
+                        <table class="table table-responsive table-striped">
+                            <thead class="bg-primary">
+                                <tr>
+                                    <th style="width: 50%;">LECTURA</th>
+                                    <th style="width: 50%;">SERVICIO A BRINDAR</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Consumo Tarifa Básica</td>
+                                    <td>
+                                        <select class="form-control" name="serv_lect_tar" id="serv_lect_tar" ng-model="serv_lect_tar"
+                                                ng-options="value.id as value.label for value in list_serv"></select>
+                                        <input type="hidden" name="serv_lect_tar" id="serv_lect_tar" ng-model="serv_lect_tar">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Excedente</td>
+                                    <td>
+                                        <select class="form-control" name="serv_lect_ex" id="serv_lect_ex" ng-model="serv_lect_ex"
+                                                ng-options="value.id as value.label for value in list_serv"></select>
+                                        <input type="hidden" name="serv_lect_ex" id="serv_lect_ex" ng-model="serv_lect_ex">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Alcantarillado</td>
+                                    <td>
+                                        <select class="form-control" name="serv_lect_alcant" id="serv_lect_alcant" ng-model="serv_lect_alcant"
+                                                ng-options="value.id as value.label for value in list_serv"></select>
+                                        <input type="hidden" name="serv_lect_alcant" id="serv_lect_alcant" ng-model="serv_lect_alcant">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Recogida Desechos Solidos</td>
+                                    <td>
+                                        <select class="form-control" name="serv_lect_rds" id="serv_lect_rds" ng-model="serv_lect_rds"
+                                                ng-options="value.id as value.label for value in list_serv" required></select>
+                                        <input type="hidden" name="serv_lect_rds" id="serv_lect_rds" ng-model="serv_lect_rds">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Medio Ambiente</td>
+                                    <td>
+                                        <select class="form-control" name="serv_lect_ma" id="serv_lect_ma" ng-model="serv_lect_ma"
+                                                ng-options="value.id as value.label for value in list_serv" required></select>
+                                        <input type="hidden" name="serv_lect_ma" id="serv_lect_ma" ng-model="serv_lect_ma">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-default" ng-click="getListServicio()">
+                                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-success" ng-click="saveListServicio()" >
+                                            Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
 
                 </div>
 
@@ -765,31 +827,6 @@
     </div>
 
 </div>
-
-</body>
-
-
-<script src="<?= asset('app/lib/angular/angular.min.js') ?>"></script>
-<script src="<?= asset('app/lib/angular/angular-route.min.js') ?>"></script>
-
-
-<script src="<?= asset('app/lib/angular/ng-file-upload-shim.min.js') ?>"></script>
-<script src="<?= asset('app/lib/angular/ng-file-upload.min.js') ?>"></script>
-
-
-<script src="<?= asset('js/jquery.min.js') ?>"></script>
-<script src="<?= asset('js/bootstrap.min.js') ?>"></script>
-<script src="<?= asset('js/moment.min.js') ?>"></script>
-<script src="<?= asset('js/es.js') ?>"></script>
-<script src="<?= asset('js/bootstrap-datetimepicker.min.js') ?>"></script>
-<script src="<?= asset('app/lib/angular/angucomplete-alt.min.js') ?>"></script>
-<script src="<?= asset('app/lib/angular/dirPagination.js') ?>"></script>
-
-<script src="<?= asset('app/app.js') ?>"></script>
-<script src="<?= asset('app/controllers/configuracionSystemController.js') ?>"></script>
-
-
-</html>
 
 
 

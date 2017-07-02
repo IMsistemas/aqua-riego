@@ -47,21 +47,23 @@
             <button type="button" class="btn btn-primary" id="btnAgregar" style="float: right;" ng-click="toggle('add', 0)">Agregar  <span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
         </div>
 
-        <div class="col-xs-12">
+        <div class="col-xs-12" style="font-size: 12px !important;">
 
-            <table class="table table-responsive table-striped table-hover table-condensed">
+            <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                 <thead class="bg-primary">
                 <tr>
-                    <th>RUC / CI</th>
-                    <th>Razón Social</th>
-                    <th>Placa</th>
-                    <th>Email</th>
-                    <th>Celular</th>
-                    <th style="width: 160px;">Acciones</th>
+                    <th style="width: 4%">NO</th>
+                    <th style="width: 10%">RUC / CI</th>
+                    <th>RAZON SOCIAL</th>
+                    <th style="width: 8%">PLACA</th>
+                    <th style="width: 15%">EMAIL</th>
+                    <th style="width: 8%">CELULAR</th>
+                    <th style="width: 24%;">ACCIONES</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr dir-paginate="transp in transportistas | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak >
+                    <td>{{$index + 1}}</td>
                     <td>{{transp.numdocidentific}}</td>
                     <td>{{transp.razonsocial}}</td>
                     <td>{{transp.placa}}</td>
@@ -70,15 +72,15 @@
                     <td>
                         <button type="button" class="btn btn-info" ng-click="toggle('info', transp)"
                                 data-toggle="tooltip" data-placement="bottom" title="Información">
-                            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            Información <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         </button>
                         <button type="button" class="btn btn-warning" ng-click="toggle('edit', transp)"
                                 data-toggle="tooltip" data-placement="bottom" title="Editar" >
-                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            Editar <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </button>
                         <button type="button" class="btn btn-danger" ng-click="showModalConfirm(transp)"
                                 data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </button>
                     </td>
                 </tr>
@@ -107,7 +109,7 @@
                 <form class="form-horizontal" name="formEmployee" novalidate="">
                     <div class="modal-header modal-header-primary">
                         <div class="col-md-6 col-xs-12">
-                            <h4 class="modal-title">{{form_title}}</h4>
+                            <h4 class="modal-title">{{form_title}}. (Chofer)</h4>
                         </div>
                         <div class="col-md-5 col-xs-12">
                             <div class="input-group">
@@ -176,17 +178,28 @@
                             </div>
 
                             <div class="col-xs-12" style="margin-top: 5px;">
-                                <div class="col-xs-12">
+                                <div class="col-md-6 col-xs-12">
                                     <div class="input-group">
-                                        <span class="input-group-addon">Razón Social: </span>
+                                        <span class="input-group-addon">Nombre y Apellidos: </span>
                                         <input type="text" class="form-control" name="razonsocial" id="razonsocial"
                                                ng-model="razonsocial" ng-required="true" ng-maxlength="200" >
                                     </div>
                                     <span class="help-block error"
-                                          ng-show="formEmployee.razonsocial.$invalid && formEmployee.razonsocial.$touched">La Razón Social es requerida</span>
+                                          ng-show="formEmployee.razonsocial.$invalid && formEmployee.razonsocial.$touched">Nombre y Apellidos es requerida</span>
                                     <span class="help-block error"
                                           ng-show="formEmployee.razonsocial.$invalid && formEmployee.razonsocial.$error.maxlength">La longitud máxima es de 200 caracteres</span>
                                 </div>
+
+                                <div class="col-md-6 col-xs-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Proveedor: </span>
+                                        <select class="form-control" name="proveedor" id="proveedor" ng-model="proveedor"
+                                                ng-options="value.id as value.label for value in proveedores" required></select>
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formEmployee.proveedor.$invalid && formEmployee.proveedor.$touched">El Proveedor es requerido</span>
+                                </div>
+
                             </div>
 
                             <div class="col-xs-12" style="margin-top: 5px;">

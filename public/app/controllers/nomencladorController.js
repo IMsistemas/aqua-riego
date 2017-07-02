@@ -61,17 +61,17 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
 
 
     /*$scope.pageChanged = function(newPage) {
-        console.log(newPage);
-        $scope.CargadataProvincia(newPage);
-        $scope.CargadataTPident(newPage);
-        $scope.CargadataTPimp(newPage);
-        $scope.CargadataImpIVA(newPage);
-        $scope.CargadataImpICE(newPage);
-        $scope.initLoad(newPage);
-        $scope.initLoad(newPage);
-        $scope.initLoad(newPage);
+     console.log(newPage);
+     $scope.CargadataProvincia(newPage);
+     $scope.CargadataTPident(newPage);
+     $scope.CargadataTPimp(newPage);
+     $scope.CargadataImpIVA(newPage);
+     $scope.CargadataImpICE(newPage);
+     $scope.initLoad(newPage);
+     $scope.initLoad(newPage);
+     $scope.initLoad(newPage);
 
-    };*/
+     };*/
 
 
     $scope.CargadataTPdoc = function (pageNumber){
@@ -482,7 +482,7 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
                 }
 
                 if (obafect == "tpimpivaretsri") {
-                    $scope.form_title = "Nuevo Tipo Impuesto Retencion-Iva";
+                    $scope.form_title = "Nuevo Tipo Impuesto Retencion";
                     $scope.TipoImpuesto = '1';
                     $scope.nametipoimpuestoivaret = '';
                     $scope.porcentaje = '0.00';
@@ -663,7 +663,7 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
                 }
 
                 if (obafect == "tpimpivaretsri") {
-                    $scope.form_title = "Editar Tipo Impuesto Retencion-Iva ";
+                    $scope.form_title = "Editar Tipo Impuesto Retencion ";
                     $scope.idtipodocumento = id;
                     $http.get(API_URL + 'Nomenclador/getTipoImpuestoRetencionIvaRetByID/' + id).success(function(response) {
                         $scope.nametipoimpuestoivaret = response[0].namedetalleimpuestoretencion.trim();
@@ -1196,26 +1196,6 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
                     break;
                 }
 
-                /*if (tbafect == "tppagores"){
-                 $http.post(API_URL + 'Nomenclador/storeTipoPagoResidente', data ).success(function (response) {
-                 if (response.success == true) {
-
-                 $scope.CargadataPagoResidente();
-                 $('#modalActionPagoResidente').modal('hide');
-                 $scope.message = 'Se insertó correctamente el Registro Correctamente...';
-                 $('#modalMessage').modal('show');
-                 $scope.hideModalMessage();
-                 }
-                 else {
-
-                 $('#modalActionPagoResidente').modal('hide');
-                 $scope.message_error = 'Ya existe ese  Registro...';
-                 $('#modalMessageError').modal('show');
-                 }
-                 });
-
-                 break;
-                 }*/
 
                 if (tbafect == "pagopais"){
                     $http.post(API_URL + 'Nomenclador/storepagopais', data ).success(function (response) {
@@ -1637,7 +1617,7 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
                 }
 
                 if (tbafect == "prov"){
-                    url += "/updateProvincia/" + $scope.idc
+                    url += "/updateprovincia/" + $scope.idc
 
                     Upload.upload({
                         url: url,
@@ -1662,6 +1642,8 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
 
                     break;
                 }
+
+
 
                 if (tbafect == "canton"){
                     url += "/updatecantonEX/" + $scope.idc
@@ -1692,7 +1674,9 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
 
 
                 if (tbafect == "parroquia"){
+                    //console.log($scope.idc);
                     url += "/updateparroquiaEX/" + $scope.idc
+                    console.log(data);
 
                     Upload.upload({
                         url: url,

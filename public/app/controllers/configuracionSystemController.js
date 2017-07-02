@@ -20,6 +20,8 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         $scope.getConfigEspecifica();
 
         $scope.getConfigSRI();
+
+        $scope.getListServicio();
     };
 
     //-----------------------------------------------------------------------------------------------------------------
@@ -32,8 +34,8 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         $scope.url_foto = 'img/empleado.png';
 
-        $http.get(API_URL + 'configuracion/getDataEmpresa').success(function(response){
-
+        $http.get(API_URL + '/configuracion/getDataEmpresa').success(function(response){
+            console.log(API_URL);
             if(response.length != 0){
                 $scope.t_razonsocial = response[0].razonsocial;
                 $scope.t_nombrecomercial = response[0].nombrecomercial;
@@ -54,7 +56,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                 $scope.idestablecimiento = response[0].idestablecimiento;
 
                 if (response[0].rutalogo != null && response[0].rutalogo != ''){
-                    $scope.url_foto = response[0].rutalogo;
+                    $scope.url_foto =API_URL+ response[0].rutalogo;
                     $scope.file = API_URL+response[0].rutalogo;
                 } else {
 
@@ -78,7 +80,9 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
     $scope.saveEstablecimiento = function () {
 
-        var ruc = $scope.t_establ + '-' + $scope.t_pto + '-' + $scope.t_secuencial;
+        //var ruc = $scope.t_establ + '-' + $scope.t_pto + '-' + $scope.t_secuencial;
+
+        var ruc = $('#t_establ').val() + '-' + $('#t_pto').val() + '-' + $('#t_secuencial').val();
 
         var data = {
             razonsocial: $scope.t_razonsocial,
@@ -91,7 +95,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         };
         console.log(data);
 
-        var url = API_URL + "configuracion";
+        var url = API_URL + "/configuracion";
 
         if ($scope.idestablecimiento != 0){
             url += "/updateEstablecimiento/" + $scope.idestablecimiento;
@@ -106,7 +110,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             if (data.success == true) {
                 $scope.initLoad();
                 $('#modalActionCargo').modal('hide');
-                $scope.message = 'Se editó correctamente los configuración del Establecimiento';
+                $scope.message = 'Se editó correctamente la configuracion del establecimiento';
                 $('#modalMessage').modal('show');
                 $scope.hideModalMessage();
             }
@@ -149,7 +153,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             $scope.imp_iva = array_temp;
             $scope.iva = '';
 
-            $http.get(API_URL + 'configuracion/getIVADefault').success(function(response){
+            $http.get(API_URL + '/configuracion/getIVADefault').success(function(response){
                 console.log(response);
 
                 if(response.length > 0){
@@ -173,14 +177,14 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         };
         console.log(data);
 
-        $http.put(API_URL + 'configuracion/updateIvaDefault/'+ $scope.idconfiguracionsystem, data ).success(function (response) {
+        $http.put(API_URL + '/configuracion/updateIvaDefault/'+ $scope.idconfiguracionsystem, data ).success(function (response) {
 
             console.log(response);
 
             if (response.success == true) {
                 $scope.initLoad();
                 $('#modalActionCargo').modal('hide');
-                $scope.message = 'Se editó correctamente los datos de la Empresa';
+                $scope.message = 'Se editó correctamente los datos del IVA por defecto';
                 $('#modalMessage').modal('show');
                 $scope.hideModalMessage();
             } else {
@@ -197,10 +201,20 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     $scope.getConfigCompra = function () {
         $http.get(API_URL + 'configuracion/getConfigCompra').success(function(response){
 
+            console.log(response);
+
             var longitud = response.length;
 
             for (var i = 0; i < longitud; i++) {
-                if (response[i].optionname == 'CONT_IRBPNR_COMPRA') {
+                if (response[i].optionname == 'CONT_IVA_COMPRA') {
+                    $scope.id_iva_compra_h = response[i].idconfiguracionsystem;
+                    $scope.iva_compra_h = parseInt(response[i].optionvalue);
+                    $scope.iva_compra = response[i].concepto;
+                } else if (response[i].optionname == 'CONT_ICE_COMPRA') {
+                    $scope.id_ice_compra_h = response[i].idconfiguracionsystem;
+                    $scope.ice_compra_h = parseInt(response[i].optionvalue);
+                    $scope.ice_compra = response[i].concepto;
+                } else if (response[i].optionname == 'CONT_IRBPNR_COMPRA') {
                     $scope.id_irbpnr_compra_h = response[i].idconfiguracionsystem;
                     $scope.irbpnr_compra_h = parseInt(response[i].optionvalue);
                     $scope.irbpnr_compra = response[i].concepto;
@@ -223,6 +237,14 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     };
 
     $scope.saveConfigCompra = function () {
+        var iva = {
+            idconfiguracionsystem: $scope.id_iva_compra_h,
+            optionvalue: $scope.iva_compra_h
+        };
+        var ice = {
+            idconfiguracionsystem: $scope.id_ice_compra_h,
+            optionvalue: $scope.ice_compra_h
+        };
         var irbpnr = {
             idconfiguracionsystem: $scope.id_irbpnr_compra_h,
             optionvalue: $scope.irbpnr_compra_h
@@ -244,10 +266,10 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         };
 
         var data = {
-            array_data: [irbpnr, retiva, propina, retrenta]
+            array_data: [iva, ice, irbpnr, retiva, propina, retrenta]
         };
 
-        $http.put(API_URL + 'configuracion/updateConfigCompra/0', data ).success(function (response) {
+        $http.put(API_URL + '/configuracion/updateConfigCompra/0', data ).success(function (response) {
 
             if (response.success == true) {
                 $scope.initLoad();
@@ -276,11 +298,19 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             var longitud = response.length;
 
             for (var i = 0; i < longitud; i++) {
-                if (response[i].optionname == 'CONT_IRBPNR_VENTA') {
+                if (response[i].optionname == 'CONT_IVA_VENTA') {
+                    $scope.id_iva_venta_h = response[i].idconfiguracionsystem;
+                    $scope.iva_venta_h = parseInt(response[i].optionvalue);
+                    $scope.iva_venta = response[i].concepto;
+                }else if (response[i].optionname == 'CONT_ICE_VENTA') {
+                    $scope.id_ice_venta_h = response[i].idconfiguracionsystem;
+                    $scope.ice_venta_h = parseInt(response[i].optionvalue);
+                    $scope.ice_venta = response[i].concepto;
+                }else if (response[i].optionname == 'CONT_IRBPNR_VENTA') {
                     $scope.id_irbpnr_venta_h = response[i].idconfiguracionsystem;
                     $scope.irbpnr_venta_h = parseInt(response[i].optionvalue);
                     $scope.irbpnr_venta = response[i].concepto;
-                } else if (response[i].optionname == 'CONT_PROPINA_VENTA') {
+                }else if (response[i].optionname == 'CONT_PROPINA_VENTA') {
                     $scope.id_propina_venta_h = response[i].idconfiguracionsystem;
                     $scope.propina_venta_h = parseInt(response[i].optionvalue);
                     $scope.propina_venta = response[i].concepto;
@@ -303,6 +333,14 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     };
 
     $scope.saveConfigVenta = function () {
+        var iva = {
+            idconfiguracionsystem: $scope.id_iva_venta_h,
+            optionvalue: $scope.iva_venta_h
+        };
+        var ice = {
+            idconfiguracionsystem: $scope.id_ice_venta_h,
+            optionvalue: $scope.ice_venta_h
+        };
         var irbpnr = {
             idconfiguracionsystem: $scope.id_irbpnr_venta_h,
             optionvalue: $scope.irbpnr_venta_h
@@ -329,10 +367,10 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         };
 
         var data = {
-            array_data: [irbpnr, retiva, propina, retrenta, costo]
+            array_data: [iva, ice, irbpnr, retiva, propina, retrenta, costo]
         };
 
-        $http.put(API_URL + 'configuracion/updateConfigVenta/0', data ).success(function (response) {
+        $http.put(API_URL + '/configuracion/updateConfigVenta/0', data ).success(function (response) {
 
             if (response.success == true) {
                 $scope.initLoad();
@@ -355,10 +393,20 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     $scope.getConfigNC = function () {
         $http.get(API_URL + 'configuracion/getConfigNC').success(function(response){
 
+            console.log(response);
+
             var longitud = response.length;
 
             for (var i = 0; i < longitud; i++) {
-                if (response[i].optionname == 'CONT_IRBPNR_NC') {
+                if (response[i].optionname == 'CONT_IVA_NC') {
+                    $scope.id_iva_nc_h = response[i].idconfiguracionsystem;
+                    $scope.iva_nc_h = parseInt(response[i].optionvalue);
+                    $scope.iva_nc = response[i].concepto;
+                }else if (response[i].optionname == 'CONT_ICE_NC') {
+                    $scope.id_ice_nc_h = response[i].idconfiguracionsystem;
+                    $scope.ice_nc_h = parseInt(response[i].optionvalue);
+                    $scope.ice_nc = response[i].concepto;
+                }else if (response[i].optionname == 'CONT_IRBPNR_NC') {
                     $scope.id_irbpnr_nc_h = response[i].idconfiguracionsystem;
                     $scope.irbpnr_nc_h = parseInt(response[i].optionvalue);
                     $scope.irbpnr_nc = response[i].concepto;
@@ -374,6 +422,10 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                     $scope.id_retrenta_nc_h = response[i].idconfiguracionsystem;
                     $scope.retrenta_nc_h = parseInt(response[i].optionvalue);
                     $scope.retrenta_nc = response[i].concepto;
+                } else if (response[i].optionname == 'CONT_COSTO_NC') {
+                    $scope.id_costo_nc_h = response[i].idconfiguracionsystem;
+                    $scope.costo_nc_h = parseInt(response[i].optionvalue);
+                    $scope.costo_nc = response[i].concepto;
                 }
             }
 
@@ -381,6 +433,14 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     };
 
     $scope.saveConfigNC = function () {
+        var iva = {
+            idconfiguracionsystem: $scope.id_iva_nc_h,
+            optionvalue: $scope.iva_nc_h
+        };
+        var ice = {
+            idconfiguracionsystem: $scope.id_ice_nc_h,
+            optionvalue: $scope.ice_nc_h
+        };
         var irbpnr = {
             idconfiguracionsystem: $scope.id_irbpnr_nc_h,
             optionvalue: $scope.irbpnr_nc_h
@@ -401,11 +461,16 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             optionvalue: $scope.retrenta_nc_h
         };
 
-        var data = {
-            array_data: [irbpnr, retiva, propina, retrenta]
+        var costo = {
+            idconfiguracionsystem: $scope.id_costo_nc_h,
+            optionvalue: $scope.costo_nc_h
         };
 
-        $http.put(API_URL + 'configuracion/updateConfigNC/0', data ).success(function (response) {
+        var data = {
+            array_data: [iva, ice, irbpnr, retiva, propina, retrenta, costo]
+        };
+
+        $http.put(API_URL + '/configuracion/updateConfigNC/0', data ).success(function (response) {
 
             if (response.success == true) {
                 $scope.initLoad();
@@ -434,20 +499,20 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
                 //-----PARA SISTEMA PISQUE (RIEGO)------------------------------------------------
 
-                if (response[i].optionname == 'PISQUE_CONSTANTE') {
+                /*if (response[i].optionname == 'PISQUE_CONSTANTE') {
                     $scope.h_pisque_constante = response[i].idconfiguracionsystem;
                     $scope.t_pisque_constante = response[i].optionvalue;
-                }
+                }*/
 
                 //-----PARA SISTEMA AYORA (POTABLE)-----------------------------------------------
 
-                /*if (response[i].optionname == 'AYORA_DIVIDENDO') {
+                if (response[i].optionname == 'AYORA_DIVIDENDO') {
                      $scope.h_ayora_dividendos = response[i].idconfiguracionsystem;
-                     $scope.t_ayora_dividendos = parseInt(response[i].optionvalue);
+                     $scope.t_ayora_dividendos = response[i].optionvalue;
                 } else if (response[i].optionname == 'AYORA_TASAINTERES') {
                      $scope.h_ayora_tasainteres = response[i].idconfiguracionsystem;
-                     $scope.t_ayora_tasainteres = parseInt(response[i].optionvalue);
-                }*/
+                     $scope.t_ayora_tasainteres = response[i].optionvalue;
+                }
             }
 
         });
@@ -457,18 +522,18 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         //-----PARA SISTEMA PISQUE (RIEGO)------------------------------------------------
 
-        var pisque_constante = {
+        /*var pisque_constante = {
             idconfiguracionsystem: $scope.h_pisque_constante,
             optionvalue: $scope.t_pisque_constante
         };
 
         var data = {
             array_data: [pisque_constante]
-        };
+        };*/
 
         //-----PARA SISTEMA AYORA (POTABLE)-----------------------------------------------
 
-        /*var ayora_dividendo = {
+        var ayora_dividendo = {
             idconfiguracionsystem: $scope.h_ayora_dividendos,
             optionvalue: $scope.t_ayora_dividendos
         };
@@ -480,9 +545,9 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         var data = {
             array_data: [ayora_dividendo, ayora_tasainteres]
-        };*/
+        };
 
-        $http.put(API_URL + 'configuracion/updateConfigEspecifica/0', data ).success(function (response) {
+        $http.put(API_URL + '/configuracion/updateConfigEspecifica/0', data ).success(function (response) {
 
             if (response.success == true) {
                 $scope.initLoad();
@@ -498,6 +563,119 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         }).error(function (res) {
 
         });
+    };
+
+    $scope.getListServicio = function () {
+        $http.get(API_URL + 'configuracion/getListServicio').success(function(response0){
+
+            var longitud = response0.length;
+            var array_temp = [{label: '-- Seleccione --', id: ''}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response0[i].nombreproducto, id: response0[i].idcatalogitem})
+            }
+
+            $scope.list_serv = array_temp;
+
+            $scope.serv_lect_tar = '';
+            $scope.serv_lect_ex = '';
+            $scope.serv_lect_alcant = '';
+            $scope.serv_lect_rds = '';
+            $scope.serv_lect_ma = '';
+
+            $http.get(API_URL + 'configuracion/getSaveServicio').success(function(response){
+
+                var longitud = response.length;
+
+                for (var i = 0; i < longitud; i++) {
+                    if (response[i].optionname === 'SERV_TARIFAB_LECT') {
+
+                        $scope.serv_lect_tar_h = response[i].idconfiguracionsystem;
+                        if (response[i].optionvalue !== null){
+                            $scope.serv_lect_tar = parseInt(response[i].optionvalue);
+                        }
+
+                    } else if (response[i].optionname === 'SERV_EXCED_LECT') {
+
+                        $scope.serv_lect_ex_h = response[i].idconfiguracionsystem;
+                        if (response[i].optionvalue !== null){
+                            $scope.serv_lect_ex = parseInt(response[i].optionvalue);
+                        }
+
+                    } else if (response[i].optionname === 'SERV_ALCANT_LECT') {
+
+                        $scope.serv_lect_alcant_h = response[i].idconfiguracionsystem;
+                        if (response[i].optionvalue !== null){
+                            $scope.serv_lect_alcant = parseInt(response[i].optionvalue);
+                        }
+
+                    } else if (response[i].optionname === 'SERV_RRDDSS_LECT') {
+
+                        $scope.serv_lect_rds_h = response[i].idconfiguracionsystem;
+                        if (response[i].optionvalue !== null){
+                            $scope.serv_lect_rds = parseInt(response[i].optionvalue);
+                        }
+
+                    } else if (response[i].optionname === 'SERV_MEDAMB_LECT') {
+
+                        $scope.serv_lect_ma_h = response[i].idconfiguracionsystem;
+                        if (response[i].optionvalue !== null){
+                            $scope.serv_lect_ma = parseInt(response[i].optionvalue);
+                        }
+
+                    }
+                }
+
+            });
+
+        });
+    };
+
+    $scope.saveListServicio = function () {
+        var tar = {
+            idconfiguracionsystem: $scope.serv_lect_tar_h,
+            optionvalue: $scope.serv_lect_tar
+        };
+
+        var ex = {
+            idconfiguracionsystem: $scope.serv_lect_ex_h,
+            optionvalue: $scope.serv_lect_ex
+        };
+
+        var alcant = {
+            idconfiguracionsystem: $scope.serv_lect_alcant_h,
+            optionvalue: $scope.serv_lect_alcant
+        };
+
+        var rds = {
+            idconfiguracionsystem: $scope.serv_lect_rds_h,
+            optionvalue: $scope.serv_lect_rds
+        };
+
+        var ma = {
+            idconfiguracionsystem: $scope.serv_lect_ma_h,
+            optionvalue: $scope.serv_lect_ma
+        };
+
+        var data = {
+            array_data: [tar, ex, alcant, rds, ma]
+        };
+
+        $http.put(API_URL + '/configuracion/updateListServicio/0', data ).success(function (response) {
+
+            if (response.success === true) {
+                $scope.message = 'Se editó correctamente los datos la estructura de Lectura';
+                $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+            } else {
+                $scope.message_error = 'Ha ocurrido un error al actualizar los datos de la estructura de Lectura';
+                $('#modalMessageError').modal('show');
+                $scope.hideModalMessage();
+            }
+
+        }).error(function (res) {
+
+        });
+
     };
 
     //-----------------------------------------------------------------------------------------------------------------
@@ -569,7 +747,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             array_data: [tipoambiente, tipoemision]
         };
 
-        $http.put(API_URL + 'configuracion/updateConfigSRI/0', data ).success(function (response) {
+        $http.put(API_URL + '/configuracion/updateConfigSRI/0', data ).success(function (response) {
 
             if (response.success == true) {
                 $scope.initLoad();

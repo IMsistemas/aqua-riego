@@ -178,7 +178,7 @@
 													<div class="col-xs-12" style="margin-top: 	5px;">
 														<div class="input-group">                        
 											                <span class="input-group-addon">Código Emisión: </span>
-											                <input type="text" class="form-control" name="codigo" id="codigo" ng-model="codigo" ng-keypress="onlyNumber($event,3,'codigo')" ng-blur="verificarEmision();" ng-maxlength="3" maxlength="3" required>
+											                <input type="text" class="form-control" name="codigo" id="codigo" ng-model="codigo" ng-keypress="onlyNumber($event,3,'codigo')" ng-blur="codigo=calculateLength('codigo','3');verificarEmision();" ng-maxlength="3" maxlength="3" required>
 											            </div>
 											            <span class="help-block error"
 				                                          ng-show="formpuntoventa.codigo.$invalid && formpuntoventa.codigo.$touched">EL código es requerido</span>
@@ -192,7 +192,7 @@
 									<button type="button" class="btn btn-default" data-dismiss="modal">
 							            Cancelar <span class="glyphicon glyphicon glyphicon-ban-circle" aria-hidden="true"></span> 
 							        </button>
-									<button type="button" class="btn btn-success" ng-click="Save()" ng-disabled="formpuntoventa.$invalid || confirmacion">
+									<button type="button" class="btn btn-success" ng-click="Save();bloquearGuardar();" ng-disabled="formpuntoventa.$invalid || confirmacion" name="guardar">
 							            Guardar <span class="glyphicon glyphicon glyphicon-floppy-saved" aria-hidden="true"></span> 
 							        </button>
 								</div>
