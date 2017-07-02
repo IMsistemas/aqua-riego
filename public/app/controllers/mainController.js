@@ -21,6 +21,36 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 
     };
 
+    $scope.getPermisosRol = function () {
+        $http.get(API_URL + 'rol/getPermisosRol').success(function(response){
+
+            var longitud = response.length;
+
+            for (var i = 0; i < longitud; i++) {
+
+                if (response[i].permiso_rol.length > 0) {
+
+                    if (response[i].permiso_rol[0].idrol !== 1) {
+
+                        if (response[i].permiso_rol[0].state === true) {
+
+                            $('#permiso_' + response[i].idpermiso).show();
+
+                        } else {
+
+                            $('#permiso_' + response[i].idpermiso).hide();
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        });
+    };
+
 
     $scope.toLogout = function () {
         $('#modalConfirmLogout').modal('show');
@@ -29,6 +59,11 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
     $scope.toModuloRol = function(){
         $scope.titulo = "Rol";
         $scope.toModulo = "rol";
+    };
+
+    $scope.toModuloUsuario = function(){
+        $scope.titulo = "";
+        $scope.toModulo = "usuario";
     };
 
     $scope.toModuloEmpleado = function(){
@@ -191,6 +226,11 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 		$scope.toModulo = "DocumentoVenta";
 	}
 
+	$scope.toModuloNC = function(){
+        $scope.titulo = "";
+        $scope.toModulo = "DocumentoNC";
+    }
+
 	$scope.toModuloComprobantesVentas = function(){		
 		$scope.titulo = "Comprobantes Ventas";
 		$scope.toModulo = "cuentascobrarcliente";
@@ -208,8 +248,33 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 
 	$scope.toModuloRetencionesCompras = function(){		
 		$scope.titulo = "Retenciones Compras";
-		$scope.toModulo = "retencionCompras";
+		$scope.toModulo = "retencionCompra";
 	}
+
+	$scope.toModuloRetencionesVentas = function(){
+        $scope.titulo = "Retenciones Ventas";
+        $scope.toModulo = "retencionVenta";
+    }
+
+    $scope.toModuloReporteCompras = function(){
+        $scope.titulo = "Reporte Compras";
+        $scope.toModulo = "reportecompra";
+    }
+
+    $scope.toModuloReporteVentas = function(){
+        $scope.titulo = "Reporte Ventas";
+        $scope.toModulo = "reporteventa";
+    }
+
+    $scope.toModuloReporteNC = function(){
+        $scope.titulo = "Reporte Nota Credito";
+        $scope.toModulo = "reportenc";
+    }
+
+    $scope.toModuloReporteVentasBalance = function(){
+        $scope.titulo = "Reporte Ventas Balance";
+        $scope.toModulo = "reporteventabalance";
+    }
 
     $scope.toModuloPuntoVenta = function(){
         $scope.titulo = "Crear Transportistas";
@@ -254,6 +319,8 @@ app.controller('mainController',['$scope','$route', function($scope, $http, API_
 	}
 
 	$scope.prepareListBreadcrumb();
+
+	$scope.getPermisosRol();
 	
 }]);
 })();

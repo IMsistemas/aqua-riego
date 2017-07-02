@@ -78,6 +78,15 @@
                                     <li role="separator" class="divider"></li>
 
                                     <li><a href = "#" ng-click="toModuloPlanCuentas();">Plan de Cuenta</a></li>
+
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes Contabilidad</a>
+                                        <ul class="dropdown-menu">
+                                            <li id="permiso_37"><a tabindex="-1" href="#" ng-click="toModuloBalance();">Estados Financieros</a></li>
+                                            <li id="permiso_38"><a tabindex="-1" href="#" ng-click="toModuloReporteVentasBalance();">Ventas / Balance</a></li>
+                                        </ul>
+                                    </li>    
+
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-submenu">
                                         <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Inventario</a>
@@ -93,10 +102,10 @@
                                     <li class="dropdown-submenu">
                                         <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Proceso Compras</a>
                                         <ul class="dropdown-menu">
-                                            <li><a tabindex="-1" href="#" ng-click="toModuloCompras();">Facturación de Compras</a></li>
-                                            <li><a href="#" ng-click="toModuloRetencionesCompras();">Retención Compras</a></li>
-                                            <li><a href="#">Comprobante Egreso</a></li>
-                                            <li><a href="#">Cuentas por Pagar</a></li>
+                                            <li id="permiso_10"><a tabindex="-1" href="#" ng-click="toModuloCompras();">Facturación de Compras</a></li>
+                                            <li id="permiso_11"><a href="#" ng-click="toModuloRetencionesCompras();">Retención Compras</a></li>
+                                            <li id="permiso_13"><a href="#" ng-click="toModuloCuentasxPagar();">Cuentas por Pagar (Comprobante Egreso)</a></li>
+                                            <li id="permiso_39"><a href="#" ng-click="toModuloReporteCompras();">Reporte de Compras</a></li>
                                         </ul>
                                     </li>
 
@@ -104,20 +113,26 @@
                                     <li class="dropdown-submenu">
                                         <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Proceso Ventas</a>
                                         <ul class="dropdown-menu">
-                                            <li><a tabindex="-1" href="#" ng-click="toModuloPuntoVenta()">Puntos de Ventas</a></li>
-                                            <li><a href="#" ng-click="toModuloVentas();">Facturación de Ventas</a></li>
-                                            <li><a href="#">Retención Ventas</a></li>
-                                            <li><a href="#">Comprobante Ingreso</a></li>
-                                            <li><a href="#">Cuentas por Cobrar</a></li>
-                                            <li><a href="#" ng-click="toModuloGuiaRemision();">Guía de Remisión</a></li>
+                                            <li id="permiso_14"><a tabindex="-1" href="#" ng-click="toModuloPuntoVenta()">Puntos de Ventas</a></li>
+                                            <li id="permiso_15"><a href="#" ng-click="toModuloVentas();">Facturación de Ventas</a></li>
+                                            <li id="permiso_16"><a href="#" ng-click="toModuloRetencionesVentas();">Retención Ventas</a></li>
+                                            <li id="permiso_18"><a href="#" ng-click="toModuloCuentasxCobrar();">Cuentas por Cobrar (Comprobante Ingreso)</a></li>
+                                            <li id="permiso_19"><a href="#" ng-click="toModuloGuiaRemision();">Guía de Remisión</a></li>
+                                            <li id="permiso_40"><a href="#" ng-click="toModuloReporteVentas();">Reporte de Ventas</a></li>
                                         </ul>
                                     </li>
 
                                     <li role="separator" class="divider"></li>
-                                    <li><a href = "#">Nota de Crédito</a></li>
+                                    <li class="dropdown-submenu">
+                                        <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Proceso Nota de Crédito</a>
+                                        <ul class="dropdown-menu">
+                                            <li id="permiso_20"><a href="#" ng-click="toModuloNC()">Facturación Nota de Crédito</a></li>
+                                            <li id="permiso_41"><a href="#" ng-click="toModuloReporteNC();">Reporte Nota de Crédito</a></li>
+                                        </ul>
+                                    </li>
 
                                     <li role="separator" class="divider"></li>
-                                    <li><a href = "#">Activos Fijos</a></li>
+                                    <li id="permiso_21"><a href = "#" ng-click="toModuloActivosFijos();">Activos Fijos</a></li>
                                 </ul>
                             </li>
 
@@ -163,8 +178,8 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="#profile"><i class="fa fa-pencil-square-o fa-lg" ></i> Perfil</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#" ng-click="toModuloRol()">Roles</a></li>
-                                    <li><a href="#" ng-click="">Gestión de Usuarios</a></li>
+                                    <li id="permiso_42"><a href="#" ng-click="toModuloRol()">Gestión de Roles</a></li>
+                                    <li id="permiso_43"><a href="#" ng-click="toModuloUsuario()">Gestión de Usuarios</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#" ng-click="toLogout();"><i class="fa fa-sign-out fa-lg" ></i> Salir</a></li>
                                 </ul>
