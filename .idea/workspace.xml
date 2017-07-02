@@ -1,0 +1,1507 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d2cd1082-805f-40ba-918d-d64e34f505e8" name="Default" comment="SubModulo Solicitud">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Usuario.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/php.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/webServers.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.env" afterPath="$PROJECT_DIR$/.env" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/ActivosFijos/activosfijosController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/ActivosFijos/activosfijosController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/ActivosFijos/depreciacionActivosFijosController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/ActivosFijos/depreciacionActivosFijosController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Comprobantes/ComprobanteEgresoController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Comprobantes/ComprobanteEgresoController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Cuentas/CuentasPorCobrarController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Cuentas/CuentasPorCobrarController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Cuentas/CuentasPorPagarController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Cuentas/CuentasPorPagarController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/NotaCredito/NotaCreditoController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/NotaCredito/NotaCreditoController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Reportes/ReporteCompraController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Reportes/ReporteCompraController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Reportes/ReporteNCController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Reportes/ReporteNCController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Reportes/ReporteVentaBalanceController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Reportes/ReporteVentaBalanceController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Reportes/ReporteVentaController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Reportes/ReporteVentaController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/Usuario/UsuarioController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/Usuario/UsuarioController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Comprobantes/ComprobanteEgreso.php" afterPath="$PROJECT_DIR$/app/Modelos/Comprobantes/ComprobanteEgreso.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Bajaaf.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Bajaaf.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Conceptobajaaf.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Conceptobajaaf.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_CuentasPorCobrar.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_CuentasPorCobrar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_CuentasPorPagar.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_CuentasPorPagar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Detalleitemactivofijo.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Detalleitemactivofijo.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_DocumentoNotaCreditFactura.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_DocumentoNotaCreditFactura.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_ItemNotaCreditFactura.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_ItemNotaCreditFactura.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Itemactivofijo.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Itemactivofijo.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Mantencionaf.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Mantencionaf.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_RegistroActivoFijo.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_RegistroActivoFijo.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Tipomantencionaf.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_Tipomantencionaf.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_trasladoaf.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/Cont_trasladoaf.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Contabilidad/cont_incidenciaaf.php" afterPath="$PROJECT_DIR$/app/Modelos/Contabilidad/cont_incidenciaaf.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Cuentas/CuentasporCobrar.php" afterPath="$PROJECT_DIR$/app/Modelos/Cuentas/CuentasporCobrar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/DetalleRetencion.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/DetalleRetencion.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/DetalleRetencionFuente.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/DetalleRetencionFuente.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/DetalleRetencionIva.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/DetalleRetencionIva.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionCompra.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionCompra.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionFuenteCompra.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionFuenteCompra.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionFuenteVenta.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionFuenteVenta.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionIvaCompra.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionIvaCompra.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionIvaVenta.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionIvaVenta.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionVenta.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/RetencionVenta.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/TipoRetencion.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/TipoRetencion.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/TipoRetencionIva.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/TipoRetencionIva.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Retencion/TiposRetencion.php" afterPath="$PROJECT_DIR$/app/Modelos/Retencion/TiposRetencion.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/Rol/PermisoRol.php" afterPath="$PROJECT_DIR$/app/Modelos/Rol/PermisoRol.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/SRI/SRI_RetencionDetalleVenta.php" afterPath="$PROJECT_DIR$/app/Modelos/SRI/SRI_RetencionDetalleVenta.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modelos/SRI/SRI_RetencionVenta.php" afterPath="$PROJECT_DIR$/app/Modelos/SRI/SRI_RetencionVenta.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/app.js" afterPath="$PROJECT_DIR$/public/app/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/controllers/cuentasporCobrarController.js" afterPath="$PROJECT_DIR$/public/app/controllers/cuentasporCobrarController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/controllers/cuentasporPagarController.js" afterPath="$PROJECT_DIR$/public/app/controllers/cuentasporPagarController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/controllers/depreciacionActivosFijosController.js" afterPath="$PROJECT_DIR$/public/app/controllers/depreciacionActivosFijosController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/controllers/reporteCompraController.js" afterPath="$PROJECT_DIR$/public/app/controllers/reporteCompraController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/controllers/reporteNCController.js" afterPath="$PROJECT_DIR$/public/app/controllers/reporteNCController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/controllers/reporteVentaBalanceController.js" afterPath="$PROJECT_DIR$/public/app/controllers/reporteVentaBalanceController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/controllers/reporteVentaController.js" afterPath="$PROJECT_DIR$/public/app/controllers/reporteVentaController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/controllers/retencionCompraController.js" afterPath="$PROJECT_DIR$/public/app/controllers/retencionCompraController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/controllers/retencionVentasIndexController.js" afterPath="$PROJECT_DIR$/public/app/controllers/retencionVentasIndexController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/app/controllers/usuarioController.js" afterPath="$PROJECT_DIR$/public/app/controllers/usuarioController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/Activosfijos/depreciacionActivosFijos.php" afterPath="$PROJECT_DIR$/resources/views/Activosfijos/depreciacionActivosFijos.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/Activosfijos/index_activosfijos.php" afterPath="$PROJECT_DIR$/resources/views/Activosfijos/index_activosfijos.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/Cuentas/cuentasxcobrar.php" afterPath="$PROJECT_DIR$/resources/views/Cuentas/cuentasxcobrar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/Cuentas/cuentasxpagar.php" afterPath="$PROJECT_DIR$/resources/views/Cuentas/cuentasxpagar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/Estadosfinancieros/estado_resultado.blade.php" afterPath="$PROJECT_DIR$/resources/views/Estadosfinancieros/estado_resultado.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/Factura/factura.php" afterPath="$PROJECT_DIR$/resources/views/Factura/factura.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/Factura/factura_print.php" afterPath="$PROJECT_DIR$/resources/views/Factura/factura_print.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/Factura/factura_print2.php" afterPath="$PROJECT_DIR$/resources/views/Factura/factura_print2.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/notacredito/notacredito.php" afterPath="$PROJECT_DIR$/resources/views/notacredito/notacredito.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/reportes/reporteCompra.php" afterPath="$PROJECT_DIR$/resources/views/reportes/reporteCompra.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/reportes/reporteNC.php" afterPath="$PROJECT_DIR$/resources/views/reportes/reporteNC.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/reportes/reporteVenta.php" afterPath="$PROJECT_DIR$/resources/views/reportes/reporteVenta.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/reportes/reporteVentaBalance.php" afterPath="$PROJECT_DIR$/resources/views/reportes/reporteVentaBalance.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/usuario/index.php" afterPath="$PROJECT_DIR$/resources/views/usuario/index.php" />
+    </list>
+    <ignored path="aqua-riego.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="aqua-riego" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>empleado/getAllPositions</find>
+      <find>trasport</find>
+      <find>getIdentify</find>
+      <find>url_</find>
+      <find>url_fo</find>
+      <find>modalMessage3</find>
+      <find>delete</find>
+      <find>console</find>
+      <find>showModalConfirm</find>
+      <find>showModalInfoCliente</find>
+      <find>barrio/getParroquias</find>
+      <find>modalNuevaToma</find>
+      <find>Junta Modular</find>
+      <find>modalTomas</find>
+      <find>junta_n</find>
+      <find>Tomas de la Junta Modular</find>
+      <find>f_logoempresa</find>
+      <find>onlyNumber</find>
+      <find>onlyN</find>
+      <find>patt</find>
+      <find>Nomina</find>
+      <find>car</find>
+      <find>retencion</find>
+      <find>h_pisque_constante</find>
+      <find>cultivo</find>
+      <find>Tarifa</find>
+      <find>empleado/getDepartamentos</find>
+      <find>toModuloTarifa</find>
+      <find>getConstante</find>
+      <find>saveSolicitudRiego</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/app/Modelos/Persona.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Nomina/EmpleadoController.php" />
+        <option value="$PROJECT_DIR$/public/app/controllers/empleadosController.js" />
+        <option value="$PROJECT_DIR$/public/app/controllers/transportistaController.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Transportista/TransportistaController.php" />
+        <option value="$PROJECT_DIR$/resources/views/Transportista/index.php" />
+        <option value="$PROJECT_DIR$/resources/views/Proveedor/index_proveedores.blade.php" />
+        <option value="$PROJECT_DIR$/app/Modelos/Proveedores/ContactoProveedor.php" />
+        <option value="$PROJECT_DIR$/resources/views/Clientes/index.php" />
+        <option value="$PROJECT_DIR$/public/app/controllers/cargosController.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Nomina/CargoController.php" />
+        <option value="$PROJECT_DIR$/resources/views/Nomina/index_empleado.php" />
+        <option value="$PROJECT_DIR$/app/Modelos/Clientes/Cliente.php" />
+        <option value="$PROJECT_DIR$/app/Modelos/Transportista/Transportista.php" />
+        <option value="$PROJECT_DIR$/resources/views/Sectores/index_barrio.php" />
+        <option value="$PROJECT_DIR$/resources/views/Tomas/calle.php" />
+        <option value="$PROJECT_DIR$/public/app/controllers/callesController.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Tomas/CanallController.php" />
+        <option value="$PROJECT_DIR$/resources/views/Tomas/canall.php" />
+        <option value="$PROJECT_DIR$/public/app/controllers/canallController.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Tomas/DerivacionesController.php" />
+        <option value="$PROJECT_DIR$/resources/views/Tomas/derivaciones.php" />
+        <option value="$PROJECT_DIR$/public/app/controllers/derivacionessController.js" />
+        <option value="$PROJECT_DIR$/resources/views/index.php" />
+        <option value="$PROJECT_DIR$/app/Modelos/SRI/SRI_TipoAmbiente.php" />
+        <option value="$PROJECT_DIR$/app/Modelos/SRI/SRI_TipoEmision.php" />
+        <option value="$PROJECT_DIR$/resources/views/Nomina/index_cargo.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Proveedores/ProveedorController.php" />
+        <option value="$PROJECT_DIR$/resources/views/Proveedor/index_proveedor.php" />
+        <option value="$PROJECT_DIR$/public/app/controllers/proveedoresController.js" />
+        <option value="$PROJECT_DIR$/.env" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Index/IndexController.php" />
+        <option value="$PROJECT_DIR$/resources/views/Clientes/index_cliente.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Sectores/BarrioController.php" />
+        <option value="$PROJECT_DIR$/public/app/controllers/barrioController.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Tomas/CalleController.php" />
+        <option value="$PROJECT_DIR$/resources/views/ConfiguracionSystem/index.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ConfiguracionSystem/ConfiguracionSystemController.php" />
+        <option value="$PROJECT_DIR$/public/app/controllers/configuracionSystemController.js" />
+        <option value="$PROJECT_DIR$/public/app/controllers/tarifaController.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Tarifas/TarifaController.php" />
+        <option value="$PROJECT_DIR$/app/Http/routes.php" />
+        <option value="$PROJECT_DIR$/resources/views/Tarifas/index.php" />
+        <option value="$PROJECT_DIR$/resources/views/Tarifas/index_cultivo.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Tarifas/CultivoController.php" />
+        <option value="$PROJECT_DIR$/public/app/controllers/mainController.js" />
+        <option value="$PROJECT_DIR$/resources/views/index_new.php" />
+        <option value="$PROJECT_DIR$/app/Modelos/Terreno/Cultivo.php" />
+        <option value="$PROJECT_DIR$/public/app/controllers/cultivoController.js" />
+        <option value="$PROJECT_DIR$/public/app/controllers/clientesController.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Clientes/ClienteController.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="localhost" id="166f029c-6d37-412c-ac68-10f187e04cb0" name="localhost" port="8000" use_path_mappings="true">
+        <path_mappings>
+          <mapping local-root="$PROJECT_DIR$" remote-root="E:/BERRI/TRABAJO/SERVER/Apache24-vc11/htdocs/LARAVEL/aqua-riego" />
+        </path_mappings>
+      </server>
+    </servers>
+  </component>
+  <component name="PhpWebServerValidation" deployment_server_id="b82e1cda-0ae6-4381-b81a-a1a2c2bc9138" path_to_validation_script="E:\BERRI\TRABAJO\SERVER\Apache24-vc11\htdocs\LARAVEL\aqua-riego\public\" selected_validation_type="LOCAL" web_path_to_validation_script="http://localhost:8000/inicio" />
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP7">
+    <include_path>
+      <path value="E:\BERRI\TRABAJO\SERVER\Apache24-vc11\htdocs\LARAVEL\aqua-riego\public" />
+    </include_path>
+  </component>
+  <component name="PhpXdebugProxy" ide_key="PHPSTORM" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="27" />
+    <option name="width" value="1366" />
+    <option name="height" value="741" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Spelling</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>SpellCheckingInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aqua-riego" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aqua-riego" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aqua-riego" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aqua-riego" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aqua-riego" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aqua-riego" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aqua-riego" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="aqua-riego" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="settings.editor.splitter.proportion" value="0.24583742" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\BERRI\TRABAJO\SERVER\Apache24-vc11\htdocs\LARAVEL\aqua-riego\resources\views\Tarifas" />
+      <recent name="E:\BERRI\TRABAJO\SERVER\Apache24-vc11\htdocs\LARAVEL\aqua-riego\public\app\controllers" />
+      <recent name="E:\BERRI\TRABAJO\SERVER\Apache24-vc11\htdocs\LARAVEL\aqua-riego\resources\views\Clientes" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="PHP Remote Debug.Unnamed">
+    <configuration default="true" type="CodeceptionConfigurationType" factoryName="Codeception">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <configuration default="false" name="Unnamed" type="PhpRemoteDebugRunConfigurationType" factoryName="PHP Remote Debug" singleton="true" server_name="localhost" session_id="PHPSTORM">
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="PHP Remote Debug.Unnamed" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d2cd1082-805f-40ba-918d-d64e34f505e8" name="Default" comment="" />
+      <created>1474317730068</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1474317730068</updated>
+      <workItem from="1474317732394" duration="508000" />
+      <workItem from="1474318255653" duration="30687000" />
+      <workItem from="1474380507838" duration="654000" />
+      <workItem from="1474396803337" duration="3291000" />
+      <workItem from="1474400287207" duration="23748000" />
+      <workItem from="1474491776572" duration="1298000" />
+      <workItem from="1474519836778" duration="3999000" />
+      <workItem from="1474550513017" duration="3602000" />
+      <workItem from="1474568262149" duration="28646000" />
+      <workItem from="1474655444419" duration="9607000" />
+      <workItem from="1474691077127" duration="602000" />
+      <workItem from="1474813741830" duration="33000" />
+      <workItem from="1474847716498" duration="830000" />
+      <workItem from="1474908030714" duration="21000" />
+      <workItem from="1474942495236" duration="18732000" />
+      <workItem from="1475009980525" duration="13951000" />
+      <workItem from="1475131347212" duration="7021000" />
+      <workItem from="1475479414488" duration="36000" />
+      <workItem from="1475596450235" duration="1136000" />
+      <workItem from="1475622947763" duration="39876000" />
+      <workItem from="1475964748761" duration="51658000" />
+      <workItem from="1476197323965" duration="18574000" />
+      <workItem from="1476327157953" duration="12326000" />
+      <workItem from="1476412591774" duration="1999000" />
+      <workItem from="1476464297000" duration="690000" />
+      <workItem from="1476465020142" duration="626000" />
+      <workItem from="1476470199140" duration="1811000" />
+      <workItem from="1476499997509" duration="26711000" />
+      <workItem from="1476561660246" duration="3752000" />
+      <workItem from="1476627545552" duration="52089000" />
+      <workItem from="1476846439091" duration="8678000" />
+      <workItem from="1476939170760" duration="18413000" />
+      <workItem from="1476970511641" duration="1833000" />
+      <workItem from="1477004750342" duration="296000" />
+      <workItem from="1477011531985" duration="25222000" />
+      <workItem from="1477164014014" duration="1207000" />
+      <workItem from="1477254974799" duration="1149000" />
+      <workItem from="1477267144602" duration="1115000" />
+      <workItem from="1478471164590" duration="772000" />
+      <workItem from="1478648583122" duration="2849000" />
+      <workItem from="1478732519699" duration="344000" />
+      <workItem from="1479302493822" duration="9896000" />
+      <workItem from="1479327997019" duration="1213000" />
+      <workItem from="1479338395858" duration="3375000" />
+      <workItem from="1479442618257" duration="7543000" />
+      <workItem from="1479532251056" duration="26000" />
+      <workItem from="1480594911406" duration="6849000" />
+      <workItem from="1480739177720" duration="88000" />
+      <workItem from="1480884783946" duration="941000" />
+      <workItem from="1480897873607" duration="4913000" />
+      <workItem from="1480998164125" duration="1197000" />
+      <workItem from="1481040747958" duration="7701000" />
+      <workItem from="1481161868618" duration="912000" />
+      <workItem from="1481166946181" duration="1173000" />
+      <workItem from="1481176087381" duration="5794000" />
+      <workItem from="1481227751787" duration="2044000" />
+      <workItem from="1481409556431" duration="59000" />
+      <workItem from="1481411008602" duration="787000" />
+      <workItem from="1481414136013" duration="790000" />
+      <workItem from="1481430025674" duration="1380000" />
+      <workItem from="1481431459541" duration="2372000" />
+      <workItem from="1481725927746" duration="647000" />
+      <workItem from="1481789270269" duration="995000" />
+      <workItem from="1484595624249" duration="8800000" />
+      <workItem from="1484731271162" duration="898000" />
+      <workItem from="1484830962592" duration="2990000" />
+      <workItem from="1484913380705" duration="342000" />
+      <workItem from="1484926674755" duration="166000" />
+      <workItem from="1484996623739" duration="10672000" />
+      <workItem from="1485150224260" duration="3474000" />
+      <workItem from="1485263518914" duration="1387000" />
+      <workItem from="1485306875741" duration="20000" />
+      <workItem from="1485323278643" duration="140000" />
+      <workItem from="1485434978008" duration="23134000" />
+      <workItem from="1485595728135" duration="810000" />
+      <workItem from="1485655049017" duration="202000" />
+      <workItem from="1485656704314" duration="11543000" />
+      <workItem from="1485838527803" duration="348000" />
+      <workItem from="1485838989747" duration="32220000" />
+      <workItem from="1485998696975" duration="3109000" />
+      <workItem from="1486041760603" duration="1872000" />
+      <workItem from="1486047168460" duration="642000" />
+      <workItem from="1486095594747" duration="1720000" />
+      <workItem from="1486177313103" duration="16527000" />
+      <workItem from="1486276454056" duration="12975000" />
+      <workItem from="1486329421157" duration="5917000" />
+      <workItem from="1486474558207" duration="2795000" />
+      <workItem from="1486565108376" duration="1459000" />
+      <workItem from="1486612119739" duration="8705000" />
+      <workItem from="1486644180397" duration="1650000" />
+      <workItem from="1486781010850" duration="6000" />
+      <workItem from="1486845952787" duration="652000" />
+      <workItem from="1486859121891" duration="169000" />
+      <workItem from="1487063600038" duration="18013000" />
+      <workItem from="1487127614548" duration="648000" />
+      <workItem from="1487291956521" duration="14000" />
+      <workItem from="1487301335986" duration="1488000" />
+      <workItem from="1487340162107" duration="1880000" />
+      <workItem from="1487434388447" duration="1086000" />
+      <workItem from="1487472451884" duration="9134000" />
+      <workItem from="1487516527051" duration="5533000" />
+      <workItem from="1487650783001" duration="7042000" />
+      <workItem from="1487681848402" duration="10764000" />
+      <workItem from="1487744666354" duration="78000" />
+      <workItem from="1488142498465" duration="7834000" />
+      <workItem from="1488179884590" duration="107000" />
+      <workItem from="1488216048463" duration="8544000" />
+      <workItem from="1488297269248" duration="7157000" />
+      <workItem from="1488309781119" duration="4827000" />
+      <workItem from="1488427068678" duration="670000" />
+      <workItem from="1488429527466" duration="55000" />
+      <workItem from="1490362732012" duration="1167000" />
+      <workItem from="1490624713075" duration="115000" />
+      <workItem from="1494230047488" duration="4528000" />
+      <workItem from="1494237436292" duration="7462000" />
+      <workItem from="1494289133414" duration="40000" />
+      <workItem from="1498990356688" duration="1659000" />
+    </task>
+    <task id="LOCAL-00147" summary="SubModulo Solicitud">
+      <created>1485551355710</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1485551355816</updated>
+    </task>
+    <task id="LOCAL-00148" summary="SubModulo Nomina (Refactoring Empleado).">
+      <created>1485582254543</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1485582257440</updated>
+    </task>
+    <task id="LOCAL-00149" summary="SubModulo Nomina (Refactoring Empleado).">
+      <created>1485710259199</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1485710259200</updated>
+    </task>
+    <task id="LOCAL-00150" summary="SubModulo Nomina (Refactoring Empleado).">
+      <created>1485727244756</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1485727244756</updated>
+    </task>
+    <task id="LOCAL-00151" summary="SubModulo Nomina (Refactoring Empleado).">
+      <created>1485728915059</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1485728915059</updated>
+    </task>
+    <task id="LOCAL-00152" summary="SubModulo Nomina (Refactoring Empleado).">
+      <created>1485864759908</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1485864759909</updated>
+    </task>
+    <task id="LOCAL-00153" summary="SubModulo Nomina (Refactoring Empleado).">
+      <created>1485870977112</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1485870977112</updated>
+    </task>
+    <task id="LOCAL-00154" summary="SubModulo Nomina (Refactoring Empleado).">
+      <created>1486179632966</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
+      <option name="project" value="LOCAL" />
+      <updated>1486179632967</updated>
+    </task>
+    <task id="LOCAL-00155" summary="SubModulo Nomina (Refactoring Empleado).">
+      <created>1486182625641</created>
+      <option name="number" value="00155" />
+      <option name="presentableId" value="LOCAL-00155" />
+      <option name="project" value="LOCAL" />
+      <updated>1486182625641</updated>
+    </task>
+    <task id="LOCAL-00156" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1486188441599</created>
+      <option name="number" value="00156" />
+      <option name="presentableId" value="LOCAL-00156" />
+      <option name="project" value="LOCAL" />
+      <updated>1486188441599</updated>
+    </task>
+    <task id="LOCAL-00157" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1486188491081</created>
+      <option name="number" value="00157" />
+      <option name="presentableId" value="LOCAL-00157" />
+      <option name="project" value="LOCAL" />
+      <updated>1486188491081</updated>
+    </task>
+    <task id="LOCAL-00158" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1486219211799</created>
+      <option name="number" value="00158" />
+      <option name="presentableId" value="LOCAL-00158" />
+      <option name="project" value="LOCAL" />
+      <updated>1486219211799</updated>
+    </task>
+    <task id="LOCAL-00159" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1486266487687</created>
+      <option name="number" value="00159" />
+      <option name="presentableId" value="LOCAL-00159" />
+      <option name="project" value="LOCAL" />
+      <updated>1486266487687</updated>
+    </task>
+    <task id="LOCAL-00160" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1486273712576</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
+      <option name="project" value="LOCAL" />
+      <updated>1486273712614</updated>
+    </task>
+    <task id="LOCAL-00161" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1486278853319</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
+      <option name="project" value="LOCAL" />
+      <updated>1486278853321</updated>
+    </task>
+    <task id="LOCAL-00162" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1486282764570</created>
+      <option name="number" value="00162" />
+      <option name="presentableId" value="LOCAL-00162" />
+      <option name="project" value="LOCAL" />
+      <updated>1486282764570</updated>
+    </task>
+    <task id="LOCAL-00163" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1486297913565</created>
+      <option name="number" value="00163" />
+      <option name="presentableId" value="LOCAL-00163" />
+      <option name="project" value="LOCAL" />
+      <updated>1486297913565</updated>
+    </task>
+    <task id="LOCAL-00164" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1486302521961</created>
+      <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
+      <option name="project" value="LOCAL" />
+      <updated>1486302521961</updated>
+    </task>
+    <task id="LOCAL-00165" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1486617591356</created>
+      <option name="number" value="00165" />
+      <option name="presentableId" value="LOCAL-00165" />
+      <option name="project" value="LOCAL" />
+      <updated>1486617591356</updated>
+    </task>
+    <task id="LOCAL-00166" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1486621845601</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1486621845601</updated>
+    </task>
+    <task id="LOCAL-00167" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1487067941152</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1487067941153</updated>
+    </task>
+    <task id="LOCAL-00168" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1487068313708</created>
+      <option name="number" value="00168" />
+      <option name="presentableId" value="LOCAL-00168" />
+      <option name="project" value="LOCAL" />
+      <updated>1487068313708</updated>
+    </task>
+    <task id="LOCAL-00169" summary="Modulo Gestion de Proveedores y Transportistas">
+      <created>1487068734857</created>
+      <option name="number" value="00169" />
+      <option name="presentableId" value="LOCAL-00169" />
+      <option name="project" value="LOCAL" />
+      <updated>1487068734857</updated>
+    </task>
+    <task id="LOCAL-00170" summary="SubModulo Solicitud">
+      <created>1487070216562</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1487070216562</updated>
+    </task>
+    <task id="LOCAL-00171" summary="Refactoring Cliente">
+      <created>1487434667419</created>
+      <option name="number" value="00171" />
+      <option name="presentableId" value="LOCAL-00171" />
+      <option name="project" value="LOCAL" />
+      <updated>1487434667420</updated>
+    </task>
+    <task id="LOCAL-00172" summary="SubModulo Nomina (Refactoring Cargo - Empleado)">
+      <created>1487475961113</created>
+      <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
+      <option name="project" value="LOCAL" />
+      <updated>1487475961113</updated>
+    </task>
+    <task id="LOCAL-00173" summary="Refactoring Cliente">
+      <created>1487480681881</created>
+      <option name="number" value="00173" />
+      <option name="presentableId" value="LOCAL-00173" />
+      <option name="project" value="LOCAL" />
+      <updated>1487480681881</updated>
+    </task>
+    <task id="LOCAL-00174" summary="Refactoring Cliente">
+      <created>1487518681938</created>
+      <option name="number" value="00174" />
+      <option name="presentableId" value="LOCAL-00174" />
+      <option name="project" value="LOCAL" />
+      <updated>1487518681939</updated>
+    </task>
+    <task id="LOCAL-00175" summary="Refactoring Cliente">
+      <created>1487519282699</created>
+      <option name="number" value="00175" />
+      <option name="presentableId" value="LOCAL-00175" />
+      <option name="project" value="LOCAL" />
+      <updated>1487519282699</updated>
+    </task>
+    <task id="LOCAL-00176" summary="Refactoring Cliente">
+      <created>1487652960903</created>
+      <option name="number" value="00176" />
+      <option name="presentableId" value="LOCAL-00176" />
+      <option name="project" value="LOCAL" />
+      <updated>1487652960904</updated>
+    </task>
+    <task id="LOCAL-00177" summary="Refactoring Cliente y Sectorizacion">
+      <created>1487658941232</created>
+      <option name="number" value="00177" />
+      <option name="presentableId" value="LOCAL-00177" />
+      <option name="project" value="LOCAL" />
+      <updated>1487658941232</updated>
+    </task>
+    <task id="LOCAL-00178" summary="Refactoring Cliente y Sectorizacion">
+      <created>1487684466526</created>
+      <option name="number" value="00178" />
+      <option name="presentableId" value="LOCAL-00178" />
+      <option name="project" value="LOCAL" />
+      <updated>1487684466527</updated>
+    </task>
+    <task id="LOCAL-00179" summary="Refactoring Cliente y Sectorizacion">
+      <created>1487686109884</created>
+      <option name="number" value="00179" />
+      <option name="presentableId" value="LOCAL-00179" />
+      <option name="project" value="LOCAL" />
+      <updated>1487686109884</updated>
+    </task>
+    <task id="LOCAL-00180" summary="Refactoring Cliente y Sectorizacion">
+      <created>1487686243482</created>
+      <option name="number" value="00180" />
+      <option name="presentableId" value="LOCAL-00180" />
+      <option name="project" value="LOCAL" />
+      <updated>1487686243482</updated>
+    </task>
+    <task id="LOCAL-00181" summary="Refactoring Cliente y Sectorizacion">
+      <created>1487717212642</created>
+      <option name="number" value="00181" />
+      <option name="presentableId" value="LOCAL-00181" />
+      <option name="project" value="LOCAL" />
+      <updated>1487717212651</updated>
+    </task>
+    <task id="LOCAL-00182" summary="Configuracion">
+      <created>1488148781412</created>
+      <option name="number" value="00182" />
+      <option name="presentableId" value="LOCAL-00182" />
+      <option name="project" value="LOCAL" />
+      <updated>1488148781412</updated>
+    </task>
+    <task id="LOCAL-00183" summary="Configuracion">
+      <created>1488218847778</created>
+      <option name="number" value="00183" />
+      <option name="presentableId" value="LOCAL-00183" />
+      <option name="project" value="LOCAL" />
+      <updated>1488218847778</updated>
+    </task>
+    <task id="LOCAL-00184" summary="Configuracion">
+      <created>1488219799599</created>
+      <option name="number" value="00184" />
+      <option name="presentableId" value="LOCAL-00184" />
+      <option name="project" value="LOCAL" />
+      <updated>1488219799599</updated>
+    </task>
+    <task id="LOCAL-00185" summary="Configuracion">
+      <created>1488221338083</created>
+      <option name="number" value="00185" />
+      <option name="presentableId" value="LOCAL-00185" />
+      <option name="project" value="LOCAL" />
+      <updated>1488221338083</updated>
+    </task>
+    <task id="LOCAL-00186" summary="Configuracion">
+      <created>1488298117329</created>
+      <option name="number" value="00186" />
+      <option name="presentableId" value="LOCAL-00186" />
+      <option name="project" value="LOCAL" />
+      <updated>1488298117329</updated>
+    </task>
+    <task id="LOCAL-00187" summary="Configuracion">
+      <created>1488299730233</created>
+      <option name="number" value="00187" />
+      <option name="presentableId" value="LOCAL-00187" />
+      <option name="project" value="LOCAL" />
+      <updated>1488299730242</updated>
+    </task>
+    <task id="LOCAL-00188" summary="Configuracion">
+      <created>1488302749563</created>
+      <option name="number" value="00188" />
+      <option name="presentableId" value="LOCAL-00188" />
+      <option name="project" value="LOCAL" />
+      <updated>1488302749563</updated>
+    </task>
+    <task id="LOCAL-00189" summary="Configuracion">
+      <created>1488303040050</created>
+      <option name="number" value="00189" />
+      <option name="presentableId" value="LOCAL-00189" />
+      <option name="project" value="LOCAL" />
+      <updated>1488303040050</updated>
+    </task>
+    <task id="LOCAL-00190" summary="Refactoring Colaborador">
+      <created>1488310044036</created>
+      <option name="number" value="00190" />
+      <option name="presentableId" value="LOCAL-00190" />
+      <option name="project" value="LOCAL" />
+      <updated>1488310044036</updated>
+    </task>
+    <task id="LOCAL-00191" summary="Refactoring Proveedor">
+      <created>1488315115317</created>
+      <option name="number" value="00191" />
+      <option name="presentableId" value="LOCAL-00191" />
+      <option name="project" value="LOCAL" />
+      <updated>1488315115317</updated>
+    </task>
+    <task id="LOCAL-00192" summary="Actualizacion Sistema">
+      <created>1494234735652</created>
+      <option name="number" value="00192" />
+      <option name="presentableId" value="LOCAL-00192" />
+      <option name="project" value="LOCAL" />
+      <updated>1494234735653</updated>
+    </task>
+    <task id="LOCAL-00193" summary="Actualizacion Sistema">
+      <created>1494239210207</created>
+      <option name="number" value="00193" />
+      <option name="presentableId" value="LOCAL-00193" />
+      <option name="project" value="LOCAL" />
+      <updated>1494239210207</updated>
+    </task>
+    <task id="LOCAL-00194" summary="SubModulo Solicitud">
+      <created>1494244033902</created>
+      <option name="number" value="00194" />
+      <option name="presentableId" value="LOCAL-00194" />
+      <option name="project" value="LOCAL" />
+      <updated>1494244033902</updated>
+    </task>
+    <task id="LOCAL-00195" summary="Refactoring">
+      <created>1498992591039</created>
+      <option name="number" value="00195" />
+      <option name="presentableId" value="LOCAL-00195" />
+      <option name="project" value="LOCAL" />
+      <updated>1498992591039</updated>
+    </task>
+    <option name="localTasksCounter" value="196" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="736276000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="27" width="1366" height="741" extended-state="6" />
+    <layout>
+      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19440243" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6025237" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39905363" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="false" />
+    <MESSAGE value="SubModulo 001-01: Administracion de Solicitud" />
+    <MESSAGE value="Refactoring Terreno - Cobro Agua - Tarifa" />
+    <MESSAGE value="SubModulo Solicitud - Refactoring" />
+    <MESSAGE value="Refactoring Tarifa" />
+    <MESSAGE value="Refactoring Cobro Agua" />
+    <MESSAGE value="SubModulo Cobro Agua y Terreno" />
+    <MESSAGE value="SubModulo  Terreno" />
+    <MESSAGE value="Modelos Comunes para todo modulo" />
+    <MESSAGE value="Refactoring nombre a Modelos de Contabilidad" />
+    <MESSAGE value="Modelos para Modulo Guia de Remision" />
+    <MESSAGE value="Refactoring Persona" />
+    <MESSAGE value="SubModulo Nomina (Refactoring Cargo)" />
+    <MESSAGE value="SubModulo Nomina (Refactoring Cargo - OK)" />
+    <MESSAGE value="SubModulo Nomina (Refactoring Empleado)" />
+    <MESSAGE value="SubModulo Nomina (Refactoring Empleado)." />
+    <MESSAGE value="Modulo Gestion de Proveedores y Transportistas" />
+    <MESSAGE value="SubModulo Nomina (Refactoring Cargo - Empleado)" />
+    <MESSAGE value="Refactoring Cliente" />
+    <MESSAGE value="Refactoring Cliente y Sectorizacion" />
+    <MESSAGE value="Configuracion" />
+    <MESSAGE value="Refactoring Colaborador" />
+    <MESSAGE value="Refactoring Proveedor" />
+    <MESSAGE value="Actualizacion Sistema" />
+    <MESSAGE value="SubModulo Solicitud" />
+    <MESSAGE value="Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="80" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/callesController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="13" lean-forward="true" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Tomas/CanalController.php" />
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Tomas/CanallController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="168" column="50" lean-forward="true" selection-start-line="168" selection-start-column="50" selection-end-line="168" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/canalesController.js" />
+    <entry file="file://$PROJECT_DIR$/resources/views/Tomas/canal.php" />
+    <entry file="file://$PROJECT_DIR$/resources/views/Tomas/canall.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="101" column="95" lean-forward="false" selection-start-line="101" selection-start-column="88" selection-end-line="101" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/canallController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="51" column="31" lean-forward="false" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Tomas/DerivacionController.php" />
+    <entry file="file://$PROJECT_DIR$/resources/views/Sectores/index_barrio.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="635" column="34" lean-forward="true" selection-start-line="603" selection-start-column="28" selection-end-line="635" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/derivacionesController.js" />
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Tomas/DerivacionesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-559">
+          <caret line="57" column="31" lean-forward="true" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Tomas/derivaciones.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="114" column="118" lean-forward="false" selection-start-line="114" selection-start-column="118" selection-end-line="114" selection-end-column="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/derivacionessController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="204" column="36" lean-forward="true" selection-start-line="204" selection-start-column="36" selection-end-line="204" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modelos/SRI/SRI_PagoPais.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="31" lean-forward="true" selection-start-line="9" selection-start-column="4" selection-end-line="11" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modelos/SRI/SRI_TipoAmbiente.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="10" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modelos/SRI/SRI_TipoEmision.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="42" lean-forward="false" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/empleadosController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="127" column="57" lean-forward="false" selection-start-line="127" selection-start-column="20" selection-end-line="127" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Nomina/index_empleado.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="340" column="60" lean-forward="false" selection-start-line="340" selection-start-column="49" selection-end-line="340" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Nomina/index_cargo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="71" column="66" lean-forward="false" selection-start-line="71" selection-start-column="66" selection-end-line="71" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/proveedoresController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="507" column="9" lean-forward="false" selection-start-line="507" selection-start-column="9" selection-end-line="507" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Proveedores/ProveedorController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="37" column="36" lean-forward="false" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Proveedor/index_proveedor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1127">
+          <caret line="536" column="0" lean-forward="false" selection-start-line="536" selection-start-column="0" selection-end-line="536" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Index/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="26" column="9" lean-forward="true" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="18" lean-forward="true" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/barriosController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="70" lean-forward="true" selection-start-line="0" selection-start-column="70" selection-end-line="0" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/barrioController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="41" column="40" lean-forward="true" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Sectores/BarrioController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="135" column="0" lean-forward="true" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Tomas/CalleController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="148" column="28" lean-forward="true" selection-start-line="148" selection-start-column="28" selection-end-line="148" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/configuracionSystemController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="499" column="11" lean-forward="true" selection-start-line="499" selection-start-column="11" selection-end-line="499" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Routing/Pipeline.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Tarifas/TarifaController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="112" column="36" lean-forward="true" selection-start-line="112" selection-start-column="36" selection-end-line="112" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ConfiguracionSystem/ConfiguracionSystemController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="319" column="82" lean-forward="true" selection-start-line="319" selection-start-column="36" selection-end-line="319" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/ConfiguracionSystem/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="646" column="77" lean-forward="false" selection-start-line="646" selection-start-column="59" selection-end-line="646" selection-end-column="77" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/tarifaController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="26" column="73" lean-forward="true" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Nomina/CargoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="141" column="57" lean-forward="true" selection-start-line="139" selection-start-column="12" selection-end-line="141" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/cargosController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="93" column="42" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Nomina/EmpleadoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="89" column="5" lean-forward="true" selection-start-line="81" selection-start-column="4" selection-end-line="89" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1241">
+          <caret line="82" column="35" lean-forward="false" selection-start-line="82" selection-start-column="12" selection-end-line="82" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Tarifas/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="38" lean-forward="false" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/mainController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="157" column="4" lean-forward="true" selection-start-line="157" selection-start-column="4" selection-end-line="157" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/index_new.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="251" column="51" lean-forward="false" selection-start-line="251" selection-start-column="51" selection-end-line="251" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Tarifas/index_cultivo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="150" column="65" lean-forward="false" selection-start-line="150" selection-start-column="65" selection-end-line="150" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/cultivoController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="74" column="23" lean-forward="true" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modelos/Nomina/Cargo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="31" lean-forward="false" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modelos/Terreno/Cultivo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Tarifas/CultivoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1394">
+          <caret line="87" column="66" lean-forward="false" selection-start-line="87" selection-start-column="53" selection-end-line="87" selection-end-column="66" />
+          <folding>
+            <element signature="e#48#79#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Clientes/index_cliente.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15521">
+          <caret line="913" column="64" lean-forward="false" selection-start-line="913" selection-start-column="46" selection-end-line="913" selection-end-column="64" />
+          <folding>
+            <element signature="n#div#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/app/controllers/clientesController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3213">
+          <caret line="928" column="11" lean-forward="false" selection-start-line="928" selection-start-column="11" selection-end-line="928" selection-end-column="11" />
+          <folding>
+            <element signature="e#36#118#0" expanded="false" />
+            <element signature="e#64#116#0" expanded="false" />
+            <element signature="e#515#556#0" expanded="false" />
+            <element signature="e#603#1076#0" expanded="false" />
+            <element signature="e#647#689#0" expanded="false" />
+            <element signature="e#748#786#0" expanded="false" />
+            <element signature="e#924#1068#0" expanded="false" />
+            <element signature="e#1127#1991#0" expanded="false" />
+            <element signature="e#1200#1985#0" expanded="false" />
+            <element signature="e#1836#1974#0" expanded="false" />
+            <element signature="e#2028#2706#0" expanded="false" />
+            <element signature="e#2179#2699#0" expanded="false" />
+            <element signature="e#2309#2558#0" expanded="false" />
+            <element signature="e#2395#2476#0" expanded="false" />
+            <element signature="e#2482#2543#0" expanded="false" />
+            <element signature="e#2750#2806#0" expanded="false" />
+            <element signature="e#2849#3040#0" expanded="false" />
+            <element signature="e#2932#3031#0" expanded="false" />
+            <element signature="e#3081#3232#0" expanded="false" />
+            <element signature="e#3276#3320#0" expanded="false" />
+            <element signature="e#3368#5328#0" expanded="false" />
+            <element signature="e#3458#5319#0" expanded="false" />
+            <element signature="e#3617#3743#0" expanded="false" />
+            <element signature="e#3928#5306#0" expanded="false" />
+            <element signature="e#4099#4231#0" expanded="false" />
+            <element signature="e#5368#7971#0" expanded="false" />
+            <element signature="e#5487#6423#0" expanded="false" />
+            <element signature="e#6461#7137#0" expanded="false" />
+            <element signature="e#6526#7125#0" expanded="false" />
+            <element signature="e#6574#6885#0" expanded="false" />
+            <element signature="e#6907#7111#0" expanded="false" />
+            <element signature="e#7143#7965#0" expanded="false" />
+            <element signature="e#7232#7914#0" expanded="false" />
+            <element signature="e#7280#7674#0" expanded="false" />
+            <element signature="e#7696#7900#0" expanded="false" />
+            <element signature="e#7937#7953#0" expanded="false" />
+            <element signature="e#8024#8747#0" expanded="false" />
+            <element signature="e#8567#8626#0" expanded="false" />
+            <element signature="e#8632#8693#0" expanded="false" />
+            <element signature="e#8800#11294#0" expanded="false" />
+            <element signature="e#8890#11282#0" expanded="false" />
+            <element signature="e#9049#9175#0" expanded="false" />
+            <element signature="e#9383#11269#0" expanded="false" />
+            <element signature="e#9554#9686#0" expanded="false" />
+            <element signature="e#10967#11083#0" expanded="false" />
+            <element signature="e#11349#11873#0" expanded="false" />
+            <element signature="e#11494#11864#0" expanded="false" />
+            <element signature="e#11527#11653#0" expanded="false" />
+            <element signature="e#11659#11854#0" expanded="false" />
+            <element signature="e#11913#12310#0" expanded="false" />
+            <element signature="e#12004#12302#0" expanded="false" />
+            <element signature="e#12313#12440#0" expanded="false" />
+            <element signature="e#12484#12745#0" expanded="false" />
+            <element signature="e#12800#13042#0" expanded="false" />
+            <element signature="e#12834#12932#0" expanded="false" />
+            <element signature="e#12938#13036#0" expanded="false" />
+            <element signature="e#13049#13152#0" expanded="false" />
+            <element signature="e#13327#13572#0" expanded="false" />
+            <element signature="e#13350#13396#0" expanded="false" />
+            <element signature="e#13499#13564#0" expanded="false" />
+            <element signature="e#13610#13840#0" expanded="false" />
+            <element signature="e#13633#13672#0" expanded="false" />
+            <element signature="e#13775#13832#0" expanded="false" />
+            <element signature="e#13877#14310#0" expanded="false" />
+            <element signature="e#13955#14302#0" expanded="false" />
+            <element signature="e#14113#14219#0" expanded="false" />
+            <element signature="e#14345#14824#0" expanded="false" />
+            <element signature="e#14473#14815#0" expanded="false" />
+            <element signature="e#14631#14735#0" expanded="false" />
+            <element signature="e#14861#15345#0" expanded="false" />
+            <element signature="e#14989#15336#0" expanded="false" />
+            <element signature="e#15147#15253#0" expanded="false" />
+            <element signature="e#15387#15896#0" expanded="false" />
+            <element signature="e#15520#15887#0" expanded="false" />
+            <element signature="e#15678#15794#0" expanded="false" />
+            <element signature="e#15933#16369#0" expanded="false" />
+            <element signature="e#16011#16361#0" expanded="false" />
+            <element signature="e#16169#16277#0" expanded="false" />
+            <element signature="e#16407#16903#0" expanded="false" />
+            <element signature="e#16540#16894#0" expanded="false" />
+            <element signature="e#16698#16808#0" expanded="false" />
+            <element signature="e#16941#17015#0" expanded="false" />
+            <element signature="e#17059#17396#0" expanded="false" />
+            <element signature="e#17439#17655#0" expanded="false" />
+            <element signature="e#17564#17647#0" expanded="false" />
+            <element signature="e#17701#17893#0" expanded="false" />
+            <element signature="e#17784#17886#0" expanded="false" />
+            <element signature="e#17945#18292#0" expanded="false" />
+            <element signature="e#18025#18284#0" expanded="false" />
+            <element signature="e#18343#18575#0" expanded="false" />
+            <element signature="e#18477#18567#0" expanded="false" />
+            <element signature="e#18738#18981#0" expanded="false" />
+            <element signature="e#18761#18806#0" expanded="false" />
+            <element signature="e#18909#18973#0" expanded="false" />
+            <element signature="e#19148#19403#0" expanded="false" />
+            <element signature="e#19170#19223#0" expanded="false" />
+            <element signature="e#19326#19395#0" expanded="false" />
+            <element signature="e#19452#20120#0" expanded="false" />
+            <element signature="e#19478#19550#0" expanded="false" />
+            <element signature="e#19668#20112#0" expanded="false" />
+            <element signature="e#19908#20009#0" expanded="false" />
+            <element signature="e#20177#20848#0" expanded="false" />
+            <element signature="e#20203#20275#0" expanded="false" />
+            <element signature="e#20393#20840#0" expanded="false" />
+            <element signature="e#20633#20734#0" expanded="false" />
+            <element signature="e#20894#21814#0" expanded="false" />
+            <element signature="e#21038#21807#0" expanded="false" />
+            <element signature="e#21121#21797#0" expanded="false" />
+            <element signature="e#21868#22855#0" expanded="false" />
+            <element signature="e#22012#22848#0" expanded="false" />
+            <element signature="e#22094#22838#0" expanded="false" />
+            <element signature="e#22903#23716#0" expanded="false" />
+            <element signature="e#22929#23001#0" expanded="false" />
+            <element signature="e#23118#23708#0" expanded="false" />
+            <element signature="e#23312#23431#0" expanded="false" />
+            <element signature="e#23445#23490#0" expanded="false" />
+            <element signature="e#23772#24588#0" expanded="false" />
+            <element signature="e#23798#23870#0" expanded="false" />
+            <element signature="e#23987#24580#0" expanded="false" />
+            <element signature="e#24181#24300#0" expanded="false" />
+            <element signature="e#24314#24359#0" expanded="false" />
+            <element signature="e#24637#25418#0" expanded="false" />
+            <element signature="e#24663#24737#0" expanded="false" />
+            <element signature="e#24855#25410#0" expanded="false" />
+            <element signature="e#25464#25717#0" expanded="false" />
+            <element signature="e#25486#25538#0" expanded="false" />
+            <element signature="e#25641#25709#0" expanded="false" />
+            <element signature="e#25774#26548#0" expanded="false" />
+            <element signature="e#25800#25873#0" expanded="false" />
+            <element signature="e#25991#26540#0" expanded="false" />
+            <element signature="e#26705#26789#0" expanded="false" />
+            <element signature="e#26829#28174#0" expanded="false" />
+            <element signature="e#28213#28971#0" expanded="false" />
+            <element signature="e#29014#30418#0" expanded="false" />
+            <element signature="e#30460#31974#0" expanded="false" />
+            <element signature="e#33319#33891#0" expanded="false" />
+            <element signature="e#33948#34997#0" expanded="false" />
+            <element signature="e#33975#34368#0" expanded="false" />
+            <element signature="e#34504#34988#0" expanded="false" />
+            <element signature="e#34547#34977#0" expanded="false" />
+            <element signature="e#35043#35827#0" expanded="false" />
+            <element signature="e#35070#35188#0" expanded="false" />
+            <element signature="e#35287#35818#0" expanded="false" />
+            <element signature="e#35330#35807#0" expanded="false" />
+            <element signature="e#35876#36872#0" expanded="false" />
+            <element signature="e#35903#36274#0" expanded="false" />
+            <element signature="e#36376#36863#0" expanded="false" />
+            <element signature="e#36419#36852#0" expanded="false" />
+            <element signature="e#36924#38076#0" expanded="false" />
+            <element signature="e#36995#37102#0" expanded="false" />
+            <element signature="e#37146#37254#0" expanded="false" />
+            <element signature="e#37260#37360#0" expanded="false" />
+            <element signature="e#37381#37447#0" expanded="false" />
+            <element signature="e#37508#38033#0" expanded="false" />
+            <element signature="e#38056#38068#0" expanded="false" />
+            <element signature="e#38145#38214#0" expanded="false" />
+            <element signature="e#38270#38577#0" expanded="false" />
+            <element signature="e#38470#38544#0" expanded="false" />
+            <element signature="e#38622#38976#0" expanded="false" />
+            <element signature="e#38790#38826#0" expanded="false" />
+            <element signature="e#38832#38970#0" expanded="false" />
+            <element signature="e#38874#38930#0" expanded="false" />
+            <element signature="e#38995#39136#0" expanded="false" />
+            <element signature="e#39047#39133#0" expanded="false" />
+            <element signature="n#!!block;n#convertDatetoDB#0" expanded="false" />
+            <element signature="e#39207#39293#0" expanded="false" />
+            <element signature="e#39299#39385#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Clientes/ClienteController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="399" column="69" lean-forward="false" selection-start-line="399" selection-start-column="69" selection-end-line="399" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
