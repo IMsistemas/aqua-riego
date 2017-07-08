@@ -308,9 +308,9 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
             var longitud = response.length;
             var array_temp = [];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
+                array_temp.push({label: response[i].namecalle, id: response[i].idcalle})
             }
-            $scope.tomas_edit = array_temp;
+            $scope.tomas = array_temp;
 
             $scope.t_toma = terreno.derivacion.canal.calle.idcalle;
 
@@ -321,7 +321,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
                 for(var i = 0; i < longitud; i++){
                     array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
                 }
-                $scope.canales_edit = array_temp;
+                $scope.canales = array_temp;
 
                 $scope.t_canal = terreno.derivacion.canal.idcanal;
 
@@ -331,7 +331,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
                     for(var i = 0; i < longitud; i++){
                         array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
                     }
-                    $scope.derivaciones_edit = array_temp;
+                    $scope.derivaciones = array_temp;
 
                     $scope.t_derivacion = terreno.derivacion.idderivacion;
 
