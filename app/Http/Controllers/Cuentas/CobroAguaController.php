@@ -56,7 +56,8 @@ class CobroAguaController extends Controller
     public function getCobros()
     {
         return CobroAgua::join('terreno', 'terreno.idterreno', '=', 'cobroagua.idterreno')
-                            ->join('cliente', 'terreno.codigocliente', '=', 'cliente.codigocliente')
+                            ->join('cliente', 'terreno.idcliente', '=', 'cliente.idcliente')
+                            ->join('persona', 'cliente.idpersona', '=', 'persona.idpersona')
                             ->join('tarifa', 'terreno.idtarifa', '=', 'tarifa.idtarifa')
                             ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
                             ->join('canal', 'derivacion.idcanal', '=', 'canal.idcanal')
@@ -124,6 +125,7 @@ class CobroAguaController extends Controller
                     }
 
                     $cobro->valorconsumo = $item->valoranual;
+                    $cobro->fechapago = date('Y-m-d');
                     $cobro->total = $item->valoranual + $cobro->valoratrasados;
                     $cobro->estapagada = false;
 

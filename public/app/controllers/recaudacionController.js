@@ -19,7 +19,7 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
         });
 
         $http.get(API_URL + 'recaudacion/getCobros').success(function(response){
-            var longitud = response.length;
+            /*var longitud = response.length;
             for (var i = 0; i < longitud; i++) {
                 var complete_name = {
                     value: response[i].apellido + ', ' + response[i].nombre,
@@ -28,9 +28,9 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
                     configurable: true
                 };
                 Object.defineProperty(response[i], 'complete_name', complete_name);
-            }
-
-            $scope.cobros = response;
+            }*/
+            console.log(response);
+            $scope.cuentas = response;
         });
 
     };

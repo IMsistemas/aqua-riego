@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CobroAgua extends Model
 {
     protected $table = 'cobroagua';
-    protected $primaryKey = 'idcuenta';
+    protected $primaryKey = 'idcobroagua';
     public $timestamps = false;
 
     public function terreno()
