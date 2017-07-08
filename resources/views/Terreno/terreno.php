@@ -533,12 +533,12 @@
                                                 <div class="input-group">
                                                     <span class="input-group-addon">Area (m2): </span>
                                                     <input type="text" class="form-control" name="t_area" id="t_area" ng-keypress="onlyNumber($event)"
-                                                           ng-model="t_area" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculate()">
+                                                           ng-model="t_area" ng-required="true" ng-blur="calculate()">
                                                 </div>
                                                 <span class="help-block error"
                                                       ng-show="formProcess.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
-                                                <span class="help-block error"
-                                                      ng-show="formProcess.t_area.$invalid && formProcess.t_area.$error.pattern">El Area debe ser solo números</span>
+                                                <!--<span class="help-block error"
+                                                      ng-show="formProcess.t_area.$invalid && formProcess.t_area.$error.pattern">El Area debe ser solo números</span>-->
                                             </div>
 
                                             <div class="col-sm-4 col-xs-12">
@@ -622,13 +622,13 @@
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
                         <button type="button" class="btn btn-success" id="btn-save-riego"
-                                ng-click="saveSolicitudRiego()" ng-disabled="formProcess.$invalid">
+                                ng-click="save()" ng-disabled="formProcess.$invalid">
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
-                        <button type="button" class="btn btn-primary" id="btn-process-riego"
+                        <!--<button type="button" class="btn btn-primary" id="btn-process-riego"
                                 ng-click="procesarSolicitud('btn-process-riego')" disabled>
                             Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </button>
+                        </button>-->
                     </div>
                 </div>
             </div>

@@ -255,12 +255,17 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
         });
     };
 
-    $scope.calculateCaudal = function () {
-        $http.get(API_URL + 'editTerreno/getConstante').success(function(response){
-            var area = parseInt($scope.t_area);
-            var constante = parseFloat(response[0].constante);
+    $scope.calculate = function () {
+        $scope.calculateCaudal();
+        $scope.calculateValor();
+    };
 
-            var caudal_result = (area / 10000) * constante;
+    $scope.calculateCaudal = function () {
+        $http.get(API_URL + 'cliente/getConstante').success(function(response){
+            var area = parseInt($scope.t_area);
+            var constante = parseFloat(response[0].optionvalue);
+
+            var caudal_result = (area / 1000) * constante;
 
             $scope.calculate_caudal = caudal_result.toFixed(2);
         });
@@ -269,7 +274,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
     $scope.calculateValor = function () {
         var area = $scope.t_area;
 
-        $http.get(API_URL + 'editTerreno/calculateValor/' + area).success(function(response){
+        $http.get(API_URL + 'cliente/calculateValor/' + area).success(function(response){
             $scope.valor_total = parseFloat(response.costo).toFixed(2);
         });
     };
@@ -277,6 +282,8 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
     $scope.edit = function (terreno) {
 
         $scope.t_fecha_process = terreno.fechacreacion;
+
+        $scope.h_codigocliente = terreno.cliente.idcliente;
 
         $scope.codigo_cliente = terreno.cliente.persona.numdocidentific;
         $scope.documentoidentidad_cliente = terreno.cliente.persona.numdocidentific;
@@ -313,7 +320,6 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
             $scope.tomas = array_temp;
 
             $scope.t_toma = terreno.derivacion.canal.calle.idcalle;
-
 
             $http.get(API_URL + 'editTerreno/getCanales/' + terreno.derivacion.canal.calle.idcalle).success(function(response){
                 var longitud = response.length;
@@ -364,8 +370,11 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
             //idsolicitud: $scope.num_solicitud
         };
 
+        console.log(solicitud);
+        console.log($scope.nro_terreno);
+
         Upload.upload({
-            url: API_URL + 'editTerreno/update/' + $scope.num_terreno_edit,
+            url: API_URL + 'editTerreno/update/' + $scope.nro_terreno,
             method: 'POST',
             data: solicitud
         }).success(function(data, status, headers, config) {
@@ -374,8 +383,8 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
             console.log(headers);
             console.log(config);
             if (data.success == true) {
-                $scope.initLoad();
-                $('#modalEdit').modal('hide');
+                $scope.initLoad(1);
+                $('#modalActionRiego').modal('hide');
                 $scope.message = 'Se ha editado correctamente la informacion del Terreno...';
                 $('#modalMessage').modal('show');
                 $scope.hideModalMessage();

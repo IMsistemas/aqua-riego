@@ -225,9 +225,9 @@ class TerrenoController extends Controller
         $terreno->area = $request->input('area');
         $terreno->caudal = $request->input('caudal');
 
-        $costo = $this->calculateValor($request->input('area'), true);
+        //$costo = $this->calculateValor($request->input('area'), true);
 
-        $terreno->valoranual = $costo;
+        $terreno->valoranual = $request->input('valoranual');
 
         if ($url_file != null) {
             $terreno->urlescrituras = $url_file;
