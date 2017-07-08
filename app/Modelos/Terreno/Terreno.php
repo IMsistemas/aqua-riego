@@ -27,7 +27,7 @@ class Terreno extends Model
 
     public function cliente()
     {
-        return $this->belongsTo('App\Modelos\Clientes\Cliente', 'codigocliente');
+        return $this->belongsTo('App\Modelos\Clientes\Cliente', 'idcliente');
     }
 
     public function barrio()

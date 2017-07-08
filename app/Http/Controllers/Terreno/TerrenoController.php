@@ -31,7 +31,7 @@ class TerrenoController extends Controller
 
     public function getTerrenos()
     {
-        return Terreno::with('cultivo', 'tarifa', 'cliente', 'derivacion.canal.calle.barrio')
+        return Terreno::with('cultivo', 'tarifa', 'cliente.persona', 'derivacion.canal.calle.barrio')
                             ->get();
 
     }
@@ -97,7 +97,7 @@ class TerrenoController extends Controller
      */
     public function getBarrios()
     {
-        return Barrio::orderBy('nombrebarrio', 'asc')->get();
+        return Barrio::orderBy('namebarrio', 'asc')->get();
     }
 
 
@@ -131,7 +131,7 @@ class TerrenoController extends Controller
      */
     public function getTomas($idbarrio)
     {
-        return Calle::where('idbarrio', $idbarrio)->orderBy('nombrecalle', 'asc')->get();
+        return Calle::where('idbarrio', $idbarrio)->orderBy('namecalle', 'asc')->get();
     }
 
     /**

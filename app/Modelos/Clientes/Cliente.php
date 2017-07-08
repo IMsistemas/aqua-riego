@@ -11,6 +11,11 @@ class Cliente extends Model
     protected $primaryKey = 'idcliente';
     public $timestamps = false;
 
+    public function persona()
+    {
+        return $this->belongsTo('App\Modelos\Persona','idpersona');
+    }
+
     public function solicitud()
     {
     	return $this->hasMany('App\Modelos\Solicitud\Solicitud','idcliente');

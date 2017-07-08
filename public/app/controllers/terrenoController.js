@@ -22,7 +22,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
 
         $http.get(API_URL + 'editTerreno/getTerrenos').success(function(response){
 
-            var longitud = response.length;
+            /*var longitud = response.length;
             for (var i = 0; i < longitud; i++) {
                 var complete_name = {
                     value: response[i].cliente.apellido + ', ' + response[i].cliente.nombre,
@@ -31,7 +31,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
                     configurable: true
                 };
                 Object.defineProperty(response[i].cliente, 'complete_name', complete_name);
-            }
+            }*/
 
             $scope.terrenos = response;
 
@@ -95,15 +95,15 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
     $scope.loadInformation = function (terreno) {
         $scope.num_terreno = terreno.idterreno;
         $scope.fecha_ingreso = convertDatetoDB(terreno.fechacreacion, true);
-        $scope.cliente = terreno.cliente.apellido + ' ' + terreno.cliente.nombre;
+        $scope.cliente = terreno.cliente.persona.razonsocial;
         $scope.cultivo = terreno.cultivo.nombrecultivo;
         $scope.tarifa = terreno.tarifa.nombretarifa;
         $scope.area = terreno.area;
         $scope.caudal = terreno.caudal;
         $scope.valor_anual = terreno.valoranual;
-        $scope.barrio = terreno.derivacion.canal.calle.barrio.nombrebarrio;
+        $scope.barrio = terreno.derivacion.canal.calle.barrio.namebarrio;
         $scope.canal = terreno.derivacion.canal.nombrecanal;
-        $scope.toma = terreno.derivacion.canal.calle.nombrecalle;
+        $scope.toma = terreno.derivacion.canal.calle.namecalle;
         $scope.derivacion = terreno.derivacion.nombrederivacion;
 
         $('#modalInfo').modal('show');
@@ -114,7 +114,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
             var longitud = response.length;
             var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+                array_temp.push({label: response[i].namebarrio, id: response[i].idbarrio})
             }
             $scope.barrios = array_temp;
 
@@ -276,13 +276,19 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
 
     $scope.edit = function (terreno) {
 
-        $scope.codigo_cliente = terreno.cliente.documentoidentidad;
-        $scope.nom_cliente = terreno.cliente.apellido + ' ' + terreno.cliente.nombre;
-        $scope.direcc_cliente = terreno.cliente.direcciondomicilio;
+        $scope.t_fecha_process = terreno.fechacreacion;
+
+        $scope.codigo_cliente = terreno.cliente.persona.numdocidentific;
+        $scope.documentoidentidad_cliente = terreno.cliente.persona.numdocidentific;
+        $scope.nom_cliente = terreno.cliente.persona.razonsocial;
+        $scope.direcc_cliente = terreno.cliente.persona.direccion;
         $scope.telf_cliente = terreno.cliente.telefonoprincipaldomicilio;
+        $scope.telf_trab_cliente = terreno.cliente.telefonoprincipaltrabajo;
+        $scope.celular_cliente = terreno.cliente.persona.celphone;
 
         $scope.t_terreno = terreno.idterreno;
-        $scope.num_terreno_edit = terreno.idterreno;
+        $scope.nro_terreno = terreno.idterreno;
+        $scope.num_solicitud_riego = terreno.idterreno;
         $scope.t_junta = terreno.derivacion.canal.calle.barrio.idbarrio;
         //$scope.t_cultivo = terreno.cultivo.idcultivo;
         $scope.t_tarifa = terreno.tarifa.idtarifa;
@@ -327,7 +333,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
 
                     $scope.t_derivacion = terreno.derivacion.idderivacion;
 
-                    $('#modalEdit').modal('show');
+                    $('#modalActionRiego').modal('show');
 
                 });
 

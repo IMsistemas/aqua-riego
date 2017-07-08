@@ -1,6 +1,14 @@
 
 
-    <div class="col-xs-12" ng-controller="terrenoController" style="margin-top: 2%;">
+    <div class="col-xs-12" ng-controller="terrenoController" style="">
+
+        <div class="col-xs-12">
+
+            <h4>Gestión de Terrenos</h4>
+
+            <hr>
+
+        </div>
 
         <div class="col-xs-12">
             <div class="col-sm-6 col-xs-12">
@@ -90,11 +98,11 @@
                 </thead>
                 <tbody>
                 <tr dir-paginate="terreno in terrenos | orderBy:sortKey:reverse |itemsPerPage:10  | filter : search" ng-cloak>
-                    <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{terreno.cliente.complete_name}}</td>
+                    <td style="font-weight: bold;">{{terreno.cliente.persona.razonsocial}}</td>
                     <td>{{terreno.tarifa.nombretarifa}}</td>
                     <td>{{terreno.cultivo.nombrecultivo}}</td>
                     <td>{{terreno.derivacion.nombrederivacion}}</td>
-                    <td>{{terreno.derivacion.canal.calle.barrio.nombrebarrio}}</td>
+                    <td>{{terreno.derivacion.canal.calle.barrio.namebarrio}}</td>
                     <td>{{terreno.caudal}}</td>
                     <td>{{terreno.area}}</td>
                     <td>
@@ -363,6 +371,264 @@
                     </div>
                     <div class="modal-body">
                         <span>{{message}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalActionRiego">
+            <div class="modal-dialog" role="document" style="width: 60%;">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+
+                        <div class="col-md-6 col-xs-12">
+                            <h4 class="modal-title">Editar Riego Nro: {{num_solicitud_riego}}</h4>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group">
+                                <h4 class="modal-title"><label for="t_fecha_process" class="col-sm-6" style="font-weight: normal !important;">Fecha Ingreso:</label></h4>
+                                <div class="col-sm-5" style="padding: 0;">
+                                    <input type="text" class="form-control input-sm datepicker" name="t_fecha_process"
+                                           id="t_fecha_process" ng-model="t_fecha_process" style="color: black !important;" disabled>
+                                </div>
+                                <div class="col-sm-1 col-xs-12 text-right" style="padding: 0;">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" name="formProcess" novalidate="">
+
+                            <div class="row">
+                                <div class="col-xs-12" style="padding: 2%; margin-top: -20px !important;">
+                                    <fieldset ng-cloak>
+                                        <legend style="font-size: 16px; font-weight: bold;">Datos del Cliente</legend>
+
+                                        <div class="col-xs-12" style="padding: 0;">
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">RUC/CI: </span>
+                                                    <input class="form-control" type="text" name="documentoidentidad_cliente" id="documentoidentidad_cliente"
+                                                           ng-model="documentoidentidad_cliente" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Cliente: </span>
+                                                    <input class="form-control" type="text" name="nom_cliente" id="nom_cliente"
+                                                           ng-model="nom_cliente" disabled >
+                                                </div>
+
+                                                <input type="hidden" ng-model="h_codigocliente">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                            <div class="col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Dirección Domicilio: </span>
+                                                    <input class="form-control" type="text" name="direcc_cliente" id="direcc_cliente"
+                                                           ng-model="direcc_cliente" disabled >
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                            <div class="col-sm-4 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Celular: </span>
+                                                    <input class="form-control" type="text" name="celular_cliente" id="celular_cliente"
+                                                           ng-model="celular_cliente" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-4 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Teléfono Domicilio: </span>
+                                                    <input class="form-control" type="text" name="telf_cliente" id="telf_cliente"
+                                                           ng-model="telf_cliente" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-4 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Teléfono Trabajo: </span>
+                                                    <input class="form-control" type="text" name="telf_trab_cliente" id="telf_trab_cliente"
+                                                           ng-model="telf_trab_cliente" disabled >
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-xs-12" style="padding: 2%; margin-top: -25px !important;">
+                                    <fieldset>
+                                        <legend style="font-size: 16px; font-weight: bold;">Datos de Terreno</legend>
+
+                                        <div class="col-xs-12" style="padding: 0; margin-top: -15px;">
+                                            <div class="col-sm-6 col-xs-12 error">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Nro. Terreno: </span>
+                                                    <input class="form-control" type="text" name="nro_terreno" id="nro_terreno" ng-model="nro_terreno" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Escrituras: </span>
+                                                    <input class="form-control" type="file" ngf-select ng-model="file" name="file" id="file"
+                                                           ngf-max-size="8MB" >
+                                                </div>
+                                                <!--<span class="help-block error"
+                                                          ng-show="formProcess.file.$error.pattern">El archivo debe ser PDF</span>-->
+                                                <span class="help-block error"
+                                                      ng-show="formProcess.file.$error.maxSize">El tamaño máximo es de 8 MB </span>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                            <div class="col-sm-6 col-xs-12 error">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Tipo Cultivo: </span>
+                                                    <select class="form-control" name="t_tarifa" id="t_tarifa"
+                                                            ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
+                                                            ng-change="getCultivos()"></select><!--ng-change="showAddCultivo()"-->
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12 error">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Cultivo: </span>
+                                                    <select class="form-control" name="t_cultivo" id="t_cultivo"
+                                                            ng-model="t_cultivo" ng-options="value.id as value.label for value in cultivos">
+                                                    </select><!--ng-change="showAddCultivo()"-->
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                            <div class="col-sm-4 col-xs-12 error">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Area (m2): </span>
+                                                    <input type="text" class="form-control" name="t_area" id="t_area" ng-keypress="onlyNumber($event)"
+                                                           ng-model="t_area" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculate()">
+                                                </div>
+                                                <span class="help-block error"
+                                                      ng-show="formProcess.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
+                                                <span class="help-block error"
+                                                      ng-show="formProcess.t_area.$invalid && formProcess.t_area.$error.pattern">El Area debe ser solo números</span>
+                                            </div>
+
+                                            <div class="col-sm-4 col-xs-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Caudal: </span>
+                                                    <input class="form-control" type="text" name="calculate_caudal" id="calculate_caudal" ng-model="calculate_caudal" disabled >
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-4 col-xs-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Valor Anual: </span>
+                                                    <input class="form-control" type="text" name="valor_total" id="valor_total" ng-model="valor_total" disabled >
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-xs-12" style="padding: 2%; margin-top: -35px !important;">
+                                    <fieldset>
+                                        <legend style="font-size: 16px; font-weight: bold;">Datos de Ubicación</legend>
+                                        <div class="col-sm-6 col-xs-12 error">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Junta Modular: </span>
+                                                <select class="form-control" name="t_junta" id="t_junta"
+                                                        ng-model="t_junta" ng-options="value.id as value.label for value in barrios"
+                                                        ng-change="getTomas()" ></select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12 error">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Toma: </span>
+                                                <select class="form-control" name="t_toma" id="t_toma"
+                                                        ng-model="t_toma" ng-options="value.id as value.label for value in tomas"
+                                                        ng-change="getCanales()"></select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12 error" style="margin-top: 5px;">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Canal: </span>
+                                                <select class="form-control" name="t_canal" id="t_canal"
+                                                        ng-model="t_canal" ng-options="value.id as value.label for value in canales"
+                                                        ng-change="getDerivaciones()"></select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12 error" style="margin-top: 5px;">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Derivación: </span>
+                                                <select class="form-control" name="t_derivacion" id="t_derivacion"
+                                                        ng-model="t_derivacion" ng-options="value.id as value.label for value in derivaciones"></select>
+                                            </div>
+
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <div class="col-xs-12">
+                                        <textarea class="form-control" id="t_observacion_riego" ng-model="t_observacion_riego" rows="2" placeholder="Observación"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="btn-save-riego"
+                                ng-click="saveSolicitudRiego()" ng-disabled="formProcess.$invalid">
+                            Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-primary" id="btn-process-riego"
+                                ng-click="procesarSolicitud('btn-process-riego')" disabled>
+                            Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </button>
                     </div>
                 </div>
             </div>
