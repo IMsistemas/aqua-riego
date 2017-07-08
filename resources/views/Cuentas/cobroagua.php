@@ -54,12 +54,9 @@
 						<td>{{cuenta.namebarrio}}</td>
 						<td>{{cuenta.nombrecanal}}</td>
 						<td>{{cuenta.namecalle}}</td>
-						<td>{{cuenta.suministro.telefonosuministro}}</td>
+						<td>{{cuenta.estapagada}}</td>
 						<td>{{cuenta.total | currency}}</td>
-
 						<td>
-							<a href="#" class="btn btn-primary" ng-click="ingresoValores(cuenta.idcuenta);" ng-hide="cuenta.estapagada">Agregar</a>
-                            <a href="#" class="btn btn-success" ng-click="generarPDF(cuenta.idcuenta);"><i class="fa fa-print" aria-hidden="true"></i></a>
 
 						</td>
 					</tr>
@@ -207,7 +204,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="col-xs-12 text-center">
-                            <img class="img-thumbnail" src="<?= asset('img/cliente.png') ?>" alt="">
+                            <img class="img-thumbnail" src="" alt="">
                         </div>
                         <div class="row text-center">
                             <div class="col-xs-12 text-center" style="font-size: 18px;">{{cuenta.suministro.cliente.apellido+" "+cuenta.suministro.cliente.nombre}}</div>
