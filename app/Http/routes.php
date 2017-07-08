@@ -322,187 +322,6 @@ Route::resource('/empleado', 'Nomina\EmpleadoController');
  */
 
 
-/*--------------------------------------Christian-------------------------------------------------*/
-/*===================================Cliente======================================================*/
-
-/*Route::get('/clientes', function (){
-	return view('Clientes/index');
-});
-//Ruta devuelve un arreglo de todos los clientes a AngularJS 
-Route::get('/clientes/gestion/','Clientes\ClienteController@index');
-//Ruta devuelve un arreglo de todos los clientes a AngularJS 
-Route::get('/clientes/gestion/{codigocliente}','Clientes\ClienteController@show');
-//Ruta página de inicio de gestión de clientes
-Route::post('/clientes/gestion/guardarcliente','Clientes\ClienteController@store');
-//Ruta página de inicio de gestión de clientes
-Route::post('/clientes/gestion/actualizarcliente/{codigocliente}','Clientes\ClienteController@update');
-//Ruta página de inicio de gestión de clientes
-Route::post('/clientes/gestion/eliminarcliente/{codigocliente}','Clientes\ClienteController@destroy');
-//Peticion para obtener el listado de cobros
-Route::get('recaudacion/getCobros', 'Cuentas\CobroAguaController@getCobros');
-//Peticion para obtener el listado de cobros por filtros
-Route::get('recaudacion/getByFilter/{filters}', 'Cuentas\CobroAguaController@getByFilters');
-//Peticion para obtener si se genera factura del periodo
-Route::get('recaudacion/verifyPeriodo', 'Cuentas\CobroAguaController@verifyPeriodo');
-//Peticion para generar los cobros del periodo
-Route::get('recaudacion/generate', 'Cuentas\CobroAguaController@generate');
-//Resource, atiende peticiones REST generales: [GET|POST|PUT|DELETE] hacia CobroAgua
-Route::resource('/recaudacion', 'Cuentas\CobroAguaController');*/
-
-/*===================================Módulo Barrio===========================================*/
-
-/*Route::get('/barrios', function (){
-	return view('Sectores/barrio');
-});
-
-//----Kevin Tambien :-(---------
-Route::get('/barrios/gestion/concalles','Sectores\BarrioController@getBarriosCalles');
-
-
-//Ruta devuelve un arreglo de todos los provincias a AngularJS 
-Route::get('/barrios/gestion/{idparroquia?}','Sectores\BarrioController@index');
-//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
-Route::get('/barrios/gestion/{idbarrio?}','Sectores\BarrioController@show');
-//Ruta página de inicio de gestión de barrios
-Route::get('/barrios/maxid','Sectores\BarrioController@maxId');
-//Ruta página de inicio de gestión de barrios
-Route::post('/barrios/gestion/guardarbarrio/{idparroquia}','Sectores\BarrioController@postCrearBarrio');
-//Ruta página de inicio de gestión de barrios
-Route::post('/barrios/gestion/actualizarbarrio/{idbarrio}','Sectores\BarrioController@postActualizarBarrio');
-//Ruta página de inicio de gestión de barrios
-Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');*/
-
-/*===================================Módulo Canal===========================================*/
-/*
-Route::get('/canales', function (){
-	return view('Tomas/canal');
-});
-//Ruta devuelve un arreglo de todos los provincias a AngularJS 
-Route::get('/canales/gestion','Tomas\CanalController@index');
-//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
-Route::get('/canales/gestion/{idcanal?}','Tomas\CanalController@show');
-//Ruta página de inicio de gestión de barrios
-Route::get('/canales/maxid','Tomas\CanalController@maxId');
-//Ruta página de inicio de gestión de barrios
-Route::post('/canales/gestion/guardarcanal','Tomas\CanalController@postCrearCanal');
-//Ruta página de inicio de gestión de barrios
-Route::post('/canales/gestion/actualizarcanal/{idcanal}','Tomas\CanalController@postActualizarCanal');
-//Ruta página de inicio de gestión de barrios
-Route::Delete('/canales/gestion/eliminarcanal/{idcanal}','Tomas\CanalController@destroy');*/
-
-/*===================================Módulo Toma===========================================*/
-/*
-Route::get('/tomas', function (){
-	return view('Tomas/toma');
-});
-
-//----Kevin Tambien :-(---------
-Route::get('/tomas/gestion/concalles','Tomas\TomaController@getBarriosCalles');
-
-
-//Ruta devuelve un arreglo de todos los provincias a AngularJS 
-Route::get('/tomas/{idcanal?}','Tomas\TomaController@index');
-//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
-Route::get('/tomas/gestion/{idtoma?}','Tomas\TomaController@show');
-//Ruta página de inicio de gestión de barrios
-Route::get('/tomas/maxid','Tomas\TomaController@maxId');
-//Ruta página de inicio de gestión de barrios
-Route::post('/tomas/gestion/guardartoma/{idcanal}','Tomas\TomaController@postCrearToma');
-//Ruta página de inicio de gestión de barrios
-Route::post('/tomas/gestion/actualizartoma/{idtoma}','Tomas\TomaController@postActualizarToma');
-//Ruta página de inicio de gestión de tomas
-Route::Delete('/tomas/gestion/eliminartoma/{idtoma}','Tomas\TomaController@destroy');*/
-
-
-/*===================================Módulo Derivación===========================================*/
-
-/*Route::get('/barrios', function (){
-	return view('Sectores/barrio');
-});*/
-
-//----Kevin Tambien :-(---------
-/*Route::get('/barrios/gestion/concalles','Sectores\BarrioController@getBarriosCalles');
-
-
-//Ruta devuelve un arreglo de todos los provincias a AngularJS 
-Route::get('/barrios/gestion/{idparroquia?}','Sectores\BarrioController@index');
-//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
-Route::get('/barrios/gestion/{idbarrio?}','Sectores\BarrioController@show');
-//Ruta página de inicio de gestión de barrios
-Route::get('/barrios/maxid','Sectores\BarrioController@maxId');
-//Ruta página de inicio de gestión de barrios
-Route::post('/barrios/gestion/guardarbarrio/{idparroquia}','Sectores\BarrioController@postCrearBarrio');
-//Ruta página de inicio de gestión de barrios
-Route::post('/barrios/gestion/actualizarbarrio/{idbarrio}','Sectores\BarrioController@postActualizarBarrio');
-//Ruta página de inicio de gestión de barrios
-Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');*/
-/*===================================Módulo Canal===========================================*/
-/*
-Route::get('/canales', function (){
-	return view('Tomas/canal');
-});
-//Ruta devuelve un arreglo de todos los provincias a AngularJS 
-Route::get('/canales/gestion','Tomas\CanalController@index');
-//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
-Route::get('/canales/gestion/{idcanal?}','Tomas\CanalController@show');
-//Ruta página de inicio de gestión de barrios
-Route::get('/canales/maxid','Tomas\CanalController@maxId');
-//Ruta página de inicio de gestión de barrios
-Route::post('/canales/gestion/guardarcanal','Tomas\CanalController@postCrearCanal');
-//Ruta página de inicio de gestión de barrios
-Route::post('/canales/gestion/actualizarcanal/{idcanal}','Tomas\CanalController@postActualizarCanal');
-//Ruta página de inicio de gestión de barrios
-Route::Delete('/canales/gestion/eliminarcanal/{idcanal}','Tomas\CanalController@destroy');*/
-
-/*===================================Módulo Toma===========================================*/
-/*
-Route::get('/tomas', function (){
-	return view('Tomas/toma');
-});
-
-//----Kevin Tambien :-(---------
-Route::get('/tomas/gestion/concalles','Tomas\TomaController@getBarriosCalles');
-
-
-//Ruta devuelve un arreglo de todos los provincias a AngularJS 
-Route::get('/tomas/{idcanal?}','Tomas\TomaController@index');
-//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
-Route::get('/tomas/gestion/{idtoma?}','Tomas\TomaController@show');
-//Ruta página de inicio de gestión de barrios
-Route::get('/tomas/maxid','Tomas\TomaController@maxId');
-//Ruta página de inicio de gestión de barrios
-Route::post('/tomas/gestion/guardartoma/{idcanal}','Tomas\TomaController@postCrearToma');
-//Ruta página de inicio de gestión de barrios
-Route::post('/tomas/gestion/actualizartoma/{idtoma}','Tomas\TomaController@postActualizarToma');
-//Ruta página de inicio de gestión de tomas
-Route::Delete('/tomas/gestion/eliminartoma/{idtoma}','Tomas\TomaController@destroy');
-
-*/
-/*===================================Módulo Derivación===========================================
-
-Route::get('/derivaciones', function (){
-	return view('Tomas/derivacion');
-});
-
-//----Kevin Tambien :-(---------
-////Route::get('/derivaciones/gestion/concalles','Tomas\DerivacionController@getBarriosCalles');
-
-
-//Ruta devuelve un arreglo de todos los provincias a AngularJS 
-Route::get('/derivaciones/{idtoma?}','Tomas\DerivacionController@index');
-//Ruta devuelve un arreglo de todos los Cantons a AngularJS 
-Route::get('/derivaciones/gestion/{idderivacion?}','Tomas\DerivacionController@show');
-//Ruta página de inicio de gestión de barrios
-Route::get('/derivaciones/maxid','Tomas\DerivacionController@maxId');
-//Ruta página de inicio de gestión de barrios
-Route::post('/derivaciones/gestion/guardarderivacion/{idtoma}','Tomas\DerivacionController@postCrearDerivacion');
-
-//Ruta página de inicio de gestión de derivacions
-Route::post('/derivaciones/gestion/actualizarderivacion/{idderivacion}','Tomas\DerivacionController@postActualizarDerivacion');
-//Ruta página de inicio de gestión de derivacions
-Route::Delete('/derivaciones/gestion/eliminarderivacion/{idderivacion}','Tomas\DerivacionController@destroy');
-Route::Delete('/barrios/gestion/eliminarbarrio/{idbarrio}','Sectores\BarrioController@destroy');
-*/
 
 /*===================================Descuentos======================================================*/
 
@@ -657,7 +476,8 @@ Route::resource('/transportista', 'Transportista\TransportistaController');
 });*/
 
 Route::get('DocumentoVenta/getSuministroByFactura', 'Facturacionventa\DocumentoVenta@getSuministroByFactura');
-Route::get('DocumentoVenta/getProductoPorSuministro/{id}', 'Facturacionventa\DocumentoVenta@getProductoPorSuministro');
+//Route::get('DocumentoVenta/getProductoPorSuministro/{id}', 'Facturacionventa\DocumentoVenta@getProductoPorSuministro');
+Route::get('DocumentoVenta/getProductoPorSuministro', 'Facturacionventa\DocumentoVenta@getProductoPorSuministro');
 Route::get('DocumentoVenta/getInfoClienteXCIRuc/{getInfoCliente}', 'Facturacionventa\DocumentoVenta@getInfoClienteXCIRuc');
 Route::get('DocumentoVenta/getBodega/{texto}', 'Facturacionventa\DocumentoVenta@getinfoBodegas');
 Route::get('DocumentoVenta/getProducto/{texto}', 'Facturacionventa\DocumentoVenta@getinfoProducto');
@@ -873,12 +693,12 @@ Route::resource('/Nomenclador', 'Nomenclador\NomencladorController');
 
 //-------------------------------- Inveario Intem Kardex ---------------/////////
 
-Route::resource('Inventario', 'CatalogoProductos\InventarioKardex');
 Route::get('procesoskardex/loadbodegas', 'CatalogoProductos\InventarioKardex@cargarbodegas');
 Route::get('procesoskardex/loadcategoria', 'CatalogoProductos\InventarioKardex@cargarcategoria');
 Route::get('procesoskardex/loadsubcategoria/{id}', 'CatalogoProductos\InventarioKardex@cargarsubcategoria');
 Route::get('procesoskardex/loadinventario', 'CatalogoProductos\InventarioKardex@cargarinvetarioporbodega');
 Route::get('procesoskardex/loadkardex/{filtro}', 'CatalogoProductos\InventarioKardex@kardexitem');
+Route::resource('Inventario', 'CatalogoProductos\InventarioKardex');
 
 //-------------------------------- Inveario Intem Kardex ---------------/////////
 
@@ -886,11 +706,24 @@ Route::get('procesoskardex/loadkardex/{filtro}', 'CatalogoProductos\InventarioKa
  * ------------------------------------- Modulo Rol---------------------------------------------------------------------
  */
 
-Route::get('rol/getPermisos', 'Rol\RolController@getPermisos');
+Route::get('rol/getPermisosRol', 'Rol\RolController@getPermisosRol');
+Route::get('rol/getPermisos/{id}', 'Rol\RolController@getPermisos');
 Route::get('rol/getRolByID/{id}', 'Rol\RolController@getRolByID');
 Route::get('rol/getRoles', 'Rol\RolController@getRoles');
+Route::post('rol/savePermisos', 'Rol\RolController@savePermisos');
 
 Route::resource('/rol', 'Rol\RolController');
+
+/*
+ * ------------------------------------- Modulo Usuario-----------------------------------------------------------------
+ */
+
+Route::get('usuario/getEmpleados', 'Usuario\UsuarioController@getEmpleados');
+Route::get('usuario/getRoles', 'Usuario\UsuarioController@getRoles');
+Route::get('usuario/getUsuarios', 'Usuario\UsuarioController@getUsuarios');
+
+Route::resource('/usuario', 'Usuario\UsuarioController');
+
 
 /*
  * ------------------------------------- Modulo Alterno Compras (NO OFICIAL)--------------------------------------------
@@ -910,6 +743,30 @@ Route::get('DocumentoCompras/getFormaPago', 'Compras\ComprasController@getFormaP
 Route::get('DocumentoCompras/getCompras', 'Compras\ComprasController@getCompras');
 Route::resource('DocumentoCompras', 'Compras\ComprasController');
 
+
+Route::get('DocumentoNC/getSuministroByFactura', 'NotaCredito\NotaCreditoController@getSuministroByFactura');
+//Route::get('DocumentoNC/getProductoPorSuministro/{id}', 'NotaCredito\NotaCreditoController@getProductoPorSuministro');
+Route::get('DocumentoNC/getProductoPorSuministro', 'NotaCredito\NotaCreditoController@getProductoPorSuministro');
+Route::get('DocumentoNC/getInfoClienteXCIRuc/{getInfoCliente}', 'NotaCredito\NotaCreditoController@getInfoClienteXCIRuc');
+Route::get('DocumentoNC/getBodega/{texto}', 'NotaCredito\NotaCreditoController@getinfoBodegas');
+Route::get('DocumentoNC/getProducto/{texto}', 'NotaCredito\NotaCreditoController@getinfoProducto');
+Route::get('DocumentoNC/getheaddocumentoventa', 'NotaCredito\NotaCreditoController@getPuntoVentaEmpleado');
+Route::get('DocumentoNC/formapago', 'NotaCredito\NotaCreditoController@getFormaPago');
+Route::get('DocumentoNC/porcentajeivaiceotro', 'NotaCredito\NotaCreditoController@getCofiguracioncontable');
+Route::get('DocumentoNC/AllBodegas', 'NotaCredito\NotaCreditoController@getAllbodegas');
+Route::get('DocumentoNC/LoadProductos/{id}', 'NotaCredito\NotaCreditoController@getProductoPorBodega');
+Route::get('DocumentoNC/AllServicios', 'NotaCredito\NotaCreditoController@getAllservicios');
+Route::get('DocumentoNC/getVentas/{filtro}', 'NotaCredito\NotaCreditoController@getVentas');
+Route::get('DocumentoNC/getAllFitros', 'NotaCredito\NotaCreditoController@getallFitros');
+Route::get('DocumentoNC/anularVenta/{id}', 'NotaCredito\NotaCreditoController@anularVenta');
+Route::get('DocumentoNC/loadEditVenta/{id}', 'NotaCredito\NotaCreditoController@getVentaXId');
+Route::get('DocumentoNC/excel/{id}', 'NotaCredito\NotaCreditoController@excel');
+Route::get('DocumentoNC/NumRegistroVenta', 'NotaCredito\NotaCreditoController@getDocVenta');
+Route::get('DocumentoNC/cobrar/{id}', 'NotaCredito\NotaCreditoController@confirmarcobro');
+Route::get('DocumentoNC/print/{id}', 'NotaCredito\NotaCreditoController@imprimir');
+
+Route::resource('DocumentoNC', 'NotaCredito\NotaCreditoController');
+
 //-------------------------------- Guía Remisión---------------/////////
 Route::resource('guiaremision', 'Guiaremision\GuiaremisionController');
 Route::get('guiaremision/getransportista/{texto}', 'Guiaremision\GuiaremisionController@GetTrasportista');
@@ -919,6 +776,7 @@ Route::get('guiaremision/getdestinatario/{texto}', 'Guiaremision\GuiaremisionCon
 Route::get('guiaremision/getventa/{idventa}', 'Guiaremision\GuiaremisionController@BuscarVenta');
 Route::get('guiaremision/venta/{texto}', 'Guiaremision\GuiaremisionController@GetVentanro');
 Route::get('guiaremision/getGuia/{idguiaremision}', 'Guiaremision\GuiaremisionController@getGuia');
+
 //-------------------------------- Punto de Venta---------------/////////
 
 Route::get('puntoventa/getpuntoventas', 'Contabilidad\PuntoVentaController@getPuntoventa');
@@ -928,3 +786,134 @@ Route::get('puntoventa/cargaestablecimiento', 'Contabilidad\PuntoVentaController
 Route::get('puntoventa/cargarpuntoventa/{id}', 'Contabilidad\PuntoVentaController@cargarPuntoVenta');
 Route::get('puntoventa/verificarvacio', 'Contabilidad\PuntoVentaController@empleadoVacio');
 Route::resource('puntoventa', 'Contabilidad\PuntoVentaController');
+
+//-------------------------------- Plan Cuentas ---------------/////////
+
+Route::get('estadosfinacieros/plancuentastipo/{filtro}', 'Contabilidad\Plandecuetas@getplancuentasportipo');
+Route::get('estadosfinacieros/borrarcuenta/{filtro}', 'Contabilidad\Plandecuetas@deletecuenta');
+Route::get('estadosfinacieros/plancontabletotal', 'Contabilidad\Plandecuetas@plancontabletotal');
+
+//-------------------------------- Asiento Contable ---------------/////////
+Route::get('estadosfinacieros/numcomp/{filtro}', 'Contabilidad\Plandecuetas@NumComprobante');
+Route::get('estadosfinacieros/asc/{transaccion}', 'Contabilidad\Plandecuetas@GuardarAsientoContable');
+Route::get('estadosfinacieros/borrarasc/{id}', 'Contabilidad\Plandecuetas@BorrarAsientoContable');
+Route::get('estadosfinacieros/datosasc/{id}', 'Contabilidad\Plandecuetas@DatosAsientoContable');
+Route::get('estadosfinacieros/Editarasc/{transaccion}', 'Contabilidad\Plandecuetas@EditarAsientoContable');
+//-------------------------------- Registro Contable ---------------/////////
+Route::get('estadosfinacieros/registrocuenta/{filtro}', 'Contabilidad\Plandecuetas@LoadRegistroContable');
+
+Route::resource('Contabilidad', 'Contabilidad\Plandecuetas');
+
+//-------------------------------- Tipo Transaccion Contable---------------/////////
+Route::get('transacciones/alltipotransacciones', 'Contabilidad\TipoTransaccion@getalltipotransacciones');
+
+/*
+ * ------------------------------REPORTE COMPRA-------------------------------------------------------------------------
+ */
+
+Route::get('reportecompra/getCompras', 'Reportes\ReporteCompraController@getCompras');
+Route::resource('reportecompra', 'Reportes\ReporteCompraController');
+
+/*
+ * ------------------------------REPORTE VENTA--------------------------------------------------------------------------
+ */
+
+Route::get('reporteventa/getVentas', 'Reportes\ReporteVentaController@getVentas');
+Route::resource('reporteventa', 'Reportes\ReporteVentaController');
+
+/*
+ * ------------------------------REPORTE NC-----------------------------------------------------------------------------
+ */
+
+Route::get('reportenc/getNC', 'Reportes\ReporteNCController@getNC');
+Route::resource('reportenc', 'Reportes\ReporteNCController');
+
+
+/*
+ * ------------------------------REPORTE VENTA/BALANCE------------------------------------------------------------------
+ */
+
+Route::get('reporteventabalance/getVentasBalance', 'Reportes\ReporteVentaBalanceController@getVentasBalance');
+Route::resource('reporteventabalance', 'Reportes\ReporteVentaBalanceController');
+
+/*
+ * ------------------------------CUENTAS POR COBRAR---------------------------------------------------------------------
+ */
+
+Route::get('cuentasxcobrar/getLastID', 'Cuentas\CuentasPorCobrarController@getLastID');
+Route::get('cuentasxcobrar/getInfoClienteByID/{idcliente}', 'Cuentas\CuentasPorCobrarController@getInfoClienteByID');
+Route::get('cuentasxcobrar/getCobrosLecturas/{id}', 'Cuentas\CuentasPorCobrarController@getCobrosLecturas');
+Route::get('cuentasxcobrar/getCobrosServices/{id}', 'Cuentas\CuentasPorCobrarController@getCobrosServices');
+Route::get('cuentasxcobrar/getCobros/{id}', 'Cuentas\CuentasPorCobrarController@getCobros');
+Route::get('cuentasxcobrar/getFacturas', 'Cuentas\CuentasPorCobrarController@getFacturas');
+Route::resource('cuentasxcobrar', 'Cuentas\CuentasPorCobrarController');
+
+/*
+ * ------------------------------CUENTAS POR PAGAR----------------------------------------------------------------------
+ */
+
+Route::get('cuentasxpagar/getLastID', 'Cuentas\CuentasPorPagarController@getLastID');
+Route::get('cuentasxpagar/getInfoClienteByID/{idcliente}', 'Cuentas\CuentasPorPagarController@getInfoClienteByID');
+Route::get('cuentasxpagar/getCobrosLecturas/{id}', 'Cuentas\CuentasPorPagarController@getCobrosLecturas');
+Route::get('cuentasxpagar/getCobrosServices/{id}', 'Cuentas\CuentasPorPagarController@getCobrosServices');
+Route::get('cuentasxpagar/getCobros/{id}', 'Cuentas\CuentasPorPagarController@getCobros');
+Route::get('cuentasxpagar/getFacturas', 'Cuentas\CuentasPorPagarController@getFacturas');
+Route::resource('cuentasxpagar', 'Cuentas\CuentasPorPagarController');
+
+//-------------------------------- Balances Contabilidad---------------/////////
+
+Route::resource('Balance', 'Contabilidad\Balances');
+Route::get('Balance/libro_diario/{filtro}', 'Contabilidad\Balances@get_libro_diario');
+Route::get('Balance/libro_mayor/{filtro}', 'Contabilidad\Balances@get_libro_mayor');
+Route::get('Balance/estado_resultados/{filtro}', 'Contabilidad\Balances@get_estado_resultados');
+Route::get('Balance/libro_diario_print/{filtro}', 'Contabilidad\Balances@print_libro_diario');
+Route::get('Balance/libro_mayor_print/{filtro}', 'Contabilidad\Balances@print_libro_mayor');
+Route::get('Balance/estado_resultados_print/{filtro}', 'Contabilidad\Balances@print_estado_resultados');
+Route::get('Balance/estado_cambio_patrimonio/{filtro}', 'Contabilidad\Balances@estado_cambio_patrimonio');
+Route::get('Balance/estado_cambios_patrimonio_print/{filtro}', 'Contabilidad\Balances@print_estado_cambios_patrimonio');
+Route::get('Balance/balance_general/{filtro}', 'Contabilidad\Balances@get_balance_contable');
+Route::get('Balance/balance_general_print/{filtro}', 'Contabilidad\Balances@print_balace_general');
+Route::get('Balance/estado_de_resultados/{filtro}', 'Contabilidad\Balances@get_estado_de_resultados');
+Route::get('Balance/estado_de_resultados_print/{filtro}', 'Contabilidad\Balances@print_estado_de_resultados');
+Route::get('Balance/balance_de_comprobacion/{filtro}', 'Contabilidad\Balances@get_balance_de_comprobacion');
+Route::get('Balance/balance_de_comprobacion_print/{filtro}', 'Contabilidad\Balances@print_balance_de_comprobacion');
+//-------------------------------- Balances Contabilidad---------------/////////
+
+//-------------------------------Gesrtionar depreciación de Activos Fijos---------------//
+
+Route::resource('Activosfijos/depreciacionActivosFijos','ActivosFijos\depreciacionActivosFijosController');
+Route::get('Activosfijos/AllActivosfijosAlta','ActivosFijos\depreciacionActivosFijosController@AllActivosFijosAlta');
+Route::get('Activosfijos/AllActivosfijosSinAlta','ActivosFijos\depreciacionActivosFijosController@AllActivosFijosSinAlta');
+Route::get('Activosfijos/ActivoFijoIndividual/{idactivo}','ActivosFijos\depreciacionActivosFijosController@ActivoFijoIndividual');
+Route::get('Activosfijos/AllResponsable/{responsable}','ActivosFijos\depreciacionActivosFijosController@Responsable');
+Route::post('Activosfijos/GuardarAltaActivosfijos/{numero}','ActivosFijos\depreciacionActivosFijosController@store');
+Route::get('Activosfijos/VerificarAltaCompra/{iditemcompra}','ActivosFijos\depreciacionActivosFijosController@VerificarAltaCompra');
+Route::get('Activosfijos/ObtenerDatosAlta/{iditemcompra}','ActivosFijos\depreciacionActivosFijosController@ObtenerDatosAlta');
+Route::get('Activosfijos/ObtenerPlanCuentaGasto/{iditemcompra}','ActivosFijos\depreciacionActivosFijosController@ObtenerPlanCuentaGasto');
+Route::get('Activosfijos/ObtenerDemasDatos/{iditemcompra}','ActivosFijos\depreciacionActivosFijosController@ObtenerDemasDAtos');
+Route::get('Activosfijos/ObtenerTiposMantencion','ActivosFijos\depreciacionActivosFijosController@ObtenerTiposMantencion');
+Route::get('Activosfijos/ObtenerNumActivo/{numactivo}','ActivosFijos\depreciacionActivosFijosController@ObtenerNumActivo');
+Route::get('Activosfijos/ObtenerIncidencia/{iddetalleitemactivofijo}','ActivosFijos\depreciacionActivosFijosController@ObtenerIncidencia');
+Route::get('Activosfijos/ObtenerMantencion/{iddetalleitemactivofijo}','ActivosFijos\depreciacionActivosFijosController@ObtenerMantencion');
+Route::get('Activosfijos/ObtenerTraslados/{iddetalleitemactivofijo}','ActivosFijos\depreciacionActivosFijosController@ObtenerTraslados');
+Route::get('Activosfijos/ObtenerConceptoBaja','ActivosFijos\depreciacionActivosFijosController@ObtenerConceptoBaja');
+Route::get('Activosfijos/ObtenerBaja/{iddetalleitemactivofijo}','ActivosFijos\depreciacionActivosFijosController@ObtenerBaja');
+Route::get('Activosfijos/VerificaDepreciacion/{iddetalleitemactivofijo}','ActivosFijos\depreciacionActivosFijosController@VerificaDepreciacion');
+Route::get('Activosfijos/DevolverDatosDeDetealleItemActivosFijos/{iddetalleitemactivofijo}','ActivosFijos\depreciacionActivosFijosController@DevolverDatosDeDetealleItemActivosFijos');
+Route::post('Activosfijos/ActualizarCampoDepreciado/{iddetalleitemactivofijo}','ActivosFijos\depreciacionActivosFijosController@ActualizarCampoDepreciado');
+Route::post('Activosfijos/ActualizarCampoBaja/{iddetalleitemactivofijo}','ActivosFijos\depreciacionActivosFijosController@ActualizarCampoBaja');
+Route::get('Activosfijos/ObtenerDepreciados','ActivosFijos\depreciacionActivosFijosController@ObtenerDepreciados');
+Route::get('Activosfijos/ObtenerNoDepreciados','ActivosFijos\depreciacionActivosFijosController@ObtenerNoDepreciados');
+Route::post('Activosfijos/GuardarAsientoContable','ActivosFijos\depreciacionActivosFijosController@GuardarAsientoContable');
+Route::get('Activosfijos/VerificarBaja/{iddetalleitemactivofijo}','ActivosFijos\depreciacionActivosFijosController@VerificarBaja');
+Route::get('Activosfijos/ObtenerUltimaDepreciacion','ActivosFijos\depreciacionActivosFijosController@ObtenerUltimaDepreciacion');
+Route::get('Activosfijos/ObtenerDatosCuentaGasto/{idgasto}','ActivosFijos\depreciacionActivosFijosController@ObtenerDatosCuentaGasto');
+
+
+//-------------------------------Rol de Pago----------------------------//
+
+Route::get('rolPago/getConceptos', 'Nomina\RolPagoController@getConceptos');
+Route::get('rolPago/getDataEmpleado/{id}', 'Nomina\RolPagoController@getDataEmpleado');
+Route::get('rolPago/getEmpleados', 'Nomina\RolPagoController@getEmpleados');
+Route::get('rolPago/getDataEmpresa', 'Nomina\RolPagoController@getDataEmpresa');
+Route::resource('rolPago', 'Nomina\RolPagoController');

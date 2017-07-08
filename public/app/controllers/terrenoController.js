@@ -301,6 +301,8 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
         $scope.calculate_caudal = terreno.caudal;
         $scope.valor_total = terreno.valoranual;
 
+        $scope.t_observacion_riego = terreno.observacion;
+
         $http.get(API_URL + 'editTerreno/getTomas/' + terreno.derivacion.canal.calle.barrio.idbarrio).success(function(response){
 
             var longitud = response.length;
