@@ -29,20 +29,32 @@ class SolicitudController extends Controller
 
     public function getSolicitudes()
     {
-        $solicitudriego = SolicitudRiego::with('cliente', 'terreno.derivacion.canal.calle.barrio')
-                                            ->orderBy('fechasolicitud', 'desc')
+        /*$solicitudriego = SolicitudRiego::with('solicitud.cliente', 'terreno.derivacion.canal.calle.barrio')
+                                            //->orderBy('fechasolicitud', 'desc')
                                             ->get();
-        $solicitudotro = SolicitudOtro::with('cliente')->orderBy('fechasolicitud', 'desc')
+        $solicitudotro = SolicitudOtro::with('cliente')//->orderBy('fechasolicitud', 'desc')
                                             ->get();
         $solicitudsetname = SolicitudCambioNombre::with('cliente', 'terreno.derivacion.canal.calle.barrio')
-                                            ->orderBy('fechasolicitud', 'desc')
+                                            //->orderBy('fechasolicitud', 'desc')
                                             ->get();
-        $solicitudreparticion = SolicitudReparticion::with('cliente')->orderBy('fechasolicitud', 'desc')
+        $solicitudreparticion = SolicitudReparticion::with('cliente')//->orderBy('fechasolicitud', 'desc')
                                             ->get();
         return response()->json([
             'riego' => $solicitudriego, 'otro' => $solicitudotro,
             'setname' => $solicitudsetname, 'reparticion' => $solicitudreparticion
-        ]);
+        ]);*/
+
+        return Solicitud::join('cliente', 'solicitud.idcliente', '=', 'cliente.idcliente')
+            ->join('persona', 'cliente.idpersona', '=', 'persona.idpersona')
+            ->selectRaw(
+                '*,
+                                (SELECT idsolicitudotro FROM solicitudotro WHERE solicitudotro.idsolicitud = solicitud.idsolicitud) AS solicitudotro,
+                                (SELECT idsolicitudcambionombre FROM solicitudcambionombre WHERE solicitudcambionombre.idsolicitud = solicitud.idsolicitud) AS solicitudcambionombre,
+                                (SELECT idsolicitudreparticion FROM solicitudreparticion WHERE solicitudreparticion.idsolicitud = solicitud.idsolicitud) AS solicitudreparticion,
+                                (SELECT idsolicitudriego FROM solicitudriego WHERE solicitudriego.idsolicitud = solicitud.idsolicitud) AS solicitudriego'
+            )
+            ->orderBy('idsolicitud', 'desc')->orderBy('fechasolicitud', 'desc')->paginate(10);
+
     }
 
     public function getByFilter($filter)
@@ -60,7 +72,7 @@ class SolicitudController extends Controller
             if ($filter_view->estado == 2) $estado = false;
 
             if ($filter_view->tipo == 4){
-                $solicitudriego = SolicitudRiego::with('cliente', 'terreno.derivacion.canal.calle.barrio')
+                $solicitudriego = SolicitudRiego::with('solicitud.cliente', 'terreno.derivacion.canal.calle.barrio')
                     ->where('estaprocesada', $estado)->orderBy('fechasolicitud', 'desc')->get();
             } else if ($filter_view->tipo == 3){
                 $solicitudsetname = SolicitudCambioNombre::with('cliente', 'terreno.derivacion.canal.calle.barrio')

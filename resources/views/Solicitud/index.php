@@ -1,6 +1,14 @@
 
 
-        <div class="col-xs-12" ng-controller="solicitudController" style="margin-top: 2%;">
+        <div class="col-xs-12" ng-controller="solicitudController" style="">
+
+            <div class="col-xs-12">
+
+                <h4>Gestión de Solicitudes</h4>
+
+                <hr>
+
+            </div>
 
             <div class="col-xs-12">
                 <div class="col-sm-4 col-xs-12">
@@ -36,7 +44,7 @@
                 <table class="table table-responsive table-striped table-hover table-condensed">
                     <thead class="bg-primary">
                     <tr>
-                        <th style="width: 10%;">Nro. Solicitud</th>
+                        <th style="width: 5%;">Nro.</th>
                         <th style="width: 10%;">Fecha</th>
                         <th>Cliente</th>
                         <th>Dirección</th>
@@ -48,11 +56,11 @@
                     </thead>
                     <tbody>
                     <tr dir-paginate="solicitud in solicitudes | orderBy:sortKey:reverse |itemsPerPage:10 | filter : search" ng-cloak>
-                        <td>{{solicitud.no_solicitud}}</td>
-                        <td>{{solicitud.fecha | formatDate}}</td>
-                        <td style="font-weight: bold;"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{solicitud.cliente}}</td>
+                        <td>{{solicitud.idsolicitud}}</td>
+                        <td>{{solicitud.fechasolicitud | formatDate}}</td>
+                        <td style="font-weight: bold;">{{solicitud.razonsocial}}</td>
                         <td>{{solicitud.direccion}}</td>
-                        <td>{{solicitud.telefono}}</td>
+                        <td>{{solicitud.telefonoprincipaldomicilio}}</td>
                         <td>{{solicitud.tipo}}</td>
                         <td ng-if="solicitud.estado == true"><span class="label label-primary" style="font-size: 14px !important;">Procesada</span></td>
                         <td ng-if="solicitud.estado == false"><span class="label label-warning" style="font-size: 14px !important;">En Espera</span></td>
@@ -60,17 +68,14 @@
                             <button type="button" class="btn btn-info" id="btn_inform" ng-click="info(solicitud)" >
                                 <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
                             </button>
-                            <button type="button" class="btn btn-primary" id="btn_process" ng-click="" disabled>
+                            <button type="button" class="btn btn-primary" id="btn_process" ng-click="">
                                 <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                             </button>
-
                             <span ng-if="solicitud.tipo == 'Riego'">
                                 <button type="button" class="btn btn-default" id="btn_pdf" ng-click="" >
                                     <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
                                 </button>
                             </span>
-
-
                         </td>
                         <td ng-if="solicitud.estado == false">
                             <button type="button" class="btn btn-info" id="btn_inform" disabled>

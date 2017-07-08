@@ -425,7 +425,7 @@ class ClienteController extends Controller
 
     public function storeSolicitudOtro(Request $request)
     {
-        $solicitudriego = new SolicitudOtro();
+        /*$solicitudriego = new SolicitudOtro();
         $solicitudriego->codigocliente = $request->input('codigocliente');
         $solicitudriego->fechasolicitud = date('Y-m-d');
         $solicitudriego->estaprocesada = false;
@@ -436,7 +436,32 @@ class ClienteController extends Controller
         $max_idsolicitud = SolicitudOtro::where('idsolicitudotro', $solicitudriego->idsolicitudotro)->get();
 
         return ($result) ? response()->json(['success' => true, 'idsolicitud' => $max_idsolicitud[0]->idsolicitud]) :
-                                                                                response()->json(['success' => false]);
+                                                                                response()->json(['success' => false]);*/
+
+        $fecha_actual = date('Y-m-d');
+
+        $solicitud = new Solicitud();
+        $solicitud->idcliente = $request->input('codigocliente');
+        $solicitud->fechasolicitud = $fecha_actual;
+        $solicitud->fechaprocesada = $fecha_actual;
+        $solicitud->estaprocesada = false;
+
+        if ($solicitud->save()) {
+
+            $solicitudriego = new SolicitudOtro();
+            $solicitudriego->idsolicitud = $solicitud->idsolicitud;
+            $solicitudriego->descripcion = $request->input('observacion');
+
+            $result = $solicitudriego->save();
+
+            $max_idsolicitud = SolicitudOtro::where('idsolicitudotro', $solicitudriego->idsolicitudotro)->get();
+
+            return ($result) ? response()->json(['success' => true, 'idsolicitud' => $max_idsolicitud[0]->idsolicitud]) :
+                response()->json(['success' => false]);
+
+        } else {
+            response()->json(['success' => false]);
+        }
     }
 
     public function storeSolicitudSetName(Request $request)

@@ -29,7 +29,11 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
     $scope.t_tipo_solicitud = 5;
 
-    $scope.initLoad = function () {
+    $scope.pageChanged = function(newPage) {
+        $scope.initLoad(newPage);
+    };
+
+    /*$scope.initLoad = function () {
         $http.get(API_URL + 'solicitud/getSolicitudes').success(function(response){
 
             console.log(response);
@@ -140,6 +144,77 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             }
 
             $scope.solicitudes = list;
+
+
+        });
+    };*/
+
+    $scope.initLoad = function (pageNumber) {
+
+        /*$http.get(API_URL + 'cliente/getTasaInteres').success(function(response){
+            $scope.tasainteres = parseFloat(response[0].optionvalue);
+        });*/
+
+        if ($scope.busqueda == undefined) {
+            var search = null;
+        } else var search = $scope.busqueda;
+
+        var filtros = {
+            search: search
+        };
+
+        $http.get(API_URL + 'solicitud/getSolicitudes?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
+
+            //console.log(response);
+
+            var longitud = response.data.length;
+
+            if (longitud > 0) {
+
+                for (var i = 0; i < longitud; i++) {
+
+                    var tipo = '';
+                    var idtipo = 0;
+
+                    if (response.data[i].solicitudcambionombre !== null) {
+                        tipo = 'Cambio de Nombre';
+                        idtipo = response.data[i].solicitudcambionombre;
+                    } else if (response.data[i].solicitudreparticion !== null) {
+                        tipo = 'Repartición';
+                        idtipo = response.data[i].solicitudreparticion;
+                    } else if (response.data[i].solicitudotro !== null) {
+                        tipo = 'Otra Solicitud';
+                        idtipo = response.data[i].solicitudotro;
+                    } else if (response.data[i].solicitudriego !== null) {
+                        tipo = 'Riego';
+                        idtipo = response.data[i].solicitudriego;
+                    }
+
+                    var tipo_name = {
+                        value: tipo,
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response.data[i], 'tipo', tipo_name);
+
+                    var tipo_id = {
+                        value: idtipo,
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response.data[i], 'tipo_id', tipo_id);
+
+                }
+
+            }
+
+            $scope.solicitudes = response.data;
+            $scope.totalItems = response.total;
+
+
+            console.log(response.data);
 
 
         });
@@ -459,7 +534,6 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.valor_new_fraccion = parseFloat(response.costo).toFixed(2);
         });
     };
-
 
     $scope.getTerrenosByCliente = function (idcliente, idterreno) {
 
@@ -1064,16 +1138,20 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
     };
 
     $scope.info = function (solicitud) {
-        if(solicitud.tipo == 'Otra Solicitud') {
-            $scope.no_info_otro = solicitud.no_solicitud;
-            $scope.ingresada_info_otro = convertDatetoDB(solicitud.fecha, true);
+
+        console.log(solicitud);
+
+        if(solicitud.tipo === 'Otra Solicitud') {
+
+            $scope.no_info_otro = solicitud.solicitudotro;
+            $scope.ingresada_info_otro = convertDatetoDB(solicitud.fechasolicitud, true);
             $scope.procesada_info_otro = convertDatetoDB(solicitud.fechaprocesada, true);
-            $scope.cliente_info_otro = solicitud.cliente;
-            $scope.descripcion_info_otro = solicitud.descripcion;
+            $scope.cliente_info_otro = solicitud.razonsocial;
+            //$scope.descripcion_info_otro = solicitud.descripcion;
             $('#modalInfoSolOtros').modal('show');
         }
 
-        if(solicitud.tipo == 'Riego') {
+        if(solicitud.tipo === 'Riego') {
             $scope.no_info_riego = solicitud.no_solicitud;
             $scope.ingresada_info_riego = convertDatetoDB(solicitud.fecha, true);
             $scope.procesada_info_riego = convertDatetoDB(solicitud.fechaprocesada, true);
@@ -1090,7 +1168,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $('#modalInfoSolRiego').modal('show');
         }
 
-        if(solicitud.tipo == 'Repartición') {
+        if(solicitud.tipo === 'Repartición') {
             $scope.no_info_fraccion = solicitud.no_solicitud;
             $scope.ingresada_info_fraccion = convertDatetoDB(solicitud.fecha, true);
             $scope.procesada_info_fraccion = convertDatetoDB(solicitud.fechaprocesada, true);
@@ -1101,7 +1179,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
         }
 
-        if(solicitud.tipo == 'Cambio de Nombre') {
+        if(solicitud.tipo === 'Cambio de Nombre') {
             $scope.no_info_setN = solicitud.no_solicitud;
             $scope.ingresada_info_setN = convertDatetoDB(solicitud.fecha, true);
             $scope.procesada_info_setN = convertDatetoDB(solicitud.fechaprocesada, true);
