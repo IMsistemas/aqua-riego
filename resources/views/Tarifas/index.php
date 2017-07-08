@@ -1,6 +1,6 @@
 
 
-        <div class="col-xs-12" ng-controller="tarifaController" style="margin-top: 2%;">
+        <div class="col-xs-12" ng-controller="tarifaController">
 
             <div class="col-xs-12">
 

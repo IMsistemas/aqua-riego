@@ -59,7 +59,7 @@ app.controller('transportistaController', function($scope, $http, API_URL, Uploa
 
             $scope.proveedor = '';
 
-            if (idproveedor != undefined) {
+            if (idproveedor !== undefined) {
                 $scope.proveedor = idproveedor;
             }
 
