@@ -32,7 +32,7 @@ class CobroAguaController extends Controller
     public function verifyPeriodo()
     {
         $count = CobroAgua::where('aniocobro', date('Y'))
-                                ->count();
+            ->count();
 
         if ($count != 0) {
             $count_terreno = Terreno::whereRaw('idterreno NOT IN (SELECT idterreno FROM cobroagua)')->count();
@@ -56,15 +56,15 @@ class CobroAguaController extends Controller
     public function getCobros()
     {
         return CobroAgua::join('terreno', 'terreno.idterreno', '=', 'cobroagua.idterreno')
-                            ->join('cliente', 'terreno.idcliente', '=', 'cliente.idcliente')
-                            ->join('persona', 'cliente.idpersona', '=', 'persona.idpersona')
-                            ->join('tarifa', 'terreno.idtarifa', '=', 'tarifa.idtarifa')
-                            ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
-                            ->join('canal', 'derivacion.idcanal', '=', 'canal.idcanal')
-                            ->join('calle', 'canal.idcalle', '=', 'calle.idcalle')
-                            ->join('barrio', 'calle.idbarrio', '=', 'barrio.idbarrio')
-                            ->orderBy('aniocobro', 'desc')
-                            ->get();
+            ->join('cliente', 'terreno.idcliente', '=', 'cliente.idcliente')
+            ->join('persona', 'cliente.idpersona', '=', 'persona.idpersona')
+            ->join('tarifa', 'terreno.idtarifa', '=', 'tarifa.idtarifa')
+            ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
+            ->join('canal', 'derivacion.idcanal', '=', 'canal.idcanal')
+            ->join('calle', 'canal.idcalle', '=', 'calle.idcalle')
+            ->join('barrio', 'calle.idbarrio', '=', 'barrio.idbarrio')
+            ->orderBy('aniocobro', 'desc')
+            ->get();
     }
 
     /**
@@ -78,12 +78,12 @@ class CobroAguaController extends Controller
         $filter = json_decode($filters);
 
         $cobro = CobroAgua::join('terreno', 'terreno.idterreno', '=', 'cobroagua.idterreno')
-                            ->join('cliente', 'terreno.codigocliente', '=', 'cliente.codigocliente')
-                            ->join('tarifa', 'terreno.idtarifa', '=', 'tarifa.idtarifa')
-                            ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
-                            ->join('canal', 'derivacion.idcanal', '=', 'canal.idcanal')
-                            ->join('calle', 'canal.idcalle', '=', 'calle.idcalle')
-                            ->join('barrio', 'calle.idbarrio', '=', 'barrio.idbarrio');
+            ->join('cliente', 'terreno.codigocliente', '=', 'cliente.codigocliente')
+            ->join('tarifa', 'terreno.idtarifa', '=', 'tarifa.idtarifa')
+            ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
+            ->join('canal', 'derivacion.idcanal', '=', 'canal.idcanal')
+            ->join('calle', 'canal.idcalle', '=', 'calle.idcalle')
+            ->join('barrio', 'calle.idbarrio', '=', 'barrio.idbarrio');
 
         if($filter->estado != null && $filter->estado != '3'){
             $estado = ($filter->estado == '1') ? true : false;
@@ -107,8 +107,8 @@ class CobroAguaController extends Controller
             foreach ($terreno as $item){
 
                 $objectCobro = CobroAgua::where('idterreno', $item->idterreno)
-                                            ->where('aniocobro', date('Y'))
-                                            ->count();
+                    ->where('aniocobro', date('Y'))
+                    ->count();
                 if ($objectCobro == 0) {
                     $cobro = new CobroAgua();
 
@@ -156,8 +156,8 @@ class CobroAguaController extends Controller
         $descuento_recargo_exists = false;
 
         $descuento = Descuento::where('year', date('Y'))
-                                ->where('mes', date('n'))
-                                ->get();
+            ->where('mes', date('n'))
+            ->get();
 
         if(count($descuento) > 0) {
 
@@ -168,8 +168,8 @@ class CobroAguaController extends Controller
 
         } else {
             $recargo = Recargo::where('year', date('Y'))
-                                    ->where('mes', date('n'))
-                                    ->get();
+                ->where('mes', date('n'))
+                ->get();
 
             if (count($recargo) > 0) {
                 $total = ($cobro->total * $recargo[0]->porcentage) / 100;
@@ -200,8 +200,8 @@ class CobroAguaController extends Controller
     private function searchAtraso($idterreno)
     {
         $cobro = CobroAgua::where('aniocobro', (date('Y') - 1))
-                            ->where('idterreno', $idterreno)
-                            ->get();
+            ->where('idterreno', $idterreno)
+            ->get();
 
         if (count($cobro) == 0){
             return 0;
