@@ -881,7 +881,6 @@ Route::get('Balance/balance_de_comprobacion_print/{filtro}', 'Contabilidad\Balan
 
 //-------------------------------Gesrtionar depreciación de Activos Fijos---------------//
 
-Route::resource('Activosfijos/depreciacionActivosFijos','ActivosFijos\depreciacionActivosFijosController');
 Route::get('Activosfijos/AllActivosfijosAlta','ActivosFijos\depreciacionActivosFijosController@AllActivosFijosAlta');
 Route::get('Activosfijos/AllActivosfijosSinAlta','ActivosFijos\depreciacionActivosFijosController@AllActivosFijosSinAlta');
 Route::get('Activosfijos/ActivoFijoIndividual/{idactivo}','ActivosFijos\depreciacionActivosFijosController@ActivoFijoIndividual');
@@ -908,6 +907,8 @@ Route::post('Activosfijos/GuardarAsientoContable','ActivosFijos\depreciacionActi
 Route::get('Activosfijos/VerificarBaja/{iddetalleitemactivofijo}','ActivosFijos\depreciacionActivosFijosController@VerificarBaja');
 Route::get('Activosfijos/ObtenerUltimaDepreciacion','ActivosFijos\depreciacionActivosFijosController@ObtenerUltimaDepreciacion');
 Route::get('Activosfijos/ObtenerDatosCuentaGasto/{idgasto}','ActivosFijos\depreciacionActivosFijosController@ObtenerDatosCuentaGasto');
+Route::get('Activosfijos/ObtenerDatosCuentaDepreciacion/{iddepreciacion}','ActivosFijos\depreciacionActivosFijosController@ObtenerDatosCuentaDepreciacion');
+Route::resource('Activosfijos/depreciacionActivosFijos','ActivosFijos\depreciacionActivosFijosController');
 
 
 //-------------------------------Rol de Pago----------------------------//

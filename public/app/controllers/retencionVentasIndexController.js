@@ -22,6 +22,12 @@ app.controller('retencionVentasController', function($scope, $http, API_URL) {
         $scope.initLoad(1);
     });
 
+    $('.datepicker').datetimepicker({
+        locale: 'es',
+        format: 'YYYY-MM-DD',
+        ignoreReadonly: false
+    });
+
     $scope.active = '0';
 
     $scope.tiporetencion = [
@@ -957,6 +963,21 @@ app.controller('retencionVentasController', function($scope, $http, API_URL) {
         } else {
             var t = now.split('-');
             return t[2] + '/' + t[1] + '/' + t[0];
+        }
+    };
+
+    $scope.typeResident = function () {
+
+        $scope.paispago = '';
+
+        if ($scope.tipopago == '1') {
+
+            $('#paispago').prop('disabled', true);
+
+        } else {
+
+            $('#paispago').prop('disabled', false);
+
         }
     };
 

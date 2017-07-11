@@ -36,7 +36,7 @@
     </div>
 
     <!--<div  class="container-fluid" ng-controller="Venta" ng-cloak ng-init="NumeroRegistroVenta();AllDocVenta();GetBodegas();GetFormaPago();GetPuntodeVenta(); ConfigContable();">-->
-    <div  class="col-xs-12" ng-controller="Venta" ng-cloak ng-init=";GetPuntodeVenta(); ConfigContable();NumeroRegistroVenta();GetBodegas();GetFormaPago();">
+    <div  class="col-xs-12" ng-controller="Venta" ng-cloak ng-init="GetPuntodeVenta(); ConfigContable();NumeroRegistroVenta();GetBodegas();GetFormaPago();">
 
         <input type="hidden" ng-model="otherFactura" id="otherFactura" value="<?= $viewFactura ?>">
 
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="col-xs-4 text-right" >
-                        <button class="btn btn-primary" ng-disabled="Valida=='1' " ng-click="VerFactura=1; LimiarDataVenta();NumeroRegistroVenta();" title="Nueva Factura"><i class="glyphicon glyphicon-plus"></i></button>
+                        <button type="button" class="btn btn-primary" ng-disabled="Valida=='1' " ng-click="VerFactura=1; LimiarDataVenta();NumeroRegistroVenta();" title="Nueva Factura"><i class="glyphicon glyphicon-plus"></i></button>
                     </div>
                 </div>
                 <div class="row">
