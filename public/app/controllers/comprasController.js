@@ -96,6 +96,12 @@
 
         };
 
+        $scope.valueFecha = function () {
+
+            $scope.fechaemisioncomprobante = $('#fechaemisioncomprobante').val();
+
+        };
+
         $scope.getPaisPagoComprobante = function () {
 
             $http.get(API_URL + 'DocumentoCompras/getPaisPagoComprobante').success(function(response){
@@ -594,7 +600,7 @@
 
         $scope.save = function(){
 
-            $('#btn-save').prop('disabled', true);
+            $('#btn-save0').prop('disabled', true);
 
             var Transaccion={
                 fecha:$("#fechaemisioncompra").val(),
@@ -815,10 +821,24 @@
             //--Items venta
             var ItemsVenta=[];
             for(x=0;x<$scope.items.length;x++){
+
+                var bodega = null;
+
+                console.log($scope.Bodega);
+
+                if ($scope.Bodega !== '0' || $scope.Bodega !== undefined || $scope.Bodega.trim() !== '') {
+                    console.log($scope.Bodega);
+                    bodega = $scope.Bodega;
+                }
+
+                if (bodega == '') {
+                    bodega = null;
+                }
+
                 var itemsdocventa={
                     idcatalogitem: $scope.items[x].productoObj.originalObject.idcatalogitem,
                     iddocumentoventa:0,
-                    idbodega: $scope.Bodega,
+                    idbodega: bodega,
                     idtipoimpuestoiva:$scope.items[x].productoObj.originalObject.idtipoimpuestoiva,
                     idtipoimpuestoice:$scope.items[x].productoObj.originalObject.idtipoimpuestoice,
                     cantidad:parseInt($scope.items[x].cantidad),
@@ -852,7 +872,7 @@
                 }
             }
 
-            console.log(dataComprobante);
+
 
             var transaccion_venta_full={
                 DataContabilidad: Contabilidad,
@@ -863,7 +883,7 @@
                 dataComprobante: dataComprobante
             };
 
-            //console.log(transaccion_venta_full);
+            console.log(ItemsVenta);
 
 
 
@@ -877,7 +897,7 @@
                     console.log(response);
 
                 if (response.success == true) {
-
+                    $('#btn-save').prop('disabled', true);
                     $('#modalConfirmSave').modal('hide');
                     $scope.message = 'Se insertó correctamente la Compra...';
                     $('#modalMessage1').modal('show');
@@ -902,6 +922,7 @@
         };
 
         $scope.confirmSave = function() {
+            $('#btn-save0').prop('disabled', false);
             $('#modalConfirmSave').modal('show');
         };
 
@@ -988,11 +1009,18 @@
                 $scope.fecharegistrocompra = response.fecharegistrocompra;
                 $scope.fechaemisioncompra = response.fechaemisioncompra;
 
+                $scope.observacion = aux_transaccion.descripcion;
+
                 var longitud_item = Items.length;
 
                 $scope.items = [];
 
                 for (var i = 0; i < longitud_item; i++) {
+
+                    if (Items[i].idbodega !== null) {
+                        $scope.Bodega = (Items[0].idbodega).toString();
+                    }
+
                     var item = {
 
                         productoObj:{
@@ -1013,7 +1041,7 @@
 
                 }
 
-                $scope.Bodega = (Items[0].idbodega).toString();
+
 
                 if (response.cont_formapago_documentocompra.length > 0) {
                     $scope.formapago = response.cont_formapago_documentocompra[0].idformapago;

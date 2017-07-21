@@ -42,6 +42,18 @@ class PuntoVentaController  extends Controller
         ->get();
     }
 
+    public function getExistEstablecimiento()
+    {
+        $result = SRI_Establecimiento::count();
+
+        if ($result == 0){
+            return response()->json(['success' => false]);
+        } else {
+            return response()->json(['success' => true]);
+        }
+    }
+
+
     public function empleadoVacio()
     {
         //return Empleado::all();
@@ -77,14 +89,17 @@ class PuntoVentaController  extends Controller
      */
     public function store(Request $request)
     {
-             $empleado=DB::table('empleado')
-            ->join('persona','persona.idpersona','=','empleado.idpersona')
-            ->select('empleado.idempleado')
-            ->where('persona.numdocidentific','=',$request->input('identificacionempleado'))->first();
+            $empleado=DB::table('empleado')
+                            ->join('persona','persona.idpersona','=','empleado.idpersona')
+                            ->select('empleado.idempleado')
+                            ->where('persona.numdocidentific','=',$request->input('identificacionempleado'))->first();
             $puntoventa = new Cont_PuntoDeVenta();
             $puntoventa->codigoptoemision = $request->input('codigoemision');
             $puntoventa->idempleado = $empleado->idempleado;
-            $puntoventa->idestablecimiento = 1;
+
+            $establecimiento = SRI_Establecimiento::get();
+
+            $puntoventa->idestablecimiento = $establecimiento[0]->idestablecimiento;
             $puntoventa->save();
             return response()->json(['success' => true]);
     }

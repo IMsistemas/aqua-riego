@@ -1,6 +1,4 @@
 
-
-
     <div ng-controller="catalogoproductosController">
 
             <div class="col-xs-12">
@@ -76,7 +74,7 @@
                                         data-toggle="tooltip" data-placement="bottom" title="Editar" >
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </button>
-                                <button type="button" class="btn btn-danger" ng-click="showModalConfirm(producto.idcatalogitem)"
+                                <button ng-show="producto.idcatalogitem != 1 && producto.idcatalogitem != 2" type="button" class="btn btn-danger" ng-click="showModalConfirm(producto.idcatalogitem)"
                                         data-toggle="tooltip" data-placement="bottom" title="Eliminar">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </button>
@@ -232,7 +230,7 @@
 
                                     <div class="col-xs-12" style="margin-top: 5px;">
                                         <div class="input-group">
-                                            <span class="input-group-addon">Cuenta Contable: </span>
+                                            <span class="input-group-addon">C. Contable (Ingreso): </span>
                                             <input type="text" class="form-control" name="t_cuentacontableingreso" id="t_cuentacontableingreso"
                                                    ng-model="t_cuentacontableingreso" placeholder=""  readonly ng-required="true">
                                             <input type="hidden" name="producto.idplancuenta_ingreso" id="h_idplancuenta_i" ng-model="h_idplancuenta_i">

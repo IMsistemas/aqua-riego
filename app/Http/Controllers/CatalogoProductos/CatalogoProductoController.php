@@ -65,6 +65,11 @@ class CatalogoProductoController extends Controller
     {
         return Cont_ClaseItem::orderBy('nameclaseitem', 'asc')->get();
     }
+
+    public function getIVADefault()
+    {
+        return ConfiguracionSystem::where('optionname', 'SRI_IVA_DEFAULT')->get();
+    }
     
     /**
      * Obtener las lineas para filtro
@@ -131,7 +136,12 @@ class CatalogoProductoController extends Controller
             $catalogo->idcategoria = $request->input('idcategoria');
             $catalogo->nombreproducto = $request->input('nombreproducto');
             $catalogo->codigoproducto = $request->input('codigoproducto');
-            $catalogo->precioventa = $request->input('precioventa');
+
+            if ($request->input('precioventa') != null && $request->input('precioventa') != '') {
+                $catalogo->precioventa = $request->input('precioventa');
+            }
+
+
             $catalogo->created_at = $date;
             $catalogo->updated_at = $date;
     	if(is_object($image)){
@@ -242,7 +252,12 @@ class CatalogoProductoController extends Controller
             $catalogo->idcategoria = $request->input('idcategoria');
             $catalogo->nombreproducto = $request->input('nombreproducto');
             $catalogo->codigoproducto = $request->input('codigoproducto');
-            $catalogo->precioventa = $request->input('precioventa');
+
+            if ($request->input('precioventa') != null && $request->input('precioventa') != '' && $request->input('precioventa') != 'null') {
+                $catalogo->precioventa = $request->input('precioventa');
+            }
+
+            //$catalogo->precioventa = $request->input('precioventa');
             $catalogo->updated_at = $date;
     	
     	   $catalogo->update();

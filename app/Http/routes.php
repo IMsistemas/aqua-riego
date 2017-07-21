@@ -785,6 +785,7 @@ Route::get('puntoventa/verificaremision/{emision}', 'Contabilidad\PuntoVentaCont
 Route::get('puntoventa/cargaestablecimiento', 'Contabilidad\PuntoVentaController@cargaEstablecimiento');
 Route::get('puntoventa/cargarpuntoventa/{id}', 'Contabilidad\PuntoVentaController@cargarPuntoVenta');
 Route::get('puntoventa/verificarvacio', 'Contabilidad\PuntoVentaController@empleadoVacio');
+Route::get('puntoventa/getExistEstablecimiento', 'Contabilidad\PuntoVentaController@getExistEstablecimiento');
 Route::resource('puntoventa', 'Contabilidad\PuntoVentaController');
 
 //-------------------------------- Plan Cuentas ---------------/////////
@@ -881,6 +882,7 @@ Route::get('Balance/balance_de_comprobacion_print/{filtro}', 'Contabilidad\Balan
 
 //-------------------------------Gesrtionar depreciación de Activos Fijos---------------//
 
+
 Route::get('Activosfijos/AllActivosfijosAlta','ActivosFijos\depreciacionActivosFijosController@AllActivosFijosAlta');
 Route::get('Activosfijos/AllActivosfijosSinAlta','ActivosFijos\depreciacionActivosFijosController@AllActivosFijosSinAlta');
 Route::get('Activosfijos/ActivoFijoIndividual/{idactivo}','ActivosFijos\depreciacionActivosFijosController@ActivoFijoIndividual');
@@ -913,8 +915,14 @@ Route::resource('Activosfijos/depreciacionActivosFijos','ActivosFijos\depreciaci
 
 //-------------------------------Rol de Pago----------------------------//
 
+Route::get('rolPago/getCuentas', 'Nomina\RolPagoController@getCuentas');
+Route::get('rolPago/getPlanCuenta', 'Nomina\RolPagoController@getPlanCuenta');
 Route::get('rolPago/getConceptos', 'Nomina\RolPagoController@getConceptos');
 Route::get('rolPago/getDataEmpleado/{id}', 'Nomina\RolPagoController@getDataEmpleado');
 Route::get('rolPago/getEmpleados', 'Nomina\RolPagoController@getEmpleados');
 Route::get('rolPago/getDataEmpresa', 'Nomina\RolPagoController@getDataEmpresa');
 Route::resource('rolPago', 'Nomina\RolPagoController');
+
+Route::get('configNomina/getConceptos', 'ConfiguracionSystem\ConfigNominaController@getConceptos');
+Route::get('configNomina/getConfigNomina', 'ConfiguracionSystem\ConfigNominaController@getConfigNomina');
+Route::resource('configNomina', 'ConfiguracionSystem\ConfigNominaController');

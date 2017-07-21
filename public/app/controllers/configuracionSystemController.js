@@ -4,6 +4,8 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     $scope.idestablecimiento = 0;
     $scope.fieldconcepto = '';
     $scope.fieldid = '';
+    $scope.conceptos = [];
+    var field = '';
 
     $scope.initLoad = function () {
 
@@ -16,6 +18,10 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         $scope.getConfigVenta();
 
         $scope.getConfigNC();
+
+        $scope.getConceptos();
+
+        $scope.getConfigNomina();
 
         $scope.getConfigEspecifica();
 
@@ -35,7 +41,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         $scope.url_foto = 'img/empleado.png';
 
         $http.get(API_URL + '/configuracion/getDataEmpresa').success(function(response){
-            console.log(API_URL);
+
             if(response.length != 0){
                 $scope.t_razonsocial = response[0].razonsocial;
                 $scope.t_nombrecomercial = response[0].nombrecomercial;
@@ -93,7 +99,6 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             obligadocontabilidad: $scope.s_obligado,
             rutalogo: $scope.file
         };
-        console.log(data);
 
         var url = API_URL + "/configuracion";
 
@@ -154,7 +159,6 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             $scope.iva = '';
 
             $http.get(API_URL + '/configuracion/getIVADefault').success(function(response){
-                console.log(response);
 
                 if(response.length > 0){
 
@@ -175,7 +179,6 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         var data = {
             optionvalue: $scope.iva
         };
-        console.log(data);
 
         $http.put(API_URL + '/configuracion/updateIvaDefault/'+ $scope.idconfiguracionsystem, data ).success(function (response) {
 
@@ -200,8 +203,6 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
     $scope.getConfigCompra = function () {
         $http.get(API_URL + 'configuracion/getConfigCompra').success(function(response){
-
-            console.log(response);
 
             var longitud = response.length;
 
@@ -292,8 +293,6 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
     $scope.getConfigVenta = function () {
         $http.get(API_URL + 'configuracion/getConfigVenta').success(function(response){
-
-            console.log(response);
 
             var longitud = response.length;
 
@@ -393,8 +392,6 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     $scope.getConfigNC = function () {
         $http.get(API_URL + 'configuracion/getConfigNC').success(function(response){
 
-            console.log(response);
-
             var longitud = response.length;
 
             for (var i = 0; i < longitud; i++) {
@@ -490,7 +487,155 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
     //-----------------------------------------------------------------------------------------------------------------
 
-    $scope.getConfigEspecifica = function () {
+    $scope.getConceptos = function () {
+
+        $http.get(API_URL + 'configNomina/getConceptos').success(function(response){
+
+            console.log(response);
+
+            var longitud = response.length;
+            var array_temp = [];
+            for(var i = 0; i < longitud; i++){
+                if (response[i].id_categoriapago === 1 && response[i].grupo !== "1"){
+                    var cuenta = {
+                        value: "",
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'cuenta', cuenta);
+                    var idcuenta = {
+                        value: "",
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'idcuenta', idcuenta);
+                    var impuesto = {
+                        value: response[i].confignomina[0].value_imp,
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'impuesto', impuesto);
+                    var idcuenta1 = {
+                        value: "",
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'idcuenta1', idcuenta1);
+                    array_temp.push(response[i]);
+                }
+                if (response[i].id_categoriapago !== 1 && response[i].id_categoriapago !== 4){
+                    var cuenta = {
+                        value: "",
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'cuenta', cuenta);
+                    var idcuenta = {
+                        value: "",
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'idcuenta', idcuenta);
+                    var impuesto = {
+                        value: response[i].confignomina[0].value_imp,
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'impuesto', impuesto);
+                    var idcuenta1 = {
+                        value: "",
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'idcuenta1', idcuenta1);
+                    array_temp.push(response[i]);
+                }
+                if (response[i].id_categoriapago === 4){
+                    var cuenta = {
+                        value: "",
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'cuenta', cuenta);
+                    var idcuenta = {
+                        value: "",
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'idcuenta', idcuenta);
+                    var impuesto = {
+                        value: "",
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'impuesto', impuesto);
+                    var cuenta1 = {
+                        value: "",
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'cuenta1', cuenta1);
+                    var idcuenta1 = {
+                        value: "",
+                        writable: true,
+                        enumerable: true,
+                        configurable: true
+                    };
+                    Object.defineProperty(response[i], 'idcuenta1', idcuenta1);
+                    array_temp.push(response[i]);
+                }
+            }
+            $scope.conceptos = array_temp;
+
+        });
+    };
+
+    $scope.getConfigNomina = function () {
+        $http.get(API_URL + 'configNomina/getConfigNomina').success(function(response){
+
+            console.log(response);
+        });
+    };
+
+    $scope.saveConfigNomina = function () {
+
+        var data = {
+            conceptos: $scope.conceptos
+        };
+
+        $http.post(API_URL + '/configNomina', data ).success(function (response) {
+
+            if (response.success == true) {
+                $scope.initLoad();
+                $scope.message = 'Se guardaron correctamente los datos de la Configuración de Nomina';
+                $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+            } else {
+                $scope.message_error = 'Ha ocurrido un error al actualizar los datos de la Configuración de Nomina';
+                $('#modalMessageError').modal('show');
+                $scope.hideModalMessage();
+            }
+
+
+        }).error(function (res) {
+
+        });
+    };
+
+    //-----------------------------------------------------------------------------------------------------------------
+     $scope.getConfigEspecifica = function () {
         $http.get(API_URL + 'configuracion/getConfigEspecifica').success(function(response){
 
             var longitud = response.length;
@@ -499,20 +644,20 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
                 //-----PARA SISTEMA PISQUE (RIEGO)------------------------------------------------
 
-                if (response[i].optionname === 'PISQUE_CONSTANTE') {
+                /*if (response[i].optionname == 'PISQUE_CONSTANTE') {
                     $scope.h_pisque_constante = response[i].idconfiguracionsystem;
                     $scope.t_pisque_constante = response[i].optionvalue;
-                }
+                }*/
 
                 //-----PARA SISTEMA AYORA (POTABLE)-----------------------------------------------
 
-                /*if (response[i].optionname == 'AYORA_DIVIDENDO') {
+                if (response[i].optionname == 'AYORA_DIVIDENDO') {
                      $scope.h_ayora_dividendos = response[i].idconfiguracionsystem;
                      $scope.t_ayora_dividendos = response[i].optionvalue;
                 } else if (response[i].optionname == 'AYORA_TASAINTERES') {
                      $scope.h_ayora_tasainteres = response[i].idconfiguracionsystem;
                      $scope.t_ayora_tasainteres = response[i].optionvalue;
-                }*/
+                }
             }
 
         });
@@ -522,18 +667,18 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         //-----PARA SISTEMA PISQUE (RIEGO)------------------------------------------------
 
-        var pisque_constante = {
+        /*var pisque_constante = {
             idconfiguracionsystem: $scope.h_pisque_constante,
             optionvalue: $scope.t_pisque_constante
         };
 
         var data = {
             array_data: [pisque_constante]
-        };
+        };*/
 
         //-----PARA SISTEMA AYORA (POTABLE)-----------------------------------------------
 
-        /*var ayora_dividendo = {
+        var ayora_dividendo = {
             idconfiguracionsystem: $scope.h_ayora_dividendos,
             optionvalue: $scope.t_ayora_dividendos
         };
@@ -545,7 +690,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         var data = {
             array_data: [ayora_dividendo, ayora_tasainteres]
-        };*/
+        };
 
         $http.put(API_URL + '/configuracion/updateConfigEspecifica/0', data ).success(function (response) {
 
@@ -767,6 +912,18 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
     //-----------------------------------------------------------------------------------------------------------------
 
+    $scope.showPlanCuentaItem = function (item) {
+
+        field = item;
+
+        $http.get(API_URL + 'configuracion/getPlanCuenta').success(function(response){
+
+            $scope.cuentas = response;
+            $('#modalPlanCuenta').modal('show');
+        });
+
+    };
+
     $scope.showPlanCuenta = function (field_concepto, field_id) {
 
         $scope.fieldconcepto = field_concepto;
@@ -792,17 +949,30 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     };
 
     $scope.selectCuenta = function () {
-
         var selected = $scope.select_cuenta;
+        if(field !== ''){
+            if(field.id_categoriapago !== 4){
+                field.cuenta = selected.concepto;
+                field.idcuenta = selected.idplancuenta;
+            }else if (field.cuenta === ''){
+                field.cuenta = selected.concepto;
+                field.idcuenta = selected.idplancuenta;
+            }else{
+                field.cuenta1 = selected.concepto;
+                field.idcuenta1 = selected.idplancuenta;
+            }
 
-        var fieldconcepto = $parse($scope.fieldconcepto);
-        fieldconcepto.assign($scope, selected.concepto);
+            $('#modalPlanCuenta').modal('hide');
+        }else{
 
-        var fieldid = $parse($scope.fieldid);
-        fieldid.assign($scope, selected.idplancuenta);
+            var fieldconcepto = $parse($scope.fieldconcepto);
+            fieldconcepto.assign($scope, selected.concepto);
 
-        $('#modalPlanCuenta').modal('hide');
+            var fieldid = $parse($scope.fieldid);
+            fieldid.assign($scope, selected.idplancuenta);
 
+            $('#modalPlanCuenta').modal('hide');
+        }
     };
 
     $scope.click_radio = function (item) {
@@ -872,12 +1042,9 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         }
     };
 
-
     $scope.initLoad();
 
-
 });
-
 
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();

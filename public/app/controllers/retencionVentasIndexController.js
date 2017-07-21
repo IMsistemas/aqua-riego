@@ -555,6 +555,12 @@ app.controller('retencionVentasController', function($scope, $http, API_URL) {
         $scope.recalculateTotal();
     };
 
+    $scope.valueFecha = function () {
+
+        $scope.fechaemisioncomprobante = $('#fechaemisioncomprobante').val();
+
+    };
+
     $scope.save = function () {
 
         $('#btn_save').prop('disabled', true);
@@ -572,7 +578,7 @@ app.controller('retencionVentasController', function($scope, $http, API_URL) {
          */
 
         var transaccion = {
-            fecha: $scope.t_fechaingreso,
+            fecha: $scope.convertDatetoDB($scope.t_fechaingreso),
             idtipotransaccion: 6,
             numcomprobante: 1,
             descripcion: 'RETENCIONES VENTA'
@@ -646,27 +652,22 @@ app.controller('retencionVentasController', function($scope, $http, API_URL) {
          };*/
 
 
-        var dataComprobante = null;
+        var pais = null;
 
-        if ($scope.tipopago != '' && $scope.tipopago != undefined) {
-
-            var pais = null;
-
-            if ($scope.paispago != null && $scope.paispago != undefined && $scope.paispago != '') {
-                pais = $scope.paispago;
-            }
-
-            dataComprobante = {
-                tipopago: $scope.tipopago,
-                paispago: pais,
-                regimenfiscal: $scope.regimenfiscal,
-                convenio: $scope.convenio,
-                normalegal: $scope.normalegal,
-                fechaemisioncomprobante: $('#fechaemisioncomprobante').val(),
-                nocomprobante: $('#t_establ').val() + '-' + $('#t_pto').val() + '-' + $('#t_secuencial').val(),
-                noauthcomprobante: $scope.t_nroautorizacion
-            }
+        if ($scope.paispago != null && $scope.paispago != undefined && $scope.paispago != '') {
+            pais = $scope.paispago;
         }
+
+        var dataComprobante = {
+            tipopago: $scope.tipopago,
+            paispago: pais,
+            regimenfiscal: $scope.regimenfiscal,
+            convenio: $scope.convenio,
+            normalegal: $scope.normalegal,
+            fechaemisioncomprobante: $('#fechaemisioncomprobante').val(),
+            nocomprobante: $('#t_establ').val() + '-' + $('#t_pto').val() + '-' + $('#t_secuencial').val(),
+            noauthcomprobante: $scope.t_nroautorizacion
+        };
 
         var data_full = {
             //dataContabilidad: Contabilidad,
@@ -957,7 +958,7 @@ app.controller('retencionVentasController', function($scope, $http, API_URL) {
     };
 
     $scope.convertDatetoDB = function (now, revert) {
-        if (revert == undefined){
+        if (revert === undefined){
             var t = now.split('/');
             return t[2] + '-' + t[1] + '-' + t[0];
         } else {
