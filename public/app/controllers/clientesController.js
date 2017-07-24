@@ -503,7 +503,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
 
             var area = parseFloat($scope.t_area);
-            var constante = parseFloat(response[0].constante);
+            var constante = parseFloat(response[0].optionvalue);
 
             console.log(response);
             console.log(area);
