@@ -47,16 +47,16 @@
                     <thead class="bg-primary">
                     <tr>
                         <th class="text-center" style="width: 10%;">CI / RUC</th>
-                        <th class="text-center" style="width: 10%;">Fecha Ingr.</th>
-                        <th class="text-center" style="">Razón Social / Nombre y Apellidos</th>
-                        <th class="text-center" style="width: 8%;">Celular</th>
-                        <th class="text-center" style="width: 20%;">Dirección</th>
-                        <th class="text-center" style="width: 7%;">Estado</th>
-                        <th class="text-center" style="width: 16%;">Acciones</th>
+                        <th class="text-center" style="width: 10%;">FECHA INGRESO</th>
+                        <th class="text-center" style="">RAZON SOCIAL / NOMBRE Y APELLIDOS</th>
+                        <th class="text-center" style="width: 8%;">CELULAR</th>
+                        <th class="text-center" style="width: 20%;">DIRECCION</th>
+                        <th class="text-center" style="width: 7%;">ESTADO</th>
+                        <th class="text-center" style="width: 16%;">ACCIONES</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <tr dir-paginate="item in clientes | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak >
+                        <tr dir-paginate="item in clientes | orderBy:sortKey:reverse | itemsPerPage:8" total-items="totalItems" ng-cloak >
                             <td>{{item.numdocidentific}}</td>
                             <td>{{item.fechaingreso | formatDate}}</td>
                             <td>{{item.razonsocial}}</td>
@@ -92,7 +92,7 @@
                         template-url="dirPagination.html"
 
                         class="pull-right"
-                        max-size="10"
+                        max-size="8"
                         direction-links="true"
                         boundary-links="true" >
 
@@ -540,6 +540,12 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-xs-12">
+                                <div class="form-group  has-feedback">
+                                    <input type="text" class="form-control" id="" ng-model="searchContabilidad" placeholder="BUSCAR..." >
+                                    <span class="glyphicon glyphicon-search form-control-feedback" ></span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
                                 <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                                     <thead class="bg-primary">
                                     <tr>
@@ -550,7 +556,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="item in cuentas" ng-cloak >
+                                    <tr ng-repeat="item in cuentas | filter:searchContabilidad" ng-cloak >
                                         <td>{{item.jerarquia}}</td>
                                         <td>{{item.concepto}}</td>
                                         <td>{{item.codigosri}}</td>

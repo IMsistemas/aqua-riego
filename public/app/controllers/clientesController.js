@@ -14,22 +14,108 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.list_terrenos = [];
 
-    $scope.initLoad = function () {
-        $http.get(API_URL + 'cliente/getClientes').success(function(response){
+    $scope.pageChanged = function(newPage) {
+        $scope.initLoad(newPage);
+    };
 
-            var longitud = response.length;
-            for (var i = 0; i < longitud; i++) {
-                var complete_name = {
-                    value: response[i].apellido + ', ' + response[i].nombre,
-                    writable: true,
-                    enumerable: true,
-                    configurable: true
-                };
-                Object.defineProperty(response[i], 'complete_name', complete_name);
-            }
-            console.log(response);
-            $scope.clientes = response;
+    $scope.initLoad = function (pageNumber) {
+
+        if ($scope.busqueda === undefined) {
+            var search = null;
+        } else var search = $scope.busqueda;
+
+        var filtros = {
+            search: search
+        };
+
+        $http.get(API_URL + 'cliente/getClientes?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
+
+            $scope.clientes = response.data;
+            $scope.totalItems = response.total;
+
         });
+    };
+
+    $scope.showDataPurchase = function (object) {
+        if (object != undefined && object.originalObject != undefined) {
+
+            console.log(object.originalObject);
+
+            $scope.documentoidentidadempleado = object.originalObject.numdocidentific;
+            $scope.apellido = object.originalObject.lastnamepersona;
+            $scope.nombre = object.originalObject.namepersona;
+            $scope.direccion = object.originalObject.direccion;
+            $scope.celular = object.originalObject.celphone;
+            $scope.correo = object.originalObject.email;
+            $scope.tipoidentificacion = object.originalObject.idtipoidentificacion;
+            $scope.idpersona = object.originalObject.idpersona;
+
+            $scope.objectPerson = {
+                idperson: object.originalObject.idpersona,
+                identify: object.originalObject.numdocidentific
+            };
+        }
+    };
+
+    $scope.focusOut = function () {
+
+        if ($scope.documentoidentidadempleado !== null && $scope.documentoidentidadempleado !== '' && $scope.documentoidentidadempleado !== undefined) {
+
+            $http.get(API_URL + 'cliente/searchDuplicate/' + $scope.documentoidentidadempleado).success(function(response){
+
+                if (response.success === false) {
+
+                    $http.get(API_URL + 'empleado/getPersonaByIdentify/' + $scope.documentoidentidadempleado).success(function(response){
+
+                        var longitud = response.length;
+
+                        if (longitud > 0) {
+                            $scope.idpersona = response[0].idpersona;
+                        }
+
+                    });
+
+                    $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', $scope.documentoidentidadempleado);
+
+                } else {
+
+                    $scope.message_error = 'Ya existe un cliente insertado con el mismo Número de Identificación';
+                    $('#modalMessageError').modal('show');
+
+                }
+
+            });
+
+        }
+
+    };
+
+    $scope.inputChanged = function (str) {
+        $scope.documentoidentidadempleado = str;
+    };
+
+
+    $scope.showPlanCuenta = function () {
+
+        $http.get(API_URL + 'empleado/getPlanCuenta').success(function(response){
+
+            $scope.cuentas = response;
+            $('#modalPlanCuenta').modal('show');
+
+        });
+
+    };
+
+    $scope.selectCuenta = function () {
+        var selected = $scope.select_cuenta;
+
+        $scope.cuenta_employee = selected.concepto;
+
+        $('#modalPlanCuenta').modal('hide');
+    };
+
+    $scope.click_radio = function (item) {
+        $scope.select_cuenta = item;
     };
 
     $scope.nowDate = function () {
@@ -958,7 +1044,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         });
     };
 
-    $scope.initLoad();
+    $scope.initLoad(1);
 
     $scope.hideModalMessage = function () {
         setTimeout("$('#modalMessage').modal('hide')", 3000);

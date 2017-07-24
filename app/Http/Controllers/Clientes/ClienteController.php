@@ -112,6 +112,21 @@ class ClienteController extends Controller
         return ConfiguracionSystem::where('optionname', 'SRI_IVA_DEFAULT')->get();
     }
 
+    public function searchDuplicate($numidentific)
+    {
+        $result = $this->searchExist($numidentific);
+        return response()->json(['success' => $result]);
+    }
+
+
+    private function searchExist($numidentific)
+    {
+        $count = Cliente::join('persona', 'cliente.idpersona', '=', 'persona.idpersona')
+            ->where('persona.numdocidentific', $numidentific)->count();
+
+        return ($count >= 1) ? true : false;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
