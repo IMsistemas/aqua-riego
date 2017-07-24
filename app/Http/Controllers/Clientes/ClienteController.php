@@ -107,6 +107,11 @@ class ClienteController extends Controller
         return SRI_TipoImpuestoIva::orderBy('nametipoimpuestoiva', 'asc')->get();
     }
 
+    public function getIVADefault()
+    {
+        return ConfiguracionSystem::where('optionname', 'SRI_IVA_DEFAULT')->get();
+    }
+
     /**
      * Store a newly created resource in storage.
      *

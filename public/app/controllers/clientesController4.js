@@ -86,8 +86,6 @@
 
         $scope.initLoad = function (pageNumber) {
 
-
-
             $http.get(API_URL + 'cliente/getTasaInteres').success(function(response){
                 $scope.tasainteres = parseFloat(response[0].optionvalue);
             });

@@ -138,8 +138,78 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
     };
 
     $scope.showModalAddCliente = function () {
-        
-        $scope.t_codigocliente = 0;
+
+
+        $('.datepicker').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY'
+        });
+
+        $http.get(API_URL + 'cliente/getTipoIdentificacion').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: ''}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nameidentificacion, id: response[i].idtipoidentificacion})
+            }
+            $scope.idtipoidentificacion = array_temp;
+            $scope.tipoidentificacion = '';
+
+            $http.get(API_URL + 'cliente/getImpuestoIVA').success(function(response){
+                var longitud = response.length;
+                var array_temp = [{label: '-- Seleccione --', id: ''}];
+                for(var i = 0; i < longitud; i++){
+                    array_temp.push({label: response[i].nametipoimpuestoiva, id: response[i].idtipoimpuestoiva})
+                }
+                $scope.imp_iva = array_temp;
+                $scope.iva = '';
+
+
+                $http.get(API_URL + 'cliente/getIVADefault').success(function(response){
+
+                    if (response[0].optionvalue !== null && response[0].optionvalue !== '') {
+                        $scope.iva = parseInt(response[0].optionvalue);
+                    }
+
+
+
+                    $scope.t_codigocliente = 0;
+                    $scope.t_fecha_ingreso = $scope.nowDate();
+
+                    $scope.idcliente = 0;
+                    $scope.documentoidentidadempleado = '';
+                    $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', '');
+                    $scope.$broadcast('angucomplete-alt:clearInput', 'documentoidentidadempleado');
+                    $scope.idpersona = 0;
+                    $scope.apellido = '';
+                    $scope.nombre = '';
+                    $scope.telefonoprincipal = '';
+                    $scope.telefonosecundario = '';
+                    $scope.celular = '';
+                    $scope.direccion = '';
+                    $scope.telefonoprincipaltrabajo = '';
+                    $scope.telefonosecundariotrabajo = '';
+                    $scope.direcciontrabajo = '';
+                    $scope.correo = '';
+                    $scope.cuenta_employee = '';
+
+                    $scope.select_cuenta = null;
+
+                    $scope.title_modal_cliente = 'Nuevo Cliente';
+
+                    $('#modalAddCliente').modal('show');
+
+                });
+
+
+
+
+            });
+
+        });
+
+
+
+        /*$scope.t_codigocliente = 0;
         $scope.t_fecha_ingreso = $scope.nowDate();
 
         $scope.t_doc_id = '';
@@ -156,7 +226,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
         $scope.title_modal_cliente = 'Nuevo Cliente';
 
-        $('#modalAddCliente').modal('show');
+        $('#modalAddCliente').modal('show');*/
     };
 
     $scope.showModalDeleteCliente = function (item) {
