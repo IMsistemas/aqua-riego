@@ -165,7 +165,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.saveCliente = function () {
 
-        var data = {
+        /*var data = {
             fechaingreso: $scope.convertDatetoDB($scope.t_fecha_ingreso),
             codigocliente: $scope.t_doc_id,
             apellido: $scope.t_apellidos,
@@ -178,6 +178,33 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             telfsecundarioemp: $scope.t_telf_secundario_emp,
             direccionemp: $scope.t_direccion_emp,
             email: $scope.t_email
+        };*/
+
+        var data = {
+
+            // datos de persona
+
+            documentoidentidadempleado: $scope.documentoidentidadempleado,
+            correo: $scope.correo,
+            celular: $scope.celular,
+            tipoidentificacion: $scope.tipoidentificacion,
+            apellidos: $scope.apellido,
+            nombres: $scope.nombre,
+            direccion: $scope.direccion,
+
+            // datos de cliente
+
+            fechaingreso: convertDatetoDB($scope.t_fecha_ingreso),
+            idpersona:  $scope.idpersona,
+            cuentacontable: $scope.select_cuenta.idplancuenta,
+            impuesto_iva: $scope.iva,
+
+            telefonoprincipaldomicilio: $scope.telefonoprincipal,
+            telefonosecundariodomicilio: $scope.telefonosecundario,
+            telefonoprincipaltrabajo: $scope.telefonoprincipaltrabajo,
+            telefonosecundariotrabajo: $scope.telefonosecundariotrabajo,
+            direcciontrabajo: $scope.direcciontrabajo,
+
         };
 
         var url = API_URL + "cliente";
