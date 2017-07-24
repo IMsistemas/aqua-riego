@@ -500,8 +500,13 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.calculateCaudal = function () {
         $http.get(API_URL + 'cliente/getConstante').success(function(response){
-            var area = parseInt($scope.t_area);
+
+
+            var area = parseFloat($scope.t_area);
             var constante = parseFloat(response[0].constante);
+
+            console.log(response);
+            console.log(area);
 
             var caudal_result = (area / 1000) * constante;
 
