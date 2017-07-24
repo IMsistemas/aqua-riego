@@ -85,7 +85,24 @@ app.controller('reporteComprasController',  function($scope, $http, API_URL) {
 
     };
 
+    $scope.printReport = function() {
+
+        var filtro = {
+            FechaI: $('#fechainicio').val(),
+            FechaF: $('#fechafin').val()
+        };
+
+        var accion = API_URL + 'reportecompra/reporte_print/' + JSON.stringify(filtro);
+
+        $('#WPrint_head').html('Reporte Facturación de Compras');
+
+        $('#WPrint').modal('show');
+
+        $('#bodyprint').html("<object width='100%' height='600' data='" + accion + "'></object>");
+    };
+
     $scope.fechaByFilter();
     $scope.initLoad();
 
 });
+

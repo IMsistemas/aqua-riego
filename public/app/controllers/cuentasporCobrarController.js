@@ -1,19 +1,12 @@
 
-/*$(function () {
-    $('.datepicker').datetimepicker({
-        locale: 'es',
-        format: 'YYYY-MM-DD'
-    });
-
-
-});*/
-
 app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
 
 
     $scope.item_select = 0;
     $scope.Cliente = 0;
     $scope.select_cuenta = null;
+
+    $scope.pago_anular = '';
 
     $scope.fecha_i = '';
 
@@ -35,8 +28,6 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
 
             $scope.list = response;
 
-
-
             var longitud = response.length;
 
             for (var i = 0; i < longitud; i++) {
@@ -50,7 +41,11 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
                 var suma = 0;
 
                 for (var j = 0; j < longitud_cobros; j++) {
-                    suma += parseFloat(response[i].cont_cuentasporcobrar[j].valorpagado);
+
+                    if (response[i].cont_cuentasporcobrar[j].estadoanulado === false){
+                        suma += parseFloat(response[i].cont_cuentasporcobrar[j].valorpagado);
+                    }
+
                 }
 
                 var complete_name = {
@@ -102,7 +97,6 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
             $scope.fecha_i = item.fechacobro;
         }
 
-
         if (item.valortotalventa !== undefined) {
             if (item.valortotalventa !== item.valorcobrado) {
                 $('#btn-cobrar').prop('disabled', false);
@@ -150,6 +144,14 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
 
             });
         }
+
+        console.log($scope.listcobro)
+    };
+
+    $scope.showModalConfirm = function(item){
+        $scope.pago_anular = item.idcuentasporcobrar;
+
+        $('#modalConfirmAnular').modal('show');
     };
 
     $scope.showModalFormaCobro = function () {
@@ -225,14 +227,20 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
 
         var descripcion = '';
 
-        if ($scope.item_select.iddocumentoventa !== undefined) {
-            descripcion = 'Cuentas x Cobrar Factura: ' + $scope.item_select.numdocumentoventa;
-        } else if ($scope.item_select.idcobroservicio !== undefined) {
-            descripcion = 'Cuentas x Cobrar Solicitud Servicio';
-        } else {
-            descripcion = 'Cuentas x Cobrar Toma Lectura';
+        if ($scope.concepto !== undefined) {
+            descripcion = $scope.concepto;
         }
 
+
+        if (descripcion === '') {
+            if ($scope.item_select.iddocumentoventa !== undefined) {
+                descripcion = 'Cuentas x Cobrar Factura: ' + $scope.item_select.numdocumentoventa;
+            } else if ($scope.item_select.idcobroservicio !== undefined) {
+                descripcion = 'Cuentas x Cobrar Solicitud Servicio';
+            } else {
+                descripcion = 'Cuentas x Cobrar Toma Lectura';
+            }
+        }
 
         /*
          * --------------------------------- CONTABILIDAD --------------------------------------------------------------
@@ -254,7 +262,7 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
             tipocuenta: $scope.Cliente.tipocuenta,
             Debe: 0,
             Haber: parseFloat($scope.valorrecibido),
-            Descipcion: ''
+            Descipcion: descripcion
         };
 
         RegistroC.push(cliente);
@@ -266,7 +274,7 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
             tipocuenta: $scope.select_cuenta.tipocuenta,
             Debe: parseFloat($scope.valorrecibido),
             Haber: 0,
-            Descipcion: ''
+            Descipcion: descripcion
         };
 
         RegistroC.push(cobro);
@@ -284,17 +292,16 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
          * --------------------------------- FIN CONTABILIDAD ----------------------------------------------------------
          */
 
-        if ($scope.item_select.iddocumentoventa !== undefined && $scope.item_select.iddocumentoventa !== null) {
-            id = $scope.item_select.iddocumentoventa;
-            type = 'venta';
-        } else if ($scope.item_select.idcobroservicio !== undefined) {
+        if ($scope.item_select.idcobroservicio !== undefined) {
             id = $scope.item_select.idcobroservicio;
             type = 'servicio';
-        } else {
+        } else if ($scope.item_select.idcobroagua !== undefined) {
             id = $scope.item_select.idcobroagua;
             type = 'lectura';
+        } else {
+            id = $scope.item_select.iddocumentoventa;
+            type = 'venta';
         }
-
 
         if (parseFloat($scope.valorpendiente) >= parseFloat($scope.valorrecibido)) {
 
@@ -306,13 +313,14 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
                 cobrado: $scope.valorrecibido,
                 cuenta: $scope.select_cuenta.idplancuenta,
                 iddocumentoventa: id,
+                descripcion: descripcion,
                 type: type,
                 contabilidad: JSON.stringify(transaccion_venta_full)
             };
 
             console.log(data);
 
-            console.log($scope.select_cuenta);
+            //console.log($scope.select_cuenta);
 
             $http.post(API_URL + 'cuentasxcobrar', data ).success(function (response) {
 
@@ -342,9 +350,48 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
 
     };
 
+    $scope.anular = function(){
+
+        var object = {
+            idcuentasporcobrar: $scope.pago_anular
+        };
+
+        $http.post(API_URL + 'cuentasxcobrar/anular', object).success(function(response) {
+
+            $('#modalConfirmAnular').modal('hide');
+
+            if(response.success === true){
+                $scope.initLoad(1);
+                $scope.pago_anular = 0;
+                $scope.message = 'Se ha anulado el cobro seleccionado...';
+                $('#modalMessage').modal('show');
+
+                $scope.showModalListCobro($scope.item_select);
+
+                //$('#btn-anular').prop('disabled', true);
+
+            } else {
+                $scope.message_error = 'Ha ocurrido un error al intentar anular el cobro seleccionado...';
+                $('#modalMessageError').modal('show');
+            }
+
+        });
+    };
+
     /*
      -----------------------------------------------------------------------------------------------------------------
      */
+
+    $scope.printComprobante = function(id) {
+
+        var accion = API_URL + 'cuentasxcobrar/printComprobante/' + id;
+
+        $('#WPrint_head').html('Comprobante de Ingreso');
+
+        $('#WPrint').modal('show');
+
+        $('#bodyprint').html("<object width='100%' height='600' data='" + accion + "'></object>");
+    };
 
     $scope.fechaByFilter = function(){
 
