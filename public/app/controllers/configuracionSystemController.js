@@ -512,7 +512,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                     };
                     Object.defineProperty(response[i], 'idcuenta', idcuenta);
                     var impuesto = {
-                        value: response[i].confignomina[0].value_imp,
+                        value: '',
                         writable: true,
                         enumerable: true,
                         configurable: true
@@ -543,7 +543,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                     };
                     Object.defineProperty(response[i], 'idcuenta', idcuenta);
                     var impuesto = {
-                        value: response[i].confignomina[0].value_imp,
+                        value: '',
                         writable: true,
                         enumerable: true,
                         configurable: true
@@ -644,20 +644,20 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
                 //-----PARA SISTEMA PISQUE (RIEGO)------------------------------------------------
 
-                /*if (response[i].optionname == 'PISQUE_CONSTANTE') {
+                if (response[i].optionname == 'PISQUE_CONSTANTE') {
                     $scope.h_pisque_constante = response[i].idconfiguracionsystem;
                     $scope.t_pisque_constante = response[i].optionvalue;
-                }*/
+                }
 
                 //-----PARA SISTEMA AYORA (POTABLE)-----------------------------------------------
 
-                if (response[i].optionname == 'AYORA_DIVIDENDO') {
+                /*if (response[i].optionname == 'AYORA_DIVIDENDO') {
                      $scope.h_ayora_dividendos = response[i].idconfiguracionsystem;
                      $scope.t_ayora_dividendos = response[i].optionvalue;
                 } else if (response[i].optionname == 'AYORA_TASAINTERES') {
                      $scope.h_ayora_tasainteres = response[i].idconfiguracionsystem;
                      $scope.t_ayora_tasainteres = response[i].optionvalue;
-                }
+                }*/
             }
 
         });
@@ -667,18 +667,18 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         //-----PARA SISTEMA PISQUE (RIEGO)------------------------------------------------
 
-        /*var pisque_constante = {
+        var pisque_constante = {
             idconfiguracionsystem: $scope.h_pisque_constante,
             optionvalue: $scope.t_pisque_constante
         };
 
         var data = {
             array_data: [pisque_constante]
-        };*/
+        };
 
         //-----PARA SISTEMA AYORA (POTABLE)-----------------------------------------------
 
-        var ayora_dividendo = {
+        /*var ayora_dividendo = {
             idconfiguracionsystem: $scope.h_ayora_dividendos,
             optionvalue: $scope.t_ayora_dividendos
         };
@@ -690,7 +690,9 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         var data = {
             array_data: [ayora_dividendo, ayora_tasainteres]
-        };
+        };*/
+
+        console.log(data);
 
         $http.put(API_URL + '/configuracion/updateConfigEspecifica/0', data ).success(function (response) {
 
