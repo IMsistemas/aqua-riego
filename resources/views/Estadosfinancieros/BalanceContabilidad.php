@@ -355,6 +355,14 @@
                   <th class="text-right"> Total Pasivo + Total Patrimonio </th>
                   <th class="text-right"> {{ formato_dinero(aux_formula_patrimonial ,"$")}}</th>
                 </tr>
+              <tr>
+                  <th class="text-right"> Total Ingresos - Total Egresos (Utilidad) </th>
+                  <th class="text-right"> {{ formato_dinero(aux_utilidad_formula ,"$")}}</th>
+              </tr>
+                <tr>
+                    <th class="text-right"> Cuadre Contable (Activo-(Pasivo + Patrimonio + Utilidad)) </th>
+                    <th class="text-right"> {{ formato_dinero(aux_cuadre_contable,"$") }}</th>
+                </tr>
               </thead>
             </table>
           </div>

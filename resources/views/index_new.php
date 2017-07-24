@@ -292,6 +292,7 @@
     <script src="<?= asset('app/controllers/transportistaController.js') ?>"></script>
     <script src="<?= asset('app/controllers/proveedoresController.js') ?>"></script>
     <script src="<?= asset('app/controllers/EstadosFinancieros.js') ?>"></script>
+    <script src="<?= asset('app/controllers/Balances.js') ?>"></script>
     <script src="<?= asset('app/controllers/nomencladorController.js') ?>"></script>
     <script src="<?= asset('app/controllers/guiaremisionController.js') ?>"></script>
     <script src="<?= asset('app/controllers/puntoventaController.js') ?>"></script>
@@ -299,6 +300,39 @@
     <script src="<?= asset('app/controllers/departamentosController.js') ?>"></script>
     <script src="<?= asset('app/controllers/rolController.js') ?>"></script>
     <script src="<?= asset('app/controllers/comprasController.js') ?>"></script>
+
+
+    <script src="<?= asset('app/controllers/comprasImprimirController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/categoriasController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/catalogoproductosController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/categoriasController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/bodegasController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/proveedoresController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/venta.js') ?>"></script>
+    <script src="<?= asset('app/controllers/retencionComprasIndexController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/retencionVentasIndexController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/configuracionSystemController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/transportistaController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/EstadosFinancieros.js') ?>"></script>
+    <script src="<?= asset('app/controllers/nomencladorController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/guiaremisionController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/puntoventaController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/InvetarioItemKardex.js') ?>"></script>
+    <script src="<?= asset('app/controllers/departamentosController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/rolController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/usuarioController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/comprasController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/notaCreditoController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/reporteCompraController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/reporteVentaController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/reporteNCController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/Balances.js') ?>"></script>
+    <script src="<?= asset('app/controllers/reporteVentaBalanceController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/cuentasporCobrarController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/cuentasporPagarController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/depreciacionActivosFijosController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/cobroServicioController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/rolPagoController.js') ?>"></script>
 
 
 
