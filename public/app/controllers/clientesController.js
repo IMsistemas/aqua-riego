@@ -767,14 +767,16 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         $scope.getBarrios();
         $scope.getTarifas();
 
+        console.log($scope.objectAction);
+
         $scope.t_fecha_process = $scope.nowDate();
 
-        $scope.h_codigocliente = $scope.objectAction.codigocliente;
-        $scope.documentoidentidad_cliente = $scope.objectAction.documentoidentidad;
-        $scope.nom_cliente = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
-        $scope.direcc_cliente = $scope.objectAction.direcciondomicilio;
+        $scope.h_codigocliente = $scope.objectAction.idcliente;
+        $scope.documentoidentidad_cliente = $scope.objectAction.numdocidentific;
+        $scope.nom_cliente = $scope.objectAction.razonsocial;
+        $scope.direcc_cliente = $scope.objectAction.direccion;
         $scope.telf_cliente = $scope.objectAction.telefonoprincipaldomicilio;
-        $scope.celular_cliente = $scope.objectAction.celular;
+        $scope.celular_cliente = $scope.objectAction.celphone;
         $scope.telf_trab_cliente = $scope.objectAction.telefonoprincipaltrabajo;
 
         $scope.cultivos = [{label: '-- Seleccione --', id: 0}];

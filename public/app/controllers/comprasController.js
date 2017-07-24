@@ -142,6 +142,8 @@
                     array_temp.push({label: response[i].namesustento, id: response[i].idsustentotributario})
                 }
 
+                console.log(response);
+
                 $scope.listsustentotributario = array_temp;
                 $scope.sustentotributario = array_temp[0].id;
 
