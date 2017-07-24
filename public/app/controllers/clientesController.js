@@ -513,7 +513,15 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         var area = $scope.t_area;
 
         $http.get(API_URL + 'cliente/calculateValor/' + area).success(function(response){
-            $scope.valor_total = parseFloat(response.costo).toFixed(2);
+
+            if (response.success === true) {
+                $scope.valor_total = parseFloat(response.costo).toFixed(2);
+            } else {
+                $scope.message_info = 'No existe valor en la tarifa que cubra esta area...';
+                $('#modalMessageInfo').modal('show');
+            }
+
+
         });
     };
 

@@ -370,13 +370,18 @@ class ClienteController extends Controller
             ->where('aniotarifa', date('Y'))
             ->get();
 
-        if ($costo_area[0]->esfija == true){
-            $costo = $costo_area[0]->costo;
+        if (count($costo_area) != 0) {
+            if ($costo_area[0]->esfija == true){
+                $costo = $costo_area[0]->costo;
+            } else {
+                $costo = $area_h * $configuracion[0]->optionvalue * $costo_area[0]->costo;
+            }
+
+            return response()->json(['success' => true, 'costo' => $costo]);
         } else {
-            $costo = $area_h * $configuracion[0]->optionvalue * $costo_area[0]->costo;
+            return response()->json(['success' => false]);
         }
 
-        return response()->json(['costo' => $costo]);
     }
 
 
