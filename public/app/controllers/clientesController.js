@@ -510,6 +510,8 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
             var caudal_result = (area / 1000) * constante;
 
+            console.log(caudal_result);
+
             $scope.calculate_caudal = caudal_result.toFixed(2);
         });
     };
