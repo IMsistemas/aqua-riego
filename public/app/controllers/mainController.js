@@ -151,13 +151,18 @@ app.controller('mainController',function($scope, $http, API_URL) {
 
     $scope.toModuloRecaudacion = function(){
         $scope.titulo = "Recaudación";
+        $scope.toModulo = "recaudacion";
+    }
+
+    /*$scope.toModuloRecaudacion = function(){
+        $scope.titulo = "Recaudación";
         $scope.toModulo = "factura";
     }
 
     $scope.toModuloRecaudacionServicio = function(){
         $scope.titulo = "Recaudación Servicio";
         $scope.toModulo = "cobroservicio";
-    }
+    }*/
 
     $scope.toModuloSolicitud = function(){
         $scope.titulo = "Solicitudes";
@@ -169,9 +174,14 @@ app.controller('mainController',function($scope, $http, API_URL) {
         $scope.toModulo = "suministros/espera";
     }
 
-    $scope.toModuloSuministro = function(){
+    /*$scope.toModuloSuministro = function(){
         $scope.titulo = "suministros";
         $scope.toModulo = "suministros";
+    }*/
+
+    $scope.toModuloSuministro = function(){
+        $scope.titulo = "Terrenos";
+        $scope.toModulo = "editTerreno";
     }
 
     $scope.toModuloCXP = function(){
