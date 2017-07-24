@@ -412,7 +412,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             var longitud = response.length;
             var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
+                array_temp.push({label: response[i].namebarrio, id: response[i].idbarrio})
             }
             $scope.barrios = array_temp;
             $scope.t_junta = 0;
@@ -426,7 +426,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             var longitud = response.length;
             var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
+                array_temp.push({label: response[i].namecalle, id: response[i].idcalle})
             }
             $scope.tomas = array_temp;
             $scope.t_toma = 0;
