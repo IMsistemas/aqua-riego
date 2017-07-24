@@ -319,6 +319,37 @@ app.controller('mainController',function($scope, $http, API_URL) {
         $scope.toModulo = "rolPago";
     }
 
+    $scope.toModuloCanal = function(){
+        $scope.titulo = "Canales";
+        $scope.toModulo = "canal";
+    }
+
+    $scope.toModuloToma = function(idcanal,descripcioncanal){
+        $scope.idcanal = idcanal;
+        $scope.titulo = "Toma :".concat(descripcioncanal);
+        $scope.toModulo = "tomas";
+    }
+
+    $scope.toModuloDerivacion = function(){
+        $scope.titulo = "Derivación";
+        $scope.toModulo = "derivaciones";
+    }
+
+    $scope.toModuloCalle = function(){
+        $scope.titulo = "Tomas";
+        $scope.toModulo = "calle";
+    }
+
+    $scope.toModuloTarifa = function(){
+        $scope.titulo = "Tarifas";
+        $scope.toModulo = "tarifa";
+    }
+
+    $scope.toModuloCultivo = function(){
+        $scope.titulo = "Cultivo";
+        $scope.toModulo = "cultivo";
+    }
+
     $scope.prepareListBreadcrumb = function (list_module) {
         $scope.list_breadcrumb = [
             "<li><img src='img/ico-aqua.png'></li>",
