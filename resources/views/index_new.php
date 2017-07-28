@@ -333,7 +333,7 @@
     <script src="<?= asset('app/controllers/cuentasporPagarController.js') ?>"></script>
     <script src="<?= asset('app/controllers/depreciacionActivosFijosController.js') ?>"></script>
     <script src="<?= asset('app/controllers/cobroServicioController.js') ?>"></script>
-    <script src="<?= asset('app/controllers/rolPagoController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/ConciliacionController.js') ?>"></script>
 
 
 
