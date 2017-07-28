@@ -34,6 +34,7 @@ app.controller('departamentosController', function($scope, $http, API_URL) {
             case 'add':
                 $scope.form_title = "Nuevo Departamento";
                 $scope.nombrecargo = '';
+                $scope.centrocosto = "false";
                 $('#modalActionCargo').modal('show');
 
                 break;
@@ -44,6 +45,13 @@ app.controller('departamentosController', function($scope, $http, API_URL) {
 
                 $http.get(API_URL + 'departamento/getDepartamentoByID/' + id).success(function(response) {
                     $scope.nombrecargo = response[0].namedepartamento.trim();
+
+                    if (response[0].centrocosto === true) {
+                        $scope.centrocosto = 'true';
+                    } else {
+                        $scope.centrocosto = 'false';
+                    }
+
                     $('#modalActionCargo').modal('show');
                 });
                 break;
@@ -54,8 +62,15 @@ app.controller('departamentosController', function($scope, $http, API_URL) {
 
     $scope.Save = function (){
 
+        var centrocosto = false;
+
+        if ($scope.centrocosto === "true") {
+            centrocosto = true;
+        }
+
         var data = {
-            namedepartamento: $scope.nombrecargo
+            namedepartamento: $scope.nombrecargo,
+            centrocosto: centrocosto
         };
 
         switch ( $scope.modalstate) {

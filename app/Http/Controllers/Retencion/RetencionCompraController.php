@@ -7,6 +7,7 @@ use App\Modelos\Compras\CompraProducto;
 use App\Modelos\Configuracion\ConfiguracionSystem;
 use App\Modelos\Contabilidad\Cont_DocumentoCompra;
 use App\Modelos\Contabilidad\Cont_PlanCuenta;
+use App\Modelos\Proveedores\Proveedor;
 use App\Modelos\Retencion\DetalleRetencion;
 use App\Modelos\Retencion\DetalleRetencion_Iva;
 use App\Modelos\Retencion\DetalleRetencionFuente;
@@ -57,32 +58,6 @@ class RetencionCompraController extends Controller
 
     }
 
-    public function getConfigContabilidad()
-    {
-        $config = ConfiguracionSystem::whereRaw("optionname = 'SRI_RETEN_IVA_COMPRA' OR optionname = 'SRI_RETEN_RENTA_COMPRA'")->get();
-
-        $configcontable = [];
-
-        foreach ($config as $item) {
-            $aux_contable = null;
-
-            if($item->optionvalue != '' && $item->optionvalue != null){
-                $aux_contable = Cont_PlanCuenta::where('idplancuenta', $item->optionvalue)->get();
-            }
-
-            $configventa = [
-                'idconfiguracionsystem' => $item->idconfiguracionsystem,
-                'idplancuenta' => $item->optionvalue,
-                'optionname' => $item->optionname,
-                'contabilidad'=> $aux_contable
-            ];
-
-            $configcontable[] = $configventa;
-        }
-
-        return response()->json($configcontable);
-    }
-
     public function getRetencionesByCompra($id)
     {
         return RetencionFuenteCompra::join('detalleretencion', 'detalleretencion.iddetalleretencion', '=', 'retencionfuentecompra.iddetalleretencion')
@@ -91,19 +66,35 @@ class RetencionCompraController extends Controller
 
     public function getCodigos($codigo)
     {
-        return SRI_DetalleImpuestoRetencion::with('sri_tipoimpuestoretencion')
+        return SRI_DetalleImpuestoRetencion::with('sri_tipoimpuestoretencion', 'cont_plancuenta')
                     ->where('codigosri', 'LIKE', '%' . $codigo . '%')->get();
     }
 
-    public function getCompras($codigo)
+    /*public function getCompras($codigo)
     {
         $compra = Cont_DocumentoCompra::with('proveedor.persona', 'proveedor.cont_plancuenta', 'sri_comprobanteretencion')
-                            ->where('idcomprobanteretencion', '!=', null)
-                            ->whereRaw('cont_documentocompra.iddocumentocompra NOT IN (SELECT sri_retencioncompra.iddocumentocompra FROM sri_retencioncompra)')
+                            //->where('idcomprobanteretencion', '!=', null)
+                            //->whereRaw('cont_documentocompra.iddocumentocompra NOT IN (SELECT sri_retencioncompra.iddocumentocompra FROM sri_retencioncompra)')
                             ->whereRaw("cont_documentocompra.numdocumentocompra::text ILIKE '%" . $codigo . "%'")
                             ->get();
 
         return $compra;
+    }*/
+
+    public function getCompras(Request $request)
+    {
+        $compra = Cont_DocumentoCompra::join('proveedor', 'proveedor.idproveedor', '=', 'cont_documentocompra.idproveedor')
+            ->with('proveedor.persona', 'proveedor.cont_plancuenta', 'sri_comprobanteretencion')
+            ->where('proveedor.idproveedor', $request->input('idproveedor'))
+            ->whereRaw("cont_documentocompra.numdocumentocompra::text ILIKE '%" . $request->input('q') . "%'")
+            ->get();
+
+        return $compra;
+    }
+
+    public function getProveedores()
+    {
+        return Proveedor::join('persona', 'persona.idpersona', '=', 'proveedor.idpersona')->orderBy('persona.razonsocial', 'asc')->get();
     }
 
     public function getCodigosRetencion($tipo)
@@ -188,6 +179,34 @@ class RetencionCompraController extends Controller
                 if ($retencion->save() == false) {
                     return response()->json(['success' => false]);
                 }
+            }
+
+            $dataComprobante = $request->input('dataComprobante');
+
+            $comprobante = new SRI_ComprobanteRetencion();
+
+            $comprobante->idpagoresidente = $dataComprobante['tipopago'];
+            $comprobante->idpagopais = $dataComprobante['paispago'];
+            $comprobante->regimenfiscal = $dataComprobante['regimenfiscal'];
+            $comprobante->conveniotributacion = $dataComprobante['convenio'];
+            $comprobante->normalegal = $dataComprobante['normalegal'];
+            $comprobante->fechaemisioncomprob = $dataComprobante['fechaemisioncomprobante'];
+            $comprobante->nocomprobante = $dataComprobante['nocomprobante'];
+            $comprobante->noauthcomprobante = $dataComprobante['noauthcomprobante'];
+
+            if ($comprobante->save()) {
+
+                $id = $comprobante->idcomprobanteretencion;
+
+                $last_c = Cont_DocumentoCompra::find($request->input('iddocumentocompra'));
+                $last_c->idcomprobanteretencion = $id;
+
+                if ($last_c->save() == false) {
+                    return response()->json(['success' => false]);
+                }
+
+            } else {
+                return response()->json(['success' => false]);
             }
 
             return response()->json(['success' => true, 'idretencioncompra' => $retencionCompra->idretencioncompra]);

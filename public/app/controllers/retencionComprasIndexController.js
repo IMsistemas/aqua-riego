@@ -22,6 +22,12 @@
             $scope.initLoad(1);
         });
 
+        $('.datepicker').datetimepicker({
+            locale: 'es',
+            format: 'YYYY-MM-DD',
+            ignoreReadonly: false
+        });
+
         $scope.active = '0';
 
         $scope.tiporetencion = [
@@ -61,12 +67,10 @@
         $scope.baseimponible = 0;
         $scope.baseimponibleIVA = 0;
         $scope.idretencion = 0;
+        $scope.retencion = '';
 
         $scope.iddocumentocompra = 0;
 
-        $scope.ConfiguracionContable = null;
-        $scope.ConfiguracionContableRetenIVA = null;
-        $scope.ConfiguracionContableRetenRENTA = null;
         $scope.ProveedorContable = null;
 
         $scope.initLoad = function (pageNumber) {
@@ -161,126 +165,170 @@
 
         $scope.loadFormPage = function(id){
 
-            $scope.getConfigContabilidad();
-
             $scope.idretencion = id;
 
-            $http.get(API_URL + 'retencionCompras/' + $scope.idretencion).success(function(response){
-
-                console.log(response);
-
-                $scope.ProveedorContable = response[0].cont_documentocompra[0].proveedor.cont_plancuenta;
-
-                $scope.iddocumentocompra = response[0].cont_documentocompra[0].iddocumentocompra;
-
-                $scope.t_fechaingreso = $scope.convertDatetoDB(response[0].fechaemisioncomprob, true);
-                //$scope.t_nroretencion = (response[0].numeroretencion).trim();
-
-                $('#t_nrocompra').val((response[0].numdocumentocompra).toString());
-
-                $scope.$broadcast('angucomplete-alt:changeInput', 't_nrocompra', (response[0].numdocumentocompra).toString());
-
-                $scope.t_rucci = response[0].cont_documentocompra[0].proveedor.persona.numdocidentific;
-                $scope.t_razonsocial = response[0].cont_documentocompra[0].proveedor.persona.razonsocial;
-                $scope.t_phone = response[0].cont_documentocompra[0].proveedor.telefonoprincipal;
-                $scope.t_direccion = response[0].cont_documentocompra[0].proveedor.persona.direccion;
-                //$scope.t_ciudad = response[0].nombreciudad;
-                //$scope.t_tipocomprobante = response[0].nombretipocomprobante;
-
-                var serial = (response[0].nocomprobante).split('-');
-
-                $scope.t_establ = serial[0];
-                $scope.t_pto = serial[1];
-                $scope.t_secuencial = serial[2];
-
-                $scope.t_nroautorizacion = response[0].noauthcomprobante;
-
-                $scope.baseimponible = response[0].cont_documentocompra[0].subtotalsinimpuestocompra;
-                $scope.baseimponibleIVA = response[0].cont_documentocompra[0].ivacompra;
-
-                var longitud_r = response[0].cont_documentocompra[0].sri_retencioncompra.length;
-
-                $scope.itemretencion = [];
-
-                if (longitud_r > 0) {
-
-                    var longitud = response[0].cont_documentocompra[0].sri_retencioncompra[0].sri_retenciondetallecompra.length;
-
-                    for (var i = 0; i < longitud; i++) {
-
-                        var item = response[0].cont_documentocompra[0].sri_retencioncompra[0].sri_retenciondetallecompra[i];
-
-                        var object_row = {
-                            year: (response[0].fechaemisioncomprob).split('-')[0],
-                            codigo: item.sri_detalleimpuestoretencion.codigosri,
-                            tipo: item.sri_detalleimpuestoretencion.sri_tipoimpuestoretencion.nametipoimpuestoretencion,
-                            detalle: item.sri_detalleimpuestoretencion.namedetalleimpuestoretencion,
-                            id: item.iddetalleimpuestoretencion,
-                            baseimponible: '0.00',
-                            porciento: item.porcentajeretenido,
-                            valor: item.valorretenido
-                        };
-
-                        if (item.sri_detalleimpuestoretencion.idtipoimpuestoretencion === 1) {
-                            object_row.baseimponible = $scope.baseimponible;
-                        } else {
-                            object_row.baseimponible = $scope.baseimponibleIVA;
-                        }
-
-                        ($scope.itemretencion).push(object_row);
-                        $('[data-toggle="tooltip"]').tooltip();
-
-                    }
 
 
-                    $('#btn-export').show();
+            $scope.estados = [
+                { id: 1, name: 'SI' },
+                { id: 2, name: 'NO' }
+            ];
 
-                    $('#btn_save').prop('disabled', true);
+            $scope.regimenfiscal = 1;
+            $scope.convenio = 1;
+            $scope.normalegal = 1;
 
-                    //$('#btn_save').hide();
+            $scope.getProveedores();
 
-                    $('#btn-createrow').prop('disabled', true);
+            $http.get(API_URL + 'DocumentoCompras/getPaisPagoComprobante').success(function(response){
 
-                } else {
-                    $('#btn-createrow').prop('disabled', false);
-                    $('#btn_save').prop('disabled', false);
+                var longitud = response.length;
+                var array_temp = [{label: '-- Seleccione --', id: ''}];
+
+                for (var i = 0; i < longitud; i++){
+                    array_temp.push({label: response[i].pais, id: response[i].idpagopais})
                 }
 
-                $scope.recalculateTotal();
+                $scope.listpaispago = array_temp;
+                $scope.paispago = array_temp[0].id;
 
-                $scope.active = '1';
+                $http.get(API_URL + 'DocumentoCompras/getTipoPagoComprobante').success(function(response){
 
-                $('#btn-createrow').prop('disabled', true);
+                    var longitud = response.length;
+                    var array_temp = [{label: '-- Seleccione --', id: ''}];
 
-                /*$http.get(API_URL + 'retencionCompra/getRetencionesByCompra/' + $scope.idretencion).success(function(data){
-
-                    var longitud = data.length;
                     for (var i = 0; i < longitud; i++){
-                        var object_row = {
-                            year: (response[0].fecharetencion).split('-')[0],
-                            codigo: data[i].codigosri,
-                            detalle: data[i].concepto,
-                            id: data[i].iddetalleretencion,
-                            baseimponible: '0.00',
-                            porciento: data[i].poecentajeretencion,
-                            valor: data[i].valorretenido
-                        };
+                        array_temp.push({label: response[i].tipopagoresidente, id: response[i].idpagoresidente})
+                    }
 
-                        if (data[i].idtiporetencion == 1) {
-                            object_row.baseimponible = response[0].subtotalnoivacompra;
-                        } else {
-                            object_row.baseimponible = response[0].ivacompra;
+                    $scope.listtipopago = array_temp;
+                    $scope.tipopago = array_temp[0].id;
+
+                    $http.get(API_URL + 'retencionCompras/' + $scope.idretencion).success(function(response){
+
+                        console.log(response);
+
+                        $scope.retencion = response[0];
+
+                        $scope.tipopago = response[0].idpagoresidente;
+                        $('#fechaemisioncomprobante').val(response[0].fechaemisioncomprob);
+
+                        if (response[0].regimenfiscal === true) {
+                            $scope.regimenfiscal = 1;
+                        } else $scope.regimenfiscal = 2;
+
+                        if (response[0].conveniotributacion === true) {
+                            $scope.convenio = 1;
+                        } else $scope.convenio = 2;
+
+
+                        if (response[0].normalegal === true) {
+                            $scope.normalegal = 1;
+                        } else $scope.normalegal = 2;
+
+                        if (response[0].idpagopais !== null) {
+                            $scope.paispago = response[0].idpagopais;
                         }
 
-                        ($scope.itemretencion).push(object_row);
-                        $('[data-toggle="tooltip"]').tooltip();
-                    }
-                    $scope.recalculateTotal();
-                    $('#btn-export').show();
-                    $scope.active = '1';
-                });*/
+                        if (response[0].idpagoresidente === 1) {
+                            $('#paispago').prop('disabled', true);
+                        } else $('#paispago').prop('disabled', false);
+
+                        $scope.ProveedorContable = response[0].cont_documentocompra[0].proveedor.cont_plancuenta;
+
+                        $scope.iddocumentocompra = response[0].cont_documentocompra[0].iddocumentocompra;
+
+                        $scope.t_fechaingreso = $scope.convertDatetoDB(response[0].fechaemisioncomprob, true);
+
+                        $('#t_nrocompra').val((response[0].numdocumentocompra).toString());
+
+                        $scope.$broadcast('angucomplete-alt:changeInput', 't_nrocompra', (response[0].numdocumentocompra).toString());
+
+                        $scope.t_rucci = response[0].cont_documentocompra[0].proveedor.persona.numdocidentific;
+                        $scope.t_razonsocial = response[0].cont_documentocompra[0].proveedor.persona.razonsocial;
+
+                        var serial = (response[0].nocomprobante).split('-');
+
+                        $scope.t_establ = serial[0];
+                        $scope.t_pto = serial[1];
+                        $scope.t_secuencial = serial[2];
+
+                        $scope.t_nroautorizacion = response[0].noauthcomprobante;
+
+                        $scope.baseimponible = response[0].cont_documentocompra[0].subtotalsinimpuestocompra;
+                        $scope.baseimponibleIVA = response[0].cont_documentocompra[0].ivacompra;
+
+                        $scope.proveedor = response[0].idproveedor;
+
+                        var longitud_r = response[0].cont_documentocompra[0].sri_retencioncompra.length;
+
+                        $scope.itemretencion = [];
+
+                        if (longitud_r > 0) {
+
+                            var longitud = response[0].cont_documentocompra[0].sri_retencioncompra[0].sri_retenciondetallecompra.length;
+
+                            for (var i = 0; i < longitud; i++) {
+
+                                var item = response[0].cont_documentocompra[0].sri_retencioncompra[0].sri_retenciondetallecompra[i];
+
+                                var object_row = {
+                                    year: (response[0].fechaemisioncomprob).split('-')[0],
+                                    codigo: item.sri_detalleimpuestoretencion.codigosri,
+                                    tipo: item.sri_detalleimpuestoretencion.sri_tipoimpuestoretencion.nametipoimpuestoretencion,
+                                    detalle: item.sri_detalleimpuestoretencion.namedetalleimpuestoretencion,
+                                    id: item.iddetalleimpuestoretencion,
+                                    baseimponible: '0.00',
+                                    porciento: item.porcentajeretenido,
+                                    valor: item.valorretenido
+                                };
+
+                                if (item.sri_detalleimpuestoretencion.idtipoimpuestoretencion === 1) {
+                                    object_row.baseimponible = $scope.baseimponible;
+                                } else {
+                                    object_row.baseimponible = $scope.baseimponibleIVA;
+                                }
+
+                                ($scope.itemretencion).push(object_row);
+                                $('[data-toggle="tooltip"]').tooltip();
+
+                            }
+
+                            $('#btn-export').show();
+
+                            $('#btn_save').prop('disabled', true);
+
+                            $('#btn-createrow').prop('disabled', true);
+
+                            $('.btn_delete').attr("disabled", true);
+
+                            $(function(){
+                                $("button.btn_delete").attr("disabled", true);
+                            });
+
+
+                        } else {
+                            $('#btn-createrow').prop('disabled', false);
+                            $('#btn_save').prop('disabled', false);
+
+                            $(function(){
+                                $("button.btn_delete").attr("disabled", false);
+                            });
+                        }
+
+                        $scope.recalculateTotal();
+
+                        $scope.active = '1';
+
+                        $('#btn-createrow').prop('disabled', true);
+
+                    });
+
+
+                });
 
             });
+
         };
 
         $scope.getCodigosRetencion = function () {
@@ -317,33 +365,66 @@
             });
         };
 
-        $scope.getConfigContabilidad = function () {
-            $http.get(API_URL + 'retencionCompra/getConfigContabilidad').success(function(response){
+        $scope.getTipoPagoComprobante = function () {
 
-                //console.log(response);
+            $http.get(API_URL + 'DocumentoCompras/getTipoPagoComprobante').success(function(response){
 
                 var longitud = response.length;
+                var array_temp = [{label: '-- Seleccione --', id: ''}];
 
-                for (var i = 0; i < longitud; i++) {
-                    if (response[i].optionname == 'SRI_RETEN_IVA_COMPRA') {
-                        $scope.ConfiguracionContableRetenIVA = response[i];
-                    } else if (response[i].optionname == 'SRI_RETEN_RENTA_COMPRA') {
-                        $scope.ConfiguracionContableRetenRENTA = response[i];
-                    }
+                for (var i = 0; i < longitud; i++){
+                    array_temp.push({label: response[i].tipopagoresidente, id: response[i].idpagoresidente})
                 }
 
-                //console.log($scope.ConfiguracionContableRetenRENTA);
-
-                $scope.ConfiguracionContable = response;
+                $scope.listtipopago = array_temp;
+                $scope.tipopago = array_temp[0].id
 
             });
+
+        };
+
+        $scope.getPaisPagoComprobante = function () {
+
+            $http.get(API_URL + 'DocumentoCompras/getPaisPagoComprobante').success(function(response){
+
+                var longitud = response.length;
+                var array_temp = [{label: '-- Seleccione --', id: ''}];
+
+                for (var i = 0; i < longitud; i++){
+                    array_temp.push({label: response[i].pais, id: response[i].idpagopais})
+                }
+
+                $scope.listpaispago = array_temp;
+                $scope.paispago = array_temp[0].id
+
+            });
+
+        };
+
+        $scope.getProveedores = function () {
+            $http.get(API_URL + 'retencionCompra/getProveedores').success(function(response){
+
+                var longitud = response.length;
+                var array_temp = [{label: '-- Seleccione --', id: ''}];
+                for(var i = 0; i < longitud; i++){
+                    array_temp.push({label: response[i].razonsocial, id: response[i].idproveedor})
+                }
+                $scope.listproveedor = array_temp;
+                $scope.proveedor = '';
+
+            });
+        };
+
+        $scope.searchAPI = function(userInputString, timeoutPromise) {
+            return $http.post(API_URL + 'retencionCompra/getCompras', {q: userInputString, idproveedor: $scope.proveedor}, {timeout: timeoutPromise});
         };
 
         $scope.newForm = function () {
 
             $scope.getLastIDRetencion();
-
-            $scope.getConfigContabilidad();
+            $scope.getTipoPagoComprobante();
+            $scope.getPaisPagoComprobante();
+            $scope.getProveedores();
 
             $scope.t_fechaingreso = $scope.nowDate();
             $scope.t_nroretencion = '';
@@ -351,6 +432,7 @@
             $('#t_nrocompra').val('');
             $scope.t_nrocompra = '';
             $scope.$broadcast('angucomplete-alt:changeInput', 't_nrocompra', '');
+            $scope.$broadcast('angucomplete-alt:clearInput', 't_nrocompra');
 
             $scope.t_rucci = '';
             $scope.t_razonsocial = '';
@@ -363,10 +445,32 @@
             $scope.t_pto = '';
             $scope.t_secuencial = '';
 
+            // Campos de Comprobante-------
+
+            $scope.estados = [
+                { id: 1, name: 'SI' },
+                { id: 2, name: 'NO' }
+            ];
+
+            $scope.regimenfiscal = 1;
+            $scope.convenio = 1;
+            $scope.normalegal = 1;
+
+            $('#fechaemisioncomprobante').val('');
+
+            $('#t_establ_c').val('000');
+            $('#t_pto_c').val('000');
+            $('#t_secuencial_c').val('000000000');
+
+
             $scope.t_nroautorizacion = '';
 
             $('#btn-createrow').prop('disabled', true);
             $('#btn-export').hide();
+
+            $(function(){
+                $("button.btn_delete").attr("disabled", false);
+            });
 
             $scope.baseimponible = 0;
             $scope.baseimponibleIVA = 0;
@@ -393,7 +497,8 @@
                 id:0,
                 baseimponible: '0.00',
                 porciento: '0.00',
-                valor: '0.00'
+                valor: '0.00',
+                contabilidad: null
             };
 
             ($scope.itemretencion).push(object_row);
@@ -444,6 +549,12 @@
             $scope.recalculateTotal();
         };
 
+        $scope.valueFecha = function () {
+
+            $scope.fechaemisioncomprobante = $('#fechaemisioncomprobante').val();
+
+        };
+
         $scope.save = function () {
 
             $('#btn_save').prop('disabled', true);
@@ -453,18 +564,17 @@
             $scope.t_secuencial = $('#t_secuencial').val();
 
 
-
-            //console.log($scope.itemretencion);
-
             /*
              * -------------------------INICIO CONTABILIDAD-------------------------------------------------------------
              */
+
+            var descripcion = 'RETENCION COMPRA A: ' + $('#t_nrocompra').val();
 
             var transaccion = {
                 fecha: $scope.t_fechaingreso,
                 idtipotransaccion: 7,
                 numcomprobante: 1,
-                descripcion: 'RETENCIONES COMPRA'
+                descripcion: descripcion
             };
 
             var registroC = [];
@@ -476,7 +586,7 @@
                 tipocuenta: $scope.ProveedorContable.tipocuenta,
                 Debe: $scope.t_total,
                 Haber: 0,
-                Descipcion: ''
+                Descipcion: descripcion
             };
 
             registroC.push(proveedor);
@@ -485,37 +595,17 @@
 
             for (var i = 0; i < longitud_item; i++) {
 
-                var item = null;
+                var item = {
+                    idplancuenta: $scope.itemretencion[i].contabilidad.idplancuenta,
+                    concepto: $scope.itemretencion[i].contabilidad.concepto,
+                    controlhaber: $scope.itemretencion[i].contabilidad.controlhaber,
+                    tipocuenta: $scope.itemretencion[i].contabilidad.tipocuenta,
+                    Haber: (parseFloat($scope.itemretencion[i].valor)).toFixed(4),
+                    Debe: 0,
+                    Descipcion: descripcion
+                };
 
-                if ($scope.itemretencion[i].tipo === 'RENTA') {
-
-                    item = {
-                        idplancuenta: $scope.ConfiguracionContableRetenRENTA.idplancuenta,
-                        concepto: $scope.ConfiguracionContableRetenRENTA.contabilidad[0].concepto,
-                        controlhaber: $scope.ConfiguracionContableRetenRENTA.contabilidad[0].controlhaber,
-                        tipocuenta: $scope.ConfiguracionContableRetenRENTA.contabilidad[0].tipocuenta,
-                        Haber: (parseFloat($scope.itemretencion[i].valor)).toFixed(4),
-                        Debe: 0,
-                        Descipcion: ''
-                    };
-
-                    registroC.push(item);
-
-                } else if ($scope.itemretencion[i].tipo === 'IVA') {
-
-                    item = {
-                        idplancuenta: $scope.ConfiguracionContableRetenIVA.idplancuenta,
-                        concepto: $scope.ConfiguracionContableRetenIVA.contabilidad[0].concepto,
-                        controlhaber: $scope.ConfiguracionContableRetenIVA.contabilidad[0].controlhaber,
-                        tipocuenta: $scope.ConfiguracionContableRetenIVA.contabilidad[0].tipocuenta,
-                        Haber: (parseFloat($scope.itemretencion[i].valor)).toFixed(4),
-                        Debe: 0,
-                        Descipcion: ''
-                    };
-
-                    registroC.push(item);
-
-                }
+                registroC.push(item);
 
             }
 
@@ -529,21 +619,31 @@
              * -------------------------FIN CONTABILIDAD----------------------------------------------------------------
              */
 
-            /*var data = {
-                iddocumentocompra: $scope.iddocumentocompra,
-                retenciones: $scope.itemretencion
-            };*/
+            var pais = null;
+
+            if ($scope.paispago !== null && $scope.paispago !== undefined && $scope.paispago !== '') {
+                pais = $scope.paispago;
+            }
+
+            var dataComprobante = {
+                tipopago: $scope.tipopago,
+                paispago: pais,
+                regimenfiscal: $scope.regimenfiscal,
+                convenio: $scope.convenio,
+                normalegal: $scope.normalegal,
+                fechaemisioncomprobante: $('#fechaemisioncomprobante').val(),
+                nocomprobante: $('#t_establ').val() + '-' + $('#t_pto').val() + '-' + $('#t_secuencial').val(),
+                noauthcomprobante: $scope.t_nroautorizacion
+            };
 
             var data_full = {
-                //dataContabilidad: Contabilidad,
                 dataContabilidad: JSON.stringify(Contabilidad),
                 iddocumentocompra: $scope.iddocumentocompra,
-                retenciones: $scope.itemretencion
+                retenciones: $scope.itemretencion,
+                dataComprobante: dataComprobante
             };
 
             console.log(data_full);
-
-
 
             var url = API_URL + 'retencionCompras';
 
@@ -557,39 +657,12 @@
 
                     $('#btn-createrow').prop('disabled', true);
 
-
                 } else {
                     $scope.message_error = 'Ha ocurrido un error al intentar guardar las Retenciones...';
                     $('#modalMessageError').modal('show');
                 }
             }).error(function (res) {});
 
-
-            /*if ($scope.idretencion == 0) {
-                $http.post(url, data_full).success(function (response) {
-                    if (response.success == true) {
-                        $scope.idretencion = response.idretencioncompra;
-                        //$('#btn-export').show();
-                        $scope.message = 'Se insertó correctamente las Retenciones seleccionadas...';
-                        $('#modalMessage').modal('show');
-                        $scope.hideModalMessage();
-                    } else {
-                        $scope.message_error = 'Ha ocurrido un error al intentar guardar las Retenciones...';
-                        $('#modalMessageError').modal('show');
-                    }
-                }).error(function (res) {});
-            } else {
-                $http.put(url + '/' + $scope.idretencion, data_full).success(function (response) {
-                    if (response.success == true) {
-                        $scope.message = 'Se actualizó correctamente las Retenciones seleccionadas...';
-                        $('#modalMessage').modal('show');
-                        $scope.hideModalMessage();
-                    } else {
-                        $scope.message_error = 'Ha ocurrido un error al intentar actualizar las Retenciones...';
-                        $('#modalMessageError').modal('show');
-                    }
-                }).error(function (res) {});
-            }*/
         };
 
         $scope.anularRetencion = function(){
@@ -625,54 +698,52 @@
             $('#modalConfirmAnular').modal('show');
         };
 
+        $scope.showModalConfirmAnular2 = function(){
+
+            var item = $scope.retencion;
+
+            console.log(item);
+
+            $scope.idretencion = item.cont_documentocompra[0].sri_retencioncompra[0].idretencioncompra;
+            $scope.numseriecompra = item.nocomprobante;
+            $('#modalConfirmAnular').modal('show');
+        };
+
         $scope.showInfoRetencion = function (object, data) {
 
             if (object.originalObject != undefined) {
 
                 console.log(object.originalObject);
 
-                data.id = object.originalObject.iddetalleimpuestoretencion;
-                data.codigo = object.originalObject.codigosri;
-                data.detalle = object.originalObject.namedetalleimpuestoretencion;
-                data.tipo = object.originalObject.sri_tipoimpuestoretencion.nametipoimpuestoretencion;
-                data.porciento = object.originalObject.porcentaje;
+                if (object.originalObject.cont_plancuenta !== null) {
+                    data.id = object.originalObject.iddetalleimpuestoretencion;
+                    data.codigo = object.originalObject.codigosri;
+                    data.detalle = object.originalObject.namedetalleimpuestoretencion;
+                    data.tipo = object.originalObject.sri_tipoimpuestoretencion.nametipoimpuestoretencion;
+                    data.porciento = object.originalObject.porcentaje;
+                    data.contabilidad = object.originalObject.cont_plancuenta;
 
-                var porciento = parseFloat(data.porciento);
+                    var porciento = parseFloat(data.porciento);
 
-                if (object.originalObject.idtipoimpuestoretencion == 1) {
-                    var baseimponible = parseFloat($scope.baseimponible);
-                    data.baseimponible = $scope.baseimponible;
+                    if (object.originalObject.idtipoimpuestoretencion == 1) {
+                        var baseimponible = parseFloat($scope.baseimponible);
+                        data.baseimponible = $scope.baseimponible;
+                    } else {
+                        var baseimponible = parseFloat($scope.baseimponibleIVA);
+                        data.baseimponible = $scope.baseimponibleIVA;
+                    }
+
+                    var result = (porciento / 100) *  baseimponible;
+
+                    data.valor = result.toFixed(2);
+
+                    $scope.recalculateTotal();
+
                 } else {
-                    var baseimponible = parseFloat($scope.baseimponibleIVA);
-                    data.baseimponible = $scope.baseimponibleIVA;
+                    $scope.message_error = 'El Código de Retención seleccionado no tiene cuenta contable asignado...';
+                    $('#modalMessageError').modal('show');
                 }
 
-                var result = (porciento / 100) *  baseimponible;
-
-                data.valor = result.toFixed(2);
-
-                $scope.recalculateTotal();
-
-                /*var codigocliente = object.originalObject.codigocliente;
-
-                 if (codigocliente != 0 && codigocliente != undefined) {
-
-                 $http.get(API_URL + 'cliente/getInfoCliente/' + codigocliente).success(function(response){
-                 $scope.nom_new_cliente_setnombre = response[0].apellidos + ', ' + response[0].nombres;
-                 $scope.direcc_new_cliente_setnombre = response[0].direcciondomicilio;
-                 $scope.telf_new_cliente_setnombre = response[0].telefonoprincipaldomicilio;
-                 $scope.celular_new_cliente_setnombre = response[0].celular;
-                 $scope.telf_trab_new_cliente_setnombre = response[0].telefonoprincipaltrabajo;
-                 $scope.h_codigocliente_new = codigocliente;
-                 });
-
-                 } else {
-                 $scope.nom_new_cliente_setnombre = '';
-                 $scope.direcc_new_cliente_setnombre = '';
-                 $scope.telf_new_cliente_setnombre = '';
-                 $scope.celular_new_cliente_setnombre = '';
-                 $scope.telf_trab_new_cliente_setnombre = '';
-                 }*/
             } else {
                 data.codigo = '';
                 data.id = 0;
@@ -680,6 +751,7 @@
                 data.tipo = '';
                 data.porciento = '0.00';
                 data.baseimponible = '0.00';
+                data.contabilidad = null;
             }
 
         };
@@ -696,19 +768,15 @@
 
                 $scope.t_rucci = object.originalObject.proveedor.persona.numdocidentific;
                 $scope.t_razonsocial = object.originalObject.proveedor.persona.razonsocial;
-                $scope.t_nroautorizacion = object.originalObject.sri_comprobanteretencion.noauthcomprobante;
+
+                /*$scope.t_nroautorizacion = object.originalObject.sri_comprobanteretencion.noauthcomprobante;
                 var nocomprobante = object.originalObject.sri_comprobanteretencion.nocomprobante;
 
                 nocomprobante = nocomprobante.split('-');
 
                 $scope.t_establ = nocomprobante[0];
                 $scope.t_pto = nocomprobante[1];
-                $scope.t_secuencial = nocomprobante[2];
-
-                /*$scope.t_phone = object.originalObject.telefonoproveedor;
-                $scope.t_direccion = object.originalObject.direccionproveedor;
-                $scope.t_tipocomprobante = object.originalObject.nombretipocomprobante;
-                $scope.t_ciudad = object.originalObject.nombreciudad;*/
+                $scope.t_secuencial = nocomprobante[2];*/
 
                 //$scope.baseimponible = object.originalObject.subtotalnoivacompra;
                 $scope.baseimponible = object.originalObject.subtotalsinimpuestocompra;
@@ -830,6 +898,20 @@
             }
         };
 
+        $scope.typeResident = function () {
+
+            $scope.paispago = '';
+
+            if ($scope.tipopago == '1') {
+
+                $('#paispago').prop('disabled', true);
+
+            } else {
+
+                $('#paispago').prop('disabled', false);
+
+            }
+        };
     });
 
     $(function () {

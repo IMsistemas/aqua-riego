@@ -44,8 +44,8 @@ class EmpleadoController extends Controller
         $employees = Empleado::join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
                                 ->join('departamento', 'departamento.iddepartamento', '=', 'empleado.iddepartamento')
                                 ->join('cargo', 'cargo.idcargo', '=', 'empleado.idcargo')
-                                ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'empleado.idplancuenta')
-                                ->select('empleado.*', 'departamento.namedepartamento', 'cargo.namecargo', 'persona.*', 'cont_plancuenta.*');
+                                //->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'empleado.idplancuenta')
+                                ->select('empleado.*', 'departamento.namedepartamento', 'cargo.namecargo', 'persona.*');
 
         if ($search != null) {
             $employees = $employees->whereRaw("persona.razonsocial ILIKE '%" . $search . "%' OR persona.numdocidentific LIKE '%" . $search . "%'");
@@ -201,21 +201,31 @@ class EmpleadoController extends Controller
                 $empleado->idpersona = $persona->idpersona;
                 $empleado->idcargo = $request->input('idcargo');
                 $empleado->iddepartamento = $request->input('departamento');
-                $empleado->idplancuenta = $request->input('cuentacontable');
+                //$empleado->idplancuenta = $request->input('cuentacontable');
                 $empleado->estado = true;
                 $empleado->fechaingreso = $request->input('fechaingreso');
                 $empleado->telefprincipaldomicilio = $request->input('telefonoprincipaldomicilio');
                 $empleado->telefsecundariodomicilio = $request->input('telefonosecundariodomicilio');
                 $empleado->salario = $request->input('salario');
 
+                $empleado->fechanacimiento = $request->input('fechanacimiento');
+                $empleado->estadocivil = $request->input('estadocivil');
+                $empleado->genero = $request->input('genero');
+                $empleado->codigoempleado = $request->input('codigoempleado');
+
                 if ($url_file != null) {
                     $empleado->rutafoto = $url_file;
                 }
-                $empleado->save();
+
+                if ($empleado->save()) {
+                    return response()->json(['success' => true]);
+                } else {
+                    return response()->json(['success' => false]);
+                }
+
             } else {
                 return response()->json(['success' => false]);
             }
-            return response()->json(['success' => true]);
 
         }
 

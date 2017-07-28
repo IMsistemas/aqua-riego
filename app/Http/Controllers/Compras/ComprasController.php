@@ -15,6 +15,7 @@ use App\Modelos\Contabilidad\Cont_Kardex;
 use App\Modelos\Contabilidad\Cont_PlanCuenta;
 use App\Modelos\Contabilidad\Cont_RegistroProveedor;
 use App\Modelos\Contabilidad\Cont_Transaccion;
+use App\Modelos\Nomina\Departamento;
 use App\Modelos\Persona;
 use App\Modelos\Proveedores\Proveedor;
 use App\Modelos\SRI\SRI_ComprobanteRetencion;
@@ -81,6 +82,11 @@ class ComprasController extends Controller
                                         ->where('idsustentotributario', $idsustento)
                                         ->select('sri_tipocomprobante.idtipocomprobante', 'sri_tipocomprobante.namecomprobante')
                                         ->orderBy('sri_tipocomprobante.namecomprobante', 'asc')->get();
+    }
+
+    public function getCentrosCostos()
+    {
+        return Departamento::where('centrocosto', true)->get();
     }
 
     public function getFormaPago()
@@ -163,7 +169,6 @@ class ComprasController extends Controller
             return response()->json(['success' => false]);
         }
     }
-
 
     private function getDuplicateNumber($idproveedor, $number)
     {
@@ -265,7 +270,7 @@ class ComprasController extends Controller
 
                 //----------Insert data Comprobante retencion--------------------------------
 
-                if ($filtro->dataComprobante != null) {
+                /*if ($filtro->dataComprobante != null) {
 
                     $comprobante = new SRI_ComprobanteRetencion();
 
@@ -293,7 +298,7 @@ class ComprasController extends Controller
                         return response()->json(['success' => false]);
                     }
 
-                }
+                }*/
 
                 $formapago = new Cont_FormaPagoDocumentoCompra();
 

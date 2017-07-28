@@ -378,19 +378,20 @@
             </div>
 
             <div class="col-xs-12" style="margin-top: 5px;">
-                <table class="table table-responsive table-striped table-hover table-condensed">
+                <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                     <thead class="bg-primary">
-                    <tr>
-                        <td>Código Item</td>
-                        <td style="width: 20%">Detalle</td>
-                        <td>Cantidad</td>
-                        <td>Precio Unitario</td>
-                        <td>Descuento(%)</td>
-                        <td>IVA</td>
-                        <td>ICE</td>
-                        <td>Total</td>
-                        <td></td>
-                    </tr>
+                        <tr>
+                            <th style="width: 10%">CODIGO ITEM</th>
+                            <th>DETALLE</th>
+                            <th style="width: 20%">CENTRO COSTO</th>
+                            <th style="width: 5%">CANTIDAD</th>
+                            <th style="width: 8%">PRECIO UNIT.</th>
+                            <th style="width: 5%">DESC(%)</th>
+                            <th style="width: 5%">IVA</th>
+                            <th style="width: 5%">ICE</th>
+                            <th style="width: 10%">TOTAL</th>
+                            <th style="width: 4%"></th>
+                        </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="item in items">
@@ -423,6 +424,11 @@
                             <input type="text" class="form-control" ng-show="read"  disabled ng-value="item.producto.nombreproducto" />
                             <!--<label class="control-label" ng-show="!read">{{ item.productoObj.originalObject.nombreproducto }}</label>
                             <label class="control-label" ng-show="read">{{  item.producto.nombreproducto }}</label>-->
+                        </td>
+                        <td>
+                            <select class="form-control" ng-modal="item.idcentrocosto">
+                                <option ng-repeat="elem in listcentrocostos" value="{{elem.id}}">{{elem.label}}</option>
+                            </select>
                         </td>
                         <td><input type="text" class="form-control text-right" ng-keyup="CalculaValores();ValidaProducto()" ng-model="item.cantidad"/></td>
                         <td><input type="text" class="form-control text-right" ng-keyup="CalculaValores();ValidaProducto()" ng-keypress="onlyNumber($event, undefined, undefined)" ng-model="item.precioU" placeholder="{{item.productoObj.originalObject.precioventa}}" /></td>
@@ -459,7 +465,7 @@
                           ng-show="formCompra.observacion.$invalid && formCompra.observacion.$touched">La Observación es requerida</span>
                 </div>
 
-                <div class="col-xs-12" style="margin-top: 15px;">
+                <!--<div class="col-xs-12" style="margin-top: 15px;">
                     <fieldset>
                         <legend>Comprobante de Retención</legend>
 
@@ -533,7 +539,7 @@
                         </div>
 
                     </fieldset>
-                </div>
+                </div>-->
 
 
                 <div class="col-xs-12 text-right" style="margin-top: 20px;">
@@ -594,12 +600,12 @@
                         <td><input type="text" class="form-control input-sm text-right" id="ValIRBPNR" ng-keyup="CalculaValores();"  ng-model="ValIRBPNR"/></td>
                     </tr>
                     <tr>
-                        <td>PROPINA</td>
+                        <td>Propina</td>
                         <td><input type="text" class="form-control input-sm text-right" id="ValPropina" ng-keyup="CalculaValores();"  ng-model="ValPropina" /></td>
                     </tr>
                     <tr>
-                        <td>VALOR TOTAL</td>
-                        <td class="text-right">{{ValorTotal}}</td>
+                        <td style="font-weight: bold;">VALOR TOTAL</td>
+                        <td style="font-weight: bold;" class="text-right">{{ValorTotal}}</td>
                     </tr>
                     </tbody>
                 </table>

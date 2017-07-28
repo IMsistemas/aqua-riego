@@ -274,6 +274,8 @@ Route::get('retencionCompra/getCompras/{codigo}', 'Retencion\RetencionCompraCont
 Route::get('retencionCompra/getCodigos/{codigo}', 'Retencion\RetencionCompraController@getCodigos');
 Route::get('retencionCompra/form/{id}', 'Retencion\RetencionCompraController@form');
 Route::get('retencionCompra/getCodigosRetencion/{tipo}', 'Retencion\RetencionCompraController@getCodigosRetencion');
+Route::get('retencionCompra/getProveedores', 'Retencion\RetencionCompraController@getProveedores');
+Route::post('retencionCompra/getCompras', 'Retencion\RetencionCompraController@getCompras');
 Route::resource('retencionCompras', 'Retencion\RetencionCompraController');
 
 /*
@@ -335,6 +337,7 @@ Route::get('DocumentoCompras/getSustentoTributario', 'Compras\ComprasController@
 Route::get('DocumentoCompras/getTipoComprobante/{idsustento}', 'Compras\ComprasController@getTipoComprobante' );
 Route::get('DocumentoCompras/getFormaPago', 'Compras\ComprasController@getFormaPago' );
 Route::get('DocumentoCompras/getCompras', 'Compras\ComprasController@getCompras');
+Route::get('DocumentoCompras/getCentrosCostos', 'Compras\ComprasController@getCentrosCostos');
 Route::resource('DocumentoCompras', 'Compras\ComprasController');
 
 /*
@@ -365,6 +368,8 @@ Route::resource('DocumentoNC', 'NotaCredito\NotaCreditoController');
 /*
  * -----------------------------------MODULO GUIA REMISION--------------------------------------------------------------
  */
+
+
 
 Route::get('guiaremision/getGiaremision', 'Guiaremision\GuiaremisionController@show');
 Route::get('guiaremision/getItemsVenta', 'Guiaremision\GuiaremisionController@getItemsVenta');
@@ -553,6 +558,16 @@ Route::get('procesoskardex/loadinventario', 'CatalogoProductos\InventarioKardex@
 Route::get('procesoskardex/loadkardex/{filtro}', 'CatalogoProductos\InventarioKardex@kardexitem');
 Route::resource('Inventario', 'CatalogoProductos\InventarioKardex');
 
+//-------------------------------Conciliacion Contable----------------------------//
+Route::get('Conciliacion/anular_conciliacion/{transaccion}', 'Contabilidad\Conciliacion@anular_conciliacion');
+Route::get('Conciliacion/reload_conciliacion/{transaccion}', 'Contabilidad\Conciliacion@reload_conciliacion');
+Route::get('Conciliacion/getAllFitros', 'Contabilidad\Conciliacion@getallFitros');
+Route::get('Conciliacion/data_before_cuenta/{transaccion}', 'Contabilidad\Conciliacion@data_before_conciliacion');
+Route::get('Conciliacion/close_conciliacion/{transaccion}', 'Contabilidad\Conciliacion@close_conciliacion');
+Route::get('Conciliacion/conciliar_desconciliar/{transaccion}', 'Contabilidad\Conciliacion@conciliar_desconciliar');
+Route::get('Conciliacion/save_conciliacion/{transaccion}', 'Contabilidad\Conciliacion@save_conciliacion');
+Route::get('Conciliacion/get_cuentas_conciliar/{transaccion}', 'Contabilidad\Conciliacion@get_cuentas_conciliar');
+Route::resource('Conciliacion', 'Contabilidad\Conciliacion');
 
 /*
  * -----------------------------------MODULO CONFIGURACION--------------------------------------------------------------
@@ -685,7 +700,6 @@ Route::get('usuario/getEmpleados', 'Usuario\UsuarioController@getEmpleados');
 Route::get('usuario/getRoles', 'Usuario\UsuarioController@getRoles');
 Route::get('usuario/getUsuarios', 'Usuario\UsuarioController@getUsuarios');
 Route::resource('/usuario', 'Usuario\UsuarioController');
-
 
 /*Route::get('/descuentos', function (){
     return view('Descuentos/descuento');
