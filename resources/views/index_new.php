@@ -156,7 +156,7 @@
                                     <li><a href = "#" ng-click="toModuloDepartamento();">Departamentos</a></li>
                                     <li><a href = "#" ng-click="toModuloCargo();">Cargos</a></li>
                                     <li><a href = "#" ng-click="toModuloEmpleado();">Personal</a></li>
-                                    <li><a href = "#" ng-click="">Nómina</a></li>
+                                    <li><a href = "#" ng-click="toModuloRolPago();">Nómina</a></li>
                                 </ul>
                             </li>
 
@@ -333,6 +333,7 @@
     <script src="<?= asset('app/controllers/cuentasporPagarController.js') ?>"></script>
     <script src="<?= asset('app/controllers/depreciacionActivosFijosController.js') ?>"></script>
     <script src="<?= asset('app/controllers/cobroServicioController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/rolPagoController.js') ?>"></script>
     <script src="<?= asset('app/controllers/ConciliacionController.js') ?>"></script>
 
 
