@@ -44,7 +44,7 @@
                     <th>CARGO</th>
                     <th>TELEFONO</th>
                     <th>CELULAR</th>
-                    <th style="width: 160px;">ACCIONES</th>
+                    <th style="width: 14%;">ACCIONES</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -63,6 +63,10 @@
                                 data-toggle="tooltip" data-placement="bottom" title="Editar" >
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         </button>
+                        <!--<button type="button" class="btn btn-info" ng-click="toggle('registry', empleado)"
+                                data-toggle="tooltip" data-placement="bottom" title="Registro Salario" >
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        </button>-->
                         <button type="button" class="btn btn-danger" ng-click="showModalConfirm(empleado)"
                                 data-toggle="tooltip" data-placement="bottom" title="Eliminar">
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -100,12 +104,12 @@
                         </div>
 
                         <div class="col-md-3 col-xs-12">
-                            <div class="input-group">
+                            <!--<div class="input-group">
                                 <span class="input-group-addon">Codigo:</span>
                                 <input type="text" class="form-control" name="codigo" id="codigo" ng-model="codigo" ng-required="true">
                             </div>
                             <span class="help-block error"
-                                  ng-show="formEmployee.codigo.$invalid && formEmployee.codigo.$touched">El Codigo es requerido</span>
+                                  ng-show="formEmployee.codigo.$invalid && formEmployee.codigo.$touched">El Codigo es requerido</span>-->
                         </div>
 
                         <div class="col-md-4 col-xs-12">
@@ -130,6 +134,7 @@
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li role="presentation" class="active tabs"><a href="#info" aria-controls="info" role="tab" data-toggle="tab"> Información General</a></li>
                                     <li role="presentation" class="tabs"><a href="#cargaf" aria-controls="cargaf" role="tab" data-toggle="tab"> Carga Familiar</a></li>
+                                    <li role="presentation" class="tabs"><a href="#histsalario" aria-controls="histsalario" role="tab" data-toggle="tab"> Historial Salario</a></li>
                                 </ul>
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane fade active in" id="info" style="padding-top: 3px;">
@@ -402,24 +407,38 @@
                                     </div>
                                     <div role="tabpanel" class="tab-pane fade" id="cargaf">
 
+                                        <div class="col-xs-12" style="margin-top: 5px;">
+                                            <button type="button" class="btn btn-primary" id="btnAgregar" style="float: right;" ng-click="createRowFamily()">
+                                                Agregar Familiar <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                            </button>
+                                        </div>
+
                                         <div class="col-xs-12" style="font-size: 12px !important; margin-top: 5px;">
 
                                             <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                                                 <thead class="bg-primary">
                                                 <tr>
+                                                    <th>NO.</th>
                                                     <th>NOMBRE Y APELLIDOS</th>
                                                     <th>PARENTESCO</th>
-                                                    <th>FECHA NAC.</th>
+                                                    <th>FECHA NACIMIENTO</th>
                                                     <th style="width: 5%;"></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr ng-repeat="family in familiares" ng-cloak >
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>{{$index + 1}}</td>
                                                     <td>
-                                                        <button type="button" class="btn btn-danger" ng-click=""
+                                                        <input type="text" class="form-control" ng-model="family.nombreapellidos" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" ng-model="family.parentesco" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="datepicker form-control" ng-model="family.fechanacimiento" />
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger" ng-click="deleteItem(family)"
                                                                 data-toggle="tooltip" data-placement="bottom" title="Eliminar">
                                                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                                         </button>
@@ -431,10 +450,51 @@
                                         </div>
 
                                     </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="histsalario">
+                                        <div class="col-xs-12" style="margin-top: 5px;">
+                                            <button type="button" class="btn btn-primary" id="btnAgregar" style="float: right;" ng-click="createRowHistory()">
+                                                Agregar Salario <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                            </button>
+                                        </div>
+
+                                        <div class="col-xs-12" style="font-size: 12px !important; margin-top: 5px;">
+
+                                            <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
+                                                <thead class="bg-primary">
+                                                <tr>
+                                                    <th>NO.</th>
+                                                    <th>SALARIO (VALOR)</th>
+                                                    <th>FECHA A PARTIR DE</th>
+                                                    <th>OBSERVACION</th>
+                                                    <th style="width: 5%;"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="elemento in historial" ng-cloak >
+                                                    <td>{{$index + 1}}</td>
+                                                    <td>
+                                                        <input type="text" class="form-control" ng-model="elemento.salario" ng-keypress="onlyNumber($event, undefined, undefined)" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="datepicker form-control" ng-model="elemento.fechainicio" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" class="form-control" ng-model="elemento.observacion" />
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger" ng-click="deleteHistorial(elemento)"
+                                                                data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+                                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
-
 
                         </div>
 
@@ -538,6 +598,52 @@
                             <span style="font-weight: bold">Salario: </span>{{salario_employee}}
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalRegistrySueldos">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Registro de Salario Empleado</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+
+                        <div class="col-xs-12">
+                            <div class="form-group  has-feedback">
+                                <input type="text" class="form-control" id="" ng-model="searchRegistroSalario" placeholder="BUSCAR..." >
+                                <span class="glyphicon glyphicon-search form-control-feedback" ></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th style="width: 4%;">NO</th>
+                                        <th>MES</th>
+                                        <th style="width: 10%;">SALARIO</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in sueldos | filter:searchRegistroSalario" ng-cloak >
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{item.mes}}</td>
+                                        <td class="text-right">{{item.sueldo}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                    </button>
                 </div>
             </div>
         </div>

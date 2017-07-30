@@ -6,6 +6,8 @@ use App\Modelos\Contabilidad\Cont_PlanCuenta;
 use App\Modelos\Nomina\Cargo;
 use App\Modelos\Nomina\Departamento;
 use App\Modelos\Nomina\Empleado;
+use App\Modelos\Nomina\EmpleadoCargaFamiliar;
+use App\Modelos\Nomina\EmpleadoRegistroSalarial;
 use App\Modelos\Persona;
 use App\Modelos\SRI\SRI_TipoIdentificacion;
 use Carbon\Carbon;
@@ -41,7 +43,8 @@ class EmpleadoController extends Controller
         $cargo = $filter->cargo;
         $employee = null;
 
-        $employees = Empleado::join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
+        $employees = Empleado::with('empleado_cargafamiliar', 'empleado_registrosalarial')
+                                ->join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
                                 ->join('departamento', 'departamento.iddepartamento', '=', 'empleado.iddepartamento')
                                 ->join('cargo', 'cargo.idcargo', '=', 'empleado.idcargo')
                                 //->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'empleado.idplancuenta')
@@ -57,7 +60,6 @@ class EmpleadoController extends Controller
 
         return $employees->orderBy('fechaingreso', 'desc')->paginate(10);
     }
-
 
     /**
      * Obtener todos los cargos
@@ -89,7 +91,6 @@ class EmpleadoController extends Controller
         return Departamento::orderBy('namedepartamento', 'asc')->get();
     }
 
-
     /**
      * Obtener todos los tipos de identificacion
      *
@@ -99,7 +100,6 @@ class EmpleadoController extends Controller
     {
         return SRI_TipoIdentificacion::orderBy('nameidentificacion', 'asc')->get();
     }
-
 
     /**
      * Obtener las cuentas del Plan de Cuenta
@@ -113,6 +113,10 @@ class EmpleadoController extends Controller
             ')->orderBy('jerarquia', 'asc')->get();
     }
 
+    public function getRegistroSalario($id)
+    {
+        return EmpleadoRegistroSalarial::where('idempleado', $id)->orderBy('fecha', 'asc')->get();
+    }
 
     /**
      * Obtener y devolver los numeros de identificacion que concuerden con el parametro a buscar
@@ -126,7 +130,6 @@ class EmpleadoController extends Controller
                         ->whereRaw('idpersona NOT IN (SELECT idpersona FROM empleado)')
                         ->get();
     }
-
 
     /**
      * Obtener y devolver la persona que cumpla con el numero de identificacion buscado
@@ -152,7 +155,6 @@ class EmpleadoController extends Controller
 
         return ($count >= 1) ? true : false;
     }
-
 
     /**
      * Almacenar el recurso empleado
@@ -211,14 +213,58 @@ class EmpleadoController extends Controller
                 $empleado->fechanacimiento = $request->input('fechanacimiento');
                 $empleado->estadocivil = $request->input('estadocivil');
                 $empleado->genero = $request->input('genero');
-                $empleado->codigoempleado = $request->input('codigoempleado');
+                //$empleado->codigoempleado = $request->input('codigoempleado');
 
                 if ($url_file != null) {
                     $empleado->rutafoto = $url_file;
                 }
 
                 if ($empleado->save()) {
+
+                    $familiares = $request->input('familiares');
+
+                    if (count($familiares) > 0) {
+
+                        foreach ($familiares as $element) {
+
+                            $familiar = new EmpleadoCargaFamiliar();
+
+                            $familiar->nombreapellidos = $element['nombreapellidos'];
+                            $familiar->parentesco = $element['parentesco'];
+                            $familiar->fechanacimiento = $element['fechanacimiento'];
+                            $familiar->idempleado = $empleado->idempleado;
+
+                            if ($familiar->save() == false) {
+                                return response()->json(['success' => false]);
+                            }
+
+                        }
+
+                    }
+
+                    $salarios = $request->input('historialsalario');
+
+                    if (count($salarios) > 0) {
+
+                        foreach ($salarios as $element) {
+
+                            $sueldo = new EmpleadoRegistroSalarial();
+
+                            $sueldo->observacion = $element['observacion'];
+                            $sueldo->salario = $element['salario'];
+                            $sueldo->fecha = $element['fechainicio'];
+                            $sueldo->idempleado = $empleado->idempleado;
+
+                            if ($sueldo->save() == false) {
+                                return response()->json(['success' => false]);
+                            }
+
+                        }
+
+                    }
+
                     return response()->json(['success' => true]);
+
                 } else {
                     return response()->json(['success' => false]);
                 }
@@ -231,7 +277,6 @@ class EmpleadoController extends Controller
 
     }
 
-
     /**
      * Mostrar un recurso empleado especifico.
      *
@@ -242,7 +287,6 @@ class EmpleadoController extends Controller
     {
         return Empleado::with('persona', 'cargo')->where('idempleado', $id) ->get();
     }
-
 
     /**
      * Actualizar el recurso empleado seleccionado
@@ -266,7 +310,7 @@ class EmpleadoController extends Controller
             }
         }
 
-        $persona = Persona::find($request->input('idpersona_edit'));;
+        $persona = Persona::find($request->input('idpersona_edit'));
         $persona->lastnamepersona = $request->input('apellidos');
         $persona->namepersona = $request->input('nombres');
         $persona->numdocidentific = $request->input('documentoidentidadempleado');
@@ -277,25 +321,86 @@ class EmpleadoController extends Controller
         $persona->direccion = $request->input('direcciondomicilio');
 
         if ($persona->save()) {
+
+
             $empleado = Empleado::find($id);
             $empleado->idcargo = $request->input('idcargo');
             $empleado->iddepartamento = $request->input('departamento');
-            $empleado->idplancuenta = $request->input('cuentacontable');
+            //$empleado->idplancuenta = $request->input('cuentacontable');
             $empleado->fechaingreso = $request->input('fechaingreso');
             $empleado->telefprincipaldomicilio = $request->input('telefonoprincipaldomicilio');
             $empleado->telefsecundariodomicilio = $request->input('telefonosecundariodomicilio');
             $empleado->salario = $request->input('salario');
 
+            $empleado->fechanacimiento = $request->input('fechanacimiento');
+            $empleado->estadocivil = $request->input('estadocivil');
+            $empleado->genero = $request->input('genero');
+            //$empleado->codigoempleado = $request->input('codigoempleado');
+
             if ($url_file != null) {
                 $empleado->rutafoto = $url_file;
             }
-            $empleado->save();
+
+            if ($empleado->save()) {
+
+                $result = EmpleadoCargaFamiliar::where('idempleado', $id)->delete();
+
+                $familiares = $request->input('familiares');
+
+                if (count($familiares) > 0) {
+
+                    foreach ($familiares as $element) {
+
+                        $familiar = new EmpleadoCargaFamiliar();
+
+                        $familiar->nombreapellidos = $element['nombreapellidos'];
+                        $familiar->parentesco = $element['parentesco'];
+                        $familiar->fechanacimiento = $element['fechanacimiento'];
+                        $familiar->idempleado = $empleado->idempleado;
+
+                        if ($familiar->save() == false) {
+                            return response()->json(['success' => false]);
+                        }
+
+                    }
+
+                }
+
+                $resultSalario = EmpleadoRegistroSalarial::where('idempleado', $id)->delete();
+
+                $salarios = $request->input('historialsalario');
+
+                if (count($salarios) > 0) {
+
+                    foreach ($salarios as $element) {
+
+                        $sueldo = new EmpleadoRegistroSalarial();
+
+                        $sueldo->observacion = $element['observacion'];
+                        $sueldo->salario = $element['salario'];
+                        $sueldo->fecha = $element['fechainicio'];
+                        $sueldo->idempleado = $empleado->idempleado;
+
+                        if ($sueldo->save() == false) {
+                            return response()->json(['success' => false]);
+                        }
+
+                    }
+
+                }
+
+                return response()->json(['success' => true]);
+
+            } else {
+                return response()->json(['success' => false]);
+            }
+
+
         } else {
             return response()->json(['success' => false]);
         }
         return response()->json(['success' => true]);
     }
-
 
     /**
      * Eliminar el recurso empleado seleccionado

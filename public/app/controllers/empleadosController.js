@@ -1,11 +1,17 @@
 
 app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
+
+
+
     $scope.empleados = [];
     $scope.empleado_del = 0;
     $scope.idpersona = 0;
     $scope.idpersona_edit = 0;
     $scope.id = 0;
+
+    $scope.familiares = [];
+    $scope.historial = [];
 
     $scope.select_cuenta = null;
 
@@ -129,6 +135,12 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                 });
 
                 $http.get(API_URL + 'empleado/getTipoIdentificacion').success(function(response){
+
+                    $('.datepicker').datetimepicker({
+                        locale: 'es',
+                        format: 'YYYY-MM-DD'
+                    });
+
                     var longitud = response.length;
                     var array_temp = [{label: '-- Seleccione --', id: ''}];
                     for(var i = 0; i < longitud; i++){
@@ -154,6 +166,14 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                     $scope.cuenta_employee = '';
                     $scope.select_cuenta = null;
+
+                    $scope.familiares = [];
+                    $scope.historial = [];
+
+                    $scope.fechanacimiento = '';
+                    $scope.estadocivil = '';
+                    $scope.genero = '';
+                    //$scope.codigo = '';
 
                     $scope.form_title = "Ingresar Nuevo Colaborador";
 
@@ -212,7 +232,7 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                     $scope.fechanacimiento = item.fechanacimiento;
                     $scope.estadocivil = item.estadocivil;
                     $scope.genero = item.genero;
-                    $scope.codigo = item.codigoempleado;
+                    //$scope.codigo = item.codigoempleado;
 
                     console.log(item);
 
@@ -222,8 +242,6 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                     } else {
                         $scope.url_foto = 'img/empleado.png';
                     }
-
-
 
                     $scope.cuenta_employee = item.concepto;
 
@@ -236,10 +254,51 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                     $scope.select_cuenta = objectPlan;
 
+                    $scope.familiares = [];
+
+                    var longitud_f = item.empleado_cargafamiliar.length;
+
+                    if (longitud_f > 0) {
+
+                        for (var j = 0; j < longitud_f; j++) {
+
+                            var e = {
+                                idfamiliar: item.empleado_cargafamiliar[j].idempleado_cargafamiliar,
+                                nombreapellidos: item.empleado_cargafamiliar[j].nombreapellidos,
+                                parentesco: item.empleado_cargafamiliar[j].parentesco,
+                                fechanacimiento: item.empleado_cargafamiliar[j].fechanacimiento
+                            };
+
+                            $scope.familiares.push(e);
+                        }
+
+                    }
+
+                    //--------------------------------------------------------------
+
+                    $scope.historial = [];
+
+                    var longitud_h = item.empleado_registrosalarial.length;
+
+                    if (longitud_h > 0) {
+
+                        for (var x = 0; x < longitud_h; x++) {
+
+                            var h = {
+                                idempleado_registrosalarial: item.empleado_registrosalarial[x].idempleado_registrosalarial,
+                                fechainicio: item.empleado_registrosalarial[x].fecha,
+                                salario: item.empleado_registrosalarial[x].salario,
+                                observacion: item.empleado_registrosalarial[x].observacion
+                            };
+
+                            $scope.historial.push(h);
+                        }
+
+                    }
+
                     $('#modalAction').modal('show');
 
                 });
-
 
                 break;
 
@@ -267,9 +326,125 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
                 break;
 
+            case 'registry':
+
+                var idempleado = item.idempleado;
+
+                $scope.sueldos = [];
+
+                $http.get(API_URL + 'empleado/getRegistroSalario/' + idempleado).success(function(response){
+
+                    console.log(response);
+
+                    var longitud = response.length;
+
+                    if (longitud > 0) {
+
+                        var first_date = response[0].fecha;
+                        var first_year = (response[0].fecha).split('-')[0];
+
+                        var meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto',
+                                    'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+
+                        for (var x = 0; x < 12; x++) {
+
+                            var item = {
+                                mes: '',
+                                year: '',
+                                sueldo: 0
+                            };
+
+                            var flag = false;
+
+                            for (var i = 0; i < longitud; i++) {
+
+                                if ((parseInt((response[i].fecha).split('-')[1]) - 1) === x) {
+                                    item.sueldo = parseFloat(response[i].salario).toFixed(2);
+                                    item.mes = meses[parseInt((response[i].fecha).split('-')[1]) - 1];
+                                    item.year = (response[i].fecha).split('-')[0];
+                                    flag = true;
+                                }
+
+                            }
+
+                            if (flag === false) {
+
+                                if ($scope.sueldos[$scope.sueldos.length - 1] !== undefined) {
+                                    item.sueldo = $scope.sueldos[$scope.sueldos.length - 1].sueldo;
+                                } else item.sueldo = '';
+
+                                item.mes = meses[x];
+                                item.year = first_year;
+                            }
+
+                            $scope.sueldos.push(item);
+
+                        }
+
+                        console.log($scope.sueldos);
+
+                    }
+
+                    $('#modalRegistrySueldos').modal('show');
+
+                });
+
+                break;
+
             default:
                 break;
         }
+    };
+
+    $scope.createRowFamily = function () {
+
+        var item = {
+            idfamiliar: 0,
+            nombreapellidos: '',
+            parentesco: '',
+            fechanacimiento: ''
+        };
+
+        $scope.familiares.push(item);
+
+        $('.datepicker').datetimepicker({
+            locale: 'es',
+            format: 'YYYY-MM-DD'
+        });
+
+    };
+
+    $scope.createRowHistory = function () {
+
+        var item = {
+            idempleado_registrosalarial: 0,
+            fechainicio: '',
+            salario: '',
+            observacion: ''
+        };
+
+        $('.datepicker').datetimepicker({
+            locale: 'es',
+            format: 'YYYY-MM-DD'
+        });
+
+        $scope.historial.push(item);
+
+    };
+
+    $scope.deleteItem=function (item) {
+
+        var posicion = $scope.familiares.indexOf(item);
+        $scope.familiares.splice(posicion,1);
+
+    };
+
+    $scope.deleteHistorial=function (item) {
+
+        var posicion = $scope.historial.indexOf(item);
+        $scope.historial.splice(posicion,1);
+
     };
 
     $scope.focusOut = function () {
@@ -341,10 +516,14 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
             departamento: $scope.departamento,
             tipoidentificacion: $scope.tipoidentificacion,
 
-            codigoempleado: $scope.codigo,
+            //codigoempleado: $scope.codigo,
             fechanacimiento: $scope.fechanacimiento,
             estadocivil: $scope.estadocivil,
-            genero: $scope.genero
+            genero: $scope.genero,
+
+            familiares: $scope.familiares,
+            historialsalario: $scope.historial
+
             //cuentacontable: $scope.select_cuenta.idplancuenta
         };
 
