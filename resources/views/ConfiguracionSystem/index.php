@@ -221,7 +221,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                                    <!--<div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                                         <div class="input-group">
                                             <span class="input-group-addon">Cuenta Retención IVA: </span>
                                             <input type="text" class="form-control" name="retiva_compra" id="retiva_compra" ng-model="retiva_compra"  readonly>
@@ -252,7 +252,7 @@
                                                 </button>
                                             </span>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                 </form>
 
@@ -345,7 +345,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                                    <!--<div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                                         <div class="input-group">
                                             <span class="input-group-addon">Cuenta Retención IVA: </span>
                                             <input type="text" class="form-control" name="retiva_venta" id="retiva_venta" ng-model="retiva_venta" placeholder=""
@@ -379,7 +379,7 @@
                                                 </button>
                                             </span>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                                         <div class="input-group">
@@ -490,7 +490,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+                                    <!--<div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                                         <div class="input-group">
                                             <span class="input-group-addon">Cuenta Retención IVA: </span>
                                             <input type="text" class="form-control" name="retiva_nc" id="retiva_nc" ng-model="retiva_nc" placeholder=""
@@ -524,7 +524,7 @@
                                                 </button>
                                             </span>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
                                         <div class="input-group">
