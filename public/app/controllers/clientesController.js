@@ -590,7 +590,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.getTerrenosByCliente = function () {
         var idcliente = {
-            codigocliente: $scope.objectAction.codigocliente
+            idcliente: $scope.objectAction.idcliente
         };
 
         $http.get(API_URL + 'cliente/getTerrenosByCliente/' + JSON.stringify(idcliente)).success(function(response){
@@ -676,7 +676,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.getIdentifyClientes = function () {
         var idcliente = {
-            codigocliente: $scope.objectAction.codigocliente
+            idcliente: $scope.objectAction.idcliente
         };
 
         $http.get(API_URL + 'cliente/getIdentifyClientes/' + JSON.stringify(idcliente)).success(function(response){
@@ -685,7 +685,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             var longitud = response.length;
             var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].documentoidentidad, id: response[i].codigocliente})
+                array_temp.push({label: response[i].numdocidentific, id: response[i].idcliente})
             }
 
             //$('.selectpicker').selectpicker('refresh');
@@ -722,17 +722,17 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.getClienteByIdentify = function () {
         var idcliente = {
-            codigocliente: $scope.t_ident_new_client_setnombre
+            idcliente: $scope.t_ident_new_client_setnombre
         };
 
         $http.get(API_URL + 'cliente/getClienteByIdentify/' + JSON.stringify(idcliente)).success(function(response){
             console.log(response);
 
-            $scope.h_new_codigocliente_setnombre = response[0].codigocliente;
-            $scope.nom_new_cliente_setnombre = response[0].apellido + ' ' + response[0].nombre;
-            $scope.direcc_new_cliente_setnombre = response[0].direcciondomicilio;
+            $scope.h_new_codigocliente_setnombre = response[0].idcliente;
+            $scope.nom_new_cliente_setnombre = response[0].razonsocial;
+            $scope.direcc_new_cliente_setnombre = response[0].direccion;
             $scope.telf_new_cliente_setnombre = response[0].telefonoprincipaldomicilio;
-            $scope.celular_new_cliente_setnombre = response[0].celular;
+            $scope.celular_new_cliente_setnombre = response[0].celphone;
             $scope.telf_trab_new_cliente_setnombre = response[0].telefonoprincipaltrabajo;
 
         });
@@ -816,13 +816,15 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
     $scope.actionOtro = function () {
         $scope.getLastIDOtros();
 
+        console.log($scope.objectAction);
+
         $scope.t_fecha_otro = $scope.nowDate();
-        $scope.h_codigocliente_otro = $scope.objectAction.codigocliente;
-        $scope.documentoidentidad_cliente_otro = $scope.objectAction.documentoidentidad;
-        $scope.nom_cliente_otro = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
-        $scope.direcc_cliente_otro = $scope.objectAction.direcciondomicilio;
+        $scope.h_codigocliente_otro = $scope.objectAction.idcliente;
+        $scope.documentoidentidad_cliente_otro = $scope.objectAction.numdocidentific;
+        $scope.nom_cliente_otro = $scope.objectAction.razonsocial;
+        $scope.direcc_cliente_otro = $scope.objectAction.direccion;
         $scope.telf_cliente_otro = $scope.objectAction.telefonoprincipaldomicilio;
-        $scope.celular_cliente_otro = $scope.objectAction.celular;
+        $scope.celular_cliente_otro = $scope.objectAction.celphone;
         $scope.telf_trab_cliente_otro = $scope.objectAction.telefonoprincipaltrabajo;
 
         $scope.t_observacion_otro = '';
@@ -870,12 +872,12 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         $scope.getLastIDSetNombre();
 
         $scope.t_fecha_setnombre = $scope.nowDate();
-        $scope.h_codigocliente_setnombre = $scope.objectAction.codigocliente;
-        $scope.documentoidentidad_cliente_setnombre = $scope.objectAction.documentoidentidad;
-        $scope.nom_cliente_setnombre = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
-        $scope.direcc_cliente_setnombre = $scope.objectAction.direcciondomicilio;
+        $scope.h_codigocliente_setnombre = $scope.objectAction.idcliente;
+        $scope.documentoidentidad_cliente_setnombre = $scope.objectAction.numdocidentific;
+        $scope.nom_cliente_setnombre = $scope.objectAction.razonsocial;
+        $scope.direcc_cliente_setnombre = $scope.objectAction.direccion;
         $scope.telf_cliente_setnombre = $scope.objectAction.telefonoprincipaldomicilio;
-        $scope.celular_cliente_setnombre = $scope.objectAction.celular;
+        $scope.celular_cliente_setnombre = $scope.objectAction.celphone;
         $scope.telf_trab_cliente_setnombre = $scope.objectAction.telefonoprincipaltrabajo;
 
         $scope.junta_setnombre = '';

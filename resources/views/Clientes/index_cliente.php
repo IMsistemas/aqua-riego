@@ -1082,6 +1082,7 @@
                                             <textarea class="form-control" id="t_observacion_setnombre" ng-model="t_observacion_setnombre" rows="2"></textarea>
                                         </div>
                                     </div>
+
                                 </div>
                             </form>
                         </div>

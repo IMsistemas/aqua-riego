@@ -274,22 +274,23 @@ class ClienteController extends Controller
         $cliente = json_decode($idcliente);
 
         return Terreno::with('derivacion.canal.calle.barrio', 'cultivo')
-                        ->where('codigocliente', $cliente->codigocliente)->get();
+                        ->where('idcliente', $cliente->idcliente)->get();
     }
 
     public function getIdentifyClientes($idcliente)
     {
         $cliente = json_decode($idcliente);
 
-        return Cliente::where('codigocliente', '!=', $cliente->codigocliente)
-                        ->orderBy('documentoidentidad', 'asc')->get();
+        return Cliente::join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
+            ->where('idcliente', '!=', $cliente->idcliente)->get();
     }
 
     public function getClienteByIdentify($idcliente)
     {
         $cliente = json_decode($idcliente);
 
-        return Cliente::where('codigocliente', $cliente->codigocliente)->get();
+        return Cliente::join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
+                            ->where('idcliente', $cliente->idcliente)->get();
     }
 
     /**
@@ -491,19 +492,32 @@ class ClienteController extends Controller
 
     public function storeSolicitudSetName(Request $request)
     {
-        $solicitudsetname = new SolicitudCambioNombre();
-        $solicitudsetname->codigocliente = $request->input('codigocliente_old');
-        $solicitudsetname->codigonuevocliente = $request->input('codigocliente_new');
-        $solicitudsetname->idterreno = $request->input('idterreno');
-        $solicitudsetname->fechasolicitud = date('Y-m-d');
-        $solicitudsetname->estaprocesada = false;
-        $solicitudsetname->observacion = $request->input('observacion');
 
-        $result = $solicitudsetname->save();
+        $fecha_actual = date('Y-m-d');
 
-        return ($result) ? response()->json(['success' => true,
-                                            'idsolicitud' => $solicitudsetname->idsolicitudcambionombre]) :
-                            response()->json(['success' => false]);
+        $solicitud = new Solicitud();
+        $solicitud->idcliente = $request->input('codigocliente_old');
+        $solicitud->fechasolicitud = $fecha_actual;
+        $solicitud->fechaprocesada = $fecha_actual;
+        $solicitud->estaprocesada = false;
+
+        if ($solicitud->save()) {
+            $solicitudsetname = new SolicitudCambioNombre();
+            $solicitudsetname->idsolicitud = $solicitud->idsolicitud;
+
+            $solicitudsetname->idcliente = $request->input('codigocliente_new');
+            $solicitudsetname->idterreno = $request->input('idterreno');
+            $solicitudsetname->observacion = $request->input('observacion');
+
+            $result = $solicitudsetname->save();
+
+            return ($result) ? response()->json(['success' => true,
+                'idsolicitud' => $solicitudsetname->idsolicitudcambionombre]) :
+                response()->json(['success' => false]);
+        } else {
+            response()->json(['success' => false]);
+        }
+
     }
 
     public function storeSolicitudFraccion(Request $request)
@@ -538,17 +552,25 @@ class ClienteController extends Controller
 
     public function processSolicitudSetName(Request $request, $id)
     {
-        $solicitud = SolicitudCambioNombre::find($id);
+        $solicitud_setname = SolicitudCambioNombre::find($id);
 
-        $terreno = Terreno::find($solicitud->idterreno);
-        $terreno->codigocliente = $solicitud->codigonuevocliente;
-        $terreno->save();
+        $terreno = Terreno::find($solicitud_setname->idterreno);
+        $terreno->idcliente = $solicitud_setname->idcliente;
 
-        $solicitud->estaprocesada = true;
-        $solicitud->fechaprocesada = date('Y-m-d');
-        $solicitud->save();
+        if ($terreno->save()) {
+            $solicitud = Solicitud::find($solicitud_setname->idsolicitud);
 
-        return response()->json(['success' => true]);
+            $solicitud->estaprocesada = true;
+            $solicitud->fechaprocesada = date('Y-m-d');
+
+            if ($solicitud->save()) {
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false]);
+            }
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 
     public function processSolicitudFraccion(Request $request, $id)
