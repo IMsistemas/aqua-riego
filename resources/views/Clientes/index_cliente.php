@@ -960,27 +960,67 @@
 
                                             <div class="col-xs-12" style="padding: 0;">
                                                 <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">RUC/CI:</span> {{documentoidentidad_cliente_setnombre}}
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">RUC/CI: </span>
+                                                        <input class="form-control" type="text" name="documentoidentidad_cliente_setnombre" id="documentoidentidad_cliente_setnombre"
+                                                               ng-model="documentoidentidad_cliente_setnombre" disabled >
+                                                    </div>
+
                                                 </div>
+
                                                 <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_cliente_setnombre}}
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Nombre y Apellidos: </span>
+                                                        <input class="form-control" type="text" name="nom_cliente_setnombre" id="nom_cliente_setnombre"
+                                                               ng-model="nom_cliente_setnombre" disabled >
+                                                    </div>
                                                     <input type="hidden" ng-model="h_codigocliente_setnombre">
+
                                                 </div>
                                             </div>
                                             <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
                                                 <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_cliente_setnombre}}
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Dirección Domicilio: </span>
+                                                        <input class="form-control" type="text" name="direcc_cliente_setnombre" id="direcc_cliente_setnombre"
+                                                               ng-model="direcc_cliente_setnombre" disabled >
+                                                    </div>
+
                                                 </div>
+
                                                 <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Domicilio:</span> {{telf_cliente_setnombre}}
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Teléfono Domicilio: </span>
+                                                        <input class="form-control" type="text" name="telf_cliente_setnombre" id="telf_cliente_setnombre"
+                                                               ng-model="telf_cliente_setnombre" disabled >
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+
                                                 <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Celular:</span> {{celular_cliente_setnombre}}
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Celular: </span>
+                                                        <input class="form-control" type="text" name="celular_cliente_setnombre" id="telf_clcelular_cliente_setnombreiente_setnombre"
+                                                               ng-model="celular_cliente_setnombre" disabled >
+                                                    </div>
+
                                                 </div>
+
                                                 <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Trabajo:</span> {{telf_trab_cliente_setnombre}}
+
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">Teléfono Trabajo: </span>
+                                                        <input class="form-control" type="text" name="telf_trab_cliente_setnombre" id="telf_trab_cliente_setnombre"
+                                                               ng-model="telf_trab_cliente_setnombre" disabled >
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -990,47 +1030,85 @@
                                         <fieldset>
                                             <legend style="font-size: 16px; font-weight: bold;">Datos de Terreno</legend>
 
-                                            <div class="col-xs-12" style="">
-                                                <div class="col-sm-6 col-xs-12 form-group">
-                                                    <label for="t_terreno" class="col-sm-4 col-xs-12 control-label">Terrenos:</label>
-                                                    <div class="col-sm-8 col-xs-12" style="">
-                                                        <select class="form-control" name="t_terrenos_setnombre" id="t_terrenos_setnombre"
-                                                                ng-model="t_terrenos_setnombre" ng-options="value.id as value.label for value in terrenos_setN"
-                                                                ng-change="searchInfoTerreno()"></select>
-                                                    </div>
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Terrenos </span>
+                                                    <select class="form-control" name="t_terrenos_setnombre" id="t_terrenos_setnombre"
+                                                            ng-model="t_terrenos_setnombre" ng-options="value.id as value.label for value in terrenos_setN"
+                                                            ng-change="searchInfoTerreno()"></select>
                                                 </div>
 
-                                                <div class="col-sm-6 col-xs-12" style="padding-left: 45px;">
-                                                    <span class="label label-default" style="!important; font-size: 12px !important;">Junta Modular:</span> {{junta_setnombre}}
-                                                </div>
                                             </div>
 
-                                            <div class="col-xs-12" style="padding: 0;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Toma:</span> {{toma_setnombre}}
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Junta Modular: </span>
+                                                    <input class="form-control" type="text" name="junta_setnombre" id="junta_setnombre"
+                                                           ng-model="junta_setnombre" disabled >
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Canal:</span> {{canal_setnombre}}
-                                                </div>
+
                                             </div>
 
-                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Derivación:</span> {{derivacion_setnombre}}
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Toma: </span>
+                                                    <input class="form-control" type="text" name="toma_setnombre" id="toma_setnombre"
+                                                           ng-model="toma_setnombre" disabled >
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Tipo Cultivo:</span> {{cultivo_setnombre}}
-                                                </div>
+
                                             </div>
 
-                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Area:</span> {{area_setnombre}} m2
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Canal: </span>
+                                                    <input class="form-control" type="text" name="canal_setnombre" id="canal_setnombre"
+                                                           ng-model="canal_setnombre" disabled >
                                                 </div>
 
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Caudal:</span> {{caudal_setnombre}}
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Derivación: </span>
+                                                    <input class="form-control" type="text" name="derivacion_setnombre" id="derivacion_setnombre"
+                                                           ng-model="derivacion_setnombre" disabled >
                                                 </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Tipo Cultivo: </span>
+                                                    <input class="form-control" type="text" name="cultivo_setnombre" id="cultivo_setnombre"
+                                                           ng-model="cultivo_setnombre" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Area (m2): </span>
+                                                    <input class="form-control" type="text" name="area_setnombre" id="area_setnombre"
+                                                           ng-model="area_setnombre" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Caudal: </span>
+                                                    <input class="form-control" type="text" name="caudal_setnombre" id="caudal_setnombre"
+                                                           ng-model="caudal_setnombre" disabled >
+                                                </div>
+
                                             </div>
 
                                         </fieldset>
@@ -1040,46 +1118,76 @@
                                         <fieldset>
                                             <legend style="font-size: 16px; font-weight: bold;">Datos del nuevo Cliente</legend>
 
-                                            <div class="col-xs-12" style="padding: 0;">
-                                                <div class="col-sm-6 col-xs-12 form-group">
+                                            <div class="col-sm-6 col-xs-12">
 
-                                                    <label for="t_terreno" class="col-sm-4 col-xs-12 control-label">RUC/CI:</label>
-                                                    <div class="col-sm-8 col-xs-12" style="">
-                                                        <select class="form-control"
-                                                                name="t_ident_new_client_setnombre" id="t_ident_new_client_setnombre"
-                                                                ng-model="t_ident_new_client_setnombre" ng-options="value.id as value.label for value in clientes_setN"
-                                                                ng-change="getClienteByIdentify()"></select>
-                                                    </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">RUC/CI: </span>
+                                                    <select class="form-control"
+                                                            name="t_ident_new_client_setnombre" id="t_ident_new_client_setnombre"
+                                                            ng-model="t_ident_new_client_setnombre" ng-options="value.id as value.label for value in clientes_setN"
+                                                            ng-change="getClienteByIdentify()"></select>
+                                                </div>
 
-                                                </div>
-                                                <div class="col-sm-6 col-xs-12" style="padding-left: 45px;">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_new_cliente_setnombre}}
-                                                    <input type="hidden" ng-model="h_new_codigocliente_setnombre">
-                                                </div>
                                             </div>
-                                            <div class="col-xs-12" style="padding: 0;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_new_cliente_setnombre}}
+
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Cliente: </span>
+                                                    <input class="form-control" type="text" name="nom_new_cliente_setnombre" id="nom_new_cliente_setnombre"
+                                                           ng-model="nom_new_cliente_setnombre" disabled >
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Domicilio:</span> {{telf_new_cliente_setnombre}}
-                                                </div>
+
+                                                <input type="hidden" ng-model="h_new_codigocliente_setnombre">
+
                                             </div>
-                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Celular:</span> {{celular_new_cliente_setnombre}}
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Dirección Domicilio: </span>
+                                                    <input class="form-control" type="text" name="direcc_new_cliente_setnombre" id="direcc_new_cliente_setnombre"
+                                                           ng-model="direcc_new_cliente_setnombre" disabled >
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Trabajo:</span> {{telf_trab_new_cliente_setnombre}}
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Teléfono Domicilio: </span>
+                                                    <input class="form-control" type="text" name="telf_new_cliente_setnombre" id="telf_new_cliente_setnombre"
+                                                           ng-model="telf_new_cliente_setnombre" disabled >
                                                 </div>
+
+                                            </div>
+
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Celular: </span>
+                                                    <input class="form-control" type="text" name="celular_new_cliente_setnombre" id="celular_new_cliente_setnombre"
+                                                           ng-model="celular_new_cliente_setnombre" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Teléfono Trabajo: </span>
+                                                    <input class="form-control" type="text" name="telf_trab_new_cliente_setnombre" id="telf_trab_new_cliente_setnombre"
+                                                           ng-model="telf_trab_new_cliente_setnombre" disabled >
+                                                </div>
+
                                             </div>
 
                                         </fieldset>
                                     </div>
-                                    <div class="col-xs-12 form-group" style="">
-                                        <label for="t_derivacion" class="col-sm-2 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Observación:</label>
-                                        <div class="col-sm-10 col-xs-12">
-                                            <textarea class="form-control" id="t_observacion_setnombre" ng-model="t_observacion_setnombre" rows="2"></textarea>
+                                    <div class="col-xs-12" style="">
+                                        <div class="col-xs-12">
+                                            <textarea class="form-control" id="t_observacion_setnombre" ng-model="t_observacion_setnombre" rows="2" placeholder="Observacion"></textarea>
                                         </div>
                                     </div>
 
@@ -1132,31 +1240,70 @@
                                         <fieldset ng-cloak>
                                             <legend style="font-size: 16px; font-weight: bold;">Datos del Cliente</legend>
 
-                                            <div class="col-xs-12" style="padding: 0;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">RUC/CI:</span> {{documentoidentidad_cliente_fraccion}}
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">RUC/CI: </span>
+                                                    <input class="form-control" type="text" name="documentoidentidad_cliente_fraccion" id="documentoidentidad_cliente_fraccion"
+                                                           ng-model="documentoidentidad_cliente_fraccion" disabled >
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_cliente_fraccion}}
-                                                    <input type="hidden" ng-model="h_codigocliente_fraccion">
-                                                </div>
+
                                             </div>
-                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Dirección Domicilio:</span> {{direcc_cliente_fraccion}}
+
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Cliente: </span>
+                                                    <input class="form-control" type="text" name="nom_cliente_fraccion" id="nom_cliente_fraccion"
+                                                           ng-model="nom_cliente_fraccion" disabled >
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Domicilio:</span> {{telf_cliente_fraccion}}
-                                                </div>
+
+                                                <input type="hidden" ng-model="h_codigocliente_fraccion">
                                             </div>
-                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Celular:</span> {{celular_cliente_fraccion}}
+
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Dirección Domicilio: </span>
+                                                    <input class="form-control" type="text" name="direcc_cliente_fraccion" id="direcc_cliente_fraccion"
+                                                           ng-model="direcc_cliente_fraccion" disabled >
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Teléfono Trabajo:</span> {{telf_trab_cliente_fraccion}}
-                                                </div>
+
                                             </div>
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Teléfono Domicilio: </span>
+                                                    <input class="form-control" type="text" name="telf_cliente_fraccion" id="telf_cliente_fraccion"
+                                                           ng-model="telf_cliente_fraccion" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Celular: </span>
+                                                    <input class="form-control" type="text" name="celular_cliente_fraccion" id="celular_cliente_fraccion"
+                                                           ng-model="celular_cliente_fraccion" disabled >
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Teléfono Trabajo: </span>
+                                                    <input class="form-control" type="text" name="telf_trab_cliente_fraccion" id="telf_trab_cliente_fraccion"
+                                                           ng-model="telf_trab_cliente_fraccion" disabled >
+                                                </div>
+
+                                            </div>
+
+
                                         </fieldset>
                                     </div>
 
@@ -1164,73 +1311,130 @@
                                         <fieldset>
                                             <legend style="font-size: 16px; font-weight: bold;">Datos de Terreno</legend>
 
-                                            <div class="col-xs-12" style="padding: 0;">
-                                                <div class="col-sm-6 col-xs-12 form-group">
-                                                    <label for="t_terreno_fraccion" class="col-sm-4 col-xs-12 control-label">Terrenos:</label>
-                                                    <div class="col-sm-8 col-xs-12" style="">
-                                                        <select class="form-control" name="t_terrenos_fraccion" id="t_terrenos_fraccion"
-                                                                ng-model="t_terrenos_fraccion" ng-options="value.id as value.label for value in terrenos_fraccion"
-                                                                ng-change="searchInfoTerrenoFraccion()"></select>
-                                                    </div>
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Terrenos: </span>
+                                                    <select class="form-control" name="t_terrenos_fraccion" id="t_terrenos_fraccion"
+                                                            ng-model="t_terrenos_fraccion" ng-options="value.id as value.label for value in terrenos_fraccion"
+                                                            ng-change="searchInfoTerrenoFraccion()"></select>
                                                 </div>
 
-                                                <div class="col-sm-6 col-xs-12" style="padding-left: 45px;">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Junta Modular:</span> {{junta_fraccion}}
-                                                </div>
                                             </div>
 
-                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Toma:</span> {{toma_fraccion}}
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Junta Modular: </span>
+                                                    <input class="form-control" type="text" name="junta_fraccion" id="junta_fraccion"
+                                                           ng-model="junta_fraccion" disabled >
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Canal:</span> {{canal_fraccion}}
-                                                </div>
+
                                             </div>
 
-                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Derivación:</span> {{derivacion_fraccion}}
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Toma: </span>
+                                                    <input class="form-control" type="text" name="toma_fraccion" id="toma_fraccion"
+                                                           ng-model="toma_fraccion" disabled >
                                                 </div>
-                                                <div class="col-sm-6 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Tipo Cultivo:</span> {{cultivo_fraccion}}
-                                                </div>
+
                                             </div>
 
-                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-4 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Area Actual:</span> {{area_fraccion}} m2
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Canal: </span>
+                                                    <input class="form-control" type="text" name="canal_fraccion" id="canal_fraccion"
+                                                           ng-model="canal_fraccion" disabled >
                                                 </div>
 
-                                                <div class="col-sm-4 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Caudal:</span> {{caudal_fraccion}}
-                                                </div>
-
-                                                <div class="col-sm-4 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Valor:</span> {{valor_fraccion}}
-                                                </div>
                                             </div>
 
-                                            <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
-                                                <div class="col-sm-4 col-xs-12">
-                                                    <label for="t_area_fraccion" class="col-sm-5 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Area Fracc.:</label>
-                                                    <div class="col-sm-7 col-xs-12">
-                                                        <input type="text" class="form-control" name="t_area_fraccion" id="t_area_fraccion" ng-keypress="onlyNumber($event)"
-                                                               ng-model="t_area_fraccion" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculateFraccion()">
-                                                        <span class="help-block error"
-                                                              ng-show="formFraccion.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
-                                                        <span class="help-block error"
-                                                              ng-show="formFraccion.t_area.$invalid && formProcess.t_area.$error.pattern">El Area debe ser solo números</span>
-                                                    </div>
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Derivación: </span>
+                                                    <input class="form-control" type="text" name="derivacion_fraccion" id="derivacion_fraccion"
+                                                           ng-model="derivacion_fraccion" disabled >
                                                 </div>
 
-                                                <div class="col-sm-4 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Caudal:</span> {{caudal_new_fraccion}}
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Tipo Cultivo: </span>
+                                                    <input class="form-control" type="text" name="cultivo_fraccion" id="cultivo_fraccion"
+                                                           ng-model="cultivo_fraccion" disabled >
                                                 </div>
 
-                                                <div class="col-sm-4 col-xs-12">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Valor:</span> {{valor_new_fraccion}}
+                                            </div>
+
+                                            <div class="col-sm-4 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Area Actual (m2): </span>
+                                                    <input class="form-control" type="text" name="area_fraccion" id="area_fraccion"
+                                                           ng-model="area_fraccion" disabled >
                                                 </div>
+
+                                            </div>
+
+                                            <div class="col-sm-4 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Caudal: </span>
+                                                    <input class="form-control" type="text" name="caudal_fraccion" id="caudal_fraccion"
+                                                           ng-model="caudal_fraccion" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-4 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Valor: </span>
+                                                    <input class="form-control" type="text" name="valor_fraccion" id="valor_fraccion"
+                                                           ng-model="valor_fraccion" disabled >
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-sm-4 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Area Fracc.: </span>
+                                                    <input type="text" class="form-control" name="t_area_fraccion" id="t_area_fraccion" ng-keypress="onlyNumber($event)"
+                                                           ng-model="t_area_fraccion" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculateFraccion()">
+                                                </div>
+                                                <span class="help-block error"
+                                                      ng-show="formFraccion.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
+                                                <span class="help-block error"
+                                                      ng-show="formFraccion.t_area.$invalid && formProcess.t_area.$error.pattern">El Area debe ser solo números</span>
+
+                                            </div>
+
+                                            <div class="col-sm-4 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Caudal: </span>
+                                                    <input class="form-control" type="text" name="caudal_new_fraccion" id="caudal_new_fraccion"
+                                                           ng-model="caudal_new_fraccion" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-4 col-xs-12" style="margin-top: 5px;">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Valor: </span>
+                                                    <input class="form-control" type="text" name="valor_new_fraccion" id="valor_new_fraccion"
+                                                           ng-model="valor_new_fraccion" disabled >
+                                                </div>
+
                                             </div>
 
                                         </fieldset>
@@ -1240,32 +1444,40 @@
                                         <fieldset>
                                             <legend style="font-size: 16px; font-weight: bold;">Datos del Nuevo Cliente</legend>
 
-                                            <div class="col-xs-12" style="padding: 0;">
-                                                <div class="col-sm-5 col-xs-12 form-group">
-                                                    <label for="t_ident_new_client_fraccion" class="col-sm-4 col-xs-12 control-label">RUC/CI:</label>
-                                                    <div class="col-sm-8 col-xs-12" style="">
-                                                        <select class="form-control"
-                                                                name="t_ident_new_client_fraccion" id="t_ident_new_client_fraccion"
-                                                                ng-model="t_ident_new_client_fraccion" ng-options="value.id as value.label for value in clientes_fraccion"
-                                                                ng-change="getClienteByIdentifyFraccion()"></select>
-                                                    </div>
+                                            <div class="col-sm-5 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">RUC/CI: </span>
+                                                    <select class="form-control"
+                                                            name="t_ident_new_client_fraccion" id="t_ident_new_client_fraccion"
+                                                            ng-model="t_ident_new_client_fraccion" ng-options="value.id as value.label for value in clientes_fraccion"
+                                                            ng-change="getClienteByIdentifyFraccion()"></select>
                                                 </div>
-                                                <div class="col-sm-5 col-xs-12" style="padding-left: 45px;">
-                                                    <span class="label label-default" style="font-size: 12px !important;">Cliente:</span> {{nom_new_cliente_fraccion}}
-                                                    <input type="hidden" ng-model="h_new_codigocliente_fraccion">
+
+                                            </div>
+
+                                            <div class="col-sm-5 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Cliente: </span>
+                                                    <input class="form-control" type="text" name="nom_new_cliente_fraccion" id="nom_new_cliente_fraccion"
+                                                           ng-model="nom_new_cliente_fraccion" disabled >
                                                 </div>
-                                                <div class="col-sm-2 col-xs-12">
-                                                    <input type="checkbox" class="" ng-model="ch_arriend_fraccion"> Arriendo
-                                                </div>
+
+                                                <input type="hidden" ng-model="h_new_codigocliente_fraccion">
+
+                                            </div>
+
+                                            <div class="col-sm-2 col-xs-12">
+                                                <input type="checkbox" class="" ng-model="ch_arriend_fraccion"> Arriendo
                                             </div>
 
                                         </fieldset>
                                     </div>
 
-                                    <div class="col-xs-12 form-group" style="margin-top: -15px;">
-                                        <label for="t_derivacion" class="col-sm-2 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Observación:</label>
-                                        <div class="col-sm-10 col-xs-12">
-                                            <textarea class="form-control" id="t_observacion_fraccion" ng-model="t_observacion_fraccion" rows="2"></textarea>
+                                    <div class="col-xs-12" style="margin-top: -15px;">
+                                        <div class="col-xs-12">
+                                            <textarea class="form-control" id="t_observacion_fraccion" ng-model="t_observacion_fraccion" rows="2" placeholder="Observacion"></textarea>
                                         </div>
                                     </div>
                                 </div>
