@@ -62,9 +62,9 @@
                         <td>{{solicitud.direccion}}</td>
                         <td>{{solicitud.telefonoprincipaldomicilio}}</td>
                         <td>{{solicitud.tipo}}</td>
-                        <td ng-if="solicitud.estado == true"><span class="label label-primary" style="font-size: 14px !important;">Procesada</span></td>
-                        <td ng-if="solicitud.estado == false"><span class="label label-warning" style="font-size: 14px !important;">En Espera</span></td>
-                        <td ng-if="solicitud.estado == true">
+                        <td ng-if="solicitud.estaprocesada == true"><span class="label label-primary" style="font-size: 14px !important;">Procesada</span></td>
+                        <td ng-if="solicitud.estaprocesada == false"><span class="label label-warning" style="font-size: 14px !important;">En Espera</span></td>
+                        <td ng-if="solicitud.estaprocesada == true">
                             <button type="button" class="btn btn-info" id="btn_inform" ng-click="info(solicitud)" >
                                 <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
                             </button>
@@ -77,7 +77,7 @@
                                 </button>
                             </span>
                         </td>
-                        <td ng-if="solicitud.estado == false">
+                        <td ng-if="solicitud.estaprocesada == false">
                             <button type="button" class="btn btn-info" id="btn_inform" disabled>
                                 <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
                             </button>
