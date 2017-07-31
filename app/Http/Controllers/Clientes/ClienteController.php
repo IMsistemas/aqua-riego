@@ -522,21 +522,35 @@ class ClienteController extends Controller
 
     public function storeSolicitudFraccion(Request $request)
     {
-        $solicitud = new SolicitudReparticion();
-        $solicitud->codigocliente = $request->input('codigocliente_old');
-        $solicitud->codigonuevocliente = $request->input('codigocliente_new');
-        $solicitud->idterreno = $request->input('idterreno');
-        $solicitud->fechasolicitud = date('Y-m-d');
+
+        $fecha_actual = date('Y-m-d');
+
+        $solicitud = new Solicitud();
+        $solicitud->idcliente = $request->input('codigocliente_old');
+        $solicitud->fechasolicitud = $fecha_actual;
+        $solicitud->fechaprocesada = $fecha_actual;
         $solicitud->estaprocesada = false;
-        $solicitud->observacion = $request->input('observacion');
-        $solicitud->nuevaarea = $request->input('area');
 
-        $result = $solicitud->save();
+        if ($solicitud->save()) {
 
-        return ($result) ? response()->json(['success' => true,
-            'idsolicitud' => $solicitud->idsolicitudreparticion]) : response()->json(['success' => false]);
+            $solicitud_r = new SolicitudReparticion();
+
+            $solicitud_r->idcliente = $request->input('codigocliente_new');
+            $solicitud_r->idterreno = $request->input('idterreno');
+            $solicitud_r->idsolicitud = $solicitud->idsolicitud;
+            $solicitud_r->observacion = $request->input('observacion');
+            $solicitud_r->nuevaarea = $request->input('area');
+
+            $result = $solicitud_r->save();
+
+            return ($result) ? response()->json(['success' => true,
+                'idsolicitud' => $solicitud_r->idsolicitudreparticion]) : response()->json(['success' => false]);
+
+        } else {
+            response()->json(['success' => false]);
+        }
+
     }
-
 
     public function processSolicitud(Request $request, $id)
     {

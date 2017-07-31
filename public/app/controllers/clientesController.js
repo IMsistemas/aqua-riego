@@ -611,7 +611,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.getTerrenosFraccionByCliente = function () {
         var idcliente = {
-            codigocliente: $scope.objectAction.codigocliente
+            idcliente: $scope.objectAction.idcliente
         };
 
         $http.get(API_URL + 'cliente/getTerrenosByCliente/' + JSON.stringify(idcliente)).success(function(response){
@@ -699,7 +699,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.getIdentifyClientesFraccion = function () {
         var idcliente = {
-            codigocliente: $scope.objectAction.codigocliente
+            idcliente: $scope.objectAction.idcliente
         };
 
         $http.get(API_URL + 'cliente/getIdentifyClientes/' + JSON.stringify(idcliente)).success(function(response){
@@ -708,7 +708,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             var longitud = response.length;
             var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].documentoidentidad, id: response[i].codigocliente})
+                array_temp.push({label: response[i].numdocidentific, id: response[i].idcliente})
             }
 
             //$('.selectpicker').selectpicker('refresh');
@@ -750,17 +750,17 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.getClienteByIdentifyFraccion = function () {
         var idcliente = {
-            codigocliente: $scope.t_ident_new_client_fraccion
+            idcliente: $scope.t_ident_new_client_fraccion
         };
 
         $http.get(API_URL + 'cliente/getClienteByIdentify/' + JSON.stringify(idcliente)).success(function(response){
             console.log(response);
 
-            $scope.h_new_codigocliente_fraccion = response[0].codigocliente;
-            $scope.nom_new_cliente_fraccion = response[0].apellido + ' ' + response[0].nombre;
-            $scope.direcc_new_cliente_fraccion = response[0].direcciondomicilio;
+            $scope.h_new_codigocliente_fraccion = response[0].idcliente;
+            $scope.nom_new_cliente_fraccion = response[0].razonsocial;
+            $scope.direcc_new_cliente_fraccion = response[0].direccion;
             $scope.telf_new_cliente_fraccion = response[0].telefonoprincipaldomicilio;
-            $scope.celular_new_cliente_fraccion = response[0].celular;
+            $scope.celular_new_cliente_fraccion = response[0].celphone;
             $scope.telf_trab_new_cliente_fraccion = response[0].telefonoprincipaltrabajo;
 
         });
@@ -839,12 +839,12 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         $scope.getIdentifyClientesFraccion();
 
         $scope.t_fecha_fraccion = $scope.nowDate();
-        $scope.h_codigocliente_fraccion = $scope.objectAction.codigocliente;
-        $scope.documentoidentidad_cliente_fraccion = $scope.objectAction.documentoidentidad;
-        $scope.nom_cliente_fraccion = $scope.objectAction.apellido + ' ' + $scope.objectAction.nombre;
-        $scope.direcc_cliente_fraccion = $scope.objectAction.direcciondomicilio;
+        $scope.h_codigocliente_fraccion = $scope.objectAction.idcliente;
+        $scope.documentoidentidad_cliente_fraccion = $scope.objectAction.numdocidentific;
+        $scope.nom_cliente_fraccion = $scope.objectAction.razonsocial;
+        $scope.direcc_cliente_fraccion = $scope.objectAction.direccion;
         $scope.telf_cliente_fraccion = $scope.objectAction.telefonoprincipaldomicilio;
-        $scope.celular_cliente_fraccion = $scope.objectAction.celular;
+        $scope.celular_cliente_fraccion = $scope.objectAction.celphone;
         $scope.telf_trab_cliente_fraccion = $scope.objectAction.telefonoprincipaltrabajo;
 
         $scope.junta_fraccion = '';
