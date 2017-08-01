@@ -425,10 +425,10 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.showModalDeleteCliente = function (item) {
 
-        $scope.codigocliente_del = item.codigocliente;
+        $scope.codigocliente_del = item.idcliente;
         $http.get(API_URL + 'cliente/getIsFreeCliente/' + $scope.codigocliente_del).success(function(response){
             if (response == 0) {
-                $scope.nom_cliente = item.apellido + ' ' + item.nombre;
+                $scope.nom_cliente = item.razonsocial;
                 $('#modalDeleteCliente').modal('show');
             } else {
                 $scope.message_info = 'No se puede eliminar el cliente seleccionado, ya presenta solicitudes a su nombre...';
