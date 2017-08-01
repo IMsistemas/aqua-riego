@@ -135,39 +135,48 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->input('idpersona') == 0) {
-            $persona = new Persona();
+
+        if ($this->searchExist($request->input('documentoidentidadempleado'))) {
+
+            return response()->json(['success' => false, 'type_error_exists' => true]);
+
         } else {
-            $persona = Persona::find($request->input('idpersona'));
-        }
 
-        $persona->numdocidentific = $request->input('documentoidentidadempleado');
-        $persona->email = $request->input('correo');
-        $persona->celphone = $request->input('celular');
-        $persona->idtipoidentificacion = $request->input('tipoidentificacion');
-        $persona->razonsocial = $request->input('nombres') . ' ' . $request->input('apellidos');
-        $persona->lastnamepersona = $request->input('apellidos');
-        $persona->namepersona = $request->input('nombres');
-        $persona->direccion = $request->input('direccion');
+            if ($request->input('idpersona') == 0) {
+                $persona = new Persona();
+            } else {
+                $persona = Persona::find($request->input('idpersona'));
+            }
 
-        if ($persona->save()) {
-            $cliente = new Cliente();
-            $cliente->fechaingreso = $request->input('fechaingreso');
-            $cliente->estado = true;
-            $cliente->idpersona = $persona->idpersona;
-            $cliente->idplancuenta = $request->input('cuentacontable');
-            $cliente->idtipoimpuestoiva = $request->input('impuesto_iva');
-            $cliente->telefonoprincipaldomicilio = $request->input('telefonoprincipaldomicilio');
-            $cliente->telefonosecundariodomicilio = $request->input('telefonosecundariodomicilio');
-            $cliente->telefonoprincipaltrabajo = $request->input('telefonoprincipaltrabajo');
-            $cliente->telefonosecundariotrabajo = $request->input('telefonosecundariotrabajo');
-            $cliente->direcciontrabajo = $request->input('direcciontrabajo');
+            $persona->numdocidentific = $request->input('documentoidentidadempleado');
+            $persona->email = $request->input('correo');
+            $persona->celphone = $request->input('celular');
+            $persona->idtipoidentificacion = $request->input('tipoidentificacion');
+            $persona->razonsocial = $request->input('nombres') . ' ' . $request->input('apellidos');
+            $persona->lastnamepersona = $request->input('apellidos');
+            $persona->namepersona = $request->input('nombres');
+            $persona->direccion = $request->input('direccion');
 
-            if ($cliente->save()) {
-                return response()->json(['success' => true]);
+            if ($persona->save()) {
+                $cliente = new Cliente();
+                $cliente->fechaingreso = $request->input('fechaingreso');
+                $cliente->estado = true;
+                $cliente->idpersona = $persona->idpersona;
+                $cliente->idplancuenta = $request->input('cuentacontable');
+                $cliente->idtipoimpuestoiva = $request->input('impuesto_iva');
+                $cliente->telefonoprincipaldomicilio = $request->input('telefonoprincipaldomicilio');
+                $cliente->telefonosecundariodomicilio = $request->input('telefonosecundariodomicilio');
+                $cliente->telefonoprincipaltrabajo = $request->input('telefonoprincipaltrabajo');
+                $cliente->telefonosecundariotrabajo = $request->input('telefonosecundariotrabajo');
+                $cliente->direcciontrabajo = $request->input('direcciontrabajo');
+
+                if ($cliente->save()) {
+                    return response()->json(['success' => true]);
+                } else return response()->json(['success' => false]);
+
             } else return response()->json(['success' => false]);
 
-        } else return response()->json(['success' => false]);
+        }
 
     }
 

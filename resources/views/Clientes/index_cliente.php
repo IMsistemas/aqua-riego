@@ -72,7 +72,7 @@
                                 <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfoCliente(item)">
                                     <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn btn-warning btn-sm" ng-click="showModalEditCliente(item)">
+                                <button type="button" class="btn btn-warning btn-sm" ng-click="edit(item)">
                                     <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDeleteCliente(item)">
