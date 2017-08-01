@@ -415,6 +415,15 @@ Route::get('reporteventabalance/getVentasBalance', 'Reportes\ReporteVentaBalance
 Route::resource('reporteventabalance', 'Reportes\ReporteVentaBalanceController');
 
 /*
+ * --------------------------------MODULO REPORTE CENTRO COSTO----------------------------------------------------------
+ */
+
+Route::get('reportecentrocosto/reporte_print/{filtro}', 'Reportes\ReporteCCController@reporte_print');
+Route::get('reportecentrocosto/getListCC', 'Reportes\ReporteCCController@getListCC');
+Route::get('reportecentrocosto/getCentroCosto', 'Reportes\ReporteCCController@getCentroCosto');
+Route::resource('reportecentrocosto', 'Reportes\ReporteCCController');
+
+/*
  * --------------------------------MODULO ACTIVO FIJO-------------------------------------------------------------------
  */
 
@@ -470,6 +479,7 @@ Route::get('empleado/getIdentify/{identify}', 'Nomina\EmpleadoController@getIden
 Route::get('empleado/getPersonaByIdentify/{identify}', 'Nomina\EmpleadoController@getPersonaByIdentify');
 Route::post('empleado/updateEmpleado/{id}', 'Nomina\EmpleadoController@updateEmpleado');
 Route::get('empleado/searchDuplicate/{identify}', 'Nomina\EmpleadoController@searchDuplicate');
+Route::get('empleado/getRegistroSalario/{id}', 'Nomina\EmpleadoController@getRegistroSalario');
 Route::resource('/empleado', 'Nomina\EmpleadoController');
 
 Route::get('rolPago/getCuentas', 'Nomina\RolPagoController@getCuentas');
@@ -478,6 +488,7 @@ Route::get('rolPago/getConceptos', 'Nomina\RolPagoController@getConceptos');
 Route::get('rolPago/getDataEmpleado/{id}', 'Nomina\RolPagoController@getDataEmpleado');
 Route::get('rolPago/getEmpleados', 'Nomina\RolPagoController@getEmpleados');
 Route::get('rolPago/getDataEmpresa', 'Nomina\RolPagoController@getDataEmpresa');
+Route::get('rolPago/getExistsConfig', 'Nomina\RolPagoController@getExistsConfig');
 Route::resource('rolPago', 'Nomina\RolPagoController');
 
 Route::get('configNomina/getConceptos', 'ConfiguracionSystem\ConfigNominaController@getConceptos');

@@ -5,9 +5,15 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     $scope.fieldconcepto = '';
     $scope.fieldid = '';
     $scope.conceptos = [];
+    $scope.listCuentas = [];
+
+    $scope.btn = null;
+
     var field = '';
 
     $scope.initLoad = function () {
+
+        $scope.getCuentas();
 
         $scope.getDataEmpresa();
 
@@ -27,7 +33,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         $scope.getConfigSRI();
 
-        $scope.getListServicio();
+        //$scope.getListServicio();
     };
 
     //-----------------------------------------------------------------------------------------------------------------
@@ -223,7 +229,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                     $scope.id_propina_compra_h = response[i].idconfiguracionsystem;
                     $scope.propina_compra_h = parseInt(response[i].optionvalue);
                     $scope.propina_compra = response[i].concepto;
-                } else if (response[i].optionname == 'SRI_RETEN_IVA_COMPRA') {
+                } /*else if (response[i].optionname == 'SRI_RETEN_IVA_COMPRA') {
                     $scope.id_retiva_compra_h = response[i].idconfiguracionsystem;
                     $scope.retiva_compra_h = parseInt(response[i].optionvalue);
                     $scope.retiva_compra = response[i].concepto;
@@ -231,7 +237,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                     $scope.id_retrenta_compra_h = response[i].idconfiguracionsystem;
                     $scope.retrenta_compra_h = parseInt(response[i].optionvalue);
                     $scope.retrenta_compra = response[i].concepto;
-                }
+                }*/
             }
 
         });
@@ -251,23 +257,24 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             optionvalue: $scope.irbpnr_compra_h
         };
 
-        var retiva = {
+        /*var retiva = {
             idconfiguracionsystem: $scope.id_retiva_compra_h,
             optionvalue: $scope.retiva_compra_h
-        };
+        };*/
 
         var propina = {
             idconfiguracionsystem: $scope.id_propina_compra_h,
             optionvalue: $scope.propina_compra_h
         };
 
-        var retrenta = {
+        /*var retrenta = {
             idconfiguracionsystem: $scope.id_retrenta_compra_h,
             optionvalue: $scope.retrenta_compra_h
-        };
+        };*/
 
         var data = {
-            array_data: [iva, ice, irbpnr, retiva, propina, retrenta]
+            //array_data: [iva, ice, irbpnr, retiva, propina, retrenta]
+            array_data: [iva, ice, irbpnr, propina]
         };
 
         $http.put(API_URL + '/configuracion/updateConfigCompra/0', data ).success(function (response) {
@@ -317,7 +324,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                     $scope.id_costo_venta_h = response[i].idconfiguracionsystem;
                     $scope.costo_venta_h = parseInt(response[i].optionvalue);
                     $scope.costo_venta = response[i].concepto;
-                } else if (response[i].optionname == 'SRI_RETEN_IVA_VENTA') {
+                } /*else if (response[i].optionname == 'SRI_RETEN_IVA_VENTA') {
                     $scope.id_retiva_venta_h = response[i].idconfiguracionsystem;
                     $scope.retiva_venta_h = parseInt(response[i].optionvalue);
                     $scope.retiva_venta = response[i].concepto;
@@ -325,7 +332,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                     $scope.id_retrenta_venta_h = response[i].idconfiguracionsystem;
                     $scope.retrenta_venta_h = parseInt(response[i].optionvalue);
                     $scope.retrenta_venta = response[i].concepto;
-                }
+                }*/
             }
 
         });
@@ -345,20 +352,21 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             optionvalue: $scope.irbpnr_venta_h
         };
 
-        var retiva = {
-            idconfiguracionsystem: $scope.id_retiva_venta_h,
-            optionvalue: $scope.retiva_venta_h
-        };
 
         var propina = {
             idconfiguracionsystem: $scope.id_propina_venta_h,
             optionvalue: $scope.propina_venta_h
         };
 
-        var retrenta = {
+        /*var retrenta = {
             idconfiguracionsystem: $scope.id_retrenta_venta_h,
             optionvalue: $scope.retrenta_venta_h
         };
+
+        var retiva = {
+            idconfiguracionsystem: $scope.id_retiva_venta_h,
+            optionvalue: $scope.retiva_venta_h
+        };*/
 
         var costo = {
             idconfiguracionsystem: $scope.id_costo_venta_h,
@@ -366,7 +374,8 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         };
 
         var data = {
-            array_data: [iva, ice, irbpnr, retiva, propina, retrenta, costo]
+            //array_data: [iva, ice, irbpnr, retiva, propina, retrenta, costo]
+            array_data: [iva, ice, irbpnr, propina, costo]
         };
 
         $http.put(API_URL + '/configuracion/updateConfigVenta/0', data ).success(function (response) {
@@ -411,7 +420,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                     $scope.id_propina_nc_h = response[i].idconfiguracionsystem;
                     $scope.propina_nc_h = parseInt(response[i].optionvalue);
                     $scope.propina_nc = response[i].concepto;
-                } else if (response[i].optionname == 'SRI_RETEN_IVA_NC') {
+                } /*else if (response[i].optionname == 'SRI_RETEN_IVA_NC') {
                     $scope.id_retiva_nc_h = response[i].idconfiguracionsystem;
                     $scope.retiva_nc_h = parseInt(response[i].optionvalue);
                     $scope.retiva_nc = response[i].concepto;
@@ -419,7 +428,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                     $scope.id_retrenta_nc_h = response[i].idconfiguracionsystem;
                     $scope.retrenta_nc_h = parseInt(response[i].optionvalue);
                     $scope.retrenta_nc = response[i].concepto;
-                } else if (response[i].optionname == 'CONT_COSTO_NC') {
+                }*/ else if (response[i].optionname == 'CONT_COSTO_NC') {
                     $scope.id_costo_nc_h = response[i].idconfiguracionsystem;
                     $scope.costo_nc_h = parseInt(response[i].optionvalue);
                     $scope.costo_nc = response[i].concepto;
@@ -443,20 +452,20 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             optionvalue: $scope.irbpnr_nc_h
         };
 
-        var retiva = {
-            idconfiguracionsystem: $scope.id_retiva_nc_h,
-            optionvalue: $scope.retiva_nc_h
-        };
-
         var propina = {
             idconfiguracionsystem: $scope.id_propina_nc_h,
             optionvalue: $scope.propina_nc_h
         };
 
-        var retrenta = {
+        /*var retrenta = {
             idconfiguracionsystem: $scope.id_retrenta_nc_h,
             optionvalue: $scope.retrenta_nc_h
         };
+
+        var retiva = {
+            idconfiguracionsystem: $scope.id_retiva_nc_h,
+            optionvalue: $scope.retiva_nc_h
+        };*/
 
         var costo = {
             idconfiguracionsystem: $scope.id_costo_nc_h,
@@ -464,10 +473,13 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         };
 
         var data = {
-            array_data: [iva, ice, irbpnr, retiva, propina, retrenta, costo]
+            //array_data: [iva, ice, irbpnr, retiva, propina, retrenta, costo]
+            array_data: [iva, ice, irbpnr, propina, costo]
         };
 
-        $http.put(API_URL + '/configuracion/updateConfigNC/0', data ).success(function (response) {
+        console.log(data);
+
+        /*$http.put(API_URL + '/configuracion/updateConfigNC/0', data ).success(function (response) {
 
             if (response.success == true) {
                 $scope.initLoad();
@@ -482,51 +494,117 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         }).error(function (res) {
 
-        });
+        });*/
     };
 
     //-----------------------------------------------------------------------------------------------------------------
+
+    $scope.getCuentas = function () {
+        $http.get(API_URL + 'rolPago/getCuentas').success(function(response){
+
+            $scope.listCuentas = response;
+
+        });
+    };
+
+    $scope.searchCuenta = function (stringCuenta) {
+
+        var cuentas = [];
+
+        if (stringCuenta.lastIndexOf(',') === -1) {
+            cuentas.push(stringCuenta);
+        } else {
+            cuentas = stringCuenta.split(',');
+        }
+
+        var result = [];
+        var longitud = cuentas.length;
+        var longitud_cuentas = $scope.listCuentas.length;
+
+        for (var i = 0; i < longitud; i++) {
+
+            for (var j = 0; j < longitud_cuentas; j++) {
+
+                if (parseInt(cuentas[i]) === parseInt($scope.listCuentas[j].idplancuenta)) {
+                    result.push($scope.listCuentas[j]);
+                }
+
+            }
+
+        }
+
+        return result;
+
+    };
 
     $scope.getConceptos = function () {
 
         $http.get(API_URL + 'configNomina/getConceptos').success(function(response){
 
-            console.log(response);
+            //console.log(response);
 
             var longitud = response.length;
             var array_temp = [];
             for(var i = 0; i < longitud; i++){
+
+                var cuentas = ['', ''];
+
+                if (response[i].confignomina.length !== 0) {
+                    if (response[i].confignomina[0].cuenta !== null && response[i].confignomina[0].cuenta !== '') {
+                        cuentas = $scope.searchCuenta(response[i].confignomina[0].cuenta);
+
+                        //console.log(cuentas);
+                    }
+                }
+
                 if (response[i].id_categoriapago === 1 && response[i].grupo !== "1"){
                     var cuenta = {
-                        value: "",
+                        value: '',
                         writable: true,
                         enumerable: true,
                         configurable: true
                     };
+                    if (cuentas[0] !== '') {
+                        cuenta.value = cuentas[0].concepto;
+                    }
+
                     Object.defineProperty(response[i], 'cuenta', cuenta);
+
                     var idcuenta = {
                         value: "",
                         writable: true,
                         enumerable: true,
                         configurable: true
                     };
+                    if (cuentas[0] !== '') {
+                        idcuenta.value = cuentas[0].idplancuenta;
+                    }
                     Object.defineProperty(response[i], 'idcuenta', idcuenta);
+
                     var impuesto = {
                         value: '',
                         writable: true,
                         enumerable: true,
                         configurable: true
                     };
+
+                    if (response[i].confignomina.length !== 0) {
+                        impuesto.value = response[i].confignomina[0].value_imp;
+                    }
+
                     Object.defineProperty(response[i], 'impuesto', impuesto);
+
                     var idcuenta1 = {
                         value: "",
                         writable: true,
                         enumerable: true,
                         configurable: true
                     };
+
                     Object.defineProperty(response[i], 'idcuenta1', idcuenta1);
                     array_temp.push(response[i]);
                 }
+
                 if (response[i].id_categoriapago !== 1 && response[i].id_categoriapago !== 4){
                     var cuenta = {
                         value: "",
@@ -534,20 +612,34 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                         enumerable: true,
                         configurable: true
                     };
+
+                    if (cuentas[0] !== '') {
+                        cuenta.value = cuentas[0].concepto;
+                    }
                     Object.defineProperty(response[i], 'cuenta', cuenta);
+
                     var idcuenta = {
                         value: "",
                         writable: true,
                         enumerable: true,
                         configurable: true
                     };
+                    if (cuentas[0] !== '') {
+                        idcuenta.value = cuentas[0].idplancuenta;
+                    }
                     Object.defineProperty(response[i], 'idcuenta', idcuenta);
+
                     var impuesto = {
                         value: '',
                         writable: true,
                         enumerable: true,
                         configurable: true
                     };
+
+                    if (response[i].confignomina.length !== 0) {
+                        impuesto.value = response[i].confignomina[0].value_imp;
+                    }
+
                     Object.defineProperty(response[i], 'impuesto', impuesto);
                     var idcuenta1 = {
                         value: "",
@@ -555,6 +647,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                         enumerable: true,
                         configurable: true
                     };
+
                     Object.defineProperty(response[i], 'idcuenta1', idcuenta1);
                     array_temp.push(response[i]);
                 }
@@ -565,34 +658,57 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                         enumerable: true,
                         configurable: true
                     };
+                    if (cuentas[0] !== '') {
+                        cuenta.value = cuentas[0].concepto;
+                    }
                     Object.defineProperty(response[i], 'cuenta', cuenta);
+
+
                     var idcuenta = {
                         value: "",
                         writable: true,
                         enumerable: true,
                         configurable: true
                     };
+                    if (cuentas[0] !== '') {
+                        idcuenta.value = cuentas[0].idplancuenta;
+                    }
+
                     Object.defineProperty(response[i], 'idcuenta', idcuenta);
+
                     var impuesto = {
-                        value: "",
+                        value: '',
                         writable: true,
                         enumerable: true,
                         configurable: true
                     };
+
+                    if (response[i].confignomina.length !== 0) {
+                        impuesto.value = response[i].confignomina[0].value_imp;
+                    }
+
                     Object.defineProperty(response[i], 'impuesto', impuesto);
+
                     var cuenta1 = {
                         value: "",
                         writable: true,
                         enumerable: true,
                         configurable: true
                     };
+                    if (cuentas[1] !== '') {
+                        cuenta1.value = cuentas[1].concepto;
+                    }
                     Object.defineProperty(response[i], 'cuenta1', cuenta1);
+
                     var idcuenta1 = {
                         value: "",
                         writable: true,
                         enumerable: true,
                         configurable: true
                     };
+                    if (cuentas[1] !== '') {
+                        idcuenta1.value = cuentas[1].idplancuenta;
+                    }
                     Object.defineProperty(response[i], 'idcuenta1', idcuenta1);
                     array_temp.push(response[i]);
                 }
@@ -603,35 +719,75 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     };
 
     $scope.getConfigNomina = function () {
+
         $http.get(API_URL + 'configNomina/getConfigNomina').success(function(response){
 
-            console.log(response);
         });
     };
 
     $scope.saveConfigNomina = function () {
 
-        var data = {
-            conceptos: $scope.conceptos
-        };
+        var flag = true;
 
-        $http.post(API_URL + '/configNomina', data ).success(function (response) {
+        var longitud = $scope.conceptos.length;
 
-            if (response.success == true) {
-                $scope.initLoad();
-                $scope.message = 'Se guardaron correctamente los datos de la Configuración de Nomina';
-                $('#modalMessage').modal('show');
-                $scope.hideModalMessage();
+        for (var i = 0; i < longitud; i++) {
+
+            if ($scope.conceptos[i].id_categoriapago === 4){
+
+                if ($scope.conceptos[i].idcuenta === ''){
+                    flag = $scope.conceptos[i].name_conceptospago;
+                }
+
+                if ($scope.conceptos[i].idcuenta1 === ''){
+                    flag = $scope.conceptos[i].name_conceptospago;
+                }
+
             } else {
-                $scope.message_error = 'Ha ocurrido un error al actualizar los datos de la Configuración de Nomina';
-                $('#modalMessageError').modal('show');
-                $scope.hideModalMessage();
+
+                if ($scope.conceptos[i].idcuenta === ''){
+                    flag = $scope.conceptos[i].name_conceptospago;
+                }
+
             }
 
+        }
 
-        }).error(function (res) {
+        if (flag === true) {
 
-        });
+            var data = {
+                conceptos: $scope.conceptos
+            };
+
+            console.log(data);
+
+            $http.post(API_URL + '/configNomina', data ).success(function (response) {
+
+                if (response.success == true) {
+                    $scope.initLoad();
+                    $scope.message = 'Se guardaron correctamente los datos de la Configuración de Nomina';
+                    $('#modalMessage').modal('show');
+                    $scope.hideModalMessage();
+                } else {
+                    $scope.message_error = 'Ha ocurrido un error al actualizar los datos de la Configuración de Nomina';
+                    $('#modalMessageError').modal('show');
+                    $scope.hideModalMessage();
+                }
+
+
+            }).error(function (res) {
+
+            });
+
+        } else {
+
+            $scope.message_error = 'Verifique que el concepto: "' + flag + '" esté asociado a una cuenta contable...';
+            $('#modalMessageError').modal('show');
+
+        }
+
+
+
     };
 
     //-----------------------------------------------------------------------------------------------------------------
@@ -914,7 +1070,13 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
     //-----------------------------------------------------------------------------------------------------------------
 
-    $scope.showPlanCuentaItem = function (item) {
+    $scope.showPlanCuentaItem = function (item, btn) {
+
+        if (btn !== undefined) {
+            $scope.btn = btn
+        } else {
+            $scope.btn = null;
+        }
 
         field = item;
 
@@ -927,6 +1089,8 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     };
 
     $scope.showPlanCuenta = function (field_concepto, field_id) {
+
+        field = '';
 
         $scope.fieldconcepto = field_concepto;
         $scope.fieldid = field_id;
@@ -951,9 +1115,11 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     };
 
     $scope.selectCuenta = function () {
+
         var selected = $scope.select_cuenta;
+
         if(field !== ''){
-            if(field.id_categoriapago !== 4){
+            /*if(field.id_categoriapago !== 4){
                 field.cuenta = selected.concepto;
                 field.idcuenta = selected.idplancuenta;
             }else if (field.cuenta === ''){
@@ -962,9 +1128,27 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             }else{
                 field.cuenta1 = selected.concepto;
                 field.idcuenta1 = selected.idplancuenta;
+            }*/
+
+            if(field.id_categoriapago !== 4){
+
+                field.cuenta = selected.concepto;
+                field.idcuenta = selected.idplancuenta;
+
+            } else {
+
+                if ($scope.btn === 'btn_cuenta') {
+                    field.cuenta = selected.concepto;
+                    field.idcuenta = selected.idplancuenta;
+                } else {
+                    field.cuenta1 = selected.concepto;
+                    field.idcuenta1 = selected.idplancuenta;
+                }
             }
 
+
             $('#modalPlanCuenta').modal('hide');
+
         }else{
 
             var fieldconcepto = $parse($scope.fieldconcepto);

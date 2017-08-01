@@ -44,14 +44,14 @@
                 <table class="table table-responsive table-striped table-hover table-condensed">
                     <thead class="bg-primary">
                     <tr>
-                        <th style="width: 5%;">Nro.</th>
-                        <th style="width: 10%;">Fecha</th>
-                        <th>Cliente</th>
-                        <th>Dirección</th>
-                        <th style="width: 10%;">Teléfono</th>
-                        <th style="width: 10%;">Tipo Solicitud</th>
-                        <th style="width: 10%;">Estado</th>
-                        <th style="width: 14%;">Acciones</th>
+                        <th style="width: 5%;">NO.</th>
+                        <th style="width: 10%;">FECHA</th>
+                        <th>CLIENTE</th>
+                        <th>DIRECCION</th>
+                        <th style="width: 10%;">TELEFONO</th>
+                        <th style="width: 10%;">TIPO SOLICITUD</th>
+                        <th style="width: 10%;">ESTADO</th>
+                        <th style="width: 14%;">ACCIONES</th>
                     </tr>
                     </thead>
                     <tbody>

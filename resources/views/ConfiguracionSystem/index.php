@@ -112,6 +112,7 @@
                             <li role="presentation" class="tabs"><a href="#cont_compras" aria-controls="cont_compras" role="tab" data-toggle="tab"></i> Factura Compra</a></li>
                             <li role="presentation" class="tabs"><a href="#cont_venta" aria-controls="cont_venta" role="tab" data-toggle="tab"></i> Factura Ventas</a></li>
                             <li role="presentation" class="tabs"><a href="#cont_notacredit" aria-controls="cont_notacredit" role="tab" data-toggle="tab"></i> Notas de Crédito</a></li>
+                            <li role="presentation" class="tabs"><a href="#cont_nomina" aria-controls="cont_nomina" role="tab" data-toggle="tab"></i> Nómina</a></li>
                         </ul>
                         <!-- Tab panels -->
                         <div class="tab-content" style="padding-top: 10px;">
@@ -189,7 +190,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon">Cuenta IRBPNR: </span>
                                             <input type="text" class="form-control" name="irbpnr_compra" id="irbpnr_compra" ng-model="irbpnr_compra" placeholder=""
-                                                    readonly>
+                                                   readonly>
                                             <input type="hidden" name="irbpnr_compra_h" id="irbpnr_compra_h" ng-model="irbpnr_compra_h">
                                             <input type="hidden" name="id_irbpnr_compra_h" id="id_irbpnr_compra_h" ng-model="id_irbpnr_compra_h">
                                             <span class="input-group-btn" role="group">
@@ -207,7 +208,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon">Cuenta Propina: </span>
                                             <input type="text" class="form-control" name="propina_compra" id="propina_compra" ng-model="propina_compra" placeholder=""
-                                                    readonly>
+                                                   readonly>
                                             <input type="hidden" name="propina_compra_h" id="propina_compra_h" ng-model="propina_compra_h">
                                             <input type="hidden" name="id_propina_compra_h" id="id_propina_compra_h" ng-model="id_propina_compra_h">
                                             <span class="input-group-btn" role="group">
@@ -313,7 +314,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon">Cuenta IRBPNR: </span>
                                             <input type="text" class="form-control" name="irbpnr_venta" id="irbpnr_venta" ng-model="irbpnr_venta" placeholder=""
-                                                    readonly>
+                                                   readonly>
                                             <input type="hidden" name="irbpnr_venta_h" id="irbpnr_venta_h" ng-model="irbpnr_venta_h">
                                             <input type="hidden" name="id_irbpnr_venta_h" id="id_irbpnr_venta_h" ng-model="id_venta_compra_h">
                                             <span class="input-group-btn" role="group">
@@ -331,7 +332,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon">Cuenta Propina: </span>
                                             <input type="text" class="form-control" name="propina_venta" id="propina_venta" ng-model="propina_venta" placeholder=""
-                                                    readonly>
+                                                   readonly>
                                             <input type="hidden" name="propina_venta_h" id="propina_venta_h" ng-model="propina_venta_h">
                                             <input type="hidden" name="id_propina_venta_h" id="id_propina_venta_h" ng-model="id_propina_compra_h">
                                             <span class="input-group-btn" role="group">
@@ -385,7 +386,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon">Costo de Venta: </span>
                                             <input type="text" class="form-control" name="costo_venta" id="costo_venta" ng-model="costo_venta" placeholder=""
-                                                    readonly>
+                                                   readonly>
                                             <input type="hidden" name="costo_venta_h" id="costo_venta_h" ng-model="costo_venta_h">
                                             <input type="hidden" name="id_costo_venta_h" id="id_costo_venta_h" ng-model="id_costo_compra_h">
                                             <span class="input-group-btn" role="group">
@@ -458,7 +459,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon">Cuenta IRBPNR: </span>
                                             <input type="text" class="form-control" name="irbpnr_nc" id="irbpnr_nc" ng-model="irbpnr_nc" placeholder=""
-                                                    readonly>
+                                                   readonly>
                                             <input type="hidden" name="irbpnr_nc_h" id="irbpnr_nc_h" ng-model="irbpnr_nc_h">
                                             <input type="hidden" name="id_irbpnr_nc_h" id="id_irbpnr_nc_h" ng-model="id_venta_nc_h">
                                             <span class="input-group-btn" role="group">
@@ -476,7 +477,7 @@
                                         <div class="input-group">
                                             <span class="input-group-addon">Cuenta Propina: </span>
                                             <input type="text" class="form-control" name="propina_nc" id="propina_nc" ng-model="propina_nc" placeholder=""
-                                                    readonly>
+                                                   readonly>
                                             <input type="hidden" name="propina_nc_h" id="propina_nc_h" ng-model="propina_nc_h">
                                             <input type="hidden" name="id_propina_nc_h" id="id_propina_nc_h" ng-model="id_propina_nc_h">
                                             <span class="input-group-btn" role="group">
@@ -553,6 +554,94 @@
                                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-success" id="btn-save" ng-click="saveConfigNC()" ng-disabled="formNC.$invalid" >
+                                        Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                                    </button>
+
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="cont_nomina">
+                                <div class="col-xs-1">
+
+                                </div>
+                                <div class="col-xs-10" style="align-content:center">
+
+                                    <form class="form-horizontal" name="formNomina" novalidate="">
+
+                                        <table style="padding-top: 0px; margin-top: 0px;" class="table table-responsive table-striped table-hover table-condensed table-bordered">
+                                            <thead class="bg-primary">
+                                            <tr>
+                                                <th>CONCEPTO DE PAGO</th>
+                                                <th style="width: 50%;">ASIGNAR CUENTA</th>
+                                                <th style="width: 15%;">VALOR (IMP. SRI)</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="item in conceptos" ng-cloak >
+                                                <td>{{item.name_conceptospago}}</td>
+                                                <td>
+                                                    <div ng-show="item.id_categoriapago !== 4" class="col-xs-12" style="padding: 0px">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" ng-model="item.cuenta" placeholder="Cuenta Contable"
+                                                                   readonly required>
+                                                            <span class="input-group-btn" role="group">
+                                                                <button type="button" id="cuenta_{{$index + 1}}" class="btn btn-info"  ng-click="showPlanCuentaItem(item)">
+                                                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                                </button>
+                                                            </span>
+                                                        </div>
+                                                        <span class="help-block error"
+                                                              ng-show="formNomina.nomplancuenta.$invalid && formNomina.nomplancuenta.$touched">Es requerido</span>
+                                                    </div>
+
+                                                    <div ng-show="item.id_categoriapago == 4" class="col-xs-12" style="padding: 0px">
+                                                        <div class="col-xs-6" style="margin: 0px; padding: 0px">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" name="nomplancuenta" ng-model="item.cuenta" placeholder="Cuenta Contable"
+                                                                       readonly required>
+                                                                <span class="input-group-btn" role="group">
+                                                                    <button type="button" id="cuenta_f_{{$index + 1}}" class="btn btn-info" ng-click="showPlanCuentaItem(item, 'btn_cuenta')">
+                                                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                            <span class="help-block error"
+                                                                  ng-show="formNomina.nomplancuenta.$invalid && formNomina.nomplancuenta.$touched">Es requerido</span>
+                                                        </div>
+                                                        <div class="col-xs-6 error" style="margin: 0px; padding: 0px">
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" name="nomplancuenta" ng-model="item.cuenta1" placeholder="Cuenta Contable"
+                                                                       readonly required>
+                                                                <span class="input-group-btn" role="group">
+                                                                    <button type="button" id="cuenta_t_{{$index + 1}}" class="btn btn-info" ng-click="showPlanCuentaItem(item, 'btn_cuenta1')">
+                                                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                            <span class="help-block error"
+                                                                  ng-show="formNomina.nomplancuenta.$invalid && formNomina.nomplancuenta.$touched">Es requerido</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control text-right" ng-model="item.impuesto" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </form>
+
+                                </div>
+
+                                <div class="col-xs-12 text-center" style="margin-top: 5px; margin-bottom: 10px;">
+
+                                    <button type="button" class="btn btn-default" ng-click="getConfigNomina()">
+                                        Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-success" id="btn-save" ng-click="saveConfigNomina()" >
                                         Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                                     </button>
 

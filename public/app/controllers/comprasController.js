@@ -106,7 +106,20 @@
 
             $http.get(API_URL + 'DocumentoCompras/getCentrosCostos').success(function(response){
 
-                $scope.listcentrocostos = response;
+                console.log(response);
+
+                var longitud = response.length;
+                var array_temp = [{label: '-- Seleccione --', id: null}];
+
+                for (var i = 0; i < longitud; i++) {
+                    array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento});
+                }
+
+                $scope.listcentrocostos = array_temp;
+
+                //$scope.paispago = array_temp[0].id
+
+                //$scope.listcentrocostos = response;
 
             });
 
@@ -225,7 +238,7 @@
 
             var item = {
                 productoObj:null,
-                idcentrocosto: 0,
+                idcentrocosto: null,
                 cantidad:0,
                 precioU:0,
                 descuento:0,
@@ -596,6 +609,11 @@
             $scope.CalculaValores();
         };
 
+
+        $scope.temp = function (a) {
+            console.log(a);
+        };
+
         $scope.save = function(){
 
             $('#btn-save0').prop('disabled', true);
@@ -839,6 +857,12 @@
                     bodega = null;
                 }
 
+                var centrocosto = null;
+
+                if ($scope.items[x].idcentrocosto != "0" && $scope.items[x].idcentrocosto != '') {
+                    centrocosto = $scope.items[x].idcentrocosto
+                }
+
                 var itemsdocventa={
                     idcatalogitem: $scope.items[x].productoObj.originalObject.idcatalogitem,
                     iddocumentoventa:0,
@@ -849,7 +873,7 @@
                     preciounitario: parseFloat($scope.items[x].precioU),
                     descuento: $scope.items[x].descuento,
                     preciototal:(parseInt($scope.items[x].cantidad)*parseFloat($scope.items[x].precioU)).toFixed(4),
-                    centrocosto: $scope.items[x].idcentrocosto
+                    iddepartamento: centrocosto
                 };
                 ItemsVenta.push(itemsdocventa);
             }
@@ -888,11 +912,9 @@
                 //dataComprobante: dataComprobante
             };
 
-            //console.log(ItemsVenta);
+            console.log(ItemsVenta);
 
-
-
-            /*var transaccionfactura={
+            var transaccionfactura={
                 datos:JSON.stringify(transaccion_venta_full)
                 //datos: transaccion_venta_full
             };
@@ -923,7 +945,7 @@
             })
             .error(function(err){
                 console.log(err);
-            });*/
+            });
         };
 
         $scope.confirmSave = function() {
@@ -1026,6 +1048,12 @@
                         $scope.Bodega = (Items[0].idbodega).toString();
                     }
 
+                    var idcentrocosto = null;
+
+                    if (Items[i].iddepartamento !== null) {
+                        idcentrocosto = (Items[i].iddepartamento).toString();
+                    }
+
                     var item = {
 
                         productoObj:{
@@ -1039,6 +1067,8 @@
                         iva : Items[i].porcentiva,
                         ice: Items[i].porcentice,
                         total:Items[i].preciototal,
+
+                        idcentrocosto: idcentrocosto,
 
                         producto: Items[i].codigoproducto
                     };
