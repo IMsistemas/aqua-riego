@@ -29,9 +29,9 @@
                 <table class="table table-responsive table-striped table-hover table-condensed">
                     <thead class="bg-primary">
                     <tr>
-                        <th>Nombre Cultivo</th>
-                        <th>Tarifa</th>
-                        <th style="width: 200px;">Acciones</th>
+                        <th>NOMBRE CULTIVO</th>
+                        <th>TARIFA</th>
+                        <th style="width: 200px;">ACCIONES</th>
                     </tr>
                     </thead>
                     <tbody>
