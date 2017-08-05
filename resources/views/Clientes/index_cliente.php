@@ -469,20 +469,20 @@
                     <div class="modal-content">
                         <div class="modal-header modal-header-info">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">¿Tipo de Solicitud?</h4>
+                            <h4 class="modal-title">Tipo de Solicitud</h4>
                         </div>
                         <div class="modal-body">
-                            <button type="button" class="btn btn-info btn-block" ng-click="actionRiego()">
-                                Riego
+                            <button type="button" class="btn btn-primary btn-block" ng-click="actionRiego()">
+                                RIEGO
                             </button>
-                            <button type="button" class="btn btn-warning btn-block" ng-click="actionSetName()">
-                                Cambio de Nombre
+                            <button type="button" class="btn btn-primary btn-block" ng-click="actionSetName()">
+                                CAMBIO DE NOMBRE
                             </button>
-                            <button type="button" class="btn btn-danger btn-block" ng-click="actionFraccion()">
-                                Fraccionamiento
+                            <button type="button" class="btn btn-primary btn-block" ng-click="actionFraccion()">
+                                FRACCIONAMIENTO
                             </button>
                             <button type="button" class="btn btn-primary btn-block" ng-click="actionOtro()">
-                                Otro tipo de Solicitud
+                                OTRO TIPO
                             </button>
                         </div>
                     </div>
@@ -644,7 +644,7 @@
                                                     <div class="input-group">
                                                         <span class="input-group-addon">Area (m2): </span>
                                                         <input type="text" class="form-control" name="t_area" id="t_area" ng-keypress="onlyNumber($event)"
-                                                               ng-model="t_area" ng-required="true" ng-pattern="/^([0-9]+)$/" ng-blur="calculate()">
+                                                               ng-model="t_area" ng-required="true" ng-pattern="/^([0-9.]+)$/" ng-blur="calculate()">
                                                     </div>
                                                     <span class="help-block error"
                                                           ng-show="formProcess.t_area.$invalid && formProcess.t_area.$touched">El Area es requerido</span>
