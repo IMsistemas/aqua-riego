@@ -1,22 +1,4 @@
-<!doctype html>
-<html lang="es-ES" ng-app="softver-aqua">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cliente</title>
 
-    <link href="<?= asset('css/bootstrap.min.css') ?>" rel="stylesheet">
-    <link href="<?= asset('css/font-awesome.min.css') ?>" rel="stylesheet">
-    <link href="<?= asset('css/index.css') ?>" rel="stylesheet">
-    <link href="<?= asset('css/bootstrap-datetimepicker.min.css') ?>" rel="stylesheet">
-    <link href="<?= asset('css/angucomplete-alt.css') ?>" rel="stylesheet">
-    <link href="<?= asset('css/style_generic_app.css') ?>" rel="stylesheet">
-
-</head>
-
-<body>
 
         <div ng-controller="clientesController">
 
@@ -43,7 +25,7 @@
             </div>
 
             <div class="col-xs-12">
-                <table class="table table-responsive table-striped table-hover table-condensed">
+                <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                     <thead class="bg-primary">
                     <tr>
                         <th class="text-center" style="width: 10%;">CI / RUC</th>
@@ -52,7 +34,7 @@
                         <th class="text-center" style="width: 8%;">CELULAR</th>
                         <th class="text-center" style="width: 20%;">DIRECCION</th>
                         <th class="text-center" style="width: 7%;">ESTADO</th>
-                        <th class="text-center" style="width: 16%;">ACCIONES</th>
+                        <th class="text-center" style="width: 15%;">ACCIONES</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -69,18 +51,22 @@
                                 <span class="label label-warning" style="font-size: 14px !important;">Inactivo</span>
                             </td>
                             <td  class="text-center">
-                                <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfoCliente(item)">
-                                    <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" class="btn btn-warning btn-sm" ng-click="edit(item)">
-                                    <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDeleteCliente(item)">
-                                    <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" class="btn btn-primary btn-sm" ng-click="showModalAction(item)">
-                                    <i class="fa fa-lg fa-cogs" aria-hidden="true"></i>
-                                </button>
+
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfoCliente(item)">
+                                        <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-sm" ng-click="edit(item)">
+                                        <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDeleteCliente(item)">
+                                        <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-sm" ng-click="showModalAction(item)">
+                                        <i class="fa fa-lg fa-cogs" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
                             </td>
                         </tr>
                     </tbody>
@@ -97,10 +83,7 @@
                         boundary-links="true" >
 
                 </dir-pagination-controls>
-
             </div>
-
-
 
             <div class="modal fade" tabindex="-1" role="dialog" id="modalAddCliente">
                 <div class="modal-dialog modal-lg" role="document">
@@ -347,187 +330,23 @@
                                                   ng-show="formEmployee.cuenta_employee.$error.required">La asignación de una cuenta es requerida</span>
                                         </div>
                                     </div>
-                        </form>
-                    </div>
-                </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-success" id="btn-save" ng-click="saveCliente()" ng-disabled="formEmployee.$invalid">
-                            Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-         </div>
-
-
-
-
-
-
-            <div class="modal fade" tabindex="-1" role="dialog" id="modalAddCliente2">
-                <div class="modal-dialog" role="document" style="width: 60%;">
-                    <div class="modal-content">
-                        <div class="modal-header modal-header-primary">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">{{title_modal_cliente}}</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal" name="formCliente" novalidate="">
-
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="col-sm-6 col-xs-12 form-group">
-                                            <label for="t_fecha_ingreso" class="col-sm-4 col-xs-12 control-label">Fecha Ingreso:</label>
-                                            <div class="col-sm-8 col-xs-12">
-                                                <input type="text" class="form-control datepicker" name="t_fecha_ingreso" id="t_fecha_ingreso" ng-model="t_fecha_ingreso" disabled>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xs-12">
-                                        <fieldset>
-                                            <legend style="font-size: 16px; font-weight: bold;">Datos de Cliente</legend>
-                                            <input type="hidden" id="t_codigocliente" ng-model="t_codigocliente" value="0">
-                                            <div class="col-xs-12" style="padding: 0;">
-                                                <div class="col-sm-6 col-xs-12 form-group error">
-                                                    <label for="t_doc_id" class="col-sm-4 col-xs-12 control-label">CI/RUC:</label>
-                                                    <div class="col-sm-8 col-xs-12">
-                                                        <input type="text" class="form-control" name="t_doc_id" id="t_doc_id" ng-keypress="onlyNumber($event)"
-                                                               ng-model="t_doc_id" ng-required="true" ng-minlength="10" ng-pattern="/^([0-9]+)$/">
-                                                        <span class="help-block error"
-                                                              ng-show="formCliente.t_doc_id.$invalid && formCliente.t_doc_id.$touched">El Identificación es requerida</span>
-                                                        <span class="help-block error"
-                                                              ng-show="formCliente.t_doc_id.$invalid && formCliente.t_doc_id.$error.pattern">La Identificación debe ser solo números</span>
-                                                        <span class="help-block error"
-                                                              ng-show="formCliente.t_doc_id.$invalid && formCliente.t_doc_id.$error.minlength">La Identificación debe ser mayor a 10 digitos</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-xs-12 form-group error">
-                                                    <label for="t_doc_id" class="col-sm-4 col-xs-12 control-label">Email:</label>
-                                                    <div class="col-sm-8 col-xs-12">
-                                                        <input type="text" class="form-control" name="t_email" id="t_email"
-                                                               ng-model="t_email" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/">
-                                                        <span class="help-block error"
-                                                              ng-show="formCliente.t_email.$invalid && formCliente.t_email.$error.pattern">Formato de email no es correcto</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_apellidos" class="col-sm-4 col-xs-12 control-label">Apellidos:</label>
-                                                <div class="col-sm-8 col-xs-12">
-                                                    <input type="text" class="form-control" name="t_apellidos" id="t_apellidos"
-                                                           ng-model="t_apellidos" ng-required="true" ng-keypress="onlyCharasterAndSpace($event);">
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_apellidos.$invalid && formCliente.t_apellidos.$touched" >El Apellido es requerido</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_nombres" class="col-sm-4 col-xs-12 control-label">Nombre(s):</label>
-                                                <div class="col-sm-8 col-xs-12">
-                                                    <input type="text" class="form-control" name="t_nombres" id="t_nombres"
-                                                           ng-model="t_nombres" ng-required="true" ng-keypress="onlyCharasterAndSpace($event);">
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_nombres.$invalid && formCliente.t_nombres.$touched">El Nombre(s) es requerido</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_telf_principal" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Teléf. Principal:</label>
-                                                <div class="col-sm-8 col-xs-12">
-                                                    <input type="text" class="form-control" name="t_telf_principal" id="t_telf_principal"
-                                                           ng-model="t_telf_principal" ng-keypress="onlyNumber($event)" ng-minlength="9" ng-pattern="/^([0-9]+)$/">
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_telf_principal.$invalid && formCliente.t_telf_principal.$error.pattern">
-                                                        Solo números
-                                                    </span>
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_telf_principal.$invalid && formCliente.t_telf_principal.$error.minlength">El Teléf. Principal debe ser mayor a 9 digitos</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_telf_secundario" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Teléf. Secundario:</label>
-                                                <div class="col-sm-8 col-xs-12">
-                                                    <input type="text" class="form-control" name="t_telf_secundario" id="t_telf_secundario"
-                                                           ng-model="t_telf_secundario" ng-keypress="onlyNumber($event)" ng-minlength="9" ng-pattern="/^([0-9]+)$/">
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_telf_secundario.$invalid && formCliente.t_telf_secundario.$error.pattern">Solo números</span>
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_telf_secundario.$invalid && formCliente.t_telf_secundario.$error.minlength">El Teléf. Secundario debe ser mayor a 9 digitos</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_celular" class="col-sm-4 col-xs-12 control-label">Celular:</label>
-                                                <div class="col-sm-8 col-xs-12">
-                                                    <input type="text" class="form-control" name="t_celular" id="t_celular"
-                                                           ng-model="t_celular" ng-keypress="onlyNumber($event)" ng-minlength="10" ng-pattern="/^([0-9]+)$/">
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_celular.$invalid && formCliente.t_celular.$error.pattern">
-                                                        Solo números
-                                                    </span>
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_celular.$invalid && formCliente.t_celular.$error.minlength">El Nro Celular debe ser mayor a 10 digitos</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_direccion" class="col-sm-4 col-xs-12 control-label">Dirección:</label>
-                                                <div class="col-sm-8 col-xs-12">
-                                                    <input type="text" class="form-control" name="t_direccion" id="t_direccion" ng-model="t_direccion">
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-
-                                    <div class="col-xs-12">
-                                        <fieldset>
-                                            <legend style="font-size: 16px; font-weight: bold;">Datos del Trabajo</legend>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_telf_principal_emp" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Teléf. Principal:</label>
-                                                <div class="col-sm-8 col-xs-12">
-                                                    <input type="text" class="form-control" name="t_telf_principal_emp" id="t_telf_principal_emp"
-                                                           ng-model="t_telf_principal_emp" ng-keypress="onlyNumber($event)" ng-minlength="9" ng-pattern="/^([0-9]+)$/">
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_telf_principal_emp.$invalid && formCliente.t_telf_principal_emp.$error.pattern">Solo números</span>
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_telf_principal_emp.$invalid && formCliente.t_telf_principal_emp.$error.minlength">El Teléf. Principal debe ser mayor a 9 digitos</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_telf_secundario_emp" class="col-sm-4 col-xs-12 control-label" style="padding: 5px 0 5px 0;">Teléf. Secundario:</label>
-                                                <div class="col-sm-8 col-xs-12">
-                                                    <input type="text" class="form-control" name="t_telf_secundario_emp" id="t_telf_secundario_emp"
-                                                           ng-model="t_telf_secundario_emp" ng-keypress="onlyNumber($event)" ng-minlength="9" ng-pattern="/^([0-9]+)$/">
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_telf_secundario_emp.$invalid && formCliente.t_telf_secundario_emp.$error.pattern">Solo números</span>
-                                                    <span class="help-block error"
-                                                          ng-show="formCliente.t_telf_secundario_emp.$invalid && formCliente.t_telf_secundario_emp.$error.minlength">El Teléf. Secundario debe ser mayor a 9 digitos</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 col-xs-12 form-group error">
-                                                <label for="t_direccion_emp" class="col-sm-4 col-xs-12 control-label">Dirección:</label>
-                                                <div class="col-sm-8 col-xs-12">
-                                                    <input type="text" class="form-control" name="t_direccion_emp" id="t_direccion_emp" ng-model="t_direccion_emp">
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                    </div>
                                 </div>
 
-                            </form>
-                        </div>
+                            </div>
+                        </form>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                             </button>
-                            <button type="button" class="btn btn-success" id="btn-save" ng-click="saveCliente()" ng-disabled="formCliente.$invalid">
+                            <button type="button" class="btn btn-success" id="btn-save" ng-click="saveCliente()" ng-disabled="formEmployee.$invalid">
                                 Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="modal fade" tabindex="-1" role="dialog" id="modalPlanCuenta">
                 <div class="modal-dialog" role="document">
@@ -1652,27 +1471,3 @@
             </div>
 
         </div>
-</body>
-
-
-<script src="<?= asset('app/lib/angular/angular.min.js') ?>"></script>
-<script src="<?= asset('app/lib/angular/angular-route.min.js') ?>"></script>
-
-
-<script src="<?= asset('app/lib/angular/ng-file-upload-shim.min.js') ?>"></script>
-<script src="<?= asset('app/lib/angular/ng-file-upload.min.js') ?>"></script>
-
-
-<script src="<?= asset('js/jquery.min.js') ?>"></script>
-<script src="<?= asset('js/bootstrap.min.js') ?>"></script>
-<script src="<?= asset('js/moment.min.js') ?>"></script>
-<script src="<?= asset('js/es.js') ?>"></script>
-<script src="<?= asset('js/bootstrap-datetimepicker.min.js') ?>"></script>
-<script src="<?= asset('app/lib/angular/angucomplete-alt.min.js') ?>"></script>
-<script src="<?= asset('app/lib/angular/dirPagination.js') ?>"></script>
-
-<script src="<?= asset('app/app.js') ?>"></script>
-<script src="<?= asset('app/controllers/clientesController.js') ?>"></script>
-
-
-</html>
