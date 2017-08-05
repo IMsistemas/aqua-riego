@@ -1137,18 +1137,123 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         });
     };
 
+
+
+
+    /*
+     *  ACTIONS FOR SOLICITUD OTROS-------------------------------------------------------------------------------------
+     */
+
+    $scope.actionOtro = function (solicitud) {
+
+        $scope.idsolicitud_to_process = solicitud.idsolicitud;
+
+        $http.get(API_URL + 'solicitud/getSolicitudOtro/' + solicitud.tipo_id).success(function(response){
+
+            $scope.num_solicitud_otro = solicitud.tipo_id;
+
+            $scope.t_fecha_otro = solicitud.fechasolicitud;
+            $scope.h_codigocliente_otro = solicitud.idcliente;
+            $scope.documentoidentidad_cliente_otro = solicitud.numdocidentific;
+            $scope.nom_cliente_otro = solicitud.razonsocial;
+            $scope.direcc_cliente_otro = solicitud.direccion;
+            $scope.telf_cliente_otro = solicitud.telefonoprincipaldomicilio;
+            $scope.celular_cliente_otro = solicitud.celphone;
+            $scope.telf_trab_cliente_otro = solicitud.telefonoprincipaltrabajo;
+
+            $scope.t_observacion_otro = response[0].descripcion;
+
+            if(solicitud.estaprocesada === true) {
+                $('#t_observacion_otro').prop('disabled', true);
+                $('#btn-save-otro').prop('disabled', true);
+                $('#btn-process-otro').prop('disabled', true);
+                $('#modal-footer-otro').hide();
+            } else {
+                $('#t_observacion_otro').prop('disabled', false);
+                $('#btn-save-otro').prop('disabled', false);
+                $('#btn-process-otro').prop('disabled', false);
+                $('#modal-footer-otro').show();
+            }
+
+            $('#modalActionOtro').modal('show');
+
+        });
+
+
+    };
+
+
+    /*
+     *  ACTIONS FOR SOLICITUD SUMINISTRO--------------------------------------------------------------------------------
+     */
+
+    $scope.actionRiego = function (solicitud) {
+
+        /*$scope.getBarrios();
+        $scope.getTarifas();*/
+
+        $http.get(API_URL + 'solicitud/getSolicitudRiego/' + solicitud.tipo_id).success(function(response){
+
+            console.log(response);
+
+            /*$scope.t_fecha_process = $scope.nowDate();
+
+            $scope.h_codigocliente = $scope.objectAction.idcliente;
+            $scope.documentoidentidad_cliente = $scope.objectAction.numdocidentific;
+            $scope.nom_cliente = $scope.objectAction.razonsocial;
+            $scope.direcc_cliente = $scope.objectAction.direccion;
+            $scope.telf_cliente = $scope.objectAction.telefonoprincipaldomicilio;
+            $scope.celular_cliente = $scope.objectAction.celphone;
+            $scope.telf_trab_cliente = $scope.objectAction.telefonoprincipaltrabajo;
+
+            $scope.cultivos = [{label: '-- Seleccione --', id: 0}];
+            $scope.t_cultivo = 0;
+            $scope.tomas = [{label: '-- Seleccione --', id: 0}];
+            $scope.t_toma = 0;
+            $scope.canales = [{label: '-- Seleccione --', id: 0}];
+            $scope.t_canal = 0;
+            $scope.derivaciones = [{label: '-- Seleccione --', id: 0}];
+            $scope.t_derivacion = 0;
+
+            $scope.calculate_caudal = '0.00';
+            $scope.valor_total = '$ 0.00';
+
+            $scope.t_area = '';
+            $scope.t_observacion_riego = '';
+
+            $('#btn-process-riego').prop('disabled', true);*/
+
+            $('#modalActionRiego').modal('show');
+
+        });
+
+
+    };
+
+
+
+
+
+
     $scope.info = function (solicitud) {
 
-        console.log(solicitud);
+        /*console.log(solicitud);
 
         if(solicitud.tipo === 'Otra Solicitud') {
 
-            $scope.no_info_otro = solicitud.solicitudotro;
-            $scope.ingresada_info_otro = convertDatetoDB(solicitud.fechasolicitud, true);
-            $scope.procesada_info_otro = convertDatetoDB(solicitud.fechaprocesada, true);
-            $scope.cliente_info_otro = solicitud.razonsocial;
-            //$scope.descripcion_info_otro = solicitud.descripcion;
-            $('#modalInfoSolOtros').modal('show');
+            $scope.t_fecha_otro = convertDatetoDB(solicitud.fechasolicitud, true);
+            $scope.h_codigocliente_otro = solicitud.idcliente;
+            $scope.documentoidentidad_cliente_otro = solicitud.numdocidentific;
+            $scope.nom_cliente_otro = solicitud.razonsocial;
+            $scope.direcc_cliente_otro = solicitud.direccion;
+            $scope.telf_cliente_otro = solicitud.telefonoprincipaldomicilio;
+            $scope.celular_cliente_otro = solicitud.celphone;
+            $scope.telf_trab_cliente_otro = solicitud.telefonoprincipaltrabajo;
+
+            $scope.t_observacion_otro = '';
+            $('#btn-process-otro').prop('disabled', true);
+
+            $('#modalActionOtro').modal('show');
         }
 
         if(solicitud.tipo === 'Riego') {
@@ -1196,6 +1301,19 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.searchOtherClient('setname', solicitud.othercliente);
 
 
+        }*/
+
+        if(solicitud.tipo === 'Otra Solicitud') {
+            $scope.actionOtro(solicitud);
+        } else if(solicitud.tipo === 'Repartición') {
+            $scope.actionMantenimiento(solicitud);
+        } else if(solicitud.tipo === 'Cambio de Nombre') {
+            $scope.actionSetName(solicitud);
+        } else if(solicitud.tipo === 'Riego') {
+
+            //console.log(solicitud);
+
+            $scope.actionRiego(solicitud);
         }
     };
 
