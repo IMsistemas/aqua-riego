@@ -1,4 +1,6 @@
 
+
+
 <div ng-controller="empleadosController">
 
     <div class="col-xs-12">
@@ -99,11 +101,19 @@
 
                     <div class="modal-header modal-header-primary">
 
-                        <div class="col-md-4 col-xs-12">
+                        <div class="col-md-3 col-xs-12">
                             <h4 class="modal-title">{{form_title}}</h4>
                         </div>
 
-                        <div class="col-md-3 col-xs-12">
+                        <div class="col-md-4 col-xs-12">
+
+                            <div class="input-group">
+                                <span class="input-group-addon">Fecha de Ingreso:</span>
+                                <input type="text" class="datepicker form-control" name="fechaingreso" id="fechaingreso" ng-model="fechaingreso" ng-required="true">
+                            </div>
+                            <span class="help-block error"
+                                  ng-show="formEmployee.fechaingreso.$invalid && formEmployee.fechaingreso.$touched">La Fecha de Ingreso es requerida</span>
+
                             <!--<div class="input-group">
                                 <span class="input-group-addon">Codigo:</span>
                                 <input type="text" class="form-control" name="codigo" id="codigo" ng-model="codigo" ng-required="true">
@@ -113,12 +123,12 @@
                         </div>
 
                         <div class="col-md-4 col-xs-12">
+
                             <div class="input-group">
-                                <span class="input-group-addon">Fecha de Ingreso:</span>
-                                <input type="text" class="datepicker form-control" name="fechaingreso" id="fechaingreso" ng-model="fechaingreso" ng-required="true">
+                                <span class="input-group-addon">Fecha de Salida:</span>
+                                <input type="text" class="datepicker form-control" name="fechasalida" id="fechasalida" ng-model="fechasalida">
                             </div>
-                            <span class="help-block error"
-                                  ng-show="formEmployee.fechaingreso.$invalid && formEmployee.fechaingreso.$touched">La Fecha de Ingreso es requerida</span>
+
                         </div>
 
                         <div class="col-md-1 col-xs-12 text-right" style="padding: 0;">
@@ -257,7 +267,7 @@
                                                 <span class="help-block error"
                                                       ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$error.maxlength">La longitud máxima es de 16 números</span>
                                                 <span class="help-block error"
-                                                      ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
+                                                      ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$error.pattern">El Teléfono debe ser solo números</span>
                                                 <span class="help-block error"
                                                       ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$error.minlength">La longitud mínima es de 9 caracteres</span>
                                             </div>
@@ -271,7 +281,7 @@
                                                 <span class="help-block error"
                                                       ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.maxlength">La longitud máxima es de 16 números</span>
                                                 <span class="help-block error"
-                                                      ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
+                                                      ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.pattern">El Teléfono debe ser solo números</span>
                                                 <span class="help-block error"
                                                       ng-show="formEmployee.telefonosecundario.$invalid && formEmployee.telefonosecundario.$error.minlength">La longitud mínima es de 9 caracteres</span>
                                             </div>
@@ -287,7 +297,7 @@
                                                 <span class="help-block error"
                                                       ng-show="formEmployee.celular.$invalid && formEmployee.celular.$error.maxlength">La longitud máxima es de 16 números</span>
                                                 <span class="help-block error"
-                                                      ng-show="formEmployee.celular.$invalid && formEmployee.celular.$error.pattern">El Teléfono debe ser solo números, guion y espacios</span>
+                                                      ng-show="formEmployee.celular.$invalid && formEmployee.celular.$error.pattern">El Teléfono debe ser solo números</span>
                                                 <span class="help-block error"
                                                       ng-show="formEmployee.celular.$invalid && formEmployee.celular.$error.minlength">La longitud mínima es de 10 caracteres</span>
                                             </div>
@@ -318,7 +328,7 @@
                                             <div class="col-xs-12">
                                                 <div class="input-group">
                                                     <span class="input-group-addon">Fecha de Nacimiento:</span>
-                                                    <input type="text" class="datepicker form-control" name="fechanacimiento" id="fechanacimiento" ng-model="fechanacimiento" ng-required="true">
+                                                    <input type="text" class="datepicker form-control" name="fechanacimiento" id="fechanacimiento" ng-model="fechanacimiento" ng-required="true" ng-blur="valueFecha()">
                                                 </div>
                                                 <span class="help-block error"
                                                       ng-show="formEmployee.fechanacimiento.$invalid && formEmployee.fechanacimiento.$touched">La Fecha de Nacimiento es requerida</span>
@@ -435,7 +445,7 @@
                                                         <input type="text" class="form-control" ng-model="family.parentesco" />
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="datepicker form-control" ng-model="family.fechanacimiento" />
+                                                        <input type="text" class="datepickerA form-control" ng-model="family.fechanacimiento" />
                                                     </td>
                                                     <td>
                                                         <button type="button" class="btn btn-danger" ng-click="deleteItem(family)"
@@ -476,7 +486,7 @@
                                                         <input type="text" class="form-control" ng-model="elemento.salario" ng-keypress="onlyNumber($event, undefined, undefined)" />
                                                     </td>
                                                     <td>
-                                                        <input type="text" class="datepicker form-control" ng-model="elemento.fechainicio" />
+                                                        <input type="text" class="datepickerA form-control" ng-model="elemento.fechainicio" />
                                                     </td>
                                                     <td>
                                                         <input type="text" class="form-control" ng-model="elemento.observacion" />
