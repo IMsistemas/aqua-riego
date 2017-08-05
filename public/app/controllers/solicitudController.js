@@ -340,148 +340,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
     //---------------------------------------------------------------------------------------------
 
-    $scope.getBarrios = function(idbarrio){
-        $http.get(API_URL + 'cliente/getBarrios').success(function(response){
-            var longitud = response.length;
-            var array_temp = [{label: '-- Seleccione --', id: 0}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrebarrio, id: response[i].idbarrio})
-            }
-            $scope.barrios = array_temp;
 
-            if (idbarrio == undefined) {
-                $scope.t_junta = 0;
-            } else {
-                $scope.t_junta = idbarrio;
-            }
-        });
-    };
-
-    $scope.getTomas = function(idbarrio, idcalle){
-
-        var idbarrio_search = 0;
-
-        if (idbarrio == undefined){
-            idbarrio_search = $scope.t_junta;
-        } else {
-            idbarrio_search = idbarrio;
-        }
-
-        $http.get(API_URL + 'cliente/getTomas/' + idbarrio_search).success(function(response){
-            var longitud = response.length;
-            var array_temp = [{label: '-- Seleccione --', id: 0}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
-            }
-            $scope.tomas = array_temp;
-
-            if (idcalle == undefined){
-                $scope.t_toma = 0;
-            } else {
-                $scope.t_toma = idcalle;
-            }
-
-        });
-
-    };
-
-    $scope.getCanales = function(idcalle, idcanal){
-
-        var idcalle_search = 0;
-
-        if (idcalle == undefined){
-            idcalle_search = $scope.t_toma;
-        } else {
-            idcalle_search = idcalle;
-        }
-
-        $http.get(API_URL + 'cliente/getCanales/' + idcalle_search).success(function(response){
-            var longitud = response.length;
-            var array_temp = [{label: '-- Seleccione --', id: 0}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
-            }
-            $scope.canales = array_temp;
-
-            if (idcanal == undefined) {
-                $scope.t_canal = 0;
-            } else {
-                $scope.t_canal = idcanal;
-            }
-        });
-
-    };
-
-    $scope.getDerivaciones = function(idcanal, idderivacion){
-
-        var idcanal_search = 0;
-
-        if (idcanal == undefined) {
-            idcanal_search = $scope.t_canal;
-        } else {
-            idcanal_search = idcanal;
-        }
-
-        $http.get(API_URL + 'cliente/getDerivaciones/' + idcanal_search).success(function(response){
-            var longitud = response.length;
-            var array_temp = [{label: '-- Seleccione --', id: 0}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
-            }
-            $scope.derivaciones = array_temp;
-
-            if (idderivacion == undefined) {
-                $scope.t_derivacion = 0;
-            } else {
-                $scope.t_derivacion = idderivacion;
-            }
-        });
-
-    };
-
-    $scope.getTarifas = function(idtarifa){
-        $http.get(API_URL + 'cliente/getTarifas').success(function(response){
-            var longitud = response.length;
-            var array_temp = [{label: '-- Seleccione --', id: 0}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
-            }
-            $scope.tarifas = array_temp;
-
-            if (idtarifa == undefined) {
-                $scope.t_tarifa = 0;
-            } else {
-                $scope.t_tarifa = idtarifa;
-            }
-        });
-    };
-
-    $scope.getCultivos = function(idtarifa, idcultivo){
-
-        var idtarifa_search = 0;
-
-        if (idtarifa == undefined) {
-            idtarifa_search = $scope.t_tarifa;
-        } else {
-            idtarifa_search = idtarifa;
-        }
-
-        $http.get(API_URL + 'cliente/getCultivos/' + idtarifa_search).success(function(response){
-            var longitud = response.length;
-            var array_temp = [{label: '-- Seleccione --', id: 0}];
-            for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrecultivo, id: response[i].idcultivo})
-            }
-            $scope.cultivos = array_temp;
-
-            if (idcultivo == undefined) {
-                $scope.t_cultivo = 0;
-            } else {
-                $scope.t_cultivo = idcultivo;
-            }
-        });
-
-    };
 
     $scope.calculate = function () {
         $scope.calculateCaudal();
@@ -1187,41 +1046,207 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
      *  ACTIONS FOR SOLICITUD SUMINISTRO--------------------------------------------------------------------------------
      */
 
-    $scope.actionRiego = function (solicitud) {
+    $scope.getBarrios = function(idbarrio){
+        $http.get(API_URL + 'cliente/getBarrios').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].namebarrio, id: response[i].idbarrio})
+            }
+            $scope.barrios = array_temp;
 
-        /*$scope.getBarrios();
-        $scope.getTarifas();*/
+            if (idbarrio == undefined) {
+                $scope.t_junta = 0;
+            } else {
+                $scope.t_junta = idbarrio;
+            }
+        });
+    };
+
+    $scope.getTomas = function(idbarrio, idcalle){
+
+        var idbarrio_search = 0;
+
+        if (idbarrio == undefined){
+            idbarrio_search = $scope.t_junta;
+        } else {
+            idbarrio_search = idbarrio;
+        }
+
+        $http.get(API_URL + 'cliente/getTomas/' + idbarrio_search).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].namecalle, id: response[i].idcalle})
+            }
+            $scope.tomas = array_temp;
+
+            if (idcalle == undefined){
+                $scope.t_toma = 0;
+            } else {
+                $scope.t_toma = idcalle;
+            }
+
+        });
+
+    };
+
+    $scope.getCanales = function(idcalle, idcanal){
+
+        var idcalle_search = 0;
+
+        if (idcalle == undefined){
+            idcalle_search = $scope.t_toma;
+        } else {
+            idcalle_search = idcalle;
+        }
+
+        $http.get(API_URL + 'cliente/getCanales/' + idcalle_search).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
+            }
+            $scope.canales = array_temp;
+
+            if (idcanal == undefined) {
+                $scope.t_canal = 0;
+            } else {
+                $scope.t_canal = idcanal;
+            }
+        });
+
+    };
+
+    $scope.getDerivaciones = function(idcanal, idderivacion){
+
+        var idcanal_search = 0;
+
+        if (idcanal == undefined) {
+            idcanal_search = $scope.t_canal;
+        } else {
+            idcanal_search = idcanal;
+        }
+
+        $http.get(API_URL + 'cliente/getDerivaciones/' + idcanal_search).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
+            }
+            $scope.derivaciones = array_temp;
+
+            if (idderivacion == undefined) {
+                $scope.t_derivacion = 0;
+            } else {
+                $scope.t_derivacion = idderivacion;
+            }
+        });
+
+    };
+
+    $scope.getTarifas = function(idtarifa){
+        $http.get(API_URL + 'cliente/getTarifas').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombretarifa, id: response[i].idtarifa})
+            }
+            $scope.tarifas = array_temp;
+
+            if (idtarifa == undefined) {
+                $scope.t_tarifa = 0;
+            } else {
+                $scope.t_tarifa = idtarifa;
+            }
+        });
+    };
+
+    $scope.getCultivos = function(idtarifa, idcultivo){
+
+        var idtarifa_search = 0;
+
+        if (idtarifa == undefined) {
+            idtarifa_search = $scope.t_tarifa;
+        } else {
+            idtarifa_search = idtarifa;
+        }
+
+        $http.get(API_URL + 'cliente/getCultivos/' + idtarifa_search).success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nombrecultivo, id: response[i].idcultivo})
+            }
+            $scope.cultivos = array_temp;
+
+            if (idcultivo == undefined) {
+                $scope.t_cultivo = 0;
+            } else {
+                $scope.t_cultivo = idcultivo;
+            }
+        });
+
+    };
+
+    $scope.actionRiego = function (solicitud) {
 
         $http.get(API_URL + 'solicitud/getSolicitudRiego/' + solicitud.tipo_id).success(function(response){
 
+            console.log(solicitud);
             console.log(response);
 
-            /*$scope.t_fecha_process = $scope.nowDate();
+            /*$scope.t_fecha_process = $scope.nowDate();*/
 
-            $scope.h_codigocliente = $scope.objectAction.idcliente;
-            $scope.documentoidentidad_cliente = $scope.objectAction.numdocidentific;
-            $scope.nom_cliente = $scope.objectAction.razonsocial;
-            $scope.direcc_cliente = $scope.objectAction.direccion;
-            $scope.telf_cliente = $scope.objectAction.telefonoprincipaldomicilio;
-            $scope.celular_cliente = $scope.objectAction.celphone;
-            $scope.telf_trab_cliente = $scope.objectAction.telefonoprincipaltrabajo;
+            $scope.num_solicitud_riego = response[0].idsolicitudriego;
+            $scope.t_fecha_process = solicitud.fechasolicitud;
+            $scope.h_codigocliente = solicitud.idcliente;
+            $scope.documentoidentidad_cliente = solicitud.numdocidentific;
+            $scope.nom_cliente = solicitud.razonsocial;
+            $scope.direcc_cliente = solicitud.direccion;
+            $scope.telf_cliente = solicitud.telefonoprincipaldomicilio;
+            $scope.celular_cliente = solicitud.celphone;
+            $scope.telf_trab_cliente = solicitud.telefonoprincipaltrabajo;
 
-            $scope.cultivos = [{label: '-- Seleccione --', id: 0}];
-            $scope.t_cultivo = 0;
-            $scope.tomas = [{label: '-- Seleccione --', id: 0}];
-            $scope.t_toma = 0;
-            $scope.canales = [{label: '-- Seleccione --', id: 0}];
-            $scope.t_canal = 0;
-            $scope.derivaciones = [{label: '-- Seleccione --', id: 0}];
-            $scope.t_derivacion = 0;
+            $scope.nro_terreno = response[0].idterreno;
 
-            $scope.calculate_caudal = '0.00';
-            $scope.valor_total = '$ 0.00';
+            $scope.getTarifas(response[0].terreno.idtarifa);
+            $scope.getCultivos(response[0].terreno.idtarifa, response[0].terreno.idcultivo);
 
-            $scope.t_area = '';
-            $scope.t_observacion_riego = '';
+            var idbarrio = response[0].terreno.derivacion.canal.calle.idbarrio;
+            var idcalle = response[0].terreno.derivacion.canal.idcalle;
+            var idcanal = response[0].terreno.derivacion.idcanal;
+            var idderivacion = response[0].terreno.idderivacion;
 
-            $('#btn-process-riego').prop('disabled', true);*/
+            $scope.getBarrios(idbarrio);
+            $scope.getTomas(idbarrio, idcalle);
+            $scope.getCanales(idcalle, idcanal);
+            $scope.getDerivaciones(idcanal, idderivacion);
+
+            /*$scope.calculate_caudal = response[0].caudal;
+            $scope.valor_total = response[0].valoranual;
+            $scope.t_area = response[0].area;*/
+
+            $scope.t_observacion_riego = response[0].observacion;
+
+
+            $scope.t_area = response[0].terreno.area;
+            $scope.calculate_caudal = response[0].terreno.caudal;
+            $scope.valor_total = response[0].terreno.valoranual;
+
+            /*$('#btn-process-riego').prop('disabled', true);*/
+
+            if(solicitud.estaprocesada === true) {
+                /*$('#t_observacion_riego').prop('disabled', true);
+                $('#btn-save-riego').prop('disabled', true);
+                $('#btn-process-riego').prop('disabled', true);*/
+                $('#modal-footer-riego').hide();
+            } else {
+                $('#t_observacion_riego').prop('disabled', false);
+                $('#btn-save-riego').prop('disabled', false);
+                $('#btn-process-riego').prop('disabled', false);
+                $('#modal-footer-riego').show();
+            }
 
             $('#modalActionRiego').modal('show');
 
