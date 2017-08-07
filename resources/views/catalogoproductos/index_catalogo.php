@@ -74,7 +74,7 @@
                                         data-toggle="tooltip" data-placement="bottom" title="Editar" >
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                 </button>
-                                <button ng-show="producto.idcatalogitem != 1 && producto.idcatalogitem != 2" type="button" class="btn btn-danger" ng-click="showModalConfirm(producto.idcatalogitem)"
+                                <button ng-show="producto.idcatalogitem != 1" type="button" class="btn btn-danger" ng-click="showModalConfirm(producto.idcatalogitem)"
                                         data-toggle="tooltip" data-placement="bottom" title="Eliminar">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </button>
