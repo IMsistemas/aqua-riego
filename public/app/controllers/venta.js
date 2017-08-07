@@ -51,13 +51,14 @@ $scope.cmb_estado_fact="A";
 
                     var precioventa = 0;
 
+
                     if (response0[i].idcatalogitem == 1) {
-                        precioventa = response[0].valoraguapotable;
-                    } else if (response0[i].idcatalogitem == 2) {
+                        precioventa = response[0].valoranual;
+                    } /*else if (response0[i].idcatalogitem == 2) {
                         precioventa = response[0].valoralcantarillado;
                     } else {
                         precioventa = response0[i].precioventa;
-                    }
+                    }*/
 
                     var item = {
                         productoObj:{
