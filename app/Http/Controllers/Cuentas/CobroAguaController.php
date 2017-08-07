@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cuentas;
 
+use App\Modelos\Clientes\Cliente;
 use App\Modelos\Cuentas\CobroAgua;
 use App\Modelos\Cuentas\Descuento;
 use App\Modelos\Cuentas\Recargo;
@@ -212,6 +213,21 @@ class CobroAguaController extends Controller
                 return 0;
             }
         }
+    }
+
+    public function getSuministroForFactura($idterreno)
+    {
+
+        $suministro = Terreno::with('cliente.persona', 'cont_catalogitem')
+            ->where('idsuministro', $idterreno)->orderBy('idsuministro')->get();
+
+        //$_SESSION['suministro_to_facturar'] = $suministro;
+
+        Session::forget('suministro_to_facturar');
+
+        Session::put('suministro_to_facturar', $suministro);
+
+        return response()->json(['success' => true]);
     }
 
 }

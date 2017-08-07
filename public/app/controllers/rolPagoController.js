@@ -4,6 +4,9 @@
 
 app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
 
+    $scope.listado = true;
+
+    $scope.sueldos = [];
     $scope.ingresos1 = [];
     $scope.ingresos2 = [];
     $scope.ingresos3 = [];
@@ -26,7 +29,10 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
     $scope.listCuentas = [];
 
     $scope.cuentaLiquida = '';
+    $scope.dataSueldoLiquido = '';
     $scope.dataSueldoBasico = '';
+
+    $scope.dataRoldePago = [];
 
     $scope.fieldconcepto = '';
     $scope.fieldid = '';
@@ -52,6 +58,8 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
         $scope.getDataEmpresa();
 
         $scope.getDataEmpleado();
+
+        $scope.getRoles();
 
         setTimeout(function(){ $scope.getConceptos(); }, 1500);
 
@@ -156,8 +164,6 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
 
                     console.log(response);
 
-                    $scope.dataSueldoBasico = response[0];
-
                     var long = response.length;
                     for(var i = 0; i < long; i++){
 
@@ -175,6 +181,71 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
                         }
 
                         //------------------------------------------------------------------------------------------------------
+
+                        if(response[i].id_conceptospago === 1){
+
+                            $scope.cuentaLiquida = {
+                                idplancuenta: response[i].contabilidad[0].idplancuenta,
+                                concepto: response[i].contabilidad[0].concepto
+                            };
+
+                            $scope.sueldo_liquido = response[i].contabilidad[0].concepto;
+                            $scope.sueldo_liquido_h = response[i].contabilidad[0].idplancuenta;
+
+                            var cantidad = {
+                                value: "",
+                                writable: true,
+                                enumerable: true,
+                                configurable: true
+                            };
+                            Object.defineProperty(response[i], 'cantidad', cantidad);
+
+                            var observacion = {
+                                value: "",
+                                writable: true,
+                                enumerable: true,
+                                configurable: true
+                            };
+                            Object.defineProperty(response[i], 'observacion', observacion);
+
+                            var valorTotal = {
+                                value: "",
+                                writable: true,
+                                enumerable: true,
+                                configurable: true
+                            };
+                            Object.defineProperty(response[i], 'valorTotal', valorTotal);
+                            $scope.sueldos.push(response[i]);
+                        }
+
+                        if(response[i].id_conceptospago === 2){
+
+                            var cantidad = {
+                                value: "",
+                                writable: true,
+                                enumerable: true,
+                                configurable: true
+                            };
+                            Object.defineProperty(response[i], 'cantidad', cantidad);
+
+                            var observacion = {
+                                value: "",
+                                writable: true,
+                                enumerable: true,
+                                configurable: true
+                            };
+                            Object.defineProperty(response[i], 'observacion', observacion);
+
+                            var valorTotal = {
+                                value: "",
+                                writable: true,
+                                enumerable: true,
+                                configurable: true
+                            };
+                            Object.defineProperty(response[i], 'valorTotal', valorTotal);
+                            $scope.sueldos.push(response[i]);
+                        }
+
 
                         if(response[i].id_categoriapago === 1 && response[i].grupo === '1'){
 
@@ -422,6 +493,8 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
 
                         }
                     }
+
+
                 });
 
             }
@@ -572,6 +645,7 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
                 $scope.total_empresarial = (parseFloat($scope.total_adicionales) + parseFloat($scope.sueldoliquido)).toFixed(2);
             }
         });
+
     };
 
     $scope.showPlanCuenta = function (field_concepto, field_id) {
@@ -605,6 +679,100 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
         $scope.select_cuenta = item;
     };
 
+    $scope.InicioList=function() {
+        $scope.listado =  true;
+        $scope.initLoad(1);
+    };
+
+    $scope.getRoles = function () {
+
+        $http.get(API_URL + 'rolPago/getRoles').success(function(response){
+            $scope.roles = response;
+            //$('#modalPlanCuenta').modal('show');
+        });
+    }
+
+    $scope.activeForm = function (action) {
+
+        $scope.listado = false;
+    };
+
+    $scope.viewInfoRol = function (item) {
+
+        $http.get(API_URL + 'rolPago/getRolPago/' + item.numdocumento).success(function(response){
+
+            console.log(response);
+
+            var longitud = response.length;
+
+            for (var i = 0; i < longitud; i++) {
+
+                for (var j = 0; j < $scope.ingresos1.length; j++) {
+                    if (response[i].id_conceptopago === $scope.ingresos1[j].id_conceptospago) {
+                        $scope.ingresos1[j].valorTotal = response[i].valormoneda;
+                        $scope.ingresos1[j].cantidad = response[i].valormedida;
+                    }
+                }
+
+                for (var x = 0; x < $scope.ingresos2.length; x++) {
+                    if (response[i].id_conceptopago === $scope.ingresos2[x].id_conceptospago) {
+                        $scope.ingresos2[x].valorTotal = response[i].valormoneda;
+                        $scope.ingresos2[x].cantidad = response[i].valormedida;
+                    }
+                }
+
+                for (var x = 0; x < $scope.ingresos3.length; x++) {
+                    if (response[i].id_conceptopago === $scope.ingresos3[x].id_conceptospago) {
+                        $scope.ingresos3[x].valorTotal = response[i].valormoneda;
+                        $scope.ingresos3[x].cantidad = response[i].valormedida;
+                    }
+                }
+
+                for (var x = 0; x < $scope.beneficios.length; x++) {
+                    if (response[i].id_conceptopago === $scope.beneficios[x].id_conceptospago) {
+                        $scope.beneficios[x].valorTotal = response[i].valormoneda;
+                        $scope.beneficios[x].cantidad = response[i].valormedida;
+                    }
+                }
+
+                for (var x = 0; x < $scope.deducciones.length; x++) {
+                    if (response[i].id_conceptopago === $scope.deducciones[x].id_conceptospago) {
+                        $scope.deducciones[x].valorTotal = response[i].valormoneda;
+                        $scope.deducciones[x].cantidad = response[i].valormedida;
+                    }
+                }
+
+                for (var x = 0; x < $scope.benefadicionales.length; x++) {
+                    if (response[i].id_conceptopago === $scope.benefadicionales[x].id_conceptospago) {
+                        $scope.benefadicionales[x].valorTotal = response[i].valormoneda;
+                        $scope.benefadicionales[x].cantidad = response[i].valormedida;
+                    }
+                }
+
+            }
+
+            if (response[0].id_conceptopago === $scope.sueldos[0].id_conceptospago) {
+
+                $scope.cuentaLiquida = {
+                    idplancuenta: $scope.sueldos[0].contabilidad[0].idplancuenta,
+                    concepto: $scope.sueldos[0].contabilidad[0].concepto
+                };
+
+                $scope.sueldo_liquido = $scope.sueldos[0].contabilidad[0].concepto;
+                $scope.sueldo_liquido_h = $scope.sueldos[0].contabilidad[0].idplancuenta;
+
+            }
+
+
+
+            $scope.calcValores(response[2]);
+
+            $scope.listado = false;
+
+        });
+
+    };
+
     $scope.save = function () {
         /*
          * -------------------------INICIO CONTABILIDAD-------------------------------------------------------------
@@ -612,6 +780,9 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
 
         var descripcion = 'ROL PAGO A: ';
         var fecha = $('#fecha').val();
+        var array_fecha = fecha.split("-")
+        var anno = array_fecha[0];
+        var mes = array_fecha[1];
 
         var transaccion = {
             fecha: fecha,
@@ -622,7 +793,45 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
 
         var registroC = [];
 
+        //--------------------------------------CONCEPTOS SUELDOS-------------------------------------------------------
 
+        $scope.sueldos[0].valorTotal = (parseFloat($scope.sueldoliquido)).toFixed(4);
+        $scope.sueldos[1].valorTotal = (parseFloat($scope.valortotalIngreso)).toFixed(4);
+
+        var longitud_sueldos = $scope.sueldos.length;
+
+        for (var i = 0; i < longitud_sueldos; i++) {
+
+            if ($scope.sueldos[i].id_conceptospago === 1 && $scope.sueldos[i].valorTotal !== '') {
+
+                var itemliquido = {
+                    idplancuenta: $scope.sueldo_liquido_h,
+                    concepto: $scope.sueldo_liquido,
+                    controlhaber: $scope.sueldos[i].contabilidad[0].controlhaber,
+                    tipocuenta: $scope.sueldos[i].contabilidad[0].tipocuenta,
+                    Haber: 0,
+                    Debe: $scope.sueldos[i].valorTotal,
+                    Descipcion: descripcion
+                };
+
+                registroC.push(itemliquido);
+            }
+
+            if ($scope.sueldos[i].id_conceptospago === 2 && $scope.sueldos[i].valorTotal !== '') {
+                var itembasico = {
+                    idplancuenta: $scope.sueldos[i].contabilidad[0].idplancuenta,
+                    concepto: $scope.sueldos[i].contabilidad[0].concepto,
+                    controlhaber: $scope.sueldos[i].contabilidad[0].controlhaber,
+                    tipocuenta: $scope.sueldos[i].contabilidad[0].tipocuenta,
+                    Haber: $scope.sueldos[i].valorTotal,
+                    Debe: 0,
+                    Descipcion: descripcion
+                };
+
+                registroC.push(itembasico);
+            }
+
+        }
         //--------------------------------------CONCEPTOS INGRESO 2-----------------------------------------------------
 
         var longitud_ingreso2 = $scope.ingresos2.length;
@@ -747,7 +956,7 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
 
         //--------------------------------------SUELDO LIQUIDO----------------------------------------------------------
 
-        var sueldoliquido = {
+        /*var sueldoliquido = {
             idplancuenta: $scope.cuentaLiquida.idplancuenta,
             concepto: $scope.cuentaLiquida.concepto,
             controlhaber: $scope.cuentaLiquida.controlhaber,
@@ -771,9 +980,7 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
             Descipcion: descripcion
         };
 
-        registroC.push(sueldobasico);
-
-
+        registroC.push(sueldobasico);*/
 
         var Contabilidad={
             transaccion: transaccion,
@@ -784,7 +991,7 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
          * -------------------------FIN CONTABILIDAD E INICIO DEL ROL DE PAGO----------------------------------------------------------------
          */
 
-        $scope.dataRoldePago = $scope.ingresos1.concat($scope.ingresos2.concat($scope.ingresos3.concat($scope.beneficios.concat($scope.deducciones.concat($scope.benefadicionales)))));
+        $scope.dataRoldePago = $scope.sueldos.concat($scope.ingresos1.concat($scope.ingresos2.concat($scope.ingresos3.concat($scope.beneficios.concat($scope.deducciones.concat($scope.benefadicionales))))));
         console.log($scope.dataRoldePago);
 
         var data_full = {
@@ -793,6 +1000,7 @@ app.controller('rolPagoController', function ($scope,$http,$parse,API_URL) {
             diascalculo: $scope.diascalculo,
             horascalculo: $scope.horascalculo,
             fecha: fecha,
+            numdocumento: parseInt($scope.empleado.toString()+mes+anno),
             dataRoldePago: $scope.dataRoldePago
         };
 

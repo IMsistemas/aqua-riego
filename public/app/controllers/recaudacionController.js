@@ -153,6 +153,19 @@ app.controller('recaudacionController', function($scope, $http, API_URL) {
         $scope.reverse = !$scope.reverse;
     };
 
+    $scope.loadViewFactura = function (idterreno) {
+
+        $http.get(API_URL + 'recaudacion/getTerrenoForFactura/' + idterreno).success(function(response){
+
+            $scope.currentProjectUrl = '';
+
+            $scope.currentProjectUrl = API_URL + 'DocumentoVenta?flag_suministro=1';
+            $("#aux_venta").html("<object height='450px' width='100%' data='"+$scope.currentProjectUrl+"'></object>");
+            $('#modalFactura').modal('show');
+        });
+
+    };
+
     $scope.initLoad();
 
 });

@@ -162,6 +162,7 @@ Route::get('recaudacion/getCobros', 'Cuentas\CobroAguaController@getCobros');
 Route::get('recaudacion/getByFilter/{filters}', 'Cuentas\CobroAguaController@getByFilters');
 Route::get('recaudacion/verifyPeriodo', 'Cuentas\CobroAguaController@verifyPeriodo');
 Route::get('recaudacion/generate', 'Cuentas\CobroAguaController@generate');
+Route::get('recaudacion/getTerrenoForFactura/{id}', 'Cuentas\CobroAguaController@getTerrenoForFactura');
 Route::resource('/recaudacion', 'Cuentas\CobroAguaController');
 
 Route::get('editTerreno/getTarifas', 'Terreno\TerrenoController@getTarifas');
@@ -482,6 +483,7 @@ Route::get('empleado/searchDuplicate/{identify}', 'Nomina\EmpleadoController@sea
 Route::get('empleado/getRegistroSalario/{id}', 'Nomina\EmpleadoController@getRegistroSalario');
 Route::resource('/empleado', 'Nomina\EmpleadoController');
 
+Route::get('rolPago/getRoles', 'Nomina\RolPagoController@getRoles');
 Route::get('rolPago/getCuentas', 'Nomina\RolPagoController@getCuentas');
 Route::get('rolPago/getPlanCuenta', 'Nomina\RolPagoController@getPlanCuenta');
 Route::get('rolPago/getConceptos', 'Nomina\RolPagoController@getConceptos');
@@ -489,6 +491,7 @@ Route::get('rolPago/getDataEmpleado/{id}', 'Nomina\RolPagoController@getDataEmpl
 Route::get('rolPago/getEmpleados', 'Nomina\RolPagoController@getEmpleados');
 Route::get('rolPago/getDataEmpresa', 'Nomina\RolPagoController@getDataEmpresa');
 Route::get('rolPago/getExistsConfig', 'Nomina\RolPagoController@getExistsConfig');
+Route::get('rolPago/getRolPago/{numdocumento}', 'Nomina\RolPagoController@getRolPago');
 Route::resource('rolPago', 'Nomina\RolPagoController');
 
 Route::get('configNomina/getConceptos', 'ConfiguracionSystem\ConfigNominaController@getConceptos');

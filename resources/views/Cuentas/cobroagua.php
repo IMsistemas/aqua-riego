@@ -1,6 +1,14 @@
 <div ng-controller="recaudacionController">
 
-	<div class="col-xs-12" style="margin-top: 2%;">
+    <div class="col-xs-12">
+
+        <h4>Gestión de Cobros de Terrenos</h4>
+
+        <hr>
+
+    </div>
+
+	<div class="col-xs-12" style="margin-top: 5px;">
 
 		<div class="col-xs-6">
 			<div class="form-group has-feedback">
@@ -32,7 +40,7 @@
 		</form>
 
 		<div class="col-xs-12">
-			<table class="table table-responsive table-striped table-hover table-condensed">
+			<table class="table table-responsive table-striped table-hover table-condensed table-bordered">
 				<thead class="bg-primary">
 					<tr>
                         <th style="width: 5%;" >PERIODO</th>
@@ -191,7 +199,23 @@
         </div>
     </div>
 
+    <!--=================================Modal FACTURA====================================-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalFactura">
+        <div class="modal-dialog modal-lg" role="document"  style="height: 90%; width: 90%;">
+            <div class="modal-content" style="height: 90%;">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Factura</h4>
+                </div>
+                <div class="modal-body" id="bodyfactura">
+                    <div id="aux_venta">
 
+                    </div>
+                    <!--<object id="aux_venta" height="450px" width="100%" > <!--content--> <!--/object>-->
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
