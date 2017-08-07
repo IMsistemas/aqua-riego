@@ -65,7 +65,9 @@
 						<td>{{cuenta.estapagada}}</td>
 						<td>{{cuenta.total | currency}}</td>
 						<td>
-
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="loadViewFactura(cuenta.idterreno);"  title="Facturar Terreno">
+                                <i class="fa fa-lg fa-usd" aria-hidden="true"></i>
+                            </button>
 						</td>
 					</tr>
 				</tbody>

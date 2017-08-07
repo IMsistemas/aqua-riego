@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class CobroAguaController extends Controller
 {
@@ -215,11 +216,11 @@ class CobroAguaController extends Controller
         }
     }
 
-    public function getSuministroForFactura($idterreno)
+    public function getTerrenoForFactura($idterreno)
     {
 
-        $suministro = Terreno::with('cliente.persona', 'cont_catalogitem')
-            ->where('idsuministro', $idterreno)->orderBy('idsuministro')->get();
+        $suministro = Terreno::with('cliente.persona')
+            ->where('idterreno', $idterreno)->orderBy('idterreno')->get();
 
         //$_SESSION['suministro_to_facturar'] = $suministro;
 
