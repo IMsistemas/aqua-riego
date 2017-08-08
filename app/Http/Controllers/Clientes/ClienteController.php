@@ -372,7 +372,7 @@ class ClienteController extends Controller
      */
     public function calculateValor($area)
     {
-        $area_h = $area / 1000;
+        $area_h = $area / 10000;
         $configuracion = ConfiguracionSystem::where('optionname','PISQUE_CONSTANTE')->get();
 
         $costo_area = Area::where('desde', '<', $area_h)
