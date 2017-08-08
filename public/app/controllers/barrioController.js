@@ -37,7 +37,7 @@ app.controller('barrioController', function($scope, $http, API_URL) {
             }
 
             $scope.parroquias = array_temp;
-            $scope.t_parroquias = array_temp[0];
+            $scope.t_parroquias = array_temp[0].id;
 
             $scope.date_ingreso = now();
 
