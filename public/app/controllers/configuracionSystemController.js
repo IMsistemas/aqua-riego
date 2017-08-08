@@ -614,7 +614,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
                         enumerable: true,
                         configurable: true
                     };
-
+                    console.log(cuentas);
                     if (cuentas[0] !== '') {
                         cuenta.value = cuentas[0].concepto;
                     }
