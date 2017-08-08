@@ -34,8 +34,6 @@ $scope.cmb_estado_fact="A";
     $scope.verifySuministroFactura = function () {
         $http.get(API_URL + 'DocumentoVenta/getSuministroByFactura').success(function(response){
 
-            console.log(response);
-
             $scope.DICliente = response[0].cliente.persona.numdocidentific;
             $scope.BuscarCliente();
 
