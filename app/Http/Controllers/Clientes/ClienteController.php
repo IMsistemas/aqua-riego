@@ -623,9 +623,9 @@ class ClienteController extends Controller
         $terreno = Terreno::find($idterreno);
         $result_area = $terreno->area - $nuevaarea;
 
-        $result_caudal = ($result_area / 1000) * $constante[0]->constante;
+        $result_caudal = ($result_area / 10000) * $constante[0]->constante;
 
-        $area_h = $result_caudal / 1000;
+        $area_h = $result_caudal / 10000;
 
         $costo_area = Area::where('desde', '<', $area_h)
                             ->where('hasta', '>=', $area_h)
