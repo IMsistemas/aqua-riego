@@ -19,7 +19,9 @@ class ConfigNominaController extends Controller
 
     public function getConceptos()
     {
+
         return ConceptoPago::with('confignomina')->orderBy('id_conceptospago', 'asc')->get();
+
     }
 
     /**
