@@ -596,7 +596,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
                 var caudal_result = 0;
 
                 if (area !== undefined && area !== ''){
-                    caudal_result = (area / 1000) * constante;
+                    caudal_result = (area / 10000) * constante;
 
                     console.log(caudal_result);
 
