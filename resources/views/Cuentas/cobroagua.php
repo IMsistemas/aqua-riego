@@ -49,9 +49,9 @@
                         <th style="width: 10%;" >JUNTA</th>
                         <th style="width: 10%;" >CANAL</th>
                         <th style="width: 10%;" >TOMA</th>
-                        <th style="width: 5%;" >ESTADO</th>
+                        <th style="width: 8%;" >ESTADO</th>
                         <th style="width: 5%;" >TOTAL</th>
-						<th style="width: 15%;" >ACCIONES</th>
+						<th style="width: 5%;" >ACCIONES</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -62,8 +62,8 @@
 						<td>{{cuenta.namebarrio}}</td>
 						<td>{{cuenta.nombrecanal}}</td>
 						<td>{{cuenta.namecalle}}</td>
-						<td>{{cuenta.estapagada}}</td>
-						<td>{{cuenta.total | currency}}</td>
+						<td>{{(cuenta.estapagada)? 'PAGADA': 'NO PAGADA'}}</td>
+						<td>$ {{cuenta.total}}</td>
 						<td>
                             <button type="button" class="btn btn-primary btn-sm" ng-click="loadViewFactura(cuenta.idterreno);"  title="Facturar Terreno">
                                 <i class="fa fa-lg fa-usd" aria-hidden="true"></i>

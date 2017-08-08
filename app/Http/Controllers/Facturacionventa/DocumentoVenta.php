@@ -304,7 +304,7 @@ class DocumentoVenta extends Controller
             ['idformapago' => $filtro->Idformapagoventa, 'iddocumentoventa' => $aux_addVenta->last()->iddocumentoventa]
         ]);
 
-        if (Session::has('suministro_to_facturar')) {
+        /*if (Session::has('suministro_to_facturar')) {
 
             $object_s = Session::get('suministro_to_facturar');
 
@@ -316,7 +316,7 @@ class DocumentoVenta extends Controller
 
             $suministro->save();
 
-        }
+        }*/
 
 
         return 1;
