@@ -533,6 +533,8 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         }
 
+        console.log();
+
         return result;
 
     };
