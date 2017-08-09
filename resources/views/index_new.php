@@ -17,6 +17,8 @@
         <link href="<?= asset('css/style_generic_app.css') ?>" rel="stylesheet">
         <link href="<?= asset('css/angucomplete-alt.css') ?>" rel="stylesheet">
 
+
+
         <style>
             .dataclient{
                 font-weight: bold;

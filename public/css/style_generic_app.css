@@ -140,22 +140,22 @@
     color: #337ab7;
 }
 
-.dropdown-menu {
+.navbar-nav .dropdown-menu {
     box-shadow: none;
     border-color: #000;
     background: rgba(0, 0, 0, 0.9); !important;
 }
 
-.dropdown-menu > li > a {
+.navbar-nav .dropdown-menu > li > a {
     color: #FFF;
 }
 
-.dropdown-menu > li > a:hover {
+.navbar-nav .dropdown-menu > li > a:hover {
     background: rgba(79, 143, 255, 0.9);
     color: #FFF;
 }
 
-.dropdown-menu > .divider {
+.navbar-nav .dropdown-menu > .divider {
     background-color: #000;
 }
 
@@ -168,4 +168,8 @@
 .modal-body {
     max-height: calc(100vh - 210px);
     overflow-y: auto;
+}
+
+.modal-header .bootstrap-datetimepicker-widget {
+    color: #000000 !important;
 }
