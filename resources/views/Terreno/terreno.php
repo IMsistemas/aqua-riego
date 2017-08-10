@@ -18,112 +18,120 @@
                     <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
+
             <div class="col-sm-3 col-xs-12">
-                <div class="form-group">
-                    <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Año:</span></label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control datepicker" name="s_year" id="s_year"
-                               ng-model="s_year" >
-                    </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Año:</span>
+                    <input type="text" class="form-control datepicker" name="s_year" id="s_year"
+                           ng-model="s_year" >
                 </div>
+
             </div>
             <div class="col-sm-3 col-xs-12">
-                <div class="form-group">
-                    <label for="t_estado" class="col-sm-4 control-label" ><span style="float: right;">Tarifa:</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="t_tarifa0" id="t_tarifa0"
-                                ng-model="t_tarifa0" ng-options="value.id as value.label for value in tarifas"
-                                ng-change="getByFilter()"> </select>
-                    </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Tarifa:</span>
+                    <select class="form-control" name="t_tarifa0" id="t_tarifa0"
+                            ng-model="t_tarifa0" ng-options="value.id as value.label for value in tarifas"
+                            ng-change="getByFilter()"> </select>
                 </div>
+
             </div>
         </div>
 
         <div class="col-xs-12">
             <div class="col-sm-3 col-xs-12">
-                <div class="form-group">
-                    <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Junta:</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="t_barrio_s" id="t_barrio_s"
-                                ng-model="t_barrio_s" ng-options="value.id as value.label for value in barrios_s"
-                                ng-change="loadTomas(); getByFilter();"> </select>
-                    </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Junta:</span>
+                    <select class="form-control" name="t_barrio_s" id="t_barrio_s"
+                            ng-model="t_barrio_s" ng-options="value.id as value.label for value in barrios_s"
+                            ng-change="loadTomas(); getByFilter();"> </select>
                 </div>
+
             </div>
+
             <div class="col-sm-3 col-xs-12">
-                <div class="form-group">
-                    <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Toma:</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="t_toma" id="t_toma0"
-                                ng-model="t_toma0" ng-options="value.id as value.label for value in tomas_s"
-                                ng-change="loadCanales(); getByFilter();"> </select>
-                    </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Toma:</span>
+                    <select class="form-control" name="t_toma" id="t_toma0"
+                            ng-model="t_toma0" ng-options="value.id as value.label for value in tomas_s"
+                            ng-change="loadCanales(); getByFilter();"> </select>
                 </div>
+
             </div>
+
             <div class="col-sm-3 col-xs-12">
-                <div class="form-group">
-                    <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Canal:</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="t_canales" id="t_canales"
-                                ng-model="t_canales" ng-options="value.id as value.label for value in canales_s"
-                                ng-change="loadDerivaciones(); getByFilter();"> </select>
-                    </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Canal:</span>
+                    <select class="form-control" name="t_canales" id="t_canales"
+                            ng-model="t_canales" ng-options="value.id as value.label for value in canales_s"
+                            ng-change="loadDerivaciones(); getByFilter();"> </select>
                 </div>
+
             </div>
+
             <div class="col-sm-3 col-xs-12">
-                <div class="form-group">
-                    <label for="t_estado" class="col-sm-4 control-label"><span style="float: right;">Derivación:</span></label>
-                    <div class="col-sm-8">
-                        <select class="form-control" name="t_derivacion0" id="t_derivacion0"
-                                ng-model="t_derivacion0" ng-options="value.id as value.label for value in derivaciones_s"
-                                ng-change="getByFilter()"> </select>
-                    </div>
+
+                <div class="input-group">
+                    <span class="input-group-addon">Derivación:</span>
+                    <select class="form-control" name="t_derivacion0" id="t_derivacion0"
+                            ng-model="t_derivacion0" ng-options="value.id as value.label for value in derivaciones_s"
+                            ng-change="getByFilter()"> </select>
                 </div>
+
             </div>
         </div>
 
-        <div class="col-xs-12" style="margin-top: 10px;">
-            <table class="table table-responsive table-striped table-hover table-condensed">
+        <div class="col-xs-12" style="margin-top: 5px;">
+            <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                 <thead class="bg-primary">
                 <tr>
-                    <th>Cliente</th>
-                    <th style="width: 15%;">Tarifa</th>
-                    <th style="width: 10%;">Cultivo</th>
-                    <th style="width: 10%;">Derivación</th>
-                    <th style="width: 15%;">Junta Modular</th>
-                    <th style="width: 6%;">Caudal</th>
-                    <th style="width: 8%;">Area (m2)</th>
-                    <th style="width: 15%;">Acciones</th>
+                    <th>CLIENTE</th>
+                    <th style="width: 15%;">TARIFA</th>
+                    <th style="width: 10%;">CULTIVO</th>
+                    <th style="width: 10%;">DERIVACION</th>
+                    <th style="width: 15%;">JUNTA MODULAR</th>
+                    <th style="width: 6%;">CAUDAL</th>
+                    <th style="width: 8%;">AREA (m2)</th>
+                    <th style="width: 10%;">ACCIONES</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr dir-paginate="terreno in terrenos | orderBy:sortKey:reverse |itemsPerPage:10  | filter : search" ng-cloak>
-                    <td style="font-weight: bold;">{{terreno.cliente.persona.razonsocial}}</td>
+                    <td>{{terreno.cliente.persona.razonsocial}}</td>
                     <td>{{terreno.tarifa.nombretarifa}}</td>
                     <td>{{terreno.cultivo.nombrecultivo}}</td>
                     <td>{{terreno.derivacion.nombrederivacion}}</td>
                     <td>{{terreno.derivacion.canal.calle.barrio.namebarrio}}</td>
-                    <td>{{terreno.caudal}}</td>
-                    <td>{{terreno.area}}</td>
+                    <td class="text-right">{{terreno.caudal}}</td>
+                    <td class="text-right">{{terreno.area}}</td>
                     <td>
-                        <button type="button" class="btn btn-info" id="btn_inform" ng-click="loadInformation(terreno)">
-                            <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
-                        </button>
-                        <button type="button" class="btn btn-warning" id="btn_edit" ng-click="edit(terreno)" >
-                            <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
-                        </button>
 
-                        <span ng-if="terreno.urlescrituras == null">
-                            <button type="button" class="btn btn-default" id="btn_pdf" disabled >
-                                <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-info" id="btn_inform" ng-click="loadInformation(terreno)">
+                                <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
                             </button>
-                        </span>
+                            <button type="button" class="btn btn-warning" id="btn_edit" ng-click="edit(terreno)" >
+                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
+                            </button>
 
-                        <span ng-if="terreno.urlescrituras != null">
-                            <button type="button" class="btn btn-default" id="btn_pdf" ng-click="openEscrituras(terreno.urlescrituras)" >
-                                <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
-                            </button>
-                        </span>
+                            <span ng-if="terreno.urlescrituras == null">
+                                <button type="button" class="btn btn-default" id="btn_pdf" disabled >
+                                    <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
+                                </button>
+                            </span>
+
+                            <span ng-if="terreno.urlescrituras != null">
+                                <button type="button" class="btn btn-default" id="btn_pdf" ng-click="openEscrituras(terreno.urlescrituras)" >
+                                    <i class="fa fa-file-pdf-o fa-lg" aria-hidden="true" style="color: red !important;"></i>
+                                </button>
+                            </span>
+                        </div>
+
                     </td>
                 </tr>
                 </tbody>

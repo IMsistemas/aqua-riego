@@ -10,7 +10,7 @@
 
             </div>
 
-            <div class="col-xs-12" style="margin-top: 15px;">
+            <div class="col-xs-12" style="margin-top: 5px;">
                 <div class="col-sm-6 col-xs-12">
                     <div class="form-group has-feedback">
                         <input type="text" class="form-control" id="t_busqueda" placeholder="BUSCAR..." ng-model="t_busqueda">

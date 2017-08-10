@@ -12,69 +12,71 @@
 
 		<div class="col-xs-6">
 			<div class="form-group has-feedback">
-				<input type="text" class="form-control input-sm" id="search-list-trans" placeholder="BUSCAR..." ng-model="busqueda">
+				<input type="text" class="form-control" id="search-list-trans" placeholder="BUSCAR..." ng-model="busqueda">
 	             <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
 	         </div>
 		</div>
 
-		<form class="form-inline">
+        <div class="col-xs-2">
+            <div class="input-group">
+                <span class="input-group-addon">Año:</span>
+                <input type="text" class="form-control datepicker" name="yearSeleccionado" id="yearSeleccionado"
+                       ng-model="yearSeleccionado" >
+            </div>
+        </div>
 
-			<button type="button" id="btnNuevaSol" class="btn btn-primary" style="float: right;" ng-click="generate();" ng-hide="estaVacio">Generar</button>
+        <div class="col-xs-2">
 
-			<div class="form-group">
-				<label for="comboYear">Año</label>
-				<select class="form-control" id="comboYear" ng-model="yearSeleccionado" >
-				<option value="">Seleccione año</option>
-					<option ng-repeat="cuenta in cuentas" value="" >{{cuenta.fechaperiodo | date:'yyyy'}}</option>
-				</select>
-			</div>
-			<div class="form-group">
-				<label for="comboMes">Mes</label>
-				<select class="form-control" id="comboMes" ng-model="mesSeleccionado" >
-					<option value="">Seleccione mes</option>
-				    <option ng-repeat="cuenta in cuentas" value="" >{{cuenta.fechaperiodo | date:'MMM'}}</option>
-				</select>
-			</div>
+            <div class="input-group">
+                <span class="input-group-addon">Mes:</span>
+                <input type="text" class="form-control datepicker" name="mesSeleccionado" id="mesSeleccionado"
+                       ng-model="mesSeleccionado" >
+            </div>
 
+        </div>
 
-		</form>
+        <div class="col-xs-2">
+            <button type="button" id="btnNuevaSol" class="btn btn-primary" style="float: right;" ng-click="generate();" ng-hide="estaVacio">Generar</button>
+        </div>
 
-		<div class="col-xs-12">
-			<table class="table table-responsive table-striped table-hover table-condensed table-bordered">
-				<thead class="bg-primary">
-					<tr>
-                        <th style="width: 5%;" >PERIODO</th>
-                        <th>CLIENTE</th>
-                        <th style="width: 10%;" >TARIFA</th>
-                        <th style="width: 10%;" >JUNTA</th>
-                        <th style="width: 10%;" >CANAL</th>
-                        <th style="width: 10%;" >TOMA</th>
-                        <th style="width: 8%;" >ESTADO</th>
-                        <th style="width: 5%;" >TOTAL</th>
-						<th style="width: 5%;" >ACCIONES</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="cuenta in cuentas | filter: busqueda | orderBy:columna:reversa" >
-						<td>{{cuenta.fechapago | date:'MMM yyyy'}}</td>
-						<td>{{cuenta.razonsocial}}</td>
-						<td>{{cuenta.nombretarifa}}</td>
-						<td>{{cuenta.namebarrio}}</td>
-						<td>{{cuenta.nombrecanal}}</td>
-						<td>{{cuenta.namecalle}}</td>
-						<td>{{(cuenta.estapagada)? 'PAGADA': 'NO PAGADA'}}</td>
-						<td>$ {{cuenta.total}}</td>
-						<td>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="loadViewFactura(cuenta.idterreno);"  title="Facturar Terreno">
-                                <i class="fa fa-lg fa-usd" aria-hidden="true"></i>
-                            </button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+    </div>
 
+    <div class="col-xs-12">
+        <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
+            <thead class="bg-primary">
+            <tr>
+                <th style="width: 5%;" >PERIODO</th>
+                <th>CLIENTE</th>
+                <th style="width: 10%;" >TARIFA</th>
+                <th style="width: 10%;" >JUNTA</th>
+                <th style="width: 10%;" >CANAL</th>
+                <th style="width: 10%;" >TOMA</th>
+                <th style="width: 8%;" >ESTADO</th>
+                <th style="width: 8%;" >TOTAL</th>
+                <th style="width: 5%;" >ACCIONES</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="cuenta in cuentas | filter: busqueda | orderBy:columna:reversa" >
+                <td>{{cuenta.fechapago | date:'MMM yyyy'}}</td>
+                <td>{{cuenta.razonsocial}}</td>
+                <td>{{cuenta.nombretarifa}}</td>
+                <td>{{cuenta.namebarrio}}</td>
+                <td>{{cuenta.nombrecanal}}</td>
+                <td>{{cuenta.namecalle}}</td>
 
+                <td ng-if="cuenta.estapagada == true" class="btn-success" style="font-weight: bold;">PAGADA</td>
+                <td ng-if="cuenta.estapagada == false" class="btn-danger" style="font-weight: bold;">NO PAGADA</td>
+
+                <td class="text-right">$ {{cuenta.total}}</td>
+                <td>
+                    <button type="button" class="btn btn-primary btn-sm" ng-click="loadViewFactura(cuenta.idterreno);"  title="Facturar Terreno">
+                        <i class="fa fa-lg fa-usd" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <!-- ==============================================MODALES=========================================================================== -->
