@@ -649,7 +649,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.idsolicitud = solicitud.no_solicitudsetnombre;
             $('#modalProcesarSetNombre').modal('show');
         } else if (solicitud.tipo == 'Repartición'){
-            $scope.idsolicitud = solicitud.no_solicitudreparticion
+            $scope.idsolicitud = solicitud.no_solicitudreparticion;
             $('#modalProcesarFraccion').modal('show');
         } else if (solicitud.tipo == 'Riego'){
             $('#modalProcesarRiego').modal('show');

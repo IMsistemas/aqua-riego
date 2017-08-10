@@ -31,16 +31,6 @@ class SolicitudController extends Controller
     {
         $filter_view = json_decode($request->get('filter'));
 
-        /*
-
-        { id: 5, name: '-- Seleccione --' },
-        { id: 4, name: 'Riego' },
-        { id: 3, name: 'Cambio de Nombre' },
-        { id: 2, name: 'Fraccionamiento' },
-        { id: 1, name: 'Otros' }
-
-        */
-
         $list_solicitudes = Solicitud::join('cliente', 'solicitud.idcliente', '=', 'cliente.idcliente')
                                         ->join('persona', 'cliente.idpersona', '=', 'persona.idpersona');
 
@@ -268,7 +258,7 @@ class SolicitudController extends Controller
     public function updateSolicitudRiego(Request $request, $id)
     {
         $solicitudriego = SolicitudRiego::find($id);
-        $solicitudriego->fechasolicitud = $request->input('fecha_solicitud');
+        //$solicitudriego->fechasolicitud = $request->input('fecha_solicitud');
         $solicitudriego->observacion = $request->input('observacion');
         $result = $solicitudriego->save();
 

@@ -340,7 +340,7 @@
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
                         <button type="button" class="btn btn-primary" id="btn-process-riego"
-                                ng-click="procesarSolicitud('btn-process-riego')" disabled>
+                                ng-click="procesarSolicitudRiego()" disabled>
                             Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </button>
                     </div>
