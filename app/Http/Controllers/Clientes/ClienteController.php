@@ -50,15 +50,25 @@ class ClienteController extends Controller
     {
         $filter = json_decode($request->get('filter'));
         $search = $filter->search;
+        $estado = $filter->estado;
+
         $cliente = null;
 
         $cliente = Cliente::with('terreno.derivacion.canal.calle.barrio', 'terreno.cultivo.tarifa')
-            ->join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
-            ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'cliente.idplancuenta')
-            ->select('cliente.*', 'persona.*', 'cont_plancuenta.*');
+                            ->join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
+                            ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'cliente.idplancuenta')
+                            ->select('cliente.*', 'persona.*', 'cont_plancuenta.idplancuenta', 'cont_plancuenta.concepto');
 
         if ($search != null) {
             $cliente = $cliente->whereRaw("persona.razonsocial ILIKE '%" . $search . "%'");
+        }
+
+        if ($estado != '0') {
+            if ($estado == '1') {
+                $cliente = $cliente->where("cliente.estado", true);
+            } else {
+                $cliente = $cliente->where("cliente.estado", false);
+            }
         }
 
         return $cliente->orderBy('fechaingreso', 'desc')->paginate(10);
@@ -161,7 +171,7 @@ class ClienteController extends Controller
             if ($persona->save()) {
                 $cliente = new Cliente();
                 $cliente->fechaingreso = $request->input('fechaingreso');
-                $cliente->estado = true;
+                $cliente->estado = $request->input('estado');
                 $cliente->idpersona = $persona->idpersona;
                 $cliente->idplancuenta = $request->input('cuentacontable');
                 $cliente->idtipoimpuestoiva = $request->input('impuesto_iva');
@@ -204,7 +214,7 @@ class ClienteController extends Controller
         if ($persona->save()) {
             $cliente = Cliente::find($id);
             $cliente->fechaingreso = $request->input('fechaingreso');
-            $cliente->estado = true;
+            $cliente->estado = $request->input('estado');
             $cliente->idpersona = $persona->idpersona;
             $cliente->idplancuenta = $request->input('cuentacontable');
             $cliente->idtipoimpuestoiva = $request->input('impuesto_iva');

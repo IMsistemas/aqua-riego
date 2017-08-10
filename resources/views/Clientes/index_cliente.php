@@ -17,7 +17,17 @@
                         <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                     </div>
                 </div>
-                <div class="col-sm-6 col-xs-12">
+                <div class="col-sm-4 col-xs-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">Estado:</span>
+                        <select class="form-control" name="s_estado_search" id="s_estado_search" ng-model="s_estado_search" ng-change="initLoad(1)">
+                            <option value="0">-- Seleccione --</option>
+                            <option value="1">ACTIVO</option>
+                            <option value="2">INACTIVO</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-12">
                     <button type="button" class="btn btn-primary" style="float: right;" ng-click="showModalAddCliente()">
                         Nuevo <i class="fa fa-lg fa-user-plus" aria-hidden="true"></i>
                     </button>
@@ -44,12 +54,10 @@
                             <td>{{item.razonsocial}}</td>
                             <td>{{item.celphone}}</td>
                             <td>{{item.direccion}}</td>
-                            <td ng-if="item.estado == true">
-                                <span class="label label-primary" style="font-size: 14px !important;">Activo</span>
-                            </td>
-                            <td ng-if="item.estado == false">
-                                <span class="label label-warning" style="font-size: 14px !important;">Inactivo</span>
-                            </td>
+
+                            <td ng-if="item.estado == true" class="btn-success text-center" style="font-weight: bold;">ACTIVO</td>
+                            <td ng-if="item.estado == false" class="btn-danger text-center" style="font-weight: bold;">INACTIVO</td>
+
                             <td  class="text-center">
 
                                 <div class="btn-group" role="group" aria-label="...">
@@ -90,16 +98,25 @@
                     <div class="modal-content">
                         <form class="form-horizontal" name="formEmployee" novalidate="">
                             <div class="modal-header modal-header-primary">
-                                <div class="col-md-6 col-xs-12">
+                                <div class="col-md-3 col-xs-12">
                                     <h4 class="modal-title">{{title_modal_cliente}}</h4>
                                 </div>
-                                <div class="col-md-5 col-xs-12">
+                                <div class="col-md-4 col-xs-12">
                                     <div class="input-group">
                                         <span class="input-group-addon">Fecha de Ingreso:</span>
                                         <input type="text" class="datepicker form-control" name="t_fecha_ingreso" id="t_fecha_ingreso" ng-model="t_fecha_ingreso" ng-required="true">
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formEmployee.t_fecha_ingreso.$invalid && formEmployee.t_fecha_ingreso.$touched">La Fecha de Ingreso es requerida</span>
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Estado:</span>
+                                        <select class="form-control" name="s_estado" id="s_estado" ng-model="s_estado">
+                                            <option value="1">ACTIVO</option>
+                                            <option value="2">INACTIVO</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-1 col-xs-12 text-right" style="padding: 0;">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

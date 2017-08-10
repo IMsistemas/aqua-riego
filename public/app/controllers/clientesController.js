@@ -14,6 +14,8 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.list_terrenos = [];
 
+    $scope.s_estado_search = '0';
+
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
     };
@@ -24,8 +26,10 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             var search = null;
         } else var search = $scope.busqueda;
 
+
         var filtros = {
-            search: search
+            search: search,
+            estado: $scope.s_estado_search
         };
 
         $http.get(API_URL + 'cliente/getClientes?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
@@ -93,7 +97,6 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
     $scope.inputChanged = function (str) {
         $scope.documentoidentidadempleado = str;
     };
-
 
     $scope.showPlanCuenta = function () {
 
@@ -200,7 +203,13 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
                 $scope.select_cuenta = objectPlan;
 
-                $scope.title_modal_cliente = 'Nuevo Cliente';
+                if (item.estado === true) {
+                    $scope.s_estado = '1';
+                } else {
+                    $scope.s_estado = '2';
+                }
+
+                $scope.title_modal_cliente = 'Editar Cliente';
 
                 $('#modalAddCliente').modal('show');
 
@@ -228,6 +237,12 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
         var fechaingreso = $('#t_fecha_ingreso').val();
 
+        var estado = true;
+
+        if ($scope.s_estado === '2') {
+            estado = false;
+        }
+
         var data = {
 
             // datos de persona
@@ -251,7 +266,9 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             telefonosecundariodomicilio: $scope.telefonosecundario,
             telefonoprincipaltrabajo: $scope.telefonoprincipaltrabajo,
             telefonosecundariotrabajo: $scope.telefonosecundariotrabajo,
-            direcciontrabajo: $scope.direcciontrabajo
+            direcciontrabajo: $scope.direcciontrabajo,
+
+            estado: estado
 
         };
 
@@ -333,7 +350,6 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.showModalAddCliente = function () {
 
-
         $('.datepicker').datetimepicker({
             locale: 'es',
             format: 'DD/MM/YYYY'
@@ -364,8 +380,6 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
                         $scope.iva = parseInt(response[0].optionvalue);
                     }
 
-
-
                     $scope.t_codigocliente = 0;
                     $scope.t_fecha_ingreso = $scope.nowDate();
 
@@ -388,39 +402,18 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
                     $scope.select_cuenta = null;
 
+                    $scope.s_estado = '1';
+
                     $scope.title_modal_cliente = 'Nuevo Cliente';
 
                     $('#modalAddCliente').modal('show');
 
                 });
 
-
-
-
             });
 
         });
 
-
-
-        /*$scope.t_codigocliente = 0;
-        $scope.t_fecha_ingreso = $scope.nowDate();
-
-        $scope.t_doc_id = '';
-        $scope.t_apellidos = '';
-        $scope.t_nombres = '';
-        $scope.t_telf_principal = '';
-        $scope.t_telf_secundario = '';
-        $scope.t_celular = '';
-        $scope.t_direccion = '';
-        $scope.t_telf_principal_emp = '';
-        $scope.t_telf_secundario_emp = '';
-        $scope.t_direccion_emp = '';
-        $scope.t_email = '';
-
-        $scope.title_modal_cliente = 'Nuevo Cliente';
-
-        $('#modalAddCliente').modal('show');*/
     };
 
     $scope.showModalDeleteCliente = function (item) {
