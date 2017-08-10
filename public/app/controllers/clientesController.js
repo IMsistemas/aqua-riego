@@ -728,8 +728,8 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
         for (var i = 0; i < longitud; i++){
             if ($scope.list_terrenos[i].idterreno == $scope.t_terrenos_setnombre){
-                $scope.junta_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.barrio.nombrebarrio;
-                $scope.toma_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.nombrecalle;
+                $scope.junta_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.barrio.namebarrio;
+                $scope.toma_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.namecalle;
                 $scope.canal_setnombre = $scope.list_terrenos[i].derivacion.canal.nombrecanal;
                 $scope.derivacion_setnombre = $scope.list_terrenos[i].derivacion.nombrederivacion;
                 $scope.cultivo_setnombre = $scope.list_terrenos[i].cultivo.nombrecultivo;
@@ -1162,7 +1162,6 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
             $('#' + id_btn).prop('disabled', true);
 
-
             $('#modalActionRiego').modal('hide');
             $('#modalActionOtro').modal('hide');
             $('#modalActionSetNombre').modal('hide');
@@ -1173,6 +1172,8 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             $scope.message = 'Se procesó correctamente la solicitud...';
             $('#modalMessage').modal('show');
             $scope.hideModalMessage();
+
+            $scope.initLoad(1);
 
         }).error(function (res) {
 
