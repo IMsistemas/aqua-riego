@@ -1004,8 +1004,11 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
     $scope.actionOtro = function (solicitud) {
 
         $scope.idsolicitud_to_process = solicitud.idsolicitud;
+        $scope.idsolicitud = solicitud.idsolicitud;
 
         $http.get(API_URL + 'solicitud/getSolicitudOtro/' + solicitud.tipo_id).success(function(response){
+
+            console.log(response);
 
             $scope.num_solicitud_otro = solicitud.tipo_id;
 

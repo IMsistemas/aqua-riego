@@ -1037,7 +1037,7 @@
                             Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
                         <button type="button" class="btn btn-primary" id="btn-process-otro"
-                                ng-click="procesarSolicitud('btn-process-otro')" disabled>
+                                ng-click="procesarSolicitudOtro()" disabled>
                             Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </button>
                     </div>

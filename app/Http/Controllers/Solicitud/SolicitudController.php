@@ -161,7 +161,7 @@ class SolicitudController extends Controller
 
     public function getSolicitudOtro($idsolicitud)
     {
-        return SolicitudOtro::with('cliente')->where('idsolicitud', $idsolicitud)->get();
+        return SolicitudOtro::with('cliente')->where('idsolicitudotro', $idsolicitud)->get();
     }
 
     public function getSolicitudRiego($idsolicitud)
@@ -254,7 +254,7 @@ class SolicitudController extends Controller
 
         $solicitud = SolicitudOtro::find($id);
 
-        $solicitud->fechasolicitud = $request->input('fecha_solicitud');
+        //$solicitud->fechasolicitud = $request->input('fecha_solicitud');
         $solicitud->descripcion = $request->input('observacion');
         $result = $solicitud->save();
 
