@@ -23,7 +23,7 @@
                     <span class="input-group-addon">Tipo Solicitud:</span>
                     <select class="form-control" name="t_estado" id="t_tipo_solicitud"
                             ng-model="t_tipo_solicitud" ng-options="value.id as value.name for value in tipo"
-                            ng-change="searchByFilter()"> </select>
+                            ng-change="initLoad(1)"> </select>
                 </div>
 
             </div>
@@ -33,7 +33,7 @@
                     <span class="input-group-addon">Estado:</span>
                     <select class="form-control" name="t_estado" id="t_estado"
                             ng-model="t_estado" ng-options="value.id as value.name for value in estados"
-                            ng-change="searchByFilter()"> </select>
+                            ng-change="initLoad(1)"> </select>
                 </div>
 
             </div>

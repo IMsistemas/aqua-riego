@@ -27,34 +27,73 @@ class SolicitudController extends Controller
         return view('Solicitud/index');
     }
 
-    public function getSolicitudes()
+    public function getSolicitudes(Request $request)
     {
-        /*$solicitudriego = SolicitudRiego::with('solicitud.cliente', 'terreno.derivacion.canal.calle.barrio')
-                                            //->orderBy('fechasolicitud', 'desc')
-                                            ->get();
-        $solicitudotro = SolicitudOtro::with('cliente')//->orderBy('fechasolicitud', 'desc')
-                                            ->get();
-        $solicitudsetname = SolicitudCambioNombre::with('cliente', 'terreno.derivacion.canal.calle.barrio')
-                                            //->orderBy('fechasolicitud', 'desc')
-                                            ->get();
-        $solicitudreparticion = SolicitudReparticion::with('cliente')//->orderBy('fechasolicitud', 'desc')
-                                            ->get();
-        return response()->json([
-            'riego' => $solicitudriego, 'otro' => $solicitudotro,
-            'setname' => $solicitudsetname, 'reparticion' => $solicitudreparticion
-        ]);*/
+        $filter_view = json_decode($request->get('filter'));
 
-        return Solicitud::join('cliente', 'solicitud.idcliente', '=', 'cliente.idcliente')
-            ->join('persona', 'cliente.idpersona', '=', 'persona.idpersona')
-            ->selectRaw(
-                '*,
-                                (SELECT idsolicitudotro FROM solicitudotro WHERE solicitudotro.idsolicitud = solicitud.idsolicitud) AS solicitudotro,
-                                (SELECT idsolicitudcambionombre FROM solicitudcambionombre WHERE solicitudcambionombre.idsolicitud = solicitud.idsolicitud) AS solicitudcambionombre,
-                                (SELECT idsolicitudreparticion FROM solicitudreparticion WHERE solicitudreparticion.idsolicitud = solicitud.idsolicitud) AS solicitudreparticion,
-                                (SELECT idsolicitudriego FROM solicitudriego WHERE solicitudriego.idsolicitud = solicitud.idsolicitud) AS solicitudriego'
-            )
-            ->orderBy('idsolicitud', 'desc')->orderBy('fechasolicitud', 'desc')->paginate(10);
+        /*
 
+        { id: 5, name: '-- Seleccione --' },
+        { id: 4, name: 'Riego' },
+        { id: 3, name: 'Cambio de Nombre' },
+        { id: 2, name: 'Fraccionamiento' },
+        { id: 1, name: 'Otros' }
+
+        */
+
+        $list_solicitudes = Solicitud::join('cliente', 'solicitud.idcliente', '=', 'cliente.idcliente')
+                                        ->join('persona', 'cliente.idpersona', '=', 'persona.idpersona');
+
+        if ($filter_view->tipo == 4) {
+
+            $list_solicitudes = $list_solicitudes->selectRaw(
+                   '*, (SELECT idsolicitudriego FROM solicitudriego WHERE solicitudriego.idsolicitud = solicitud.idsolicitud) AS solicitudriego'
+            )->join('solicitudriego', 'solicitud.idsolicitud', '=', 'solicitudriego.idsolicitud');
+
+        } else if ($filter_view->tipo == 3) {
+
+            $list_solicitudes = $list_solicitudes->selectRaw(
+                '*, (SELECT idsolicitudcambionombre FROM solicitudcambionombre WHERE solicitudcambionombre.idsolicitud = solicitud.idsolicitud) AS solicitudcambionombre'
+            )->join('solicitudcambionombre', 'solicitud.idsolicitud', '=', 'solicitudcambionombre.idsolicitud');
+
+        } else if ($filter_view->tipo == 2) {
+
+            $list_solicitudes = $list_solicitudes->selectRaw(
+                '*, (SELECT idsolicitudreparticion FROM solicitudreparticion WHERE solicitudreparticion.idsolicitud = solicitud.idsolicitud) AS solicitudreparticion'
+            )->join('solicitudreparticion', 'solicitud.idsolicitud', '=', 'solicitudreparticion.idsolicitud');
+
+        } else if ($filter_view->tipo == 1) {
+
+            $list_solicitudes = $list_solicitudes->selectRaw(
+                '*, (SELECT idsolicitudotro FROM solicitudotro WHERE solicitudotro.idsolicitud = solicitud.idsolicitud) AS solicitudotro'
+            )->join('solicitudotro', 'solicitud.idsolicitud', '=', 'solicitudotro.idsolicitud');
+
+        } else {
+            $list_solicitudes = $list_solicitudes->selectRaw(
+                '*, (SELECT idsolicitudotro FROM solicitudotro WHERE solicitudotro.idsolicitud = solicitud.idsolicitud) AS solicitudotro,
+                (SELECT idsolicitudcambionombre FROM solicitudcambionombre WHERE solicitudcambionombre.idsolicitud = solicitud.idsolicitud) AS solicitudcambionombre,
+                (SELECT idsolicitudreparticion FROM solicitudreparticion WHERE solicitudreparticion.idsolicitud = solicitud.idsolicitud) AS solicitudreparticion,
+                (SELECT idsolicitudriego FROM solicitudriego WHERE solicitudriego.idsolicitud = solicitud.idsolicitud) AS solicitudriego'
+            );
+        }
+
+
+        /*$list_solicitudes = Solicitud::join('cliente', 'solicitud.idcliente', '=', 'cliente.idcliente')
+                                        ->join('persona', 'cliente.idpersona', '=', 'persona.idpersona')
+                                        ->selectRaw('*, (SELECT idsolicitudotro FROM solicitudotro WHERE solicitudotro.idsolicitud = solicitud.idsolicitud) AS solicitudotro,
+                (SELECT idsolicitudcambionombre FROM solicitudcambionombre WHERE solicitudcambionombre.idsolicitud = solicitud.idsolicitud) AS solicitudcambionombre,
+                (SELECT idsolicitudreparticion FROM solicitudreparticion WHERE solicitudreparticion.idsolicitud = solicitud.idsolicitud) AS solicitudreparticion,
+                (SELECT idsolicitudriego FROM solicitudriego WHERE solicitudriego.idsolicitud = solicitud.idsolicitud) AS solicitudriego');*/
+
+        if ($filter_view->estado != 3) {
+            if ($filter_view->estado == 2) {
+                $list_solicitudes = $list_solicitudes->where('estaprocesada', false);
+            } else {
+                $list_solicitudes = $list_solicitudes->where('estaprocesada', true);
+            }
+        }
+
+        return $list_solicitudes->orderBy('solicitud.idsolicitud', 'desc')->orderBy('fechasolicitud', 'desc')->paginate(10);
     }
 
     public function getByFilter($filter)

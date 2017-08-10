@@ -129,7 +129,6 @@ class ClienteController extends Controller
         return response()->json(['success' => $result]);
     }
 
-
     private function searchExist($numidentific)
     {
         $count = Cliente::join('persona', 'cliente.idpersona', '=', 'persona.idpersona')

@@ -12,7 +12,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
     $scope.idsolicitud = 0;
 
     $scope.estados = [
-        { id: 3, name: '-- Todos --' },
+        { id: 3, name: '-- Seleccione --' },
         { id: 2, name: 'En Espera' },
         { id: 1, name: 'Procesado' },
     ];
@@ -20,7 +20,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
     $scope.t_estado = 3;
 
     $scope.tipo = [
-        { id: 5, name: '-- Todos --' },
+        { id: 5, name: '-- Seleccione --' },
         { id: 4, name: 'Riego' },
         { id: 3, name: 'Cambio de Nombre' },
         { id: 2, name: 'Fraccionamiento' },
@@ -155,17 +155,19 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.tasainteres = parseFloat(response[0].optionvalue);
         });*/
 
-        if ($scope.busqueda == undefined) {
+        if ($scope.busqueda === undefined) {
             var search = null;
         } else var search = $scope.busqueda;
 
         var filtros = {
-            search: search
+            search: search,
+            tipo: $scope.t_tipo_solicitud,
+            estado: $scope.t_estado
         };
 
-        $http.get(API_URL + 'solicitud/getSolicitudes?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
+        console.log(filtros);
 
-            //console.log(response);
+        $http.get(API_URL + 'solicitud/getSolicitudes?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
 
             var longitud = response.data.length;
 
@@ -176,16 +178,16 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                     var tipo = '';
                     var idtipo = 0;
 
-                    if (response.data[i].solicitudcambionombre !== null) {
+                    if (response.data[i].solicitudcambionombre !== null && response.data[i].solicitudcambionombre !== undefined) {
                         tipo = 'Cambio de Nombre';
                         idtipo = response.data[i].solicitudcambionombre;
-                    } else if (response.data[i].solicitudreparticion !== null) {
+                    } else if (response.data[i].solicitudreparticion !== null && response.data[i].solicitudreparticion !== undefined) {
                         tipo = 'Repartición';
                         idtipo = response.data[i].solicitudreparticion;
-                    } else if (response.data[i].solicitudotro !== null) {
+                    } else if (response.data[i].solicitudotro !== null && response.data[i].solicitudotro !== undefined) {
                         tipo = 'Otra Solicitud';
                         idtipo = response.data[i].solicitudotro;
-                    } else if (response.data[i].solicitudriego !== null) {
+                    } else if (response.data[i].solicitudriego !== null && response.data[i].solicitudriego !== undefined) {
                         tipo = 'Riego';
                         idtipo = response.data[i].solicitudriego;
                     }
@@ -213,10 +215,6 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.solicitudes = response.data;
             $scope.totalItems = response.total;
 
-
-            console.log(response.data);
-
-
         });
     };
 
@@ -228,7 +226,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
         $http.get(API_URL + 'solicitud/getByFilter/' + JSON.stringify(filter)).success(function(response){
 
-            console.log(response);
+            /*console.log(response);
 
             var list = [];
 
@@ -331,7 +329,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
             }
 
-            $scope.solicitudes = list;
+            $scope.solicitudes = list;*/
 
 
         });
@@ -1355,7 +1353,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         });
     };
 
-    $scope.initLoad();
+    $scope.initLoad(1);
 });
 
 $(function(){
