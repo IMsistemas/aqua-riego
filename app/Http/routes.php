@@ -172,6 +172,7 @@ Route::get('editTerreno/getTomas/{idbarrio}', 'Terreno\TerrenoController@getToma
 Route::get('editTerreno/getDerivaciones/{idcanal}', 'Terreno\TerrenoController@getDerivaciones');
 Route::get('editTerreno/getTerrenos', 'Terreno\TerrenoController@getTerrenos');
 Route::get('editTerreno/getConstante', 'Terreno\TerrenoController@getConstante');
+Route::get('editTerreno/getCultivos/{id}', 'Terreno\TerrenoController@getCultivos');
 Route::get('editTerreno/calculateValor/{area}', 'Terreno\TerrenoController@calculateValor');
 Route::get('editTerreno/getByFilter/{filter}', 'Terreno\TerrenoController@getByFilter');
 Route::post('editTerreno/update/{id}', 'Terreno\TerrenoController@update');

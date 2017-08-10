@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Terreno;
 
+use App\Modelos\Configuracion\ConfiguracionSystem;
 use App\Modelos\Configuraciones\Configuracion;
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Tomas\Calle;
@@ -153,7 +154,7 @@ class TerrenoController extends Controller
      */
     public function getConstante()
     {
-        return Configuracion::all();
+        return ConfiguracionSystem::where('optionname','PISQUE_CONSTANTE')->get();
     }
 
 
@@ -167,7 +168,7 @@ class TerrenoController extends Controller
     public function calculateValor($area, $action_interno = false)
     {
         $area_h = $area / 10000;
-        $configuracion = Configuracion::all();
+        $configuracion = ConfiguracionSystem::where('optionname','PISQUE_CONSTANTE')->get();
 
         $costo_area = Area::where('desde', '<', $area_h)
             ->where('hasta', '>=', $area_h)
@@ -176,7 +177,7 @@ class TerrenoController extends Controller
         if ($costo_area[0]->esfija == true){
             $costo = $costo_area[0]->costo;
         } else {
-            $costo = $area_h * $configuracion[0]->constante * $costo_area[0]->costo;
+            $costo = $area_h * $configuracion[0]->optionvalue * $costo_area[0]->costo;
         }
 
         if ($action_interno == true) {

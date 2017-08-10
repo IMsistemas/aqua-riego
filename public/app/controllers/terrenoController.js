@@ -265,7 +265,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
             var area = parseInt($scope.t_area);
             var constante = parseFloat(response[0].optionvalue);
 
-            var caudal_result = (area / 1000) * constante;
+            var caudal_result = (area / 10000) * constante;
 
             $scope.calculate_caudal = caudal_result.toFixed(2);
         });
