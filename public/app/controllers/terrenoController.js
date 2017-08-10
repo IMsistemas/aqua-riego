@@ -261,22 +261,56 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
     };
 
     $scope.calculateCaudal = function () {
-        $http.get(API_URL + 'cliente/getConstante').success(function(response){
+        /*$http.get(API_URL + 'cliente/getConstante').success(function(response){
             var area = parseInt($scope.t_area);
             var constante = parseFloat(response[0].optionvalue);
 
             var caudal_result = (area / 10000) * constante;
 
             $scope.calculate_caudal = caudal_result.toFixed(2);
-        });
+        });*/
+
+        var area = $scope.t_area.trim();
+
+        if (area !== undefined && area !== '') {
+            $http.get(API_URL + 'cliente/getConstante').success(function(response){
+
+                var area = parseFloat($scope.t_area);
+                var constante = parseFloat(response[0].optionvalue);
+
+                console.log(response);
+                console.log(area);
+
+                var caudal_result = 0;
+
+                if (area !== undefined && area !== ''){
+                    caudal_result = (area / 10000) * constante;
+
+                    console.log(caudal_result);
+
+                    $scope.calculate_caudal = caudal_result.toFixed(2);
+                }
+
+            });
+        }
+
     };
 
     $scope.calculateValor = function () {
-        var area = $scope.t_area;
+        var area = $scope.t_area.trim();
 
-        $http.get(API_URL + 'cliente/calculateValor/' + area).success(function(response){
-            $scope.valor_total = parseFloat(response.costo).toFixed(2);
-        });
+        if (area !== undefined && area !== '') {
+            $http.get(API_URL + 'cliente/calculateValor/' + area).success(function(response){
+
+                if (response.success === true) {
+                    $scope.valor_total = parseFloat(response.costo).toFixed(2);
+                } else {
+                    $scope.message_info = 'No existe valor en la tarifa que cubra esta area...';
+                    $('#modalMessageInfo').modal('show');
+                }
+
+            });
+        }
     };
 
     $scope.edit = function (terreno) {
