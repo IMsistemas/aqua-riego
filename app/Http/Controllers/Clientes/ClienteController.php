@@ -52,7 +52,8 @@ class ClienteController extends Controller
         $search = $filter->search;
         $cliente = null;
 
-        $cliente = Cliente::join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
+        $cliente = Cliente::with('terreno.derivacion.canal.calle.barrio', 'terreno.cultivo.tarifa')
+            ->join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
             ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'cliente.idplancuenta')
             ->select('cliente.*', 'persona.*', 'cont_plancuenta.*');
 

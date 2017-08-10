@@ -452,11 +452,13 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         $scope.telf_cliente = item.telefonoprincipaldomicilio + ' / ' + item.telefonosecundariodomicilio;
         $scope.telf_cliente_emp = item.telefonoprincipaltrabajo + ' / ' + item.telefonosecundariotrabajo;
 
-        if (item.estado == true){
+        if (item.estado === true){
             $scope.estado_solicitud = 'Activo';
         } else {
             $scope.estado_solicitud = 'Inactivo';
         }
+
+        $scope.terrenos_list = item.terreno;
 
         $('#modalInfoCliente').modal('show');
 

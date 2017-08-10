@@ -196,8 +196,10 @@
                                             <div class="input-group">
                                                 <span class="input-group-addon">Teléfono Principal: </span>
                                                 <input type="text" class="form-control" name="telefonoprincipal" id="telefonoprincipal"
-                                                       ng-model="telefonoprincipal" ng-minlength="9" ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/" >
+                                                       ng-model="telefonoprincipal" ng-minlength="9" ng-maxlength="16" ng-pattern="/^([0-9-\(\)]+)$/" required>
                                             </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$touched">El Teléfono Principal es requerido</span>
                                             <span class="help-block error"
                                                   ng-show="formEmployee.telefonoprincipal.$invalid && formEmployee.telefonoprincipal.$error.maxlength">La longitud máxima es de 16 números</span>
                                             <span class="help-block error"
@@ -239,8 +241,10 @@
                                         <div class="col-md-6 col-xs-12">
                                             <div class="input-group">
                                                 <span class="input-group-addon">E-mail: </span>
-                                                <input type="text" class="form-control" name="correo" id="correopersona" ng-model="correo" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" placeholder="" >
+                                                <input type="text" class="form-control" name="correo" id="correopersona" ng-model="correo" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" placeholder="" required>
                                             </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.correo.$invalid && formEmployee.correo.$touched">El E-mail es requerido</span>
                                             <span class="help-block error"
                                                   ng-show="formEmployee.correo.$invalid && formEmployee.correo.$error.pattern">Formato de email no es correcto</span>
                                         </div>
@@ -252,6 +256,8 @@
                                                 <span class="input-group-addon">Dirección: </span>
                                                 <input type="text" class="form-control" name="direccion" id="direccion" ng-model="direccion" ng-maxlength="256">
                                             </div>
+                                            <span class="help-block error"
+                                                  ng-show="formEmployee.direccion.$invalid && formEmployee.direccion.$touched">La Dirección es requerida</span>
                                             <span class="help-block error"
                                                   ng-show="formEmployee.direccion.$invalid && formEmployee.direccion.$error.maxlength">La longitud máxima es de 256 caracteres</span>
                                         </div>
@@ -347,7 +353,6 @@
                 </div>
             </div>
 
-
             <div class="modal fade" tabindex="-1" role="dialog" id="modalPlanCuenta">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -422,42 +427,95 @@
             </div>
 
             <div class="modal fade" tabindex="-1" role="dialog" id="modalInfoCliente">
-                <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-info">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title">Información Cliente</h4>
                         </div>
                         <div class="modal-body">
-                            <div class="col-xs-12 text-center">
+                            <!--<div class="col-xs-12 text-center">
                                 <img class="img-thumbnail" src="<?= asset('img/solicitud.png') ?>" alt="">
-                            </div>
-                            <div class="row text-center">
-                                <div class="col-xs-12 text-center" style="font-size: 18px;">{{name_cliente}}</div>
-                                <div class="col-xs-12">
-                                    <span style="font-weight: bold">CI/RUC: </span>{{identify_cliente}}
+                            </div>-->
+                            <div class="row">
+
+                                <div class="col-xs-12 text-center" style="font-size: 24px; margin-bottom: 10px;">{{name_cliente}}</div>
+
+                                <div class="col-xs-6">
+                                    <div class="col-xs-12 text-center" style="margin-bottom: 10px; font-weight: bold;">DATOS PERSONALES</div>
+                                    <div class="col-xs-12">
+                                        <span style="font-weight: bold">CI / RUC: </span>{{identify_cliente}}
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span style="font-weight: bold">Fecha Solicitud: </span>{{fecha_solicitud}}
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span style="font-weight: bold">Dirección Domicilio: </span>{{address_cliente}}
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span style="font-weight: bold">Email: </span>{{email_cliente}}
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span style="font-weight: bold">Celular: </span>{{celular_cliente}}
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span style="font-weight: bold">Teléfonos Domicilio: </span>{{telf_cliente}}
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span style="font-weight: bold">Teléfonos Trabajo: </span>{{telf_cliente_emp}}
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <span style="font-weight: bold">Estado: </span>{{estado_solicitud}}
+                                    </div>
+
                                 </div>
-                                <div class="col-xs-12">
-                                    <span style="font-weight: bold">Fecha Solicitud: </span>{{fecha_solicitud}}
+
+                                <div class="col-xs-6">
+                                    <div class="col-xs-12 text-center" style="margin-bottom: 10px; font-weight: bold;">DATOS TERRENO</div>
+
+                                    <div class="col-xs-12" style="overflow-y: auto; height: 230px;">
+
+                                        <div class="row" ng-repeat="terrenos_item in terrenos_list">
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">No. Terreno: </span>{{terrenos_item.idterreno}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Junta Modular: </span>{{terrenos_item.derivacion.canal.calle.barrio.namebarrio}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Toma: </span>{{terrenos_item.derivacion.canal.calle.namecalle}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Canal: </span>{{terrenos_item.derivacion.canal.nombrecanal}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Derivación: </span>{{terrenos_item.derivacion.nombrederivacion}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Tipo Cultivo: </span>{{terrenos_item.cultivo.tarifa.nombretarifa}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Cultivo: </span>{{terrenos_item.cultivo.nombrecultivo}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Area: </span>{{terrenos_item.area}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <span style="font-weight: bold">Caudal: </span>{{terrenos_item.caudal}}
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <hr>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
                                 </div>
-                                <div class="col-xs-12">
-                                    <span style="font-weight: bold">Dirección Domicilio: </span>{{address_cliente}}
-                                </div>
-                                <div class="col-xs-12">
-                                    <span style="font-weight: bold">Email: </span>{{email_cliente}}
-                                </div>
-                                <div class="col-xs-12">
-                                    <span style="font-weight: bold">Celular: </span>{{celular_cliente}}
-                                </div>
-                                <div class="col-xs-12">
-                                    <span style="font-weight: bold">Teléfonos Domicilio: </span>{{telf_cliente}}
-                                </div>
-                                <div class="col-xs-12">
-                                    <span style="font-weight: bold">Teléfonos Trabajo: </span>{{telf_cliente_emp}}
-                                </div>
-                                <div class="col-xs-12">
-                                    <span style="font-weight: bold">Estado: </span>{{estado_solicitud}}
-                                </div>
+
+
+
+
+
                             </div>
                         </div>
                     </div>
