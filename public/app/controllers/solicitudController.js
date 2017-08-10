@@ -466,14 +466,14 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
     $scope.getIdentifyClientes = function (idcliente, idcliente_selected) {
         var codigocliente = 0;
 
-        if (idcliente == undefined) {
+        if (idcliente === undefined) {
             codigocliente = $scope.t_terrenos_setnombre;
         } else {
             codigocliente = idcliente;
         }
 
         var idcliente_search = {
-            codigocliente: codigocliente
+            idcliente: codigocliente
         };
 
         $http.get(API_URL + 'cliente/getIdentifyClientes/' + JSON.stringify(idcliente_search)).success(function(response){
@@ -484,9 +484,9 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             var selected = 0;
 
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].documentoidentidad, id: response[i].codigocliente});
+                array_temp.push({label: response[i].numdocidentific, id: response[i].idcliente});
 
-                if (idcliente_selected != undefined && idcliente_selected == response[i].codigocliente) {
+                if (idcliente_selected !== undefined && idcliente_selected === response[i].idcliente) {
                     selected = i;
                 }
             }
@@ -497,15 +497,15 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.clientes_setN = array_temp;
             //$('.selectpicker').selectpicker('refresh');
 
-            if(idcliente_selected == undefined) {
+            if(idcliente_selected === undefined) {
                 $scope.t_ident_new_client_setnombre = 0;
             } else {
-                $scope.t_ident_new_client_setnombre = response[selected].codigocliente;
+                $scope.t_ident_new_client_setnombre = response[selected].idcliente;
 
-                $scope.nom_new_cliente_setnombre = response[selected].apellido + ' ' + response[selected].nombre;
-                $scope.direcc_new_cliente_setnombre = response[selected].direcciondomicilio;
+                $scope.nom_new_cliente_setnombre = response[selected].razonsocial;
+                $scope.direcc_new_cliente_setnombre = response[selected].direccion;
                 $scope.telf_new_cliente_setnombre = response[selected].telefonoprincipaldomicilio;
-                $scope.celular_new_cliente_setnombre = response[selected].celular;
+                $scope.celular_new_cliente_setnombre = response[selected].celphone;
                 $scope.telf_trab_new_cliente_setnombre = response[selected].telefonoprincipaltrabajo;
             }
 
@@ -814,31 +814,32 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
 
 
-    $scope.showSolicitudSetN = function () {
-        var url = API_URL + 'solicitud/getSolicitudSetN/' + $scope.idsolicitud;
+    $scope.actionSetName = function (solicitud) {
+        var url = API_URL + 'solicitud/getSolicitudSetN/' + solicitud.tipo_id;
 
         $http.get(url).success(function(response){
 
             console.log(response);
 
-            $scope.getTerrenosByCliente(response[0].codigocliente, response[0].idterreno);
+            //$scope.getTerrenosByCliente(response[0].idcliente, response[0].terreno.idterreno);
 
-            $scope.getIdentifyClientes(response[0].codigocliente, response[0].codigonuevocliente);
+            $scope.getIdentifyClientes(response[0].solicitud.cliente.idcliente, response[0].idcliente);
 
-            $scope.h_codigocliente_setnombre = response[0].codigocliente;
-            $scope.h_new_codigocliente_setnombre = response[0].codigonuevocliente;
+            $scope.h_codigocliente_setnombre = response[0].solicitud.cliente.idcliente;
+            $scope.h_new_codigocliente_setnombre = response[0].terreno.idcliente;
 
             $scope.num_solicitud_setnombre = response[0].idsolicitudcambionombre;
-            $scope.t_fecha_setnombre = response[0].fechasolicitud;
-            $scope.documentoidentidad_cliente_setnombre = response[0].cliente.documentoidentidad;
-            $scope.nom_cliente_setnombre = response[0].cliente.apellido + ' ' + response[0].cliente.nombre;
-            $scope.direcc_cliente_setnombre = response[0].cliente.direcciondomicilio;
-            $scope.telf_cliente_setnombre = response[0].cliente.telefonoprincipaldomicilio;
-            $scope.celular_cliente_setnombre = response[0].cliente.celular;
-            $scope.telf_trab_cliente_setnombre = response[0].cliente.telefonoprincipaltrabajo;
+            $scope.t_fecha_setnombre = response[0].solicitud.fechasolicitud;
 
-            $scope.junta_setnombre = response[0].terreno.derivacion.canal.calle.barrio.nombrebarrio;
-            $scope.toma_setnombre = response[0].terreno.derivacion.canal.calle.nombrecalle;
+            $scope.documentoidentidad_cliente_setnombre = response[0].solicitud.cliente.persona.numdocidentific;
+            $scope.nom_cliente_setnombre = response[0].solicitud.cliente.persona.razonsocial;
+            $scope.direcc_cliente_setnombre = response[0].solicitud.cliente.persona.direccion;
+            $scope.telf_cliente_setnombre = response[0].solicitud.cliente.telefonoprincipaldomicilio;
+            $scope.celular_cliente_setnombre = response[0].solicitud.cliente.persona.celphone;
+            $scope.telf_trab_cliente_setnombre = response[0].solicitud.cliente.telefonoprincipaltrabajo;
+
+            $scope.junta_setnombre = response[0].terreno.derivacion.canal.calle.barrio.namebarrio;
+            $scope.toma_setnombre = response[0].terreno.derivacion.canal.calle.namecalle;
             $scope.canal_setnombre = response[0].terreno.derivacion.canal.nombrecanal;
             $scope.derivacion_setnombre = response[0].terreno.derivacion.nombrederivacion;
             $scope.cultivo_setnombre = response[0].terreno.cultivo.nombrecultivo;

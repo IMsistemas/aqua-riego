@@ -503,7 +503,7 @@
                                         <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
 
                                             <div class="input-group">
-                                                <span class="input-group-addon">Tipo Cultivo: </span>
+                                                <span class="input-group-addon">Cultivo: </span>
                                                 <input class="form-control" type="text" name="cultivo_setnombre" id="cultivo_setnombre"
                                                        ng-model="cultivo_setnombre" disabled >
                                             </div>

@@ -171,7 +171,7 @@ class SolicitudController extends Controller
 
     public function getSolicitudSetN($idsolicitud)
     {
-        return SolicitudCambioNombre::with('cliente', 'terreno.derivacion.canal.calle.barrio', 'terreno.cultivo')
+        return SolicitudCambioNombre::with('cliente.persona', 'terreno.derivacion.canal.calle.barrio', 'terreno.cultivo', 'solicitud.cliente.persona')
                                     ->where('idsolicitudcambionombre', $idsolicitud)->get();
     }
 
