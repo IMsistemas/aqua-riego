@@ -436,7 +436,7 @@ class ClienteController extends Controller
         $terreno->area = $request->input('area');
         $terreno->valoranual = $request->input('valoranual');
         $terreno->observacion = $request->input('observacion');
-        //$terreno->urlescrituras = $url_file;
+        $terreno->urlescrituras = $url_file;
 
         if ($terreno->save()){
 

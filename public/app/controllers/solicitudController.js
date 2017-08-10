@@ -1254,7 +1254,21 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
     };
 
 
+    $scope.viewPDF = function (item) {
 
+        $http.get(API_URL + 'solicitud/getURLPDF/' + item.tipo_id).success(function(response){
+
+            if (response[0].urlescrituras !== null) {
+
+                window.open(API_URL + response[0].urlescrituras);
+
+            } else {
+                $scope.message_info = 'El terreno perteneciente a esta solicitud no presenta escritura insertada...';
+                $('#modalMessageInfo').modal('show');
+            }
+        });
+
+    };
 
 
 

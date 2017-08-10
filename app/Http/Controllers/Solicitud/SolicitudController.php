@@ -224,6 +224,12 @@ class SolicitudController extends Controller
         //
     }
 
+    public function getURLPDF($id)
+    {
+        return SolicitudRiego::join('terreno', 'terreno.idterreno', '=', 'solicitudriego.idterreno')
+                                ->where('idsolicitudriego', $id)->get();
+    }
+
     /**
      * Update the specified resource in storage.
      *
