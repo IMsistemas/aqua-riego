@@ -829,6 +829,10 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
 
     $scope.actionSetName = function (solicitud) {
+
+        $scope.idsolicitud_to_process = solicitud.idsolicitud;
+        $scope.idsolicitud = solicitud.tipo_id;
+
         var url = API_URL + 'solicitud/getSolicitudSetN/' + solicitud.tipo_id;
 
         $http.get(url).success(function(response){
