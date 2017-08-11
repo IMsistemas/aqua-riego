@@ -396,14 +396,14 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
         var codigocliente = 0;
 
-        if (idcliente == undefined) {
+        if (idcliente === undefined) {
             codigocliente = $scope.terrenos_fraccion;
         } else {
             codigocliente = idcliente;
         }
 
         var idcliente_search = {
-            codigocliente: codigocliente
+            idcliente: codigocliente
         };
 
         $http.get(API_URL + 'cliente/getTerrenosByCliente/' + JSON.stringify(idcliente_search)).success(function(response){
@@ -419,12 +419,11 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
             $scope.terrenos_setN = array_temp;
 
-            if (idterreno == undefined){
+            if (idterreno === undefined){
                 $scope.t_terrenos_setnombre = 0;
             } else {
                 $scope.t_terrenos_setnombre = idterreno;
             }
-
 
         });
     };
@@ -813,7 +812,6 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
     };
 
 
-
     $scope.actionSetName = function (solicitud) {
         var url = API_URL + 'solicitud/getSolicitudSetN/' + solicitud.tipo_id;
 
@@ -821,7 +819,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
             console.log(response);
 
-            //$scope.getTerrenosByCliente(response[0].idcliente, response[0].terreno.idterreno);
+            $scope.getTerrenosByCliente(response[0].solicitud.cliente.idcliente, response[0].terreno.idterreno);
 
             $scope.getIdentifyClientes(response[0].solicitud.cliente.idcliente, response[0].idcliente);
 
@@ -848,7 +846,21 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
             $scope.t_observacion_setnombre = response[0].observacion;
 
-            $('#modalProcesarSetNombre').modal('hide');
+            if(response[0].solicitud.estaprocesada === true) {
+                $('#t_observacion_setnombre').prop('disabled', true);
+                $('#btn-save-setnombre').prop('disabled', true);
+                $('#btn-process-setnombre').prop('disabled', true);
+                $('#modal-footer-setnombre').hide();
+            } else {
+                $('#t_observacion_setnombre').prop('disabled', false);
+                $('#btn-save-setnombre').prop('disabled', false);
+                $('#btn-process-setnombre').prop('disabled', false);
+                $('#modal-footer-setnombre').show();
+            }
+
+            //$('#modalProcesarSetNombre').modal('hide');
+
+
 
             $('#modalActionSetNombre').modal('show');
         });
