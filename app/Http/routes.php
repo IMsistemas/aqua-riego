@@ -23,6 +23,7 @@ Route::resource('/inicio', 'Index\IndexController');
  * -------------------------------------MODULO SOLICITUD----------------------------------------------------------------
  */
 
+Route::get('solicitud/getTerreno/{id}', 'Solicitud\SolicitudController@getTerreno');
 Route::get('solicitud/getURLPDF/{id}', 'Solicitud\SolicitudController@getURLPDF');
 Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicitudes');
 Route::get('solicitud/getSolicitudOtro/{idsolicitud}', 'Solicitud\SolicitudController@getSolicitudOtro');

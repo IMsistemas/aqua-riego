@@ -230,6 +230,11 @@ class SolicitudController extends Controller
                                 ->where('idsolicitudriego', $id)->get();
     }
 
+    public function getTerreno($id)
+    {
+        return Terreno::where('idterreno', $id)->get();
+    }
+
     /**
      * Update the specified resource in storage.
      *

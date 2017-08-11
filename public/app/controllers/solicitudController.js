@@ -410,20 +410,36 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             console.log(response);
 
             $scope.list_terrenos = response;
-
+            var flag = false;
             var longitud = response.length;
             var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].area, id: response[i].idterreno})
+
+                array_temp.push({label: response[i].area, id: response[i].idterreno});
+
+                if (parseInt(response[i].idterreno) === parseInt(idterreno)) {
+                    flag = true;
+                }
+
             }
 
-            $scope.terrenos_setN = array_temp;
+            $http.get(API_URL + 'solicitud/getTerreno/' + idterreno).success(function(response0){
 
-            if (idterreno === undefined){
-                $scope.t_terrenos_setnombre = 0;
-            } else {
-                $scope.t_terrenos_setnombre = idterreno;
-            }
+                if (flag === false) {
+                    array_temp.push({label: response0[0].area, id: response0[0].idterreno});
+                }
+
+                $scope.terrenos_setN = array_temp;
+
+                if (idterreno === undefined){
+                    $scope.t_terrenos_setnombre = 0;
+                } else {
+                    $scope.t_terrenos_setnombre = idterreno;
+                }
+
+            });
+
+
 
         });
     };
