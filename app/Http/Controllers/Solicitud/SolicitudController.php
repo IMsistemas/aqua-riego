@@ -291,15 +291,16 @@ class SolicitudController extends Controller
     public function updateSolicitudSetName(Request $request, $id)
     {
         $solicitudsetname = SolicitudCambioNombre::find($id);
-        $solicitudsetname->codigocliente = $request->input('codigocliente_old');
-        $solicitudsetname->codigonuevocliente = $request->input('codigocliente_new');
+        //$solicitudsetname->codigocliente = $request->input('codigocliente_old');
+        $solicitudsetname->idcliente = $request->input('codigocliente_new');
         $solicitudsetname->idterreno = $request->input('idterreno');
-        $solicitudsetname->fechasolicitud = $request->input('fecha_solicitud');
+        //$solicitudsetname->fechasolicitud = $request->input('fecha_solicitud');
         $solicitudsetname->observacion = $request->input('observacion');
 
         $result = $solicitudsetname->save();
 
         return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
+
     }
 
     public function updateSolicitudFraccion(Request $request, $id)
@@ -319,17 +320,25 @@ class SolicitudController extends Controller
 
     public function processSolicitudSetName(Request $request, $id)
     {
-        $solicitud = SolicitudCambioNombre::find($id);
+        $solicitud_setname = SolicitudCambioNombre::find($id);
 
-        $terreno = Terreno::find($solicitud->idterreno);
-        $terreno->codigocliente = $solicitud->codigonuevocliente;
-        $terreno->save();
+        $terreno = Terreno::find($solicitud_setname->idterreno);
+        $terreno->idcliente = $solicitud_setname->idcliente;
 
-        $solicitud->estaprocesada = true;
-        $solicitud->fechaprocesada = date('Y-m-d');
-        $solicitud->save();
+        if ($terreno->save()) {
+            $solicitud = Solicitud::find($solicitud_setname->idsolicitud);
 
-        return response()->json(['success' => true]);
+            $solicitud->estaprocesada = true;
+            $solicitud->fechaprocesada = date('Y-m-d');
+
+            if ($solicitud->save()) {
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false]);
+            }
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 
     public function processSolicitudFraccion(Request $request, $id)

@@ -579,8 +579,8 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
         for (var i = 0; i < longitud; i++){
             if ($scope.list_terrenos[i].idterreno == $scope.t_terrenos_setnombre){
-                $scope.junta_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.barrio.nombrebarrio;
-                $scope.toma_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.nombrecalle;
+                $scope.junta_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.barrio.namebarrio;
+                $scope.toma_setnombre = $scope.list_terrenos[i].derivacion.canal.calle.namecalle;
                 $scope.canal_setnombre = $scope.list_terrenos[i].derivacion.canal.nombrecanal;
                 $scope.derivacion_setnombre = $scope.list_terrenos[i].derivacion.nombrederivacion;
                 $scope.cultivo_setnombre = $scope.list_terrenos[i].cultivo.nombrecultivo;
