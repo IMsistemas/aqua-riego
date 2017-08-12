@@ -455,7 +455,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         }
 
         var idcliente_search = {
-            codigocliente: codigocliente
+            idcliente: codigocliente
         };
 
         $http.get(API_URL + 'cliente/getTerrenosByCliente/' + JSON.stringify(idcliente_search)).success(function(response){
@@ -537,7 +537,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         }
 
         var idcliente_search = {
-            codigocliente: codigocliente
+            idcliente: codigocliente
         };
 
         $http.get(API_URL + 'cliente/getIdentifyClientes/' + JSON.stringify(idcliente_search)).success(function(response){
@@ -548,25 +548,21 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             var selected = 0;
 
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].documentoidentidad, id: response[i].codigocliente});
+                array_temp.push({label: response[i].numdocidentific, id: response[i].idcliente});
 
-                if (idcliente_selected != undefined && idcliente_selected == response[i].codigocliente) {
+                if (idcliente_selected != undefined && idcliente_selected == response[i].idcliente) {
                     selected = i;
                 }
             }
 
-            //$('.selectpicker').selectpicker('refresh');
-            //$('.selectpicker').selectpicker();
-
             $scope.clientes_fraccion = array_temp;
-            //$('.selectpicker').selectpicker('refresh');
 
             if(idcliente_selected == undefined) {
                 $scope.t_ident_new_client_fraccion = 0;
             } else {
-                $scope.t_ident_new_client_fraccion = response[selected].codigocliente;
+                $scope.t_ident_new_client_fraccion = response[selected].idcliente;
 
-                $scope.nom_new_cliente_fraccion = response[selected].apellido + ' ' + response[selected].nombre;
+                $scope.nom_new_cliente_fraccion = response[selected].razonsocial;
             }
         });
     };
@@ -943,21 +939,22 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
             console.log(response);
 
-            //$scope.getTerrenosFraccionByCliente(response[0].codigocliente, response[0].idterreno);
+            $scope.getTerrenosFraccionByCliente(response[0].solicitud.idcliente, response[0].idterreno);
 
-            //$scope.getIdentifyClientesFraccion(response[0].codigocliente, response[0].codigonuevocliente);
+            $scope.getIdentifyClientesFraccion(response[0].solicitud.cliente.idcliente, response[0].idcliente);
 
-            $scope.h_codigocliente_fraccion = response[0].solicitud.cliente.idcliente;
-            $scope.h_new_codigocliente_fraccion = response[0].terreno.idcliente;
+            $scope.h_codigocliente_fraccion = response[0].solicitud.idcliente;
+            $scope.h_new_codigocliente_fraccion = response[0].idcliente;
 
             $scope.num_solicitud_fraccion = response[0].idsolicitudreparticion;
             $scope.t_fecha_fraccion = response[0].solicitudfechasolicitud;
+
             $scope.documentoidentidad_cliente_fraccion = response[0].solicitud.cliente.persona.numdocidentific;
-            $scope.nom_cliente_fraccion = response[0].cliente.persona.razonsocial;
-            $scope.direcc_cliente_fraccion = response[0].cliente.persona.direccion;
-            $scope.telf_cliente_fraccion = response[0].cliente.telefonoprincipaldomicilio;
-            $scope.celular_cliente_fraccion = response[0].cliente.persona.celphone;
-            $scope.telf_trab_cliente_fraccion = response[0].cliente.telefonoprincipaltrabajo;
+            $scope.nom_cliente_fraccion = response[0].solicitud.cliente.persona.razonsocial;
+            $scope.direcc_cliente_fraccion = response[0].solicitud.cliente.persona.direccion;
+            $scope.telf_cliente_fraccion = response[0].solicitud.cliente.telefonoprincipaldomicilio;
+            $scope.celular_cliente_fraccion = response[0].solicitud.cliente.persona.celphone;
+            $scope.telf_trab_cliente_fraccion = response[0].solicitud.cliente.telefonoprincipaltrabajo;
 
             $scope.junta_fraccion = response[0].terreno.derivacion.canal.calle.barrio.namebarrio;
             $scope.toma_fraccion = response[0].terreno.derivacion.canal.calle.namecalle;

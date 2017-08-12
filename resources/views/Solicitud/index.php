@@ -895,7 +895,7 @@
                                 </div>
 
                                 <div class="col-xs-12" style="margin-top: 5px;">
-                                    <div class="col-xs-12" style="margin-top: 5px;">
+                                    <div class="col-xs-12">
                                         <textarea class="form-control" id="t_observacion_fraccion" ng-model="t_observacion_fraccion" rows="2" placeholder="Observacion"></textarea>
                                     </div>
                                 </div>
