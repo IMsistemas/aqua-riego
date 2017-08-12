@@ -932,31 +932,35 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
     };
 
 
-    $scope.showSolicitudFraccion = function () {
-        var url = API_URL + 'solicitud/getSolicitudFraccion/' + $scope.idsolicitud;
+    $scope.actionFraccion = function (solicitud) {
+
+        $scope.idsolicitud_to_process = solicitud.idsolicitud;
+        $scope.idsolicitud = solicitud.tipo_id;
+
+        var url = API_URL + 'solicitud/getSolicitudFraccion/' + solicitud.tipo_id;
 
         $http.get(url).success(function(response){
 
             console.log(response);
 
-            $scope.getTerrenosFraccionByCliente(response[0].codigocliente, response[0].idterreno);
+            //$scope.getTerrenosFraccionByCliente(response[0].codigocliente, response[0].idterreno);
 
-            $scope.getIdentifyClientesFraccion(response[0].codigocliente, response[0].codigonuevocliente);
+            //$scope.getIdentifyClientesFraccion(response[0].codigocliente, response[0].codigonuevocliente);
 
-            $scope.h_codigocliente_fraccion = response[0].codigocliente;
-            $scope.h_new_codigocliente_fraccion = response[0].codigonuevocliente;
+            $scope.h_codigocliente_fraccion = response[0].solicitud.cliente.idcliente;
+            $scope.h_new_codigocliente_fraccion = response[0].terreno.idcliente;
 
             $scope.num_solicitud_fraccion = response[0].idsolicitudreparticion;
-            $scope.t_fecha_fraccion = response[0].fechasolicitud;
-            $scope.documentoidentidad_cliente_fraccion = response[0].cliente.documentoidentidad;
-            $scope.nom_cliente_fraccion = response[0].cliente.apellido + ' ' + response[0].cliente.nombre;
-            $scope.direcc_cliente_fraccion = response[0].cliente.direcciondomicilio;
+            $scope.t_fecha_fraccion = response[0].solicitudfechasolicitud;
+            $scope.documentoidentidad_cliente_fraccion = response[0].solicitud.cliente.persona.numdocidentific;
+            $scope.nom_cliente_fraccion = response[0].cliente.persona.razonsocial;
+            $scope.direcc_cliente_fraccion = response[0].cliente.persona.direccion;
             $scope.telf_cliente_fraccion = response[0].cliente.telefonoprincipaldomicilio;
-            $scope.celular_cliente_fraccion = response[0].cliente.celular;
+            $scope.celular_cliente_fraccion = response[0].cliente.persona.celphone;
             $scope.telf_trab_cliente_fraccion = response[0].cliente.telefonoprincipaltrabajo;
 
-            $scope.junta_fraccion = response[0].terreno.derivacion.canal.calle.barrio.nombrebarrio;
-            $scope.toma_fraccion = response[0].terreno.derivacion.canal.calle.nombrecalle;
+            $scope.junta_fraccion = response[0].terreno.derivacion.canal.calle.barrio.namebarrio;
+            $scope.toma_fraccion = response[0].terreno.derivacion.canal.calle.namecalle;
             $scope.canal_fraccion = response[0].terreno.derivacion.canal.nombrecanal;
             $scope.derivacion_fraccion = response[0].terreno.derivacion.nombrederivacion;
             $scope.cultivo_fraccion = response[0].terreno.cultivo.nombrecultivo;
@@ -1379,7 +1383,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         if(solicitud.tipo === 'Otra Solicitud') {
             $scope.actionOtro(solicitud);
         } else if(solicitud.tipo === 'Repartición') {
-            $scope.actionMantenimiento(solicitud);
+            $scope.actionFraccion(solicitud);
         } else if(solicitud.tipo === 'Cambio de Nombre') {
             $scope.actionSetName(solicitud);
         } else if(solicitud.tipo === 'Riego') {

@@ -632,10 +632,13 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.calculateCaudalFraccion = function () {
         $http.get(API_URL + 'cliente/getConstante').success(function(response){
-            var area = parseInt($scope.t_area_fraccion);
-            var constante = parseFloat(response[0].constante);
 
-            var caudal_result = (area / 1000) * constante;
+            console.log(response);
+
+            var area = parseFloat($scope.t_area_fraccion);
+            var constante = parseFloat(response[0].optionvalue);
+
+            var caudal_result = (area / 10000) * constante;
 
             $scope.caudal_new_fraccion = caudal_result.toFixed(2);
         });
@@ -750,8 +753,8 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
         for (var i = 0; i < longitud; i++){
             if ($scope.list_terrenos[i].idterreno == $scope.t_terrenos_fraccion){
-                $scope.junta_fraccion = $scope.list_terrenos[i].derivacion.canal.calle.barrio.nombrebarrio;
-                $scope.toma_fraccion = $scope.list_terrenos[i].derivacion.canal.calle.nombrecalle;
+                $scope.junta_fraccion = $scope.list_terrenos[i].derivacion.canal.calle.barrio.namebarrio;
+                $scope.toma_fraccion = $scope.list_terrenos[i].derivacion.canal.calle.namecalle;
                 $scope.canal_fraccion = $scope.list_terrenos[i].derivacion.canal.nombrecanal;
                 $scope.derivacion_fraccion = $scope.list_terrenos[i].derivacion.nombrederivacion;
                 $scope.cultivo_fraccion = $scope.list_terrenos[i].cultivo.nombrecultivo;
