@@ -66,40 +66,42 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <table class="table">
+                        <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                             <thead class="bg-primary">
                             <tr>
-                                <th></th>
-                                <th>FECHA EMISION</th>
-                                <th>NUMERO FACTURA</th>
+                                <th style="width: 4%;"></th>
+                                <th style="width: 10%;">FECHA EMISION</th>
+                                <th style="width: 12%;">NUMERO FACTURA</th>
                                 <th>CLIENTE</th>
-                                <th>SUBTOTAL</th>
-                                <th>IVA</th>
-                                <th>TOTAL</th>
-                                <th></th>
-                                <th></th>
+                                <th style="width: 15%;">SUBTOTAL</th>
+                                <th style="width: 10%;">IVA</th>
+                                <th style="width: 15%;">TOTAL</th>
+                                <th style="width: 10%;">ACCIONES</th>
                             </tr>
                             </thead>
                             <tbody>
                             <!--<tr ng-repeat="v in Allventas">-->
                             <tr dir-paginate="v in Allventas | orderBy:sortKey:reverse |filter:busquedaventa| itemsPerPage:10" total-items="totalItems" ng-cloak">
                             <td>{{$index+1}}</td>
-                            <td>{{v.fechaemisionventa}}</td>
-                            <td>{{numFactura(v)}}</td>
+                            <td class="text-center">{{v.fechaemisionventa}}</td>
+                            <td class="text-center">{{numFactura(v)}}</td>
                             <td>{{v.cliente.persona.lastnamepersona+" "+v.cliente.persona.namepersona}}</td>
-                            <td>{{v.subtotalconimpuestoventa}}</td>
-                            <td>{{v.ivacompra}}</td>
-                            <td>{{v.valortotalventa}}</td>
-                            <td>
-                                <button type="button" class="btn btn-info" ng-click="ViewVenta(v)">
-                                    <span class="glyphicon glyphicon glyphicon-info-sign"   aria-hidden="true"></span>
-                                </button>
+                            <td class="text-right">{{v.subtotalconimpuestoventa}}</td>
+                            <td class="text-right">{{v.ivacompra}}</td>
+                            <td class="text-right">{{v.valortotalventa}}</td>
+                            <td class="text-center">
+
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-info" ng-click="ViewVenta(v)">
+                                        <span class="glyphicon glyphicon glyphicon-info-sign"   aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default" ng-click="AnularVentaDirecto(v.iddocumentoventa)">
+                                        <span class="glyphicon glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+
                             </td>
-                            <td>
-                                <button type="button" class="btn btn-default" ng-click="AnularVentaDirecto(v.iddocumentoventa)">
-                                    <span class="glyphicon glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                                </button>
-                            </td>
+
                             </tr>
                             </tbody>
                         </table>

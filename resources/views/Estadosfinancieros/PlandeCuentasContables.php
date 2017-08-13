@@ -60,7 +60,7 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <table class="table table-bordered table-condensed">
+                        <table class="table table-bordered table-condensed table-responsive table-striped table-hover">
                             <thead>
                                 <tr class="bg-primary">
                                     <th colspan="6"></th>
@@ -139,7 +139,7 @@
 
               <div class="row" style="padding-top: 5px;">
                 <div class="col-xs-12">
-                  <table class="table table-bordered table-condensed">
+                  <table class="table table-bordered table-condensed table-responsive table-striped table-hover">
                     <thead>
                       <tr class="bg-primary">
                         <th colspan="9" class="text-center">
