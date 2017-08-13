@@ -35,7 +35,7 @@
     </div>
 
     <!--<div  class="container-fluid" ng-controller="Venta" ng-cloak ng-init="NumeroRegistroVenta();AllDocVenta();GetBodegas();GetFormaPago();GetPuntodeVenta(); ConfigContable();">-->
-    <div  class="col-xs-12" ng-controller="Venta" ng-cloak ng-init="GetPuntodeVenta(); ConfigContable();NumeroRegistroVenta();GetBodegas();GetFormaPago();">
+    <div  class="col-xs-12" ng-controller="Venta" ng-cloak ng-init="GetPuntodeVenta(); ConfigContable();NumeroRegistroVenta();GetBodegas();GetFormaPago();GetCentroCosto();">
 
         <input type="hidden" ng-model="otherFactura" id="otherFactura" value="<?= $viewFactura ?>">
 
@@ -258,12 +258,20 @@
                                 <div class="input-group">
                                     <span class="input-group-addon">Nro. Guía Remisión: </span>
                                     <span class="input-group-btn" style="width: 15%;">
-                        <input type="text" class="form-control" id="t_establ_guia" name="t_establ_guia" ng-model="t_establ_guia" ng-keypress="onlyNumber($event, 3, 't_establ_guia')" ng-blur="calculateLength('t_establ_guia', 3)" />
-                    </span>
+                                        <input type="text" class="form-control" id="t_establ_guia" name="t_establ_guia" ng-model="t_establ_guia" ng-keypress="onlyNumber($event, 3, 't_establ_guia')" ng-blur="calculateLength('t_establ_guia', 3)" />
+                                    </span>
                                     <span class="input-group-btn" style="width: 15%;" >
-                        <input type="text" class="form-control" id="t_pto_guia" name="t_pto_guia" ng-model="t_pto_guia" ng-keypress="onlyNumber($event, 3, 't_pto_guia')" ng-blur="calculateLength('t_pto_guia', 3)" />
-                    </span>
+                                        <input type="text" class="form-control" id="t_pto_guia" name="t_pto_guia" ng-model="t_pto_guia" ng-keypress="onlyNumber($event, 3, 't_pto_guia')" ng-blur="calculateLength('t_pto_guia', 3)" />
+                                    </span>
                                     <input type="text" class="form-control" id="t_secuencial_guia" name="t_secuencial_guia" ng-model="t_secuencial_guia" ng-keypress="onlyNumber($event, 9, 't_secuencial_guia')" ng-blur="calculateLength('t_secuencial_guia', 9)" />
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12" style="margin-top: 5px;">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Centro de Costo: </span>
+                                    <select class="form-control" name="departamento" id="departamento" ng-model="departamento"
+                                            ng-options="value.id as value.label for value in listdepartamento"></select>
                                 </div>
                             </div>
 

@@ -210,6 +210,18 @@ $scope.cmb_estado_fact="A";
 	     });
 	};
 	///---
+    $scope.GetCentroCosto=function () {
+        $http.get(API_URL + 'DocumentoVenta/getCentroCosto').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: ''}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento})
+            }
+            $scope.listdepartamento = array_temp;
+            $scope.departamento = '';
+        });
+    };
+	///---
 	$scope.GetFormaPago=function () {
 		$http.get(API_URL + 'DocumentoVenta/formapago')
 	        .success(function(response){
@@ -690,6 +702,15 @@ $scope.cmb_estado_fact="A";
     	//--proceso kardex
 
     	//--Documento de venta
+
+        var departamento = null;
+
+        if ($scope.departamento === '') {
+            departamento = null;
+        } else {
+            departamento = $scope.departamento;
+        }
+
     	var DocVenta={
     		idpuntoventa: $scope.PuntoVentaSeleccionado.idpuntoventa,
     		idcliente: $scope.Cliente.idcliente,
@@ -714,6 +735,7 @@ $scope.cmb_estado_fact="A";
     		otrosventa:0,
     		valortotalventa:$scope.ValorTotal,
     		estadoanulado:'false',
+            iddepartamento: departamento,
     		idtransaccion:''
     	};
     	//--Documento de venta
@@ -820,6 +842,8 @@ $scope.cmb_estado_fact="A";
 		$scope.NoAutorizacion="";
 		$scope.t_secuencial="";
 
+        $scope.departamento = '';
+
         $scope.IdDocumentoVentaedit="0";
     };
     ///---
@@ -839,6 +863,13 @@ $scope.cmb_estado_fact="A";
                 $scope.t_establ_guia=aux_guiar[0];
                 $scope.t_pto_guia=aux_guiar[1];
                 $scope.t_secuencial_guia=aux_guiar[2];
+
+                if (aux_ventadata.iddepartamento === null) {
+                    $scope.departamento = '';
+                } else {
+                    $scope.departamento = aux_ventadata.iddepartamento;
+                }
+
                 $scope.IdDocumentoVentaedit=String(aux_ventadata.iddocumentoventa);
                 $scope.NoVenta=String(aux_ventadata.iddocumentoventa);
                 $("#t_secuencial").val(aux_ventadata.iddocumentoventa);

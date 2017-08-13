@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Facturacionventa;
 
 use App\Modelos\Bodegas\Bodega;
+use App\Modelos\Nomina\Departamento;
 use App\Modelos\Suministros\Suministro;
 use Illuminate\Http\Request;
 
@@ -113,6 +114,14 @@ class DocumentoVenta extends Controller
         //return Bodega::all();
         return Cont_Bodega::join("cont_plancuenta","cont_plancuenta.idplancuenta","=","cont_bodega.idplancuenta")->get();
     }
+
+
+    public function getCentroCosto()
+    {
+        return Departamento::orderBy('namedepartamento', 'asc')->get();
+    }
+
+
     /**
      * Ontener la informacion de una producto
      *
