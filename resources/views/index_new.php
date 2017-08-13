@@ -93,7 +93,7 @@
                                     <li role="separator" class="divider"></li>
 
                                     <li><a href = "#" ng-click="toModuloPlanCuentas();">Plan de Cuenta</a></li>
-                                    <li id="permiso_5"><a href="#" ng-click="toModuloConciliacion();">Conciliacion</a></li>
+                                    <li id="permiso_5"><a href="#" ng-click="toModuloConciliacion();">Conciliación</a></li>
 
                                     <li class="dropdown-submenu">
                                         <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes Contabilidad</a>
@@ -109,8 +109,8 @@
                                         <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Inventario</a>
                                         <ul class="dropdown-menu">
                                             <li><a tabindex="-1" href="#" ng-click="toModuloCrearBodegas();">Bodega</a></li>
-                                            <li><a href="#" ng-click="toModuloCatalogoProductos();">Catálogo Item</a></li>
                                             <li><a href="#" ng-click="toModuloPortafolioProductos();">Portafolio</a></li>
+                                            <li><a href="#" ng-click="toModuloCatalogoProductos();">Catálogo Item</a></li>
                                             <li><a href="#" ng-click="toModuloInventario();">Registro Inventario y Kardex</a></li>
                                         </ul>
                                     </li>
