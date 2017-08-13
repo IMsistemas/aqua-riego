@@ -70,18 +70,23 @@
                             <td style="">{{producto.nameclaseitem}}</td>
                             <td style="text-align: center;">{{ formatDate(producto.created_at) | date:'yyyy-MM-dd' }}</p></td>
                             <td style="text-align: center;">
-                                <button type="button" class="btn btn-warning" ng-click="toggle('edit', producto.idcatalogitem)"
-                                        data-toggle="tooltip" data-placement="bottom" title="Editar" >
-                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                </button>
-                                <button ng-show="producto.idcatalogitem != 1" type="button" class="btn btn-danger" ng-click="showModalConfirm(producto.idcatalogitem)"
-                                        data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                </button>
-                                <button type="button" class="btn btn-info" ng-click="toggle('info',producto.idcatalogitem)"
-                                        data-toggle="tooltip" data-placement="bottom" title="Información">
-                                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-                                </button>
+
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-warning" ng-click="toggle('edit', producto.idcatalogitem)"
+                                            data-toggle="tooltip" data-placement="bottom" title="Editar" >
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    </button>
+                                    <button ng-show="producto.idcatalogitem != 1" type="button" class="btn btn-danger" ng-click="showModalConfirm(producto.idcatalogitem)"
+                                            data-toggle="tooltip" data-placement="bottom" title="Eliminar">
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-info" ng-click="toggle('info',producto.idcatalogitem)"
+                                            data-toggle="tooltip" data-placement="bottom" title="Información">
+                                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+
+
                             </td>
                         </tr>
                         </tbody>

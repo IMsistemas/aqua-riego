@@ -329,6 +329,7 @@ Route::resource('cuentasxpagar', 'Cuentas\CuentasPorPagarController');
  * ----------------------------------MODULO COMPRAS---------------------------------------------------------------------
  */
 
+Route::get('DocumentoCompras/LoadProductos/{id}', 'Compras\ComprasController@getProductoPorBodega');
 Route::post('DocumentoCompras/anularCompra', 'Compras\ComprasController@anularCompra');
 Route::get('DocumentoCompras/getPaisPagoComprobante', 'Compras\ComprasController@getPaisPagoComprobante');
 Route::get('DocumentoCompras/getTipoPagoComprobante', 'Compras\ComprasController@getTipoPagoComprobante');
@@ -515,7 +516,9 @@ Route::get('DocumentoVenta/getheaddocumentoventa', 'Facturacionventa\DocumentoVe
 Route::get('DocumentoVenta/formapago', 'Facturacionventa\DocumentoVenta@getFormaPago');
 Route::get('DocumentoVenta/porcentajeivaiceotro', 'Facturacionventa\DocumentoVenta@getCofiguracioncontable');
 Route::get('DocumentoVenta/AllBodegas', 'Facturacionventa\DocumentoVenta@getAllbodegas');
+
 Route::get('DocumentoVenta/LoadProductos/{id}', 'Facturacionventa\DocumentoVenta@getProductoPorBodega');
+
 Route::get('DocumentoVenta/AllServicios', 'Facturacionventa\DocumentoVenta@getAllservicios');
 Route::get('DocumentoVenta/getVentas/{filtro}', 'Facturacionventa\DocumentoVenta@getVentas');
 Route::get('DocumentoVenta/getAllFitros', 'Facturacionventa\DocumentoVenta@getallFitros');
