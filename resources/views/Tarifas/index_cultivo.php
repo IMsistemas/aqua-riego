@@ -26,12 +26,12 @@
             </div>
 
             <div class="col-xs-12">
-                <table class="table table-responsive table-striped table-hover table-condensed">
+                <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                     <thead class="bg-primary">
                     <tr>
                         <th>NOMBRE CULTIVO</th>
                         <th>TARIFA</th>
-                        <th style="width: 200px;">ACCIONES</th>
+                        <th style="width: 20%;">ACCIONES</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,12 +39,16 @@
                         <td>{{cargo.nombrecultivo}}</td>
                         <td>{{cargo.tarifa.nombretarifa}}</td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-warning" ng-click="toggle('edit', cargo.idcultivo)">
-                                Editar <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                            </button>
-                            <button type="button" class="btn btn-danger" ng-click="showModalConfirm(cargo)">
-                                Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                            </button>
+
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-warning" ng-click="toggle('edit', cargo.idcultivo)">
+                                    Editar <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-danger" ng-click="showModalConfirm(cargo)">
+                                    Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </div>
+
                         </td>
                     </tr>
                     </tbody>

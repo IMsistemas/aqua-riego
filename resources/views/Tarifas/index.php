@@ -12,26 +12,26 @@
 
             <div class="col-xs-12">
                 <div class="col-sm-3 col-xs-12">
-                    <div class="form-group">
-                        <label for="t_year" class="col-sm-2 control-label">Año:</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="datepicker form-control" name="t_year" id="t_year" ng-model="t_year" ng-change=""/>
-                        </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">Año: </span>
+                        <input type="text" class="datepicker form-control" name="t_year" id="t_year" ng-model="t_year" ng-change=""/>
                     </div>
+
                 </div>
                 <div class="col-sm-4 col-xs-12">
-                    <div class="form-group">
-                        <label for="t_tarifa" class="col-sm-2 control-label"><span style="float: right;">Tipo:</span></label>
-                        <div class="col-sm-10">
-                            <select class="form-control" name="t_tarifa" id="t_tarifa"
-                                    ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
-                                    ng-change="getAreaCaudal();"> </select>
-                        </div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">Tipo Tarifa: </span>
+                        <select class="form-control" name="t_tarifa" id="t_tarifa"
+                                ng-model="t_tarifa" ng-options="value.id as value.label for value in tarifas"
+                                ng-change="getAreaCaudal();"> </select>
                     </div>
+
                 </div>
             </div>
 
-            <div class="col-xs-12" style="margin-top: 10px;">
+            <div class="col-xs-12" style="margin-top: 10px; font-size: 12px !important;">
                 <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                     <thead class="bg-primary">
                         <tr>
@@ -94,29 +94,36 @@
                         <div class="modal-header modal-header-primary">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title">
-                                Nueva Tarifa <br>
-                                Fecha Ingreso: {{year_ingreso}}
+                                Nueva Tarifa - Fecha Ingreso: {{year_ingreso}}
                             </h4>
                         </div>
                         <div class="modal-body">
                             <form class="form-horizontal" name="formTarifa" novalidate="">
-                                <div class="form-group">
-                                    <label for="t_codigo_cargo" class="col-sm-4 control-label">Código:</label>
-                                    <div class="col-sm-8">
+
+                                <div class="col-xs-12">
+
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Código: </span>
                                         <input type="text" class="form-control" name="idtarifa" id="idtarifa" ng-model="idtarifa" placeholder="" disabled>
                                     </div>
+
                                 </div>
-                                <div class="form-group error">
-                                    <label for="t_name_cargo" class="col-sm-4 control-label">Nombre de la Tarifa:</label>
-                                    <div class="col-sm-8">
+
+                                <div class="col-xs-12" style="margin-top: 5px;">
+
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Nombre de la Tarifa: </span>
                                         <input type="text" class="form-control" name="nombretarifa" id="nombretarifa" ng-model="nombretarifa" placeholder=""
                                                ng-required="true" ng-maxlength="64">
-                                        <span class="help-block error"
-                                              ng-show="formTarifa.nombretarifa.$invalid && formTarifa.nombretarifa.$touched">El nombre de la Tarifa es requerido</span>
-                                        <span class="help-block error"
-                                              ng-show="formTarifa.nombretarifa.$invalid && formTarifa.nombretarifa.$error.maxlength">La longitud máxima es de 16 caracteres</span>
                                     </div>
+                                    <span class="help-block error"
+                                          ng-show="formTarifa.nombretarifa.$invalid && formTarifa.nombretarifa.$touched">El nombre de la Tarifa es requerido</span>
+                                    <span class="help-block error"
+                                          ng-show="formTarifa.nombretarifa.$invalid && formTarifa.nombretarifa.$error.maxlength">La longitud máxima es de 16 caracteres</span>
+
                                 </div>
+
+
                             </form>
                         </div>
                         <div class="modal-footer">
