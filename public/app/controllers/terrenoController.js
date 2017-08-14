@@ -3,7 +3,11 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
 
     $scope.terrenos = [];
 
-    $scope.initLoad = function () {
+    $scope.pageChanged = function(newPage) {
+        $scope.initLoad(newPage);
+    };
+
+    $scope.initLoad = function (pageNumber) {
 
         $('.datepicker_year').datetimepicker({
             locale: 'es',
@@ -12,24 +16,8 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
 
         });
 
-        /*$('.datepicker_a').on('dp.change', function (e) {
-
-            console.log('aaa');
-
-            $('.datepicker_a').datetimepicker({
-                locale: 'es',
-                format: 'YYYY'
-            });
-
-        });*/
-
-
-
         $scope.loadTarifas();
-        //$scope.loadCanales();
-        //$scope.loadBarriosSearch();
         $scope.loadBarrios();
-        //$scope.loadCultivos();
 
         $scope.tomas_s = [{label: '-- Seleccione --', id: 0}];
         $scope.t_toma0 = 0;
@@ -40,12 +28,32 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
         $scope.derivaciones_s = [{label: '-- Seleccione --', id: 0}];
         $scope.t_derivacion0 = 0;
 
-        $http.get(API_URL + 'editTerreno/getTerrenos').success(function(response){
 
-            $scope.terrenos = response;
+        if ($scope.search === undefined) {
+            var search = null;
+        } else var search = $scope.search;
+
+        if ($scope.s_year === undefined) {
+            var s_year = null;
+        } else var s_year = $scope.s_year;
+
+
+        var filtros = {
+            search: search,
+            s_year: s_year,
+            t_tarifa0: $scope.t_tarifa0,
+            t_barrio_s: $scope.t_barrio_s,
+            t_toma0: $scope.t_toma0,
+            t_canales: $scope.t_canales,
+            t_derivacion0: $scope.t_derivacion0
+        };
+
+        $http.get(API_URL + 'editTerreno/getTerrenos?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).success(function(response){
+
+            $scope.terrenos = response.data;
+            $scope.totalItems = response.total;
 
             console.log(response);
-
 
         });
     };
@@ -537,7 +545,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
         setTimeout("$('#modalMessage').modal('hide')", 3000);
     };
 
-    $scope.initLoad();
+    $scope.initLoad(1);
 
     $('.datepicker').datetimepicker({
         locale: 'es',

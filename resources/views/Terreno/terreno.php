@@ -14,7 +14,7 @@
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" id="search" ng-model="search" placeholder="BUSCAR..."
-                           ng-model="search" >
+                           ng-model="search" ng-keyup="initLoad(1)">
                     <span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                     <span class="input-group-addon">Tarifa:</span>
                     <select class="form-control" name="t_tarifa0" id="t_tarifa0"
                             ng-model="t_tarifa0" ng-options="value.id as value.label for value in tarifas"
-                            ng-change="getByFilter()"> </select>
+                            ng-change="initLoad(1)"> </select>
                 </div>
 
             </div>
@@ -47,7 +47,7 @@
                     <span class="input-group-addon">Junta:</span>
                     <select class="form-control" name="t_barrio_s" id="t_barrio_s"
                             ng-model="t_barrio_s" ng-options="value.id as value.label for value in barrios_s"
-                            ng-change="loadTomas(); getByFilter();"> </select>
+                            ng-change="loadTomas(); initLoad(1);"> </select>
                 </div>
 
             </div>
@@ -58,7 +58,7 @@
                     <span class="input-group-addon">Toma:</span>
                     <select class="form-control" name="t_toma" id="t_toma0"
                             ng-model="t_toma0" ng-options="value.id as value.label for value in tomas_s"
-                            ng-change="loadCanales(); getByFilter();"> </select>
+                            ng-change="loadCanales(); initLoad(1);"> </select>
                 </div>
 
             </div>
@@ -69,7 +69,7 @@
                     <span class="input-group-addon">Canal:</span>
                     <select class="form-control" name="t_canales" id="t_canales"
                             ng-model="t_canales" ng-options="value.id as value.label for value in canales_s"
-                            ng-change="loadDerivaciones(); getByFilter();"> </select>
+                            ng-change="loadDerivaciones(); initLoad(1);"> </select>
                 </div>
 
             </div>
@@ -80,7 +80,7 @@
                     <span class="input-group-addon">Derivación:</span>
                     <select class="form-control" name="t_derivacion0" id="t_derivacion0"
                             ng-model="t_derivacion0" ng-options="value.id as value.label for value in derivaciones_s"
-                            ng-change="getByFilter()"> </select>
+                            ng-change="initLoad(1)"> </select>
                 </div>
 
             </div>
@@ -101,7 +101,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr dir-paginate="terreno in terrenos | orderBy:sortKey:reverse |itemsPerPage:10  | filter : search" ng-cloak>
+                <tr dir-paginate="terreno in terrenos | itemsPerPage:10" total-items="totalItems" ng-cloak>
                     <td>{{terreno.razonsocial}}</td>
                     <td>{{terreno.nombretarifa}}</td>
                     <td>{{terreno.nombrecultivo}}</td>
@@ -137,9 +137,16 @@
                 </tbody>
             </table>
             <dir-pagination-controls
-                    max-size="5"
+
+                    on-page-change="pageChanged(newPageNumber)"
+
+                    template-url="dirPagination.html"
+
+                    class="pull-right"
+                    max-size="10"
                     direction-links="true"
                     boundary-links="true" >
+
             </dir-pagination-controls>
         </div>
 

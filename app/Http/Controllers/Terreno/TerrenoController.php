@@ -30,8 +30,11 @@ class TerrenoController extends Controller
         return view('Terreno.terreno');
     }
 
-    public function getTerrenos()
+    public function getTerrenos(Request $request)
     {
+
+        $filter = json_decode($request->get('filter'));
+        $search = $filter->search;
 
         $terreno = Terreno::join('cultivo', 'cultivo.idcultivo', '=', 'terreno.idcultivo')
                             ->join('tarifa', 'tarifa.idtarifa', '=', 'terreno.idtarifa')
@@ -40,9 +43,13 @@ class TerrenoController extends Controller
                             ->join('derivacion', 'derivacion.idderivacion', '=', 'terreno.idderivacion')
                             ->join('canal', 'canal.idcanal', '=', 'derivacion.idcanal')
                             ->join('calle', 'calle.idcalle', '=', 'canal.idcalle')
-                            ->join('barrio', 'barrio.idbarrio', '=', 'calle.idbarrio')->get();
+                            ->join('barrio', 'barrio.idbarrio', '=', 'calle.idbarrio');
 
-        return $terreno;
+        if ($search != null) {
+            $terreno = $terreno->whereRaw("persona.razonsocial ILIKE '%" . $search . "%'");
+        }
+
+        return $terreno->paginate(10);
 
         /*return Terreno::with('cultivo', 'tarifa', 'cliente.persona', 'derivacion.canal.calle.barrio')
                             ->get();*/
