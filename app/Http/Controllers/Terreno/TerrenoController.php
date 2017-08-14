@@ -49,6 +49,8 @@ class TerrenoController extends Controller
             $terreno = $terreno->whereRaw("persona.razonsocial ILIKE '%" . $search . "%'");
         }
 
+
+
         return $terreno->paginate(10);
 
         /*return Terreno::with('cultivo', 'tarifa', 'cliente.persona', 'derivacion.canal.calle.barrio')

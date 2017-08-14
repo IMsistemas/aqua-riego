@@ -3,31 +3,20 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
 
     $scope.terrenos = [];
 
+    $scope.tomas_s = [{label: '-- Seleccione --', id: 0}];
+    $scope.t_toma0 = 0;
+
+    $scope.canales_s = [{label: '-- Seleccione --', id: 0}];
+    $scope.t_canales = 0;
+
+    $scope.derivaciones_s = [{label: '-- Seleccione --', id: 0}];
+    $scope.t_derivacion0 = 0;
+
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
     };
 
     $scope.initLoad = function (pageNumber) {
-
-        $('.datepicker_year').datetimepicker({
-            locale: 'es',
-            viewMode: 'years',
-            format: 'YYYY'
-
-        });
-
-        $scope.loadTarifas();
-        $scope.loadBarrios();
-
-        $scope.tomas_s = [{label: '-- Seleccione --', id: 0}];
-        $scope.t_toma0 = 0;
-
-        $scope.canales_s = [{label: '-- Seleccione --', id: 0}];
-        $scope.t_canales = 0;
-
-        $scope.derivaciones_s = [{label: '-- Seleccione --', id: 0}];
-        $scope.t_derivacion0 = 0;
-
 
         if ($scope.search === undefined) {
             var search = null;
@@ -207,7 +196,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
             var longitud = response.length;
             var array_temp = [{label: '-- Seleccione --', id: 0}];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
+                array_temp.push({label: response[i].namecalle, id: response[i].idcalle})
             }
             console.log(array_temp);
             $scope.tomas_s = array_temp;
@@ -545,22 +534,37 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
         setTimeout("$('#modalMessage').modal('hide')", 3000);
     };
 
+    $scope.loadTarifas();
+    $scope.loadBarrios();
+
     $scope.initLoad(1);
 
-    $('.datepicker').datetimepicker({
+    /*$('.datepicker').datetimepicker({
         locale: 'es',
         viewMode: 'years',
         format: 'YYYY'
     }).on('dp.change', function (e) {
         $scope.getByFilter();
+    });*/
+
+
+    $('.datepicker_year').datetimepicker({
+        locale: 'es',
+        viewMode: 'years',
+        format: 'YYYY'
     });
+
 });
 
 $(function(){
 
     $('[data-toggle="tooltip"]').tooltip();
 
-
+    $('.datepicker_year').datetimepicker({
+        locale: 'es',
+        viewMode: 'years',
+        format: 'YYYY'
+    });
 
 });
 
