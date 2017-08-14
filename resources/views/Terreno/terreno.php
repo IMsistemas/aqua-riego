@@ -23,7 +23,7 @@
 
                 <div class="input-group">
                     <span class="input-group-addon">Año:</span>
-                    <input type="text" class="form-control datepicker" name="s_year" id="s_year"
+                    <input type="text" class="form-control datepicker_year" name="s_year" id="s_year"
                            ng-model="s_year" >
                 </div>
 

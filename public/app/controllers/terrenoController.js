@@ -5,6 +5,26 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
 
     $scope.initLoad = function () {
 
+        $('.datepicker_year').datetimepicker({
+            locale: 'es',
+            viewMode: 'years',
+            format: 'YYYY'
+
+        });
+
+        /*$('.datepicker_a').on('dp.change', function (e) {
+
+            console.log('aaa');
+
+            $('.datepicker_a').datetimepicker({
+                locale: 'es',
+                format: 'YYYY'
+            });
+
+        });*/
+
+
+
         $scope.loadTarifas();
         //$scope.loadCanales();
         //$scope.loadBarriosSearch();
@@ -22,26 +42,11 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
 
         $http.get(API_URL + 'editTerreno/getTerrenos').success(function(response){
 
-            /*var longitud = response.length;
-            for (var i = 0; i < longitud; i++) {
-                var complete_name = {
-                    value: response[i].cliente.apellido + ', ' + response[i].cliente.nombre,
-                    writable: true,
-                    enumerable: true,
-                    configurable: true
-                };
-                Object.defineProperty(response[i].cliente, 'complete_name', complete_name);
-            }*/
-
             $scope.terrenos = response;
 
             console.log(response);
 
-            $('.datepicker').datetimepicker({
-                locale: 'es',
-                viewMode: 'years',
-                format: 'YYYY'
-            });
+
         });
     };
 
