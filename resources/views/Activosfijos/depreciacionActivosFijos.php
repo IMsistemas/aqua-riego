@@ -17,7 +17,7 @@
 	</div>
 
 	<div class="col-xs-12" style="margin-top: 5px;">
-		<table class="table table-responsive table-striped table-hover table-condensed">
+		<table class="table table-responsive table-striped table-hover table-condensed table-bordered">
 			<thead class="bg-primary">
 				<tr>
 					<th>IMAGEN</th>

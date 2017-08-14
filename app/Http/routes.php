@@ -432,6 +432,7 @@ Route::resource('reportecentrocosto', 'Reportes\ReporteCCController');
  * --------------------------------MODULO ACTIVO FIJO-------------------------------------------------------------------
  */
 
+
 Route::get('Activosfijos/AllActivosfijosAlta','ActivosFijos\depreciacionActivosFijosController@AllActivosFijosAlta');
 Route::get('Activosfijos/AllActivosfijosSinAlta','ActivosFijos\depreciacionActivosFijosController@AllActivosFijosSinAlta');
 Route::get('Activosfijos/ActivoFijoIndividual/{idactivo}','ActivosFijos\depreciacionActivosFijosController@ActivoFijoIndividual');
