@@ -32,8 +32,20 @@ class TerrenoController extends Controller
 
     public function getTerrenos()
     {
-        return Terreno::with('cultivo', 'tarifa', 'cliente.persona', 'derivacion.canal.calle.barrio')
-                            ->get();
+
+        $terreno = Terreno::join('cultivo', 'cultivo.idcultivo', '=', 'terreno.idcultivo')
+                            ->join('tarifa', 'tarifa.idtarifa', '=', 'terreno.idtarifa')
+                            ->join('cliente', 'cliente.idcliente', '=', 'terreno.idcliente')
+                            ->join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
+                            ->join('derivacion', 'derivacion.idderivacion', '=', 'terreno.idderivacion')
+                            ->join('canal', 'canal.idcanal', '=', 'derivacion.idcanal')
+                            ->join('calle', 'calle.idcalle', '=', 'canal.idcalle')
+                            ->join('barrio', 'barrio.idbarrio', '=', 'calle.idbarrio')->get();
+
+        return $terreno;
+
+        /*return Terreno::with('cultivo', 'tarifa', 'cliente.persona', 'derivacion.canal.calle.barrio')
+                            ->get();*/
 
     }
 

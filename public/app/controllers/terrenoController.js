@@ -93,7 +93,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
     };
 
     $scope.loadInformation = function (terreno) {
-        $scope.num_terreno = terreno.idterreno;
+        /*$scope.num_terreno = terreno.idterreno;
         $scope.fecha_ingreso = convertDatetoDB(terreno.fechacreacion, true);
         $scope.cliente = terreno.cliente.persona.razonsocial;
         $scope.cultivo = terreno.cultivo.nombrecultivo;
@@ -104,7 +104,20 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
         $scope.barrio = terreno.derivacion.canal.calle.barrio.namebarrio;
         $scope.canal = terreno.derivacion.canal.nombrecanal;
         $scope.toma = terreno.derivacion.canal.calle.namecalle;
-        $scope.derivacion = terreno.derivacion.nombrederivacion;
+        $scope.derivacion = terreno.derivacion.nombrederivacion;*/
+
+        $scope.num_terreno = terreno.idterreno;
+        $scope.fecha_ingreso = convertDatetoDB(terreno.fechacreacion, true);
+        $scope.cliente = terreno.razonsocial;
+        $scope.cultivo = terreno.nombrecultivo;
+        $scope.tarifa = terreno.nombretarifa;
+        $scope.area = terreno.area;
+        $scope.caudal = terreno.caudal;
+        $scope.valor_anual = terreno.valoranual;
+        $scope.barrio = terreno.namebarrio;
+        $scope.canal = terreno.nombrecanal;
+        $scope.toma = terreno.namecalle;
+        $scope.derivacion = terreno.nombrederivacion;
 
         $('#modalInfo').modal('show');
     };
@@ -313,7 +326,7 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
         }
     };
 
-    $scope.edit = function (terreno) {
+    /*$scope.edit = function (terreno) {
 
         $scope.t_fecha_process = terreno.fechacreacion;
 
@@ -383,7 +396,78 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
 
         });
 
+    };*/
 
+
+    $scope.edit = function (terreno) {
+
+        $scope.t_fecha_process = terreno.fechacreacion;
+
+        $scope.h_codigocliente = terreno.idcliente;
+
+        $scope.codigo_cliente = terreno.numdocidentific;
+        $scope.documentoidentidad_cliente = terreno.numdocidentific;
+        $scope.nom_cliente = terreno.razonsocial;
+        $scope.direcc_cliente = terreno.direccion;
+        $scope.telf_cliente = terreno.telefonoprincipaldomicilio;
+        $scope.telf_trab_cliente = terreno.telefonoprincipaltrabajo;
+        $scope.celular_cliente = terreno.celphone;
+
+        $scope.t_terreno = terreno.idterreno;
+        $scope.nro_terreno = terreno.idterreno;
+        $scope.num_solicitud_riego = terreno.idterreno;
+        $scope.t_junta = terreno.idbarrio;
+        //$scope.t_cultivo = terreno.cultivo.idcultivo;
+        $scope.t_tarifa = terreno.idtarifa;
+
+        $scope.loadCultivos(terreno.idcultivo);
+
+        $scope.t_canal = terreno.idcanal;
+
+        $scope.t_area = terreno.area;
+        $scope.calculate_caudal = terreno.caudal;
+        $scope.valor_total = terreno.valoranual;
+
+        $scope.t_observacion_riego = terreno.observacion;
+
+        $http.get(API_URL + 'editTerreno/getTomas/' + terreno.idbarrio).success(function(response){
+
+            var longitud = response.length;
+            var array_temp = [];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].namecalle, id: response[i].idcalle})
+            }
+            $scope.tomas = array_temp;
+
+            $scope.t_toma = terreno.idcalle;
+
+            $http.get(API_URL + 'editTerreno/getCanales/' + terreno.idcalle).success(function(response){
+                var longitud = response.length;
+                var array_temp = [];
+                for(var i = 0; i < longitud; i++){
+                    array_temp.push({label: response[i].nombrecanal, id: response[i].idcanal})
+                }
+                $scope.canales = array_temp;
+
+                $scope.t_canal = terreno.idcanal;
+
+                $http.get(API_URL + 'editTerreno/getDerivaciones/' + terreno.idcanal).success(function(response){
+                    var longitud = response.length;
+                    var array_temp = [];
+                    for(var i = 0; i < longitud; i++){
+                        array_temp.push({label: response[i].nombrederivacion, id: response[i].idderivacion})
+                    }
+                    $scope.derivaciones = array_temp;
+
+                    $scope.t_derivacion = terreno.idderivacion;
+
+                    $('#modalActionRiego').modal('show');
+
+                });
+
+            });
+
+        });
 
     };
 

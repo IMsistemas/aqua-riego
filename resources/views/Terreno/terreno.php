@@ -102,11 +102,11 @@
                 </thead>
                 <tbody>
                 <tr dir-paginate="terreno in terrenos | orderBy:sortKey:reverse |itemsPerPage:10  | filter : search" ng-cloak>
-                    <td>{{terreno.cliente.persona.razonsocial}}</td>
-                    <td>{{terreno.tarifa.nombretarifa}}</td>
-                    <td>{{terreno.cultivo.nombrecultivo}}</td>
-                    <td>{{terreno.derivacion.nombrederivacion}}</td>
-                    <td>{{terreno.derivacion.canal.calle.barrio.namebarrio}}</td>
+                    <td>{{terreno.razonsocial}}</td>
+                    <td>{{terreno.nombretarifa}}</td>
+                    <td>{{terreno.nombrecultivo}}</td>
+                    <td>{{terreno.nombrederivacion}}</td>
+                    <td>{{terreno.namebarrio}}</td>
                     <td class="text-right">{{terreno.caudal}}</td>
                     <td class="text-right">{{terreno.area}}</td>
                     <td>

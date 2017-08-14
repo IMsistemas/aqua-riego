@@ -99,12 +99,13 @@
                                         <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes Contabilidad</a>
                                         <ul class="dropdown-menu">
                                             <li id="permiso_37"><a tabindex="-1" href="#" ng-click="toModuloBalance();">Estados Financieros</a></li>
-                                            <li id="permiso_38"><a tabindex="-1" href="#" ng-click="toModuloReporteVentasBalance();">Ventas / Balance</a></li>
+                                            <li id="permiso_38"><a tabindex="-1" href="#" ng-click="toModuloReporteVentasBalance();">Ventas - Balance</a></li>
                                             <li id="permiso_"><a tabindex="-1" href="#" ng-click="toModuloReporteCentroCosto();">Centro de Costo</a></li>
                                         </ul>
-                                    </li>    
+                                    </li>
 
                                     <li role="separator" class="divider"></li>
+
                                     <li class="dropdown-submenu">
                                         <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Inventario</a>
                                         <ul class="dropdown-menu">
@@ -116,6 +117,7 @@
                                     </li>
 
                                     <li role="separator" class="divider"></li>
+
                                     <li class="dropdown-submenu">
                                         <a tabindex="-1" href="#" class="dropdown-toggle" data-toggle="dropdown">Proceso Compras</a>
                                         <ul class="dropdown-menu">
