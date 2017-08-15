@@ -40,7 +40,7 @@
 
         </div>
 
-        <div class="col-xs-12">
+        <div class="col-xs-12" style="font-size: 12px !important;">
             <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                 <thead class="bg-primary">
                 <tr>
