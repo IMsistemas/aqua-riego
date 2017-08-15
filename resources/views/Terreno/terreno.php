@@ -1,6 +1,6 @@
 
 
-    <div class="col-xs-12" ng-controller="terrenoController" style="">
+    <div class="col-xs-12" ng-controller="terrenoController" ng-init="loadTarifas(); loadBarrios();">
 
         <div class="col-xs-12">
 

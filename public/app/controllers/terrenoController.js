@@ -12,6 +12,9 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
     $scope.derivaciones_s = [{label: '-- Seleccione --', id: 0}];
     $scope.t_derivacion0 = 0;
 
+    /*$scope.loadTarifas();
+    $scope.loadBarrios();*/
+
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
     };
@@ -534,10 +537,8 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
         setTimeout("$('#modalMessage').modal('hide')", 3000);
     };
 
-    $scope.loadTarifas();
-    $scope.loadBarrios();
+    setTimeout(function(){ $scope.initLoad(1); }, 1000);
 
-    $scope.initLoad(1);
 
     /*$('.datepicker').datetimepicker({
         locale: 'es',

@@ -49,7 +49,25 @@ class TerrenoController extends Controller
             $terreno = $terreno->whereRaw("persona.razonsocial ILIKE '%" . $search . "%'");
         }
 
+        if ($filter->t_tarifa0 != null && $filter->t_tarifa0 != '') {
+            $terreno = $terreno->where('tarifa.idtarifa', $filter->t_tarifa0);
+        }
 
+        if ($filter->t_barrio_s != null && $filter->t_barrio_s != '') {
+            $terreno = $terreno->where('barrio.idbarrio', $filter->t_barrio_s);
+        }
+
+        if ($filter->t_toma0 != null && $filter->t_toma0 != '') {
+            $terreno = $terreno->where('calle.idcalle', $filter->t_toma0);
+        }
+
+        if ($filter->t_canales != null && $filter->t_canales != '') {
+            $terreno = $terreno->where('canal.idcanal', $filter->t_canales);
+        }
+
+        if ($filter->t_canales != null && $filter->t_derivacion0 != '') {
+            $terreno = $terreno->where('derivacion.idderivacion', $filter->t_derivacion0);
+        }
 
         return $terreno->paginate(10);
 
