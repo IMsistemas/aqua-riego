@@ -287,7 +287,7 @@
                     </button>
                 </div>
 
-                <div class="col-xs-12" style="margin-top: 5px;">
+                <div class="col-xs-12" style="margin-top: 5px; font-size: 12px !important;">
                     <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                         <thead class="bg-primary">
                         <tr>
@@ -298,8 +298,8 @@
                             <th style="width: 5%;">DESC(%)</th>
                             <th style="width: 6%;">IVA</th>
                             <th style="width: 6%;">ICE</th>
-                            <th style="width: 4%;">TOTAL</th>
-                            <th></th>
+                            <th style="width: 10%;">TOTAL</th>
+                            <th style="width: 4%"></th>
                         </tr>
                         </thead>
                         <tbody>

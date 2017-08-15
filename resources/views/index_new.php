@@ -66,7 +66,7 @@
                                 </a>
                                 <ul class = "dropdown-menu">
                                     <li><a href="#" ng-click="toModuloCliente();">Gestión de Clientes</a></li>
-                                    <li><a href="#" ng-click="toModuloSolicitud();">Solicitud</a></li>
+                                    <li><a href="#" ng-click="toModuloSolicitud();">Solicitudes</a></li>
                                     <li><a href = "#" ng-click="toModuloSuministro();">Terreno</a></li>
                                     <li><a href = "#" ng-click="toModuloRecaudacion();">Cobro</a></li>
                                     <!--<li><a href = "#" ng-click="toModuloLectura();">Registro de Lecturas</a></li>-->
