@@ -317,13 +317,15 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
                         format: 'DD/MM/YYYY'
                     });
 
-                    $('.datepickerA').datetimepicker({
-                        locale: 'es',
-                        format: 'YYYY-MM-DD',
-                        container: '#modalAction'
-                    });
 
                     $('#modalAction').modal('show');
+
+                    $(document).ready (function(){
+                        $('datepickerA').datetimepicker({
+                            locale: 'es',
+                            format: 'YYYY-MM-DD'
+                        });
+                    });
 
                 });
 
