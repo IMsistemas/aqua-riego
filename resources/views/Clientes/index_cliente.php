@@ -29,7 +29,7 @@
             </div>
             <div class="col-sm-2 col-xs-12">
                 <button type="button" class="btn btn-primary" style="float: right;" ng-click="showModalAddCliente()">
-                    Nuevo <i class="fa fa-lg fa-user-plus" aria-hidden="true"></i>
+                    Agregar <span class="glyphicon glyphicon-plus" aria-hidden="true">
                 </button>
             </div>
         </div>
