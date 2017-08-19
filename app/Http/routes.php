@@ -512,6 +512,7 @@ Route::resource('configNomina', 'ConfiguracionSystem\ConfigNominaController');
  * -----------------------------------MODULO FACTURACION VENTA----------------------------------------------------------
  */
 
+Route::get('DocumentoVenta/getTipoComprobante', 'Facturacionventa\DocumentoVenta@getTipoComprobante' );
 Route::get('DocumentoVenta/getCentroCosto', 'Facturacionventa\DocumentoVenta@getCentroCosto');
 Route::get('DocumentoVenta/getSuministroByFactura', 'Facturacionventa\DocumentoVenta@getSuministroByFactura');
 Route::get('DocumentoVenta/getProductoPorSuministro', 'Facturacionventa\DocumentoVenta@getProductoPorSuministro');
