@@ -13,6 +13,7 @@ use App\Modelos\Solicitud\SolicitudCambioNombre;
 use App\Modelos\Solicitud\SolicitudOtro;
 use App\Modelos\Solicitud\SolicitudReparticion;
 use App\Modelos\Solicitud\SolicitudRiego;
+use App\Modelos\SRI\SRI_Parte;
 use App\Modelos\SRI\SRI_TipoEmpresa;
 use App\Modelos\SRI\SRI_TipoIdentificacion;
 use App\Modelos\SRI\SRI_TipoImpuestoIva;
@@ -55,7 +56,7 @@ class ClienteController extends Controller
 
         $cliente = null;
 
-        $cliente = Cliente::with('terreno.derivacion.canal.calle.barrio', 'terreno.cultivo.tarifa', 'sri_tipoempresa')
+        $cliente = Cliente::with('terreno.derivacion.canal.calle.barrio', 'terreno.cultivo.tarifa', 'sri_tipoempresa', 'sri_parte')
                             ->join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
                             ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'cliente.idplancuenta')
                             ->select('cliente.*', 'persona.*', 'cont_plancuenta.idplancuenta', 'cont_plancuenta.concepto');
@@ -88,6 +89,11 @@ class ClienteController extends Controller
     public function getTipoEmpresa()
     {
         return SRI_TipoEmpresa::orderBy('nametipoempresa', 'asc')->get();
+    }
+
+    public function getTipoParte()
+    {
+        return SRI_Parte::orderBy('nameparte', 'asc')->get();
     }
 
     /**
@@ -186,6 +192,7 @@ class ClienteController extends Controller
                 $cliente->telefonosecundariotrabajo = $request->input('telefonosecundariotrabajo');
                 $cliente->direcciontrabajo = $request->input('direcciontrabajo');
                 $cliente->idtipoempresa = $request->input('idtipoempresa');
+                $cliente->idparte = $request->input('idparte');
 
                 if ($cliente->save()) {
                     return response()->json(['success' => true]);
@@ -230,6 +237,7 @@ class ClienteController extends Controller
             $cliente->telefonosecundariotrabajo = $request->input('telefonosecundariotrabajo');
             $cliente->direcciontrabajo = $request->input('direcciontrabajo');
             $cliente->idtipoempresa = $request->input('idtipoempresa');
+            $cliente->idparte = $request->input('idparte');
 
             if ($cliente->save()) {
                 return response()->json(['success' => true]);

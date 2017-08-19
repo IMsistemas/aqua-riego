@@ -347,7 +347,15 @@
 
                                 <div class="col-xs-12" style="margin-top: 5px;">
 
-                                    <div class="col-xs-12">
+                                    <div class="col-sm-6 col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">Tipo Parte (ATS): </span>
+                                            <select class="form-control" name="tipoparte" id="tipoparte" ng-model="tipoparte"
+                                                    ng-options="value.id as value.label for value in listtipoparte" required></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6 col-xs-12">
                                         <div class="input-group">
                                             <span class="input-group-addon">Cuenta Contable: </span>
                                             <input type="text" class="form-control" name="cuenta_employee" id="cuenta_employee" ng-model="cuenta_employee" placeholder=""
@@ -496,6 +504,9 @@
                                 </div>
                                 <div class="col-xs-12">
                                     <span style="font-weight: bold">Tipo: </span>{{tipoempresa}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Tipo Parte: </span>{{tipoparte}}
                                 </div>
                                 <div class="col-xs-12">
                                     <span style="font-weight: bold">Estado: </span>{{estado_solicitud}}
