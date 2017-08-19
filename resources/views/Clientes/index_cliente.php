@@ -280,7 +280,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="col-xs-12" style="margin-top: 5px;">
                                     <div class="col-md-6 col-xs-12">
                                         <div class="input-group">
@@ -311,7 +310,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="col-xs-12" style="margin-top: 5px;">
                                     <div class="col-xs-12">
                                         <div class="input-group">
@@ -322,8 +320,6 @@
                                               ng-show="formEmployee.direcciontrabajo.$invalid && formEmployee.direcciontrabajo.$error.maxlength">La longitud máxima es de 256 caracteres</span>
                                     </div>
                                 </div>
-
-
 
                                 <div class="col-xs-12" style="margin-top: 5px;">
                                     <div class="col-sm-6 col-xs-12">
@@ -339,10 +335,24 @@
 
                                     <div class="col-sm-6 col-xs-12">
                                         <div class="input-group">
+                                            <span class="input-group-addon">Tipo (ATS): </span>
+                                            <select class="form-control" name="tipoempresaats" id="tipoempresaats" ng-model="tipoempresaats"
+                                                    ng-options="value.id as value.label for value in listtipoempresaats" required></select>
+                                        </div>
+                                        <span class="help-block error"
+                                              ng-show="formEmployee.tipoempresaats.$invalid && formEmployee.tipoempresaats.$touched">El Tipo es requerido</span>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12" style="margin-top: 5px;">
+
+                                    <div class="col-xs-12">
+                                        <div class="input-group">
                                             <span class="input-group-addon">C. Contab.: </span>
                                             <input type="text" class="form-control" name="cuenta_employee" id="cuenta_employee" ng-model="cuenta_employee" placeholder=""
                                                    ng-required="true" readonly>
-                                                <span class="input-group-btn" role="group">
+                                            <span class="input-group-btn" role="group">
                                                 <button type="button" class="btn btn-info" id="btn-pcc" ng-click="showPlanCuenta()">
                                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                                 </button>
@@ -352,7 +362,9 @@
                                         <span class="help-block error"
                                               ng-show="formEmployee.cuenta_employee.$error.required">La asignación de una cuenta es requerida</span>
                                     </div>
+
                                 </div>
+
                             </div>
 
                         </div>

@@ -174,44 +174,56 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
                 console.log(item);
 
+                $http.get(API_URL + 'cliente/getTipoEmpresa').success(function(response){
 
-                $scope.t_codigocliente = item.idcliente;
-                $scope.t_fecha_ingreso = convertDatetoDB(item.fechaingreso, true);
+                    var longitud = response.length;
+                    var array_temp = [{label: '-- Seleccione --', id: ''}];
+                    for(var i = 0; i < longitud; i++){
+                        array_temp.push({label: response[i].nametipoempresa, id: response[i].idtipoempresa})
+                    }
+                    $scope.listtipoempresaats = array_temp;
+                    $scope.tipoempresaats = item.idtipoempresa;
 
-                $scope.idcliente = item.idcliente;
-                $scope.documentoidentidadempleado = item.numdocidentific;
-                $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', item.numdocidentific);
-                //$scope.$broadcast('angucomplete-alt:clearInput', 'documentoidentidadempleado');
-                $scope.idpersona = item.idpersona;
-                $scope.apellido = item.lastnamepersona;
-                $scope.nombre = item.namepersona;
-                $scope.telefonoprincipal = item.telefonoprincipaldomicilio;
-                $scope.telefonosecundario = item.telefonosecundariodomicilio;
-                $scope.celular = item.celphone;
-                $scope.direccion = item.direccion;
-                $scope.telefonoprincipaltrabajo = item.telefonoprincipaltrabajo;
-                $scope.telefonosecundariotrabajo = item.telefonosecundariotrabajo;
-                $scope.direcciontrabajo = item.direcciontrabajo;
-                $scope.correo = item.email;
 
-                $scope.cuenta_employee = item.concepto;
+                    $scope.t_codigocliente = item.idcliente;
+                    $scope.t_fecha_ingreso = convertDatetoDB(item.fechaingreso, true);
 
-                var objectPlan = {
-                    idplancuenta: item.idplancuenta,
-                    concepto: item.concepto
-                };
+                    $scope.idcliente = item.idcliente;
+                    $scope.documentoidentidadempleado = item.numdocidentific;
+                    $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', item.numdocidentific);
+                    //$scope.$broadcast('angucomplete-alt:clearInput', 'documentoidentidadempleado');
+                    $scope.idpersona = item.idpersona;
+                    $scope.apellido = item.lastnamepersona;
+                    $scope.nombre = item.namepersona;
+                    $scope.telefonoprincipal = item.telefonoprincipaldomicilio;
+                    $scope.telefonosecundario = item.telefonosecundariodomicilio;
+                    $scope.celular = item.celphone;
+                    $scope.direccion = item.direccion;
+                    $scope.telefonoprincipaltrabajo = item.telefonoprincipaltrabajo;
+                    $scope.telefonosecundariotrabajo = item.telefonosecundariotrabajo;
+                    $scope.direcciontrabajo = item.direcciontrabajo;
+                    $scope.correo = item.email;
 
-                $scope.select_cuenta = objectPlan;
+                    $scope.cuenta_employee = item.concepto;
 
-                if (item.estado === true) {
-                    $scope.s_estado = '1';
-                } else {
-                    $scope.s_estado = '2';
-                }
+                    var objectPlan = {
+                        idplancuenta: item.idplancuenta,
+                        concepto: item.concepto
+                    };
 
-                $scope.title_modal_cliente = 'Editar Cliente';
+                    $scope.select_cuenta = objectPlan;
 
-                $('#modalAddCliente').modal('show');
+                    if (item.estado === true) {
+                        $scope.s_estado = '1';
+                    } else {
+                        $scope.s_estado = '2';
+                    }
+
+                    $scope.title_modal_cliente = 'Editar Cliente';
+
+                    $('#modalAddCliente').modal('show');
+
+                });
 
             });
 
@@ -261,13 +273,12 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             idpersona:  $scope.idpersona,
             cuentacontable: $scope.select_cuenta.idplancuenta,
             impuesto_iva: $scope.iva,
-
             telefonoprincipaldomicilio: $scope.telefonoprincipal,
             telefonosecundariodomicilio: $scope.telefonosecundario,
             telefonoprincipaltrabajo: $scope.telefonoprincipaltrabajo,
             telefonosecundariotrabajo: $scope.telefonosecundariotrabajo,
             direcciontrabajo: $scope.direcciontrabajo,
-
+            idtipoempresa: $scope.tipoempresaats,
             estado: estado
 
         };
@@ -375,39 +386,52 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
                 $scope.imp_iva = array_temp;
                 $scope.iva = '';
 
-                $http.get(API_URL + 'cliente/getIVADefault').success(function(response){
+                $http.get(API_URL + 'cliente/getTipoEmpresa').success(function(response){
 
-                    if (response[0].optionvalue !== null && response[0].optionvalue !== '') {
-                        $scope.iva = parseInt(response[0].optionvalue);
+                    var longitud = response.length;
+                    var array_temp = [{label: '-- Seleccione --', id: ''}];
+                    for(var i = 0; i < longitud; i++){
+                        array_temp.push({label: response[i].nametipoempresa, id: response[i].idtipoempresa})
                     }
+                    $scope.listtipoempresaats = array_temp;
+                    $scope.tipoempresaats = '';
 
-                    $scope.t_codigocliente = 0;
-                    $scope.t_fecha_ingreso = $scope.nowDate();
 
-                    $scope.idcliente = 0;
-                    $scope.documentoidentidadempleado = '';
-                    $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', '');
-                    $scope.$broadcast('angucomplete-alt:clearInput', 'documentoidentidadempleado');
-                    $scope.idpersona = 0;
-                    $scope.apellido = '';
-                    $scope.nombre = '';
-                    $scope.telefonoprincipal = '';
-                    $scope.telefonosecundario = '';
-                    $scope.celular = '';
-                    $scope.direccion = '';
-                    $scope.telefonoprincipaltrabajo = '';
-                    $scope.telefonosecundariotrabajo = '';
-                    $scope.direcciontrabajo = '';
-                    $scope.correo = '';
-                    $scope.cuenta_employee = '';
+                    $http.get(API_URL + 'cliente/getIVADefault').success(function(response){
 
-                    $scope.select_cuenta = null;
+                        if (response[0].optionvalue !== null && response[0].optionvalue !== '') {
+                            $scope.iva = parseInt(response[0].optionvalue);
+                        }
 
-                    $scope.s_estado = '1';
+                        $scope.t_codigocliente = 0;
+                        $scope.t_fecha_ingreso = $scope.nowDate();
 
-                    $scope.title_modal_cliente = 'Nuevo Cliente';
+                        $scope.idcliente = 0;
+                        $scope.documentoidentidadempleado = '';
+                        $scope.$broadcast('angucomplete-alt:changeInput', 'documentoidentidadempleado', '');
+                        $scope.$broadcast('angucomplete-alt:clearInput', 'documentoidentidadempleado');
+                        $scope.idpersona = 0;
+                        $scope.apellido = '';
+                        $scope.nombre = '';
+                        $scope.telefonoprincipal = '';
+                        $scope.telefonosecundario = '';
+                        $scope.celular = '';
+                        $scope.direccion = '';
+                        $scope.telefonoprincipaltrabajo = '';
+                        $scope.telefonosecundariotrabajo = '';
+                        $scope.direcciontrabajo = '';
+                        $scope.correo = '';
+                        $scope.cuenta_employee = '';
 
-                    $('#modalAddCliente').modal('show');
+                        $scope.select_cuenta = null;
+
+                        $scope.s_estado = '1';
+
+                        $scope.title_modal_cliente = 'Nuevo Cliente';
+
+                        $('#modalAddCliente').modal('show');
+
+                    });
 
                 });
 

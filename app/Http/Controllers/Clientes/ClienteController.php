@@ -13,6 +13,7 @@ use App\Modelos\Solicitud\SolicitudCambioNombre;
 use App\Modelos\Solicitud\SolicitudOtro;
 use App\Modelos\Solicitud\SolicitudReparticion;
 use App\Modelos\Solicitud\SolicitudRiego;
+use App\Modelos\SRI\SRI_TipoEmpresa;
 use App\Modelos\SRI\SRI_TipoIdentificacion;
 use App\Modelos\SRI\SRI_TipoImpuestoIva;
 use App\Modelos\Tarifas\Area;
@@ -82,6 +83,11 @@ class ClienteController extends Controller
     public function getTipoIdentificacion()
     {
         return SRI_TipoIdentificacion::orderBy('nameidentificacion', 'asc')->get();
+    }
+
+    public function getTipoEmpresa()
+    {
+        return SRI_TipoEmpresa::orderBy('nametipoempresa', 'asc')->get();
     }
 
     /**
@@ -179,6 +185,7 @@ class ClienteController extends Controller
                 $cliente->telefonoprincipaltrabajo = $request->input('telefonoprincipaltrabajo');
                 $cliente->telefonosecundariotrabajo = $request->input('telefonosecundariotrabajo');
                 $cliente->direcciontrabajo = $request->input('direcciontrabajo');
+                $cliente->idtipoempresa = $request->input('idtipoempresa');
 
                 if ($cliente->save()) {
                     return response()->json(['success' => true]);
@@ -222,6 +229,7 @@ class ClienteController extends Controller
             $cliente->telefonoprincipaltrabajo = $request->input('telefonoprincipaltrabajo');
             $cliente->telefonosecundariotrabajo = $request->input('telefonosecundariotrabajo');
             $cliente->direcciontrabajo = $request->input('direcciontrabajo');
+            $cliente->idtipoempresa = $request->input('idtipoempresa');
 
             if ($cliente->save()) {
                 return response()->json(['success' => true]);

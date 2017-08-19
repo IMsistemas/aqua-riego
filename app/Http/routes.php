@@ -67,6 +67,7 @@ Route::resource('/cultivo', 'Tarifas\CultivoController');
  * -------------------------------------MODULO CLIENTE------------------------------------------------------------------
  */
 
+Route::get('cliente/getTipoEmpresa', 'Clientes\ClienteController@getTipoEmpresa');
 Route::get('cliente/getClienteByIdentify/{idcliente}', 'Clientes\ClienteController@getClienteByIdentify');
 Route::get('cliente/getIdentifyClientes/{idcliente}', 'Clientes\ClienteController@getIdentifyClientes');
 Route::get('cliente/getTerrenosByCliente/{idcliente}', 'Clientes\ClienteController@getTerrenosByCliente');
