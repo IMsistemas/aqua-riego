@@ -167,8 +167,8 @@ app.controller('reporteCCController',  function($scope, $http, API_URL) {
                                 if (centrocosto[j].iddepartamento === response[i].iddepartamento) {
 
                                     var item = {
-                                        numdocumentocompra: response[i].numdocumentocompra,
-                                        fecharegistrocompra: response[i].fecharegistrocompra,
+                                        numdocumentocompra: response[i].numdocumentoventa,
+                                        fecharegistrocompra: response[i].fecharegistroventa,
                                         detalle_item: response[i].codigoproducto + ' - ' + response[i].nombreproducto,
                                         cantidad: response[i].cantidad,
                                         preciounitario: response[i].preciounitario,
@@ -277,6 +277,8 @@ app.controller('reporteCCController',  function($scope, $http, API_URL) {
                 tipo: $scope.tipo,
                 centroscosto: centrocosto
             };
+
+            console.log(centrocosto);
 
             var accion = API_URL + 'reportecentrocosto/reporte_print/' + JSON.stringify(filtro);
 
