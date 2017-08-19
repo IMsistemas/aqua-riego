@@ -38,7 +38,7 @@
             <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                 <thead class="bg-primary">
                 <tr>
-                    <th class="text-center" style="width: 10%;">CI / RUC</th>
+                    <th class="text-center" style="width: 10%;">RUC / CI</th>
                     <th class="text-center" style="width: 10%;">FECHA INGRESO</th>
                     <th class="text-center" style="">RAZON SOCIAL / NOMBRE Y APELLIDOS</th>
                     <th class="text-center" style="width: 8%;">CELULAR</th>
@@ -471,6 +471,7 @@
                             <div class="col-xs-12 text-center" style="font-size: 24px; margin-bottom: 10px;">{{name_cliente}}</div>
 
                             <div class="col-xs-6">
+
                                 <div class="col-xs-12 text-center" style="margin-bottom: 10px; font-weight: bold;">DATOS PERSONALES</div>
                                 <div class="col-xs-12">
                                     <span style="font-weight: bold">CI / RUC: </span>{{identify_cliente}}
@@ -492,6 +493,9 @@
                                 </div>
                                 <div class="col-xs-12">
                                     <span style="font-weight: bold">Teléfonos Trabajo: </span>{{telf_cliente_emp}}
+                                </div>
+                                <div class="col-xs-12">
+                                    <span style="font-weight: bold">Tipo: </span>{{tipoempresa}}
                                 </div>
                                 <div class="col-xs-12">
                                     <span style="font-weight: bold">Estado: </span>{{estado_solicitud}}
@@ -540,10 +544,6 @@
                                 </div>
 
                             </div>
-
-
-
-
 
                         </div>
                     </div>

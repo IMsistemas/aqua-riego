@@ -16,6 +16,11 @@ class Cliente extends Model
         return $this->belongsTo('App\Modelos\Persona','idpersona');
     }
 
+    public function sri_tipoempresa()
+    {
+        return $this->belongsTo('App\Modelos\SRI\SRI_TipoEmpresa','idtipoempresa');
+    }
+
     public function solicitud()
     {
     	return $this->hasMany('App\Modelos\Solicitud\Solicitud','idcliente');

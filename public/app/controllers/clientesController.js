@@ -470,6 +470,8 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         $scope.telf_cliente = item.telefonoprincipaldomicilio + ' / ' + item.telefonosecundariodomicilio;
         $scope.telf_cliente_emp = item.telefonoprincipaltrabajo + ' / ' + item.telefonosecundariotrabajo;
 
+        $scope.tipoempresa = item.sri_tipoempresa.nametipoempresa;
+
         if (item.estado === true){
             $scope.estado_solicitud = 'Activo';
         } else {
