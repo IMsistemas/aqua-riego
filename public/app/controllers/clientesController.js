@@ -356,6 +356,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         });
 
         $http.get(API_URL + 'cliente/getTipoIdentificacion').success(function(response){
+
             var longitud = response.length;
             var array_temp = [{label: '-- Seleccione --', id: ''}];
             for(var i = 0; i < longitud; i++){
@@ -365,6 +366,7 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             $scope.tipoidentificacion = '';
 
             $http.get(API_URL + 'cliente/getImpuestoIVA').success(function(response){
+
                 var longitud = response.length;
                 var array_temp = [{label: '-- Seleccione --', id: ''}];
                 for(var i = 0; i < longitud; i++){
@@ -372,7 +374,6 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
                 }
                 $scope.imp_iva = array_temp;
                 $scope.iva = '';
-
 
                 $http.get(API_URL + 'cliente/getIVADefault').success(function(response){
 
