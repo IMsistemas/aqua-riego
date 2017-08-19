@@ -247,6 +247,9 @@ Route::resource('categoria', 'Categorias\CategoriaController');
  * ------------------------------------MODULO PROVEEDORES Y TRANSPORTISTAS----------------------------------------------
  */
 
+Route::get('proveedor/getIVADefault', 'Proveedores\ProveedorController@getIVADefault');
+Route::get('proveedor/getTipoParte', 'Proveedores\ProveedorController@getTipoParte');
+Route::get('proveedor/getTipoEmpresa', 'Proveedores\ProveedorController@getTipoEmpresa');
 Route::get('proveedor/getTipoIdentificacion', 'Proveedores\ProveedorController@getTipoIdentificacion');
 Route::get('proveedor/getProvincias', 'Proveedores\ProveedorController@getProvincias');
 Route::get('proveedor/getCantones/{idprovincia}', 'Proveedores\ProveedorController@getCantones');

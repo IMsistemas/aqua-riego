@@ -357,7 +357,7 @@
 
                                     <div class="col-sm-6 col-xs-12">
                                         <div class="input-group">
-                                            <span class="input-group-addon">Cuenta Contable: </span>
+                                            <span class="input-group-addon">C. Contab.: </span>
                                             <input type="text" class="form-control" name="cuenta_employee" id="cuenta_employee" ng-model="cuenta_employee" placeholder=""
                                                    ng-required="true" readonly>
                                             <span class="input-group-btn" role="group">
