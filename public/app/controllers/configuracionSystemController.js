@@ -168,12 +168,43 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
                 if(response.length > 0){
 
-                    $scope.idconfiguracionsystem = response[0].idconfiguracionsystem;
+                    var longitud = response.length;
 
-                    if (response[0].optionvalue != null && response[0].optionvalue != '') {
-                        $scope.iva = parseInt(response[0].optionvalue);
+                    for (var i = 0; i < longitud; i++) {
+                        if (response[i].optionname === 'SRI_IVA_DEFAULT') {
+
+                            $scope.idconfiguracionsystem = response[i].idconfiguracionsystem;
+
+                            if (response[i].optionvalue !== null && response[i].optionvalue !== '') {
+                                $scope.iva = parseInt(response[i].optionvalue);
+                            }
+
+                        } else if (response[i].optionname === 'CONT_CLIENT_DEFAULT') {
+
+                            $scope.id_cont_cliente_default_h = response[i].idconfiguracionsystem;
+                            $scope.cont_cliente_default_h = parseInt(response[i].optionvalue);
+                            $scope.cont_cliente_default = response[i].concepto;
+
+                        } else if (response[i].optionname === 'CONT_PROV_DEFAULT') {
+
+                            $scope.id_cont_prov_default_h = response[i].idconfiguracionsystem;
+                            $scope.cont_prov_default_h = parseInt(response[i].optionvalue);
+                            $scope.cont_prov_default = response[i].concepto;
+
+                        } else if (response[i].optionname === 'CONT_CXC_DEFAULT') {
+
+                            $scope.id_cont_cxc_default_h = response[i].idconfiguracionsystem;
+                            $scope.cont_cxc_default_h = parseInt(response[i].optionvalue);
+                            $scope.cont_cxc_default = response[i].concepto;
+
+                        } else if (response[i].optionname === 'CONT_CXP_DEFAULT') {
+
+                            $scope.id_cont_cxp_default_h = response[i].idconfiguracionsystem;
+                            $scope.cont_cxp_default_h = parseInt(response[i].optionvalue);
+                            $scope.cont_cxp_default = response[i].concepto;
+
+                        }
                     }
-
                 }
             });
 
@@ -182,9 +213,32 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
     $scope.updateIvaDefault = function () {
 
-        var data = {
-            optionvalue: $scope.iva
+        var cliente = {
+            idconfiguracionsystem: $scope.id_cont_cliente_default_h,
+            optionvalue: $scope.cont_cliente_default_h
         };
+
+        var proveedor = {
+            idconfiguracionsystem: $scope.id_cont_prov_default_h,
+            optionvalue: $scope.cont_prov_default_h
+        };
+
+        var cxc = {
+            idconfiguracionsystem: $scope.id_cont_cxc_default_h,
+            optionvalue: $scope.cont_cxc_default_h
+        };
+
+        var cxp = {
+            idconfiguracionsystem: $scope.id_cont_cxp_default_h,
+            optionvalue: $scope.cont_cxp_default_h
+        };
+
+        var data = {
+            optionvalue: $scope.iva,
+            array_data: [cliente, proveedor, cxc, cxp]
+        };
+
+        console.log(data);
 
         $http.put(API_URL + '/configuracion/updateIvaDefault/'+ $scope.idconfiguracionsystem, data ).success(function (response) {
 
@@ -193,7 +247,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             if (response.success == true) {
                 $scope.initLoad();
                 $('#modalActionCargo').modal('hide');
-                $scope.message = 'Se editó correctamente los datos del IVA por defecto';
+                $scope.message = 'Se editó correctamente los datos por defecto';
                 $('#modalMessage').modal('show');
                 $scope.hideModalMessage();
             } else {
@@ -338,6 +392,32 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         });
     };
 
+    $scope.getTipoComprobanteVenta = function () {
+        $http.get(API_URL + 'configuracion/getTipoComprobanteVenta').success(function(response){
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: ''}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].namecomprobante, id: response[i].idtipocomprobante})
+            }
+            $scope.listcomprobante_venta = array_temp;
+            $scope.comprobante_venta = '';
+
+            $http.get(API_URL + '/configuracion/getTipoComprobanteVentaDefault').success(function(response){
+
+                if(response.length > 0){
+
+                    $scope.comprobante_venta_h = response[0].idconfiguracionsystem;
+
+                    if (response[0].optionvalue !== null && response[0].optionvalue !== '') {
+                        $scope.comprobante_venta = parseInt(response[0].optionvalue);
+                    }
+                }
+            });
+
+        });
+    };
+
     $scope.saveConfigVenta = function () {
         var iva = {
             idconfiguracionsystem: $scope.id_iva_venta_h,
@@ -351,11 +431,13 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             idconfiguracionsystem: $scope.id_irbpnr_venta_h,
             optionvalue: $scope.irbpnr_venta_h
         };
-
-
         var propina = {
             idconfiguracionsystem: $scope.id_propina_venta_h,
             optionvalue: $scope.propina_venta_h
+        };
+        var tipocomp = {
+            idconfiguracionsystem: $scope.comprobante_venta_h,
+            optionvalue: $scope.comprobante_venta
         };
 
         /*var retrenta = {
@@ -375,7 +457,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         var data = {
             //array_data: [iva, ice, irbpnr, retiva, propina, retrenta, costo]
-            array_data: [iva, ice, irbpnr, propina, costo]
+            array_data: [iva, ice, irbpnr, propina, costo, tipocomp]
         };
 
         $http.put(API_URL + '/configuracion/updateConfigVenta/0', data ).success(function (response) {
@@ -438,6 +520,32 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
         });
     };
 
+    $scope.getTipoComprobanteNC = function () {
+        $http.get(API_URL + 'configuracion/getTipoComprobanteNC').success(function(response){
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: ''}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].namecomprobante, id: response[i].idtipocomprobante})
+            }
+            $scope.listcomprobante_nc = array_temp;
+            $scope.comprobante_nc = '';
+
+            $http.get(API_URL + '/configuracion/getTipoComprobanteNCDefault').success(function(response){
+
+                if(response.length > 0){
+
+                    $scope.comprobante_nc_h = response[0].idconfiguracionsystem;
+
+                    if (response[0].optionvalue !== null && response[0].optionvalue !== '') {
+                        $scope.comprobante_nc = parseInt(response[0].optionvalue);
+                    }
+                }
+            });
+
+        });
+    };
+
     $scope.saveConfigNC = function () {
         var iva = {
             idconfiguracionsystem: $scope.id_iva_nc_h,
@@ -457,6 +565,10 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
             optionvalue: $scope.propina_nc_h
         };
 
+        var tipocomp = {
+            idconfiguracionsystem: $scope.comprobante_nc_h,
+            optionvalue: $scope.comprobante_nc
+        };
         /*var retrenta = {
             idconfiguracionsystem: $scope.id_retrenta_nc_h,
             optionvalue: $scope.retrenta_nc_h
@@ -474,7 +586,7 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
 
         var data = {
             //array_data: [iva, ice, irbpnr, retiva, propina, retrenta, costo]
-            array_data: [iva, ice, irbpnr, propina, costo]
+            array_data: [iva, ice, irbpnr, propina, costo, tipocomp]
         };
 
         console.log(data);
