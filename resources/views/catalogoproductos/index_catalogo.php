@@ -3,7 +3,7 @@
 
             <div class="col-xs-12">
 
-                <h4>Gestión de Item</h4>
+                <h4>Gestión de Items</h4>
 
                 <hr>
 
@@ -272,6 +272,11 @@
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                             Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                         </button>
+
+                        <button type="button" class="btn btn-primary" id="btn-ob" ng-click="showListOpenBalance()" ng-disabled="formProducto.$invalid">
+                            Open Balance   <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </button>
+
                         <button type="button" class="btn btn-success" id="btn-save" ng-click="save(modalstate, id)" ng-disabled="formProducto.$invalid">
                             Guardar   <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
@@ -280,6 +285,104 @@
             </div>
         </div>
 
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalOpenBalance">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Open Balance Item: {{openbalance_item}}</h4>
+                    </div>
+
+                    <form class="form-horizontal" name="formOpenBalance" novalidate="">
+
+                        <div class="modal-body">
+
+                            <div class="row">
+
+                                <div class="col-xs-12" style="margin-top: 5px;">
+                                    <button type="button" class="btn btn-primary" id="btnAgregar" style="float: right;" ng-click="createRowOB()">
+                                        Agregar <span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                    </button>
+                                </div>
+
+                                <div class="col-xs-12" style="font-size: 12px !important; margin-top: 5px;">
+
+                                    <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
+                                        <thead class="bg-primary">
+                                            <tr>
+                                                <th style="width: 13%;">FECHA</th>
+                                                <th style="width: 23%;">BODEGA</th>
+                                                <th>CUENTA CONTABLE INICIAL</th>
+                                                <th style="width: 10%;">TOTAL STOCK</th>
+                                                <th style="width: 10%;">TOTAL VALOR</th>
+                                                <th style="width: 5%;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in listopenbalance" ng-cloak >
+
+                                                <td class="container-date">
+                                                    <input type="text" class="datepickerA form-control" id="d_{{$index + 1}}" ng-model="item.fecha" ng-required="true" ng-blur="reafirmData('d_', item, $index + 1)"/>
+                                                </td>
+                                                <td>
+                                                    <select class="form-control" ng-model="item.idbodega" ng-required="true">
+                                                        <option ng-repeat="elem in listbodegas" value="{{elem.id}}" >{{elem.label}}</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"
+                                                               ng-model="item.contabilidad.concepto" placeholder=""  readonly ng-required="true">
+                                                        <span class="input-group-btn" role="group">
+                                                            <button type="button" class="btn btn-info" ng-click="showPlanCuentaItem(item)">
+                                                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control text-right" ng-required="true" ng-model="item.totalstock" ng-keypress="onlyDecimal($event)" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control text-right" ng-required="true" ng-model="item.totalvalor" ng-keypress="onlyDecimal($event)" />
+                                                </td>
+                                                <td>
+                                                    <button type="button" ng-hide="item.id == null" ng-click="anular(item)" ng-disabled="item.estadoanulado == true" class="btn btn-default">
+                                                        <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                                                    </button>
+
+                                                    <button type="button" ng-hide="item.id != null" class="btn btn-success" id="btn-save" ng-click="saveItemOB(item)" ng-disabled="formOpenBalance.$invalid">
+                                                        <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                                                    </button>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <!--<button type="button" class="btn btn-success" id="btn-save" ng-click="saveParams()" ng-disabled="formOpenBalance.$invalid">
+                            Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>-->
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
         <!--<div class="modal fade" tabindex="-1" role="dialog" id="modalAction">
             <div class="modal-dialog" role="document">
@@ -534,6 +637,28 @@
                         </button>
                         <button type="button" class="btn btn-primary" id="btn-ok" ng-click="selectCuenta()">
                             Aceptar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalConfirmAnular">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-danger">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Confirmación</h4>
+                    </div>
+                    <div class="modal-body">
+                        <span>Está seguro que desea Anular el registro de Open Balance seleccionado...?</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-danger" id="btn-save" ng-click="anularOB()">
+                            Anular
                         </button>
                     </div>
                 </div>
