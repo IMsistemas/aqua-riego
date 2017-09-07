@@ -637,6 +637,8 @@ Route::put('configuracion/updateConfigCompra/{id}', 'ConfiguracionSystem\Configu
 Route::put('configuracion/updateListServicio/{id}', 'ConfiguracionSystem\ConfiguracionSystemController@updateListServicio');
 Route::get('configuracion/getSaveServicio', 'ConfiguracionSystem\ConfiguracionSystemController@getSaveServicio');
 Route::get('configuracion/getListServicio', 'ConfiguracionSystem\ConfiguracionSystemController@getListServicio');
+Route::get('configuracion/getTipoComprobanteVenta', 'ConfiguracionSystem\ConfiguracionSystemController@getTipoComprobanteVenta');
+Route::get('configuracion/getTipoComprobanteVentaDefault', 'ConfiguracionSystem\ConfiguracionSystemController@getTipoComprobanteVentaDefault');
 
 Route::get('configuracion/getTipoComprobanteNC', 'ConfiguracionSystem\ConfiguracionSystemController@getTipoComprobanteNC');
 Route::get('configuracion/getTipoComprobanteNCDefault', 'ConfiguracionSystem\ConfiguracionSystemController@getTipoComprobanteNCDefault');

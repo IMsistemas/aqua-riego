@@ -7,6 +7,7 @@ use App\Modelos\Contabilidad\Cont_CatalogItem;
 use App\Modelos\Contabilidad\Cont_PlanCuenta;
 use App\Modelos\SRI\SRI_Establecimiento;
 use App\Modelos\SRI\SRI_TipoAmbiente;
+use App\Modelos\SRI\SRI_TipoComprobante;
 use App\Modelos\SRI\SRI_TipoEmision;
 use Illuminate\Http\Request;
 use App\Modelos\SRI\SRI_TipoImpuestoIva;

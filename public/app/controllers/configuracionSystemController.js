@@ -353,6 +353,9 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     //-----------------------------------------------------------------------------------------------------------------
 
     $scope.getConfigVenta = function () {
+
+        $scope.getTipoComprobanteVenta();
+
         $http.get(API_URL + 'configuracion/getConfigVenta').success(function(response){
 
             var longitud = response.length;
@@ -481,6 +484,9 @@ app.controller('configuracionSystemController', function($scope, $http, $parse, 
     //-----------------------------------------------------------------------------------------------------------------
 
     $scope.getConfigNC = function () {
+
+        $scope.getTipoComprobanteNC();
+        
         $http.get(API_URL + 'configuracion/getConfigNC').success(function(response){
 
             var longitud = response.length;
