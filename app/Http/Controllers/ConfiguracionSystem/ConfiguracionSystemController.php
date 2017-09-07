@@ -38,7 +38,15 @@ class ConfiguracionSystemController extends Controller
 
     public function getIVADefault()
     {
-        return ConfiguracionSystem::where('optionname', 'SRI_IVA_DEFAULT')->get();
+        return ConfiguracionSystem::where('optionname', 'SRI_IVA_DEFAULT')
+                                    ->orWhere('optionname','CONT_CLIENT_DEFAULT')
+                                    ->orWhere('optionname','CONT_PROV_DEFAULT')
+                                    ->orWhere('optionname','CONT_CXC_DEFAULT')
+                                    ->orWhere('optionname','CONT_CXP_DEFAULT')
+                                    ->selectRaw("*, (SELECT concepto FROM cont_plancuenta 
+                                    WHERE cont_plancuenta.idplancuenta = (configuracionsystem.optionvalue)::INT 
+                                    AND configuracionsystem.optionname <> 'SRI_IVA_DEFAULT') ")
+                                    ->get();
     }
 
     public function getListServicio()
@@ -239,10 +247,31 @@ class ConfiguracionSystemController extends Controller
 
 
         if ($configuracion->save()) {
+
+            $array_option = $request->input('array_data');
+
+            foreach ($array_option as $item) {
+
+                $configuracion = ConfiguracionSystem::find($item['idconfiguracionsystem']);
+
+                if ($item['optionvalue'] == '' || $item['optionvalue'] == null) {
+                    $configuracion->optionvalue = null;
+                } else {
+                    $configuracion->optionvalue = $item['optionvalue'];
+                }
+
+
+                if (! $configuracion->save()) {
+                    return response()->json(['success' => false]);
+                }
+            }
+
             return response()->json(['success' => true]);
+
         } else {
             return response()->json(['success' => false]);
         }
+
 
     }
 
@@ -297,6 +326,16 @@ class ConfiguracionSystemController extends Controller
             ->get();
     }
 
+    public function getTipoComprobanteVenta()
+    {
+        return SRI_TipoComprobante::orderBy('namecomprobante', 'asc')->get();
+    }
+
+    public function getTipoComprobanteVentaDefault()
+    {
+        return ConfiguracionSystem::where('optionname','SRI_TIPOCOMP_VENTA_DEFAULT')->get();
+    }
+
     public function updateConfigVenta(Request $request, $id)
     {
         $array_option = $request->input('array_data');
@@ -332,6 +371,16 @@ class ConfiguracionSystemController extends Controller
             ->orWhere('optionname','SRI_RETEN_RENTA_NC')
             ->selectRaw('*, (SELECT concepto FROM cont_plancuenta WHERE cont_plancuenta.idplancuenta = (configuracionsystem.optionvalue)::INT) ')
             ->get();
+    }
+
+    public function getTipoComprobanteNC()
+    {
+        return SRI_TipoComprobante::orderBy('namecomprobante', 'asc')->get();
+    }
+
+    public function getTipoComprobanteNCDefault()
+    {
+        return ConfiguracionSystem::where('optionname','SRI_TIPOCOMP_NC_DEFAULT')->get();
     }
 
     public function updateConfigNC(Request $request, $id)

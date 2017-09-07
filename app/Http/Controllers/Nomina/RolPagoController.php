@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Nomina;
 
 use App\Http\Controllers\Contabilidad\CoreContabilidad;
 use App\Modelos\Configuracion\ConfigNomina;
+use App\Modelos\Contabilidad\Cont_Kardex;
 use App\Modelos\Contabilidad\Cont_PlanCuenta;
 use App\Modelos\Nomina\ConceptoPago;
 use App\Modelos\Nomina\Empleado;
@@ -39,7 +40,7 @@ class RolPagoController extends Controller
         return Empleado::join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
             ->join('cargo', 'cargo.idcargo', '=', 'empleado.idcargo')
             ->select('empleado.*', 'cargo.namecargo', 'persona.*' )
-            ->where('persona.idpersona', $id)->get();
+            ->where('empleado.idempleado', $id)->get();
 
     }
 
@@ -88,12 +89,33 @@ class RolPagoController extends Controller
 
     public function getRolPago($numdocumento)
     {
-        return RolPago::where('numdocumento', $numdocumento)->orderBy('id_rolpago', 'asc')->get();
+        return RolPago::join('empleado', 'empleado.idempleado', '=', 'rrhh_rolpago.id_empleado')
+            ->join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
+            ->join('cargo', 'cargo.idcargo', '=', 'empleado.idcargo')
+            ->where('numdocumento', $numdocumento)->orderBy('id_rolpago', 'asc')->get();
     }
 
     public function show($id)
     {
 
+    }
+
+    public function anularRol(Request $request)
+    {
+        $idtransaccion = $request->input('idtransaccion');
+        $numdocumento = $request->input('numdocumento');
+
+        $rolPago = RolPago::whereRaw('numdocumento = ' . $numdocumento)->update(['estadoanulado' => true]);
+
+        if ($rolPago == true) {
+
+            CoreContabilidad::AnularAsientoContable($idtransaccion);
+
+            return response()->json(['success' => true]);
+
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 
     public function store(Request $request)

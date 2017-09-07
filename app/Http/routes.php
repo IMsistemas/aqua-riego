@@ -219,6 +219,10 @@ Route::resource('puntoventa', 'Contabilidad\PuntoVentaController');
  * -------------------------------------MODULO CATALOGO PRODUCTO--------------------------------------------------------
  */
 
+Route::post('catalogoproducto/anularOB', 'CatalogoProductos\CatalogoProductoController@anularOB');
+Route::get('catalogoproducto/getOpenBalanceProducto/{id}', 'CatalogoProductos\CatalogoProductoController@getOpenBalanceProducto');
+Route::post('catalogoproducto/saveOpenBalance', 'CatalogoProductos\CatalogoProductoController@saveOpenBalance');
+Route::get('catalogoproducto/getBodegas', 'CatalogoProductos\CatalogoProductoController@getBodegas');
 Route::get('catalogoproducto/getCategoriasToFilter', 'CatalogoProductos\CatalogoProductoController@getCategoriasToFilter');
 Route::get('catalogoproducto/getLastCatalogoProducto', 'CatalogoProductos\CatalogoProductoController@getLastCatalogoProducto');
 Route::get('catalogoproducto/getCatalogoProductos/{filters}', 'CatalogoProductos\CatalogoProductoController@getCatalogoProductos');
@@ -271,6 +275,12 @@ Route::get('transportista/searchDuplicate/{identify}', 'Transportista\Transporti
 Route::resource('/transportista', 'Transportista\TransportistaController');
 
 /*
+ * -------------------------------------MODULO REEMBOLSO----------------------------------------------------------------
+ */
+
+Route::resource('/reembolso', 'Reembolso\ReembolsoController');
+
+/*
  * -------------------------------------MODULO RETENCION COMPRA---------------------------------------------------------
  */
 
@@ -288,7 +298,7 @@ Route::post('retencionCompra/getCompras', 'Retencion\RetencionCompraController@g
 Route::resource('retencionCompras', 'Retencion\RetencionCompraController');
 
 /*
- * -------------------------------------MODULO RETENCION COMPRA---------------------------------------------------------
+ * -------------------------------------MODULO RETENCION VENTA---------------------------------------------------------
  */
 
 Route::post('retencionVenta/anularRetencion', 'Retencion\RetencionVentaController@anularRetencion');
@@ -307,6 +317,10 @@ Route::resource('retencionVenta', 'Retencion\RetencionVentaController');
  */
 
 Route::post('cuentasxcobrar/anular', 'Cuentas\CuentasPorCobrarController@anular');
+
+Route::get('cuentasxcobrar/getCuentaCxC/{id}', 'Cuentas\CuentasPorCobrarController@getCuentaCxC');
+Route::get('cuentasxcobrar/getDefaultCxC', 'Cuentas\CuentasPorCobrarController@getDefaultCxC');
+
 Route::get('cuentasxcobrar/printComprobante/{id}', 'Cuentas\CuentasPorCobrarController@printComprobanteIngreso');
 Route::get('cuentasxcobrar/getLastID', 'Cuentas\CuentasPorCobrarController@getLastID');
 Route::get('cuentasxcobrar/getInfoClienteByID/{idcliente}', 'Cuentas\CuentasPorCobrarController@getInfoClienteByID');
@@ -354,6 +368,7 @@ Route::resource('DocumentoCompras', 'Compras\ComprasController');
  * ----------------------------------MODULO NOTA CREDITO----------------------------------------------------------------
  */
 
+Route::get('DocumentoNC/getTipoComprobante', 'NotaCredito\NotaCreditoController@getTipoComprobante' );
 Route::get('DocumentoNC/getSuministroByFactura', 'NotaCredito\NotaCreditoController@getSuministroByFactura');
 Route::get('DocumentoNC/getProductoPorSuministro', 'NotaCredito\NotaCreditoController@getProductoPorSuministro');
 Route::get('DocumentoNC/getInfoClienteXCIRuc/{getInfoCliente}', 'NotaCredito\NotaCreditoController@getInfoClienteXCIRuc');
@@ -378,8 +393,6 @@ Route::resource('DocumentoNC', 'NotaCredito\NotaCreditoController');
 /*
  * -----------------------------------MODULO GUIA REMISION--------------------------------------------------------------
  */
-
-
 
 Route::get('guiaremision/getGiaremision', 'Guiaremision\GuiaremisionController@show');
 Route::get('guiaremision/getItemsVenta', 'Guiaremision\GuiaremisionController@getItemsVenta');
@@ -493,6 +506,7 @@ Route::get('empleado/searchDuplicate/{identify}', 'Nomina\EmpleadoController@sea
 Route::get('empleado/getRegistroSalario/{id}', 'Nomina\EmpleadoController@getRegistroSalario');
 Route::resource('/empleado', 'Nomina\EmpleadoController');
 
+Route::post('rolPago/anularRol', 'Nomina\RolPagoController@anularRol');
 Route::get('rolPago/getRoles', 'Nomina\RolPagoController@getRoles');
 Route::get('rolPago/getCuentas', 'Nomina\RolPagoController@getCuentas');
 Route::get('rolPago/getPlanCuenta', 'Nomina\RolPagoController@getPlanCuenta');
@@ -623,6 +637,10 @@ Route::put('configuracion/updateConfigCompra/{id}', 'ConfiguracionSystem\Configu
 Route::put('configuracion/updateListServicio/{id}', 'ConfiguracionSystem\ConfiguracionSystemController@updateListServicio');
 Route::get('configuracion/getSaveServicio', 'ConfiguracionSystem\ConfiguracionSystemController@getSaveServicio');
 Route::get('configuracion/getListServicio', 'ConfiguracionSystem\ConfiguracionSystemController@getListServicio');
+
+Route::get('configuracion/getTipoComprobanteNC', 'ConfiguracionSystem\ConfiguracionSystemController@getTipoComprobanteNC');
+Route::get('configuracion/getTipoComprobanteNCDefault', 'ConfiguracionSystem\ConfiguracionSystemController@getTipoComprobanteNCDefault');
+
 Route::resource('configuracion', 'ConfiguracionSystem\ConfiguracionSystemController');
 
 

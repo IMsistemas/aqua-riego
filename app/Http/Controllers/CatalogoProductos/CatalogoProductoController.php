@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\CatalogoProductos;
 
+use App\Http\Controllers\Contabilidad\CoreContabilidad;
 use App\Modelos\CatalogoProductos\CatalogoProducto;
 use App\Modelos\Categoria;
+use App\Modelos\Contabilidad\Cont_Bodega;
 use App\Modelos\Contabilidad\Cont_Itemactivofijo;
 use App\Modelos\Contabilidad\Cont_CatalogItem;
 use App\Modelos\Contabilidad\Cont_ClaseItem;
+use App\Modelos\Contabilidad\Cont_Kardex;
+use App\Modelos\Contabilidad\Cont_OpenBalanceItems;
 use App\Modelos\SRI\SRI_TipoImpuestoIce;
 use App\Modelos\SRI\SRI_TipoImpuestoIva;
 use Illuminate\Http\Request;
@@ -71,6 +75,13 @@ class CatalogoProductoController extends Controller
         return ConfiguracionSystem::where('optionname', 'SRI_IVA_DEFAULT')->get();
     }
     
+    public function getBodegas()
+    {
+        return Cont_Bodega::join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'cont_bodega.idplancuenta')
+                            ->get();
+    }
+
+
     /**
      * Obtener las lineas para filtro
      *
@@ -101,6 +112,10 @@ class CatalogoProductoController extends Controller
     	return $producto;
     }
 
+    public function getOpenBalanceProducto($id)
+    {
+        return Cont_OpenBalanceItems::with('cont_plancuenta')->where('idcatalogitem', $id)->get();
+    }
     
     /**
      * Almacenar el producto
@@ -181,6 +196,64 @@ class CatalogoProductoController extends Controller
     	//return ($result) ? response()->json(['success' => true]) : response()->json(['success' => false]);
             return response()->json(['success' => true]);
     	 
+    }
+    
+
+    public function saveOpenBalance(Request $request)
+    {
+        $aux = $request->all();
+
+        $filtro = json_decode($aux['datos']);
+
+        $id_transaccion = CoreContabilidad::SaveAsientoContable($filtro->DataContabilidad);
+
+        $filtro->Datakardex[0]->idtransaccion = $id_transaccion;
+        CoreKardex::GuardarKardex($filtro->Datakardex);
+
+        $filtro->DataOpenBalance->idtransaccion = $id_transaccion;
+
+        $object_newOpenBalance = new Cont_OpenBalanceItems();
+        $object_newOpenBalance->idtransaccion = $filtro->DataOpenBalance->idtransaccion;
+        $object_newOpenBalance->idcatalogitem = $filtro->DataOpenBalance->idcatalogitem;
+        $object_newOpenBalance->idbodega = $filtro->DataOpenBalance->idbodega;
+        $object_newOpenBalance->idplancuenta = $filtro->DataOpenBalance->idplancuenta;
+        $object_newOpenBalance->fecha = $filtro->DataOpenBalance->fecha;
+        $object_newOpenBalance->totalstock = $filtro->DataOpenBalance->totalstock;
+        $object_newOpenBalance->totalvalor = $filtro->DataOpenBalance->totalvalor;
+
+        if ($object_newOpenBalance->save()) {
+
+            return response()->json(['success' => true]);
+
+        } else {
+
+            return response()->json(['success' => false]);
+
+        }
+    }
+
+    public function anularOB(Request $request)
+    {
+        $idopenbalanceitems = $request->input('idopenbalanceitems');
+
+        $ob = Cont_OpenBalanceItems::find($idopenbalanceitems);
+        $ob->estadoanulado = true;
+
+        if ($ob->save()) {
+
+            CoreContabilidad::AnularAsientoContable($ob->idtransaccion);
+
+            $result = Cont_Kardex::whereRaw('idtransaccion = ' . $ob->idtransaccion)
+                ->update(['estadoanulado' => false]);
+
+            if ($result == false) {
+                return response()->json(['success' => false]);
+            }
+
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
     
     /**
