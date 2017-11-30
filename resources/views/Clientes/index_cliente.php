@@ -579,6 +579,19 @@
                         <button type="button" class="btn btn-primary btn-block" ng-click="actionFraccion()">
                             FRACCIONAMIENTO
                         </button>
+
+                        <button type="button" class="btn btn-primary btn-block" ng-click="">
+                            RECTIFICACION TERRENO
+                        </button>
+
+                        <button type="button" class="btn btn-primary btn-block" ng-click="">
+                            ELIMINACION TERRENO
+                        </button>
+
+                        <button type="button" class="btn btn-primary btn-block" ng-click="">
+                            CAMBIO CULTIVO
+                        </button>
+
                         <button type="button" class="btn btn-primary btn-block" ng-click="actionOtro()">
                             OTRO TIPO
                         </button>
