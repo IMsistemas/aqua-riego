@@ -1131,7 +1131,7 @@
                         </button>
                         <button type="button" class="btn btn-primary" id="btn-process-setnombre"
                                 ng-click="procesarSolicitud('btn-process-setnombre')" disabled>
-                            Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            Autorizar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </button>
                     </div>
                 </div>
@@ -1421,7 +1421,7 @@
                         </button>
                         <button type="button" class="btn btn-primary" id="btn-process-fraccion"
                                 ng-click="procesarSolicitud('btn-process-fraccion')" disabled>
-                            Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            Autorizar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </button>
                     </div>
                 </div>
@@ -1546,7 +1546,7 @@
                         </button>
                         <button type="button" class="btn btn-primary" id="btn-process-otro"
                                 ng-click="procesarSolicitud('btn-process-otro')" disabled>
-                            Procesar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            Autorizar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </button>
                     </div>
                 </div>
