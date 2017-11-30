@@ -654,6 +654,30 @@ class ClienteController extends Controller
         }
     }
 
+    public function processSolicitudEliminarTerreno(Request $request, $id)
+    {
+        $solicitud_deleteterreno = SolicitudEliminacion::find($id);
+
+        $terreno = Terreno::find($solicitud_deleteterreno->idterreno);
+        $terreno->estado = false;
+
+        if ($terreno->save()) {
+
+            $solicitud = Solicitud::find($solicitud_deleteterreno->idsolicitud);
+
+            $solicitud->estaprocesada = true;
+            $solicitud->fechaprocesada = date('Y-m-d');
+
+            if ($solicitud->save()) {
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false]);
+            }
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+
     public function processSolicitudFraccion(Request $request, $id)
     {
         $solicitud = SolicitudReparticion::find($id);

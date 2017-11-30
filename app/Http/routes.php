@@ -90,6 +90,7 @@ Route::post('cliente/storeSolicitudDeleteTerreno', 'Clientes\ClienteController@s
 Route::post('cliente/storeSolicitudFraccion', 'Clientes\ClienteController@storeSolicitudFraccion');
 Route::put('cliente/processSolicitud/{idsolicitud}', 'Clientes\ClienteController@processSolicitud');
 Route::put('cliente/processSolicitudSetName/{idsolicitud}', 'Clientes\ClienteController@processSolicitudSetName');
+Route::put('cliente/processSolicitudEliminarTerreno/{idsolicitud}', 'Clientes\ClienteController@processSolicitudEliminarTerreno');
 Route::put('cliente/processSolicitudFraccion/{idsolicitud}', 'Clientes\ClienteController@processSolicitudFraccion');
 Route::get('cliente/getTipoIdentificacion', 'Clientes\ClienteController@getTipoIdentificacion');
 Route::get('cliente/getImpuestoIVA', 'Clientes\ClienteController@getImpuestoIVA');

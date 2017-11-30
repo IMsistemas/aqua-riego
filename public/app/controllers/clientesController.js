@@ -1322,6 +1322,8 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
         if (id_btn == 'btn-process-setnombre'){
             url = API_URL + 'cliente/processSolicitudSetName/' + $scope.idsolicitud_to_process;
+        } else if (id_btn == 'btn-process-deleteterreno') {
+            url = API_URL + 'cliente/processSolicitudEliminarTerreno/' + $scope.idsolicitud_to_process;
         } else if (id_btn == 'btn-process-fraccion') {
             url = API_URL + 'cliente/processSolicitudFraccion/' + $scope.idsolicitud_to_process;
         } else {
