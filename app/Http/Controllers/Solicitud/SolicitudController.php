@@ -46,6 +46,12 @@ class SolicitudController extends Controller
                 '*, (SELECT idsolicitudcambionombre FROM solicitudcambionombre WHERE solicitudcambionombre.idsolicitud = solicitud.idsolicitud) AS solicitudcambionombre'
             )->join('solicitudcambionombre', 'solicitud.idsolicitud', '=', 'solicitudcambionombre.idsolicitud');
 
+        } else if ($filter_view->tipo == 6) {
+
+            $list_solicitudes = $list_solicitudes->selectRaw(
+                '*, (SELECT idsolicitudeliminacion FROM solicitudeliminacion WHERE solicitudeliminacion.idsolicitud = solicitud.idsolicitud) AS solicitudeliminacion'
+            )->join('solicitudeliminacion', 'solicitud.idsolicitud', '=', 'solicitudeliminacion.idsolicitud');
+
         } else if ($filter_view->tipo == 2) {
 
             $list_solicitudes = $list_solicitudes->selectRaw(
@@ -62,6 +68,9 @@ class SolicitudController extends Controller
             $list_solicitudes = $list_solicitudes->selectRaw(
                 '*, (SELECT idsolicitudotro FROM solicitudotro WHERE solicitudotro.idsolicitud = solicitud.idsolicitud) AS solicitudotro,
                 (SELECT idsolicitudcambionombre FROM solicitudcambionombre WHERE solicitudcambionombre.idsolicitud = solicitud.idsolicitud) AS solicitudcambionombre,
+                
+                (SELECT idsolicitudeliminacion FROM solicitudeliminacion WHERE solicitudeliminacion.idsolicitud = solicitud.idsolicitud) AS solicitudeliminacion,
+                
                 (SELECT idsolicitudreparticion FROM solicitudreparticion WHERE solicitudreparticion.idsolicitud = solicitud.idsolicitud) AS solicitudreparticion,
                 (SELECT idsolicitudriego FROM solicitudriego WHERE solicitudriego.idsolicitud = solicitud.idsolicitud) AS solicitudriego'
             );

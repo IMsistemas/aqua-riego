@@ -23,6 +23,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
         { id: 5, name: '-- Seleccione --' },
         { id: 4, name: 'Riego' },
         { id: 3, name: 'Cambio de Nombre' },
+        { id: 6, name: 'Eliminación' },
         { id: 2, name: 'Fraccionamiento' },
         { id: 1, name: 'Otros' },
     ];
@@ -190,6 +191,9 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
                     } else if (response.data[i].solicitudriego !== null && response.data[i].solicitudriego !== undefined) {
                         tipo = 'Riego';
                         idtipo = response.data[i].solicitudriego;
+                    } else if (response.data[i].solicitudeliminacion !== null && response.data[i].solicitudeliminacion !== undefined) {
+                        tipo = 'Eliminación';
+                        idtipo = response.data[i].solicitudeliminacion;
                     }
 
                     var tipo_name = {
