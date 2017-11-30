@@ -10,6 +10,7 @@ use App\Modelos\Persona;
 use App\Modelos\Sectores\Barrio;
 use App\Modelos\Solicitud\Solicitud;
 use App\Modelos\Solicitud\SolicitudCambioNombre;
+use App\Modelos\Solicitud\SolicitudEliminacion;
 use App\Modelos\Solicitud\SolicitudOtro;
 use App\Modelos\Solicitud\SolicitudReparticion;
 use App\Modelos\Solicitud\SolicitudRiego;
@@ -292,6 +293,8 @@ class ClienteController extends Controller
             $max = SolicitudCambioNombre::max('idsolicitudcambionombre');
         } else if ($table->name == 'solicitudreparticion') {
             $max = SolicitudReparticion::max('idsolicitudreparticion');
+        } else if ($table->name == 'solicitudreparticion') {
+            $max = SolicitudEliminacion::max('idsolicitudeliminacion');
         }
 
         if ($max != null){
@@ -548,6 +551,35 @@ class ClienteController extends Controller
 
             return ($result) ? response()->json(['success' => true,
                 'idsolicitud' => $solicitudsetname->idsolicitudcambionombre]) :
+                response()->json(['success' => false]);
+        } else {
+            response()->json(['success' => false]);
+        }
+
+    }
+
+    public function storeSolicitudDeleteTerreno(Request $request)
+    {
+
+        $fecha_actual = date('Y-m-d');
+
+        $solicitud = new Solicitud();
+        $solicitud->idcliente = $request->input('codigocliente');
+        $solicitud->fechasolicitud = $fecha_actual;
+        $solicitud->fechaprocesada = $fecha_actual;
+        $solicitud->estaprocesada = false;
+
+        if ($solicitud->save()) {
+
+            $solicitudeliminacion = new SolicitudEliminacion();
+            $solicitudeliminacion->idsolicitud = $solicitud->idsolicitud;
+            $solicitudeliminacion->idterreno = $request->input('idterreno');
+            $solicitudeliminacion->observacion = $request->input('observacion');
+
+            $result = $solicitudeliminacion->save();
+
+            return ($result) ? response()->json(['success' => true,
+                'idsolicitud' => $solicitudeliminacion->idsolicitudeliminacion]) :
                 response()->json(['success' => false]);
         } else {
             response()->json(['success' => false]);

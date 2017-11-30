@@ -86,6 +86,7 @@ Route::get('cliente/getIsFreeCliente/{codigocliente}', 'Clientes\ClienteControll
 Route::post('cliente/storeSolicitudRiego', 'Clientes\ClienteController@storeSolicitudRiego');
 Route::post('cliente/storeSolicitudOtro', 'Clientes\ClienteController@storeSolicitudOtro');
 Route::post('cliente/storeSolicitudSetName', 'Clientes\ClienteController@storeSolicitudSetName');
+Route::post('cliente/storeSolicitudDeleteTerreno', 'Clientes\ClienteController@storeSolicitudDeleteTerreno');
 Route::post('cliente/storeSolicitudFraccion', 'Clientes\ClienteController@storeSolicitudFraccion');
 Route::put('cliente/processSolicitud/{idsolicitud}', 'Clientes\ClienteController@processSolicitud');
 Route::put('cliente/processSolicitudSetName/{idsolicitud}', 'Clientes\ClienteController@processSolicitudSetName');

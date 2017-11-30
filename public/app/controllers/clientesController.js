@@ -705,6 +705,66 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
     };
 
     /*
+     *  GET DATA FOR SOLICITUD ELIMINAR TERRENO---------------------------------------------------------
+     */
+
+
+    $scope.getLastIDDeleteTerreno = function () {
+        var table = {
+            name: 'solicitudeliminacion'
+        };
+
+        $http.get(API_URL + 'cliente/getLastID/' + JSON.stringify(table)).success(function(response){
+            $scope.num_solicitud_deleteterreno = response.id;
+        });
+    };
+
+    $scope.getTerrenosByClienteDelete = function () {
+        var idcliente = {
+            idcliente: $scope.objectAction.idcliente
+        };
+
+        $http.get(API_URL + 'cliente/getTerrenosByCliente/' + JSON.stringify(idcliente)).success(function(response){
+            console.log(response);
+
+            $scope.list_terrenos = response;
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: 0}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].area, id: response[i].idterreno})
+            }
+
+            $scope.terrenos_setN = array_temp;
+            $scope.t_terrenos_deleteterreno = 0;
+        });
+    };
+
+    $scope.searchInfoTerrenoDelete = function () {
+
+        console.log($scope.list_terrenos);
+
+        var longitud = ($scope.list_terrenos).length;
+
+        for (var i = 0; i < longitud; i++){
+            if ($scope.list_terrenos[i].idterreno == $scope.t_terrenos_deleteterreno){
+                $scope.junta_deleteterreno = $scope.list_terrenos[i].derivacion.canal.calle.barrio.namebarrio;
+                $scope.toma_deleteterreno = $scope.list_terrenos[i].derivacion.canal.calle.namecalle;
+                $scope.canal_deleteterreno = $scope.list_terrenos[i].derivacion.canal.nombrecanal;
+                $scope.derivacion_deleteterreno = $scope.list_terrenos[i].derivacion.nombrederivacion;
+                $scope.cultivo_deleteterreno = $scope.list_terrenos[i].cultivo.nombrecultivo;
+                $scope.area_deleteterreno = $scope.list_terrenos[i].area;
+                $scope.caudal_deleteterreno = $scope.list_terrenos[i].caudal;
+
+                break;
+            }
+        }
+
+    };
+
+
+
+    /*
      *  GET DATA FOR SOLICITUD OTROS-------------------------------------------------------------------
      */
 
@@ -1045,6 +1105,35 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
         $('#modalActionSetNombre').modal('show');
     };
 
+    $scope.actionDeleteTerreno = function () {
+        $scope.getTerrenosByClienteDelete();
+        //$scope.getIdentifyClientes();
+        $scope.getLastIDDeleteTerreno();
+
+        $scope.t_fecha_deleteterreno = $scope.nowDate();
+        $scope.h_codigocliente_deleteterreno = $scope.objectAction.idcliente;
+        $scope.documentoidentidad_cliente_deleteterreno = $scope.objectAction.numdocidentific;
+        $scope.nom_cliente_deleteterreno = $scope.objectAction.razonsocial;
+        $scope.direcc_cliente_deleteterreno = $scope.objectAction.direccion;
+        $scope.telf_cliente_deleteterreno = $scope.objectAction.telefonoprincipaldomicilio;
+        $scope.celular_cliente_deleteterreno = $scope.objectAction.celphone;
+        $scope.telf_trab_cliente_deleteterreno = $scope.objectAction.telefonoprincipaltrabajo;
+
+        $scope.junta_deleteterreno = '';
+        $scope.toma_deleteterreno = '';
+        $scope.canal_deleteterreno = '';
+        $scope.derivacion_deleteterreno = '';
+        $scope.cultivo_deleteterreno = '';
+        $scope.area_deleteterreno = '';
+        $scope.caudal_deleteterreno = '';
+
+        $scope.t_observacion_deleteterreno = '';
+
+        $('#btn-process-deleteterreno').prop('disabled', true);
+        $('#btn-save-deleteterreno').prop('disabled', false);
+        $('#modalDeleteTerreno').modal('show');
+    };
+
     $scope.saveSolicitudRiego = function () {
 
         var solicitud = {
@@ -1187,6 +1276,37 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
                 $('#btn-save-setnombre').prop('disabled', true);
                 $('#btn-process-setnombre').prop('disabled', false);
+
+                $scope.message = 'Se ha ingresado la solicitud correctamente...';
+                $('#modalMessage').modal('show');
+                $scope.hideModalMessage();
+            }
+
+        });
+
+    };
+
+    $scope.saveSolicitudDeleteTerreno = function () {
+
+        var solicitud = {
+            //fechacreacion: convertDatetoDB($scope.t_fecha_process),
+            //codigocliente_new: $scope.h_new_codigocliente_setnombre,
+            codigocliente: $scope.h_codigocliente_deleteterreno,
+            idterreno: $scope.t_terrenos_deleteterreno,
+            observacion: $scope.t_observacion_deleteterreno
+            //idsolicitud: $scope.num_solicitud
+        };
+
+        $http.post(API_URL + 'cliente/storeSolicitudDeleteTerreno', solicitud).success(function(response){
+
+            if(response.success == true){
+                $scope.initLoad();
+
+
+                $scope.idsolicitud_to_process = response.idsolicitud;
+
+                $('#btn-save-deleteterreno').prop('disabled', true);
+                $('#btn-process-deleteterreno').prop('disabled', false);
 
                 $scope.message = 'Se ha ingresado la solicitud correctamente...';
                 $('#modalMessage').modal('show');

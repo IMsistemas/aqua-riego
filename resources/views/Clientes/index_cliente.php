@@ -584,7 +584,7 @@
                             RECTIFICACION TERRENO
                         </button>
 
-                        <button type="button" class="btn btn-primary btn-block" ng-click="">
+                        <button type="button" class="btn btn-primary btn-block" ng-click="actionDeleteTerreno()">
                             ELIMINACION TERRENO
                         </button>
 
@@ -1552,6 +1552,224 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
+        <div class="modal fade" tabindex="-1" role="dialog" id="modalDeleteTerreno">
+            <div class="modal-dialog" role="document" style="width: 60%;">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+
+                        <div class="col-md-6 col-xs-12">
+                            <h4 class="modal-title">Solicitud de Eliminacion de Terreno Nro: {{num_solicitud_deleteterreno}}</h4>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <div class="form-group">
+                                <h4 class="modal-title"><label for="t_fecha_process" class="col-sm-6" style="font-weight: normal !important;">Fecha Ingreso:</label></h4>
+                                <div class="col-sm-5" style="padding: 0;">
+                                    <input type="text" class="form-control input-sm datepicker" name="t_fecha_deleteterreno"
+                                           id="t_fecha_deleteterreno" ng-model="t_fecha_deleteterreno" style="color: black !important;" disabled>
+                                </div>
+                                <div class="col-sm-1 col-xs-12 text-right" style="padding: 0;">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" name="formSetNombre" novalidate="">
+
+                            <div class="row">
+                                <div class="col-xs-12" style="padding: 2%; margin-top: -20px !important;">
+                                    <fieldset ng-cloak>
+                                        <legend style="font-size: 16px; font-weight: bold;">Datos del Cliente</legend>
+
+                                        <div class="col-xs-12" style="padding: 0;">
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">RUC/CI: </span>
+                                                    <input class="form-control" type="text" name="documentoidentidad_cliente_deleteterreno" id="documentoidentidad_cliente_deleteterreno"
+                                                           ng-model="documentoidentidad_cliente_deleteterreno" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Nombre y Apellidos: </span>
+                                                    <input class="form-control" type="text" name="nom_cliente_deleteterreno" id="nom_cliente_deleteterreno"
+                                                           ng-model="nom_cliente_deleteterreno" disabled >
+                                                </div>
+                                                <input type="hidden" ng-model="h_codigocliente_deleteterreno">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Dirección Domicilio: </span>
+                                                    <input class="form-control" type="text" name="direcc_cliente_deleteterreno" id="direcc_cliente_deleteterreno"
+                                                           ng-model="direcc_cliente_deleteterreno" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Teléfono Domicilio: </span>
+                                                    <input class="form-control" type="text" name="telf_cliente_deleteterreno" id="telf_cliente_deleteterreno"
+                                                           ng-model="telf_cliente_deleteterreno" disabled >
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12" style="padding: 0; margin-top: 5px;">
+
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Celular: </span>
+                                                    <input class="form-control" type="text" name="celular_cliente_deleteterreno" id="celular_cliente_deleteterreno"
+                                                           ng-model="celular_cliente_deleteterreno" disabled >
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-sm-6 col-xs-12">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">Teléfono Trabajo: </span>
+                                                    <input class="form-control" type="text" name="telf_trab_cliente_deleteterreno" id="telf_trab_cliente_deleteterreno"
+                                                           ng-model="telf_trab_cliente_deleteterreno" disabled >
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-xs-12" style="padding: 2%; margin-top: -25px !important;">
+                                    <fieldset>
+                                        <legend style="font-size: 16px; font-weight: bold;">Datos de Terreno</legend>
+
+                                        <div class="col-sm-6 col-xs-12">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Terrenos </span>
+                                                <select class="form-control" name="t_terrenos_deleteterreno" id="t_terrenos_deleteterreno"
+                                                        ng-model="t_terrenos_deleteterreno" ng-options="value.id as value.label for value in terrenos_setN"
+                                                        ng-change="searchInfoTerrenoDelete()"></select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Junta Modular: </span>
+                                                <input class="form-control" type="text" name="junta_deleteterreno" id="junta_deleteterreno"
+                                                       ng-model="junta_deleteterreno" disabled >
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Toma: </span>
+                                                <input class="form-control" type="text" name="toma_deleteterreno" id="toma_deleteterreno"
+                                                       ng-model="toma_deleteterreno" disabled >
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Canal: </span>
+                                                <input class="form-control" type="text" name="canal_deleteterreno" id="canal_deleteterreno"
+                                                       ng-model="canal_deleteterreno" disabled >
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Derivación: </span>
+                                                <input class="form-control" type="text" name="derivacion_setnombre" id="derivacion_deleteterreno"
+                                                       ng-model="derivacion_deleteterreno" disabled >
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Tipo Cultivo: </span>
+                                                <input class="form-control" type="text" name="cultivo_deleteterreno" id="cultivo_deleteterreno"
+                                                       ng-model="cultivo_deleteterreno" disabled >
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Area (m2): </span>
+                                                <input class="form-control" type="text" name="area_deleteterreno" id="area_deleteterreno"
+                                                       ng-model="area_deleteterreno" disabled >
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-sm-6 col-xs-12" style="margin-top: 5px;">
+
+                                            <div class="input-group">
+                                                <span class="input-group-addon">Caudal: </span>
+                                                <input class="form-control" type="text" name="caudal_deleteterreno" id="caudal_deleteterreno"
+                                                       ng-model="caudal_deleteterreno" disabled >
+                                            </div>
+
+                                        </div>
+
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-xs-12" style="">
+                                    <div class="col-xs-12">
+                                        <textarea class="form-control" id="t_observacion_deleteterreno" ng-model="t_observacion_deleteterreno" rows="2" placeholder="Observacion para Motivo de Eliminacion"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="btn-save-deleteterreno"
+                                ng-click="saveSolicitudDeleteTerreno()" ng-disabled="formSetNombre.$invalid">
+                            Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn btn-primary" id="btn-process-deleteterreno"
+                                ng-click="procesarSolicitud('btn-process-deleteterreno')" disabled>
+                            Autorizar <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
         <div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
             <div class="modal-dialog" role="document">
