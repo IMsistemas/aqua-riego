@@ -312,7 +312,8 @@ class ClienteController extends Controller
         $cliente = json_decode($idcliente);
 
         return Terreno::with('derivacion.canal.calle.barrio', 'cultivo')
-                        ->where('idcliente', $cliente->idcliente)->get();
+                        ->where('idcliente', $cliente->idcliente)
+                        ->where('estado', true)->get();
     }
 
     public function getIdentifyClientes($idcliente)
