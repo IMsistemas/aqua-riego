@@ -6,6 +6,7 @@ use App\Modelos\Clientes\Cliente;
 use App\Modelos\Clientes\ClienteArriendo;
 use App\Modelos\Solicitud\Solicitud;
 use App\Modelos\Solicitud\SolicitudCambioNombre;
+use App\Modelos\Solicitud\SolicitudEliminacion;
 use App\Modelos\Solicitud\SolicitudOtro;
 use App\Modelos\Solicitud\SolicitudReparticion;
 use App\Modelos\Solicitud\SolicitudRiego;
@@ -182,6 +183,12 @@ class SolicitudController extends Controller
     {
         return SolicitudCambioNombre::with('cliente.persona', 'terreno.derivacion.canal.calle.barrio', 'terreno.cultivo', 'solicitud.cliente.persona')
                                     ->where('idsolicitudcambionombre', $idsolicitud)->get();
+    }
+
+    public function getSolicitudDeleteTerreno($idsolicitud)
+    {
+        return SolicitudEliminacion::with('cliente.persona', 'terreno.derivacion.canal.calle.barrio', 'terreno.cultivo', 'solicitud.cliente.persona')
+                                    ->where('idsolicitudeliminacion', $idsolicitud)->get();
     }
 
     public function getSolicitudFraccion($idsolicitud)

@@ -29,6 +29,7 @@ Route::get('solicitud/getSolicitudes', 'Solicitud\SolicitudController@getSolicit
 Route::get('solicitud/getSolicitudOtro/{idsolicitud}', 'Solicitud\SolicitudController@getSolicitudOtro');
 Route::get('solicitud/getSolicitudRiego/{idsolicitud}', 'Solicitud\SolicitudController@getSolicitudRiego');
 Route::get('solicitud/getSolicitudSetN/{idsolicitud}', 'Solicitud\SolicitudController@getSolicitudSetN');
+Route::get('solicitud/getSolicitudDeleteTerreno/{idsolicitud}', 'Solicitud\SolicitudController@getSolicitudDeleteTerreno');
 Route::get('solicitud/getSolicitudFraccion/{idsolicitud}', 'Solicitud\SolicitudController@getSolicitudFraccion');
 Route::get('solicitud/getIdentifyCliente/{idcliente}', 'Solicitud\SolicitudController@getIdentifyCliente');
 Route::get('solicitud/getByFilter/{filter}', 'Solicitud\SolicitudController@getByFilter');
