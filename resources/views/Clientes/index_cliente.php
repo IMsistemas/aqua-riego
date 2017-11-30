@@ -580,17 +580,17 @@
                             FRACCIONAMIENTO
                         </button>
 
-                        <button type="button" class="btn btn-primary btn-block" ng-click="">
-                            RECTIFICACION TERRENO
-                        </button>
-
                         <button type="button" class="btn btn-primary btn-block" ng-click="actionDeleteTerreno()">
                             ELIMINACION TERRENO
                         </button>
 
+                        <!--<button type="button" class="btn btn-primary btn-block" ng-click="">
+                            RECTIFICACION TERRENO
+                        </button>
+
                         <button type="button" class="btn btn-primary btn-block" ng-click="">
                             CAMBIO CULTIVO
-                        </button>
+                        </button> -->
 
                         <button type="button" class="btn btn-primary btn-block" ng-click="actionOtro()">
                             OTRO TIPO
