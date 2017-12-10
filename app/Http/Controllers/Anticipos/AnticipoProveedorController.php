@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Anticipos;
 
+use App\Modelos\Contabilidad\Cont_AnticipoProveedor;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,7 +17,13 @@ class AnticipoProveedorController extends Controller
      */
     public function index()
     {
-        //
+        return view('Anticipos/index_proveedor');
+    }
+
+    public function getAnticipos()
+    {
+        return Cont_AnticipoProveedor::where('estado', true)
+                                        ->orderBy('fecha', 'desc')->paginate(10);
     }
 
     /**

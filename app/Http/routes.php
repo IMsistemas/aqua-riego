@@ -251,6 +251,12 @@ Route::put('categoria/update/{request}', 'Categorias\CategoriaController@update'
 Route::resource('categoria', 'Categorias\CategoriaController');
 
 /*
+ * ------------------------------------MODULO ANTICIPO PROVEEDORES------------------------------------------------------
+ */
+
+Route::resource('anticipoproveedor', 'Anticipos\AnticipoProveedorController');
+
+/*
  * ------------------------------------MODULO PROVEEDORES Y TRANSPORTISTAS----------------------------------------------
  */
 

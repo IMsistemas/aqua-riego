@@ -20,9 +20,9 @@ app.controller('anticipoProveedorController', function($scope, $http, API_URL) {
             search: search
         };
 
-        $http.get(API_URL + 'departamento/getDepartamentos?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).
+        $http.get(API_URL + 'anticipoproveedor/getAnticipos?page=' + pageNumber + '&filter=' + JSON.stringify(filtros)).
         success(function(response){
-            $scope.departamentos = response.data;
+            $scope.anticipos = response.data;
             $scope.totalItems = response.total;
         });
     };

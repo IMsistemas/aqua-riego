@@ -123,6 +123,7 @@
                                         <ul class="dropdown-menu">
                                             <li id="permiso_10"><a tabindex="-1" href="#" ng-click="toModuloCompras();">Facturación de Compras</a></li>
                                             <li id="permiso_11"><a href="#" ng-click="toModuloRetencionesCompras();">Retención Compras</a></li>
+                                            <li id="permiso_10"><a href="#" ng-click="toModuloAnticipoProveedor();">Anticipo Proveedor</a></li>
                                             <li id="permiso_13"><a href="#" ng-click="toModuloCuentasxPagar();">Cuentas por Pagar (Comprobante Egreso)</a></li>
                                             <li id="permiso_39"><a href="#" ng-click="toModuloReporteCompras();">Reporte de Compras</a></li>
                                         </ul>
@@ -331,6 +332,7 @@
     <script src="<?= asset('app/controllers/rolController.js') ?>"></script>
     <script src="<?= asset('app/controllers/usuarioController.js') ?>"></script>
     <script src="<?= asset('app/controllers/comprasController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/anticipoProveedorController.js') ?>"></script>
     <script src="<?= asset('app/controllers/notaCreditoController.js') ?>"></script>
     <script src="<?= asset('app/controllers/reporteCompraController.js') ?>"></script>
     <script src="<?= asset('app/controllers/reporteVentaController.js') ?>"></script>

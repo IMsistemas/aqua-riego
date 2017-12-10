@@ -1,6 +1,6 @@
 
 
-<div ng-controller="anticipoProveedorController">
+<div ng-controller="anticipoProveedorController" ng-init="initLoad(1)">
 
     <div class="col-xs-12">
 
@@ -28,32 +28,33 @@
         <div class="col-xs-12">
             <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                 <thead class="bg-primary">
-                <tr>
-                    <th>NOMBRE ROL</th>
-                    <th style="width: 25%;">ACCIONES</th>
-                </tr>
+                    <tr>
+                        <th>FECHA</th>
+                        <th>PROVEEDOR</th>
+                        <th>CUENTA</th>
+                        <th>MONTO</th>
+                        <th style="width: 25%;">ACCIONES</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr dir-paginate="item in roles | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
-                <td>{{item.namerol}}</td>
-                <td class="text-center">
+                    <tr dir-paginate="item in anticipos | itemsPerPage:10" total-items="totalItems" ng-cloak >
+                        <td>{{item.fecha}}</td>
+                        <td>{{item.idproveedor}}</td>
+                        <td>{{item.idplancuenta}}</td>
+                        <td>{{item.monto}}</td>
+                        <td class="text-center">
 
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-warning" ng-click="toggle('edit', item.idrol)">
+                                    Editar <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="btn btn-default" ng-click="showModalConfirm(item)">
+                                    Anular <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </div>
 
-                    <div class="btn-group" role="group" aria-label="...">
-                        <button ng-show="item.idrol != 1" type="button" class="btn btn-info" ng-click="toggle('perm', item.idrol)">
-                            Permisos <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                        </button>
-                        <button type="button" class="btn btn-warning" ng-click="toggle('edit', item.idrol)">
-                            Editar <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                        </button>
-                        <button ng-show="item.idrol != 1" type="button" class="btn btn-danger" ng-click="showModalConfirm(item)">
-                            Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                        </button>
-                    </div>
-
-
-                </td>
-                </tr>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <dir-pagination-controls

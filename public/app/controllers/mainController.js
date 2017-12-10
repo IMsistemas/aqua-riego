@@ -204,6 +204,11 @@ app.controller('mainController',function($scope, $http, API_URL) {
         $scope.toModulo = "DocumentoCompras";
     }
 
+    $scope.toModuloAnticipoProveedor = function(){
+        $scope.titulo = "Anticipo Proveedor";
+        $scope.toModulo = "anticipoproveedor";
+    }
+
     $scope.toModuloVentas = function(){
         $scope.titulo = "Ventas: Registro Ventas";
         $scope.toModulo = "DocumentoVenta";
