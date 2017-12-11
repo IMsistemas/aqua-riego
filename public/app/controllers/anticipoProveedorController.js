@@ -3,6 +3,7 @@
 app.controller('anticipoProveedorController', function($scope, $http, API_URL) {
 
     $scope.select_cuenta = null;
+    $scope.proveedor = null;
 
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
@@ -28,6 +29,29 @@ app.controller('anticipoProveedorController', function($scope, $http, API_URL) {
             $scope.anticipos = response.data;
             $scope.totalItems = response.total;
         });
+    };
+
+    $scope.autoAssignDate = function () {
+
+        $scope.fecha = $('#fecha').val();
+
+    };
+
+    $scope.showDataProveedor = function (object) {
+
+        if (object != undefined && object.originalObject != undefined) {
+
+            console.log(object);
+
+            /*$scope.razon = object.originalObject.razonsocial;
+            $scope.direccion = object.originalObject.direccion;
+            $scope.telefono = object.originalObject.proveedor[0].telefonoprincipal;
+            $scope.iva = object.originalObject.proveedor[0].sri_tipoimpuestoiva.nametipoimpuestoiva;*/
+
+            $scope.proveedor = object;
+
+        }
+
     };
 
     $scope.showPlanCuenta = function () {
@@ -86,57 +110,80 @@ app.controller('anticipoProveedorController', function($scope, $http, API_URL) {
 
     $scope.save = function (){
 
-        var centrocosto = false;
-
-        if ($scope.centrocosto === "true") {
-            centrocosto = true;
-        }
-
-        var data = {
-            namedepartamento: $scope.nombrecargo,
-            centrocosto: centrocosto
+        var Transaccion = {
+            fecha: $('#fecha').val(),
+            idtipotransaccion: 13,
+            numcomprobante: 1,
+            descripcion: $scope.observacion
         };
 
-        switch ( $scope.modalstate) {
-            case 'add':
-                $http.post(API_URL + 'departamento', data ).success(function (response) {
-                    if (response.success == true) {
-                        $scope.initLoad(1);
-                        $('#modalActionCargo').modal('hide');
-                        $scope.message = 'Se insertó correctamente el Departamento...';
-                        $('#modalMessage').modal('show');
-                        $scope.hideModalMessage();
-                    }
-                    else {
-                        $('#modalActionCargo').modal('hide');
-                        $scope.message_error = 'Ya existe ese Departamento...';
-                        $('#modalMessageError').modal('show');
-                    }
-                });
-                break;
-            case 'edit':
-                $http.put(API_URL + 'departamento/'+ $scope.idc, data ).success(function (response) {
+        var RegistroC = [];
 
-                    if (response.success == true) {
-                        $scope.initLoad(1);
-                        $('#modalActionCargo').modal('hide');
-                        $scope.message = 'Se editó correctamente el Departamento seleccionado';
-                        $('#modalMessage').modal('show');
-                    } else {
-                        if (response.repeat == true) {
-                            $scope.message_error = 'Ya existe ese Departamento...';
-                        } else {
-                            $scope.message_error = 'Ha ocurrido un error al intentar editar el departamento seleccionado...';
-                        }
-                        $('#modalMessageError').modal('show');
-                    }
+        var proveedor = {
+            idplancuenta: $scope.proveedor.originalObject.proveedor[0].cont_plancuenta.idplancuenta,
+            concepto: $scope.proveedor.originalObject.proveedor[0].cont_plancuenta.concepto,
+            controlhaber: $scope.proveedor.originalObject.proveedor[0].cont_plancuenta.controlhaber,
+            tipocuenta: $scope.proveedor.originalObject.proveedor[0].cont_plancuenta.tipocuenta,
+            Debe: 0,
+            Haber: parseFloat($scope.monto),
+            Descipcion: $scope.observacion
+        };
 
-                    $scope.hideModalMessage();
-                }).error(function (res) {
+        RegistroC.push(proveedor);
 
-                });
-                break;
-        }
+        var pago = {
+            idplancuenta: $scope.select_cuenta.idplancuenta,
+            concepto: $scope.select_cuenta.concepto,
+            controlhaber: $scope.select_cuenta.controlhaber,
+            tipocuenta: $scope.select_cuenta.tipocuenta,
+            Debe: parseFloat($scope.monto),
+            Haber: 0,
+            Descipcion: $scope.observacion
+        };
+
+        RegistroC.push(pago);
+
+        var Contabilidad = {
+            transaccion: Transaccion,
+            registro: RegistroC
+        };
+
+        var transaccion_venta_full = {
+            DataContabilidad: Contabilidad
+        };
+
+        var data = {
+            fecha: $scope.fecha,
+            monto: $scope.monto,
+            idproveedor: $scope.proveedor.originalObject.proveedor[0].idproveedor,
+            idformapago: $scope.idformapago,
+            idplancuenta: $scope.select_cuenta.idplancuenta,
+            observacion: $scope.observacion,
+            contabilidad: JSON.stringify(transaccion_venta_full)
+        };
+
+        console.log(data);
+
+        //console.log($scope.select_cuenta);
+
+        $http.post(API_URL + 'anticipoproveedor', data ).success(function (response) {
+
+            $('#modalAction').modal('hide');
+
+            if (response.success === true) {
+                $scope.initLoad(1);
+
+
+                $scope.message = 'Se insertó correctamente el Anticiop...';
+                $('#modalMessage').modal('show');
+                //$scope.hideModalMessage();
+            }
+            else {
+                $scope.message_error = 'Ha ocurrido un error...';
+                $('#modalMessageError').modal('show');
+            }
+        });
+
     };
 
     $scope.showModalConfirm = function (departamento) {

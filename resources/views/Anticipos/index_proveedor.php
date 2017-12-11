@@ -91,7 +91,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Fecha: </span>
                                         <input type="text" class="form-control datepicker" name="fecha" id="fecha" ng-model="fecha" placeholder=""
-                                               ng-required="true" >
+                                               ng-required="true" ng-blur="autoAssignDate()" >
                                     </div>
                                     <span class="help-block error"
                                           ng-show="formAnticipo.fecha.$invalid && formAnticipo.fecha.$touched">La Fecha es requerido</span>
