@@ -4,6 +4,7 @@ app.controller('anticipoProveedorController', function($scope, $http, API_URL) {
 
     $scope.select_cuenta = null;
     $scope.proveedor = null;
+    $scope.id = 0;
 
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
@@ -186,33 +187,35 @@ app.controller('anticipoProveedorController', function($scope, $http, API_URL) {
 
     };
 
-    $scope.showModalConfirm = function (departamento) {
-        $scope.idcargo_del = departamento.iddepartamento;
-        $scope.cargo_seleccionado = departamento.namedepartamento;
-        $('#modalConfirmDelete').modal('show');
+
+
+    $scope.showModalConfirm = function (item) {
+        $scope.id = item.idanticipoproveedor;
+        $('#modalConfirmAnular').modal('show');
     };
 
-    $scope.delete = function(){
-        $http.delete(API_URL + 'departamento/' + $scope.idcargo_del).success(function(response) {
-            if(response.success == true){
+    $scope.anular = function () {
+
+        var data = {
+            idanticipoproveedor: $scope.idanticipoproveedor
+        };
+
+        $http.put(API_URL + 'anticipoproveedor/'+ $scope.id, data ).success(function (response) {
+
+            $('#modalConfirmAnular').modal('hide');
+
+            if (response.success === true) {
                 $scope.initLoad(1);
-                $('#modalConfirmDelete').modal('hide');
-                $scope.idcargo_del = 0;
-                $scope.message = 'Se eliminó correctamente el Departamento seleccionado...';
+                $scope.message = 'Se anuló correctamente el Anticipo seleccionado';
                 $('#modalMessage').modal('show');
-                $scope.hideModalMessage();
-
             } else {
-
-                if (response.exists == true) {
-                    $scope.message_error = 'El Departamento no puede ser eliminado porque esta asignado a un Cargo...';
-                } else {
-                    $scope.message_error = 'Ha ocurrido un error al intentar eliminar el departamento seleccionado...';
-                }
-
+                $scope.message_error = 'Ha ocurrido un error al intentar anular el anticipo seleccionado...';
                 $('#modalMessageError').modal('show');
-                //$('#modalConfirmDelete').modal('hide');
             }
+
+            //$scope.hideModalMessage();
+        }).error(function (res) {
+
         });
 
     };

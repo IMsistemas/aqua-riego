@@ -129,7 +129,22 @@ class AnticipoProveedorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $anticipo = Cont_AnticipoProveedor::find($id);
+        $anticipo->estado =  false;
+
+        if ($anticipo->save()) {
+
+            CoreContabilidad::AnularAsientoContable($anticipo->idtransaccion);
+
+            return response()->json(['success' => true]);
+
+        } else {
+
+            return response()->json(['success' => false]);
+
+        }
+
     }
 
     /**

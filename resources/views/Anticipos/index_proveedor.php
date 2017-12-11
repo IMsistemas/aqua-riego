@@ -221,7 +221,7 @@
         </div>
     </div>
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalConfirmDelete">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalConfirmAnular">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header modal-header-danger">
@@ -229,15 +229,15 @@
                     <h4 class="modal-title">Confirmación</h4>
                 </div>
                 <div class="modal-body">
-                    <span>Realmente desea eliminar el Rol: <span style="font-weight: bold;">{{cargo_seleccionado}}</span></span>
+                    <span>Está seguro que desea Anular el Anticipo seleccionado...?</span>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-danger" id="btn-save" ng-click="delete()">
-                        Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    <button type="button" class="btn btn-danger" id="btn-save" ng-click="anular()">
+                        Anular <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
                 </div>
             </div>
