@@ -254,6 +254,7 @@ Route::resource('categoria', 'Categorias\CategoriaController');
  * ------------------------------------MODULO ANTICIPO PROVEEDORES------------------------------------------------------
  */
 
+Route::get('anticipoproveedor/getAnticipos', 'Anticipos\AnticipoProveedorController@getAnticipos');
 Route::resource('anticipoproveedor', 'Anticipos\AnticipoProveedorController');
 
 /*

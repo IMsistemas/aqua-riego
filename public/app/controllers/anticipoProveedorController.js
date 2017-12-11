@@ -2,15 +2,18 @@
 
 app.controller('anticipoProveedorController', function($scope, $http, API_URL) {
 
-    $scope.departamentos = [];
-    $scope.idcargo_del = 0;
-    $scope.modalstate = '';
+    $scope.select_cuenta = null;
 
     $scope.pageChanged = function(newPage) {
         $scope.initLoad(newPage);
     };
 
     $scope.initLoad = function(pageNumber){
+
+        $('.datepicker').datetimepicker({
+            locale: 'es',
+            format: 'YYYY-MM-DD'
+        });
 
         if ($scope.busqueda == undefined) {
             var search = null;
@@ -27,40 +30,61 @@ app.controller('anticipoProveedorController', function($scope, $http, API_URL) {
         });
     };
 
-    $scope.toggle = function(modalstate, id) {
-        $scope.modalstate = modalstate;
+    $scope.showPlanCuenta = function () {
 
-        switch (modalstate) {
-            case 'add':
-                $scope.form_title = "Nuevo Departamento";
-                $scope.nombrecargo = '';
-                $scope.centrocosto = "false";
-                $('#modalActionCargo').modal('show');
+        $http.get(API_URL + 'empleado/getPlanCuenta').success(function(response){
+            $scope.cuentas = response;
+            $('#modalPlanCuenta').modal('show');
+        });
 
-                break;
-            case 'edit':
-
-                $scope.form_title = "Editar Departamento";
-                $scope.idc = id;
-
-                $http.get(API_URL + 'departamento/getDepartamentoByID/' + id).success(function(response) {
-                    $scope.nombrecargo = response[0].namedepartamento.trim();
-
-                    if (response[0].centrocosto === true) {
-                        $scope.centrocosto = 'true';
-                    } else {
-                        $scope.centrocosto = 'false';
-                    }
-
-                    $('#modalActionCargo').modal('show');
-                });
-                break;
-            default:
-                break;
-        }
     };
 
-    $scope.Save = function (){
+    $scope.selectCuenta = function () {
+        var selected = $scope.select_cuenta;
+
+        $scope.idplancuenta = selected.concepto;
+
+        $('#modalPlanCuenta').modal('hide');
+    };
+
+    $scope.click_radio = function (item) {
+        $scope.select_cuenta = item;
+    };
+
+    $scope.getFormaPago = function () {
+        $http.get(API_URL + 'DocumentoCompras/getFormaPago').success(function(response){
+
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: ''}];
+            for (var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].nameformapago, id: response[i].idformapago})
+            }
+
+            $scope.listformapago = array_temp;
+            $scope.idformapago = array_temp[0].id;
+
+        });
+    };
+
+    $scope.getCentroCosto = function () {
+        $http.get(API_URL + 'DocumentoVenta/getCentroCosto').success(function(response){
+            var longitud = response.length;
+            var array_temp = [{label: '-- Seleccione --', id: ''}];
+            for(var i = 0; i < longitud; i++){
+                array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento})
+            }
+            $scope.listdepartamento = array_temp;
+            $scope.iddepartamento = '';
+        });
+    };
+
+    $scope.createAnticipo = function () {
+
+        $('#modalAction').modal('show');
+
+    };
+
+    $scope.save = function (){
 
         var centrocosto = false;
 
@@ -151,5 +175,6 @@ app.controller('anticipoProveedorController', function($scope, $http, API_URL) {
     };
 
 
-    $scope.initLoad();
+    $scope.getFormaPago();
+    $scope.getCentroCosto();
 });

@@ -20,7 +20,7 @@
         </div>
 
         <div class="col-sm-6 col-xs-4">
-            <button type="button" class="btn btn-primary" style="float: right;" ng-click="toggle('add', 0)">
+            <button type="button" class="btn btn-primary" style="float: right;" ng-click="createAnticipo()">
                 Agregar <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             </button>
         </div>
@@ -73,35 +73,120 @@
         </div>
     </div>
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalActionCargo">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalAction">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">{{form_title}}</h4>
+                    <h4 class="modal-title">Agregar Anticipo de Proveedor</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" name="formCargo" novalidate="">
+                    <form class="form-horizontal" name="formAnticipo" novalidate="">
+
                         <div class="row">
-                            <div class="col-xs-12 error">
+
+                            <div class="col-xs-12" style="padding: 0;">
+
+                                <div class="col-xs-6 error">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Fecha: </span>
+                                        <input type="text" class="form-control datepicker" name="fecha" id="fecha" ng-model="fecha" placeholder=""
+                                               ng-required="true" >
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formAnticipo.fecha.$invalid && formAnticipo.fecha.$touched">La Fecha es requerido</span>
+                                </div>
+
+                                <div class="col-xs-6 error">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Monto ($): </span>
+                                        <input type="text" class="form-control" name="monto" id="monto" ng-model="monto" placeholder=""
+                                               ng-required="true" >
+                                    </div>
+                                    <span class="help-block error"
+                                          ng-show="formAnticipo.monto.$invalid && formAnticipo.monto.$touched">El Monto es requerido</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12 error" style="margin-top: 5px;">
                                 <div class="input-group">
-                                    <span class="input-group-addon">Nombre del Rol: </span>
-                                    <input type="text" class="form-control" name="nombrerol" id="nombrerol" ng-model="nombrerol" placeholder=""
-                                           ng-required="true" ng-maxlength="150">
+                                    <span class="input-group-addon">Proveedor (RUC): </span>
+
+                                    <angucomplete-alt
+                                            id = "idproveedor"
+                                            pause = "200"
+                                            selected-object = "showDataProveedor"
+
+                                            remote-url = "{{API_URL}}DocumentoCompras/getProveedorByIdentify/"
+
+                                            title-field="numdocidentific"
+
+                                            minlength="1"
+                                            input-class="form-control form-control-small small-input"
+                                            match-class="highlight"
+                                            field-required="true"
+                                            input-name="idproveedor"
+                                            disable-input="guardado"
+                                            text-searching="Buscando Identificaciones Proveedor"
+                                            text-no-results="Proveedor no encontrado"
+
+                                    > </angucomplete-alt>
+
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12" style="margin-top: 5px;">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Forma Pago: </span>
+                                    <select class="form-control" name="idformapago" id="idformapago" ng-model="idformapago" ng-required="true" ng-disabled="impreso"
+                                            ng-options="value.id as value.label for value in listformapago">
+                                    </select>
                                 </div>
                                 <span class="help-block error"
-                                      ng-show="formCargo.nombrerol.$invalid && formCargo.nombrerol.$touched">El nombre del Rol es requerido</span>
-                                <span class="help-block error"
-                                      ng-show="formCargo.nombrerol.$invalid && formCargo.nombrerol.$error.maxlength">La longitud máxima es de 50 caracteres</span>
+                                      ng-show="formAnticipo.idformapago.$invalid && formAnticipo.idformapago.$touched">La Forma Pago es requerida</span>
                             </div>
+
+                            <div class="col-xs-12" style="margin-top: 5px;">
+                                <div class="input-group">
+                                    <span class="input-group-addon">C. Contab.: </span>
+                                    <input type="text" class="form-control" name="idplancuenta" id="idplancuenta" ng-model="idplancuenta" placeholder=""
+                                           ng-required="true" readonly>
+                                    <span class="input-group-btn" role="group">
+                                    <button type="button" class="btn btn-info" id="btn-pcc" ng-click="showPlanCuenta()">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+
+                                </div>
+                                <span class="help-block error"
+                                      ng-show="formAnticipo.idplancuenta.$invalid && formAnticipo.idplancuenta.$touched">La asignación de una cuenta es requerida</span>
+                            </div>
+
+                            <div class="col-xs-12" style="margin-top: 5px;">
+                                <div class="input-group">
+                                    <span class="input-group-addon">Centro de Costo: </span>
+                                    <select class="form-control" name="iddepartamento" id="iddepartamento" ng-model="iddepartamento"
+                                            ng-options="value.id as value.label for value in listdepartamento"></select>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12" style="margin-top: 5px;">
+                                <textarea class="form-control" name="observacion" id="observacion" ng-model="observacion" cols="30" rows="5" placeholder="Motivo de Anticipo" ng-required="true"></textarea>
+                                <span class="help-block error"
+                                      ng-show="formAnticipo.observacion.$invalid && formAnticipo.observacion.$touched">La Observación es requerida</span>
+                            </div>
+
                         </div>
+
+
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-success" id="btn-save" ng-click="Save()" ng-disabled="formCargo.$invalid">
+                    <button type="button" class="btn btn-success" id="btn-save" ng-click="save()" ng-disabled="formAnticipo.$invalid">
                         Guardar <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                     </button>
                 </div>
@@ -160,29 +245,40 @@
         </div>
     </div>
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalPermisos">
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalPlanCuenta">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Permisos</h4>
+                    <h4 class="modal-title">Plan de Cuenta</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
 
                         <div class="col-xs-12">
+                            <div class="form-group  has-feedback">
+                                <input type="text" class="form-control" id="" ng-model="searchContabilidad" placeholder="BUSCAR..." >
+                                <span class="glyphicon glyphicon-search form-control-feedback" ></span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
                             <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                                 <thead class="bg-primary">
                                 <tr>
-                                    <th>Nombre</th>
+                                    <th style="width: 15%;">ORDEN</th>
+                                    <th>CONCEPTO</th>
+                                    <th style="width: 10%;">CODIGO</th>
                                     <th style="width: 4%;"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr ng-repeat="item in permisos" ng-cloak >
-                                    <td>{{item.namepermiso}}</td>
+                                <tr ng-repeat="item in cuentas | filter:searchContabilidad" ng-cloak >
+                                    <td>{{item.jerarquia}}</td>
+                                    <td>{{item.concepto}}</td>
+                                    <td>{{item.codigosri}}</td>
                                     <td>
-                                        <input type="checkbox" name="select_cuenta" ng-model="item.state">
+                                        <input ng-show="item.madreohija=='1'" ng-hide="item.madreohija!='1'" type="radio" name="select_cuenta"  ng-click="click_radio(item)">
                                     </td>
                                 </tr>
                                 </tbody>
@@ -194,7 +290,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-primary" id="btn-ok" ng-click="savePermisos()">
+                    <button type="button" class="btn btn-primary" id="btn-ok" ng-click="selectCuenta()">
                         Aceptar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     </button>
                 </div>
