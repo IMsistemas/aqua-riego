@@ -27,9 +27,10 @@ class AnticipoProveedorController extends Controller
         return Cont_AnticipoProveedor::join('proveedor', 'proveedor.idproveedor', '=', 'cont_anticipoproveedor.idproveedor')
                                 ->join('persona', 'proveedor.idpersona', '=', 'persona.idpersona')
                                 ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'cont_anticipoproveedor.idplancuenta')
+                                ->join('cont_formapago', 'cont_formapago.idformapago', '=', 'cont_anticipoproveedor.idformapago')
                                 ->where('cont_anticipoproveedor.estado', true)
                                 ->orderBy('fecha', 'desc')
-                                ->selectRaw('cont_anticipoproveedor.*, persona.razonsocial, cont_plancuenta.concepto')->paginate(10);
+                                ->selectRaw('cont_anticipoproveedor.*, persona.razonsocial, cont_plancuenta.concepto, cont_formapago.nameformapago')->paginate(10);
     }
 
     /**
@@ -66,7 +67,7 @@ class AnticipoProveedorController extends Controller
             'idtransaccion' => $id_transaccion,
             'fecha' => date('Y-m-d'),
             'debe' => 0,
-            'haber' => $filtro->DataContabilidad->registro[0]->Haber,
+            'haber' => $filtro->DataContabilidad->registro[0]->Debe,
             'numerodocumento' => "",
             'estadoanulado' => false
         ];

@@ -124,8 +124,8 @@ app.controller('anticipoProveedorController', function($scope, $http, API_URL) {
             concepto: $scope.proveedor.originalObject.proveedor[0].cont_plancuenta.concepto,
             controlhaber: $scope.proveedor.originalObject.proveedor[0].cont_plancuenta.controlhaber,
             tipocuenta: $scope.proveedor.originalObject.proveedor[0].cont_plancuenta.tipocuenta,
-            Debe: 0,
-            Haber: parseFloat($scope.monto),
+            Debe: parseFloat($scope.monto),
+            Haber: 0,
             Descipcion: $scope.observacion
         };
 
@@ -136,8 +136,8 @@ app.controller('anticipoProveedorController', function($scope, $http, API_URL) {
             concepto: $scope.select_cuenta.concepto,
             controlhaber: $scope.select_cuenta.controlhaber,
             tipocuenta: $scope.select_cuenta.tipocuenta,
-            Debe: parseFloat($scope.monto),
-            Haber: 0,
+            Debe: 0,
+            Haber: parseFloat($scope.monto),
             Descipcion: $scope.observacion
         };
 

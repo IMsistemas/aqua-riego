@@ -29,11 +29,13 @@
             <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                 <thead class="bg-primary">
                     <tr>
-                        <th>FECHA</th>
-                        <th>PROVEEDOR</th>
+                        <th style="width: 8%;">FECHA</th>
+                        <th style="width: 15%;">PROVEEDOR</th>
                         <th>CUENTA</th>
-                        <th>MONTO</th>
-                        <th style="width: 25%;">ACCIONES</th>
+                        <th style="width: 20%;">FORMA PAGO</th>
+                        <th style="width: 20%;">MOTIVO</th>
+                        <th style="width: 8%;">MONTO</th>
+                        <th style="width: 10%;">ACCION</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,17 +43,14 @@
                         <td>{{item.fecha}}</td>
                         <td>{{item.razonsocial}}</td>
                         <td>{{item.concepto}}</td>
-                        <td>{{item.monto}}</td>
+                        <td>{{item.nameformapago}}</td>
+                        <td>{{item.observacion}}</td>
+                        <td class="text-right">{{item.monto}}</td>
                         <td class="text-center">
 
-                            <div class="btn-group" role="group" aria-label="...">
-                                <button type="button" class="btn btn-warning" ng-click="toggle('edit', item.idrol)">
-                                    Editar <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                                </button>
-                                <button type="button" class="btn btn-default" ng-click="showModalConfirm(item)">
-                                    Anular <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                </button>
-                            </div>
+                            <button type="button" class="btn btn-default" ng-click="showModalConfirm(item)">
+                                Anular <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
 
                         </td>
                     </tr>
