@@ -119,7 +119,7 @@ class DocumentoVenta extends Controller
 
     public function getCentroCosto()
     {
-        return Departamento::orderBy('namedepartamento', 'asc')->get();
+        return Departamento::where('centrocosto', true)->orderBy('namedepartamento', 'asc')->get();
     }
 
 
