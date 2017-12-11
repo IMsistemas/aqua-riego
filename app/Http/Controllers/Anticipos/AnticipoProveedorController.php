@@ -24,8 +24,12 @@ class AnticipoProveedorController extends Controller
 
     public function getAnticipos()
     {
-        return Cont_AnticipoProveedor::where('estado', true)
-                                        ->orderBy('fecha', 'desc')->paginate(10);
+        return Cont_AnticipoProveedor::join('proveedor', 'proveedor.idproveedor', '=', 'cont_anticipoproveedor.idproveedor')
+                                ->join('persona', 'proveedor.idpersona', '=', 'persona.idpersona')
+                                ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'cont_anticipoproveedor.idplancuenta')
+                                ->where('cont_anticipoproveedor.estado', true)
+                                ->orderBy('fecha', 'desc')
+                                ->selectRaw('cont_anticipoproveedor.*, persona.razonsocial, cont_plancuenta.concepto')->paginate(10);
     }
 
     /**

@@ -39,8 +39,8 @@
                 <tbody>
                     <tr dir-paginate="item in anticipos | itemsPerPage:10" total-items="totalItems" ng-cloak >
                         <td>{{item.fecha}}</td>
-                        <td>{{item.idproveedor}}</td>
-                        <td>{{item.idplancuenta}}</td>
+                        <td>{{item.razonsocial}}</td>
+                        <td>{{item.concepto}}</td>
                         <td>{{item.monto}}</td>
                         <td class="text-center">
 
