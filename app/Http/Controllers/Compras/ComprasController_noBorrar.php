@@ -248,13 +248,18 @@ class ComprasController extends Controller
 
             //--Parte invetario kardex
 
+            $longitud_kardex = count($filtro->Datakardex);
+
+            for($x=0; $x < $longitud_kardex; $x++){
+                $filtro->Datakardex[$x]->idtransaccion=$id_transaccion;
+            }
+            $id_kardex = CoreKardex::GuardarKardex($filtro->Datakardex);
 
             //--Fin Parte invetario kardex
 
             $filtro->DataCompra->idtransaccion = $id_transaccion;
 
             $aux_docventa = (array)$filtro->DataCompra;
-
 
             $docventa = Cont_DocumentoCompra::create($aux_docventa);
 
@@ -264,6 +269,23 @@ class ComprasController extends Controller
 
                 $lastIDCompra = $aux_addVenta->last()->iddocumentocompra;
 
+                $longitud_items = count($filtro->DataItemsCompra);
+
+                for($x = 0; $x < $longitud_items; $x++) {
+                    $filtro->DataItemsCompra[$x]->iddocumentocompra = $lastIDCompra;
+                }
+
+                $aux_itemventa = (array) $filtro->DataItemsCompra;
+                //$itemventa=Cont_ItemVenta::create($aux_itemventa);
+
+                for($x = 0; $x < $longitud_items; $x++){
+                    $result_items = Cont_ItemCompra::create((array) $filtro->DataItemsCompra[$x]);
+
+                    if ($result_items == false) {
+                        return response()->json(['success' => false]);
+                    }
+
+                }
 
                 $registrocliente = [
                     'idproveedor' => $docventa->idproveedor,

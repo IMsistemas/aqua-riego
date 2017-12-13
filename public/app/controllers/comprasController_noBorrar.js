@@ -6,8 +6,6 @@
         $scope.list_item = [];
         $scope.listado = true;
 
-        $scope.select_cuenta = null;
-
         $scope.compra_anular = 0;
 
         $scope.proveedor = '';
@@ -39,40 +37,6 @@
 
         $scope.pageChanged = function(newPage) {
             $scope.initLoad(newPage);
-        };
-
-        $scope.aux_cuenta={};
-        $scope.showPlanCuenta = function (item) {
-            $scope.aux_cuenta=item;
-            $http.get(API_URL + 'empleado/getPlanCuenta').success(function(response){
-                console.log(response);
-                $scope.cuentas = response;
-                $('#modalPlanCuenta').modal('show');
-            });
-
-        };
-
-        $scope.selectCuenta = function () {
-            var selected = $scope.select_cuenta;
-
-            $scope.cuenta_employee = selected.concepto;
-
-            $scope.aux_cuenta.productoObj.idplancuenta=selected.idplancuenta;
-            $scope.aux_cuenta.productoObj.concepto=selected.concepto;
-            $scope.aux_cuenta.productoObj.codigosri=selected.codigosri;
-            $scope.aux_cuenta.productoObj.tipoestadofinanz=selected.tipoestadofinanz;
-            $scope.aux_cuenta.productoObj.estado=selected.estado;
-            $scope.aux_cuenta.productoObj.controlhaber=selected.controlhaber;
-            $scope.aux_cuenta.productoObj.tipocuenta=selected.tipocuenta;
-            $scope.aux_cuenta.productoObj.jerarquia=selected.jerarquia;
-            $scope.aux_cuenta.productoObj.madreohija=selected.madreohija;
-
-
-            $('#modalPlanCuenta').modal('hide');
-        };
-
-        $scope.click_radio = function (item) {
-            $scope.select_cuenta = item;
         };
 
         $scope.getProveedorByFilter = function () {
@@ -160,36 +124,6 @@
             });
 
         };
-
-        $scope.select_iva=function (item) {
-            console.log(item);
-            $scope.list_iva.forEach(function (i) {
-                if(i.idtipoimpuestoiva== parseInt(item.productoObj.originalObject.idtipoimpuestoiva)){
-                    item.iva=i.porcentaje;
-                }
-            });
-            $scope.CalculaValores();
-        };
-        $scope.getivas = function () {
-
-            $http.get(API_URL + 'proveedor/getImpuestoIVA').success(function(response){
-
-
-/*
-                var longitud = response.length;
-                var array_temp = [{label: '-- Seleccione --', id: null}];
-
-                for (var i = 0; i < longitud; i++) {
-                    array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento});
-                }*/
-
-                $scope.list_iva = response;
-
-
-            });
-
-        };
-        $scope.getivas();
 
         $scope.getPaisPagoComprobante = function () {
 
@@ -303,20 +237,7 @@
         $scope.createRow = function () {
 
             var item = {
-                productoObj:{
-                    idplancuenta:null,
-                    concepto:null,
-                    codigosri:null,
-                    tipoestadofinanz:null,
-                    estado:null,
-                    controlhaber:null,
-                    tipocuenta:null,
-                    jerarquia:null,
-                    madreohija:null,
-                    originalObject:{
-                        idtipoimpuestoiva:'0'
-                    }
-                },
+                productoObj:null,
                 idcentrocosto: null,
                 cantidad:0,
                 precioU:0,
@@ -326,9 +247,6 @@
                 total:0
             };
             $scope.items.push(item);
-
-
-            //item.productoObj.originalObject.idtipoimpuestoiva=
 
         };
 
@@ -416,8 +334,119 @@
             });
         };
 
-
         $scope.CalculaValores=function(){
+
+            /*$scope.Subtotalconimpuestos = 0;
+
+            var aux_subtotalconimpuestos=0;
+            var aux_totaldescuento=0;
+            var aux_totalIce=0;
+
+
+
+            for(x=0;x<$scope.items.length;x++){
+                console.log($scope.items[x]);
+
+                if ($scope.items[x].precioU === undefined || $scope.items[x].precioU === '') {
+                    $scope.items[x].precioU = 0;
+                }
+
+
+                //if(parseInt($scope.items[x].iva)==0 ){
+                    if($scope.items[x].cantidad!=undefined && $scope.items[x].precioU!=undefined ){
+                        if(parseFloat($scope.items[x].descuento)>0){
+                            var aux_descuento=(((parseFloat($scope.items[x].cantidad)*parseFloat($scope.items[x].precioU))*(parseFloat($scope.items[x].descuento)))/100);
+                            aux_totaldescuento+=aux_descuento;
+                            var preciouxcantida=(parseFloat($scope.items[x].cantidad)*parseFloat($scope.items[x].precioU));
+                            $scope.items[x].total=(preciouxcantida-aux_descuento).toFixed(4);
+                        }else{
+                            $scope.items[x].total=(parseFloat($scope.items[x].cantidad)*parseFloat($scope.items[x].precioU));
+                        }
+                        if(parseFloat($scope.items[x].ice)>0){
+                            var aux_totalaplicaice=((parseFloat($scope.items[x].cantidad)*parseFloat($scope.items[x].precioU))*((parseFloat($scope.items[x].ice)))/100);
+                            aux_totalIce+=aux_totalaplicaice;
+                        }
+                    }
+                //}
+            }
+
+
+
+            var con_iva=0;
+            var aux_subtoto_cero=0;
+            var aux_no_objeto_iva=0;
+            var aux_excento_iva=0;
+            for(x=0;x<$scope.items.length;x++){
+                //console.log($scope.items[x]);
+                console.log(parseInt($scope.items[x].iva));
+                if(parseInt($scope.items[x].iva)==0){ // 0% no objeto , excento
+                    switch($scope.items[x].productoObj.originalObject.idtipoimpuestoiva){
+                        case 1: // 0%
+                            aux_subtoto_cero+=parseFloat($scope.items[x].total);
+                        break;
+                        case 4: // no objeto iva
+                            aux_no_objeto_iva+=parseFloat($scope.items[x].total);
+                        break;
+                        case 5: // excento iva
+                            aux_excento_iva+=parseFloat($scope.items[x].total);
+                        break;
+                    }
+                }else{
+                    if($scope.items[x].productoObj.originalObject.idtipoimpuestoiva!=1 & $scope.items[x].productoObj.originalObject.idtipoimpuestoiva!=4 & $scope.items[x].productoObj.originalObject.idtipoimpuestoiva!=5){
+                        if($scope.items[x].cantidad!=undefined && $scope.items[x].precioU!=undefined ){
+                            //aux_subtotalconimpuestos+=(parseFloat($scope.items[x].cantidad)*parseFloat($scope.items[x].precioU));
+                            aux_subtotalconimpuestos+=parseFloat($scope.items[x].total);
+                            con_iva+=((parseFloat($scope.items[x].total)) * (parseInt($scope.items[x].iva))/100);
+                        }
+                    }
+                }
+
+            }
+
+
+            $scope.Totaldescuento=aux_totaldescuento.toFixed(4);
+            $scope.ValICE=aux_totalIce.toFixed(4);
+
+
+            $scope.Subtotalcero=aux_subtoto_cero.toFixed(4);
+            $scope.Subtotalnobjetoiva = aux_no_objeto_iva.toFixed(4);
+            $scope.Subototalexentoiva = aux_excento_iva.toFixed(4);
+
+            $scope.Subtotalconimpuestos=(isNaN($scope.Subtotalconimpuestos))? 0:$scope.Subtotalconimpuestos;
+            $scope.Subtotalcero=(isNaN($scope.Subtotalcero))? 0:$scope.Subtotalcero;
+            $scope.Subtotalnobjetoiva=(isNaN($scope.Subtotalnobjetoiva))? 0:$scope.Subtotalnobjetoiva;
+            $scope.Subototalexentoiva=(isNaN($scope.Subototalexentoiva))? 0:$scope.Subototalexentoiva;
+            $scope.ValICE=(isNaN($scope.ValICE))? 0:$scope.ValICE;
+
+            var subtotalsinimp = parseFloat($scope.Subtotalconimpuestos) + parseFloat($scope.Subtotalcero);
+            subtotalsinimp += parseFloat($scope.Subtotalnobjetoiva) + parseFloat($scope.Subototalexentoiva);
+
+            subtotalsinimp -= parseFloat($scope.ValICE);
+
+            $scope.Subtotalsinimpuestos = subtotalsinimp.toFixed(4);
+
+            //$scope.Subtotalconimpuestos= (aux_subtotalconimpuestos - parseFloat($scope.Totaldescuento)).toFixed(4);
+            $scope.Subtotalconimpuestos= (aux_subtotalconimpuestos).toFixed(4);
+
+            $scope.ValIVA=(($scope.Subtotalconimpuestos*parseInt($scope.proveedor.originalObject.proveedor[0].sri_tipoimpuestoiva.porcentaje))/100).toFixed(4);
+
+            $scope.ValIVA=(isNaN($scope.ValIVA))? 0:$scope.ValIVA;
+            $scope.ValIRBPNR=(isNaN($scope.ValIRBPNR))? 0:$scope.ValIRBPNR;
+            $scope.ValPropina=(isNaN($scope.ValPropina))? 0:$scope.ValPropina;
+        
+           //var totalFC = parseFloat($scope.Subtotalconimpuestos) + parseFloat($scope.Subtotalcero);
+            //totalFC += parseFloat($scope.Subtotalnobjetoiva) + parseFloat($scope.Subototalexentoiva);
+            //totalFC += parseFloat($scope.ValIVA) + parseFloat($scope.ValIRBPNR) + parseFloat($scope.ValPropina);
+
+            var totalFC = subtotalsinimp + parseFloat($scope.ValIVA) + parseFloat($scope.ValIRBPNR) + parseFloat($scope.ValPropina);
+            $scope.ValorTotal = totalFC.toFixed(4);
+
+            //$scope.ValorTotal = totalFC.toFixed(4);
+
+            //$scope.ValorTotal=((parseFloat($scope.Subtotalconimpuestos)+parseFloat($scope.ValIVA) + parseFloat($scope.ValICE) + parseFloat($scope.ValIRBPNR) + parseFloat($scope.ValPropina) )   - ($scope.Totaldescuento)).toFixed(4);
+
+            */
+
 
             $scope.Subtotalconimpuestos = 0;
 
@@ -456,20 +485,19 @@
                 console.log(parseInt($scope.items[x].iva));
 
                 if(parseInt($scope.items[x].iva)==0){ // 0% no objeto , excento
-
                     switch($scope.items[x].productoObj.originalObject.idtipoimpuestoiva){
-                        case "1": // 0%
+                        case 1: // 0%
                             aux_subtoto_cero+=parseFloat($scope.items[x].total);
                             break;
-                        case "4": // no objeto iva
+                        case 4: // no objeto iva
                             aux_no_objeto_iva+=parseFloat($scope.items[x].total);
                             break;
-                        case "5": // excento iva
+                        case 5: // excento iva
                             aux_excento_iva+=parseFloat($scope.items[x].total);
                             break;
                     }
                 }else{
-                    if($scope.items[x].productoObj.originalObject.idtipoimpuestoiva!==1 & $scope.items[x].productoObj.originalObject.idtipoimpuestoiva!==4 & $scope.items[x].productoObj.originalObject.idtipoimpuestoiva!==5){
+                    if($scope.items[x].productoObj.originalObject.idtipoimpuestoiva!=1 & $scope.items[x].productoObj.originalObject.idtipoimpuestoiva!=4 & $scope.items[x].productoObj.originalObject.idtipoimpuestoiva!=5){
                         if($scope.items[x].cantidad!=undefined && $scope.items[x].precioU!=undefined ){
                             //aux_subtotalconimpuestos+=(parseFloat($scope.items[x].cantidad)*parseFloat($scope.items[x].precioU));
                             aux_subtotalconimpuestos+=parseFloat($scope.items[x].total);
@@ -477,8 +505,6 @@
                         }
                     }
                 }
-
-
                 /*if(parseInt($scope.items[x].iva)==0 ){
                  if($scope.items[x].cantidad!=undefined && $scope.items[x].precioU!=undefined ){
                  aux_subtotalconimpuestos+=(parseFloat($scope.items[x].cantidad)*parseFloat($scope.items[x].precioU));
@@ -603,12 +629,12 @@
             var RegistroC=[];
 
             //Asiento contable cliente -- el cliente por lo genearal es un activo entonces el cliente aumenta una deuda por el debe
-            /*var aux_bodegaseleccionada={};
+            var aux_bodegaseleccionada={};
             for(var i=0;i<$scope.Bodegas.length;i++){
                 if(parseInt($scope.Bodegas[i].idbodega) == parseInt($scope.Bodega)){
                     aux_bodegaseleccionada=$scope.Bodegas[i];
                 }
-            }*/
+            }
 
             var cliente = {
                 idplancuenta: $scope.proveedor.originalObject.proveedor[0].cont_plancuenta.idplancuenta,
@@ -623,22 +649,38 @@
             RegistroC.push(cliente);
 
             //--Sacar producto de bodega -- el producto es un activo pero como se lo vente disminuye por el haber
-
+            for(var x=0;x<$scope.items.length;x++){
+                if($scope.items[x].productoObj.originalObject.idclaseitem==1){
+                    var producto={
+                        //idplancuenta: $scope.items[x].productoObj.originalObject.idplancuenta,
+                        idplancuenta: aux_bodegaseleccionada.idplancuenta,
+                        concepto: aux_bodegaseleccionada.concepto,
+                        controlhaber: aux_bodegaseleccionada.controlhaber,
+                        tipocuenta: aux_bodegaseleccionada.tipocuenta,
+                        Debe: (parseFloat($scope.items[x].total)).toFixed(4),
+                        Haber: 0,
+                        Descipcion: $scope.observacion
+                    };
+                    RegistroC.push(producto);
+                }
+            }
             //--Sacar producto de bodega -- el producto es un activo pero como se lo vente disminuye por el haber
 
 
             //--Ingreso del item producto o servicio
             for(x=0;x<$scope.items.length;x++){
-                var itemproductoservicio={
-                    idplancuenta: $scope.items[x].productoObj.idplancuenta,
-                    concepto: $scope.items[x].productoObj.concepto,
-                    controlhaber: $scope.items[x].productoObj.controlhaber,
-                    tipocuenta: $scope.items[x].productoObj.tipocuenta,
-                    Debe: (parseFloat($scope.items[x].total)).toFixed(4),
-                    Haber: 0,
-                    Descipcion: $scope.observacion
-                };
-                RegistroC.push(itemproductoservicio);
+                if($scope.items[x].productoObj.originalObject.idclaseitem==4 || $scope.items[x].productoObj.originalObject.idclaseitem==3){
+                    var itemproductoservicio={
+                        idplancuenta: $scope.items[x].productoObj.originalObject.idplancuenta_ingreso,
+                        concepto: $scope.items[x].productoObj.originalObject.conceptoingreso,
+                        controlhaber: $scope.items[x].productoObj.originalObject.controlhaberingreso,
+                        tipocuenta: $scope.items[x].productoObj.originalObject.tipocuentaingreso,
+                        Debe: (parseFloat($scope.items[x].total)).toFixed(4),
+                        Haber: 0,
+                        Descipcion: $scope.observacion
+                    };
+                    RegistroC.push(itemproductoservicio);
+                }
             }
             //--Ingreso del item producto o servicio
 
@@ -738,7 +780,25 @@
             };
 
             //--proceso kardex
-
+            var kardex=[];
+            for(x=0;x<$scope.items.length;x++){
+                if($scope.items[x].productoObj.originalObject.idclaseitem == 1){
+                    var producto={
+                        idtransaccion: 0,
+                        idcatalogitem: $scope.items[x].productoObj.originalObject.idcatalogitem,
+                        idbodega: $scope.Bodega,
+                        fecharegistro:$("#fechaemisioncompra").val(),
+                        cantidad:parseInt($scope.items[x].cantidad),
+                        costounitario: parseFloat($scope.items[x].precioU),
+                        //costototal:(parseInt($scope.items[x].cantidad)*parseFloat($scope.items[x].productoObj.originalObject.costopromedio)).toFixed(4),
+                        costototal:(parseInt($scope.items[x].cantidad)*parseFloat($scope.items[x].precioU)).toFixed(4),
+                        tipoentradasalida:1,
+                        estadoanulado:true,
+                        descripcion:$scope.observacion
+                    };
+                    kardex.push(producto);
+                }
+            }
             //--proceso kardex
 
             //--Documento de venta
@@ -773,13 +833,50 @@
                 otroscompra:0,
                 valortotalcompra:$scope.ValorTotal,
                 estadoanulado:'false',
-                idtransaccion:'',
-                datajson:JSON.stringify($scope.items)
+                idtransaccion:''
             };
             //--Documento de venta
 
             //--Items venta
+            var ItemsVenta=[];
+            for(x=0;x<$scope.items.length;x++){
 
+                console.log($scope.items);
+
+
+                var bodega = null;
+
+                console.log($scope.Bodega);
+
+                if ($scope.Bodega !== '0' || $scope.Bodega !== undefined || $scope.Bodega.trim() !== '') {
+                    console.log($scope.Bodega);
+                    bodega = $scope.Bodega;
+                }
+
+                if (bodega == '') {
+                    bodega = null;
+                }
+
+                var centrocosto = null;
+
+                if ($scope.items[x].idcentrocosto != "0" && $scope.items[x].idcentrocosto != '') {
+                    centrocosto = $scope.items[x].idcentrocosto
+                }
+
+                var itemsdocventa={
+                    idcatalogitem: $scope.items[x].productoObj.originalObject.idcatalogitem,
+                    iddocumentoventa:0,
+                    idbodega: bodega,
+                    idtipoimpuestoiva:$scope.items[x].productoObj.originalObject.idtipoimpuestoiva,
+                    idtipoimpuestoice:$scope.items[x].productoObj.originalObject.idtipoimpuestoice,
+                    cantidad:parseInt($scope.items[x].cantidad),
+                    preciounitario: parseFloat($scope.items[x].precioU),
+                    descuento: $scope.items[x].descuento,
+                    preciototal:(parseInt($scope.items[x].cantidad)*parseFloat($scope.items[x].precioU)).toFixed(4),
+                    iddepartamento: centrocosto
+                };
+                ItemsVenta.push(itemsdocventa);
+            }
             //--Items venta
 
             /*var dataComprobante = null;
@@ -808,10 +905,10 @@
 
             var transaccion_venta_full={
                 DataContabilidad: Contabilidad,
-              //  Datakardex: kardex,
+                Datakardex: kardex,
                 DataCompra: DocVenta,
                 Idformapagocompra: $scope.formapago,
-               // DataItemsCompra: ItemsVenta,
+                DataItemsCompra: ItemsVenta,
                 //dataComprobante: dataComprobante
             };
 
@@ -944,9 +1041,8 @@
                 var longitud_item = Items.length;
 
                 $scope.items = [];
-                console.log(JSON.parse(response.datajson));
-                $scope.items=JSON.parse(response.datajson);
-                /*for (var i = 0; i < longitud_item; i++) {
+
+                for (var i = 0; i < longitud_item; i++) {
 
                     if (Items[i].idbodega !== null) {
                         $scope.Bodega = (Items[0].idbodega).toString();
@@ -978,7 +1074,7 @@
                     };
                     $scope.items.push(item);
 
-                }*/
+                }
 
 
 
@@ -1023,8 +1119,6 @@
                     $('#t_pto_c').val(nocomprobante[1]);
                     $('#t_secuencial_c').val(nocomprobante[2]);
                     $scope.noauthcomprobante = response.sri_comprobanteretencion.noauthcomprobante;
-
-                    $scope.calculateValor();
                 }
 
                 $('#btn-save').prop('disabled', true);

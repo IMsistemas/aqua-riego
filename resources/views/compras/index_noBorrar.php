@@ -384,8 +384,8 @@
                 <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                     <thead class="bg-primary">
                         <tr>
-                            <th style="width: 10%">CODIGO</th>
-                            <th>CUENTA CONTABLE</th>
+                            <th style="width: 10%">CODIGO ITEM</th>
+                            <th>DETALLE</th>
                             <th style="width: 20%">CENTRO COSTO</th>
                             <th style="width: 5%">CANTIDAD</th>
                             <th style="width: 8%">PRECIO UNIT.</th>
@@ -399,22 +399,34 @@
                     <tbody>
                     <tr ng-repeat="item in items">
                         <td>
-
-
-                            <div class="input-group">
-                                <input type="text" class="form-control" ng-model="item.productoObj.jerarquia" placeholder="" ng-required="true" readonly>
-                                <span class="input-group-btn" role="group">
-                                    <button type="button" class="btn btn-info" ng-click="showPlanCuenta(item)">
-                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                                    </button>
-                                </span>
+                            <div>
+                                <!--compras/getCodigoProducto-->
+                                <!--LoadProductos-->
+                                <angucomplete-alt id="codigoproducto{{$index}}"
+                                                  pause="400"
+                                                  selected-object="AsignarData"
+                                                  selected-object-data = "item"
+                                                  remote-url="{{url}}DocumentoVenta/LoadProductos/"
+                                                  title-field="codigoproducto"
+                                                  description-field="twitter"
+                                                  minlength="1"
+                                                  input-class="form-control form-control-small"
+                                                  match-class="highlight"
+                                                  field-required="true"
+                                                  input-name="codigoproducto{{$index}}"
+                                                  disable-input="impreso"
+                                                  text-searching="Buscando Producto"
+                                                  text-no-results="Producto no encontrado"
+                                                  initial-value="item.producto";
+                                />
                             </div>
-
-
                             <span class="help-block error" ng-show="formventa.codigoproducto{{$index}}.$invalid && formventa.codigoproducto{{$index}}.$touched">El producto es requerido.</span>
                         </td>
                         <td>
-                            <input type="text" class="form-control" ng-model="item.productoObj.concepto" />
+                            <input type="text" class="form-control" ng-show="!read"  disabled ng-value="item.productoObj.originalObject.nombreproducto" />
+                            <input type="text" class="form-control" ng-show="read"  disabled ng-value="item.producto.nombreproducto" />
+                            <!--<label class="control-label" ng-show="!read">{{ item.productoObj.originalObject.nombreproducto }}</label>
+                            <label class="control-label" ng-show="read">{{  item.producto.nombreproducto }}</label>-->
                         </td>
                         <td>
                             <select class="form-control" ng-model="item.idcentrocosto">
@@ -425,12 +437,8 @@
                         <td><input type="text" class="form-control text-right" ng-keyup="CalculaValores();ValidaProducto()" ng-model="item.cantidad"/></td>
                         <td><input type="text" class="form-control text-right" ng-keyup="CalculaValores();ValidaProducto()" ng-keypress="onlyNumber($event, undefined, undefined)" ng-model="item.precioU" placeholder="{{item.productoObj.originalObject.precioventa}}" /></td>
                         <td><input type="text" class="form-control text-right" ng-keyup="CalculaValores();ValidaProducto()" ng-model="item.descuento"/></td>
-                        <td><select class="form-control" ng-model="item.productoObj.originalObject.idtipoimpuestoiva" ng-change="select_iva(item)" >
-                                <option value="0">-- Seleccione --</option>
-                                <option ng-repeat="elem in list_iva" value="{{elem.idtipoimpuestoiva}}" >{{elem.nametipoimpuestoiva}}</option>
-                            </select></td>
-                        <!--<td><input type="text" class="form-control text-right"  ng-model="item.productoObj.iva"  /></td>-->
-                        <td><input type="text" class="form-control text-right"  ng-model="item.productoObj.ice"  /></td>
+                        <td><input type="text" class="form-control text-right" disabled ng-model="item.productoObj.originalObject.porcentiva"  /></td>
+                        <td><input type="text" class="form-control text-right" disabled ng-model="item.productoObj.originalObject.porcentice"  /></td>
                         <td><input type="text" class="form-control text-right" ng-model="item.total" disabled  ng-value="item.cantidad*item.precioU"/></td>
                         <td>
                             <button type="button" class="btn btn-danger" ng-click="QuitarItem(item)">
@@ -705,58 +713,6 @@
         </div>
     </div>
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="modalPlanCuenta">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header modal-header-primary">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Plan de Cuenta</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-
-                        <div class="col-xs-12">
-                            <div class="form-group  has-feedback">
-                                <input type="text" class="form-control" id="" ng-model="searchContabilidad" placeholder="BUSCAR..." >
-                                <span class="glyphicon glyphicon-search form-control-feedback" ></span>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12">
-                            <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
-                                <thead class="bg-primary">
-                                <tr>
-                                    <th style="width: 15%;">ORDEN</th>
-                                    <th>CONCEPTO</th>
-                                    <th style="width: 10%;">CODIGO</th>
-                                    <th style="width: 4%;"></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr ng-repeat="item in cuentas | filter:searchContabilidad" ng-cloak >
-                                    <td>{{item.jerarquia}}</td>
-                                    <td>{{item.concepto}}</td>
-                                    <td>{{item.codigosri}}</td>
-                                    <td>
-                                        <input ng-show="item.madreohija=='1'" ng-hide="item.madreohija!='1'" type="radio" name="select_cuenta"  ng-click="click_radio(item)">
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
-                    </button>
-                    <button type="button" class="btn btn-primary" id="btn-ok" ng-click="selectCuenta()">
-                        Aceptar <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="modal fade" id="msm" style="z-index: 8000;" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">

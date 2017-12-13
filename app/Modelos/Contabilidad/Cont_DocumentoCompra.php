@@ -20,7 +20,7 @@ class Cont_DocumentoCompra extends Model
     		'fecharegistrocompra','fechaemisioncompra','nroautorizacioncompra','subtotalconimpuestocompra',
     		'subtotalcerocompra','subtotalnoobjivacompra','subtotalexentivacompra','subtotalsinimpuestocompra',
     		'totaldescuento','icecompra','ivacompra','irbpnrcompra','propinacompra','otroscompra',
-    		'valortotalcompra','estadoanulado'
+    		'valortotalcompra','estadoanulado','datajson'
     ];
 
 
