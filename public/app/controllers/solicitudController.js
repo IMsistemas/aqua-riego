@@ -1411,14 +1411,14 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.celular_cliente = solicitud.celphone;
             $scope.telf_trab_cliente = solicitud.telefonoprincipaltrabajo;
 
-            $scope.nro_terreno = response[0].idterreno;
+            $scope.nro_terreno = response[0].terreno.codigoterreno;
 
             $scope.getTarifas(response[0].terreno.idtarifa);
             $scope.getCultivos(response[0].terreno.idtarifa, response[0].terreno.idcultivo);
 
-            var idbarrio = response[0].terreno.derivacion.canal.calle.idbarrio;
-            var idcalle = response[0].terreno.derivacion.canal.idcalle;
-            var idcanal = response[0].terreno.derivacion.idcanal;
+            var idbarrio = 0;//response[0].terreno.derivacion.canal.calle.idbarrio;
+            var idcalle = response[0].terreno.idcalle;
+            var idcanal = response[0].terreno.idcanal;
             var idderivacion = response[0].terreno.idderivacion;
 
             $scope.getBarrios(idbarrio);

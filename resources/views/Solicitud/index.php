@@ -197,8 +197,8 @@
                                             <div class="col-sm-6 col-xs-12 error">
 
                                                 <div class="input-group">
-                                                    <span class="input-group-addon">Nro. Terreno: </span>
-                                                    <input class="form-control" type="text" name="nro_terreno" id="nro_terreno" ng-model="nro_terreno" disabled >
+                                                    <span class="input-group-addon">Codigo. Terreno: </span>
+                                                    <input class="form-control" type="text" name="nro_terreno" id="nro_terreno" ng-model="nro_terreno"  />
                                                 </div>
 
                                             </div>
