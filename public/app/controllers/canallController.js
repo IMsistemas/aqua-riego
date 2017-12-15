@@ -26,7 +26,6 @@ app.controller('canallController', function($scope, $http, API_URL) {
 
     $scope.saveCanal = function () {
 
-        $('#btn-save').prop('disabled', true);
 
         var data = {
             nombrecanal: $scope.nombrecanal,
