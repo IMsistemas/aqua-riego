@@ -1,90 +1,90 @@
+
+
 app.controller('canallController', function($scope, $http, API_URL) {
 
     $scope.canals = [];
     $scope.idcanal_del = 0;
 
-
     $scope.initLoad = function () {
         $http.get(API_URL + 'canal/getCanall').success(function (response) {
-            console.log(response);
             $scope.canals = response;
         });
     };
 
-
-    $scope.FiltroCalle = function () {
-        /*$http.get(API_URL + 'canal/getCalles').success(function (response) {
-            console.log(response);
-            var longitud = response.length;
-            var array_temp = [{label: '--TOMAS--', id: 0}];
-            for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].nombrecalle, id: response[i].idcalle})
-            }
-            $scope.calless = array_temp;
-            $scope.s_calle = 0;
-        });*/
-        $scope.calless = [{label: '--TOMAS--', id: 0}];
-        $scope.s_calle = 0;
-    };
-
-    $scope.FiltroBarrio = function () {
-        $http.get(API_URL + 'canal/getBarrios').success(function (response) {
-            console.log(response);
-            var longitud = response.length;
-            var array_temp = [{label: '--JUNTAS MODULARES--', id: 0}];
-
-            for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].namebarrio, id: response[i].idbarrio})
-            }
-            $scope.barrioss = array_temp;
-            $scope.s_barrio = 0;
-        });
-    };
-
     $scope.viewModalAdd = function () {
-        $http.get(API_URL + 'canal/getCalle').success(function (response) {
-            var longitud = response.length;
-            var array_temp = [{label: '--Seleccione--', id: 0}];
-            for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].namecalle, id: response[i].idcalle})
-            }
-            $scope.calles = array_temp;
-            $scope.t_calle = 0;
-        });
-        $http.get(API_URL + 'canal/getLastID').success(function(response){
-            console.log(response);
 
-            $scope.codigo = response.id;
-            $scope.date_ingreso = now();
+        $scope.date_ingreso = now();
 
-            $scope.nombrecanal = '';
-            $scope.observacionCanal = '';
+        $scope.nombrecanal = '';
+        $scope.observacionCanal = '';
 
-            $('#modalNueva').modal('show');
-        });
+        $scope.title_modal = 'Nuevo Canal';
 
-    }
+        $('#modalNueva').modal('show');
+
+    };
 
     $scope.saveCanal = function () {
+
         $('#btn-save').prop('disabled', true);
+
         var data = {
             nombrecanal: $scope.nombrecanal,
-            idcalle: $scope.t_calle,
             observacion: $scope.observacionCanal
         };
 
-        $http.post(API_URL + 'canal', data ).success(function (response) {
+        if ($scope.idcanal_del === 0) {
 
-            $scope.initLoad();
+            $http.post(API_URL + 'canal', data ).success(function (response) {
 
-            $('#modalNueva').modal('hide');
-            $scope.message = 'Se insertó correctamente el Canal';
-            $('#modalMessage').modal('show');
-            $scope.hideModalMessage();
+                $('#modalNueva').modal('hide');
 
-        }).error(function (res) {
+                if (response.success === true) {
 
-        });
+                    $scope.initLoad();
+                    $scope.message = 'Se insertó correctamente el Canal';
+                    $('#modalMessage').modal('show');
+
+                } else {
+
+                    $scope.message_error = 'Ha ocurrido un error al intentar guardar un Canal...';
+                    $('#modalMessageError').modal('show');
+
+                }
+
+                $scope.hideModalMessage();
+
+            }).error(function (res) {
+
+            });
+
+        } else {
+
+            $http.put(API_URL + 'canal/' + $scope.idcanal_del, data ).success(function (response) {
+
+                $('#modalNueva').modal('hide');
+
+                if (response.success === true) {
+
+                    $scope.idcanal_del = 0;
+                    $scope.initLoad();
+                    $scope.message = 'Se editó correctamente el Canal seleccionado';
+                    $('#modalMessage').modal('show');
+
+                } else {
+
+                    $scope.message_error = 'Ha ocurrido un error al intentar editar un Canal...';
+                    $('#modalMessageError').modal('show');
+
+                }
+
+                $scope.hideModalMessage();
+
+            }).error(function (res) {
+
+            });
+
+        }
 
     };
 
@@ -94,134 +94,57 @@ app.controller('canallController', function($scope, $http, API_URL) {
         $('#modalDelete').modal('show');
     };
 
+    $scope.showModalEdit = function (item) {
+        $scope.idcanal_del = item.idcanal;
+        $scope.nombrecanal = item.nombrecanal;
+        $scope.observacionCanal = item.observacion;
+
+        $scope.title_modal = 'Editar Canal';
+
+        $('#modalNueva').modal('show');
+    };
+
     $scope.delete = function(){
+
         $http.delete(API_URL + 'canal/' + $scope.idcanal_del).success(function(response) {
             $('#modalDelete').modal('hide');
-            if(response.success == true){
-                console.log(response);
+
+            if(response.success === true){
+
                 $scope.initLoad();
                 $scope.idcanal_del = 0;
                 $scope.message = 'Se eliminó correctamente el Canal seleccionado...';
                 $('#modalMessage').modal('show');
                 $scope.hideModalMessage();
-            } else if(response.success == false && response.msg == 'exist_derivacion') {
-                $scope.message_error = 'El Canal no puede ser eliminado porque contiene Derivaciones...';
+
+            } else if(response.success === false) {
+
+                if (response.msg === 'exist_derivacion') {
+
+                    $scope.message_error = 'El Canal no puede ser eliminado porque está presente en un Terreno...';
+
+                } else {
+
+                    $scope.message_error = 'Ha ocurrido un error al intentar eliminar un Canal...';
+
+                }
+
                 $('#modalMessageError').modal('show');
             }
         });
 
     };
 
-    $scope.showModalInfo = function (item) {
-        $scope.name_canal = item.nombrecanal;
-        $scope.fecha_ingreso = item.fechaingreso;
-
-        var array_derivaciones = item.derivacion;
-        var text = '';
-        for(var i  = 0; i < array_derivaciones.length; i++){
-            text += array_derivaciones[i].nombrederivacion + ',';
-        }
-        $scope.canal_derivacion = text;
-
-        $('#modalInfo').modal('show');
-
-
-    };
-
-    $scope.editar = function ()  {
-        var c = 0;
-        for (var i = 0; i <  $scope.canals .length; i++)
-        {
-            if( $scope.canals [i].nombrecanal == ""){
-                c ++ ;
-            }
-        }
-
-        if(c > 0 )
-        {
-            $scope.message_error  = 'Existen Canales con nombres en blanco, por favor llene ese campo... ';
-            $('#modalMessageError').modal('show');
-        } else {
-            var arr_canales = {arr_canales: $scope.canals};
-
-            $http.post(API_URL + 'canal/editar_canal', arr_canales).success(function (response) {
-                console.log(response);
-                $scope.initLoad();
-                $scope.message = 'Se editaron correctamente los Canales';
-                $('#modalMessage').modal('show');
-                $scope.hideModalMessage();
-            });
-        }
-    };
-
-    $scope.FiltrarPorBarrio = function (){
-        $http.get(API_URL + 'canal/getCalleByBarrio/'+ $scope.s_barrio).success(function (response) {
-            var longitud = response.length;
-            var array_temp = [{label: '--TOMAS--', id: 0}];
-            for (var i = 0; i < longitud; i++) {
-                array_temp.push({label: response[i].namecalle, id: response[i].idcalle})
-            }
-            $scope.calless = array_temp;
-            $scope.s_calle = 0;
-        });
-        $scope.aux = 0;
-        $scope.aux = $scope.s_barrio;
-        if($scope.aux > 0)
-        {
-            $http.get(API_URL + 'canal/getCanalesByBarrio/'+ $scope.aux).success(function(response) {
-                console.log(response);
-                //$scope.canals = response;
-                var array_temp = [];
-                for(var i = 0; i < response.length; i++){
-
-                    for(var j = 0; j < (response[i].canal).length; j++){
-                        array_temp.push((response[i].canal)[j]);
-                    }
-                }
-                $scope.canals = array_temp;
-            });
-        }
-        else {  $scope.initLoad();
-        }
-    }
-
-    $scope.FiltrarPorCalle = function (){
-
-        $scope.aux1 = $scope.s_barrio;
-        $scope.aux2 = $scope.s_calle;
-
-        if($scope.aux2 > 0)
-        {
-            $http.get(API_URL + 'canal/getCanalesByCalle/'+ $scope.s_calle).success(function(response) {
-                console.log(response);
-               $scope.canals = response;
-               /* var array_temp = [];
-                for(var i = 0; i < response.length; i++){
-
-                    for(var j = 0; j < (response[i].canal).length; j++){
-                        array_temp.push((response[i].canal)[j]);
-                    }
-                }
-                $scope.canals = array_temp;*/
-            });
-        }
-        else {  $scope.FiltrarPorBarrio();
-        }
-    }
-
-
     $scope.hideModalMessage = function () {
         setTimeout("$('#modalMessage').modal('hide')", 3000);
     };
 
     $scope.initLoad();
-    $scope.FiltroCalle();
-    $scope.FiltroBarrio();
 
 });
 
 function convertDatetoDB(now, revert){
-    if (revert == undefined){
+    if (revert === undefined){
         var t = now.split('/');
         return t[2] + '-' + t[1] + '-' + t[0];
     } else {
