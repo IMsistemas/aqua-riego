@@ -982,9 +982,11 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.actionRiego = function () {
         $scope.getLastIDRiego();
-        $scope.getLastID();
+        //$scope.getLastID();
         $scope.getBarrios();
         $scope.getTarifas();
+        $scope.getCanales();
+        $scope.getDerivaciones();
 
         console.log($scope.objectAction);
 
@@ -1136,8 +1138,31 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.saveSolicitudRiego = function () {
 
+        var idcanal = $scope.t_canal;
+        var idderivacion = $scope.t_derivacion;
+        var idcalle = $scope.t_toma;
+
+        if ($scope.t_canal === 0 || $scope.t_canal === '0') {
+            idcanal = null;
+        }
+
+        if ($scope.t_derivacion === 0 || $scope.t_derivacion === '0') {
+            idderivacion = null;
+        }
+
+        if ($scope.t_toma === 0 || $scope.t_toma === '0') {
+            idcalle = null;
+        }
+
+
         var solicitud = {
             //fechacreacion: convertDatetoDB($scope.t_fecha_process),
+
+            codigoterreno: $scope.nro_terreno,
+            idcanal: idcanal,
+            idderivacion: idderivacion,
+            idcalle: idcalle,
+
             codigocliente: $scope.h_codigocliente,
             idbarrio: $scope.t_junta,
             idcultivo: $scope.t_cultivo,
@@ -1145,7 +1170,6 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
             caudal: $scope.calculate_caudal,
             valoranual: $scope.valor_total,
             idtarifa: $scope.t_tarifa,
-            idderivacion : $scope.t_derivacion,
             observacion: $scope.t_observacion_riego,
             file: $scope.file
 

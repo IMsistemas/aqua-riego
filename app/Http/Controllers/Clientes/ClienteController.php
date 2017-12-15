@@ -370,7 +370,8 @@ class ClienteController extends Controller
      */
     public function getCanales($idcalle)
     {
-        return Canal::where('idcalle', $idcalle)->orderBy('nombrecanal', 'asc')->get();
+        //return Canal::where('idcalle', $idcalle)->orderBy('nombrecanal', 'asc')->get();
+        return Canal::orderBy('nombrecanal', 'asc')->get();
     }
 
     /**
@@ -381,7 +382,8 @@ class ClienteController extends Controller
      */
     public function getDerivaciones($idcanal)
     {
-        return Derivacion::where('idcanal', $idcanal)->orderBy('nombrederivacion', 'asc')->get();
+        //return Derivacion::where('idcanal', $idcanal)->orderBy('nombrederivacion', 'asc')->get();
+        return Derivacion::orderBy('nombrederivacion', 'asc')->get();
     }
 
     /**
@@ -447,16 +449,28 @@ class ClienteController extends Controller
         }
 
         $terreno = new Terreno();
+        $terreno->codigoterreno = $request->input('codigoterreno');
         $terreno->idcultivo = $request->input('idcultivo');
         $terreno->idtarifa = $request->input('idtarifa');
         $terreno->idcliente = $request->input('codigocliente');
-        $terreno->idderivacion = $request->input('idderivacion');
         $terreno->fechacreacion = date('Y-m-d');
         $terreno->caudal = $request->input('caudal');
         $terreno->area = $request->input('area');
         $terreno->valoranual = $request->input('valoranual');
         $terreno->observacion = $request->input('observacion');
         $terreno->urlescrituras = $url_file;
+
+        if ($request->input('idderivacion') != null && $request->input('idderivacion') != 'null') {
+            $terreno->idderivacion = $request->input('idderivacion');
+        }
+
+        if ($request->input('idcanal') != null && $request->input('idcanal') != 'null') {
+            $terreno->idcanal = $request->input('idcanal');
+        }
+
+        if ($request->input('idcalle') != null && $request->input('idcalle') != 'null') {
+            $terreno->idcalle = $request->input('idcalle');
+        }
 
         if ($terreno->save()){
 

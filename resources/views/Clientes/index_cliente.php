@@ -1,6 +1,6 @@
 
 
-    <div ng-controller="clientesController">
+    <div class="container" ng-controller="clientesController">
 
         <div class="col-xs-12">
 
@@ -10,7 +10,7 @@
 
         </div>
 
-        <div class="col-xs-12" style="margin-top: 5px;">
+        <div class="col-xs-12" style="margin-top: 5px; padding: 0;">
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" id="t_busqueda" placeholder="BUSCAR..." ng-model="t_busqueda">
@@ -705,8 +705,8 @@
                                             <div class="col-sm-6 col-xs-12 error">
 
                                                 <div class="input-group">
-                                                    <span class="input-group-addon">Nro. Terreno: </span>
-                                                    <input class="form-control" type="text" name="nro_terreno" id="nro_terreno" ng-model="nro_terreno" disabled >
+                                                    <span class="input-group-addon">Codigo Terreno: </span>
+                                                    <input class="form-control" type="text" name="nro_terreno" id="nro_terreno" ng-model="nro_terreno" />
                                                 </div>
 
                                             </div>
@@ -801,7 +801,7 @@
                                                 <span class="input-group-addon">Toma: </span>
                                                 <select class="form-control" name="t_toma" id="t_toma"
                                                         ng-model="t_toma" ng-options="value.id as value.label for value in tomas"
-                                                        ng-change="getCanales()"></select>
+                                                        ng-change=""></select>
                                             </div>
 
                                         </div>
@@ -812,7 +812,7 @@
                                                 <span class="input-group-addon">Canal: </span>
                                                 <select class="form-control" name="t_canal" id="t_canal"
                                                         ng-model="t_canal" ng-options="value.id as value.label for value in canales"
-                                                        ng-change="getDerivaciones()"></select>
+                                                        ng-change=""></select>
                                             </div>
 
                                         </div>
