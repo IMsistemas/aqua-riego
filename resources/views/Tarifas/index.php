@@ -1,6 +1,6 @@
 
 
-        <div class="col-xs-12" ng-controller="tarifaController">
+        <div class="container" ng-controller="tarifaController">
 
             <div class="col-xs-12">
 

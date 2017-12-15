@@ -1,7 +1,15 @@
 
-    <div ng-controller="barrioController">
+    <div class="container" ng-controller="barrioController">
 
-        <div class="col-xs-12" style="margin-top: 15px;">
+        <div class="col-xs-12">
+
+            <h4>Gestión de Juntas Modulares</h4>
+
+            <hr>
+
+        </div>
+
+        <div class="col-xs-12" style="margin-top: 15px; padding: 0;">
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" id="busqueda" placeholder="BUSCAR..." ng-model="busqueda">
@@ -17,11 +25,11 @@
             <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                 <thead class="bg-primary">
                     <tr>
-                        <th style="width: 15%;">Fecha de Ingreso</th>
-                        <th style="width: 15%;">Nombre de la Junta</th>
-                        <th style="">Tomas</th>
-                        <th style="width: 15%;">Observaciones</th>
-                        <th style="width: 15%;">Acciones</th>
+                        <th style="width: 15%;">FECHA INGRESO</th>
+                        <th style="width: 15%;">JUNTA MODULAR</th>
+                        <th style="">TOMAS</th>
+                        <th style="width: 15%;">OBSERVACION</th>
+                        <th style="width: 15%;">ACCIONES</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,18 +46,23 @@
                         </td>
                         <td>{{item.observacion}}</td>
                         <td>
-                            <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfo(item)">
-                                <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
-                            </button>
-                            <!--<button type="button" class="btn btn-warning btn-sm" ng-click="edit(item)">
-                                <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
-                            </button>-->
-                            <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDelete(item)">
-                                <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
-                            </button>
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="showModalAction(item)">
-                                <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
-                            </button>
+
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-info btn-sm" ng-click="showModalInfo(item)">
+                                    <i class="fa fa-lg fa-info-circle" aria-hidden="true"></i>
+                                </button>
+                                <!--<button type="button" class="btn btn-warning btn-sm" ng-click="edit(item)">
+                                    <i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i>
+                                </button>-->
+                                <button type="button" class="btn btn-danger btn-sm" ng-click="showModalDelete(item)">
+                                    <i class="fa fa-lg fa-trash" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary btn-sm" ng-click="showModalAction(item)">
+                                    <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+
                         </td>
                     </tr>
                 </tbody>

@@ -1,5 +1,5 @@
 
-<div ng-controller="configuracionSystemController" ng-init="getCuentas()">
+<div class="container" ng-controller="configuracionSystemController" ng-init="getCuentas()">
 
     <div class="col-xs-12">
 
