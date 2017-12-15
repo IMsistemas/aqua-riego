@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tomas;
 
 use App\Modelos\Sectores\Barrio;
+use App\Modelos\Terreno\Terreno;
 use App\Modelos\Tomas\Calle;
 use App\Modelos\Tomas\Canal;
 use App\Modelos\Tomas\Derivacion;
@@ -28,56 +29,6 @@ class DerivacionesController extends Controller
         return Derivacion::orderBy('nombrederivacion', 'asc')->get();
     }
 
-    public function getDerivacionesByBarrio1($id)
-    {
-        return Calle::with('canal.derivacion')->where('idbarrio', $id)->orderBy('namecalle')->get();
-    }
-
-    public function getDerivacionesById($id){
-        return Derivacion::where('idcanal', $id)->orderBy('nombrederivacion')->get();
-    }
-
-
-
-    public function getDerivacionesByBarrio($id){
-
-       return $calle = Calle::with('canal') ->where('idbarrio', $id)->orderBy('namecalle')->get();
-    }
-
-
-    public function getCanales()
-    {
-        return Canal::orderBy('nombrecanal', 'asc')->get();
-    }
-
-    public function getCanaless()
-    {
-        return Canal::orderBy('nombrecanal', 'asc')->get();
-    }
-
-    public function getCalles()
-    {
-        return Calle::orderBy('namecalle', 'asc')->get();
-    }
-
-    public function getBarrios()
-    {
-        return Barrio::orderBy('namebarrio', 'asc')->get();
-    }
-
-
-    public function getLastID()
-    {
-        $max_derivacion = Derivacion::max('idderivacion');
-
-        if ($max_derivacion != null){
-            $max_derivacion += 1;
-        } else {
-            $max_derivacion = 1;
-        }
-        return response()->json(['id' => $max_derivacion]);
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -97,33 +48,20 @@ class DerivacionesController extends Controller
      */
     public function store(Request $request)
     {
+
         $deri = new Derivacion();
 
         $deri->nombrederivacion = $request->input('nombrederivacion');
         $deri->observacion = $request->input('observacion');
-        $deri->idcanal = $request->input('idcanal');
         $deri->fechaingreso = date('Y-m-d');
 
-        $deri->save();
-
-        return response()->json(['success' => true]);
-    }
-
-    public function editar_derivaciones(Request $request)
-    {
-        $deriv = $request->input('arr_deriva');
-
-        foreach ($deriv as $item) {
-            $deriv1 = Derivacion::find($item['idderivacion']);
-
-            $deriv1->nombrederivacion = $item['nombrederivacion'];
-
-            $deriv1->save();
+        if ($deri->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
         }
-        return response()->json(['success' => true]);
+
     }
-
-
 
 
     /**
@@ -157,7 +95,16 @@ class DerivacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $deri = Derivacion::find($id);
+
+        $deri->nombrederivacion = $request->input('nombrederivacion');
+        $deri->observacion = $request->input('observacion');
+
+        if ($deri->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 
     /**
@@ -168,8 +115,22 @@ class DerivacionesController extends Controller
      */
     public function destroy($id)
     {
-        $deriva = Derivacion::find($id);
-        $deriva->delete();
-        return response()->json(['success' => true]);
+        $aux =  Terreno::where ('idderivacion',$id)->count();
+
+        if ($aux > 0){
+
+            return response()->json(['success' => false, 'msg' => 'exist_derivacion']);
+
+        } else {
+
+            $derivacion = Derivacion::find($id);
+
+            if ($derivacion->delete()) {
+                return response()->json(['success' => true]);
+            } else {
+                return response()->json(['success' => false]);
+            }
+
+        }
     }
 }

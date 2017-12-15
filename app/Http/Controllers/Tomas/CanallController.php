@@ -105,7 +105,6 @@ class CanallController extends Controller
 
         $canal->nombrecanal = $request->input('nombrecanal');
         $canal->observacion = $request->input('observacion');
-        $canal->fechaingreso = date('Y-m-d');
 
         if ($canal->save()) {
             return response()->json(['success' => true]);

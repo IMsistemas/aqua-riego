@@ -13,8 +13,7 @@ app.controller('canallController', function($scope, $http, API_URL) {
 
     $scope.viewModalAdd = function () {
 
-        $scope.date_ingreso = now();
-
+        $scope.idcanal_del = 0;
         $scope.nombrecanal = '';
         $scope.observacionCanal = '';
 
@@ -25,7 +24,6 @@ app.controller('canallController', function($scope, $http, API_URL) {
     };
 
     $scope.saveCanal = function () {
-
 
         var data = {
             nombrecanal: $scope.nombrecanal,

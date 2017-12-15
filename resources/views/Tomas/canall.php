@@ -23,7 +23,7 @@
 
 
         <div class="col-sm-3 col-xs-12">
-            <button type="button" class="btn btn-primary" style="float: right;" ng-click="viewModalAdd()">Nuevo <span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
+            <button type="button" class="btn btn-primary" style="float: right;" ng-click="viewModalAdd()">Agregar <span class="glyphicon glyphicon-plus" aria-hidden="true"></button>
         </div>
 
     </div>
@@ -52,7 +52,6 @@
                                 Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </button>
                         </div>
-
                     </td>
                 </tr>
             </tbody>
