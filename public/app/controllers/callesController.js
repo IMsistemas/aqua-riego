@@ -90,28 +90,7 @@ app.controller('callesController', function($scope, $http, API_URL) {
         $scope.name_calle = item.namecalle;
         $scope.fecha_ingreso = item.fechaingreso;
 
-        var array_canal = item.canal;
-        var text = '';
-        var canales =[];
-        for(var e  = 0; e < array_canal.length; e++){
-            canales.push(array_canal[e].idcanal);
-            text += array_canal[e].nombrecanal + ',';
-        }
-        var data = {
-            idcanales: canales
-        };
-        // console.log(data);
-        $http.get(API_URL + 'calle/getderivaciones/' + JSON.stringify(data)).success(function(response) {
-            var aux='';
-            console.log(response);
-            for(var i  = 0; i < response.length; i++) {
-                for(var a  = 0; a < response[i].length; a++){
-                    aux += response[i][a].nombrederivacion + ',';
-                }
-            }
-            $scope.calle_derivacion = aux;
-            $scope.calle_canales = text;
-        });
+
 
         $('#modalInfo').modal('show');
 
