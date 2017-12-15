@@ -176,7 +176,7 @@ class SolicitudController extends Controller
 
     public function getSolicitudRiego($idsolicitud)
     {
-        return SolicitudRiego::with('terreno.derivacion.canal.calle')->where('idsolicitudriego', $idsolicitud)->get();
+        return SolicitudRiego::with('terreno.calle.barrio')->where('idsolicitudriego', $idsolicitud)->get();
     }
 
     public function getSolicitudSetN($idsolicitud)

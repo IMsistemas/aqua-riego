@@ -1416,7 +1416,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             $scope.getTarifas(response[0].terreno.idtarifa);
             $scope.getCultivos(response[0].terreno.idtarifa, response[0].terreno.idcultivo);
 
-            var idbarrio = 0;//response[0].terreno.derivacion.canal.calle.idbarrio;
+            var idbarrio = response[0].terreno.calle.idbarrio;
             var idcalle = response[0].terreno.idcalle;
             var idcanal = response[0].terreno.idcanal;
             var idderivacion = response[0].terreno.idderivacion;

@@ -20,4 +20,6 @@ class SolicitudRiego extends Model
         return $this->belongsTo('App\Modelos\Terreno\Terreno', 'idterreno');
     }
 
+
+
 }

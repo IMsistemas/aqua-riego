@@ -30,6 +30,10 @@ class Terreno extends Model
         return $this->belongsTo('App\Modelos\Clientes\Cliente', 'idcliente');
     }
 
+    public function calle(){
+        return $this->belongsTo('App\Modelos\Tomas\Calle','idcalle');
+    }
+
     public function barrio()
     {
         return $this->belongsTo('App\Modelos\Sectores\Barrio', 'idbarrio');
