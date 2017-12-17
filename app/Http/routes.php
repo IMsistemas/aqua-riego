@@ -258,6 +258,13 @@ Route::get('anticipoproveedor/getAnticipos', 'Anticipos\AnticipoProveedorControl
 Route::resource('anticipoproveedor', 'Anticipos\AnticipoProveedorController');
 
 /*
+ * ------------------------------------MODULO CENTRO COSTO--------------------------------------------------------------
+ */
+
+Route::get('centrocosto/getCentroCostos', 'CentroCosto\CentroCostoController@getCentroCostos');
+Route::resource('centrocosto', 'CentroCosto\CentroCostoController');
+
+/*
  * ------------------------------------MODULO PROVEEDORES Y TRANSPORTISTAS----------------------------------------------
  */
 

@@ -194,6 +194,11 @@ app.controller('mainController',function($scope, $http, API_URL) {
         $scope.toModulo = "cuentascobrarcliente";
     }
 
+    $scope.toModuloCentroCosto = function(){
+        $scope.titulo = "Centro Costo";
+        $scope.toModulo = "centrocosto";
+    }
+
     $scope.toModuloProveedores = function(){
         $scope.titulo = "Proveedores";
         $scope.toModulo = "proveedor";
