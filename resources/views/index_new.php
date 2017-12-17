@@ -90,8 +90,8 @@
                                 <ul class = "dropdown-menu">
                                     <li><a href = "#" ng-click="toModuloProveedores();">Gestión de Proveedores</a></li>
                                     <li><a href = "#" ng-click="toModuloTransportistas();">Gestión de Transportistas</a></li>
+                                    <li><a href = "#" ng-click="toModuloCentroCosto();">Gestión de Centros de Costo</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href = "#" ng-click="toModuloCentroCosto();">Centros de Costo</a></li>
                                     <li><a href = "#" ng-click="toModuloPlanCuentas();">Plan de Cuenta</a></li>
                                     <li id="permiso_5"><a href="#" ng-click="toModuloConciliacion();">Conciliación</a></li>
 
