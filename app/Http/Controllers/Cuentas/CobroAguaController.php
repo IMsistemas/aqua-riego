@@ -62,8 +62,8 @@ class CobroAguaController extends Controller
             ->join('persona', 'cliente.idpersona', '=', 'persona.idpersona')
             ->join('tarifa', 'terreno.idtarifa', '=', 'tarifa.idtarifa')
             ->join('derivacion', 'terreno.idderivacion', '=', 'derivacion.idderivacion')
-            ->join('canal', 'derivacion.idcanal', '=', 'canal.idcanal')
-            ->join('calle', 'canal.idcalle', '=', 'calle.idcalle')
+            ->join('canal', 'terreno.idcanal', '=', 'canal.idcanal')
+            ->join('calle', 'terreno.idcalle', '=', 'calle.idcalle')
             ->join('barrio', 'calle.idbarrio', '=', 'barrio.idbarrio')
             ->orderBy('aniocobro', 'desc')
             ->get();
