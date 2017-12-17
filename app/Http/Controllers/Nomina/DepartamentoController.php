@@ -76,7 +76,7 @@ class DepartamentoController extends Controller
         } else {
             $cargo = new Departamento();
             $cargo->namedepartamento = $request->input('namedepartamento');
-            $cargo->centrocosto = $request->input('centrocosto');
+            //$cargo->centrocosto = $request->input('centrocosto');
 
             if ($cargo->save()) {
                 return response()->json(['success' => true]);
@@ -128,7 +128,7 @@ class DepartamentoController extends Controller
 
             $departamento = Departamento::find($id);
             $departamento->namedepartamento = $request->input('namedepartamento');
-            $departamento->centrocosto = $request->input('centrocosto');
+            //$departamento->centrocosto = $request->input('centrocosto');
 
             if ($departamento->save()) {
                 return response()->json(['success' => true]);
