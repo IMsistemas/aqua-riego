@@ -215,7 +215,7 @@ $scope.cmb_estado_fact="A";
             var longitud = response.length;
             var array_temp = [{label: '-- Seleccione --', id: ''}];
             for(var i = 0; i < longitud; i++){
-                array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento})
+                array_temp.push({label: response[i].namecentrocosto, id: response[i].idcentrocosto})
             }
             $scope.listdepartamento = array_temp;
             $scope.departamento = '';
@@ -761,7 +761,7 @@ $scope.cmb_estado_fact="A";
     		otrosventa:0,
     		valortotalventa:$scope.ValorTotal,
     		estadoanulado:'false',
-            iddepartamento: departamento,
+            idcentrocosto: departamento,
             idtipocomprobante: $scope.tipocomprobante,
     		idtransaccion:''
     	};

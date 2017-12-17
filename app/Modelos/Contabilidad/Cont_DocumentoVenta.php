@@ -35,7 +35,7 @@ class Cont_DocumentoVenta extends Model
         'otrosventa',
         'valortotalventa',
         'estadoanulado',
-        'iddepartamento',
+        'idcentrocosto',
         'idtipocomprobante',
         'idcomprobanteretencion',
         'idtransaccion'

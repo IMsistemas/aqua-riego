@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Facturacionventa;
 
 use App\Modelos\Bodegas\Bodega;
+use App\Modelos\Contabilidad\Cont_CentroCosto;
 use App\Modelos\Nomina\Departamento;
 use App\Modelos\SRI\SRI_TipoComprobante;
 use App\Modelos\Suministros\Suministro;
@@ -119,7 +120,9 @@ class DocumentoVenta extends Controller
 
     public function getCentroCosto()
     {
-        return Departamento::where('centrocosto', true)->orderBy('namedepartamento', 'asc')->get();
+        //return Departamento::where('centrocosto', true)->orderBy('namedepartamento', 'asc')->get();
+
+        return Cont_CentroCosto::orderBy('namecentrocosto', 'asc')->get();
     }
 
 
