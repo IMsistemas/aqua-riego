@@ -1,6 +1,6 @@
 
 
-    <div class="col-xs-12" ng-controller="terrenoController" ng-init="loadTarifas(); loadBarrios();">
+    <div class="container" ng-controller="terrenoController" ng-init="loadTarifas(); loadBarrios();">
 
         <div class="col-xs-12">
 
@@ -10,7 +10,7 @@
 
         </div>
 
-        <div class="col-xs-12">
+        <div class="col-xs-12" style="padding: 0;">
             <div class="col-sm-6 col-xs-12">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" id="search" ng-model="search" placeholder="BUSCAR..."
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div class="col-xs-12">
+        <div class="col-xs-12" style="padding: 0;">
             <div class="col-sm-3 col-xs-12">
 
                 <div class="input-group">
@@ -93,11 +93,10 @@
                     <th>CLIENTE</th>
                     <th style="width: 15%;">TARIFA</th>
                     <th style="width: 10%;">CULTIVO</th>
-                    <th style="width: 10%;">DERIVACION</th>
                     <th style="width: 15%;">JUNTA MODULAR</th>
                     <th style="width: 6%;">CAUDAL</th>
                     <th style="width: 8%;">AREA (m2)</th>
-                    <th style="width: 10%;">ACCIONES</th>
+                    <th style="width: 15%;">ACCIONES</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -105,11 +104,10 @@
                     <td>{{terreno.razonsocial}}</td>
                     <td>{{terreno.nombretarifa}}</td>
                     <td>{{terreno.nombrecultivo}}</td>
-                    <td>{{terreno.nombrederivacion}}</td>
                     <td>{{terreno.namebarrio}}</td>
                     <td class="text-right">{{terreno.caudal}}</td>
                     <td class="text-right">{{terreno.area}}</td>
-                    <td>
+                    <td class="text-center">
 
                         <div class="btn-group" role="group" aria-label="...">
                             <button type="button" class="btn btn-info" id="btn_inform" ng-click="loadInformation(terreno)">

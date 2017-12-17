@@ -40,9 +40,9 @@ class TerrenoController extends Controller
                             ->join('tarifa', 'tarifa.idtarifa', '=', 'terreno.idtarifa')
                             ->join('cliente', 'cliente.idcliente', '=', 'terreno.idcliente')
                             ->join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
-                            ->join('derivacion', 'derivacion.idderivacion', '=', 'terreno.idderivacion')
-                            ->join('canal', 'canal.idcanal', '=', 'derivacion.idcanal')
-                            ->join('calle', 'calle.idcalle', '=', 'canal.idcalle')
+                            //->join('derivacion', 'derivacion.idderivacion', '=', 'terreno.idderivacion')
+                            //->join('canal', 'canal.idcanal', '=', 'terreno.idcanal')
+                            ->join('calle', 'calle.idcalle', '=', 'terreno.idcalle')
                             ->join('barrio', 'barrio.idbarrio', '=', 'calle.idbarrio');
 
         if ($search != null) {

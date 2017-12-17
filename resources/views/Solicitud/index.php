@@ -1,6 +1,6 @@
 
 
-    <div class="col-xs-12" ng-controller="solicitudController" style="">
+    <div class="container" ng-controller="solicitudController" style="">
 
         <div class="col-xs-12">
 
@@ -10,7 +10,7 @@
 
         </div>
 
-        <div class="col-xs-12">
+        <div class="col-xs-12" style="padding: 0;">
             <div class="col-sm-4 col-xs-12">
                 <div class="form-group has-feedback">
                     <input type="text" class="form-control" id="search" placeholder="BUSCAR..." ng-model="search">
@@ -44,7 +44,7 @@
             <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
                 <thead class="bg-primary">
                 <tr>
-                    <th style="width: 5%;">NO.</th>
+
                     <th style="width: 10%;">FECHA</th>
                     <th>CLIENTE</th>
                     <th>DIRECCION</th>
@@ -56,7 +56,7 @@
                 </thead>
                 <tbody>
                 <tr dir-paginate="solicitud in solicitudes | orderBy:sortKey:reverse |itemsPerPage:10 | filter : search" ng-cloak>
-                    <td>{{solicitud.idsolicitud}}</td>
+
                     <td>{{solicitud.fechasolicitud | formatDate}}</td>
                     <td>{{solicitud.razonsocial}}</td>
                     <td>{{solicitud.direccion}}</td>

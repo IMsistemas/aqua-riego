@@ -1,4 +1,5 @@
-<div ng-controller="recaudacionController">
+
+<div class="container" ng-controller="recaudacionController">
 
     <div class="col-xs-12">
 
@@ -8,7 +9,7 @@
 
     </div>
 
-	<div class="col-xs-12" style="margin-top: 5px;">
+	<div class="col-xs-12" style="margin-top: 5px; padding: 0;">
 
 		<div class="col-xs-6">
 			<div class="form-group has-feedback">
