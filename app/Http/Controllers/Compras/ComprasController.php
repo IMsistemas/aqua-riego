@@ -7,6 +7,7 @@ use App\Http\Controllers\Contabilidad\CoreContabilidad;
 use App\Modelos\Configuracion\ConfiguracionSystem;
 use App\Modelos\Contabilidad\Cont_Bodega;
 use App\Modelos\Contabilidad\Cont_CatalogItem;
+use App\Modelos\Contabilidad\Cont_CentroCosto;
 use App\Modelos\Contabilidad\Cont_DocumentoCompra;
 use App\Modelos\Contabilidad\Cont_FormaPago;
 use App\Modelos\Contabilidad\Cont_FormaPagoDocumentoCompra;
@@ -121,7 +122,10 @@ class ComprasController extends Controller
 
     public function getCentrosCostos()
     {
-        return Departamento::where('centrocosto', true)->get();
+        //return Departamento::where('centrocosto', true)->get();
+
+        return Cont_CentroCosto::orderBy('namecentrocosto', 'asc')->get();
+
     }
 
     public function getFormaPago()

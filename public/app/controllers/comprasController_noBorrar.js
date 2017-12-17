@@ -112,7 +112,7 @@
                 var array_temp = [{label: '-- Seleccione --', id: null}];
 
                 for (var i = 0; i < longitud; i++) {
-                    array_temp.push({label: response[i].namedepartamento, id: response[i].iddepartamento});
+                    array_temp.push({label: response[i].namecentrocosto, id: response[i].idcentrocosto});
                 }
 
                 $scope.listcentrocostos = array_temp;
