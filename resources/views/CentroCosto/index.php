@@ -38,8 +38,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr dir-paginate="item in canals | itemsPerPage:10 | filter:busqueda" ng-cloak >
-                <td>{{item.centrocostos}}</td>
+            <tr dir-paginate="item in centrocostos | itemsPerPage:10 | filter:busqueda" ng-cloak >
+                <td>{{item.namecentrocosto}}</td>
                 <td>{{item.observacion}}</td>
                 <td class="text-center">
                     <div class="btn-group" role="group" aria-label="...">

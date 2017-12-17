@@ -333,6 +333,7 @@
     <script src="<?= asset('app/controllers/usuarioController.js') ?>"></script>
     <script src="<?= asset('app/controllers/comprasController.js') ?>"></script>
     <script src="<?= asset('app/controllers/anticipoProveedorController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/centroCostoController.js') ?>"></script>
     <script src="<?= asset('app/controllers/notaCreditoController.js') ?>"></script>
     <script src="<?= asset('app/controllers/reporteCompraController.js') ?>"></script>
     <script src="<?= asset('app/controllers/reporteVentaController.js') ?>"></script>

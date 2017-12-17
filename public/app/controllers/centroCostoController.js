@@ -7,7 +7,7 @@ app.controller('centroCostoController', function($scope, $http, API_URL) {
 
     $scope.initLoad = function () {
         $http.get(API_URL + 'centrocosto/getCentroCostos').success(function (response) {
-            $scope.centrocostos = response;
+            $scope.centrocostos = response.data;
         });
     };
 
