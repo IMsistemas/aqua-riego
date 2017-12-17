@@ -1,5 +1,5 @@
 
-    <div ng-controller="proveedoresController">
+    <div class="container" ng-controller="proveedoresController">
 
         <div class="col-xs-12">
 
@@ -33,7 +33,7 @@
                         <th>DIRECCION</th>
                         <th style="width: 8%">TELEFONO</th>
                         <th style="width: 8%">CELULAR</th>
-                        <th style="width: 24%;">ACCIONES</th>
+                        <th style="width: 15%;">ACCIONES</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -49,15 +49,15 @@
                                 <div class="btn-group" role="group" aria-label="...">
                                     <button type="button" class="btn btn-info" ng-click="toggle('info', proveedor)"
                                             data-toggle="tooltip" data-placement="bottom" title="Contactos">
-                                        Información <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                                         <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-warning" ng-click="toggle('edit', proveedor)"
                                             data-toggle="tooltip" data-placement="bottom" title="Editar" >
-                                        Editar <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                     </button>
                                     <button type="button" class="btn btn-danger" ng-click="showModalConfirm(proveedor)"
                                             data-toggle="tooltip" data-placement="bottom" title="Eliminar">
-                                        Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                     </button>
                                 </div>
 
