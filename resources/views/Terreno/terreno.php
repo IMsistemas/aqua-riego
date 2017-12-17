@@ -58,7 +58,7 @@
                     <span class="input-group-addon">Toma:</span>
                     <select class="form-control" name="t_toma" id="t_toma0"
                             ng-model="t_toma0" ng-options="value.id as value.label for value in tomas_s"
-                            ng-change="loadCanales(); initLoad(1);"> </select>
+                            ng-change="initLoad(1);"> </select>
                 </div>
 
             </div>
@@ -69,7 +69,7 @@
                     <span class="input-group-addon">Canal:</span>
                     <select class="form-control" name="t_canales" id="t_canales"
                             ng-model="t_canales" ng-options="value.id as value.label for value in canales_s"
-                            ng-change="loadDerivaciones(); initLoad(1);"> </select>
+                            ng-change="initLoad(1);"> </select>
                 </div>
 
             </div>

@@ -548,6 +548,8 @@ app.controller('terrenoController', function($scope, $http, API_URL, Upload) {
         $scope.getByFilter();
     });*/
 
+    $scope.loadCanales();
+    $scope.loadDerivaciones();
 
     $('.datepicker_year').datetimepicker({
         locale: 'es',

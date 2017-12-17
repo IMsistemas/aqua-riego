@@ -58,15 +58,15 @@ class TerrenoController extends Controller
         }
 
         if ($filter->t_toma0 != null && $filter->t_toma0 != '') {
-            $terreno = $terreno->where('calle.idcalle', $filter->t_toma0);
+            $terreno = $terreno->where('terreno.idcalle', $filter->t_toma0);
         }
 
         if ($filter->t_canales != null && $filter->t_canales != '') {
-            $terreno = $terreno->where('canal.idcanal', $filter->t_canales);
+            $terreno = $terreno->where('terreno.idcanal', $filter->t_canales);
         }
 
         if ($filter->t_canales != null && $filter->t_derivacion0 != '') {
-            $terreno = $terreno->where('derivacion.idderivacion', $filter->t_derivacion0);
+            $terreno = $terreno->where('terreno.idderivacion', $filter->t_derivacion0);
         }
 
         return $terreno->paginate(10);
@@ -160,7 +160,9 @@ class TerrenoController extends Controller
      */
     public function getCanales($idcalle)
     {
-        return Canal::where('idcalle', $idcalle)->orderBy('nombrecanal', 'asc')->get();
+        //return Canal::where('idcalle', $idcalle)->orderBy('nombrecanal', 'asc')->get();
+
+        return Canal::orderBy('nombrecanal', 'asc')->get();
     }
 
     /**
@@ -182,7 +184,9 @@ class TerrenoController extends Controller
      */
     public function getDerivaciones($idcanal)
     {
-        return Derivacion::where('idcanal', $idcanal)->orderBy('nombrederivacion', 'asc')->get();
+        //return Derivacion::where('idcanal', $idcanal)->orderBy('nombrederivacion', 'asc')->get();
+
+        return Derivacion::orderBy('nombrederivacion', 'asc')->get();
     }
 
 
