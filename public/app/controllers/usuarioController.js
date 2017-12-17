@@ -59,7 +59,7 @@ app.controller('usuarioController', function($scope, $http, API_URL) {
                         $scope.usuario = '';
                         $scope.password = '';
 
-                        $scope.form_title = "Nuevo Usuario";
+                        $scope.form_title = "Nuevo Miembro";
                         $scope.nombrerol = '';
                         $('#modalActionCargo').modal('show');
 
@@ -70,7 +70,7 @@ app.controller('usuarioController', function($scope, $http, API_URL) {
                 break;
             case 'edit':
 
-                $scope.form_title = "Editar Usuario";
+                $scope.form_title = "Editar Miembro";
                 $scope.idusuario = id;
 
 
@@ -145,14 +145,14 @@ app.controller('usuarioController', function($scope, $http, API_URL) {
                     if (response.success == true) {
                         $scope.idusuario = 0;
                         $scope.initLoad(1);
-                        $scope.message = 'Se insertó correctamente el Usuario...';
+                        $scope.message = 'Se insertó correctamente el Miembro seleccionado...';
                         $('#modalMessage').modal('show');
                         $scope.hideModalMessage();
                     }
                     else {
 
                         if (response.exists !== undefined) {
-                            $scope.message_error = 'Ya existe ese Usuario...';
+                            $scope.message_error = 'Ya existe ese Miembro...';
                         } else {
                             $scope.message_error = 'Ha ocurrido un error..';
                         }
@@ -167,13 +167,13 @@ app.controller('usuarioController', function($scope, $http, API_URL) {
                     if (response.success == true) {
                         $scope.initLoad(1);
                         $('#modalActionCargo').modal('hide');
-                        $scope.message = 'Se editó correctamente el Usuario seleccionado';
+                        $scope.message = 'Se editó correctamente el Miembro seleccionado';
                         $('#modalMessage').modal('show');
                     } else {
                         if (response.exists !== undefined) {
-                            $scope.message_error = 'Ya existe ese Usuario registrado...';
+                            $scope.message_error = 'Ya existe ese Miembro registrado...';
                         } else {
-                            $scope.message_error = 'Ha ocurrido un error al intentar editar el Usuario seleccionado...';
+                            $scope.message_error = 'Ha ocurrido un error al intentar editar el Miembro seleccionado...';
                         }
                         $('#modalMessageError').modal('show');
                     }
@@ -229,14 +229,14 @@ app.controller('usuarioController', function($scope, $http, API_URL) {
                 $scope.initLoad(1);
                 $('#modalConfirmDelete').modal('hide');
                 $scope.idusuario = 0;
-                $scope.message = 'Se eliminó correctamente el Usuario seleccionado...';
+                $scope.message = 'Se eliminó correctamente el Miembro seleccionado...';
                 $('#modalMessage').modal('show');
                 $scope.hideModalMessage();
 
             } else {
 
                 if (response.exists == true) {
-                    $scope.message_error = 'El Rol no puede ser eliminado porque esta asignado a un Usuario...';
+                    $scope.message_error = 'El Rol no puede ser eliminado porque esta asignado a un Miembro...';
                 } else {
                     $scope.message_error = 'Ha ocurrido un error al intentar eliminar el rol seleccionado...';
                 }

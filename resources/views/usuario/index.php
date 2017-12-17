@@ -1,10 +1,10 @@
 
 
-<div ng-controller="usuarioController">
+<div class="container" ng-controller="usuarioController">
 
     <div class="col-xs-12">
 
-        <h4>Gestión de Usuarios</h4>
+        <h4>Gestión de Miembros</h4>
 
         <hr>
 
@@ -101,7 +101,7 @@
 
                             <div class="col-xs-12 error" style="margin-top: 5px;">
                                 <div class="input-group">
-                                    <span class="input-group-addon">Usuario: </span>
+                                    <span class="input-group-addon">Miembro: </span>
                                     <input type="text" class="form-control" name="usuario" id="usuario" ng-model="usuario" placeholder=""
                                            ng-required="true" ng-maxlength="20">
                                 </div>
@@ -168,7 +168,7 @@
                     <h4 class="modal-title">Confirmación</h4>
                 </div>
                 <div class="modal-body">
-                    <span>Realmente desea eliminar el Usuario: <span style="font-weight: bold;">{{cargo_seleccionado}}</span></span>
+                    <span>Realmente desea eliminar el Miembro: <span style="font-weight: bold;">{{cargo_seleccionado}}</span></span>
 
                 </div>
                 <div class="modal-footer">
