@@ -30,14 +30,14 @@
                 <thead class="bg-primary">
                 <tr>
                     <th>NOMBRE DEPARTAMENTO</th>
-                    <th style="width: 12%">CENTRO COSTO</th>
+                    <!--<th style="width: 12%">CENTRO COSTO</th>-->
                     <th style="width: 18%;">ACCIONES</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr dir-paginate="item in departamentos | orderBy:sortKey:reverse | itemsPerPage:10" total-items="totalItems" ng-cloak">
                 <td>{{item.namedepartamento}}</td>
-                <td>{{(item.centrocosto) ? 'SI' : 'NO'}}</td>
+                <!--<td>{{(item.centrocosto) ? 'SI' : 'NO'}}</td> -->
                 <td class="text-center">
 
                     <div class="btn-group" role="group" aria-label="...">
@@ -92,7 +92,7 @@
                                       ng-show="formCargo.nombrecargo.$invalid && formCargo.nombrecargo.$error.maxlength">La longitud máxima es de 150 caracteres</span>
                             </div>
 
-                            <div class="col-xs-12" style="margin-top: 5px;">
+                            <!--<div class="col-xs-12" style="margin-top: 5px;">
                                 <div class="input-group">
                                     <span class="input-group-addon">Centro de Costo: </span>
                                     <select class="form-control" name="centrocosto" id="centrocosto" ng-model="centrocosto">
@@ -100,7 +100,7 @@
                                         <option value="true">SI</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>-->
 
                         </div>
                     </form>
