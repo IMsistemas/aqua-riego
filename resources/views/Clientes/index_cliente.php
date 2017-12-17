@@ -521,16 +521,16 @@
 
                                     <div class="row" ng-repeat="terrenos_item in terrenos_list">
                                         <div class="col-xs-12">
-                                            <span style="font-weight: bold">No. Terreno: </span>{{terrenos_item.idterreno}}
+                                            <span style="font-weight: bold">No. Terreno: </span>{{terrenos_item.codigoterreno}}
                                         </div>
                                         <div class="col-xs-12">
-                                            <span style="font-weight: bold">Junta Modular: </span>{{terrenos_item.derivacion.canal.calle.barrio.namebarrio}}
+                                            <span style="font-weight: bold">Junta Modular: </span>{{terrenos_item.calle.barrio.namebarrio}}
                                         </div>
                                         <div class="col-xs-12">
-                                            <span style="font-weight: bold">Toma: </span>{{terrenos_item.derivacion.canal.calle.namecalle}}
+                                            <span style="font-weight: bold">Toma: </span>{{terrenos_item.calle.namecalle}}
                                         </div>
                                         <div class="col-xs-12">
-                                            <span style="font-weight: bold">Canal: </span>{{terrenos_item.derivacion.canal.nombrecanal}}
+                                            <span style="font-weight: bold">Canal: </span>{{terrenos_item.canal.nombrecanal}}
                                         </div>
                                         <div class="col-xs-12">
                                             <span style="font-weight: bold">Derivación: </span>{{terrenos_item.derivacion.nombrederivacion}}

@@ -25,6 +25,11 @@ class Terreno extends Model
         return $this->belongsTo('App\Modelos\Tomas\Derivacion', 'idderivacion');
     }
 
+    public function canal()
+    {
+        return $this->belongsTo('App\Modelos\Tomas\Canal', 'idcanal');
+    }
+
     public function cliente()
     {
         return $this->belongsTo('App\Modelos\Clientes\Cliente', 'idcliente');

@@ -57,7 +57,7 @@ class ClienteController extends Controller
 
         $cliente = null;
 
-        $cliente = Cliente::with('terreno.derivacion.canal.calle.barrio', 'terreno.cultivo.tarifa', 'sri_tipoempresa', 'sri_parte')
+        $cliente = Cliente::with('terreno.derivacion', 'terreno.canal', 'terreno.calle.barrio', 'terreno.cultivo.tarifa', 'sri_tipoempresa', 'sri_parte')
                             ->join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
                             ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'cliente.idplancuenta')
                             ->select('cliente.*', 'persona.*', 'cont_plancuenta.idplancuenta', 'cont_plancuenta.concepto');
