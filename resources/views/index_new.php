@@ -78,7 +78,7 @@
                                     SRI <b class = "caret"></b>
                                 </a>
                                 <ul class = "dropdown-menu">
-                                    <li><a href = "#">Anexo Transaccional Simplificado (ATS)</a></li>
+                                    <li><a href = "#" ng-click="toModuloATS();">Anexo Transaccional Simplificado (ATS)</a></li>
                                     <li><a href = "#">Registro Facturación Electrónica</a></li>
                                 </ul>
                             </li>
@@ -351,7 +351,8 @@
     <script src="<?= asset('app/controllers/cobroServicioController.js') ?>"></script>
     <script src="<?= asset('app/controllers/rolPagoController.js') ?>"></script>
     <script src="<?= asset('app/controllers/ConciliacionController.js') ?>"></script>
-
+    <script src="<?= asset('app/controllers/reembolsoController.js') ?>"></script>
+    <script src="<?= asset('app/controllers/atsController.js') ?>"></script>
 
 
     </body>
