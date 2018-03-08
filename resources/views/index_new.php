@@ -51,7 +51,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a id="view-home" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Ir a Inicio">
+                        <a id="view-home" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Ir a Inicio" ng-click="tografico();">
                             <img src="img/logotipo-interno.png" alt="Brand">
                         </a>
                     </div>
@@ -196,8 +196,8 @@
                                     <i class="fa fa-user fa-lg" ></i> <span id="active-user"></span> <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#profile"><i class="fa fa-pencil-square-o fa-lg" ></i> Perfil</a></li>
-                                    <li role="separator" class="divider"></li>
+                                    <!--<li><a href="#profile"><i class="fa fa-pencil-square-o fa-lg" ></i> Perfil</a></li>
+                                    <li role="separator" class="divider"></li>-->
                                     <li id="permiso_42"><a href="#" ng-click="toModuloRol()">Gestión de Roles</a></li>
                                     <li id="permiso_43"><a href="#" ng-click="toModuloUsuario()">Gestión de Usuarios</a></li>
                                     <li role="separator" class="divider"></li>
@@ -263,10 +263,14 @@
 
     <script src="<?= asset('app/lib/angular/angucomplete-alt.min.js') ?>"></script>
 
+    <script src="<?= asset('app/lib/Chart/Chart.bundle.min.js') ?>"></script>
+    <script src="<?= asset('app/lib/Chart/Chart.min.js') ?>"></script>
 
     <script src="<?= asset('app/app.js') ?>"></script>
 
     <script src="<?= asset('app/controllers/mainController.js') ?>"></script>
+
+    <script src="<?= asset('app/controllers/graficocontroller.js') ?>"></script>
 
     <script src="<?= asset('app/controllers/clientesController.js') ?>"></script>
     <script src="<?= asset('app/controllers/cargosController.js') ?>"></script>

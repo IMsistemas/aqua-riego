@@ -2,7 +2,7 @@
 app.controller('mainController',function($scope, $http, API_URL) {
 
     $scope.titulo = "Inicio";
-    $scope.toModulo = "";
+    $scope.toModulo = "graficos";
 
     $scope.username = 'Secretaría';
 
@@ -87,6 +87,11 @@ app.controller('mainController',function($scope, $http, API_URL) {
         ];
 
         $scope.prepareListBreadcrumb(list);
+    }
+
+    $scope.toModuloATS = function(){
+        $scope.titulo = "ATS";
+        $scope.toModulo = "ats";
     }
 
     $scope.toModuloProvincia = function(){
@@ -348,6 +353,17 @@ app.controller('mainController',function($scope, $http, API_URL) {
         $scope.titulo = "Rol de Pago";
         $scope.toModulo = "rolPago";
     }
+
+    $scope.toModuloReembolso = function(){
+        $scope.titulo = "Reembolso";
+        $scope.toModulo = "reembolso";
+    };
+
+
+    $scope.tografico = function(){
+        $scope.titulo = "Graficos";
+        $scope.toModulo = "graficos";
+    };
 
     $scope.toModuloCanal = function(){
         $scope.titulo = "Canales";

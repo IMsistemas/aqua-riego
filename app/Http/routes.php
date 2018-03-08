@@ -16,6 +16,8 @@ Route::post('/resetPassword', 'Index\IndexController@resetPassword');
 Route::resource('/', 'Index\IndexController');
 Route::resource('/inicio', 'Index\IndexController');
 
+Route::resource('graficos', 'Index\GraficosController');
+
 /*
  * -------------------------------------NEGOCIO RIEGO-------------------------------------------------------------------
  */
@@ -189,6 +191,9 @@ Route::resource('/editTerreno', 'Terreno\TerrenoController');
 /*
  * --------------------------------------CONTABILIDAD-------------------------------------------------------------------
  */
+
+Route::get('ats/getFiles', 'ATS\ATSController@getFiles');
+Route::resource('ats', 'ATS\ATSController');
 
 /*
  * -------------------------------------MODULO BODEGA-------------------------------------------------------------------
