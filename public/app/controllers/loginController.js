@@ -16,7 +16,7 @@ app.controller('loginController', function($scope, $http, API_URL) {
 
         $http.post(API_URL, object ).success(function (response) {
 
-            if (response.success == false) {
+            if (response.success === false) {
                 $scope.text_failed = 'Upss! Usuario y/o Contraseña incorrecto.';
                 $('#view-failed-login').show();
             } else {
@@ -28,6 +28,7 @@ app.controller('loginController', function($scope, $http, API_URL) {
         });
 
     };
+
 
     $scope.showConfirm = function () {
 
@@ -54,7 +55,7 @@ app.controller('loginController', function($scope, $http, API_URL) {
 
             if (response.success === true) {
 
-                $scope.message = 'Se ha cambiado y enviado por Email registrado el password nuevo...';
+                $scope.message = 'Se ha enviado por Email registrado la solicitud de actualización de Contraseña...';
 
                 $('#modalMessage').modal('show');
 

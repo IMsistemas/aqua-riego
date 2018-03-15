@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Reembolso;
 
+use App\Modelos\Contabilidad\Cont_DocumentoCompra;
 use App\Modelos\SRI\SRI_ComprobanteReembolso;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,22 @@ class ReembolsoController extends Controller
     public function index()
     {
         return view('reembolso.index');
+    }
+
+    public function getReembolsos()
+    {
+        return SRI_ComprobanteReembolso::join('sri_tipocomprobante', 'sri_tipocomprobante.idtipocomprobante', '=', 'sri_comprobantereembolso.idtipocomprobante')
+                    ->join('cont_documentocompra', 'cont_documentocompra.iddocumentocompra', '=', 'sri_comprobantereembolso.iddocumentocompra')
+                    ->selectRaw('sri_comprobantereembolso.*, sri_tipocomprobante.*, cont_documentocompra.numdocumentocompra')
+                    ->paginate(8);
+    }
+
+    public function getCompras(Request $request)
+    {
+        $compra = Cont_DocumentoCompra::whereRaw("cont_documentocompra.numdocumentocompra::text ILIKE '%" . $request->input('q') . "%'")
+            ->get();
+
+        return $compra;
     }
 
     /**
@@ -95,7 +112,28 @@ class ReembolsoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $reembolso = SRI_ComprobanteReembolso::find($id);
+
+        $reembolso->iddocumentocompra = $request->input('iddocumentocompra');
+
+        $reembolso->idtipoidentificacion = $request->input('idtipoidentificacion');
+        $reembolso->idtipocomprobante = $request->input('idtipocomprobante');
+        $reembolso->numdocidentific = $request->input('numdocidentific');
+        $reembolso->numdocumentoreembolso = $request->input('numdocumentoreembolso');
+        $reembolso->noauthreembolso = $request->input('noauthreembolso');
+        $reembolso->fechaemisionreembolso = $request->input('fechaemisionreembolso');
+        $reembolso->ivacero = $request->input('ivacero');
+        $reembolso->iva = $request->input('iva');
+        $reembolso->ivanoobj = $request->input('ivanoobj');
+        $reembolso->ivaexento = $request->input('ivaexento');
+        $reembolso->montoiva = $request->input('montoiva');
+        $reembolso->montoice = $request->input('montoice');
+
+        if ($reembolso->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 
     /**
@@ -106,6 +144,13 @@ class ReembolsoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comprobante = SRI_ComprobanteReembolso::find($id);
+
+        if($comprobante->delete()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+
     }
 }

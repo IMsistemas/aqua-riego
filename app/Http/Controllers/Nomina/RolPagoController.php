@@ -78,11 +78,10 @@ class RolPagoController extends Controller
 
     public function getRoles()
     {
-        //SELECT * FROM rrhh_rolpago WHERE id_conceptopago = 2 AND fecha = (SELECT MAX(fecha)  FROM rrhh_rolpago)
 
         return RolPago::join('empleado', 'empleado.idempleado', '=', 'rrhh_rolpago.id_empleado')
             ->join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
-            ->where('id_conceptopago', 1)
+            ->where('id_conceptopago', 1)->where('estadoanulado', false)
             ->whereRaw('EXTRACT( MONTH FROM fecha) = (SELECT MAX(EXTRACT( MONTH FROM fecha)) FROM rrhh_rolpago)')
             ->whereRaw('EXTRACT( YEAR FROM fecha) = (SELECT MAX(EXTRACT( YEAR FROM fecha)) FROM rrhh_rolpago)')->get();
     }
@@ -135,7 +134,7 @@ class RolPagoController extends Controller
                 $rol->diascalculo = $request->input('diascalculo');
                 if($item['cantidad'] === ""){
                     $rol->valormedida = 0;
-                }else $rol->valormedida = $item['cantidad'];
+                }else $rol->valormedida = str_replace('%', '', $item['cantidad']);
 
                 if($item['valorTotal'] === ""){
                     $rol->valormoneda = 0;
@@ -146,6 +145,9 @@ class RolPagoController extends Controller
                 $rol->fecha = $request->input('fecha');
                 $rol->numtransaccion = $id_transaccion;
                 $rol->numdocumento = $request->input('numdocumento');
+                $rol->periodo = $request->input('periodo');
+                $rol->estadoanulado = false;
+
 
                 if ($rol->save() == false) {
                     return response()->json(['success' => false]);
@@ -156,4 +158,32 @@ class RolPagoController extends Controller
             }
         }
     }
+
+
+    public function printRol($numdocumento)
+    {
+
+        ini_set('max_execution_time', 3000);
+
+        $rol = RolPago::join('empleado', 'empleado.idempleado', '=', 'rrhh_rolpago.id_empleado')
+            ->join('rrhh_conceptospago', 'rrhh_conceptospago.id_conceptospago', '=', 'rrhh_rolpago.id_conceptopago')
+            ->join('persona', 'persona.idpersona', '=', 'empleado.idpersona')
+            ->join('cargo', 'cargo.idcargo', '=', 'empleado.idcargo')
+            ->where('numdocumento', $numdocumento)->orderBy('id_rolpago', 'asc')->get();
+
+        $aux_empresa = SRI_Establecimiento::all();
+
+        $today = date("Y-m-d H:i:s");
+
+        $view =  \View::make('RolPago.rolpago', compact('rol','today','aux_empresa'))->render();
+
+        $pdf = \App::make('dompdf.wrapper');
+
+        $pdf->loadHTML($view);
+
+        $pdf->setPaper('A4', 'portrait');
+
+        return @$pdf->stream('reportCC_' . $today);
+    }
+
 }
