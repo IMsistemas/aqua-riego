@@ -302,6 +302,8 @@ Route::resource('/transportista', 'Transportista\TransportistaController');
  * -------------------------------------MODULO REEMBOLSO----------------------------------------------------------------
  */
 
+Route::get('reembolso/getCompras/{codigo}', 'Reembolso\ReembolsoController@getCompras');
+Route::get('reembolso/getReembolsos', 'Reembolso\ReembolsoController@getReembolsos');
 Route::resource('/reembolso', 'Reembolso\ReembolsoController');
 
 /*
@@ -353,7 +355,6 @@ Route::get('cuentasxcobrar/getCobrosServices/{id}', 'Cuentas\CuentasPorCobrarCon
 Route::get('cuentasxcobrar/getCobros/{id}', 'Cuentas\CuentasPorCobrarController@getCobros');
 Route::get('cuentasxcobrar/getFacturas', 'Cuentas\CuentasPorCobrarController@getFacturas');
 Route::resource('cuentasxcobrar', 'Cuentas\CuentasPorCobrarController');
-
 /*
  * -----------------------------------MODULO CUENTAS POR PAGAR----------------------------------------------------------
  */
@@ -540,6 +541,7 @@ Route::get('rolPago/getEmpleados', 'Nomina\RolPagoController@getEmpleados');
 Route::get('rolPago/getDataEmpresa', 'Nomina\RolPagoController@getDataEmpresa');
 Route::get('rolPago/getExistsConfig', 'Nomina\RolPagoController@getExistsConfig');
 Route::get('rolPago/getRolPago/{numdocumento}', 'Nomina\RolPagoController@getRolPago');
+Route::get('rolPago/reporte_print/{numdocumento}', 'Nomina\RolPagoController@printRol');
 Route::resource('rolPago', 'Nomina\RolPagoController');
 
 Route::get('configNomina/getConceptos', 'ConfiguracionSystem\ConfigNominaController@getConceptos');
