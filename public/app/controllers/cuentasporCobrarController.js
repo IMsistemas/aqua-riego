@@ -280,6 +280,8 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
             DataContabilidad: Contabilidad
         };
 
+        console.log(transaccion_venta_full);
+
         /*
          * --------------------------------- FIN CONTABILIDAD ----------------------------------------------------------
          */
