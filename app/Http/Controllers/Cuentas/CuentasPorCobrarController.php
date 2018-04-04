@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Cuentas;
 
 use App\Http\Controllers\Contabilidad\CoreContabilidad;
 use App\Modelos\Clientes\Cliente;
-use App\Modelos\Configuracion\ConfiguracionSystem;
 use App\Modelos\Contabilidad\Cont_DocumentoVenta;
-use App\Modelos\Contabilidad\Cont_PlanCuenta;
 use App\Modelos\Contabilidad\Cont_RegistroCliente;
 use App\Modelos\Contabilidad\Cont_RegistroContable;
 use App\Modelos\Cuentas\CobroAgua;
@@ -34,11 +32,11 @@ class CuentasPorCobrarController extends Controller
     {
         $filter = json_decode($request->get('filter'));
 
-        $factura = Cont_DocumentoVenta::with('cont_cuentasporcobrar', 'suministro')
-                                        ->join('cliente', 'cliente.idcliente', '=', 'cont_documentoventa.idcliente')
-                                        ->join('persona','persona.idpersona','=','cliente.idpersona')
-                                        ->whereRaw("cont_documentoventa.fecharegistroventa BETWEEN '" . $filter->inicio . "' AND '"  . $filter->fin . "'")
-                                        ->get();
+        $factura = Cont_DocumentoVenta::with('cont_cuentasporcobrar')
+            ->join('cliente', 'cliente.idcliente', '=', 'cont_documentoventa.idcliente')
+            ->join('persona','persona.idpersona','=','cliente.idpersona')
+            ->whereRaw("cont_documentoventa.fecharegistroventa BETWEEN '" . $filter->inicio . "' AND '"  . $filter->fin . "'")
+            ->get();
 
         /*$cobroservicio = CobroServicio::with('cont_cuentasporcobrar')
                                         ->join('solicitudservicio', 'solicitudservicio.idsolicitudservicio', '=', 'cobroservicio.idsolicitudservicio')
@@ -76,36 +74,24 @@ class CuentasPorCobrarController extends Controller
     public function getCobros($id)
     {
         return CuentasporCobrar::join('cont_formapago', 'cont_formapago.idformapago', '=', 'cont_cuentasporcobrar.idformapago')
-                                    ->where('iddocumentoventa', $id)->get();
+            ->where('iddocumentoventa', $id)->get();
     }
 
     public function getCobrosServices($id)
     {
         return CuentasporCobrar::join('cont_formapago', 'cont_formapago.idformapago', '=', 'cont_cuentasporcobrar.idformapago')
-                                    ->where('idcobroservicio', $id)->get();
+            ->where('idcobroservicio', $id)->get();
     }
 
     public function getCobrosLecturas($id)
     {
         return CuentasporCobrar::join('cont_formapago', 'cont_formapago.idformapago', '=', 'cont_cuentasporcobrar.idformapago')
-                                    ->where('idcobroagua', $id)->get();
+            ->where('idcobroagua', $id)->get();
     }
 
     public function getLastID()
     {
         return CuentasporCobrar::max('idcuentasporcobrar');
-    }
-
-    public function getDefaultCxC()
-    {
-        return ConfiguracionSystem::where('optionname', 'CONT_CXC_DEFAULT')
-            ->selectRaw("*, (SELECT concepto FROM cont_plancuenta WHERE cont_plancuenta.idplancuenta = (configuracionsystem.optionvalue)::INT)")
-            ->get();
-    }
-
-    public function getCuentaCxC($id)
-    {
-        return Cont_PlanCuenta::where('idplancuenta', $id)->get();
     }
 
     public function anular(Request $request)
@@ -190,49 +176,7 @@ class CuentasPorCobrarController extends Controller
          * ----------------------------------------CONTABILIDAD-------------------------------------------------------
          */
 
-        foreach ($request->input('listSelected') as $item) {
-
-            $cuenta = new CuentasporCobrar();
-
-            $cuenta->nocomprobante = $request->input('nocomprobante');
-            $cuenta->idformapago = $request->input('idformapago');
-            $cuenta->valorpagado = $item['acobrar'];
-            $cuenta->fecharegistro = $request->input('fecharegistro');
-            $cuenta->idplancuenta = $request->input('cuenta');
-            $cuenta->idtransaccion = $id_transaccion;
-            $cuenta->descripcion = $request->input('descripcion');
-
-            if ($item['type'] == 'venta') {
-                if ($item['iddocumentoventa'] != 0) {
-                    $cuenta->iddocumentoventa = $item['iddocumentoventa'];
-                }
-            } else if ($item['type'] == 'servicio') {
-                $cuenta->idcobroservicio = $item['idcobroservicio'];
-            } else {
-                $cuenta->idcobroagua = $item['idcobroagua'];
-            }
-
-            $cuenta->estadoanulado = false;
-
-            if ($cuenta->save()) {
-
-                $cuenta2 = CuentasporCobrar::find($cuenta->idcuentasporcobrar);
-                $cuenta2->nocomprobante = $cuenta->idcuentasporcobrar;
-
-                if ($cuenta2->save() == false) {
-                    return response()->json(['success' => false]);
-                }
-
-
-            } else {
-                return response()->json(['success' => false]);
-            }
-
-        }
-
-        return response()->json(['success' => true]);
-
-        /*$cuenta = new CuentasporCobrar();
+        $cuenta = new CuentasporCobrar();
 
         $cuenta->nocomprobante = $request->input('nocomprobante');
         $cuenta->idformapago = $request->input('idformapago');
@@ -252,8 +196,6 @@ class CuentasPorCobrarController extends Controller
             $cuenta->idcobroagua = $request->input('iddocumentoventa');
         }
 
-        $cuenta->estadoanulado = false;
-
         if ($cuenta->save()) {
 
             $cuenta2 = CuentasporCobrar::find($cuenta->idcuentasporcobrar);
@@ -268,9 +210,7 @@ class CuentasPorCobrarController extends Controller
 
         } else {
             return response()->json(['success' => false]);
-        }*/
-
-
+        }
     }
 
     /**
@@ -329,32 +269,32 @@ class CuentasPorCobrarController extends Controller
         if ($cobro[0]->idcobroagua != null) {
 
             $cobro1 = $cobro1->join('cobroagua', 'cobroagua.idcobroagua', '=', 'cont_cuentasporcobrar.idcobroagua')
-                            ->join('suministro', 'suministro.idcliente', '=', 'cobroagua.idsuministro')
-                            ->join('cliente', 'cliente.idcliente', '=', 'suministro.idcliente');
+                ->join('suministro', 'suministro.idcliente', '=', 'cobroagua.idsuministro')
+                ->join('cliente', 'cliente.idcliente', '=', 'suministro.idcliente');
 
         } elseif ($cobro[0]->idcobroservicio != null) {
 
             $cobro1 = $cobro1->join('cobroservicio', 'cobroservicio.idcobroservicio', '=', 'cont_cuentasporcobrar.idcobroservicio')
-                            ->join('cliente', 'cliente.idcliente', '=', 'cobroservicio.idcliente');
+                ->join('cliente', 'cliente.idcliente', '=', 'cobroservicio.idcliente');
 
         } else {
 
             $cobro1 = $cobro1->join('cont_documentoventa', 'cont_documentoventa.iddocumentoventa', '=', 'cont_cuentasporcobrar.iddocumentoventa')
-                            ->join('cliente', 'cliente.idcliente', '=', 'cont_documentoventa.idcliente');
+                ->join('cliente', 'cliente.idcliente', '=', 'cont_documentoventa.idcliente');
 
         }
 
         $resultCobro = $cobro1->join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
-                                ->where('idcuentasporcobrar', $id)->get();
+            ->where('idcuentasporcobrar', $id)->get();
 
 
 
         $registro = Cont_RegistroContable::join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'cont_registrocontable.idplancuenta')
-                                ->selectRaw('cont_registrocontable.idtransaccion, 
+            ->selectRaw('cont_registrocontable.idtransaccion, 
                                         cont_registrocontable.idplancuenta,cont_registrocontable.debe, cont_registrocontable.haber, 
                                         cont_registrocontable.descripcion,cont_plancuenta.jerarquia, cont_plancuenta.concepto')
-                                ->where('cont_registrocontable.idtransaccion', $resultCobro[0]->idtransaccion)
-                                ->orderBy('cont_registrocontable.debe', 'desc')->get();
+            ->where('cont_registrocontable.idtransaccion', $resultCobro[0]->idtransaccion)
+            ->orderBy('cont_registrocontable.debe', 'desc')->get();
 
         return [$resultCobro, $registro];
     }
