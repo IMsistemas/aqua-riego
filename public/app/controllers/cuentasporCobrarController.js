@@ -208,7 +208,7 @@ app.controller('cuentasporCobrarController',  function($scope, $http, API_URL) {
     };
 
     $scope.infoCliente = function (idcliente) {
-        $http.get(API_URL + 'nuevaLectura/getInfoClienteByID/'+ idcliente).success(function(response){
+        $http.get(API_URL + 'cuentasxcobrar/getInfoClienteByID/'+ idcliente).success(function(response){
 
             $scope.Cliente = response[0];
             console.log($scope.Cliente);
