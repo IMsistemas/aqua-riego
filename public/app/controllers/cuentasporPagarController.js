@@ -39,7 +39,25 @@ app.controller('cuentasporPagarController',  function($scope, $http, API_URL) {
 
             var longitud = response.length;
 
+
+
             for (var i = 0; i < longitud; i++) {
+
+                var total_retenido = 0;
+
+                if (response[i].sri_retencioncompra.length > 0) {
+
+                    var detalle_ret = response[i].sri_retencioncompra[0].sri_retenciondetallecompra;
+
+                    detalle_ret.forEach(function (e) {
+
+                        total_retenido += parseFloat(e.valorretenido);
+
+                    });
+
+                }
+
+
 
                 if (response[i].total === null && response[i].total !== undefined ) {
                     response[i].total = 0;
@@ -57,6 +75,8 @@ app.controller('cuentasporPagarController',  function($scope, $http, API_URL) {
 
                 }
 
+
+
                 var complete_name = {
                     value: suma.toFixed(2),
                     writable: true,
@@ -64,6 +84,15 @@ app.controller('cuentasporPagarController',  function($scope, $http, API_URL) {
                     configurable: true
                 };
                 Object.defineProperty(response[i], 'valorcobrado', complete_name);
+
+
+                var retencion = {
+                    value: total_retenido.toFixed(2),
+                    writable: true,
+                    enumerable: true,
+                    configurable: true
+                };
+                Object.defineProperty(response[i], 'retencion', retencion);
 
             }
 

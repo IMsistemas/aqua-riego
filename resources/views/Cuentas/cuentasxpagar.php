@@ -44,6 +44,7 @@
                         <th>PROVEEDOR</th>
                         <th style="width: 11%;">NO FACTURA</th>
                         <th style="width: 11%;">VALOR TOTAL</th>
+                        <th style="width: 11%;">VALOR RETENIDO</th>
                         <th style="width: 11%;">VALOR PAGADO</th>
                         <th style="width: 11%;">PENDIENTE</th>
                         <th style="width: 11%;">ACCION</th>
@@ -63,9 +64,11 @@
 
                         <td class="text-right">$ {{item.valortotalcompra }}</td>
 
+                        <td class="text-right">$ {{item.retencion}}</td>
+
                         <td class="text-right">$ {{item.valorcobrado}}</td>
 
-                        <td class="text-right">$ {{(item.valortotalcompra - item.valorcobrado).toFixed(2)}}</td>
+                        <td class="text-right">$ {{(item.valortotalcompra - item.retencion - item.valorcobrado).toFixed(2)}}</td>
 
                         <td class="text-right">
                             <button type="button" class="btn btn-primary" ng-click="showModalListCobro(item)" title="Cobros">

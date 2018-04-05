@@ -30,7 +30,7 @@ class CuentasPorPagarController extends Controller
     {
         $filter = json_decode($request->get('filter'));
 
-        return Cont_DocumentoCompra::with('cont_cuentasporpagar')
+        return Cont_DocumentoCompra::with('cont_cuentasporpagar', 'sri_retencioncompra.sri_retenciondetallecompra')
                             ->join('proveedor', 'proveedor.idproveedor', '=', 'cont_documentocompra.idproveedor')
                             ->join('persona','persona.idpersona','=','proveedor.idpersona')
                             ->whereRaw("cont_documentocompra.fecharegistrocompra BETWEEN '" . $filter->inicio . "' AND '"  . $filter->fin . "'")
