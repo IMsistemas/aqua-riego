@@ -460,6 +460,18 @@ app.controller('empleadosController', function($scope, $http, API_URL, Upload) {
 
     };
 
+    $scope.fechaFamily = function (item, field) {
+
+        item.fechanacimiento = $('#f_' + field).val();
+
+    };
+
+    $scope.fechaHistory = function (item, field) {
+
+        item.fechainicio = $('#t_' + field).val();
+
+    };
+
     $scope.createRowHistory = function () {
 
         $(document).ready (function(){
