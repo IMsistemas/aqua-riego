@@ -75,8 +75,6 @@ app.controller('cuentasporPagarController',  function($scope, $http, API_URL) {
 
                 }
 
-
-
                 var complete_name = {
                     value: suma.toFixed(2),
                     writable: true,
@@ -156,7 +154,7 @@ app.controller('cuentasporPagarController',  function($scope, $http, API_URL) {
 
                 $scope.listcobro = response;
 
-                $scope.valorpendiente = (item.valortotalcompra - item.valorcobrado).toFixed(2);
+                $scope.valorpendiente = (item.valortotalcompra - item.retencion - item.valorcobrado).toFixed(2);
 
                 $('#listCobros').modal('show');
 
