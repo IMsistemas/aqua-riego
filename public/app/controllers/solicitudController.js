@@ -1399,6 +1399,8 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             console.log(solicitud);
             console.log(response);
 
+            $scope.idsolicitud = solicitud.tipo_id;
+
             /*$scope.t_fecha_process = $scope.nowDate();*/
 
             $scope.num_solicitud_riego = response[0].idsolicitudriego;
