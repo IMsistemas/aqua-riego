@@ -1545,6 +1545,9 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
 
         }*/
 
+
+        console.log(solicitud);
+
         if(solicitud.tipo === 'Otra Solicitud') {
             $scope.actionOtro(solicitud);
         } else if(solicitud.tipo === 'Repartición') {
