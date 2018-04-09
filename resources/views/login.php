@@ -18,7 +18,15 @@
 	<body ng-controller="loginController">
 
 		<div class="container" style="">
-			<img src="img/logotipo-interno.png">
+
+            <div class="col-sm-6 col-xs-12" style="">
+                <img src="img/logotipo-interno.png" class="text-right" style="margin-right: 0px !important">
+            </div>
+            <div class="col-sm-6 col-xs-12" style="">
+                <img src="img/pisque.png" style="width: 40% !important;  margin-left: 0px !important;">
+            </div>
+
+
 		</div>
 
         <div class="container">
