@@ -2128,7 +2128,7 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
                     $scope.hideModalMessage();
 
                 } else {
-                    $scope.message_error = 'El registro no puede ser eliminado porque esta asignado a un colaborador...';
+                    $scope.message_error = 'El registro no puede ser eliminado porque esta asignado a un Cantón...';
                     $('#modalMessageError').modal('show');
                     $('#modalConfirmDelete').modal('hide');
                 }
@@ -2150,7 +2150,7 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
                     $scope.hideModalMessage();
 
                 } else {
-                    $scope.message_error = 'El registro no puede ser eliminado porque esta asignado a un colaborador...';
+                    $scope.message_error = 'El registro no puede ser eliminado porque esta asignado a una Parroquia...';
                     $('#modalMessageError').modal('show');
                     $('#modalConfirmDelete').modal('hide');
                 }
@@ -2172,7 +2172,7 @@ app.controller('NomencladorController', function($scope, $http, API_URL, Upload)
                     $scope.hideModalMessage();
 
                 } else {
-                    $scope.message_error = 'El registro no puede ser eliminado porque esta asignado a un colaborador...';
+                    $scope.message_error = 'El registro no puede ser eliminado porque esta asignado a un Barrio...';
                     $('#modalMessageError').modal('show');
                     $('#modalConfirmDelete').modal('hide');
                 }

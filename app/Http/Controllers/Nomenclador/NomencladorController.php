@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Nomenclador;
 
+use App\Modelos\Sectores\Barrio;
 use App\Modelos\SRI\SRI_TipoDocumento;
 use Illuminate\Http\Request;
 
@@ -1417,8 +1418,16 @@ class NomencladorController extends Controller
 
     public function deleteParroquiaEX(Request $request)
     {
-        $data=Parroquia::find($request->input('id'));
-        $data->delete();
-        return response()->json(['success' => true]);
+        $barrio = Barrio::where('idparroquia', $request->input('id'))->count();
+
+        if ($barrio > 0) {
+            return response()->json(['success' => false]);
+        } else {
+            $data=Parroquia::find($request->input('id'));
+            $data->delete();
+            return response()->json(['success' => true]);
+        }
+
+
     }
 }

@@ -154,15 +154,9 @@ class CalleController extends Controller
         $calle->delete();
         return response()->json(['success' => true]);*/
 
-        $aux =  Canal::where ('idcalle',$id)->count('idcanal');
-
-        if ($aux > 0){
-            return response()->json(['success' => false, 'msg' => 'exist_canales']);
-        } else {
-            $calle = Calle::find($id);
-            $calle->delete();
-            return response()->json(['success' => true]);
-        }
+        $calle = Calle::find($id);
+        $calle->delete();
+        return response()->json(['success' => true]);
     }
 
 }
