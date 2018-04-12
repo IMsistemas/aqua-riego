@@ -4,10 +4,13 @@
         $scope.area_caudal = [];
         $scope.constante = 0;
         $scope.item_delete = 0;
+        $scope.idtarifa = 0;
 
         $scope.initData = function () {
             $scope.searchConstante();
         };
+
+
 
         $scope.searchConstante = function() {
             $http.get(API_URL + 'tarifa/getConstante').success(function(response){
@@ -41,6 +44,16 @@
                 if (idtarifa != undefined) {
                     $scope.t_tarifa = idtarifa;
                 } else $scope.t_tarifa = 0;
+            });
+        };
+
+        $scope.getListTarifas = function () {
+            $http.get(API_URL + 'tarifa/getTarifas').success(function(response){
+
+                $scope.listTarifa = response;
+
+                $('#modalListTarifa').modal('show');
+
             });
         };
 
@@ -115,10 +128,16 @@
             var now = new Date();
             $scope.year_ingreso = now.getFullYear();
 
-            $http.get(API_URL + 'tarifa/getLastID').success(function(response){
-                $scope.nombretarifa = '';
-                $scope.idtarifa = response.id;
-            });
+            $scope.idtarifa = 0;
+
+            $('#modalTarifa').modal('show');
+        };
+
+        $scope.editTarifa = function (item) {
+
+            $scope.year_ingreso = item.aniotarifa;
+            $scope.idtarifa = item.idtarifa;
+            $scope.nombretarifa = item.nombretarifa;
 
             $('#modalTarifa').modal('show');
         };
@@ -128,16 +147,88 @@
                 nombretarifa: $scope.nombretarifa
             };
 
-            $http.post(API_URL + 'tarifa', data ).success(function (response) {
-                $scope.getTarifas($scope.t_tarifa);
-                $('#modalTarifa').modal('hide');
-                $scope.message = 'Se insertó correctamente la Tarifa...';
-                $('#modalMessage').modal('show');
-                $scope.hideModalMessage();
+            if ($scope.idtarifa === 0) {
+
+                $http.post(API_URL + 'tarifa', data ).success(function (response) {
+
+                    $scope.getTarifas();
+                    $scope.getListTarifas();
+
+                    $scope.idtarifa = 0;
+                    $scope.nombretarifa = '';
+
+                    $('#modalTarifa').modal('hide');
+                    $scope.message = 'Se insertó correctamente la Tarifa...';
+                    $('#modalMessage').modal('show');
+                    $scope.hideModalMessage();
+
+                }).error(function (res) {
+
+                });
+
+            } else {
+
+                $http.put(API_URL + 'tarifa/' + $scope.idtarifa, data ).success(function (response) {
+
+                    $scope.getTarifas();
+                    $scope.getListTarifas();
+
+                    $scope.idtarifa = 0;
+                    $scope.nombretarifa = '';
+
+                    $('#modalTarifa').modal('hide');
+                    $scope.message = 'Se editó correctamente la Tarifa...';
+                    $('#modalMessage').modal('show');
+                    $scope.hideModalMessage();
+
+                }).error(function (res) {
+
+                });
+
+            }
+
+
+        };
+
+        $scope.showModalConfirmTarifa = function (item) {
+
+            $scope.idtarifa = item.idtarifa;
+            $scope.name_tarifa = item.nombretarifa;
+
+            $('#modalConfirmDeleteTarifa').modal('show');
+        };
+
+        $scope.deleteTarifa = function(){
+
+            $http.delete(API_URL + 'tarifa/' + $scope.idtarifa ).success(function (response) {
+
+                if (response.success === true) {
+
+                    $scope.getTarifas();
+                    $scope.getListTarifas();
+
+                    $scope.idtarifa = 0;
+                    $scope.name_tarifa = '';
+
+                    $('#modalTarifa').modal('hide');
+                    $scope.message = 'Se editó correctamente la Tarifa...';
+                    $('#modalMessage').modal('show');
+                    $scope.hideModalMessage();
+
+                } else {
+
+                    $scope.message_error = 'No se puede eliminar la Tarifa si presenta SubTarifas generadas...';
+                    $('#modalMessageError').modal('show');
+
+                }
+
 
             }).error(function (res) {
 
+
+
             });
+
         };
 
         $scope.calculateCaudalDesde = function (item) {
@@ -235,10 +326,6 @@
 
     });
 
-/*$(document).ready(function () {
 
-
-
-});*/
 
 

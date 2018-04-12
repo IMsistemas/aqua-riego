@@ -42,8 +42,8 @@
                                 <button type="button" class="btn btn-info" id="btn_inform" ng-click="generate();">
                                     Generar Tarifa <i class="fa fa-cogs fa-lg" aria-hidden="true"></i>
                                 </button>
-                                <button type="button" class="btn btn-info" id="btn_edit" ng-click="showModal();" >
-                                    Nueva <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+                                <button type="button" class="btn btn-primary" id="btn_edit" ng-click="getListTarifas();" >
+                                    Tarifas <i class="fa fa-cog fa-lg" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" class="btn btn-default" id="btn_create_row" ng-click="createRow();" disabled>
                                     <i class="fa fa-plus" aria-hidden="true"></i><i class="fa fa-tasks fa-lg" aria-hidden="true"></i>
@@ -88,26 +88,28 @@
                 </button>
             </div>
 
-            <div class="modal fade" tabindex="-1" role="dialog" id="modalTarifa">
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalTarifa" style="z-index: 99999;">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header modal-header-primary">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title">
-                                Nueva Tarifa - Fecha Ingreso: {{year_ingreso}}
+                                Tarifa - Fecha Ingreso: {{year_ingreso}}
                             </h4>
                         </div>
                         <div class="modal-body">
                             <form class="form-horizontal" name="formTarifa" novalidate="">
 
-                                <div class="col-xs-12">
+                                <!--<div class="col-xs-12">
 
                                     <div class="input-group">
                                         <span class="input-group-addon">Código: </span>
                                         <input type="text" class="form-control" name="idtarifa" id="idtarifa" ng-model="idtarifa" placeholder="" disabled>
                                     </div>
 
-                                </div>
+                                </div>-->
+
+                                <input type="hidden" class="form-control" name="idtarifa" id="idtarifa" ng-model="idtarifa">
 
                                 <div class="col-xs-12" style="margin-top: 5px;">
 
@@ -119,7 +121,7 @@
                                     <span class="help-block error"
                                           ng-show="formTarifa.nombretarifa.$invalid && formTarifa.nombretarifa.$touched">El nombre de la Tarifa es requerido</span>
                                     <span class="help-block error"
-                                          ng-show="formTarifa.nombretarifa.$invalid && formTarifa.nombretarifa.$error.maxlength">La longitud máxima es de 16 caracteres</span>
+                                          ng-show="formTarifa.nombretarifa.$invalid && formTarifa.nombretarifa.$error.maxlength">La longitud máxima es de 64 caracteres</span>
 
                                 </div>
 
@@ -138,6 +140,66 @@
                 </div>
             </div>
 
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalListTarifa">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-primary">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">
+                                Listado de Tarifas
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="col-xs-12">
+                                <button type="button" class="btn btn-info" ng-click="showModal();" >
+                                    Nueva Tarifa <i class="fa fa-plus fa-lg" aria-hidden="true"></i>
+                                </button>
+                            </div>
+
+
+                            <div class="col-xs-12" style="margin-top: 5px;">
+
+                                <table class="table table-responsive table-striped table-hover table-condensed table-bordered">
+                                    <thead class="bg-primary">
+                                    <tr>
+                                        <th>ANNO</th>
+                                        <th>TARIFA</th>
+                                        <th style="width: 25%;">ACCIONES</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in listTarifa" ng-cloak>
+                                    <td>{{item.aniotarifa}}</td>
+                                    <td>{{item.nombretarifa}}</td>
+                                    <td class="text-center">
+
+                                        <div class="btn-group" role="group" aria-label="...">
+                                            <button type="button" class="btn btn-warning" ng-click="editTarifa(item)">
+                                                Editar <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" ng-click="showModalConfirmTarifa(item)">
+                                                Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                            </button>
+                                        </div>
+
+                                    </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="modal fade" tabindex="-1" role="dialog" id="modalMessage">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -147,6 +209,20 @@
                         </div>
                         <div class="modal-body">
                             <span>{{message}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalMessageError">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-success">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Confirmación</h4>
+                        </div>
+                        <div class="modal-body">
+                            <span>{{message_error}}</span>
                         </div>
                     </div>
                 </div>
@@ -182,6 +258,30 @@
                                 Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
                             </button>
                             <button type="button" class="btn btn-danger" id="btn-save" ng-click="deleteRow()">
+                                Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="modalConfirmDeleteTarifa">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-header-danger">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Confirmación</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <span>Realmente desea eliminar la Tarifa {{name_tarifa}}...</span>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Cancelar <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+                            </button>
+                            <button type="button" class="btn btn-danger" id="btn-save" ng-click="deleteTarifa()">
                                 Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                             </button>
                         </div>

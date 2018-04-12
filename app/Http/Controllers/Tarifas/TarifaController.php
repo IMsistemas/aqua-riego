@@ -232,4 +232,40 @@ class TarifaController extends Controller
     }
 
 
+    public function update(Request $request, $id)
+    {
+        $tarifa = Tarifa::find($id);
+        $tarifa->nombretarifa = $request->input('nombretarifa');
+        $tarifa->save();
+
+        return response()->json(['success' => true]);
+    }
+
+
+    public function destroy($id)
+    {
+
+        $count_area = Area::where('idtarifa', $id)->count();
+
+        $count_caudal = Caudal::where('idtarifa', $id)->count();
+
+
+        if ($count_area == 0 && $count_caudal == 0) {
+
+            $tarifa = Tarifa::find($id);
+            $tarifa->delete();
+
+            return response()->json(['success' => true]);
+
+        } else {
+
+            return response()->json(['success' => false]);
+
+        }
+
+
+
+    }
+
+
 }
