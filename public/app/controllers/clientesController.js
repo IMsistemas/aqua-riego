@@ -661,8 +661,13 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
     $scope.calculateValor = function () {
         var area = $scope.t_area.trim();
 
+        var object = {
+            area: area,
+            idtarifa: $scope.t_tarifa
+        };
+
         if (area !== undefined && area !== '') {
-            $http.get(API_URL + 'cliente/calculateValor/' + area).success(function(response){
+            $http.get(API_URL + 'cliente/calculateValor/' + JSON.stringify(object)).success(function(response){
 
                 if (response.success === true) {
                     $scope.valor_total = parseFloat(response.costo).toFixed(2);

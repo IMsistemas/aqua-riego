@@ -363,7 +363,12 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
     $scope.calculateValor = function () {
         var area = $scope.t_area;
 
-        $http.get(API_URL + 'cliente/calculateValor/' + area).success(function(response){
+        var object = {
+            area: area,
+            idtarifa: $scope.t_tarifa
+        };
+
+        $http.get(API_URL + 'cliente/calculateValor/' + JSON.stringify(object)).success(function(response){
             $scope.valor_total = parseFloat(response.costo).toFixed(2);
         });
     };

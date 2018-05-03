@@ -402,13 +402,17 @@ class ClienteController extends Controller
      * @param $area
      * @return \Illuminate\Http\JsonResponse
      */
-    public function calculateValor($area)
+    public function calculateValor($request)
     {
-        $area_h = $area / 10000;
+
+        $object = json_decode($request);
+
+        $area_h = $object->area / 10000;
         $configuracion = ConfiguracionSystem::where('optionname','PISQUE_CONSTANTE')->get();
 
         $costo_area = Area::where('desde', '<', $area_h)
             ->where('hasta', '>=', $area_h)
+            ->where('idtarifa', $object->idtarifa)
             ->where('aniotarifa', date('Y'))
             ->get();
 
@@ -416,7 +420,7 @@ class ClienteController extends Controller
             if ($costo_area[0]->esfija == true){
                 $costo = $costo_area[0]->costo;
             } else {
-                $costo = $area_h * $configuracion[0]->optionvalue * $costo_area[0]->costo;
+                $costo = ($area_h * $configuracion[0]->optionvalue) * $costo_area[0]->costo;
             }
 
             return response()->json(['success' => true, 'costo' => $costo]);
