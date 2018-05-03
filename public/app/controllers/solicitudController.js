@@ -1404,7 +1404,7 @@ app.controller('solicitudController', function($scope, $http, API_URL) {
             console.log(solicitud);
             console.log(response);
 
-            $scope.idsolicitud = solicitud.tipo_id;
+            $scope.idsolicitud = solicitud.idsolicitud;
 
             /*$scope.t_fecha_process = $scope.nowDate();*/
 
