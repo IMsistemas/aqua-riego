@@ -230,55 +230,64 @@ class EmpleadoController extends Controller
 
                     $familiares = $request->input('familiares');
 
-                    if (count($familiares) > 0) {
+                    if ($familiares != null) {
 
-                        foreach ($familiares as $element) {
+                        if (count($familiares) > 0) {
 
-                            $familiar = new EmpleadoCargaFamiliar();
+                            foreach ($familiares as $element) {
 
-                            $familiar->nombreapellidos = $element['nombreapellidos'];
-                            $familiar->parentesco = $element['parentesco'];
-                            $familiar->fechanacimiento = $element['fechanacimiento'];
-                            $familiar->idempleado = $empleado->idempleado;
+                                $familiar = new EmpleadoCargaFamiliar();
 
-                            if ($familiar->save() == false) {
-                                return response()->json(['success' => false]);
+                                $familiar->nombreapellidos = $element['nombreapellidos'];
+                                $familiar->parentesco = $element['parentesco'];
+                                $familiar->fechanacimiento = $element['fechanacimiento'];
+                                $familiar->idempleado = $empleado->idempleado;
+
+                                if ($familiar->save() == false) {
+                                    return response()->json(['success' => false]);
+                                }
+
                             }
 
                         }
 
                     }
 
+
                     $salarios = $request->input('historialsalario');
 
-                    if (count($salarios) > 0) {
+                    if ($salarios != null) {
 
-                        foreach ($salarios as $element) {
+                        if (count($salarios) > 0) {
+
+                            foreach ($salarios as $element) {
+
+                                $sueldo = new EmpleadoRegistroSalarial();
+
+                                $sueldo->observacion = $element['observacion'];
+                                $sueldo->salario = $element['salario'];
+                                $sueldo->fecha = $element['fechainicio'];
+                                $sueldo->idempleado = $empleado->idempleado;
+
+                                if ($sueldo->save() == false) {
+                                    return response()->json(['success' => false]);
+                                }
+
+                            }
+
+                        } else {
 
                             $sueldo = new EmpleadoRegistroSalarial();
 
-                            $sueldo->observacion = $element['observacion'];
-                            $sueldo->salario = $element['salario'];
-                            $sueldo->fecha = $element['fechainicio'];
+                            $sueldo->observacion = 'PRIMER SALARIO';
+                            $sueldo->salario = $request->input('salario');
+                            $sueldo->fecha = $request->input('fechaingreso');
                             $sueldo->idempleado = $empleado->idempleado;
 
                             if ($sueldo->save() == false) {
                                 return response()->json(['success' => false]);
                             }
 
-                        }
-
-                    } else {
-
-                        $sueldo = new EmpleadoRegistroSalarial();
-
-                        $sueldo->observacion = 'PRIMER SALARIO';
-                        $sueldo->salario = $request->input('salario');
-                        $sueldo->fecha = $request->input('fechaingreso');
-                        $sueldo->idempleado = $empleado->idempleado;
-
-                        if ($sueldo->save() == false) {
-                            return response()->json(['success' => false]);
                         }
 
                     }

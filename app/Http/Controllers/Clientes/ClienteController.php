@@ -14,6 +14,7 @@ use App\Modelos\Solicitud\SolicitudEliminacion;
 use App\Modelos\Solicitud\SolicitudOtro;
 use App\Modelos\Solicitud\SolicitudReparticion;
 use App\Modelos\Solicitud\SolicitudRiego;
+use App\Modelos\SRI\SRI_Establecimiento;
 use App\Modelos\SRI\SRI_Parte;
 use App\Modelos\SRI\SRI_TipoEmpresa;
 use App\Modelos\SRI\SRI_TipoIdentificacion;
@@ -746,5 +747,34 @@ class ClienteController extends Controller
 
     }
 
+
+    private function getListClient()
+    {
+        return Cliente::join('persona', 'persona.idpersona', '=', 'cliente.idpersona')
+            ->join('cont_plancuenta', 'cont_plancuenta.idplancuenta', '=', 'cliente.idplancuenta')
+            ->with('sri_tipoempresa', 'sri_parte')
+            ->select('cliente.*', 'persona.*', 'cont_plancuenta.*')->orderBy('lastnamepersona', 'asc')->get();
+    }
+
+    public function reporte_print()
+    {
+        ini_set('max_execution_time', 3000);
+
+        $filtro = $this->getListClient();
+
+        $aux_empresa = SRI_Establecimiento::all();
+
+        $today = date("Y-m-d H:i:s");
+
+        $view =  \View::make('Clientes.reporteClientePrint', compact('filtro','today','aux_empresa'))->render();
+
+        $pdf = \App::make('dompdf.wrapper');
+
+        $pdf->loadHTML($view);
+
+        $pdf->setPaper('A4', 'landscape');
+
+        return @$pdf->stream('reportCC_' . $today);
+    }
 
 }

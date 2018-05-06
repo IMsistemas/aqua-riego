@@ -4,7 +4,7 @@
 
             <div class="col-xs-12">
 
-                <h4>Retención de Compras</h4>
+                <h4>Comprobante de Retención de Compras</h4>
 
                 <hr>
 
@@ -311,7 +311,7 @@
                                             AÑO FISCAL
                                         </th>
                                         <th class="text-center" style="width: 12%;">
-                                            CODIGO
+                                            CODIGO SRI
                                         </th>
                                         <th class="text-center" ng-click="sort('')">
                                             DETALLE

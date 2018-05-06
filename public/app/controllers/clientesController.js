@@ -1391,6 +1391,34 @@ app.controller('clientesController', function($scope, $http, API_URL, Upload) {
 
     $scope.initLoad(1);
 
+    $scope.printReport = function() {
+
+        if ($scope.clientes.length > 0) {
+
+            $('#myModalTest').modal('show');
+
+            var accion = API_URL + 'cliente/reporte_print';
+
+            $('#WPrint_head').html('Listado');
+
+            $('#bodyprint').html("<object width='100%' height='600' data='" + accion + "'></object>");
+
+            $('#WPrint').modal('show');
+
+
+            $('#myModalTest').modal('hide');
+
+
+        } else {
+
+            $scope.message_error = 'No existen datos para imprimir...';
+
+            $('#modalMessageError').modal('show');
+
+        }
+
+    };
+
     $scope.hideModalMessage = function () {
         setTimeout("$('#modalMessage').modal('hide')", 3000);
     };
